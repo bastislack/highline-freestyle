@@ -1,8 +1,8 @@
 # How to use the app in the current state
 
-Open one terminal and run npx json-server --watch data/tricklist.json --port 8000
-Open one terminal and run npx json-server --watch data/combolist.json --port 7000
-Open one terminal and run npm start
+Open one terminal and run npx json-server --watch data/tricklist.json --port 8000\
+Open one terminal and run npx json-server --watch data/combolist.json --port 7000\
+Open one terminal and run npm start\
 Wait until json-servers have been started then refresh the webpage
 
 # Getting Started with Create React App
