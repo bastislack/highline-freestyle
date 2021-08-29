@@ -7,7 +7,7 @@ const TrickList = ({ tricks }) => {
       <div className="row">
       {tricks.map(trick => (
           <Link className="col-md-4 link-to-trick " to={`/tricks/${trick.id}`}>
-            <button className=" btn btn-outline-success trick-preview" key={trick.id}>
+            <button className=" btn btn-outline-success trick-preview" key={trick.id} freq={trick.skillFreq}>
               <h2>{ trick.name }</h2>
             </button>
           </Link>

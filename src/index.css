@@ -97,6 +97,26 @@
   font-weight: bold
 }
 
+.trick-preview[freq="1"] {
+  background: red;
+}
+
+.trick-preview[freq="2"] {
+  background: LightPink;
+}
+
+.trick-preview[freq="3"] {
+  background: LightYellow;
+}
+
+.trick-preview[freq="4"] {
+  background: LightGreen;
+}
+
+.trick-preview[freq="5"] {
+  background: LightSkyBlue;
+}
+
 .link-to-trick {
   margin-bottom: 10px;
   text-decoration: none;

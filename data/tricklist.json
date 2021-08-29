@@ -8,7 +8,8 @@
       "description": [
         "Keep your legs together",
         "Both hands grab the line in front of you"
-      ]
+      ],
+      "skillFreq": 5
     },
     {
       "id": 2,
@@ -17,7 +18,8 @@
       "endPos": "SOFA",
       "description": [
         "If you fall into a backlever position try to not hold on to the line in order to save your shoulders"
-      ]
+      ],
+      "skillFreq": 4
     },
     {
       "id": 3,
@@ -26,7 +28,8 @@
       "endPos": "SOFA",
       "description": [
         "Swing one leg over the line as soon as you start rotating sideways"
-      ]
+      ],
+      "skillFreq": 3
     },
     {
       "id": 4,
@@ -35,7 +38,8 @@
       "endPos": "SOFA",
       "description": [
         "Let your feet come towards your body, grab the line and then let your feet go"
-      ]
+      ],
+      "skillFreq": 2
     },
     {
       "id": 5,
@@ -44,7 +48,8 @@
       "endPos": "EXPOSURE",
       "description": [
         "Get one foot on the line and let go with the arm on the same side. Then press yourself up with this foot and the other hand and get your second foot on the line"
-      ]
+      ],
+      "skillFreq": 1
     },
     {
       "id": 6,
@@ -53,7 +58,8 @@
       "endPos": "EXPOSURE",
       "description": [
         "Get one foot on the line then shift your bodyweight to this side and get your other foot on the line to press yourself up."
-      ]
+      ],
+      "skillFreq": 0
     },
     {
       "id": 7,
