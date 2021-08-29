@@ -1,0 +1,202 @@
+{
+  "tricks": [
+    {
+      "id": 1,
+      "name": "Korean Roll",
+      "startPos": "KOREAN",
+      "endPos": "KOREAN",
+      "description": [
+        "Keep your legs together",
+        "Both hands grab the line in front of you"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Sofa Roll",
+      "startPos": "SOFA",
+      "endPos": "SOFA",
+      "description": [
+        "If you fall into a backlever position try to not hold on to the line in order to save your shoulders"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Richy Roll",
+      "startPos": "KOREAN",
+      "endPos": "SOFA",
+      "description": [
+        "Swing one leg over the line as soon as you start rotating sideways"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Down To Sofa",
+      "startPos": "EXPOSURE",
+      "endPos": "SOFA",
+      "description": [
+        "Let your feet come towards your body, grab the line and then let your feet go"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Up From Sofa",
+      "startPos": "SOFA",
+      "endPos": "EXPOSURE",
+      "description": [
+        "Get one foot on the line and let go with the arm on the same side. Then press yourself up with this foot and the other hand and get your second foot on the line"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Up From Sofa (No Hands)",
+      "startPos": "SOFA",
+      "endPos": "EXPOSURE",
+      "description": [
+        "Get one foot on the line then shift your bodyweight to this side and get your other foot on the line to press yourself up."
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Rocket Mount",
+      "startPos": "HANG",
+      "endPos": "EXPOSURE",
+      "description": [
+        "Get some momentum with your legs in the bottom part of the bounce. As soon as you are weightless pull the line below your feet. Then stick it!"
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Panic Roll",
+      "startPos": "SOFA",
+      "endPos": "CHEST",
+      "description": [
+        "Sit in Sofa position grab the line to the side of you with hands facing behind you. On the way up dive down where your hands are and roll around the line. Land in Chest position."
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Panic Roll To Feet",
+      "startPos": "SOFA",
+      "endPos": "EXPOSURE",
+      "description": [
+        "During the roll get your far foot on the line. At the end of the roll get your second foot up on the line. Stick it!"
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Jump To Richy",
+      "startPos": "KOREAN",
+      "endPos": "SOFA",
+      "description": [
+        "Start in korean, then get one foot over the line in a powerful way and regrab the line with the far hand to allow the transition to the sofa roll."
+      ]
+    },
+    {
+      "id": 11,
+      "name": "Yoda",
+      "startPos": "LEASH",
+      "endPos": "FEET",
+      "description": []
+    },
+    {
+      "id": 12,
+      "name": "Obi Wan",
+      "startPos": "HANG",
+      "endPos": "FEET",
+      "description": [
+        "From hanging use the bounce to get your feet up to the line and mantle in the same bounce"
+      ]
+    },
+    {
+      "id": 13,
+      "name": "Han Solo",
+      "startPos": "EXPOSURE",
+      "endPos": "EXPOSURE",
+      "description": []
+    },
+    {
+      "id": 14,
+      "name": "Belly Flop to Feet / JarJar Roll",
+      "startPos": "BELLY",
+      "endPos": "EXPOSURE",
+      "description": [
+        "Turn one time around the line (on your belly) and get to exposure in one bounce"
+      ]
+    },
+    {
+      "id": 15,
+      "name": "Buck Nasty",
+      "startPos": "SOFA",
+      "endPos": "SOFA",
+      "description": [
+        "Sick Nasty with an aditional Back Sofa Roll in the same bounce"
+      ]
+    },
+    {
+      "id": 16,
+      "name": "HipHop Bounce",
+      "startPos": "EXPOSURE",
+      "endPos": "EXPOSURE",
+      "description": [
+        "reach down to one side with your hand (into a side plank position) and stand up again in the same bounce"
+      ]
+    },
+    {
+      "id": 17,
+      "name": "Turtle Roll (double Yoda Roll)",
+      "startPos": "EXPOSURE",
+      "endPos": "EXPOSURE",
+      "description": [
+        "tuck hard and roll"
+      ]
+    },
+    {
+      "id": 18,
+      "name": "Sofa Roll 360",
+      "startPos": "SOFA",
+      "endPos": "SOFA",
+      "description": [
+        "do a Sofa Roll, while twisting also around your Body axis"
+      ]
+    },
+    {
+      "id": 19,
+      "name": "Backroll to Feet",
+      "startPos": "BACKBOUNCE",
+      "endPos": "STAND",
+      "description": [
+        "just do it"
+      ]
+    },
+    {
+      "id": 20,
+      "name": "Back Magic",
+      "startPos": "BACKBOUNCE",
+      "endPos": "BACKBOUNCE",
+      "description": [
+        "Back Roll directly into Backbounce"
+      ]
+    },
+    {
+      "id": 21,
+      "name": "Flowflip",
+      "startPos": "KOREAN",
+      "endPos": "CHEST",
+      "description": [
+        "Grab the line behind your back and let yourself fall backwards. The rest happens by magic!"
+      ]
+    },
+    {
+      "id": 22,
+      "name": "Flowflip To Feet",
+      "startPos": "KOREAN",
+      "endPos": "EXPOSURE",
+      "description": [
+        "During the flip get your far foot on the line. At the end of the flip get your second foot up on the line. Stick it!"
+      ]
+    },
+    {
+      "id": 23
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+* {
+  margin: 0;
+  font-family: sans-serif;
+  color: black;
+}
+.navbar {
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  max-width: 600px;
+  margin: 0 auto;
+  border-bottom: 1px solid #f2f2f2;
+}
+.navbar h1 {
+  color: #f1356d;
+  font-size: 1em;
+}
+
+.navbar a {
+  margin: auto;
+  text-decoration: none;
+  padding: 1px;
+}
+.navbar a:hover {
+  color: #f1356d;
+}
+.bottomNav {
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  max-width: 600px;
+  margin: 0 auto;
+  border-bottom: 1px solid #f2f2f2;
+}
+.bottomNav h1 {
+  color: #f1356d;
+  font-size: 1em;
+}
+
+.bottomNav a {
+  margin: auto;
+  text-decoration: none;
+  padding: 1px;
+}
+.bottomNav a:hover {
+  color: #f1356d;
+}
+.content {
+  max-width: 90%;
+  margin: 10px auto;
+  padding: 10px;
+}
+
+.trick-details h2 {
+  margin: 15px auto;
+  font-size: 1.5em;
+}
+
+.trick-details h3 {
+  margin: 7px auto;
+  font-size: 0.8em;
+}
+
+.description {
+  margin: 5px auto;
+  font-size: 0.7em;
+}
+
+.trick-list {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: left;
+}
+.trick-preview {
+  width: 31%;
+  height: 4em;
+  margin: 1%;
+  border: 1px solid black;
+  background: white;
+}
+
+.link-to-trick {
+  text-decoration: none;
+}
+
+.link-to-trick h2 {
+  font-size: 1em;
+  font-family: sans-serif;
+}
+
