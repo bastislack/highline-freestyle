@@ -39,9 +39,11 @@ const ComboGenerator = () => {
         return;
       }
     }
-    console.log(randomCombo);
     {/* TODO: pass combo to the random combo screen */}
-    history.push('/random-combo');
+    history.push({
+      pathname: '/random-combo',
+      state: { combo: randomCombo}
+    });
   }
 
   return (
