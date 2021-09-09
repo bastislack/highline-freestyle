@@ -28,9 +28,10 @@
   padding: 5px;
   display: flex;
   align-items: center;
-  max-width: 600px;
   margin: 0 auto;
   border-bottom: 1px solid #f2f2f2;
+  background-color: #e3f2fd;
+  
 }
 .bottomNav h1 {
   color: #f1356d;
@@ -41,6 +42,7 @@
   margin: auto;
   text-decoration: none;
   padding: 1px;
+  text-align: center;
 }
 .bottomNav a:hover {
   color: #f1356d;
@@ -49,6 +51,7 @@
   max-width: 90%;
   margin: 10px auto;
   padding: 10px;
+  padding-bottom:60px;
 }
 
 .trick-details h2 {
@@ -71,12 +74,20 @@
   flex-flow: row wrap;
   justify-content: left;
 }
-.trick-preview {
+.trick-preview-OLD {
   width: 31%;
   height: 4em;
   margin: 1%;
   border: 1px solid black;
   background: white;
+}
+
+.trick-preview {
+  margin: 2px;
+}
+
+.trick-preview h2 {
+  font-weight: bold
 }
 
 .link-to-trick {
