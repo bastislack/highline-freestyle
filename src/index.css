@@ -107,25 +107,22 @@
 }
 
 .kc_fab_main_btn {
-  background-color: #F44336;
+  background-color: #4fabec;
   width: 60px;
   height: 60px;
   border-radius: 100%;
-  background: #F44336;
+  background: #4fabec;
   border: none;
   outline: none;
-  color: #FFF;
+  color: rgb(0, 0, 0);
   font-size: 36px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   transition: .3s;
   position: fixed;
-  bottom: 75px;
+  bottom: 70px;
   right: 25px;
 }
 
-.kc_fab_main_btn:focus {
-  transform: scale(1.1);
-  transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
+.kc_fab_main_btn:hover {
+  background: #1295f3;
 }

@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import TrickDetails from './TrickDetails';
 import ComboDetails from './ComboDetails';
 import RandomCombo from './RandomCombo';
+import FloatingActionButton from './FloatingActionButton'
 
 function App() {
   return (
@@ -39,7 +40,7 @@ function App() {
             </Route>
           </Switch>
         </div>
-        <button className="kc_fab_main_btn">+</button>
+        <FloatingActionButton />
         <BottomNav />
       </div>
     </Router>
