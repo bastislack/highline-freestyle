@@ -14,6 +14,7 @@
 .navbar h1 {
   color: #f1356d;
   font-size: 1em;
+  margin:0px;
 }
 
 .navbar a {
@@ -29,12 +30,14 @@
   align-items: center;
   margin: 0 auto;
   border-bottom: 1px solid #f2f2f2;
-  background-color: #e3f2fd;
+  background-color: #4fabec;
+  min-height: 40px;
   
 }
 .bottomNav h1 {
-  color: #f1356d;
+  color: green;/* #f1356d; */
   font-size: 1em;
+  margin: 0px;
 
 }
 
@@ -48,9 +51,7 @@
   /* padding: 1px; */
   text-align: center;
 }
-.bottomNav a:hover {
-  color: #f1356d;
-}
+
 .content {
   max-width: 90%;
   margin: 10px auto;
