@@ -136,3 +136,11 @@
   border-left-width: .25rem;
   border-radius: .25rem;
 }
+
+.form-row div {
+  margin-top: 1em;
+}
+
+.form-row {
+  margin-bottom: 1em;
+}

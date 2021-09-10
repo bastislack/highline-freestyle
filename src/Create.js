@@ -27,52 +27,71 @@ const Create = () => {
   return (
     <div className="create">
       <h2>Add a new trick</h2>
-      <form onSubmit={handleSubmit}>
-        <label>Alias:</label>
-        <input
-          type="text"
-          required
-          value={alias}
-          onChange={(e) => setAlias(e.target.value)}
-        />
-        <label>Technical Name:</label>
-        <input
-          type="text"
-          required
-          value={technicalName}
-          onChange={(e) => setTechnicalName(e.target.value)}
-        />
-        <label>Start Position:</label>
-        <select
-          value={startPos}
-          onChange={(e) => setStartPos(e.target.value)}
-        >
-          <option value="KOREAN">KOREAN</option>
-          <option value="SOFA">SOFA</option>
-          <option value="EXPOSURE">EXPOSURE</option>
-          <option value="HANG">HANG</option>
-        </select>
-        <label>End Position:</label>
-        <select
-          value={endPos}
-          onChange={(e) => setEndPos(e.target.value)}
-        >
-          <option value="KOREAN">KOREAN</option>
-          <option value="SOFA">SOFA</option>
-          <option value="EXPOSURE">EXPOSURE</option>
-          <option value="HANG">HANG</option>
-        </select>
-        <label>Description:</label>
-        <input
-          type="text"
-          required
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <button>Add Trick</button>
+      <form onSubmit={handleSubmit} className="">
+        <div className="row form-row">
+          <div className="col-md-6">
+            <label className="">Alias:</label>
+            <input
+              className="form-control"
+              type="text"
+              required
+              value={alias}
+              onChange={(e) => setAlias(e.target.value)}
+            />
+          </div>
+          <div className="col-md-6">
+            <label className="">Technical Name:</label>
+            <input
+              className="form-control"
+              type="text"
+              required
+              value={technicalName}
+              onChange={(e) => setTechnicalName(e.target.value)}
+            />
+          </div>
+          <div className="col-md-6">
+            <label className="">Start Position:</label>
+            <select
+              className="form-control"
+              value={startPos}
+              onChange={(e) => setStartPos(e.target.value)}
+            >
+              <option value="KOREAN">KOREAN</option>
+              <option value="SOFA">SOFA</option>
+              <option value="EXPOSURE">EXPOSURE</option>
+              <option value="HANG">HANG</option>
+            </select>
+          </div>
+          <div className="col-md-6">
+            <label className="">End Position:</label>
+            <select
+              className="form-control"
+              value={endPos}
+              onChange={(e) => setEndPos(e.target.value)}
+            >
+              <option value="KOREAN">KOREAN</option>
+              <option value="SOFA">SOFA</option>
+              <option value="EXPOSURE">EXPOSURE</option>
+              <option value="HANG">HANG</option>
+            </select>
+          </div>
+          <div className="col-md-6">
+            <label className="">Description:</label>
+            <input
+              className="form-control"
+              type="text"
+              required
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </div>
+        </div>
+        
+          <button className="btn btn-primary">Add Trick</button>
+        
       </form>
     </div>
   );
 }
- 
+
 export default Create;
