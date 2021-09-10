@@ -39,6 +39,7 @@ function App() {
             </Route>
           </Switch>
         </div>
+        <button className="kc_fab_main_btn">+</button>
         <BottomNav />
       </div>
     </Router>

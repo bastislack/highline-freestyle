@@ -19,13 +19,12 @@
 .navbar a {
   margin: auto;
   text-decoration: none;
-  padding: 1px;
 }
 .navbar a:hover {
   color: #f1356d;
 }
 .bottomNav {
-  padding: 5px;
+  padding: 5px 10px;
   display: flex;
   align-items: center;
   margin: 0 auto;
@@ -36,12 +35,17 @@
 .bottomNav h1 {
   color: #f1356d;
   font-size: 1em;
+
+}
+
+.bottomNav h1:hover {
+  font-weight: bolder;
 }
 
 .bottomNav a {
   margin: auto;
   text-decoration: none;
-  padding: 1px;
+  /* padding: 1px; */
   text-align: center;
 }
 .bottomNav a:hover {
@@ -84,6 +88,8 @@
 
 .trick-preview {
   margin: 2px;
+  width:100%;
+  height:100%;
 }
 
 .trick-preview h2 {
@@ -91,6 +97,7 @@
 }
 
 .link-to-trick {
+  margin-bottom: 10px;
   text-decoration: none;
 }
 
@@ -99,3 +106,26 @@
   font-family: sans-serif;
 }
 
+.kc_fab_main_btn {
+  background-color: #F44336;
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  background: #F44336;
+  border: none;
+  outline: none;
+  color: #FFF;
+  font-size: 36px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  transition: .3s;
+  position: fixed;
+  bottom: 75px;
+  right: 25px;
+}
+
+.kc_fab_main_btn:focus {
+  transform: scale(1.1);
+  transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
