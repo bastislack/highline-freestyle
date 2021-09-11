@@ -22,11 +22,9 @@ const ComboList = ({ combos }) => {
         return (
           <div>
             { isFirstOfCategory && <div>{combo.tricks.length} Trick Combos</div> }
-            <button className="combo-preview" key={combo.id} >
               <Link className="link-to-combo" to={`/combos/${combo.id}`}>
-                <h2>{ combo.name }</h2>
+                <button className="btn btn-outline-primary" key={combo.id}>{ combo.name }</button>
               </Link>
-            </button>
           </div>
         );
 

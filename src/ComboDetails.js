@@ -7,18 +7,20 @@ const ComboDetails = () => {
 
   return (
     <div className="combo-details">
-      { isPending && <div>Loading...</div> }
-      { error && <div>{ error }</div> }
-      { combo && (
+      {isPending && <div>Loading...</div>}
+      {error && <div>{error}</div>}
+      {combo && (
         <article>
-          <h2>{ combo.name }</h2>
-          { combo.tricks.map(trick => (
+          <h2>{combo.name}</h2>
+          {combo.tricks.map(trick => (
+            <div className="row callout">
               <p>{trick}</p>
+            </div>
           ))}
         </article>
       )}
     </div>
   );
 }
- 
+
 export default ComboDetails;

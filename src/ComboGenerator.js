@@ -50,14 +50,17 @@ const ComboGenerator = () => {
     <div className="generator">
       <h2>Generate a Random Combo</h2>
       <form onSubmit={generateCombo}>
+        <div className="row form-row">
         <label>Number of Tricks:</label>
         <input
+          className="form-control"
           type="number"
           required
           value={numberOfTricks}
           onChange={(e) => setNumberOfTricks(e.target.value)}
         />
-        <button>Generate</button>
+        </div>
+        <button className="btn btn-primary">Generate</button>
       </form>
     </div>
   );

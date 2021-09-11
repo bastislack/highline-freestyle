@@ -144,3 +144,11 @@
 .form-row {
   margin-bottom: 1em;
 }
+
+.form-button {
+  padding: 4px 4px;
+}
+
+.form-button button {
+  width:100%
+}
