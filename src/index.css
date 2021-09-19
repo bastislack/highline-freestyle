@@ -14,41 +14,49 @@
 .navbar h1 {
   color: #f1356d;
   font-size: 1em;
+  margin:0px;
 }
 
 .navbar a {
   margin: auto;
   text-decoration: none;
-  padding: 1px;
 }
 .navbar a:hover {
   color: #f1356d;
 }
 .bottomNav {
-  padding: 5px;
+  padding: 5px 10px;
   display: flex;
   align-items: center;
-  max-width: 600px;
   margin: 0 auto;
   border-bottom: 1px solid #f2f2f2;
+  background-color: #4fabec;
+  min-height: 40px;
+  
 }
 .bottomNav h1 {
-  color: #f1356d;
+  color: green;/* #f1356d; */
   font-size: 1em;
+  margin: 0px;
+
+}
+
+.bottomNav h1:hover {
+  font-weight: bolder;
 }
 
 .bottomNav a {
   margin: auto;
   text-decoration: none;
-  padding: 1px;
+  /* padding: 1px; */
+  text-align: center;
 }
-.bottomNav a:hover {
-  color: #f1356d;
-}
+
 .content {
   max-width: 90%;
   margin: 10px auto;
   padding: 10px;
+  padding-bottom:60px;
 }
 
 .trick-details h2 {
@@ -71,7 +79,7 @@
   flex-flow: row wrap;
   justify-content: left;
 }
-.trick-preview {
+.trick-preview-OLD {
   width: 31%;
   height: 4em;
   margin: 1%;
@@ -79,7 +87,18 @@
   background: white;
 }
 
+.trick-preview {
+  margin: 2px;
+  width:100%;
+  height:100%;
+}
+
+.trick-preview h2 {
+  font-weight: bold
+}
+
 .link-to-trick {
+  margin-bottom: 10px;
   text-decoration: none;
 }
 
@@ -88,3 +107,48 @@
   font-family: sans-serif;
 }
 
+.kc_fab_main_btn {
+  background-color: #4fabec;
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  background: #4fabec;
+  border: none;
+  outline: none;
+  color: rgb(0, 0, 0);
+  font-size: 36px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  transition: .3s;
+  position: fixed;
+  bottom: 70px;
+  right: 25px;
+}
+
+.kc_fab_main_btn:hover {
+  background: #1295f3;
+}
+
+.callout {
+  padding: 1.25rem;
+  margin-top: 0.75rem;
+  margin-bottom: 1.25rem;
+  border: 1px solid #e9ecef;
+  border-left-width: .25rem;
+  border-radius: .25rem;
+}
+
+.form-row div {
+  margin-top: 1em;
+}
+
+.form-row {
+  margin-bottom: 1em;
+}
+
+.form-button {
+  padding: 4px 4px;
+}
+
+.form-button button {
+  width:100%
+}

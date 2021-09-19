@@ -3,14 +3,16 @@ import { Link } from 'react-router-dom';
 const TrickList = ({ tricks }) => {
 
   return (
-    <div className="trick-list">
+    <div className="justify-content-evenly">
+      <div className="row">
       {tricks.map(trick => (
-        <button className="trick-preview" key={trick.id} >
-          <Link className="link-to-trick" to={`/tricks/${trick.id}`}>
-            <h2>{ trick.name }</h2>
+          <Link className="col-md-4 link-to-trick " to={`/tricks/${trick.id}`}>
+            <button className=" btn btn-outline-success trick-preview" key={trick.id}>
+              <h2>{ trick.name }</h2>
+            </button>
           </Link>
-        </button>
       ))}
+    </div>
     </div>
   );
 }

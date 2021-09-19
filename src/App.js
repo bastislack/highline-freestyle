@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import TrickDetails from './TrickDetails';
 import ComboDetails from './ComboDetails';
 import RandomCombo from './RandomCombo';
+import FloatingActionButton from './FloatingActionButton'
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
             </Route>
           </Switch>
         </div>
+        <FloatingActionButton />
         <BottomNav />
       </div>
     </Router>

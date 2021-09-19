@@ -13,9 +13,12 @@ const TrickDetails = () => {
       { trick && (
         <article>
           <h2>{ trick.name }</h2>
-          <h3>Start from: { trick.startPos}</h3>
-          <h3>End in: { trick.endPos}</h3>
-          <div className="description">Description: { trick.description }</div>
+          <h3>Start from: </h3>
+          <div className="callout">{ trick.startPos}</div>
+          <h3>End in: </h3>
+          <div className="callout">{ trick.endPos}</div>
+          <h3>Description: </h3>
+          <div className="callout">{ trick.description }</div>
         </article>
       )}
     </div>
