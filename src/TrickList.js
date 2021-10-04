@@ -10,6 +10,7 @@ const TrickList = ({ tricks }) => {
   const sortOptions = [
     {name: "by Id", compfunc: (a,b) => a.id-b.id},
     {name: "by Name", compfunc: (a,b) => a.name.localeCompare(b.name)},
+    {name: "by difficulty", compfunc:(a,b) => a.difficulty - b.difficulty}
   ];
 
   const sortings = sortOptions.map((item, i) => {
