@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import useFetch from "./useFetch";
+import useFetch from "../useFetch";
 
 const ComboGenerator = () => {
   const { error, isPending, data: tricks } = useFetch('http://localhost:8000/tricks')

@@ -1,5 +1,5 @@
 import TrickList from "./TrickList";
-import useFetch from "./useFetch";
+import useFetch from "../useFetch";
 
 const Home = () => {
   const { error, isPending, data: tricks } = useFetch('http://localhost:8000/tricks')

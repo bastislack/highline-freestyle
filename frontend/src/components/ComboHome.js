@@ -1,5 +1,5 @@
 import ComboList from "./ComboList";
-import useFetch from "./useFetch";
+import useFetch from "../useFetch";
 
 const ComboHome = () => {
   const { error, isPending, data: combos } = useFetch('http://localhost:7000/combos')

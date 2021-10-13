@@ -1,14 +1,14 @@
-import Navbar from './Navbar';
-import BottomNav from './BottomNav';
-import Home from './Home';
-import ComboHome from './ComboHome';
-import Create from './Create';
-import ComboGenerator from './ComboGenerator';
+import Navbar from './components/Navbar';
+import BottomNav from './components/BottomNav';
+import Home from './components/Home';
+import ComboHome from './components/ComboHome';
+import Create from './components/Create';
+import ComboGenerator from './components/ComboGenerator';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import TrickDetails from './TrickDetails';
-import ComboDetails from './ComboDetails';
-import RandomCombo from './RandomCombo';
-import FloatingActionButton from './FloatingActionButton'
+import TrickDetails from './components/TrickDetails';
+import ComboDetails from './components/ComboDetails';
+import RandomCombo from './components/RandomCombo';
+import FloatingActionButton from './components/FloatingActionButton'
 
 function App() {
   return (
