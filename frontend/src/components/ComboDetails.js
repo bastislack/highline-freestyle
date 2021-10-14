@@ -1,19 +1,33 @@
 import { useParams } from "react-router-dom";
-import useFetch from "../useFetch";
+import { useState, useEffect } from "react"
+import CombosDataService from "../services/combos.js"
 
 const ComboDetails = () => {
   const { id } = useParams();
-  const { data: combo, error, isPending } = useFetch('http://localhost:7000/combos/' + id);
+  const [combo, setCombo] = useState(null);
+
+  useEffect(() => {
+    retrieveCombo(id);
+  }, []); 
+
+  const retrieveCombo = (id) => {
+    CombosDataService.get(id)
+      .then(res => {
+        console.log(res.data);
+        setCombo(res.data.combo);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
 
   return (
     <div className="combo-details">
-      {isPending && <div>Loading...</div>}
-      {error && <div>{error}</div>}
       {combo && (
         <article>
           <h2>{combo.name}</h2>
           {combo.tricks.map(trick => (
-            <div className="row callout">
+            <div className="row callout" key={trick._id}>
               <p>{trick}</p>
             </div>
           ))}

@@ -19,7 +19,7 @@ export default class TricksDAO {
   static async getTricks() {
 
     const query = {}
-    const project = { difficultyLevel: 1, stickFrequency: 1, technicalName: 1}
+    const project = { difficultyLevel: 1, stickFrequency: 1, technicalName: 1, alias: 1}
     const sort = { difficultyLevel: 1}
 
     let cursor

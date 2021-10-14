@@ -1,7 +1,7 @@
 import Navbar from './components/Navbar';
 import BottomNav from './components/BottomNav';
-import Home from './components/Home';
-import ComboHome from './components/ComboHome';
+import TrickList from './components/TrickList';
+import ComboList from './components/ComboList';
 import Create from './components/Create';
 import ComboGenerator from './components/ComboGenerator';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -18,7 +18,7 @@ function App() {
         <div className="content">
           <Switch>
             <Route exact path="/">
-              <Home />
+              <TrickList />
             </Route>
             <Route path="/tricks/:id">
               <TrickDetails />
@@ -33,7 +33,7 @@ function App() {
               <ComboGenerator />
             </Route>
             <Route path="/combos">
-              <ComboHome />
+              <ComboList />
             </Route>
             <Route path="/random-combo">
               <RandomCombo />

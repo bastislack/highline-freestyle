@@ -1,8 +1,25 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
+import { useState, useEffect } from "react"
+import CombosDataService from "../services/combos.js"
 
-const ComboList = ({ combos }) => {
+const ComboList = () => {
 
-  combos.sort(function(a, b){return a.tricks.length - b.tricks.length});
+  const [combos, setCombos] = useState([]);
+
+  useEffect(() => {
+    retrieveCombos();
+  }, []); 
+
+  const retrieveCombos = () => {
+    CombosDataService.getAll()
+      .then(res => {
+        console.log(res.data);
+        setCombos(res.data.combos);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
 
   let previousComboLength = 0;
 
@@ -11,23 +28,22 @@ const ComboList = ({ combos }) => {
       {combos.map(combo => {
         let isFirstOfCategory = false;
 
-        if (combo.tricks.length === previousComboLength) {
+        if (combo.numberOfTricks === previousComboLength) {
           isFirstOfCategory = false;
         } else {
           isFirstOfCategory = true;
         }
 
-        previousComboLength = combo.tricks.length;
+        previousComboLength = combo.numberOfTricks
 
         return (
-          <div>
-            { isFirstOfCategory && <div>{combo.tricks.length} Trick Combos</div> }
-              <Link className="link-to-combo" to={`/combos/${combo.id}`}>
-                <button className="btn btn-outline-primary" key={combo.id}>{ combo.name }</button>
+          <div key={combo._id}>
+            { isFirstOfCategory && <div>{combo.numberOfTricks} Trick Combos</div> }
+              <Link className="link-to-combo" to={`/combos/${combo._id}`} >
+                <button className="btn btn-outline-primary" >{ combo.name }</button>
               </Link>
           </div>
         );
-
       })}
     </div>
   );

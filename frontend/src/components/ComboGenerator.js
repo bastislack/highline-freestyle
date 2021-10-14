@@ -1,11 +1,26 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import useFetch from "../useFetch";
+import TricksDataService from "../services/tricks.js"
 
 const ComboGenerator = () => {
-  const { error, isPending, data: tricks } = useFetch('http://localhost:8000/tricks')
 
+  const [tricks, setTricks] = useState([]);
   const [numberOfTricks, setNumberOfTricks] = useState('');
+
+  useEffect(() => {
+    retrieveTricks();
+  }, []);
+
+  const retrieveTricks = () => {
+    TricksDataService.getAll()
+      .then(res => {
+        console.log(res.data);
+        setTricks(res.data.tricks);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
 
   const history = useHistory();
 
@@ -19,10 +34,19 @@ const ComboGenerator = () => {
 
     let randomCombo = new Array(numberOfTricks);
 
+    // Shuffle array of tricks
     tricks.sort(function(a, b){return 0.5 - Math.random()});
 
+    // Get the first trick for the random combo
     randomCombo[0] = tricks.shift();
     
+    // Iteratively shuffle array of tricks and find the first trick
+    // that has a starting position that matches with the
+    // ending position of the trick before
+    // 
+    // Right now the tricks that are used in the random combo
+    // are removed from the tricks array so every trick is only
+    // used once in the random combo
     for (let i = 1; i < numberOfTricks; i++) {
       let trickFound = false;
       tricks.sort(function(a, b){return 0.5 - Math.random()});
@@ -39,7 +63,6 @@ const ComboGenerator = () => {
         return;
       }
     }
-    {/* TODO: pass combo to the random combo screen */}
     history.push({
       pathname: '/random-combo',
       state: { combo: randomCombo}
