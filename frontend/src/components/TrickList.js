@@ -1,44 +1,34 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from "react";
+import TricksDataService from "../services/tricks.js"
 
-const TrickList = ({ tricks }) => {
+const TrickList = () => {
 
-  const [data, setData] = useState([]);
-  //TODO: do keep sorting state consistent when navigating back
-  const [sortType, setSortType] = useState(0); //define here initail sorting from sortOptions
-
-  const sortOptions = [
-    {name: "by Id", compfunc: (a,b) => a.id-b.id},
-    {name: "by Name", compfunc: (a,b) => a.name.localeCompare(b.name)},
-    {name: "by difficulty", compfunc:(a,b) => a.difficulty - b.difficulty}
-  ];
-
-  const sortings = sortOptions.map((item, i) => {
-    return (
-      <option value={i}>{item.name}</option>
-    )
-  });
+  const [tricks, setTricks] = useState([]);
 
   useEffect(() => {
-    const sorted = [...tricks].sort(sortOptions[sortType].compfunc);
-    setData(sorted);
-  }, [sortType]);
+    retrieveTricks();
+  }, []);
 
-  //TODO: the sortSelect element can be moved somewhere else
+  const retrieveTricks = () => {
+    TricksDataService.getAll()
+      .then(res => {
+        console.log(res.data);
+        setTricks(res.data.tricks);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+
   return (
     <div className="justify-content-evenly">
 
-      <div className="sortSelect">Set your sorting:
-        <select onChange={(e) => setSortType(e.target.value)}>
-          {sortings}
-        </select>
-      </div>
-
       <div className="row">
-      {data.map(trick => (
-          <Link className="col-md-4 link-to-trick " to={`/tricks/${trick.id}`}>
-            <button className=" btn btn-outline-success trick-preview" key={trick.id} freq={trick.skillFreq}>
-              <h2>{ trick.name }</h2>
+      {tricks.map(trick => (
+          <Link className="col-md-4 link-to-trick " to={`/tricks/${trick._id}`} key={trick._id} >
+            <button className=" btn btn-outline-success trick-preview" freq={trick.stickFrequency}>
+              <h2>{ trick.alias || trick.technicalName }</h2>
             </button>
           </Link>
       ))}

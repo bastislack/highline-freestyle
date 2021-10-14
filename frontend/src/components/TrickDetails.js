@@ -1,13 +1,27 @@
 import { useParams } from "react-router-dom";
-import { useState } from "react";
-import useFetch from "../useFetch";
+import { useState, useEffect } from "react";
+import TricksDataService from "../services/tricks.js"
 
 const TrickDetails = () => {
   const { id } = useParams();
-  console.log(id)
-  const { data: trick, error, isPending } = useFetch('http://localhost:8000/tricks/' + id);
 
-  const [skillFreq, setSkillFreq] = useState("");
+  const [trick, setTrick] = useState(null);
+  const [stickFreq, setStickFreq] = useState("");
+
+  useEffect(() => {
+    retrieveTrick(id);
+  }, []); 
+
+  const retrieveTrick = (id) => {
+    TricksDataService.get(id)
+      .then(res => {
+        console.log(res.data);
+        setTrick(res.data.trick);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
 
   const freqs = [
     {name: "Impossible", color: "white"},
@@ -25,18 +39,22 @@ const TrickDetails = () => {
   });
 
   const selectFreq = (e) => {
-    setSkillFreq(e.target.value);
-    trick.skillFreq = skillFreq;
-    //TODO: save this to database...
+    setStickFreq(e.target.value);
+    trick.stickFrequency = stickFreq;
+    TricksDataService.update(id, trick)
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
   }
 
   return (
     <div className="trick-details">
-      { isPending && <div>Loading...</div> }
-      { error && <div>{ error }</div> }
       { trick && (
         <article>
-          <h2>{ trick.name }</h2>
+          <h2>{ trick.alias || trick.technicalName }</h2>
           <h3>Start from: </h3>
           <div className="callout">{ trick.startPos}</div>
           <h3>End in: </h3>
@@ -44,7 +62,7 @@ const TrickDetails = () => {
           <h3>Description: </h3>
           <div className="callout">{ trick.description }</div>
           <div className="skillFreq">Set your success frequency:
-            <select value={trick.skillFreq} onChange={(e) => selectFreq(e)}>
+            <select value={trick.stickFrequency} onChange={(e) => selectFreq(e)}>
               {freqList}
             </select>
           </div>
