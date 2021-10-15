@@ -49,16 +49,42 @@ export default class CombosDAO {
 
   static async getComboById(id) {
     
-    const query = { _id: ObjectId(id) }
-    const project = {}
-    const sort = {}
+    // This aggregation pipeline finds the combo with the given id,
+    // converts the ids in the tricks array to ObjectIds and then
+    // gets the information about the tricks.
+    const pipeline = [
+      {
+        '$match': {
+          '_id': new ObjectId(id)
+        }
+      }, {
+        '$addFields': {
+          'tricks': {
+            '$map': {
+              'input': '$tricks', 
+              'as': 'trick', 
+              'in': {
+                '$toObjectId': '$$trick'
+              }
+            }
+          }
+        }
+      }, {
+        '$lookup': {
+          'from': 'tricks', 
+          'localField': 'tricks', 
+          'foreignField': '_id', 
+          'as': 'tricks'
+        }
+      }
+    ]
 
     let combo
     try {
       combo = await combos
-        .findOne(query, project)
+        .aggregate(pipeline).next()
     } catch(e) {
-      console.error(`Unable to issue findOne command, ${e}`)
+      console.error(`Unable to issue aggregate command, ${e}`)
       return { combo: null }
     }
 
