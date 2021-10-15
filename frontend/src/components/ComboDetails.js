@@ -28,7 +28,7 @@ const ComboDetails = () => {
           <h2>{combo.name}</h2>
           {combo.tricks.map(trick => (
             <div className="row callout" key={trick._id}>
-              <p>{trick}</p>
+              <p>{trick.alias || trick.technicalName}</p>
             </div>
           ))}
         </article>
