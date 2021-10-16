@@ -18,24 +18,42 @@ export default class TricksDAO {
 
   static async getTricks() {
 
-    const query = {}
-    const project = { difficultyLevel: 1, stickFrequency: 1, technicalName: 1, alias: 1}
-    const sort = { difficultyLevel: 1}
+    const pipeline = [
+      {
+        '$project': {
+          'name': {
+            '$cond': [
+              {
+                '$eq': [
+                  '$alias', ''
+                ]
+              }, '$technicalName', '$alias'
+            ]
+          }, 
+          'difficultyLevel': 1, 
+          'stickFrequency': 1,
+          'startPos': 1,
+          'endPos': 1
+        }
+      }, {
+        '$sort': {
+          'difficultyLevel': 1, 
+          'name': 1
+        }
+      }
+    ]
 
     let cursor
     try {
-      cursor = await tricks
-        .find(query)
-        .project(project)
-        .sort(sort)
+      cursor = await tricks.aggregate(pipeline)
     } catch (e) {
       console.error(`Unable to issue find command, ${e}`)
-      return { trickList: [], totalNumTricks: 0 }
+      return { trickList: [], totalNumTricks: totalNumTricks }
     }
 
     try {
       const trickList = await cursor.toArray()
-      const totalNumTricks = await tricks.countDocuments(query)
+      const totalNumTricks = trickList.length
     
       return { trickList, totalNumTricks }
     } catch (e) {
