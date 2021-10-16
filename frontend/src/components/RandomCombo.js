@@ -9,7 +9,7 @@ const RandomCombo = () => {
       <h2>Generated Combo</h2>
       {history.location.state.combo.map(trick => (
         <div className="row callout" key={trick._id}>
-          <p>{trick.alias || trick.technicalName}</p>
+          <p>{trick.name}</p>
         </div>
       ))}
       <div className="container row">

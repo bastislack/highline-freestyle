@@ -31,7 +31,9 @@ export default class TricksDAO {
             ]
           }, 
           'difficultyLevel': 1, 
-          'stickFrequency': 1
+          'stickFrequency': 1,
+          'startPos': 1,
+          'endPos': 1
         }
       }, {
         '$sort': {
