@@ -21,17 +21,34 @@ const TrickList = () => {
       });
   };
 
+  let previousDifficultyLevel = 0;
+
   return (
     <div className="justify-content-evenly">
 
       <div className="row">
-      {tricks.map(trick => (
-          <Link className="col-md-4 link-to-trick " to={`/tricks/${trick._id}`} key={trick._id} >
-            <button className=" btn btn-outline-success trick-preview" freq={trick.stickFrequency}>
-              <h2>{ trick.alias || trick.technicalName }</h2>
-            </button>
-          </Link>
-      ))}
+      {tricks.map(trick => {
+        let isFirstOfLevel = false;
+
+        if (trick.difficultyLevel === previousDifficultyLevel) {
+          isFirstOfLevel = false;
+        } else {
+          isFirstOfLevel = true;
+        }
+
+        previousDifficultyLevel = trick.difficultyLevel
+
+        return (
+          <div key={trick._id}>
+            { isFirstOfLevel && <div>Level {trick.difficultyLevel}</div> }
+              <Link className="col-md-4 link-to-trick " to={`/tricks/${trick._id}`} key={trick._id} >
+                <button className=" btn btn-outline-success trick-preview" freq={trick.stickFrequency}>
+                  <h2>{ trick.name }</h2>
+                </button>
+              </Link>
+          </div>
+        );
+      })}
     </div>
     </div>
   );
