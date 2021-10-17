@@ -1,8 +1,9 @@
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { useState, useEffect } from "react"
 import CombosDataService from "../services/combos.js"
 
 const ComboDetails = () => {
+  const history = useHistory();
   const { id } = useParams();
   const [combo, setCombo] = useState(null);
 
@@ -22,6 +23,18 @@ const ComboDetails = () => {
       });
   };
 
+  const deleteCombo = () => {
+    CombosDataService.delete(id)
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+
+    history.push('/combos');
+  };
+
   return (
     <div className="combo-details">
       {combo && (
@@ -32,6 +45,7 @@ const ComboDetails = () => {
               <p>{trick.alias || trick.technicalName}</p>
             </div>
           ))}
+          <button onClick={deleteCombo} className="btn btn-primary">Delete Combo</button>
         </article>
       )}
     </div>
