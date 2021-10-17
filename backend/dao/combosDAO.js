@@ -30,8 +30,7 @@ export default class CombosDAO {
         .project(project)
         .sort(sort)
     } catch (e) {
-      console.error(`Unable to issue find command, ${e}`)
-      return { comboList: [], totalNumCombos: 0 }
+      throw `Unable to issue find command, ${e}`;
     }
 
     try {
@@ -40,10 +39,7 @@ export default class CombosDAO {
     
       return { comboList, totalNumCombos }
     } catch (e) {
-      console.error(
-        `Unable to convert cursor to array or problem counting documents`
-      )
-      return { comboList: [], totalNumCombos: 0 }
+      throw `Unable to convert cursor to array or problem counting documents, ${e}`;
     }
   }
 
@@ -84,8 +80,7 @@ export default class CombosDAO {
       combo = await combos
         .aggregate(pipeline).next()
     } catch(e) {
-      console.error(`Unable to issue aggregate command, ${e}`)
-      return { combo: null }
+      throw `Unable to issue aggregate command, ${e}`
     }
 
     return combo
@@ -148,8 +143,7 @@ export default class CombosDAO {
 
       return await combos.insertOne(comboDoc)
     } catch(e) {
-      console.error(`Unable to create combo, ${e}`)
-      return { error: e }
+      throw `Unable to create combo, ${e}`
     }
   }
 
@@ -162,8 +156,7 @@ export default class CombosDAO {
 
       return updateResponse
     } catch(e) {
-      console.error(`Unable to update combo, ${e}`)
-      return { error: e }
+      throw `Unable to update combo, ${e}`
     }
   }
 
@@ -175,8 +168,7 @@ export default class CombosDAO {
 
       return deleteResponse
     } catch(e) {
-      console.error(`Unable to delete combo, ${e}`)
-      return { error: e }
+      throw `Unable to delete combo, ${e}`
     }
   }
 }

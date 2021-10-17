@@ -9,9 +9,9 @@ export default class CombosController {
         combos: comboList,
         totalResults: totalNumCombos
       }
-      res.json(response)
+      res.json(response);
     } catch(e) {
-      rex.status(500).json({ error: e.message })
+      res.status(500).json({ error: e.message });
     }
   }
 
@@ -24,7 +24,7 @@ export default class CombosController {
       let response = { combo: combo }
       res.json(response)
     } catch(e) {
-      rex.status(500).json({ error: e.message })
+      res.status(500).json({ error: e.message })
     }
   }
 
