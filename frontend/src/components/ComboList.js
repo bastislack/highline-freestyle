@@ -8,7 +8,7 @@ const ComboList = () => {
 
   useEffect(() => {
     retrieveCombos();
-  }, []); 
+  }, [combos]); 
 
   const retrieveCombos = () => {
     CombosDataService.getAll()
