@@ -10,7 +10,7 @@ const TrickDetails = () => {
 
   useEffect(() => {
     retrieveTrick(id);
-  }, []); 
+  }, []);
 
   const retrieveTrick = (id) => {
     TricksDataService.get(id)
@@ -24,12 +24,12 @@ const TrickDetails = () => {
   };
 
   const freqs = [
-    {name: "Impossible", color: "white"},
-    {name: "Only once", color: "red"},
-    {name: "Rarely", color: "LightPink"},
-    {name: "Sometimes", color: "LightYellow"},
-    {name: "Generally", color: "LightGreen"},
-    {name: "Always", color: "LightSkyBlue"}
+    { name: "Impossible", color: "white" },
+    { name: "Only once", color: "red" },
+    { name: "Rarely", color: "LightPink" },
+    { name: "Sometimes", color: "LightYellow" },
+    { name: "Generally", color: "LightGreen" },
+    { name: "Always", color: "LightSkyBlue" }
   ];
 
   const freqList = freqs.map((item, i) => {
@@ -50,17 +50,34 @@ const TrickDetails = () => {
       });
   }
 
+  var embeddingLink = null
+  if (trick != null) {
+    if (trick.linkToVideo != "" && trick.linkToVideo.includes("youtu")) {
+      // "http://www.youtube.com/embed/" + <videoID>
+      embeddingLink = "http://www.youtube.com/embed/" + trick.linkToVideo.split("/").at(-1).split("?v=").at(-1);
+    }
+  }
+
   return (
     <div className="trick-details">
-      { trick && (
+      {trick && (
         <article>
-          <h2>{ trick.alias || trick.technicalName }</h2>
+          <h2>{trick.alias || trick.technicalName}</h2>
           <h3>Start from: </h3>
-          <div className="callout">{ trick.startPos}</div>
+          <div className="callout">{trick.startPos}</div>
           <h3>End in: </h3>
-          <div className="callout">{ trick.endPos}</div>
+          <div className="callout">{trick.endPos}</div>
           <h3>Description: </h3>
-          <div className="callout">{ trick.description }</div>
+          <div className="callout">{trick.description}</div>
+
+          {embeddingLink &&
+            <div className="callout">
+              <iframe id="player" type="text/html" width="640" height="360"
+                src={embeddingLink}
+                frameborder="0"></iframe>
+            </div>
+          }
+
           <div className="skillFreq">Set your success frequency:
             <select value={trick.stickFrequency} onChange={(e) => selectFreq(e)}>
               {freqList}
@@ -71,5 +88,5 @@ const TrickDetails = () => {
     </div>
   );
 }
- 
+
 export default TrickDetails;
