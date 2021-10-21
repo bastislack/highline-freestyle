@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import TricksDataService from "../services/tricks.js"
 
-const Create = () => {
+const CreateTrick = () => {
   const [alias, setAlias] = useState('Darth Vader');
   const [technicalName, setTechnicalName] = useState('Antihero to feet');
   const [establishedBy, setEstablishedBy] = useState('Ian Eisenberg');
@@ -168,4 +168,4 @@ const Create = () => {
   );
 }
 
-export default Create;
+export default CreateTrick;
