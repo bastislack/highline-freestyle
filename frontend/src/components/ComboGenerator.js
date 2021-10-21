@@ -30,7 +30,7 @@ const ComboGenerator = () => {
     if (numberOfTricks < 1) {
       alert("the number of tricks can't be negative or 0");
       return;
-    }else if (numberOfTricks == 1) {
+    }else if (numberOfTricks === 1) {
       alert("You need more than one trick for a combo!");
       return;
     }
@@ -70,7 +70,7 @@ const ComboGenerator = () => {
       shuffleTricks();
       let lastPos = randomCombo[i-1].endPos;
       for (let j = 0; j < myTricks.length; j++) {
-        if (myTricks[j].startPos === lastPos && (allowConsecutiveTricks || randomCombo[i-1] != myTricks[j])) {
+        if (myTricks[j].startPos === lastPos && (allowConsecutiveTricks || randomCombo[i-1] !== myTricks[j])) {
           randomCombo[i] = myTricks[j];
           if (removeTricks) removedTrick = myTricks.splice(j,1);
           trickFound = true;
@@ -83,7 +83,7 @@ const ComboGenerator = () => {
       if (!trickFound) {
         retries++;
         console.log("No suitable trick, from position: " + lastPos + " found, removing last trick");
-        if (i == 1 || lastPos == stuckPos) {
+        if (i === 1 || lastPos === stuckPos) {
           console.log("starting new");
           myTricks = [...tricks];
           shuffleTricks();
@@ -98,11 +98,10 @@ const ComboGenerator = () => {
     }
 
     //check integrety of combo
-    for (let i in randomCombo) {
-      if (i == 0) continue;
+    for (let i = 1; i < randomCombo.length; i++) {
       let prev = randomCombo[i-1];
       let trick = randomCombo[i];
-      if (prev.endPos != trick.startPos) {
+      if (prev.endPos !== trick.startPos) {
         alert("trick generator is broken");
       }
     }

@@ -1,6 +1,4 @@
 import { Link } from 'react-router-dom';
-import Create from './Create';
-
 
 const FloatingActionButton = () => {
     return (

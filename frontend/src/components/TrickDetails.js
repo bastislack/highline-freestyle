@@ -50,9 +50,9 @@ const TrickDetails = () => {
       });
   }
 
-  var embeddingLink = null
+  var embeddingLink
   if (trick != null) {
-    if (trick.linkToVideo != "" && trick.linkToVideo.includes("youtu")) {
+    if (trick.linkToVideo.includes("youtu")) {
       // "http://www.youtube.com/embed/" + <videoID>
       embeddingLink = "http://www.youtube.com/embed/" + trick.linkToVideo.split("/").at(-1).split("?v=").at(-1);
     }
@@ -72,7 +72,7 @@ const TrickDetails = () => {
 
           {embeddingLink &&
             <div className="callout">
-              <iframe id="player" type="text/html" width="640" height="360"
+              <iframe id="player" type="text/html" width="640" height="360" title="video"
                 src={embeddingLink}
                 frameborder="0"></iframe>
             </div>
