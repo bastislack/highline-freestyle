@@ -10,12 +10,12 @@ export default class Database {
     this.db = new Dexie("db");
 
     this.db.version(1).stores({
-      tricks: "id, alias, technicalName, establishedBy, yearEstablished, linkToVideo, startPos, endPos, difficultyLevel, description, tips",
+      mainTricks: "++id, alias, technicalName, establishedBy, yearEstablished, linkToVideo, startPos, endPos, difficultyLevel, description, tips",
       combos: "++id, name"
     });
 
     // count the tricks in the database and populate it if its empty
-    this.db.tricks.count().then((count) => {
+    this.db.mainTricks.count().then((count) => {
       if (count === 0) {
         this.populateTricks();
       } else {
@@ -44,28 +44,28 @@ export default class Database {
     }
 
     // adds the tricks to the database
-    this.db.tricks.bulkPut(tricks).then(() => 
+    this.db.mainTricks.bulkPut(tricks).then(() =>
       console.log("added tricks to database from the csv")
     );
   }
 
   // get single trick by id
-  get = (id) => {
-    return this.db.tricks.get(id);
+  getTrick = (id) => {
+    return this.db.mainTricks.get(Number(id));
   };
 
   // get list of all tricks
-  getAll = () => {
-    return this.db.tricks.toArray();
+  getAllTricks = () => {
+    return this.db.mainTricks.toArray();
   };
 
   // create or update trick
   saveTrick = (obj) => {
-    return this.db.tricks.put(obj);
+    return this.db.mainTricks.put(obj);
   };
 
   // delete trick
   deleteTrick = (id) => {
-    return this.db.tricks.delete(id);
+    return this.db.mainTricks.delete(Number(id));
   };
 }

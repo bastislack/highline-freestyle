@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useLiveQuery } from "dexie-react-hooks";
 
 import Database from "../services/db";
 const db = new Database();
@@ -7,23 +8,10 @@ const db = new Database();
 const TrickDetails = () => {
   const { id } = useParams();
 
-  const [trick, setTrick] = useState(null);
   const [stickFreq, setStickFreq] = useState("");
 
-  useEffect(() => {
-    retrieveTrick(id);
-  }, []);
-
-  const retrieveTrick = (id) => {
-    db.get(Number(id))
-      .then((trick) => {
-        console.log(trick);
-        setTrick(trick);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  };
+  const trick = useLiveQuery(() => db.getTrick(id), []);
+  if (!trick) return null
 
   const freqs = [
     { name: "Impossible", color: "white" },
@@ -43,7 +31,7 @@ const TrickDetails = () => {
   const selectFreq = (e) => {
     setStickFreq(e.target.value);
     trick.stickFrequency = stickFreq;
-    TricksDataService.update(id, trick)
+    db.saveTrick(trick)
       .then(res => {
         console.log(res.data);
       })

@@ -1,27 +1,15 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from "react";
+import { useLiveQuery } from "dexie-react-hooks";
 
 import Database from "../services/db";
 const db = new Database();
 
 const TrickList = () => {
 
-  const [tricks, setTricks] = useState([]);
-
-  useEffect(() => {
-    retrieveTricks();
-  }, []);
-
-  const retrieveTricks = () => {
-    // TODO make this work again
-    db.getAll()
-      .then(tricks => {
-        setTricks(tricks);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  };
+  // tricks query with react hooks -- means it refreshes automaticly
+  const tricks = useLiveQuery(() => db.getAllTricks(), []);
+  if (!tricks) return null
 
   let previousDifficultyLevel = 0;
 
@@ -46,7 +34,7 @@ const TrickList = () => {
               <div key={trick.id}>
                 <Link className="link-to-trick " to={`/tricks/${trick.id}`} key={trick.id} >
                   <button className=" btn btn-outline-success trick-preview" freq={trick.stickFrequency}>
-                    <h2>{trick.alias}</h2>
+                    <h2>{trick.alias || trick.technicalName}</h2>
                   </button>
                 </Link>
               </div>

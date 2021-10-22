@@ -24,15 +24,16 @@ const ComboDetails = () => {
   };
 
   const deleteCombo = () => {
-    CombosDataService.delete(id)
-      .then(res => {
-        console.log(res.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
+    // TODO
+    //CombosDataService.delete(id)
+    //  .then(res => {
+    //    console.log(res.data);
+    //  })
+    //  .catch(e => {
+    //    console.log(e);
+    //  });
 
-    history.push('/combos');
+    //history.push('/combos');
   };
 
   return (

@@ -1,31 +1,18 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { useLiveQuery } from "dexie-react-hooks";
 
 import Database from "../services/db";
 const db = new Database();
 
 const ComboGenerator = () => {
 
-  const [tricks, setTricks] = useState([]);
   const [numberOfTricks, setNumberOfTricks] = useState('');
 
-  useEffect(() => {
-    retrieveTricks();
-  }, []);
-
-  const retrieveTricks = () => {
-    // TODO
-    //TricksDataService.getAll()
-    //  .then(res => {
-    //    console.log(res.data);
-    //    setTricks(res.data.tricks);
-    //  })
-    //  .catch(e => {
-    //    console.log(e);
-    //  });
-  };
-
   const history = useHistory();
+
+  const tricks = useLiveQuery(() => db.getAllTricks(), []);
+  if (!tricks) return null
 
   const generateCombo = (e) => {
     e.preventDefault();
