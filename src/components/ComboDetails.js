@@ -1,6 +1,5 @@
 import { useParams, useHistory } from "react-router-dom";
 import { useState, useEffect } from "react"
-import CombosDataService from "../services/combos.js"
 
 const ComboDetails = () => {
   const history = useHistory();
@@ -13,14 +12,15 @@ const ComboDetails = () => {
   }, []); 
 
   const retrieveCombo = (id) => {
-    CombosDataService.get(id)
-      .then(res => {
-        console.log(res.data);
-        setCombo(res.data.combo);
-      })
-      .catch(e => {
-        console.log(e);
-      });
+    // TODO
+    //CombosDataService.get(id)
+    //  .then(res => {
+    //    console.log(res.data);
+    //    setCombo(res.data.combo);
+    //  })
+    //  .catch(e => {
+    //    console.log(e);
+    //  });
   };
 
   const deleteCombo = () => {

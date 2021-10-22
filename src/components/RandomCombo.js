@@ -1,6 +1,5 @@
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
-import CombosDataService from "../services/combos.js"
 
 const RandomCombo = () => {
 
@@ -36,13 +35,14 @@ const RandomCombo = () => {
       yearEstablished: currentYear
     }
 
-    CombosDataService.create({ combo: savedCombo})
-      .then(res => {
-        console.log(res.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
+    // TODO
+    //CombosDataService.create({ combo: savedCombo})
+    //  .then(res => {
+    //    console.log(res.data);
+    //  })
+    //  .catch(e => {
+    //    console.log(e);
+    //  });
 
     // Increment number of generated combos by 1 so all the combos have unique names
     localStorage.setItem('randomComboCount', comboCount + 1);

@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from "react";
-import TricksDataService from "../services/tricks.js"
+
+import Database from "../services/db";
+const db = new Database();
 
 const TrickList = () => {
 
@@ -11,10 +13,10 @@ const TrickList = () => {
   }, []);
 
   const retrieveTricks = () => {
-    TricksDataService.getAll()
-      .then(res => {
-        console.log(res.data);
-        setTricks(res.data.tricks);
+    // TODO make this work again
+    db.getAll()
+      .then(tricks => {
+        setTricks(tricks);
       })
       .catch(e => {
         console.log(e);
@@ -41,10 +43,10 @@ const TrickList = () => {
           return (
             <div>
               {isFirstOfLevel && <div>Level {trick.difficultyLevel}</div>}
-              <div key={trick._id}>
-                <Link className="link-to-trick " to={`/tricks/${trick._id}`} key={trick._id} >
+              <div key={trick.id}>
+                <Link className="link-to-trick " to={`/tricks/${trick.id}`} key={trick.id} >
                   <button className=" btn btn-outline-success trick-preview" freq={trick.stickFrequency}>
-                    <h2>{trick.name}</h2>
+                    <h2>{trick.alias}</h2>
                   </button>
                 </Link>
               </div>

@@ -1,6 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import TricksDataService from "../services/tricks.js"
+
+import Database from "../services/db";
+const db = new Database();
 
 const TrickDetails = () => {
   const { id } = useParams();
@@ -13,10 +15,10 @@ const TrickDetails = () => {
   }, []);
 
   const retrieveTrick = (id) => {
-    TricksDataService.get(id)
-      .then(res => {
-        console.log(res.data);
-        setTrick(res.data.trick);
+    db.get(Number(id))
+      .then((trick) => {
+        console.log(trick);
+        setTrick(trick);
       })
       .catch(e => {
         console.log(e);

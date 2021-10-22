@@ -1,5 +1,4 @@
 import { useHistory } from "react-router-dom";
-import CombosDataService from "../services/combos.js"
 
 const CreateCombo = () => {
   const history = useHistory();

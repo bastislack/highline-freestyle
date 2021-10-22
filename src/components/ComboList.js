@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from "react"
-import CombosDataService from "../services/combos.js"
 
 const ComboList = () => {
 
@@ -11,14 +10,15 @@ const ComboList = () => {
   }, [combos]); 
 
   const retrieveCombos = () => {
-    CombosDataService.getAll()
-      .then(res => {
-        console.log(res.data);
-        setCombos(res.data.combos);
-      })
-      .catch(e => {
-        console.log(e);
-      });
+    // TODO make this work again
+    //CombosDataService.getAll()
+    //  .then(res => {
+    //    console.log(res.data);
+    //    setCombos(res.data.combos);
+    //  })
+    //  .catch(e => {
+    //    console.log(e);
+    //  });
   };
 
   let previousComboLength = 0;
