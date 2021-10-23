@@ -70,3 +70,15 @@ self.addEventListener('message', (event) => {
 });
 
 // Any other custom service worker logic can go here.
+self.addEventListener('install', evt => {
+  console.log("SW is installed");
+  // Cache data that doesn't need to be recached often here!
+});
+
+self.addEventListener('activate', evt => {
+  console.log("SW is activated");
+});
+
+self.addEventListener('fetch', evt => {
+  console.log(evt);
+});
