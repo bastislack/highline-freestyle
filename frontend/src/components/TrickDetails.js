@@ -54,7 +54,7 @@ const TrickDetails = () => {
   if (trick != null) {
     if (trick.linkToVideo.includes("youtu")) {
       // "http://www.youtube.com/embed/" + <videoID>
-      embeddingLink = "http://www.youtube.com/embed/" + trick.linkToVideo.split("/").at(-1).split("?v=").at(-1);
+      embeddingLink = "http://www.youtube.com/embed/" + trick.linkToVideo.split("/").at(-1).split("?v=").at(-1).replace("?t=","?start=");
     }
   }
 
