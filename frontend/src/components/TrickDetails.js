@@ -50,11 +50,19 @@ const TrickDetails = () => {
       });
   }
 
-  var embeddingLink
+  var youtubeLink
+  var instagramLink
   if (trick != null) {
     if (trick.linkToVideo.includes("youtu")) {
-      // "http://www.youtube.com/embed/" + <videoID>
-      embeddingLink = "http://www.youtube.com/embed/" + trick.linkToVideo.split("/").at(-1).split("?v=").at(-1).replace("?t=","?start=");
+      // "http://www.youtube.com/embed/<videoID>"
+      youtubeLink = "http://www.youtube.com/embed/" + trick.linkToVideo.split("/").at(-1).split("?v=").at(-1).replace("?t=", "?start=");
+    }
+    else if (trick.linkToVideo.includes("instagram")) {
+      // "https://www.instagram.com/p/<videoID>/embed
+      instagramLink = trick.linkToVideo + "embed";
+    }
+    else {
+      console.log("Could not embed this link:\n" + trick.linkToVideo);
     }
   }
 
@@ -70,11 +78,16 @@ const TrickDetails = () => {
           <h3>Description: </h3>
           <div className="callout">{trick.description}</div>
 
-          {embeddingLink &&
+          {youtubeLink &&
             <div className="callout">
-              <iframe id="player" type="text/html" width="640" height="360" title="video"
-                src={embeddingLink}
+              <iframe id="youtubePlayer" type="text/html" width="640" height="360" title="video"
+                src={youtubeLink}
                 frameborder="0"></iframe>
+            </div>
+          }
+          {instagramLink &&
+            <div className="callout">
+              <iframe src={instagramLink} width="400" height="480" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
             </div>
           }
 
