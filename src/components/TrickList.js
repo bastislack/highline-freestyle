@@ -9,7 +9,7 @@ const TrickList = () => {
 
   // tricks query with react hooks -- means it refreshes automaticly
   const tricks = useLiveQuery(() => db.getAllTricks(), []);
-  if (!tricks) return null
+  if (!tricks) {return null} else console.log(tricks);
 
   let previousDifficultyLevel = 0;
 

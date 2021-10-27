@@ -10,7 +10,9 @@ export default class Database {
     this.db = new Dexie("db");
 
     this.db.version(1).stores({
+      // this is the table for the "predefinded" tricks, the id's will start from 1000 onwards
       mainTricks: "++id, alias, technicalName, establishedBy, yearEstablished, linkToVideo, startPos, endPos, difficultyLevel, description, tips",
+      userTricks: "++id, alias, technicalName, establishedBy, yearEstablished, linkToVideo, startPos, endPos, difficultyLevel, description, tips",
       combos: "++id, name"
     });
 
@@ -32,8 +34,8 @@ export default class Database {
 
     const tricks = Array(trickList.length);
     for (let i=0; i < trickList.length; i++) {
-      // add the id 
-      const trick = [i].concat(trickList[i]);
+      // add the id with a 1000 offset
+      const trick = [i+1000].concat(trickList[i]);
       // make key value pairs
       const rightFormatTrick = Object.assign.apply({}, 
         header.map((v,i) => ({
@@ -51,21 +53,26 @@ export default class Database {
 
   // get single trick by id
   getTrick = (id) => {
+    if (id < 1000) return this.db.userTricks.get(Number(id));
     return this.db.mainTricks.get(Number(id));
   };
 
   // get list of all tricks
   getAllTricks = () => {
-    return this.db.mainTricks.toArray();
+    return Promise.all([
+      this.db.mainTricks.toArray(),
+      this.db.userTricks.toArray()
+    ]).then((a) => a.flat());
   };
 
   // create or update trick
   saveTrick = (obj) => {
-    return this.db.mainTricks.put(obj);
+    return this.db.userTricks.put(obj);
   };
 
   // delete trick
   deleteTrick = (id) => {
-    return this.db.mainTricks.delete(Number(id));
+    if (id < 1000) console.log("can't delete this trick");
+    return this.db.userTricks.delete(Number(id));
   };
 }
