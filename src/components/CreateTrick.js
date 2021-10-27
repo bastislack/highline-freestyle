@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import TricksDataService from "../services/tricks.js"
+
+import Database from "../services/db";
+const db = new Database();
 
 const CreateTrick = () => {
   const [alias, setAlias] = useState('Darth Vader');
@@ -34,7 +36,7 @@ const CreateTrick = () => {
       stickFrequency: stickFrequency
     };
     
-    TricksDataService.create(trick)
+    db.saveTrick(trick)
     .then(() => {
       console.log(trick);
       history.push('/');

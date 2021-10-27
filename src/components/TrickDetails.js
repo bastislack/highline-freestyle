@@ -1,27 +1,14 @@
 import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
-import TricksDataService from "../services/tricks.js"
+import { useLiveQuery } from "dexie-react-hooks";
+
+import Database from "../services/db";
+const db = new Database();
 
 const TrickDetails = () => {
   const { id } = useParams();
 
-  const [trick, setTrick] = useState(null);
-  const [stickFreq, setStickFreq] = useState("");
-
-  useEffect(() => {
-    retrieveTrick(id);
-  }, []);
-
-  const retrieveTrick = (id) => {
-    TricksDataService.get(id)
-      .then(res => {
-        console.log(res.data);
-        setTrick(res.data.trick);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  };
+  const trick = useLiveQuery(() => db.getTrick(id), []);
+  if (!trick) return null
 
   const freqs = [
     { name: "Impossible", color: "white" },
@@ -34,16 +21,19 @@ const TrickDetails = () => {
 
   const freqList = freqs.map((item, i) => {
     return (
-      <option value={i} background={item.color}>{item.name}</option>
+      <label className="trick-preview" freq={i}>
+        <input type="radio" value={i} name="stickFrequency" checked={(trick.stickFrequency === i)} /> {item.name}<br/>
+      </label>
     )
   });
 
   const selectFreq = (e) => {
-    setStickFreq(e.target.value);
-    trick.stickFrequency = stickFreq;
-    TricksDataService.update(id, trick)
+    const newFreq = Number(e.target.value);
+    console.log(newFreq)
+    trick.stickFrequency = newFreq;
+    db.saveTrick(trick)
       .then(res => {
-        console.log(res.data);
+        console.log("changed stickFrequency");
       })
       .catch(e => {
         console.log(e);
@@ -92,9 +82,9 @@ const TrickDetails = () => {
           }
 
           <div className="skillFreq">Set your success frequency:
-            <select value={trick.stickFrequency} onChange={(e) => selectFreq(e)}>
+            <div onChange={selectFreq}>
               {freqList}
-            </select>
+            </div>
           </div>
         </article>
       )}
