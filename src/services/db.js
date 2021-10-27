@@ -13,7 +13,7 @@ export default class Database {
       // this is the table for the "predefinded" tricks, the id's will start from 1000 onwards
       mainTricks: "++id, alias, technicalName, establishedBy, yearEstablished, linkToVideo, startPos, endPos, difficultyLevel, description, tips",
       userTricks: "++id, alias, technicalName, establishedBy, yearEstablished, linkToVideo, startPos, endPos, difficultyLevel, description, tips",
-      combos: "++id, name"
+      combos: "++id, name, tricks, strickfrequency, establishedBy, linkToVideo, comments, yearEstablished"
     });
 
     // count the tricks in the database and populate it if its empty
@@ -74,5 +74,27 @@ export default class Database {
   deleteTrick = (id) => {
     if (id < 1000) console.log("can't delete this trick");
     return this.db.userTricks.delete(Number(id));
+  };
+
+  // Combos
+
+  // get single combo by id
+  getCombo = (id) => {
+    return this.db.combos.get(Number(id));
+  };
+
+  // get list of all tricks
+  getAllCombos = () => {
+    return this.db.combos.toArray();
+  };
+
+  // create or update trick
+  saveCombo = (obj) => {
+    return this.db.combos.put(obj);
+  };
+
+  // delete trick
+  deleteCombo = (id) => {
+    return this.db.combos.delete(Number(id));
   };
 }

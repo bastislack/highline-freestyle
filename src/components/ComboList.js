@@ -1,25 +1,15 @@
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from "react"
+import { useLiveQuery } from "dexie-react-hooks";
+
+import Database from "../services/db";
+const db = new Database();
 
 const ComboList = () => {
 
-  const [combos, setCombos] = useState([]);
-
-  useEffect(() => {
-    retrieveCombos();
-  }, [combos]); 
-
-  const retrieveCombos = () => {
-    // TODO make this work again
-    //CombosDataService.getAll()
-    //  .then(res => {
-    //    console.log(res.data);
-    //    setCombos(res.data.combos);
-    //  })
-    //  .catch(e => {
-    //    console.log(e);
-    //  });
-  };
+  // combos query with react hooks -- means it refreshes automaticly
+  const combos = useLiveQuery(() => db.getAllCombos(), []);
+  if (!combos) {return null} else console.log(combos);
 
   let previousComboLength = 0;
 
@@ -37,9 +27,9 @@ const ComboList = () => {
         previousComboLength = combo.numberOfTricks
 
         return (
-          <div key={combo._id}>
+          <div key={combo.id}>
             { isFirstOfCategory && <div>{combo.numberOfTricks} Trick Combos</div> }
-              <Link className="link-to-combo" to={`/combos/${combo._id}`} >
+              <Link className="link-to-combo" to={`/combos/${combo.id}`} >
                 <button className="btn btn-outline-primary" >{ combo.name }</button>
               </Link>
           </div>
