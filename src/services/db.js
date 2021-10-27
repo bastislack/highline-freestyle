@@ -11,8 +11,8 @@ export default class Database {
 
     this.db.version(1).stores({
       // this is the table for the "predefinded" tricks, the id's will start from 1000 onwards
-      mainTricks: "++id, alias, technicalName, establishedBy, yearEstablished, linkToVideo, startPos, endPos, difficultyLevel, description, tips",
-      userTricks: "++id, alias, technicalName, establishedBy, yearEstablished, linkToVideo, startPos, endPos, difficultyLevel, description, tips",
+      mainTricks: "++id, alias, technicalName, establishedBy, yearEstablished, linkToVideo, startPos, endPos, difficultyLevel, description, tips, strickfrequency",
+      userTricks: "++id, alias, technicalName, establishedBy, yearEstablished, linkToVideo, startPos, endPos, difficultyLevel, description, tips, strickfrequency",
       combos: "++id, name, tricks, strickfrequency, establishedBy, linkToVideo, comments, yearEstablished"
     });
 
@@ -30,12 +30,12 @@ export default class Database {
     const trickList = Papa.parse(tricklist).data;
 
     // this uses the labels of the csv but, also adds an id
-    const header = ["id"].concat(trickList.shift());
+    const header = ["id"].concat(trickList.shift(), ["strickfrequency"]);
 
     const tricks = Array(trickList.length);
     for (let i=0; i < trickList.length; i++) {
       // add the id with a 1000 offset
-      const trick = [i+1000].concat(trickList[i]);
+      const trick = [i+1000].concat(trickList[i], 0);
       // make key value pairs
       const rightFormatTrick = Object.assign.apply({}, 
         header.map((v,i) => ({

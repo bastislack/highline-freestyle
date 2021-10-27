@@ -8,7 +8,8 @@ const db = new Database();
 const TrickDetails = () => {
   const { id } = useParams();
 
-  const [stickFreq, setStickFreq] = useState("");
+  // stickFrequency as a number from 0-5
+  const [stickFreq, setStickFreq] = useState(0);
 
   const trick = useLiveQuery(() => db.getTrick(id), []);
   if (!trick) return null
@@ -29,15 +30,17 @@ const TrickDetails = () => {
   });
 
   const selectFreq = (e) => {
-    setStickFreq(e.target.value);
-    trick.stickFrequency = stickFreq;
+    const newFreq = Number(e.target.value);
+    setStickFreq(newFreq);
+    trick.stickFrequency = newFreq;
     db.saveTrick(trick)
       .then(res => {
-        console.log(res.data);
+        console.log("changed stickFrequency");
       })
       .catch(e => {
         console.log(e);
       });
+    console.log(stickFreq, newFreq);
   }
 
   var youtubeLink
@@ -82,7 +85,7 @@ const TrickDetails = () => {
           }
 
           <div className="skillFreq">Set your success frequency:
-            <select value={trick.stickFrequency} onChange={(e) => selectFreq(e)}>
+            <select value={freqs[trick.stickFrequency].name} onChange={(e) => selectFreq(e)}>
               {freqList}
             </select>
           </div>
