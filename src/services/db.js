@@ -30,7 +30,7 @@ export default class Database {
     const trickList = Papa.parse(tricklist).data;
 
     // this uses the labels of the csv but, also adds an id
-    const header = ["id"].concat(trickList.shift(), ["strickfrequency"]);
+    const header = ["id"].concat(trickList.shift(), ["stickFrequency"]);
 
     const tricks = Array(trickList.length);
     for (let i=0; i < trickList.length; i++) {
@@ -67,7 +67,8 @@ export default class Database {
 
   // create or update trick
   saveTrick = (obj) => {
-    return this.db.userTricks.put(obj);
+    if (obj.id < 1000) return this.db.userTricks.put(obj);
+    return this.db.mainTricks.put(obj);
   };
 
   // delete trick

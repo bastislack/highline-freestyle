@@ -1,5 +1,4 @@
 import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
 
 import Database from "../services/db";
@@ -7,9 +6,6 @@ const db = new Database();
 
 const TrickDetails = () => {
   const { id } = useParams();
-
-  // stickFrequency as a number from 0-5
-  const [stickFreq, setStickFreq] = useState(0);
 
   const trick = useLiveQuery(() => db.getTrick(id), []);
   if (!trick) return null
@@ -25,13 +21,15 @@ const TrickDetails = () => {
 
   const freqList = freqs.map((item, i) => {
     return (
-      <option value={i} background={item.color}>{item.name}</option>
+      <label className="trick-preview" freq={i}>
+        <input type="radio" value={i} name="stickFrequency" checked={(trick.stickFrequency === i)} /> {item.name}<br/>
+      </label>
     )
   });
 
   const selectFreq = (e) => {
     const newFreq = Number(e.target.value);
-    setStickFreq(newFreq);
+    console.log(newFreq)
     trick.stickFrequency = newFreq;
     db.saveTrick(trick)
       .then(res => {
@@ -40,7 +38,6 @@ const TrickDetails = () => {
       .catch(e => {
         console.log(e);
       });
-    console.log(stickFreq, newFreq);
   }
 
   var youtubeLink
@@ -85,9 +82,9 @@ const TrickDetails = () => {
           }
 
           <div className="skillFreq">Set your success frequency:
-            <select value={freqs[trick.stickFrequency].name} onChange={(e) => selectFreq(e)}>
+            <div onChange={selectFreq}>
               {freqList}
-            </select>
+            </div>
           </div>
         </article>
       )}
