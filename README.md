@@ -1,7 +1,10 @@
+# How to install node modules
+
+Open a terminal and in the root folder (highline-freestyle) and run `npm install`
+
 # How to use the app in the current state
 
-Open one terminal and in the backend folder run nodemon server\
-Open one terminal and in the frontend folder run npm start\
+Open a terminal and in the root folder (highline-freestyle) and run `npm start`
 
 # Getting Started with Create React App
 
