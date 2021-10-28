@@ -80,5 +80,5 @@ self.addEventListener('activate', evt => {
 });
 
 self.addEventListener('fetch', evt => {
-  console.log(evt);
+  console.log("SW fetched an event");
 });

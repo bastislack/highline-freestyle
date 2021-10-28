@@ -2,13 +2,15 @@ import Navbar from './components/Navbar';
 import BottomNav from './components/BottomNav';
 import TrickList from './components/TrickList';
 import ComboList from './components/ComboList';
-import Create from './components/Create';
+import CreateTrick from './components/CreateTrick';
+import CreateCombo from './components/CreateCombo';
 import ComboGenerator from './components/ComboGenerator';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import TrickDetails from './components/TrickDetails';
 import ComboDetails from './components/ComboDetails';
 import RandomCombo from './components/RandomCombo';
 import FloatingActionButton from './components/FloatingActionButton'
+
 
 function App() {
   return (
@@ -26,8 +28,11 @@ function App() {
             <Route path="/combos/:id">
               <ComboDetails />
             </Route>
-            <Route path="/create">
-              <Create />
+            <Route path="/createtrick">
+              <CreateTrick/>
+            </Route>
+            <Route path="/createcombo">
+              <CreateCombo/>
             </Route>
             <Route path="/generator">
               <ComboGenerator />

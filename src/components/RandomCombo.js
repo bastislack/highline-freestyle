@@ -1,6 +1,8 @@
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
-import CombosDataService from "../services/combos.js"
+
+import Database from "../services/db";
+const db = new Database();
 
 const RandomCombo = () => {
 
@@ -17,9 +19,8 @@ const RandomCombo = () => {
   const history = useHistory();
 
   const combo = history.location.state.combo;
-
-  // From the combo object retrieve array of trick IDs in order to save the combo
-  const tricks = combo.map(trick => trick._id);
+  
+  console.log(combo)
 
   // If the user wants to save the combo it is added to the database
   const saveToCombos = () => {
@@ -28,7 +29,7 @@ const RandomCombo = () => {
 
     const savedCombo = {
       name: name,
-      tricks: tricks,
+      tricks: combo,
       stickFrequency: "Never",
       establishedBy: "Generator",
       linkToVideo: "",
@@ -36,9 +37,9 @@ const RandomCombo = () => {
       yearEstablished: currentYear
     }
 
-    CombosDataService.create({ combo: savedCombo})
-      .then(res => {
-        console.log(res.data);
+    db.saveCombo(savedCombo)
+      .then(() => {
+        console.log("savedCombo");
       })
       .catch(e => {
         console.log(e);
@@ -52,8 +53,8 @@ const RandomCombo = () => {
     <div className="random-combo">
       <h2>Generated Combo</h2>
       {combo.map(trick => (
-        <div className="row callout" key={trick._id}>
-          <p>{trick.name}</p>
+        <div className="row callout" key={trick.id}>
+          <p>{trick.alias || trick.technicalName}</p>
         </div>
       ))}
       <div className="container row">

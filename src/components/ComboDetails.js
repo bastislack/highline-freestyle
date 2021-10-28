@@ -1,32 +1,22 @@
 import { useParams, useHistory } from "react-router-dom";
 import { useState, useEffect } from "react"
-import CombosDataService from "../services/combos.js"
+import { useLiveQuery } from "dexie-react-hooks";
+
+import Database from "../services/db";
+const db = new Database();
 
 const ComboDetails = () => {
   const history = useHistory();
   const { id } = useParams();
-  const [combo, setCombo] = useState(null);
 
-
-  useEffect(() => {
-    retrieveCombo(id);
-  }, []); 
-
-  const retrieveCombo = (id) => {
-    CombosDataService.get(id)
-      .then(res => {
-        console.log(res.data);
-        setCombo(res.data.combo);
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  };
+  // combos query with react hooks -- means it refreshes automaticly
+  const combo = useLiveQuery(() => db.getCombo(id), []);
+  if (!combo) {return null} else console.log(combo);
 
   const deleteCombo = () => {
-    CombosDataService.delete(id)
-      .then(res => {
-        console.log(res.data);
+    db.deleteCombo(id)
+      .then(() => {
+        console.log("combo deleted");
       })
       .catch(e => {
         console.log(e);
@@ -41,7 +31,7 @@ const ComboDetails = () => {
         <article>
           <h2>{combo.name}</h2>
           {combo.tricks.map(trick => (
-            <div className="row callout" key={trick._id}>
+            <div className="row callout" key={trick.id}>
               <p>{trick.alias || trick.technicalName}</p>
             </div>
           ))}

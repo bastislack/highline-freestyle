@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import TricksDataService from "../services/tricks.js"
 
-const Create = () => {
+import Database from "../services/db";
+const db = new Database();
+
+const CreateTrick = () => {
   const [alias, setAlias] = useState('Darth Vader');
   const [technicalName, setTechnicalName] = useState('Antihero to feet');
   const [establishedBy, setEstablishedBy] = useState('Ian Eisenberg');
@@ -34,7 +36,7 @@ const Create = () => {
       stickFrequency: stickFrequency
     };
     
-    TricksDataService.create(trick)
+    db.saveTrick(trick)
     .then(() => {
       console.log(trick);
       history.push('/');
@@ -168,4 +170,4 @@ const Create = () => {
   );
 }
 
-export default Create;
+export default CreateTrick;

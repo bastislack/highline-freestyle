@@ -34,6 +34,12 @@
   min-height: 40px;
   
 }
+
+.nav-elem-selected {
+  color:black !important;
+  font-weight: bold !important;
+}
+
 .bottomNav h1 {
   color: green;/* #f1356d; */
   font-size: 1em;
