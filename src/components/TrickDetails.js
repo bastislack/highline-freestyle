@@ -31,7 +31,7 @@ const TrickDetails = () => {
     const newFreq = Number(e.target.value);
     console.log(newFreq)
     trick.stickFrequency = newFreq;
-    db.saveTrick(trick)
+    db.updateTrickAtributes(Object({"id": trick.id, "stickFrequency": newFreq}))
       .then(res => {
         console.log("changed stickFrequency");
       })
