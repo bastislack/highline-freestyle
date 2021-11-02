@@ -1,7 +1,7 @@
-import { useHistory } from "react-router-dom";
+//import { useHistory } from "react-router-dom";
 
 const CreateCombo = () => {
-  const history = useHistory();
+  //const history = useHistory();
 
   //const handleSubmit = (e) => {
   //  e.preventDefault();

@@ -6,13 +6,6 @@ const db = new Database();
 
 const RandomCombo = () => {
 
-  // Set up localStorage to store number of generated combos
-  // This number will be used in the name of the combo if it is saved
-  if (typeof localStorage === "undefined" || localStorage === null) {
-    var LocalStorage = require('node-localstorage').LocalStorage;
-    localStorage = new LocalStorage('../../storage');
-  }
-
   // Get combo count or initialize with 1
   var comboCount = parseInt(localStorage.getItem('randomComboCount')) || 1;
 

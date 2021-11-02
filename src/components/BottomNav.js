@@ -4,8 +4,6 @@ const BottomNav = () => {
 
   const path = useLocation().pathname.toString().toLowerCase();
 
-  let currentPage = path; 
-
   return (
     <nav className="bottomNav fixed-bottom justify-content-evenly">
         <Link to={`/`} className="col">

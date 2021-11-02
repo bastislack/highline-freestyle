@@ -21,15 +21,14 @@ const TrickDetails = () => {
 
   const freqList = freqs.map((item, i) => {
     return (
-      <label className="trick-preview" freq={i}>
-        <input type="radio" value={i} name="stickFrequency" checked={(trick.stickFrequency === i)} /> {item.name}<br/>
+      <label className="trick-preview" freq={i} key={i}>
+        <input type="radio" value={i} name="stickFrequency" checked={(trick.stickFrequency === i)} readOnly={true} /> {item.name}<br/>
       </label>
     )
   });
 
   const selectFreq = (e) => {
     const newFreq = Number(e.target.value);
-    console.log(newFreq)
     trick.stickFrequency = newFreq;
     db.updateTrickAtributes(Object({"id": trick.id, "stickFrequency": newFreq}))
       .then(res => {
@@ -72,12 +71,12 @@ const TrickDetails = () => {
             <div className="callout">
               <iframe id="youtubePlayer" type="text/html" width="640" height="360" title="video"
                 src={youtubeLink}
-                frameborder="0"></iframe>
+                frameBorder="0"></iframe>
             </div>
           }
           {instagramLink &&
             <div className="callout">
-              <iframe src={instagramLink} width="400" height="480" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+              <iframe src={instagramLink} width="400" height="480" frameBorder="0" scrolling="no" allowtransparency="true" title="video"></iframe>
             </div>
           }
 
