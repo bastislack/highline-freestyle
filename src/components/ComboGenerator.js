@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
 import { useLiveQuery } from "dexie-react-hooks";
+import RandomCombo from './RandomCombo';
 
 import Database from "../services/db";
 const db = new Database();
@@ -9,7 +9,9 @@ const ComboGenerator = () => {
 
   const [numberOfTricks, setNumberOfTricks] = useState('');
 
-  const history = useHistory();
+  const [showCombo, setShowCombo] = useState(false);
+
+  const [combo, setCombo] = useState("");
 
   const tricks = useLiveQuery(() => db.getAllTricks(), []);
   if (!tricks) return null
@@ -96,10 +98,8 @@ const ComboGenerator = () => {
       }
     }
 
-    history.push({
-      pathname: '/random-combo',
-      state: { combo: randomCombo}
-    });
+    setCombo(randomCombo);
+    setShowCombo(true);
   }
 
   return (
@@ -118,6 +118,8 @@ const ComboGenerator = () => {
         </div>
         <button className="btn btn-primary">Generate</button>
       </form>
+      <br />
+      {showCombo && <RandomCombo combo={combo} />}
     </div>
   );
 }

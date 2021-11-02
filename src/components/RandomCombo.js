@@ -1,19 +1,14 @@
-import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import Database from "../services/db";
 const db = new Database();
 
-const RandomCombo = () => {
+const RandomCombo = (props) => {
 
   // Get combo count or initialize with 1
   var comboCount = parseInt(localStorage.getItem('randomComboCount')) || 1;
 
-  const history = useHistory();
-
-  const combo = history.location.state.combo;
-  
-  console.log(combo)
+  const combo = props.combo;
 
   // If the user wants to save the combo it is added to the database
   const saveToCombos = () => {
@@ -44,7 +39,6 @@ const RandomCombo = () => {
 
   return (
     <div className="random-combo">
-      <h2>Generated Combo</h2>
       {combo.map(trick => (
         <div className="row callout" key={trick.id}>
           <p>{trick.alias || trick.technicalName}</p>
@@ -54,12 +48,7 @@ const RandomCombo = () => {
         <Link className="col-sm-6 form-button" to={`/combos`}>
           <button className="btn btn-primary" onClick={saveToCombos}>Add to Combos</button>
         </Link>
-        <Link to={`/generator`} className="col-sm-6 form-button">
-          <button className="btn btn-primary">Go back to Generator</button>
-        </Link>
-
       </div>
-
     </div>
   );
 }

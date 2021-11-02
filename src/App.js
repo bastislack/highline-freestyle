@@ -8,7 +8,6 @@ import ComboGenerator from './components/ComboGenerator';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import TrickDetails from './components/TrickDetails';
 import ComboDetails from './components/ComboDetails';
-import RandomCombo from './components/RandomCombo';
 import FloatingActionButton from './components/FloatingActionButton'
 
 
@@ -39,9 +38,6 @@ function App() {
             </Route>
             <Route path="/combos">
               <ComboList />
-            </Route>
-            <Route path="/random-combo">
-              <RandomCombo />
             </Route>
           </Switch>
         </div>
