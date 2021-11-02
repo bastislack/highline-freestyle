@@ -67,7 +67,20 @@ export default class Database {
   // get list of all tricks
   getAllTricks = () => {
     return Promise.all([
-      this.db.mainTricks.toArray(),
+      Promise.all([
+        this.db.mainTricks.toArray(),
+        this.db.mainAttributes.toArray()
+      ]).then((a) => {
+        const mainTricks = a[0];
+        const mainAttributes = a[1];
+        if (!mainAttributes) return mainTricks;
+
+        for (let i=0; i < mainAttributes.length; i++) {
+          const index = mainTricks.findIndex((trick) => trick.id === mainAttributes[i].id);
+          mainTricks[index] = Object({...mainTricks[index], ...mainAttributes[i]});
+        }
+        return mainTricks;
+      }),
       this.db.userTricks.toArray()
     ]).then((a) => a.flat());
   };
