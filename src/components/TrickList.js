@@ -32,7 +32,7 @@ const TrickList = () => {
               {isFirstOfLevel && <div>Level {trick.difficultyLevel}</div>}
               <div>
                 <Link className="link-to-trick " to={`/tricks/${trick.id}`} key={trick.id} >
-                  <button className=" btn btn-outline-success trick-preview" freq={trick.stickFrequency}>
+                  <button className=" btn btn-outline-success trick-preview skillFreq" freq={trick.stickFrequency}>
                     <h2>{trick.alias || trick.technicalName}</h2>
                   </button>
                 </Link>

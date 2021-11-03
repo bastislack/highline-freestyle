@@ -11,18 +11,18 @@ const TrickDetails = () => {
   if (!trick) return null
 
   const freqs = [
-    { name: "Impossible", color: "white" },
-    { name: "Only once", color: "red" },
-    { name: "Rarely", color: "LightPink" },
-    { name: "Sometimes", color: "LightYellow" },
-    { name: "Generally", color: "LightGreen" },
-    { name: "Always", color: "LightSkyBlue" }
+    "Impossible",
+    "Only once",
+    "Rarely",
+    "LightYellow",
+    "Generally",
+    "Always"
   ];
 
   const freqList = freqs.map((item, i) => {
     return (
-      <label className="trick-preview" freq={i} key={i}>
-        <input type="radio" value={i} name="stickFrequency" checked={(trick.stickFrequency === i)} readOnly={true} /> {item.name}<br/>
+      <label className="skillFreq" freq={i} key={i}>
+        <input type="radio" value={i} name="stickFrequency" checked={(trick.stickFrequency === i)} readOnly={true} /> {item}
       </label>
     )
   });

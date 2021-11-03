@@ -12,6 +12,35 @@ const ComboDetails = () => {
   const combo = useLiveQuery(() => db.getCombo(id), []);
   if (!combo) {return null} else console.log(combo);
 
+  const freqs = [
+    "Impossible",
+    "Only once",
+    "Rarely",
+    "LightYellow",
+    "Generally",
+    "Always"
+  ];
+
+  const freqList = freqs.map((item, i) => {
+    return (
+      <label className="skillFreq" freq={i} key={i}>
+        <input type="radio" value={i} name="stickFrequency" checked={(combo.stickFrequency === i)} readOnly={true} /> {item}
+      </label>
+    )
+  });
+
+  const selectFreq = (e) => {
+    const newFreq = Number(e.target.value);
+    combo.stickFrequency = newFreq;
+    db.saveCombo(combo)
+      .then(res => {
+        console.log("changed stickFrequency");
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
+
   const deleteCombo = () => {
     db.deleteCombo(id)
       .then(() => {
@@ -34,6 +63,11 @@ const ComboDetails = () => {
               <p>{trick.alias || trick.technicalName}</p>
             </div>
           ))}
+          <div className="skillFreq">Set your success frequency:
+            <div onChange={selectFreq}>
+              {freqList}
+            </div>
+          </div>
           <button onClick={deleteCombo} className="btn btn-primary">Delete Combo</button>
         </article>
       )}

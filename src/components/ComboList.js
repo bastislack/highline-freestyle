@@ -29,7 +29,7 @@ const ComboList = () => {
           <div key={combo.id}>
             { isFirstOfCategory && <div>{combo.numberOfTricks} Trick Combos</div> }
               <Link className="link-to-combo" to={`/combos/${combo.id}`} >
-                <button className="btn btn-outline-primary" >{ combo.name }</button>
+                <button className="btn btn-outline-primary skillFreq" freq={combo.stickFrequency} >{ combo.name }</button>
               </Link>
           </div>
         );

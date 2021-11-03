@@ -85,13 +85,6 @@
   flex-flow: row wrap;
   justify-content: left;
 }
-.trick-preview-OLD {
-  width: 31%;
-  height: 4em;
-  margin: 1%;
-  border: 1px solid black;
-  background: white;
-}
 
 .trick-preview {
   margin: 2px;
@@ -103,23 +96,27 @@
   font-weight: bold
 }
 
-.trick-preview[freq="1"] {
+.skillFreq {
+  display: block;
+}
+
+.skillFreq[freq="1"] {
   background: red;
 }
 
-.trick-preview[freq="2"] {
+.skillFreq[freq="2"] {
   background: LightPink;
 }
 
-.trick-preview[freq="3"] {
+.skillFreq[freq="3"] {
   background: LightYellow;
 }
 
-.trick-preview[freq="4"] {
+.skillFreq[freq="4"] {
   background: LightGreen;
 }
 
-.trick-preview[freq="5"] {
+.skillFreq[freq="5"] {
   background: LightSkyBlue;
 }
 
