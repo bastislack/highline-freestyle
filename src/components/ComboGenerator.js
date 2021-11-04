@@ -9,6 +9,8 @@ const ComboGenerator = () => {
 
   const [numberOfTricks, setNumberOfTricks] = useState('');
 
+  const [removeTricks, setRemoveTricks] = useState(true);
+
   const [showCombo, setShowCombo] = useState(false);
 
   const [combo, setCombo] = useState("");
@@ -22,14 +24,13 @@ const ComboGenerator = () => {
     if (numberOfTricks < 1) {
       alert("the number of tricks can't be negative or 0");
       return;
-    }else if (numberOfTricks === 1) {
+    } else if (numberOfTricks === 1) {
       alert("You need more than one trick for a combo!");
       return;
     }
 
     //TODO: needs to be set by the user
     // settings
-    let removeTricks = false;
     let allowConsecutiveTricks = false;
 
     let randomCombo = new Array(numberOfTricks);
@@ -37,19 +38,19 @@ const ComboGenerator = () => {
 
     let stuckPos;
     let removedTrick;
-    
+
     // maximum retries until the generator stops
     let maxRetries = 100;
     let retries = 0;
 
     // Shuffle array of tricks
-    let shuffleTricks = () => myTricks.sort((a,b) => 0.5-Math.random());
+    let shuffleTricks = () => myTricks.sort((a, b) => 0.5 - Math.random());
     shuffleTricks();
 
     // Get the first trick for the random combo
     randomCombo[0] = myTricks[0];
     if (removeTricks) removedTrick = myTricks.shift();
-    
+
     // Iteratively shuffle array of tricks and find the first trick
     // that has a starting position that matches with the
     // ending position of the trick before
@@ -60,11 +61,11 @@ const ComboGenerator = () => {
 
       let trickFound = false;
       shuffleTricks();
-      let lastPos = randomCombo[i-1].endPos;
+      let lastPos = randomCombo[i - 1].endPos;
       for (let j = 0; j < myTricks.length; j++) {
-        if (myTricks[j].startPos === lastPos && (allowConsecutiveTricks || randomCombo[i-1] !== myTricks[j])) {
+        if (myTricks[j].startPos === lastPos && (allowConsecutiveTricks || randomCombo[i - 1] !== myTricks[j])) {
           randomCombo[i] = myTricks[j];
-          if (removeTricks) removedTrick = myTricks.splice(j,1);
+          if (removeTricks) removedTrick = myTricks.splice(j, 1);
           trickFound = true;
           console.log("found trick");
           break;
@@ -91,7 +92,7 @@ const ComboGenerator = () => {
 
     //check integrety of combo
     for (let i = 1; i < randomCombo.length; i++) {
-      let prev = randomCombo[i-1];
+      let prev = randomCombo[i - 1];
       let trick = randomCombo[i];
       if (prev.endPos !== trick.startPos) {
         alert("trick generator is broken");
@@ -107,14 +108,22 @@ const ComboGenerator = () => {
       <h2>Generate a Random Combo</h2>
       <form onSubmit={generateCombo}>
         <div className="row form-row">
-        <label>Number of Tricks:</label>
-        <input
-          className="form-control"
-          type="number"
-          required
-          value={numberOfTricks}
-          onChange={(e) => setNumberOfTricks(e.target.value)}
-        />
+          <label>Number of Tricks:</label>
+          <input
+            className="form-control"
+            type="number"
+            required
+            value={numberOfTricks}
+            onChange={(e) => setNumberOfTricks(e.target.value)}
+          />
+        </div>
+        <div className="form-row form-check">
+          <label className="form-check-label">Every trick only once</label>
+          <input
+            className="form-check-input"
+            type="checkbox"
+            onChange={(e) => setRemoveTricks(e.target.checked)}
+          />
         </div>
         <button className="btn btn-primary">Generate</button>
       </form>
@@ -123,5 +132,5 @@ const ComboGenerator = () => {
     </div>
   );
 }
- 
+
 export default ComboGenerator;
