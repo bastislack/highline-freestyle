@@ -3,6 +3,30 @@ const path = require('path');
 const {InjectManifest} = require('workbox-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
+const webpackPlugins = [
+  new HtmlWebpackPlugin({
+    template: path.resolve( __dirname, 'public/index.html'),
+    filename: 'index.html',
+  }),
+  new CopyPlugin({
+    patterns: [
+      {from: "./public/favicon.ico", to: ""},
+      {from: "./public/manifest.json", to: ""},
+      {from: "./public/logo192.png", to: ""},
+      {from: "./public/logo512.png", to: ""},
+    ],
+  }),
+];
+
+if (process.env.NODE_ENV === 'production') {
+  webpackPlugins.push(
+    new InjectManifest({
+      swSrc: './src/src-sw.js',
+      swDest: 'sw.js'
+    })
+  );
+}
+
 module.exports = {
   context: __dirname,
   entry: './src/index.js',
@@ -30,22 +54,5 @@ module.exports = {
       },
     ]
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: path.resolve( __dirname, 'public/index.html'),
-      filename: 'index.html',
-    }),
-    new CopyPlugin({
-      patterns: [
-        {from: "./public/favicon.ico", to: ""},
-        {from: "./public/manifest.json", to: ""},
-        {from: "./public/logo192.png", to: ""},
-        {from: "./public/logo512.png", to: ""},
-      ],
-    }),
-    new InjectManifest({
-      swSrc: './src/src-sw.js',
-      swDest: 'sw.js'
-    })
-  ],
+  plugins: webpackPlugins
 };
