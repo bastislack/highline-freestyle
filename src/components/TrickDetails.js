@@ -10,6 +10,8 @@ const TrickDetails = () => {
   const trick = useLiveQuery(() => db.getTrick(id), []);
   if (!trick) return null
 
+  console.log(trick);
+
   const freqs = [
     "Impossible",
     "Only once",
@@ -60,12 +62,47 @@ const TrickDetails = () => {
       {trick && (
         <article>
           <h2>{trick.alias || trick.technicalName}</h2>
-          <h3>Start from: </h3>
-          <div className="callout">{trick.startPos}</div>
-          <h3>End in: </h3>
-          <div className="callout">{trick.endPos}</div>
-          <h3>Description: </h3>
-          <div className="callout">{trick.description}</div>
+
+          {trick.alias && trick.technicalName &&
+            <div>
+              <h3>Technical Name: </h3> 
+              <div className="callout">{trick.technicalName}</div>
+            </div>
+          }
+
+          {trick.startPos && trick.endPos &&
+            <div>
+              <div className="callout">from {trick.startPos} to {trick.endPos}</div>
+            </div>
+          }
+
+          {trick.difficultyLevel &&
+            <div>
+              <h3>Level: </h3>
+              <div className="callout">{trick.difficultyLevel}</div>
+            </div>
+          }
+
+          {trick.description &&
+            <div>
+              <h3>Description: </h3>
+              <div className="callout">{trick.description}</div>
+            </div>
+          }
+
+          {trick.tips &&
+            <div>
+              <h3>Tips: </h3>
+              <div className="callout">{trick.tips}</div>
+            </div>
+          }
+
+          {trick.yearEstablished && trick.establishedBy &&
+            <div>
+              <h3>Established by: </h3>
+              <div className="callout">{trick.establishedBy} in {trick.yearEstablished}</div>
+            </div>
+          }
 
           {youtubeLink &&
             <div className="callout">
