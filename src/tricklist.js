@@ -1,6 +1,6 @@
 export const tricklist = `alias,technicalName,establishedBy,yearEstablished,linkToVideo,startPos,endPos,difficultyLevel,description,tips
 ,Hammock Roll,Samuel Volery,2016,https://www.youtube.com/watch?v=maY2RjAJs1g,BACK,BACK,1,Lie on your back and grab the line behind your head with both hands. Hook one foot under the line and roll around the line landing again in Backbounce.,
-,Double Hammock Roll,,,,BACK,BACK,1,Two Hammock Rolls in one bounce.,
+,Double Hammock Roll,,,,BACK,BACK,2,Two Hammock Rolls in one bounce.,
 ,Triple Hammock Roll,Tlaloc Moctezuma-Burns,,https://youtu.be/Se5XNo0RSP8?t=557,BACK,BACK,3,Three Hammock Rolls in one bounce.,
 ,Hammock Back Roll,Guillaume Fontaine,2017,https://youtu.be/O_E_2cB0Pcw?t=54,BACK,KOREAN,5,Do a Hammock Roll and finish with a Back Roll in the same bounce.,
 ,Hammock Roll from Feet,Augustin Moinat,2021,,STAND,BACK,3,Roll down to Backbounce.,
@@ -28,7 +28,7 @@ JarJar Roll,Belly Roll to Feet,Enzo Fuchs,2018,https://youtu.be/qUxUNfgvoPs?t=10
 ,Back Belly Roll to Feet,,,https://youtu.be/7yLCyoHgUS0?t=723,BELLY,EXPOSURE,6,Do a Belly Roll to Feet but rolling backwards.,
 Underflip,Korean 270 Spin to Back Belly Roll,Augustin Moinat,2021,,KOREAN,BELLY,3,Spin like you would do a flowflip (without the rotation) but then finish with a back belly roll.,
 ,Makako,David Palomo,2021,https://youtu.be/qUxUNfgvoPs?t=141,NEVERMIND,BELLY,4,Hang in Nevermind but with the hands opposing each other. Thread the leg that is free through your leg and the closer arm and kick through to go to Back Belly Roll.,
-,Makako to Feet,David Palomo,2021,https://www.instagram.com/p/CPDdueLFBro/,NEVERMIND,EXPOSURE,0,Makako landing in Exposure.,,
+,Makako to Feet,David Palomo,2021,https://www.instagram.com/p/CPDdueLFBro/,NEVERMIND,EXPOSURE,10,Makako landing in Exposure.,
 ,Front Chest Roll,,,https://youtu.be/ih6Rx-UpBfw?t=333,CHEST,CHEST,1,From lying on your chest get some momentum with your free arm and then roll around the line grabbing it with both hands. Land back in chest.,You can wrap the foot around the line to avoid falling away from the line.
 ,Back Chest Roll,,,,CHEST,CHEST,1,From lying on your chest get some momentum with your free arm and then roll around the line grabbing it with both hands. Land back in chest.,You can wrap the foot around the line to avoid falling away from the line.
 ,Front Chest Roll to Feet,,,https://youtu.be/qUxUNfgvoPs?t=35,CHEST,STAND,4,Do a Chest Roll and in the end of the roll push yourself away from the line to put your feet on.,
@@ -48,14 +48,14 @@ Flowflip from Feet to Feet,Switch 270 Yoda Roll Fake 90,Sebastian Egger,2021,,ST
 Overflow,270 Yoda Roll Fake 90,Tim Odermatt,2021,https://www.instagram.com/p/CSHcZfUFG9H/,STAND,STAND,9,From your regular stance do a frontside 270 and roll around the line like you would for a Flowflip. Try to land back in your normal stance and not in Exposure.,
 Turtle Roll,Double Yoda Roll,Pablo Signoret,,https://youtu.be/VP49hErTqM0?t=420,EXPOSURE,EXPOSURE,9,Two Yoda Rolls in one bounce.,
 Back Turtle Roll,Double Back Yoda Roll,Ian Eisenberg,2020,https://www.youtube.com/watch?v=uPXa8gFa73M,EXPOSURE,EXPOSURE,9,Two Back Yoda Rolls in one bounce.,
-,Triple Back Yoda Roll,Davis Hermes,2021,https://www.instagram.com/p/CUNMWEgAGP4/,EXPOSURE,EXPOSURE,1,Three Back Yoda Rolls in one bounce.,
+,Triple Back Yoda Roll,Davis Hermes,2021,https://www.instagram.com/p/CUNMWEgAGP4/,EXPOSURE,EXPOSURE,11,Three Back Yoda Rolls in one bounce.,
 ,Front Almighty Flip,Axel Weber,2020,https://youtu.be/uuFlRIMmP8M?t=172,EXPOSURE,EXPOSURE,8,From Exposure do a front flip while hooking one foot under the line and putting it back on the line for the landing.,After 270 deg of rotation try to pull the line under yourself with your feet.
 Guitar Hero,Front Almighty Flip with Guitar,David Palomo,2021,https://youtu.be/7yLCyoHgUS0?t=976,EXPOSURE,EXPOSURE,8,This one is for heros only!
-,Double Front Almighty Flip,Sebastian Egger,2021,,EXPOSURE,EXPOSURE,1,Double Front Almighty Flip.,Stay open for the first one and tuck for the second one to get good momentum.,
+,Double Front Almighty Flip,Sebastian Egger,2021,,EXPOSURE,EXPOSURE,11,Double Front Almighty Flip.,Stay open for the first one and tuck for the second one to get good momentum.
 ,180 Front Almighty Flip,Ian Eisenberg,2021,https://youtu.be/n2z3IyeQSj4?t=88,EXPOSURE,EXPOSURE,9,Do a 180 and then go into a Front Almighty Flip.,
 ,Fake 360 Front Almighty Flip,Sebastian Egger,2021,https://www.instagram.com/p/COPXx5vtOBy/,STAND,STAND,9,Starting in switch stance you do a 270 spin and go into a Front Almighty Flip in the end turn 90 to look back at the same anchor where you started.,
 ,Back Almighty Flip,Sebastian Egger,2020,https://youtu.be/VP49hErTqM0?t=10,EXPOSURE,EXPOSURE,8,From Exposure do a back flip while hooking one foot under the line and putting it back on the line for the landing.,First lean back and then kick/hook the line.
-,Double Back Almighty Flip,Sebastian Egger,2021,,EXPOSURE,EXPOSURE,1,Double Back Almighty Flip,Do the first one laid out and tuck for the second one to get good momentum.; Try to get the hook at your ankle. If the line is near your toes it's hard to pull it around for the second roll.,
+,Double Back Almighty Flip,Sebastian Egger,2021,,EXPOSURE,EXPOSURE,11,Double Back Almighty Flip,Do the first one laid out and tuck for the second one to get good momentum.; Try to get the hook at your ankle. If the line is near your toes it's hard to pull it around for the second roll.
 Adrenaline Roll,Panic Roll from Feet to Feet,Ian Eisenberg,2020,https://youtu.be/qLEnzTtvTcA?t=37,STAND,EXPOSURE,8,Do a 90 with restepping and go into a Yoda Roll.,
 Jedi Roll,Yoda Roll Pop,Ian Eisenberg,2020,https://youtu.be/qLEnzTtvTcA?t=53,EXPOSURE,EXPOSURE,7,Do a Yoda Roll but during the roll fully pop your feet off and then go back on the line,
 ,Front Barrel Almighty Flip,Justin Wagers,2020,https://youtu.be/hsALSrUdryU?t=62,STAND,STAND,8,Almighty flip but from normal stance.,
@@ -98,7 +98,7 @@ Panic Attack,Panic Roll to Feet (No Hands),Ian Eisenberg,2021,https://youtu.be/7
 Rocket Rewind,Rocket Roll 180 to Sofa,Ian Eisenberg,2021,https://youtu.be/aYsX0kpCnAg?t=6,HANG,SOFA,4,Start by doing a Rocket Mount but then go into a Belly Roll finishing with a 180 to Sofa.,Get a lot of momentum for the Rocket Roll and in the end do a 180 and stick your butt out as in the Sofa Roll 360.
 Rocket Rewind Roll,Rocket Roll 180 Back Sofa Roll,Ian Eisenberg,2021,https://youtu.be/n2z3IyeQSj4?t=47,HANG,SOFA,5,Rocket Rewind with an additional Back Sofa Roll in the end.,
 Super Sonic Mount,Rocket Front Roll to Feet,Ian Eisenberg,2020,https://www.youtube.com/watch?v=r5rwYkvnbco,HANG,EXPOSURE,9,From Hanging get a lot of momentum with your feet and do one front roll around the line and land in Exposure.,
-Reverse Super Sonic Mount,Rocket Back Roll to Feet,Samuel Volery,2021,https://www.youtube.com/watch?v=EntnbHe_biY,HANG,EXPOSURE,0,From hanging get a lot of momentum with your feet and do one back roll around the line and land in exposure.,,
+Reverse Super Sonic Mount,Rocket Back Roll to Feet,Samuel Volery,2021,https://www.youtube.com/watch?v=EntnbHe_biY,HANG,EXPOSURE,10,From hanging get a lot of momentum with your feet and do one back roll around the line and land in exposure.,
 Full Rocket,Rocket 360 to Rocket,Ian Eisenberg,2021,https://youtu.be/aYsX0kpCnAg?t=23,HANG,HANG,4,From Rocket do a 360 around an axis perpendicular to the line and land again in Rocket.,
 ,Shrimpflip,Ian Eisenberg,2021,https://youtu.be/7yLCyoHgUS0?t=1501,HANG,HANG,4,"From the Rocket you kick your feet trough your arms between the line and your body, regrab the line and land back in Rocket.",
 King Prawn,Shrimpflip 180 to Feet,Ian Eisenberg,2021,https://youtu.be/7yLCyoHgUS0?t=1560,HANG,EXPOSURE,8,Do a Shrimpflip 180 but then go to Feet.,
