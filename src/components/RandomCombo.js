@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 import Database from "../services/db";
 const db = new Database();
@@ -10,13 +11,14 @@ const RandomCombo = (props) => {
 
   const combo = props.combo;
 
+  const [comboName, setComboName] = useState("Random #" + comboCount);
+
   // If the user wants to save the combo it is added to the database
   const saveToCombos = () => {
     const currentYear = new Date().getFullYear();
-    const name = "Random #" + comboCount;
 
     const savedCombo = {
-      name: name,
+      name: comboName,
       tricks: combo,
       stickFrequency: "Never",
       establishedBy: "Generator",
@@ -45,6 +47,7 @@ const RandomCombo = (props) => {
         </div>
       ))}
       <div className="container row">
+        Name: <input value={comboName} onChange={e => setComboName(e.target.value)} />
         <Link className="col-sm-6 form-button" to={`/combos`}>
           <button className="btn btn-primary" onClick={saveToCombos}>Add to Combos</button>
         </Link>
