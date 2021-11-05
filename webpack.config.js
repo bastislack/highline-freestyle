@@ -1,6 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
-//const {InjectManifest} = require('workbox-webpack-plugin');
+const {InjectManifest} = require('workbox-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
@@ -43,9 +43,9 @@ module.exports = {
         {from: "./public/logo512.png", to: ""},
       ],
     }),
-   // new InjectManifest({
-   //   swSrc: './src/src-sw.js',
-   //   swDest: 'sw.js'
-   // })
+    new InjectManifest({
+      swSrc: './src/src-sw.js',
+      swDest: 'sw.js'
+    })
   ],
 };

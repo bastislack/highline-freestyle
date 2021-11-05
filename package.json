@@ -55,6 +55,7 @@
     "style-loader": "^3.3.1",
     "webpack": "^5.62.1",
     "webpack-cli": "^4.9.1",
-    "webpack-dev-server": "^3.11.1"
+    "webpack-dev-server": "^3.11.1",
+    "workbox-webpack-plugin": "^6.3.0"
   }
 }
