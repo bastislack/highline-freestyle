@@ -39,7 +39,11 @@ we don't always know what we really do, but we try to keep some order, through i
 
 2. start the development server
 
-   run `npm start`
+   run `npm run dev`
+ 
+3. run the production environment (needed to use features of the service worker -> offline usage)
+
+   run `npm run serve`
 
 sometimes after updating you have to delete your indexDB in your browser, through the development tools (__Storage__ in firefox, __Application__ in chrome)
 
