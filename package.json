@@ -23,7 +23,7 @@
   "scripts": {
     "webpack-dev-server": "webpack-dev-server",
     "dev": "webpack serve --mode=development",
-    "prod": "webpack --mode=production",
+    "prod": "NODE_ENV=production webpack --mode=production",
     "serve": "npm run prod && serve -s dist"
   },
   "eslintConfig": {
