@@ -118,11 +118,12 @@ const ComboGenerator = () => {
           />
         </div>
         <div className="form-row form-check">
-          <label className="form-check-label">Every trick only once</label>
+          <label className="form-check-label">Allow duplicates</label>
           <input
+            defaultValue="False"
             className="form-check-input"
             type="checkbox"
-            onChange={(e) => setRemoveTricks(e.target.checked)}
+            onChange={(e) => setRemoveTricks(e.target.checked==false)}
           />
         </div>
         <button className="btn btn-primary">Generate</button>
