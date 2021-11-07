@@ -16,6 +16,7 @@ const TrickDetails = () => {
     "Impossible",
     "Only once",
     "Rarely",
+    "Sometimes",
     "Generally",
     "Always"
   ];

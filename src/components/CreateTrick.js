@@ -47,6 +47,7 @@ const CreateTrick = () => {
     "Impossible",
     "Only once",
     "Rarely",
+    "Sometimes",
     "Generally",
     "Always"
   ];
