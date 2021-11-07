@@ -43,6 +43,20 @@ const CreateTrick = () => {
     })
   }
 
+  const freqs = [
+    "Impossible",
+    "Only once",
+    "Rarely",
+    "Generally",
+    "Always"
+  ];
+
+  const freqList = freqs.map((item, i) => {
+    return (
+      <option value={item}>{item}</option>
+    )
+  });
+
   return (
     <div className="create">
       <h2>Add a new trick</h2>
@@ -153,13 +167,9 @@ const CreateTrick = () => {
           </div>
           <div className="col-md-6">
             <label className="">Stick Frequency:</label>
-            <input
-              className="form-control"
-              type="text"
-              required
-              value={stickFrequency}
-              onChange={(e) => setStickFrequency(e.target.value)}
-            />
+            <select className="form-select" onChange={(e) => setStickFrequency(e.target.value)}>
+              {freqList}
+            </select>
           </div>
         </div>
         

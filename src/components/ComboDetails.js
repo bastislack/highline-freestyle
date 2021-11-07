@@ -16,7 +16,6 @@ const ComboDetails = () => {
     "Impossible",
     "Only once",
     "Rarely",
-    "LightYellow",
     "Generally",
     "Always"
   ];
