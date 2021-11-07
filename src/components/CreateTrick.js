@@ -53,7 +53,7 @@ const CreateTrick = () => {
 
   const freqList = freqs.map((item, i) => {
     return (
-      <option value={item}>{item}</option>
+      <option value={i}>{item}</option>
     )
   });
 
