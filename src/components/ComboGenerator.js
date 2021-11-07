@@ -11,6 +11,8 @@ const ComboGenerator = () => {
 
   const [removeTricks, setRemoveTricks] = useState(true);
 
+  const [allowConsecutiveTricks, setConsecutiveTricks] = useState(false);
+
   const [showCombo, setShowCombo] = useState(false);
 
   const [combo, setCombo] = useState("");
@@ -31,7 +33,6 @@ const ComboGenerator = () => {
 
     //TODO: needs to be set by the user
     // settings
-    let allowConsecutiveTricks = false;
 
     let randomCombo = new Array(numberOfTricks);
     let myTricks = [...tricks];
@@ -124,6 +125,15 @@ const ComboGenerator = () => {
             className="form-check-input"
             type="checkbox"
             onChange={(e) => setRemoveTricks(e.target.checked==false)}
+          />
+        </div>
+        <div className="form-row form-check">
+          <label className="form-check-label">Allow consecutive tricks</label>
+          <input
+            defaultValue="False"
+            className="form-check-input"
+            type="checkbox"
+            onChange={(e) => setConsecutiveTricks(e.target.checked)}
           />
         </div>
         <button className="btn btn-primary">Generate</button>
