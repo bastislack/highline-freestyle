@@ -22,8 +22,8 @@ const TrickDetails = () => {
 
   const freqList = freqs.map((item, i) => {
     return (
-      <label className="skillFreq" freq={i} key={i}>
-        <input type="radio" value={i} name="stickFrequency" checked={(trick.stickFrequency === i)} readOnly={true} /> {item}
+      <label className="skillFreq form-check" freq={i} key={i}>
+        <input className="form-check-input" type="radio" value={i} name="stickFrequency" checked={(trick.stickFrequency === i)} readOnly={true} /> {item}
       </label>
     )
   });
