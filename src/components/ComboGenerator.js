@@ -58,7 +58,7 @@ const ComboGenerator = () => {
     //
     // If it cant find a continuation it will try again until maxRetries
     for (let i = 1; i < numberOfTricks; i++) {
-      if (retries > maxRetries) return alert("coun't find combo");
+      if (retries > maxRetries) return alert("couldn't find combo");
 
       let trickFound = false;
       shuffleTricks();
