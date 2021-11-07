@@ -13,6 +13,8 @@ const ComboGenerator = () => {
 
   const [allowConsecutiveTricks, setConsecutiveTricks] = useState(false);
 
+  const [maxDifficulty, setMaxDifficulty] = useState(5);
+
   const [showCombo, setShowCombo] = useState(false);
 
   const [combo, setCombo] = useState("");
@@ -118,13 +120,17 @@ const ComboGenerator = () => {
             onChange={(e) => setNumberOfTricks(e.target.value)}
           />
         </div>
+        <div className="form-row">
+          <label for="maxDifficultyRange" class="form-label">Max difficulty: {maxDifficulty}</label>
+          <input type="range" class="form-range" onChange={(e) => setMaxDifficulty(e.target.value)} min="1" max="5" step="1" id="maxDifficultyRange" />
+        </div>
         <div className="form-row form-check">
           <label className="form-check-label">Allow duplicates</label>
           <input
             defaultValue="False"
             className="form-check-input"
             type="checkbox"
-            onChange={(e) => setRemoveTricks(e.target.checked==false)}
+            onChange={(e) => setRemoveTricks(e.target.checked == false)}
           />
         </div>
         <div className="form-row form-check">
