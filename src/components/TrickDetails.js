@@ -4,7 +4,7 @@ import { useLiveQuery } from "dexie-react-hooks";
 import Database from "../services/db";
 const db = new Database();
 
-const TrickDetails = () => {
+const TrickDetails = ({stickFrequencies}) => {
   const { id } = useParams();
 
   const trick = useLiveQuery(() => db.getTrick(id), []);
@@ -12,16 +12,7 @@ const TrickDetails = () => {
 
   console.log(trick);
 
-  const freqs = [
-    "Impossible",
-    "Only once",
-    "Rarely",
-    "Sometimes",
-    "Generally",
-    "Always"
-  ];
-
-  const freqList = freqs.map((item, i) => {
+  const freqList = stickFrequencies.map((item, i) => {
     return (
       <label className="skillFreq form-check" freq={i} key={i}>
         <input className="form-check-input" type="radio" value={i} name="stickFrequency" checked={(trick.stickFrequency === i)} readOnly={true} /> {item}
