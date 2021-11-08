@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import TrickDetails from './components/TrickDetails';
 import ComboDetails from './components/ComboDetails';
 import FloatingActionButton from './components/FloatingActionButton'
+import {stickFrequencies, positions} from './services/enums.js'
 
 
 function App() {
@@ -22,16 +23,16 @@ function App() {
               <TrickList />
             </Route>
             <Route path="/tricks/:id">
-              <TrickDetails />
+              <TrickDetails stickFrequencies={stickFrequencies}/>
             </Route>
             <Route path="/combos/:id">
-              <ComboDetails />
+              <ComboDetails stickFrequencies={stickFrequencies}/>
             </Route>
             <Route path="/createtrick">
-              <CreateTrick/>
+              <CreateTrick stickFrequencies={stickFrequencies} positions={positions}/>
             </Route>
             <Route path="/createcombo">
-              <CreateCombo/>
+              <CreateCombo stickFrequencies={stickFrequencies}/>
             </Route>
             <Route path="/generator">
               <ComboGenerator />

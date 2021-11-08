@@ -4,7 +4,7 @@ import { useLiveQuery } from "dexie-react-hooks";
 import Database from "../services/db";
 const db = new Database();
 
-const ComboDetails = () => {
+const ComboDetails = ({stickFrequencies}) => {
   const history = useHistory();
   const { id } = useParams();
 
@@ -12,16 +12,7 @@ const ComboDetails = () => {
   const combo = useLiveQuery(() => db.getCombo(id), []);
   if (!combo) {return null} else console.log(combo);
 
-  const freqs = [
-    "Impossible",
-    "Only once",
-    "Rarely",
-    "Sometimes",
-    "Generally",
-    "Always"
-  ];
-
-  const freqList = freqs.map((item, i) => {
+  const freqList = stickFrequencies.map((item, i) => {
     return (
       <label className="skillFreq" freq={i} key={i}>
         <input type="radio" value={i} name="stickFrequency" checked={(combo.stickFrequency === i)} readOnly={true} /> {item}

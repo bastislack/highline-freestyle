@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import Database from "../services/db";
 const db = new Database();
 
-const CreateTrick = () => {
+const CreateTrick = ({stickFrequencies, positions}) => {
   const [alias, setAlias] = useState('Darth Vader');
   const [technicalName, setTechnicalName] = useState('Antihero to feet');
   const [establishedBy, setEstablishedBy] = useState('Ian Eisenberg');
@@ -15,7 +15,9 @@ const CreateTrick = () => {
   const [difficultyLevel, setDifficultyLevel] = useState(5);
   const [description, setDescription] = useState('');
   const [tips, setTips] = useState('');
-  const [stickFrequency, setStickFrequency] = useState('Never');
+  const [stickFrequency, setStickFrequency] = useState('Impossible');
+
+  console.log(startPos);
 
   const history = useHistory();
 
@@ -43,20 +45,19 @@ const CreateTrick = () => {
     })
   }
 
-  const freqs = [
-    "Impossible",
-    "Only once",
-    "Rarely",
-    "Sometimes",
-    "Generally",
-    "Always"
-  ];
-
-  const freqList = freqs.map((item, i) => {
+  const freqList = stickFrequencies.map((item, i) => {
     return (
       <option value={i}>{item}</option>
     )
   });
+
+  const positionList = positions.map((item, i) => {
+    return (
+      <option value={i}>{item}</option>
+    )
+  });
+
+  console.log(endPos);
 
   return (
     <div className="create">
@@ -117,10 +118,7 @@ const CreateTrick = () => {
               value={startPos}
               onChange={(e) => setStartPos(e.target.value)}
             >
-              <option value="KOREAN">KOREAN</option>
-              <option value="SOFA">SOFA</option>
-              <option value="EXPOSURE">EXPOSURE</option>
-              <option value="HANG">HANG</option>
+              {positionList}
             </select>
           </div>
           <div className="col-md-6">
@@ -131,10 +129,7 @@ const CreateTrick = () => {
               value={endPos}
               onChange={(e) => setEndPos(e.target.value)}
             >
-              <option value="KOREAN">KOREAN</option>
-              <option value="SOFA">SOFA</option>
-              <option value="EXPOSURE">EXPOSURE</option>
-              <option value="HANG">HANG</option>
+              {positionList}
             </select>
           </div>
           <div className="col-md-6">
