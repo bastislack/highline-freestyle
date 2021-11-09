@@ -87,8 +87,8 @@ export default class Database {
 
   // create or update trick
   saveTrick = (obj) => {
-    if (obj.id < 1000) return this.db.userTricks.put(obj);
-    return this.db.mainTricks.put(obj);
+    if (obj.id >= 1000) return this.db.mainTricks.put(obj);
+    return this.db.userTricks.put(obj);
   };
 
   // delete trick
