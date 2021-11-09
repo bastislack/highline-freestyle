@@ -27,30 +27,40 @@ export default class Database {
     }); 
   }
 
+  dropUserTricks = () => {
+    return this.db.userTricks.clear();
+  };
+
+  dropUserAtributes = () => {
+    return this.db.mainAttributes.clear();
+  };
+
   populateTricks = () => {
-    const trickList = Papa.parse(tricklist).data;
+    this.db.mainTricks.clear().then(() => {
+      const trickList = Papa.parse(tricklist).data;
 
-    // this uses the labels of the csv but, also adds an id
-    const header = ["id"].concat(trickList.shift());
+      // this uses the labels of the csv but, also adds an id
+      const header = ["id"].concat(trickList.shift());
 
-    const tricks = Array(trickList.length);
-    for (let i=0; i < trickList.length; i++) {
-      // add the id with a 1000 offset
-      const trick = [i+1000].concat(trickList[i]);
-      // make key value pairs
-      const rightFormatTrick = Object.assign.apply({}, 
-        header.map((v,i) => ({
-          [v]: trick[i]
-        }))
+      const tricks = Array(trickList.length);
+      for (let i=0; i < trickList.length; i++) {
+        // add the id with a 1000 offset
+        const trick = [i+1000].concat(trickList[i]);
+        // make key value pairs
+        const rightFormatTrick = Object.assign.apply({}, 
+          header.map((v,i) => ({
+            [v]: trick[i]
+          }))
+        );
+        tricks[i] = rightFormatTrick;
+      }
+
+      // adds the tricks to the database
+      this.db.mainTricks.bulkPut(tricks).then(() =>
+        console.log("added tricks to database from the csv")
       );
-      tricks[i] = rightFormatTrick;
-    }
-
-    // adds the tricks to the database
-    this.db.mainTricks.bulkPut(tricks).then(() =>
-      console.log("added tricks to database from the csv")
-    );
-  }
+    });
+  };
 
   // get single trick by id
   getTrick = (id) => {

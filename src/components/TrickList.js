@@ -62,6 +62,9 @@ const TrickList = () => {
             {schemes.map(scheme => <MenuItem value={scheme.id} key={"scheme" + scheme.id} >{scheme.name}</MenuItem>)}
           </MenuRadioGroup>
         </SubMenu>
+        <MenuItem onClick={db.populateTricks} >Reset predefined tricks</MenuItem>
+        <MenuItem onClick={db.dropUserTricks} >Delete all added tricks</MenuItem>
+        <MenuItem onClick={db.dropUserAtributes} >Reset stickFrequencies</MenuItem>
         <MenuItem onClick={() => alert("coming soon")} >About</MenuItem>
       </Menu>
 
