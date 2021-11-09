@@ -1,4 +1,4 @@
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory, Link } from "react-router-dom";
 import { useLiveQuery } from "dexie-react-hooks";
 
 import Database from "../services/db";
@@ -50,9 +50,13 @@ const ComboDetails = ({stickFrequencies}) => {
         <article>
           <h2>{combo.name}</h2>
           {combo.tricks.map(trick => (
-            <div className="row callout" key={trick.id}>
-              <p>{trick.alias || trick.technicalName}</p>
-            </div>
+              <div>
+                <Link className="link-to-trick " to={`/tricks/${trick.id}`} key={"trick" + trick.id} >
+                  <button className=" btn btn-outline-success  skillFreq" freq={trick.stickFrequency}>
+                    <h2>{trick.alias || trick.technicalName}</h2>
+                  </button>
+                </Link>
+              </div>
           ))}
           <div className="skillFreq">Set your success frequency:
             <div onChange={selectFreq}>
