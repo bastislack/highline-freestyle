@@ -37,7 +37,7 @@ const TrickDetails = ({stickFrequencies}) => {
 
   var youtubeLink
   var instagramLink
-  if (trick != null) {
+  if (trick && trick.linkToVideo) {
     if (trick.linkToVideo.includes("youtu")) {
       // "http://www.youtube.com/embed/<videoID>"
       youtubeLink = "http://www.youtube.com/embed/" + trick.linkToVideo.split("/").at(-1).split("?v=").at(-1).replace("?t=", "?start=");
