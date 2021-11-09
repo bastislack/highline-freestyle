@@ -1,23 +1,53 @@
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 import Database from "../services/db";
 const db = new Database();
 
 const CreateTrick = ({stickFrequencies, positions}) => {
-  const [alias, setAlias] = useState('Darth Vader');
-  const [technicalName, setTechnicalName] = useState('Antihero to feet');
-  const [establishedBy, setEstablishedBy] = useState('Ian Eisenberg');
-  const [yearEstablished, setYearEstablished] = useState(2021);
-  const [linkToVideo, setLinkToVideo] = useState('');
-  const [startPos, setStartPos] = useState('HANG');
-  const [endPos, setEndPos] = useState('EXPOSURE');
-  const [difficultyLevel, setDifficultyLevel] = useState(5);
-  const [description, setDescription] = useState('');
-  const [tips, setTips] = useState('');
-  const [stickFrequency, setStickFrequency] = useState('Impossible');
 
-  console.log(startPos);
+  const location = useLocation();
+  const preTrick = location.preTrick;
+
+  const [alias, setAlias] = useState(() => {
+    if (preTrick) return preTrick.alias;
+  });
+  const [technicalName, setTechnicalName] = useState(() => {
+    if (preTrick) return preTrick.technicalName;
+  });
+  const [establishedBy, setEstablishedBy] = useState(() => {
+    if (preTrick) return preTrick.establishedBy;
+  });
+  const [yearEstablished, setYearEstablished] = useState(() => {
+    if (preTrick) return preTrick.yearEstablished;
+  });
+  const [linkToVideo, setLinkToVideo] = useState(() => {
+    if (preTrick) return preTrick.linkToVideo;
+  });
+  const [startPos, setStartPos] = useState(() => {
+    if (preTrick) return preTrick.startPos;
+  });
+  const [endPos, setEndPos] = useState(() => {
+    if (preTrick) return preTrick.endPos;
+  });
+  const [difficultyLevel, setDifficultyLevel] = useState(() => {
+    if (preTrick) return preTrick.difficultyLevel;
+    return 0;
+  });
+  const [description, setDescription] = useState(() => {
+    if (preTrick) return preTrick.description;
+  });
+  const [tips, setTips] = useState(() => {
+    if (preTrick) return preTrick.tips;
+  });
+  const [stickFrequency, setStickFrequency] = useState(() => {
+    if (preTrick) return preTrick.stickFrequency;
+  });
+
+  var preId;
+  if (preTrick) {
+    preId = preTrick.id;
+  }
 
   const history = useHistory();
 
@@ -25,6 +55,7 @@ const CreateTrick = ({stickFrequencies, positions}) => {
     e.preventDefault();
 
     const trick = {
+      id: preId,
       alias: alias,
       technicalName: technicalName,
       establishedBy: establishedBy,
@@ -57,8 +88,6 @@ const CreateTrick = ({stickFrequencies, positions}) => {
     )
   });
 
-  console.log(endPos);
-
   return (
     <div className="create">
       <h2>Add a new trick</h2>
@@ -70,6 +99,7 @@ const CreateTrick = ({stickFrequencies, positions}) => {
               className="form-control"
               type="text"
               value={alias}
+              placeholder="Darth Vader"
               onChange={(e) => setAlias(e.target.value)}
             />
           </div>
@@ -80,6 +110,7 @@ const CreateTrick = ({stickFrequencies, positions}) => {
               type="text"
               required
               value={technicalName}
+              placeholder="Antihero to feet"
               onChange={(e) => setTechnicalName(e.target.value)}
             />
           </div>
