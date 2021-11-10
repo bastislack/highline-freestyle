@@ -51,7 +51,7 @@ const TrickDetails = ({stickFrequencies}) => {
     }
   }
 
-  const editTrick = () => history.push({pathname:"/createtrick", preTrick:trick});
+  const updateTrick = () => history.push({pathname:"/createtrick", preTrick:trick});
 
   return (
     <div className="trick-details">
@@ -120,7 +120,7 @@ const TrickDetails = ({stickFrequencies}) => {
           </div>
 
           <div>
-            <button className="btn btn-primary" onClick={editTrick}>Edit Trick</button>
+            <button className="btn btn-primary" onClick={updateTrick}>Update Trick</button>
           </div>
         </article>
       )}
