@@ -1,4 +1,4 @@
-import { Link, useLocation, useHistory } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { BsCaretLeftFill } from 'react-icons/bs';
 
 const BackButton = () => {

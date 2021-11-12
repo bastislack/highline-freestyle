@@ -8,19 +8,32 @@ import ComboGenerator from './components/generator/ComboGenerator';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import TrickDetails from './components/tricks/TrickDetails';
 import ComboDetails from './components/combos/ComboDetails';
-import FloatingActionButton from './components/buttons/FloatingActionButton'
-import {stickFrequencies, positions, difficultyRangeMax} from './services/enums.js'
+import FloatingActionButton from './components/buttons/FloatingActionButton';
+import {stickFrequencies, positions, difficultyRangeMax} from './services/enums';
+import {sortingSchemes} from './services/sortingSchemes';
+import BackButton from "./components/buttons/BackButton";
+import Logo from './components/layout/Logo';
+import Settings from './components/layout/Settings';
+import { useState } from "react";
 
 
 function App() {
+
+  // Sorting Options for the tricklist
+  const [sortOpt, setSortOpt] = useState(0);
+
   return (
     <Router>
       <div className="App">
-        <Navbar />
+        <Navbar>
+          <BackButton/>
+          <Logo/>
+          <Settings sortingSchemes={sortingSchemes} sortOpt={sortOpt} setSortOpt={setSortOpt}/>
+        </Navbar>
         <div className="content">
           <Switch>
             <Route exact path="/">
-              <TrickList />
+              <TrickList sortingSchemes={sortingSchemes} sortOpt={sortOpt}/>
             </Route>
             <Route path="/tricks/:id">
               <TrickDetails stickFrequencies={stickFrequencies}/>
