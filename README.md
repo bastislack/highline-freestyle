@@ -2,7 +2,7 @@
 
 This is a collection of all/most of the freestyle tricks, for people to keep a better overview of all the tricks.
 
-> a production test version is hosted at https://higline-fs.dynv6.net at the moment (but not regularly updated)
+> a production test version is hosted at https://highline-fs.dynv6.net at the moment (but not regularly updated)
 
 ## features
 
