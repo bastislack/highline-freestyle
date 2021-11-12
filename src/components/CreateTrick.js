@@ -10,38 +10,37 @@ const CreateTrick = ({stickFrequencies, positions}) => {
   const preTrick = location.preTrick;
 
   const [alias, setAlias] = useState(() => {
-    if (preTrick) return preTrick.alias;
+    return preTrick ? preTrick.alias : null;
   });
   const [technicalName, setTechnicalName] = useState(() => {
-    if (preTrick) return preTrick.technicalName;
+    return preTrick ? preTrick.technicalName : null;
   });
   const [establishedBy, setEstablishedBy] = useState(() => {
-    if (preTrick) return preTrick.establishedBy;
+    return preTrick ? preTrick.establishedBy : null;
   });
   const [yearEstablished, setYearEstablished] = useState(() => {
-    if (preTrick) return preTrick.yearEstablished;
+    return preTrick ? preTrick.yearEstablished : null;
   });
   const [linkToVideo, setLinkToVideo] = useState(() => {
-    if (preTrick) return preTrick.linkToVideo;
+    return preTrick ? preTrick.linkToVideo : null;
   });
   const [startPos, setStartPos] = useState(() => {
-    if (preTrick) return preTrick.startPos;
+    return preTrick ? positions.findIndex(item => item === preTrick.startPos) : null;
   });
   const [endPos, setEndPos] = useState(() => {
-    if (preTrick) return preTrick.endPos;
+    return preTrick ? positions.findIndex(item => item === preTrick.endPos): null;
   });
   const [difficultyLevel, setDifficultyLevel] = useState(() => {
-    if (preTrick) return preTrick.difficultyLevel;
-    return 0;
+    return preTrick ? preTrick.difficultyLevel : null;
   });
   const [description, setDescription] = useState(() => {
-    if (preTrick) return preTrick.description;
+    return preTrick ? preTrick.description : null;
   });
   const [tips, setTips] = useState(() => {
-    if (preTrick) return preTrick.tips;
+    return preTrick ? preTrick.tips : null;
   });
   const [stickFrequency, setStickFrequency] = useState(() => {
-    if (preTrick) return preTrick.stickFrequency;
+    return preTrick ? preTrick.stickFrequency : null;
   });
 
   var preId;
@@ -90,7 +89,7 @@ const CreateTrick = ({stickFrequencies, positions}) => {
 
   return (
     <div className="create">
-      <h2>Add a new trick</h2>
+      <h2>{preTrick ? "Update trick" : "Add a new trick"}</h2>
       <form onSubmit={handleSubmit} className="">
         <div className="row form-row">
           <div className="col-md-6">
@@ -120,6 +119,7 @@ const CreateTrick = ({stickFrequencies, positions}) => {
               className="form-control"
               type="text"
               value={establishedBy}
+              placeholder="Ian Eisenberg"
               onChange={(e) => setEstablishedBy(e.target.value)}
             />
           </div>
@@ -129,6 +129,7 @@ const CreateTrick = ({stickFrequencies, positions}) => {
               className="form-control"
               type="number"
               value={yearEstablished}
+              placeholder="2021"
               onChange={(e) => setYearEstablished(e.target.value)}
             />
           </div>
@@ -138,6 +139,7 @@ const CreateTrick = ({stickFrequencies, positions}) => {
               className="form-control"
               type="text"
               value={linkToVideo}
+              placeholder="https://youtu.be/Ab2gW1rv5e8?t=91"
               onChange={(e) => setLinkToVideo(e.target.value)}
             />
           </div>
@@ -147,6 +149,7 @@ const CreateTrick = ({stickFrequencies, positions}) => {
               className="form-control"
               required
               value={startPos}
+              placeholder="HANG"
               onChange={(e) => setStartPos(e.target.value)}
             >
               {positionList}
@@ -158,6 +161,7 @@ const CreateTrick = ({stickFrequencies, positions}) => {
               className="form-control"
               required
               value={endPos}
+              placeholder="EXPOSURE"
               onChange={(e) => setEndPos(e.target.value)}
             >
               {positionList}
@@ -170,6 +174,7 @@ const CreateTrick = ({stickFrequencies, positions}) => {
               type="number"
               required
               value={difficultyLevel}
+              placeholder="8"
               onChange={(e) => setDifficultyLevel(e.target.value)}
             />
           </div>
@@ -180,6 +185,7 @@ const CreateTrick = ({stickFrequencies, positions}) => {
               type="text"
               required
               value={description}
+              placeholder="From hanging do a front flip motion and land in EXPOSURE"
               onChange={(e) => setDescription(e.target.value)}
             />
           </div>
@@ -200,7 +206,7 @@ const CreateTrick = ({stickFrequencies, positions}) => {
           </div>
         </div>
         
-          <button className="btn btn-primary">Add Trick</button>
+        <button className="btn btn-primary">{preTrick ? "Update Trick" : "Add Trick"}</button>
         
       </form>
     </div>
