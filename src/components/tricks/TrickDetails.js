@@ -39,8 +39,8 @@ const TrickDetails = ({stickFrequencies}) => {
   var instagramLink
   if (trick && trick.linkToVideo) {
     if (trick.linkToVideo.includes("youtu")) {
-      // "http://www.youtube.com/embed/<videoID>"
-      youtubeLink = "http://www.youtube.com/embed/" + trick.linkToVideo.split("/").at(-1).split("?v=").at(-1).replace("?t=", "?start=");
+      // "https://www.youtube.com/embed/<videoID>"
+      youtubeLink = "https://www.youtube.com/embed/" + trick.linkToVideo.split("/").at(-1).split("?v=").at(-1).replace("?t=", "?start=");
     }
     else if (trick.linkToVideo.includes("instagram")) {
       // "https://www.instagram.com/p/<videoID>/embed
