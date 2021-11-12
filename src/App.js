@@ -9,7 +9,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import TrickDetails from './components/tricks/TrickDetails';
 import ComboDetails from './components/combos/ComboDetails';
 import FloatingActionButton from './components/buttons/FloatingActionButton'
-import {stickFrequencies, positions} from './services/enums.js'
+import {stickFrequencies, positions, difficultyRangeMax} from './services/enums.js'
 
 
 function App() {
@@ -35,7 +35,7 @@ function App() {
               <PostCombo stickFrequencies={stickFrequencies}/>
             </Route>
             <Route path="/generator">
-              <ComboGenerator />
+              <ComboGenerator difficultyRangeMax={difficultyRangeMax} />
             </Route>
             <Route path="/combos">
               <ComboList />

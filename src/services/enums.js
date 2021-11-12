@@ -29,3 +29,6 @@ export const positions = [
   "BUDDHA",
   "BANANA"
 ];
+
+// the maximum difficulty
+export const difficultyRangeMax = 5;
