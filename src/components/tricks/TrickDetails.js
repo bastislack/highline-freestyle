@@ -51,7 +51,7 @@ const TrickDetails = ({stickFrequencies}) => {
     }
   }
 
-  const updateTrick = () => history.push({pathname:"/createtrick", preTrick:trick});
+  const updateTrick = () => history.push({pathname:"/posttrick", preTrick:trick});
 
   return (
     <div className="trick-details">
