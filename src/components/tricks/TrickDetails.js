@@ -101,15 +101,15 @@ const TrickDetails = ({stickFrequencies}) => {
           }
 
           {youtubeLink &&
-            <div className="callout">
-              <iframe id="youtubePlayer" type="text/html" width="640" height="360" title="video"
+            <div className="callout video-callout">
+              <iframe className="video" id="youtubePlayer" type="text/html" title="video"
                 src={youtubeLink}
                 frameBorder="0"></iframe>
             </div>
           }
           {instagramLink &&
-            <div className="callout">
-              <iframe src={instagramLink} width="400" height="480" frameBorder="0" scrolling="no" allowtransparency="true" title="video"></iframe>
+            <div className="callout video-callout">
+              <iframe className="video" src={instagramLink} frameBorder="0" scrolling="no" allowtransparency="true" title="video"></iframe>
             </div>
           }
 
