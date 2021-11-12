@@ -8,7 +8,7 @@ import ComboGenerator from './components/ComboGenerator';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import TrickDetails from './components/TrickDetails';
 import ComboDetails from './components/ComboDetails';
-import FloatingActionButton from './components/FloatingActionButton'
+import FloatingActionButton from './components/buttons/FloatingActionButton'
 import {stickFrequencies, positions} from './services/enums.js'
 
 
