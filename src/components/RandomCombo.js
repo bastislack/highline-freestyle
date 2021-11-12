@@ -4,14 +4,12 @@ import { useState } from "react";
 import Database from "../services/db";
 const db = new Database();
 
-const RandomCombo = (props) => {
+const RandomCombo = ({combo}) => {
 
   // Get combo count or initialize with 1
-  var comboCount = parseInt(localStorage.getItem('randomComboCount')) || 1;
+  var generatedCombosCount = parseInt(localStorage.getItem('randomComboCount')) || 1;
 
-  const combo = props.combo;
-
-  const [comboName, setComboName] = useState("Random #" + comboCount);
+  const [comboName, setComboName] = useState("Random #" + generatedCombosCount);
 
   // If the user wants to save the combo it is added to the database
   const saveToCombos = () => {
@@ -36,7 +34,7 @@ const RandomCombo = (props) => {
       });
 
     // Increment number of generated combos by 1 so all the combos have unique names
-    localStorage.setItem('randomComboCount', comboCount + 1);
+    localStorage.setItem('randomComboCount', generatedCombosCount + 1);
   };
 
   return (
