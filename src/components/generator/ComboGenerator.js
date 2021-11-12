@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
 import RandomCombo from './RandomCombo';
 
-import Database from "../services/db";
+import Database from "../../services/db";
 const db = new Database();
 
 const ComboGenerator = () => {

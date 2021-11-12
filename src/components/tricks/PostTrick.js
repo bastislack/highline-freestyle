@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 
-import Database from "../services/db";
+import Database from "../../services/db";
 const db = new Database();
 
-const CreateTrick = ({stickFrequencies, positions}) => {
+const PostTrick = ({stickFrequencies, positions}) => {
 
   const location = useLocation();
   const preTrick = location.preTrick;
@@ -25,10 +25,10 @@ const CreateTrick = ({stickFrequencies, positions}) => {
     return preTrick ? preTrick.linkToVideo : null;
   });
   const [startPos, setStartPos] = useState(() => {
-    return preTrick ? positions.findIndex(item => item === preTrick.startPos) : null;
+    return preTrick ? positions.findIndex(item => item === preTrick.startPos) : positions.findIndex(item => item === "HANG");
   });
   const [endPos, setEndPos] = useState(() => {
-    return preTrick ? positions.findIndex(item => item === preTrick.endPos): null;
+    return preTrick ? positions.findIndex(item => item === preTrick.endPos): positions.findIndex(item => item === "EXPOSURE");
   });
   const [difficultyLevel, setDifficultyLevel] = useState(() => {
     return preTrick ? preTrick.difficultyLevel : null;
@@ -88,7 +88,7 @@ const CreateTrick = ({stickFrequencies, positions}) => {
   });
 
   return (
-    <div className="create">
+    <div className="post">
       <h2>{preTrick ? "Update trick" : "Add a new trick"}</h2>
       <form onSubmit={handleSubmit} className="">
         <div className="row form-row">
@@ -213,4 +213,4 @@ const CreateTrick = ({stickFrequencies, positions}) => {
   );
 }
 
-export default CreateTrick;
+export default PostTrick;

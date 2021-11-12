@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import BackButton from "./buttons/BackButton";
+import BackButton from "../buttons/BackButton";
 
 const Navbar = () => {
   return (

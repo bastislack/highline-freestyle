@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useLiveQuery } from "dexie-react-hooks";
 
-import Database from "../services/db";
+import Database from "../../services/db";
 const db = new Database();
 
 const ComboList = () => {

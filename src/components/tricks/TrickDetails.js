@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useLiveQuery } from "dexie-react-hooks";
 import { useHistory } from "react-router-dom";
 
-import Database from "../services/db";
+import Database from "../../services/db";
 const db = new Database();
 
 const TrickDetails = ({stickFrequencies}) => {

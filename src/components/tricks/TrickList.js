@@ -5,7 +5,7 @@ import { Menu, MenuItem, MenuButton, SubMenu, MenuRadioGroup } from '@szhsin/rea
 import '@szhsin/react-menu/dist/index.css';
 import '@szhsin/react-menu/dist/transitions/slide.css';
 
-import Database from "../services/db";
+import Database from "../../services/db";
 const db = new Database();
 
 const TrickList = () => {

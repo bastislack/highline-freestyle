@@ -1,6 +1,6 @@
 //import { useHistory } from "react-router-dom";
 
-const CreateCombo = () => {
+const PostCombo = () => {
   //const history = useHistory();
 
   //const handleSubmit = (e) => {
@@ -16,10 +16,10 @@ const CreateCombo = () => {
   //}
 
   return (
-    <div className="create" >
+    <div className="post" >
       <h2><strong> Coming soon! </strong></h2>
     </div>
   );
 }
 
-export default CreateCombo;
+export default PostCombo;

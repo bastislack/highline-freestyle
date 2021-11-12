@@ -11,7 +11,7 @@ const BackButton = () => {
 
   // show button only at specific paths
   var buttonVisible = false
-  if (path.includes("/tricks/") || path.includes("/combos/") || path === "/createtrick" || path === "/createcombo") {
+  if (path.includes("/tricks/") || path.includes("/combos/") || path === "/posttrick" || path === "/postcombo") {
     buttonVisible = true
   }
 

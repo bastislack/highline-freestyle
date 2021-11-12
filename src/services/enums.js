@@ -9,7 +9,7 @@ export const stickFrequencies = [
 
 export const positions = [
   "STAND",
-  "EXPO",
+  "EXPOSURE",
   "KOREAN",
   "SOFA",
   "CHEST",

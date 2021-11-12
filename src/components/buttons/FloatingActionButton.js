@@ -14,9 +14,9 @@ const FloatingActionButton = () => {
     // definie hiere to where the button leads, depending on the current path
     let create = path;
     if (path === "/") {
-      create = "/createtrick";
+      create = "/posttrick";
     } else if (path === "/combos") {
-      create = "/createcombo";
+      create = "/postcombo";
     } else {
       console.log("no path for the FloatingActionButton has been defined");
     }

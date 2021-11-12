@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-import Database from "../services/db";
+import Database from "../../services/db";
 const db = new Database();
 
 const RandomCombo = ({combo}) => {
