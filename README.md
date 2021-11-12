@@ -2,9 +2,11 @@
 
 This is a collection of all/most of the freestyle tricks, for people to keep a better overview of all the tricks.
 
+> a production test version is hosted at https://higline-fs.dynv6.net at the moment (but not regularly updated)
+
 ## features
 
-- predefinded tricks from the [google sheet][https://docs.google.com/spreadsheets/d/1amLK2b6BQkJ10I3LcbUe-D-wgQpHkcgoIrL10TPkHPo] **Feedback to tricks, on this sheet as a comment and not as an issue**
+- predefinded tricks from the [google sheet](https://docs.google.com/spreadsheets/d/1amLK2b6BQkJ10I3LcbUe-D-wgQpHkcgoIrL10TPkHPo) **Feedback to tricks, on this sheet as a comment and not as an issue**
 - tricks added by the user
 - a random combo generator
 - the possibility to mark tricks on how good you can do them
