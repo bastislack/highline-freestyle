@@ -18,7 +18,7 @@ const Settings = ({ sortingSchemes, sortOpt, setSortOpt }) => {
 
   if (buttonVisible === true) {
     return (
-      <Menu menuButton={<MenuButton><BsGearFill/></MenuButton>} transition>
+      <Menu menuButton={<button className="btn"><BsGearFill/></button>} transition>
         <SubMenu label="Sort Options">
           <MenuRadioGroup value={sortOpt} onRadioChange={e => setSortOpt(e.value)}>
             {sortingSchemes.map(scheme => <MenuItem value={scheme.id} key={"scheme" + scheme.id} >{scheme.name}</MenuItem>)}
