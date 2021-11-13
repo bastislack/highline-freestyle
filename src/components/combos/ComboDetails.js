@@ -52,7 +52,7 @@ const ComboDetails = ({stickFrequencies}) => {
           {combo.tricks.map(trick => (
               <div>
                 <Link className="link-to-trick " to={`/tricks/${trick.id}`} key={"trick" + trick.id} >
-                  <button className=" btn btn-outline-success  skillFreq" freq={trick.stickFrequency}>
+                  <button className="col-4 btn btn-outline-success  skillFreq" freq={trick.stickFrequency}>
                     <h2>{trick.alias || trick.technicalName}</h2>
                   </button>
                 </Link>

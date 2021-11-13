@@ -25,7 +25,7 @@ const TrickList = ({ sortingSchemes, sortOpt }) => {
 
           return (
             <div key={trick.id}>
-              {isFirst && sortingSchemes[sortOpt].showCategory && <div>{sortingSchemes[sortOpt].catName} {current}</div>}
+              {isFirst && sortingSchemes[sortOpt].showCategory && <h5>{sortingSchemes[sortOpt].catName} {current}</h5>}
               <div>
                 <Link className="link-to-trick " to={`/tricks/${trick.id}`} key={"trick" + trick.id} >
                   <button className=" btn btn-outline-success trick-preview skillFreq" freq={trick.stickFrequency}>
