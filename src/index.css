@@ -100,24 +100,32 @@
   display: block;
 }
 
+.skillFreq[freq="0"] {
+  background: white;
+}
+
 .skillFreq[freq="1"] {
-  background: red;
+  background: #f038ff;
 }
 
 .skillFreq[freq="2"] {
-  background: LightPink;
+  background: #fe2712;
 }
 
 .skillFreq[freq="3"] {
-  background: LightYellow;
+  background: #ffa500;
 }
 
 .skillFreq[freq="4"] {
-  background: LightGreen;
+  background: #fefe33;
 }
 
 .skillFreq[freq="5"] {
-  background: LightSkyBlue;
+  background: #39ff14;
+}
+ 
+.skillFreq[freq="6"] {
+  background: #357ded;
 }
 
 .link-to-trick {
