@@ -29,7 +29,6 @@ export const positions = [
   "SHOULDER",
   "HANG",
   "NEVERMIND",
-  "BUTT",
   "DROPKNEE",
   "DOUBLE DROPKNEE",
   "INWARD DROPKNEE",
