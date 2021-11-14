@@ -13,13 +13,13 @@ const TrickList = ({ sortingSchemes, sortOpt }) => {
 
   function getTrickDiv(trick) {
     return (
-    <div key={trick.id} className="trick-container col-6 col-lg-4 col-xl-2">
+      <div key={trick.id} className="trick-container col-6 col-lg-4 col-xl-2">
         <Link className="link-to-trick " to={`/tricks/${trick.id}`} key={"trick" + trick.id} >
           <button className=" btn btn-outline-success trick-preview skillFreq" freq={trick.stickFrequency}>
             <h3>{trick.alias || trick.technicalName}</h3>
           </button>
         </Link>
-    </div>)
+      </div>)
   }
 
   let current;
@@ -35,7 +35,9 @@ const TrickList = ({ sortingSchemes, sortOpt }) => {
 
           if (isFirst && sortingSchemes[sortOpt].showCategory) {
             return [
-              <div className="w-100"><h5>{sortingSchemes[sortOpt].catName} {current}</h5></div>,
+              <div className="w-100 list-br-heading">
+                <h4>{sortingSchemes[sortOpt].catName} {current}</h4>
+              </div>,
               getTrickDiv(trick)
             ];
           } else {
