@@ -92,8 +92,9 @@
   height:100%;
 }
 
-.trick-preview h2 {
-  font-weight: bold
+.trick-preview h3 {
+  font-weight: bold;
+  font-size: small;
 }
 
 .skillFreq {
@@ -136,6 +137,10 @@
 .link-to-trick h2 {
   font-size: 1em;
   font-family: sans-serif;
+}
+
+.trick-container {
+  padding: 4px;
 }
 
 .kc_fab_main_btn {
