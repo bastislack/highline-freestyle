@@ -212,3 +212,8 @@
 .form-button button {
   width:100%
 }
+
+.navbar-container {
+  width:100%;
+  background-color: white;
+}
