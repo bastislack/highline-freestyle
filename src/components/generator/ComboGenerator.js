@@ -22,6 +22,14 @@ const ComboGenerator = ({difficultyRangeMax}) => {
   const tricks = useLiveQuery(() => db.getAllTricks(), []);
   if (!tricks) return null
 
+  const arePositionsSimilar = (startPos, endPos) => {
+    if ((startPos === "KOREAN" && (endPos === "CHEST" || endPos === "BACK")) || (startPos === "CHEST" && endPos === "KOREAN") || (startPos === "BACK" && endPos === "KOREAN") || (startPos === "EXPOSURE" && endPos === "STAND") || (startPos === "STAND" && endPos === "EXPOSURE")) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   const generateCombo = (e) => {
     e.preventDefault();
 
@@ -32,9 +40,6 @@ const ComboGenerator = ({difficultyRangeMax}) => {
       alert("You need more than one trick for a combo!");
       return;
     }
-
-    //TODO: needs to be set by the user
-    // settings
 
     let randomCombo = new Array(numberOfTricks);
     let myTricks = [...tricks];
@@ -66,7 +71,7 @@ const ComboGenerator = ({difficultyRangeMax}) => {
       shuffleTricks();
       let lastPos = randomCombo[i - 1].endPos;
       for (let j = 0; j < myTricks.length; j++) {
-        if (myTricks[j].startPos === lastPos && (allowConsecutiveTricks || randomCombo[i - 1] !== myTricks[j])) {
+        if ((arePositionsSimilar(myTricks[j].startPos, lastPos) || myTricks[j].startPos === lastPos) && (allowConsecutiveTricks || randomCombo[i - 1] !== myTricks[j])) {
           randomCombo[i] = myTricks[j];
           if (removeTricks) removedTrick = myTricks.splice(j, 1);
           trickFound = true;
@@ -97,7 +102,7 @@ const ComboGenerator = ({difficultyRangeMax}) => {
     for (let i = 1; i < randomCombo.length; i++) {
       let prev = randomCombo[i - 1];
       let trick = randomCombo[i];
-      if (prev.endPos !== trick.startPos) {
+      if (prev.endPos !== trick.startPos && !arePositionsSimilar(trick.startPos, prev.endPos)) {
         alert("trick generator is broken");
       }
     }
