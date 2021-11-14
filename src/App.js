@@ -9,12 +9,13 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import TrickDetails from './components/tricks/TrickDetails';
 import ComboDetails from './components/combos/ComboDetails';
 import FloatingActionButton from './components/buttons/FloatingActionButton';
-import {stickFrequencies, positions, difficultyRangeMax} from './services/enums';
+import {stickFrequencies, positions, pages, difficultyRangeMax} from './services/enums';
 import {sortingSchemes} from './services/sortingSchemes';
 import BackButton from "./components/buttons/BackButton";
 import Logo from './components/layout/Logo';
 import Settings from './components/layout/Settings';
-import { useState } from "react";
+import { useState } from 'react';
+import Visibility from './components/containers/Visibility';
 
 
 function App() {
@@ -26,9 +27,13 @@ function App() {
     <Router>
       <div className="App">
         <Navbar>
-          <BackButton/>
+          <Visibility visiblePages={[pages.TRICKDETAILS, pages.COMBODETAILS, pages.POSTTRICK, pages.POSTCOMBO]}>
+            <BackButton/>
+          </Visibility>
           <Logo/>
-          <Settings sortingSchemes={sortingSchemes} sortOpt={sortOpt} setSortOpt={setSortOpt}/>
+          <Visibility visiblePages={[pages.TRICKLIST]}>
+            <Settings sortingSchemes={sortingSchemes} sortOpt={sortOpt} setSortOpt={setSortOpt}/>
+          </Visibility>
         </Navbar>
         <div className="content">
           <Switch>
@@ -55,7 +60,9 @@ function App() {
             </Route>
           </Switch>
         </div>
-        <FloatingActionButton />
+        <Visibility visiblePages={[pages.TRICKLIST, pages.COMBOLIST]}>
+          <FloatingActionButton />
+        </Visibility>
         <BottomNav />
       </div>
     </Router>

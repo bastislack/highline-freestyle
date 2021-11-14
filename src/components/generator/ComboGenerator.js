@@ -121,8 +121,8 @@ const ComboGenerator = ({difficultyRangeMax}) => {
           />
         </div>
         <div className="form-row">
-          <label for="maxDifficultyRange" class="form-label">Max difficulty: {maxDifficulty}</label>
-          <input type="range" class="form-range" onChange={(e) => setMaxDifficulty(e.target.value)} min="1" max={difficultyRangeMax} step="1" id="maxDifficultyRange" />
+          <label htmlFor="maxDifficultyRange" className="form-label">Max difficulty: {maxDifficulty}</label>
+          <input type="range" className="form-range" onChange={(e) => setMaxDifficulty(e.target.value)} min="1" max={difficultyRangeMax} step="1" id="maxDifficultyRange" />
         </div>
         <div className="form-row form-check">
           <label className="form-check-label">Allow duplicates</label>

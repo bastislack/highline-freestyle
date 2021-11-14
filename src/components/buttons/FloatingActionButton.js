@@ -4,34 +4,24 @@ const FloatingActionButton = () => {
   // the current Url
   const path = useLocation().pathname.toString().toLowerCase();
 
-  // show button only at specific paths
-  var buttonVisible = false
-  if (path === "/" || path === "/combos") {
-    buttonVisible = true
+  // the url which the button should lead to
+  let create;
+
+  if (path === "/") {
+    create = "/posttrick"; 
+  } else if (path === "/combos") {
+    create = "/postcombo";
+  } else {
+    alert("No path for FAB defined");
   }
 
-  if (buttonVisible === true) {
-    // definie hiere to where the button leads, depending on the current path
-    let create = path;
-    if (path === "/") {
-      create = "/posttrick";
-    } else if (path === "/combos") {
-      create = "/postcombo";
-    } else {
-      console.log("no path for the FloatingActionButton has been defined");
-    }
-
-    return (
-      <Link to={create}>
-        <button className="kc_fab_main_btn">
-          {"+"}
-        </button>
-      </Link>
-    )
-  }
-
-  return (null)
-
+  return (
+    <Link to={create}>
+      <button className="kc_fab_main_btn">
+        {"+"}
+      </button>
+    </Link>
+  );
 }
 
 export default FloatingActionButton;

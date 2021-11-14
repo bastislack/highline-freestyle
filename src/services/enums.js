@@ -7,6 +7,16 @@ export const stickFrequencies = [
   "Always"
 ];
 
+export const pages = {
+  TRICKLIST: "TrickList",
+  TRICKDETAILS: "TrickDetails",
+  POSTTRICK: "PostTrick",
+  COMBOLIST: "ComboList",
+  COMBODETAILS: "ComboDetails",
+  POSTCOMBO: "PostCombo",
+  GENERATOR: "ComboGenerator"
+};
+
 export const positions = [
   "STAND",
   "EXPOSURE",
