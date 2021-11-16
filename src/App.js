@@ -27,13 +27,21 @@ function App() {
     <Router>
       <div className="App">
         <Navbar>
-          <Visibility visiblePages={[pages.TRICKDETAILS, pages.COMBODETAILS, pages.POSTTRICK, pages.POSTCOMBO]}>
-            <BackButton/>
-          </Visibility>
-          <Logo/>
-          <Visibility visiblePages={[pages.TRICKLIST]}>
-            <Settings sortingSchemes={sortingSchemes} sortOpt={sortOpt} setSortOpt={setSortOpt}/>
-          </Visibility>
+          <div style={{display: "flex", alignItems: "center", width: "100%"}}>
+            <div style={{width: "50px", height: "40px"}}>
+              <Visibility visiblePages={[pages.TRICKDETAILS, pages.COMBODETAILS, pages.POSTTRICK, pages.POSTCOMBO]} elseContent="&nbsp;">
+                <BackButton/>
+              </Visibility>
+            </div>
+            <div style={{flexGrow: "1", textAlign: "center"}}>
+              <Logo/>
+            </div>
+            <div style={{width: "50px", height: "40px"}}>
+              <Visibility visiblePages={[pages.TRICKLIST]} elseContent="&nbsp;">
+                <Settings sortingSchemes={sortingSchemes} sortOpt={sortOpt} setSortOpt={setSortOpt}/>
+              </Visibility>
+            </div>
+          </div>
         </Navbar>
         <div className="content">
           <Switch>
