@@ -2,6 +2,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const {InjectManifest} = require('workbox-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack');
 
 const webpackPlugins = [
   new HtmlWebpackPlugin({
@@ -16,6 +17,10 @@ const webpackPlugins = [
       {from: "./public/logo512.png", to: ""},
     ],
   }),
+  new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+      'process.env.PUBLIC_URL': JSON.stringify(process.env.PUBLIC_URL),
+    })
 ];
 
 if (process.env.NODE_ENV === 'production') {
