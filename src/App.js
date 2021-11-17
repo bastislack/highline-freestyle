@@ -24,7 +24,7 @@ function App() {
   const [sortOpt, setSortOpt] = useState(0);
 
   return (
-    <Router basename="/highline-freestyle">
+    <Router basename={process.env.PUBLIC_PATH}>
       <div className="App">
         <Navbar>
           <div style={{display: "flex", alignItems: "center", width: "100%"}}>
