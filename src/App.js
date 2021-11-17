@@ -24,7 +24,7 @@ function App() {
   const [sortOpt, setSortOpt] = useState(0);
 
   return (
-    <Router basename={process.env.PUBLIC_URL}>
+    <Router>
       <div className="App">
         <Navbar>
           <div style={{display: "flex", alignItems: "center", width: "100%"}}>
