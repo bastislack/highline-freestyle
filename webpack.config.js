@@ -33,7 +33,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, './dist'),
     filename: 'main.js',
-    publicPath: '/',
+    publicPath: '/highline-freestyle/',
   },
   devServer: {
     historyApiFallback: true,
