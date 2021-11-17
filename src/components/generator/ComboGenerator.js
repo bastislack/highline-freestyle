@@ -1,23 +1,24 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useLiveQuery } from "dexie-react-hooks";
-import RandomCombo from './RandomCombo';
+import ComboDetails from '../combos/ComboDetails';
+import { stickFrequencies } from '../../services/enums';
 
 import Database from "../../services/db";
 const db = new Database();
 
 const ComboGenerator = ({difficultyRangeMax}) => {
 
+  let generatedCombosCount = parseInt(localStorage.getItem('randomComboCount')) || 1;
+
   const [numberOfTricks, setNumberOfTricks] = useState('');
-
   const [removeTricks, setRemoveTricks] = useState(true);
-
   const [allowConsecutiveTricks, setConsecutiveTricks] = useState(false);
-
   const [maxDifficulty, setMaxDifficulty] = useState(difficultyRangeMax);
-
   const [showCombo, setShowCombo] = useState(false);
+  const [comboName, setComboName] = useState("Random #" + generatedCombosCount);
+  const [combo, setCombo] = useState(null);
 
-  const [combo, setCombo] = useState("");
 
   const tricks = useLiveQuery(() => db.getAllTricks(), []);
   if (!tricks) return null
@@ -28,6 +29,57 @@ const ComboGenerator = ({difficultyRangeMax}) => {
     } else {
       return false;
     }
+  }
+
+  // If the user wants to save the combo it is added to the database
+  const saveToCombos = () => {
+    db.saveCombo(combo)
+      .then(() => {
+        console.log("savedCombo");
+      })
+      .catch(e => {
+        console.log(e);
+      });
+
+    // Increment number of generated combos by 1 so all the combos have unique names
+    localStorage.setItem('randomComboCount', generatedCombosCount + 1);
+  };
+
+  const computeStats = (randomCombo) => {
+    let minDiff = Infinity;
+    let maxDiff = -Infinity;
+    let avgDiff;
+    let numberOfTricks = randomCombo.length;
+    let totalDiff = 0;
+    const currentYear = new Date().getFullYear();
+
+    randomCombo.map(trick => {
+      if (trick.difficultyLevel < minDiff) {
+        minDiff = parseInt(trick.difficultyLevel);
+      }
+      if (trick.difficultyLevel > maxDiff) {
+        maxDiff = parseInt(trick.difficultyLevel);
+      }
+      totalDiff += parseInt(trick.difficultyLevel);
+    });
+
+    avgDiff = totalDiff / numberOfTricks;
+
+    setCombo({
+      name: comboName,
+      tricks: randomCombo,
+      minDiff: minDiff,
+      maxDiff: maxDiff,
+      avgDiff: avgDiff,
+      totalDiff: totalDiff,
+      numberOfTricks: numberOfTricks,
+      stickFrequency: "Never tried",
+      establishedBy: "Generator",
+      linkToVideo: "",
+      comments: "This combo was randomly generated!",
+      yearEstablished: currentYear
+    });
+    setShowCombo(true);
   }
 
   const generateCombo = (e) => {
@@ -107,8 +159,7 @@ const ComboGenerator = ({difficultyRangeMax}) => {
       }
     }
 
-    setCombo(randomCombo);
-    setShowCombo(true);
+    computeStats(randomCombo);
   }
 
   return (
@@ -148,9 +199,14 @@ const ComboGenerator = ({difficultyRangeMax}) => {
           />
         </div>
         <button className="btn btn-primary">Generate</button>
+        {showCombo && (
+          <Link className="col-sm-6 form-button" to={`/combos`}>
+            <button className="btn btn-primary" onClick={saveToCombos}>Add to Combos</button>
+          </Link>
+        )}
       </form>
       <br />
-      {showCombo && <RandomCombo combo={combo} />}
+      {showCombo && <ComboDetails stickFrequencies={stickFrequencies} randomCombo={combo} />}
     </div>
   );
 }

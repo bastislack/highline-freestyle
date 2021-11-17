@@ -1,15 +1,23 @@
-import { useParams, useHistory, Link } from "react-router-dom";
+import { useParams, useLocation, useHistory, Link } from "react-router-dom";
 import { useLiveQuery } from "dexie-react-hooks";
 
 import Database from "../../services/db";
 const db = new Database();
 
-const ComboDetails = ({stickFrequencies}) => {
+const ComboDetails = ({stickFrequencies, randomCombo}) => {
   const history = useHistory();
-  const { id } = useParams();
+  const path = useLocation().pathname.toString().toLowerCase();
 
-  // combos query with react hooks -- means it refreshes automaticly
-  const combo = useLiveQuery(() => db.getCombo(id), []);
+  let combo;
+
+  if (path === "/generator") {
+    combo = randomCombo;
+  } else {
+    const { id } = useParams();
+    // combos query with react hooks -- means it refreshes automaticly
+    combo = useLiveQuery(() => db.getCombo(id), []);
+  }
+
   if (!combo) {return null} else console.log(combo);
 
   const freqList = stickFrequencies.map((item, i) => {
@@ -58,12 +66,16 @@ const ComboDetails = ({stickFrequencies}) => {
                 </Link>
               </div>
           ))}
-          <div className="skillFreq">Set your success frequency:
-            <div onChange={selectFreq}>
-              {freqList}
-            </div>
-          </div>
-          <button onClick={deleteCombo} className="btn btn-primary">Delete Combo</button>
+          {path !== "/generator" && (
+            <>
+              <div className="skillFreq">Set your success frequency:
+                <div onChange={selectFreq}>
+                  {freqList}
+                </div>
+              </div>
+              <button onClick={deleteCombo} className="btn btn-primary">Delete Combo</button>
+            </>
+          )}
         </article>
       )}
     </div>

@@ -14,7 +14,7 @@ export default class Database {
       mainTricks: "++id, alias, technicalName, establishedBy, yearEstablished, linkToVideo, startPos, endPos, difficultyLevel, description, tips",
       mainAttributes: "id, stickFrequency",
       userTricks: "++id, alias, technicalName, establishedBy, yearEstablished, linkToVideo, startPos, endPos, difficultyLevel, description, tips, strickfrequency",
-      combos: "++id, name, tricks, strickfrequency, establishedBy, linkToVideo, comments, yearEstablished, stickFrequency"
+      combos: "++id, name, tricks, minDiff, maxDiff, avgDiff, totalDiff, numberOfTricks, establishedBy, yearEstablished, linkToVideo, comments, stickFrequency"
     });
 
     // count the tricks in the database and populate it if its empty
@@ -118,17 +118,26 @@ export default class Database {
     return this.db.combos.get(Number(id));
   };
 
-  // get list of all tricks
+  // get list of all combo
   getAllCombos = () => {
     return this.db.combos.toArray();
   };
 
-  // create or update trick
+  // create or update combo
+  // Input: combo object with the following fields:
+  // - name
+  // - tricks[]
+  // - establishedBy
+  // - yearEstablished
+  // - linkToVideo
+  // - comments
+  //
+  // This method computes stats of the combo and then saves it to the db
   saveCombo = (obj) => {
     return this.db.combos.put(obj);
   };
 
-  // delete trick
+  // delete combo
   deleteCombo = (id) => {
     return this.db.combos.delete(Number(id));
   };
