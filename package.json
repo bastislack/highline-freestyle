@@ -1,5 +1,6 @@
 {
   "name": "highline-freestyle",
+  "homepage": "https://bastislack.github.io/highline-freestyle",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
