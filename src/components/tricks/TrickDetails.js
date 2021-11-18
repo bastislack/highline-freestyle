@@ -40,7 +40,7 @@ const TrickDetails = ({stickFrequencies}) => {
   if (trick && trick.linkToVideo) {
     if (trick.linkToVideo.includes("youtu")) {
       // "https://www.youtube.com/embed/<videoID>"
-      youtubeLink = "https://www.youtube.com/embed/" + trick.linkToVideo.split("/").at(-1).split("?v=").at(-1).replace("?t=", "?start=");
+      youtubeLink = "https://www.youtube.com/embed/" + trick.linkToVideo.split("/").pop().split("?v=").pop().replace("?t=", "?start=");
     }
     else if (trick.linkToVideo.includes("instagram")) {
       // "https://www.instagram.com/p/<videoID>/embed
@@ -61,7 +61,7 @@ const TrickDetails = ({stickFrequencies}) => {
 
           {trick.alias && trick.technicalName &&
             <div>
-              <h3>Technical Name: </h3> 
+              <h3>Technical Name: </h3>
               <div className="callout">{trick.technicalName}</div>
             </div>
           }
