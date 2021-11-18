@@ -18,7 +18,7 @@ const ComboDetails = ({stickFrequencies, randomCombo}) => {
     combo = useLiveQuery(() => db.getCombo(id), []);
   }
 
-  if (!combo) {return null} else console.log(combo);
+  if (!combo) {return null;} else {console.log(combo);}
 
   const freqList = stickFrequencies.map((item, i) => {
     return (

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useLiveQuery } from "dexie-react-hooks";
 import ComboDetails from '../combos/ComboDetails';
 import { stickFrequencies } from '../../services/enums';
@@ -8,6 +8,8 @@ import Database from "../../services/db";
 const db = new Database();
 
 const ComboGenerator = ({difficultyRangeMax}) => {
+
+  const history = useHistory();
 
   let generatedCombosCount = parseInt(localStorage.getItem('randomComboCount')) || 1;
 
@@ -43,6 +45,7 @@ const ComboGenerator = ({difficultyRangeMax}) => {
 
     // Increment number of generated combos by 1 so all the combos have unique names
     localStorage.setItem('randomComboCount', generatedCombosCount + 1);
+    history.push("/combos");
   };
 
   const computeStats = (randomCombo) => {
@@ -88,7 +91,7 @@ const ComboGenerator = ({difficultyRangeMax}) => {
     if (numberOfTricks < 1) {
       alert("the number of tricks can't be negative or 0");
       return;
-    } else if (numberOfTricks === 1) {
+    } else if (parseInt(numberOfTricks) === 1) {
       alert("You need more than one trick for a combo!");
       return;
     }
@@ -198,12 +201,12 @@ const ComboGenerator = ({difficultyRangeMax}) => {
             onChange={(e) => setConsecutiveTricks(e.target.checked)}
           />
         </div>
-        <button className="btn btn-primary">Generate</button>
-        {showCombo && (
-          <Link className="col-sm-6 form-button" to={`/combos`}>
-            <button className="btn btn-primary" onClick={saveToCombos}>Add to Combos</button>
-          </Link>
-        )}
+        <div className="row justify-content-around">
+          <button className="col-sm-4 btn btn-primary">Generate</button>
+          {showCombo && (
+            <button className="col-sm-4 btn btn-primary" onClick={saveToCombos}>Add to Combos</button>
+          )}
+        </div>
       </form>
       <br />
       {showCombo && <ComboDetails stickFrequencies={stickFrequencies} randomCombo={combo} />}
