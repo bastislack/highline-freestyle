@@ -66,7 +66,7 @@ const ComboGenerator = ({difficultyRangeMax}) => {
       totalDiff += parseInt(trick.difficultyLevel);
     });
 
-    avgDiff = totalDiff / numberOfTricks;
+    avgDiff = Math.round((totalDiff / numberOfTricks + Number.EPSILON) * 100) / 100;
 
     setCombo({
       name: comboName,

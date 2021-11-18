@@ -57,15 +57,27 @@ const ComboDetails = ({stickFrequencies, randomCombo}) => {
       {combo && (
         <article>
           <h2>{combo.name}</h2>
-          {combo.tricks.map(trick => (
-              <div>
+          <div className="container">
+            <div className="row justify-content-between">
+              <div className="col-sm-5">
+              {combo.tricks.map(trick => (
                 <Link className="link-to-trick " to={`/tricks/${trick.id}`} key={"trick" + trick.id} >
-                  <button className="col-4 btn btn-outline-success  skillFreq" freq={trick.stickFrequency}>
+                  <button className="col-10 btn btn-outline-success  skillFreq" freq={trick.stickFrequency}>
                     <h2>{trick.alias || trick.technicalName}</h2>
                   </button>
                 </Link>
+              ))}
               </div>
-          ))}
+              <div className="col-sm-5">
+                <h4>Combo stats:</h4> 
+                <p>Number of tricks: {combo.numberOfTricks}</p>
+                <p>Mininum difficulty level: {combo.minDiff}</p>
+                <p>Maximum difficulty level: {combo.maxDiff}</p>
+                <p>Average difficulty level: {combo.avgDiff}</p>
+                <p>Total difficulty level: {combo.totalDiff}</p>
+              </div>
+            </div>
+          </div>
           {path !== "/generator" && (
             <>
               <div className="skillFreq">Set your success frequency:
