@@ -29,13 +29,12 @@ const TrickList = ({ sortingSchemes, sortOpt }) => {
 
       <div className="row">
         {tricks.map(trick => {
-
           let isFirst = (sortingSchemes[sortOpt].attributeFunc(trick) !== current);
           current = sortingSchemes[sortOpt].attributeFunc(trick);
 
           if (isFirst && sortingSchemes[sortOpt].showCategory) {
             return [
-              <div className="w-100 list-br-heading">
+              <div className="w-100 list-br-heading" key={"header" + trick.id.toString()}>
                 <h4>{sortingSchemes[sortOpt].catName} {current}</h4>
               </div>,
               getTrickDiv(trick)
