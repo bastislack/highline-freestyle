@@ -1,7 +1,7 @@
 const Navbar = ({ children }) => {
   return (
-    <div class="navbar-container sticky-top">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div className="navbar-container sticky-top">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
         {children}
       </nav>
     </div>
