@@ -7,7 +7,7 @@ import { stickFrequencies } from '../../services/enums';
 import Database from "../../services/db";
 const db = new Database();
 
-const ComboGenerator = ({difficultyRangeMax}) => {
+const ComboGenerator = ({difficultyRangeMax, randomCombo, setRandomCombo}) => {
 
   const history = useHistory();
 
@@ -17,10 +17,7 @@ const ComboGenerator = ({difficultyRangeMax}) => {
   const [removeTricks, setRemoveTricks] = useState(true);
   const [allowConsecutiveTricks, setConsecutiveTricks] = useState(false);
   const [maxDifficulty, setMaxDifficulty] = useState(difficultyRangeMax);
-  const [showCombo, setShowCombo] = useState(false);
   const [comboName, setComboName] = useState("Random #" + generatedCombosCount);
-  const [combo, setCombo] = useState(null);
-
 
   const tricks = useLiveQuery(() => db.getAllTricks(), []);
   if (!tricks) return null
@@ -35,7 +32,7 @@ const ComboGenerator = ({difficultyRangeMax}) => {
 
   // If the user wants to save the combo it is added to the database
   const saveToCombos = () => {
-    db.saveCombo(combo)
+    db.saveCombo(randomCombo)
       .then(() => {
         console.log("savedCombo");
       })
@@ -45,18 +42,19 @@ const ComboGenerator = ({difficultyRangeMax}) => {
 
     // Increment number of generated combos by 1 so all the combos have unique names
     localStorage.setItem('randomComboCount', generatedCombosCount + 1);
+    setRandomCombo(null);
     history.push("/combos");
   };
 
-  const computeStats = (randomCombo) => {
+  const computeStats = (randomTricks) => {
     let minDiff = Infinity;
     let maxDiff = -Infinity;
     let avgDiff;
-    let numberOfTricks = randomCombo.length;
+    let numberOfTricks = randomTricks.length;
     let totalDiff = 0;
     const currentYear = new Date().getFullYear();
 
-    randomCombo.map(trick => {
+    randomTricks.map(trick => {
       if (trick.difficultyLevel < minDiff) {
         minDiff = parseInt(trick.difficultyLevel);
       }
@@ -68,9 +66,9 @@ const ComboGenerator = ({difficultyRangeMax}) => {
 
     avgDiff = Math.round((totalDiff / numberOfTricks + Number.EPSILON) * 100) / 100;
 
-    setCombo({
+    setRandomCombo({
       name: comboName,
-      tricks: randomCombo,
+      tricks: randomTricks,
       minDiff: minDiff,
       maxDiff: maxDiff,
       avgDiff: avgDiff,
@@ -82,7 +80,6 @@ const ComboGenerator = ({difficultyRangeMax}) => {
       comments: "This combo was randomly generated!",
       yearEstablished: currentYear
     });
-    setShowCombo(true);
   }
 
   const generateCombo = (e) => {
@@ -96,7 +93,7 @@ const ComboGenerator = ({difficultyRangeMax}) => {
       return;
     }
 
-    let randomCombo = new Array(numberOfTricks);
+    let randomTricks = new Array(numberOfTricks);
     let myTricks = [...tricks];
 
     let stuckPos;
@@ -111,7 +108,7 @@ const ComboGenerator = ({difficultyRangeMax}) => {
     shuffleTricks();
 
     // Get the first trick for the random combo
-    randomCombo[0] = myTricks[0];
+    randomTricks[0] = myTricks[0];
     if (removeTricks) removedTrick = myTricks.shift();
 
     // Iteratively shuffle array of tricks and find the first trick
@@ -124,10 +121,10 @@ const ComboGenerator = ({difficultyRangeMax}) => {
 
       let trickFound = false;
       shuffleTricks();
-      let lastPos = randomCombo[i - 1].endPos;
+      let lastPos = randomTricks[i - 1].endPos;
       for (let j = 0; j < myTricks.length; j++) {
-        if ((arePositionsSimilar(myTricks[j].startPos, lastPos) || myTricks[j].startPos === lastPos) && (allowConsecutiveTricks || randomCombo[i - 1] !== myTricks[j])) {
-          randomCombo[i] = myTricks[j];
+        if ((arePositionsSimilar(myTricks[j].startPos, lastPos) || myTricks[j].startPos === lastPos) && (allowConsecutiveTricks || randomTricks[i - 1] !== myTricks[j])) {
+          randomTricks[i] = myTricks[j];
           if (removeTricks) removedTrick = myTricks.splice(j, 1);
           trickFound = true;
           console.log("found trick");
@@ -143,7 +140,7 @@ const ComboGenerator = ({difficultyRangeMax}) => {
           console.log("starting new");
           myTricks = [...tricks];
           shuffleTricks();
-          randomCombo[0] = myTricks[0];
+          randomTricks[0] = myTricks[0];
           i = 0;
         } else {
           if (removeTricks) myTricks.push(removedTrick);
@@ -154,15 +151,15 @@ const ComboGenerator = ({difficultyRangeMax}) => {
     }
 
     //check integrety of combo
-    for (let i = 1; i < randomCombo.length; i++) {
-      let prev = randomCombo[i - 1];
-      let trick = randomCombo[i];
+    for (let i = 1; i < randomTricks.length; i++) {
+      let prev = randomTricks[i - 1];
+      let trick = randomTricks[i];
       if (prev.endPos !== trick.startPos && !arePositionsSimilar(trick.startPos, prev.endPos)) {
         alert("trick generator is broken");
       }
     }
 
-    computeStats(randomCombo);
+    computeStats(randomTricks);
   }
 
   return (
@@ -203,13 +200,13 @@ const ComboGenerator = ({difficultyRangeMax}) => {
         </div>
         <div className="row justify-content-around">
           <button className="col-sm-4 btn btn-primary">Generate</button>
-          {showCombo && (
+          {randomCombo && (
             <button className="col-sm-4 btn btn-primary" onClick={saveToCombos}>Add to Combos</button>
           )}
         </div>
       </form>
       <br />
-      {showCombo && <ComboDetails stickFrequencies={stickFrequencies} randomCombo={combo} />}
+      {randomCombo && <ComboDetails stickFrequencies={stickFrequencies} randomCombo={randomCombo} />}
     </div>
   );
 }

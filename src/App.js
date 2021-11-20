@@ -22,6 +22,8 @@ function App() {
 
   // Sorting Options for the tricklist
   const [sortOpt, setSortOpt] = useState(0);
+  // Randomly generated combo shown on the generator screen
+  const [randomCombo, setRandomCombo] = useState(null);
 
   return (
     <Router basename={process.env.PUBLIC_PATH}>
@@ -61,7 +63,7 @@ function App() {
               <PostCombo stickFrequencies={stickFrequencies}/>
             </Route>
             <Route path="/generator">
-              <ComboGenerator difficultyRangeMax={difficultyRangeMax} />
+              <ComboGenerator difficultyRangeMax={difficultyRangeMax} randomCombo={randomCombo} setRandomCombo={setRandomCombo}/>
             </Route>
             <Route path="/combos">
               <ComboList />
