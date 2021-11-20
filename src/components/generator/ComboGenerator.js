@@ -85,6 +85,8 @@ const ComboGenerator = ({difficultyRangeMax, randomCombo, setRandomCombo}) => {
   const generateCombo = (e) => {
     e.preventDefault();
 
+    setRandomCombo(null);
+
     if (numberOfTricks < 1) {
       alert("the number of tricks can't be negative or 0");
       return;
