@@ -16,6 +16,7 @@ import Logo from './components/layout/Logo';
 import Settings from './components/layout/Settings';
 import { useState } from 'react';
 import Visibility from './components/containers/Visibility';
+import ScrollToTop from './components/containers/ScrollToTop';
 
 
 function App() {
@@ -57,7 +58,9 @@ function App() {
               <ComboDetails stickFrequencies={stickFrequencies}/>
             </Route>
             <Route path="/posttrick">
-              <PostTrick stickFrequencies={stickFrequencies} positions={positions}/>
+              <ScrollToTop>
+                <PostTrick stickFrequencies={stickFrequencies} positions={positions}/>
+              </ScrollToTop>
             </Route>
             <Route path="/postcombo">
               <PostCombo stickFrequencies={stickFrequencies}/>
