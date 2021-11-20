@@ -41,4 +41,4 @@ export const positions = [
 ];
 
 // the maximum difficulty
-export const difficultyRangeMax = 5;
+export const difficultyRangeMax = 11;
