@@ -13,7 +13,7 @@ const TrickList = ({ sortingSchemes, sortOpt }) => {
 
   function getTrickDiv(trick) {
     return (
-      <div key={trick.id} className="trick-container col-6 col-lg-4 col-xl-2">
+      <div key={trick.id} className="trick-container col-4 col-lg-3 col-xl-2">
         <Link className="link-to-trick " to={`/tricks/${trick.id}`} key={"trick" + trick.id} >
           <button className=" btn btn-outline-success trick-preview skillFreq" freq={trick.stickFrequency}>
             <h3>{trick.alias || trick.technicalName}</h3>
