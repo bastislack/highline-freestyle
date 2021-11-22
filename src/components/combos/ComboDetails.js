@@ -1,5 +1,6 @@
 import { useParams, useLocation, useHistory, Link } from "react-router-dom";
 import { useLiveQuery } from "dexie-react-hooks";
+import EditButton from '../buttons/EditButton';
 
 import Database from "../../services/db";
 const db = new Database();
@@ -52,11 +53,19 @@ const ComboDetails = ({stickFrequencies, randomCombo}) => {
     history.push('/combos');
   };
 
+  const editCombo = () => history.push({pathname:"/postcombo", preCombo:combo});
+
   return (
     <div className="combo-details">
       {combo && (
         <article>
-          <h2>{combo.name}</h2>
+          <div className="row justify-content-between">
+            <h2 className="col-sm-6">{combo.name}</h2>
+
+            <div className="col-sm-1">
+              <EditButton call={editCombo}/>
+            </div>
+          </div>
           <div className="container">
             <div className="row justify-content-between">
               <div className="col-sm-5">

@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useLiveQuery } from "dexie-react-hooks";
 import { useHistory } from "react-router-dom";
+import EditButton from '../buttons/EditButton';
 
 import Database from "../../services/db";
 const db = new Database();
@@ -57,8 +58,13 @@ const TrickDetails = ({stickFrequencies}) => {
     <div className="trick-details">
       {trick && (
         <article>
-          <h2>{trick.alias || trick.technicalName}</h2>
+          <div className="row justify-content-between">
+            <h2 className="col-sm-6">{trick.alias || trick.technicalName}</h2>
 
+            <div className="col-sm-1">
+              <EditButton call={editTrick}/>
+            </div>
+          </div>
           {trick.alias && trick.technicalName &&
             <div>
               <h3>Technical Name: </h3>
@@ -119,9 +125,6 @@ const TrickDetails = ({stickFrequencies}) => {
             </div>
           </div>
 
-          <div>
-            <button className="btn btn-primary" onClick={editTrick}>Edit Trick</button>
-          </div>
         </article>
       )}
     </div>
