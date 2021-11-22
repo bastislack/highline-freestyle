@@ -2,6 +2,8 @@ import { useParams } from "react-router-dom";
 import { useLiveQuery } from "dexie-react-hooks";
 import { useHistory } from "react-router-dom";
 import EditButton from '../buttons/EditButton';
+import DeleteButton from '../buttons/DeleteButton';
+
 
 import Database from "../../services/db";
 const db = new Database();
@@ -54,15 +56,31 @@ const TrickDetails = ({stickFrequencies}) => {
 
   const editTrick = () => history.push({pathname:"/posttrick", preTrick:trick});
 
+  const deleteTrick = () => {
+    db.deleteTrick(id)
+      .then(() => {
+        console.log("trick deleted");
+      })
+      .catch(e => {
+        console.log(e);
+      });
+
+    history.push('/');
+  };
+
   return (
     <div className="trick-details">
       {trick && (
         <article>
-          <div className="row justify-content-between">
-            <h2 className="col-sm-6">{trick.alias || trick.technicalName}</h2>
+          <div className="row align-items-center justify-content-between">
+            <h2 className="col-6" align="left">{trick.alias || trick.technicalName}</h2>
 
-            <div className="col-sm-1">
+            <div className="col-3" align="center">
               <EditButton call={editTrick}/>
+            </div>
+
+            <div className="col-3" align="right">
+              <DeleteButton call={deleteTrick}/>
             </div>
           </div>
           {trick.alias && trick.technicalName &&

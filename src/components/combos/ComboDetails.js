@@ -1,6 +1,7 @@
 import { useParams, useLocation, useHistory, Link } from "react-router-dom";
 import { useLiveQuery } from "dexie-react-hooks";
 import EditButton from '../buttons/EditButton';
+import DeleteButton from '../buttons/DeleteButton';
 
 import Database from "../../services/db";
 const db = new Database();
@@ -10,13 +11,15 @@ const ComboDetails = ({stickFrequencies, randomCombo}) => {
   const path = useLocation().pathname.toString().toLowerCase();
 
   let combo;
+  let params;
+  const inGenerator = path === "/generator" ? true : false;
 
-  if (path === "/generator") {
+  if (inGenerator) {
     combo = randomCombo;
   } else {
-    const { id } = useParams();
+    params = useParams();
     // combos query with react hooks -- means it refreshes automaticly
-    combo = useLiveQuery(() => db.getCombo(id), []);
+    combo = useLiveQuery(() => db.getCombo(params.id), []);
   }
 
   if (!combo) {return null;} else {console.log(combo);}
@@ -42,7 +45,7 @@ const ComboDetails = ({stickFrequencies, randomCombo}) => {
   }
 
   const deleteCombo = () => {
-    db.deleteCombo(id)
+    db.deleteCombo(params.id)
       .then(() => {
         console.log("combo deleted");
       })
@@ -59,12 +62,20 @@ const ComboDetails = ({stickFrequencies, randomCombo}) => {
     <div className="combo-details">
       {combo && (
         <article>
-          <div className="row justify-content-between">
-            <h2 className="col-sm-6">{combo.name}</h2>
+          <div className="row align-items-center justify-content-between">
+            <h2 className="col-6" align="left">{combo.name}</h2>
 
-            <div className="col-sm-1">
-              <EditButton call={editCombo}/>
-            </div>
+            {!inGenerator &&
+              <>
+              <div className="col-3" align="center">
+                <EditButton call={editCombo}/>
+              </div>
+
+              <div className="col-3" align="right">
+                <DeleteButton call={deleteCombo}/>
+              </div>
+              </>
+            }
           </div>
           <div className="container">
             <div className="row justify-content-between">
@@ -87,14 +98,13 @@ const ComboDetails = ({stickFrequencies, randomCombo}) => {
               </div>
             </div>
           </div>
-          {path !== "/generator" && (
+          {!inGenerator && (
             <>
               <div className="skillFreq">Set your success frequency:
                 <div onChange={selectFreq}>
                   {freqList}
                 </div>
               </div>
-              <button onClick={deleteCombo} className="btn btn-primary">Delete Combo</button>
             </>
           )}
         </article>
