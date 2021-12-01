@@ -27,7 +27,7 @@ function App() {
   const [randomCombo, setRandomCombo] = useState(null);
 
   return (
-    <Router basename={process.env.PUBLIC_PATH}>
+    <Router>
       <div className="App">
         <Navbar>
           <div style={{display: "flex", alignItems: "center", width: "100%"}}>

@@ -27,17 +27,6 @@ if (process.env.NODE_ENV === 'production') {
       swDest: 'sw.js'
     })
   );
-  webpackPlugins.push(
-    new webpack.DefinePlugin({
-      'process.env.PUBLIC_PATH': JSON.stringify('/highline-freestyle'),
-    })
-  )
-} else {
-  webpackPlugins.push(
-    new webpack.DefinePlugin({
-      'process.env.PUBLIC_PATH': null,
-    })
-  )
 }
 
 module.exports = {
@@ -46,7 +35,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, './dist'),
     filename: 'main.js',
-    publicPath: process.env.NODE_ENV === 'production' ? '/highline-freestyle/' : '/',
+    publicPath: '/',
   },
   devServer: {
     historyApiFallback: true,
