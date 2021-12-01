@@ -2,7 +2,7 @@
 
 This is a collection of most of the freestyle tricks, for people to keep a better overview of all the tricks.
 
-The link to the page is: https://bastislack.github.io/highline-freestyle/ 
+The link to the page is: https://highline-freestyle.com
 
 ## Features
 
