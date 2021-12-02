@@ -12,6 +12,7 @@ import FloatingActionButton from './components/buttons/FloatingActionButton';
 import {stickFrequencies, positions, pages, difficultyRangeMax} from './services/enums';
 import {sortingSchemes} from './services/sortingSchemes';
 import BackButton from "./components/buttons/BackButton";
+import InstallButton from "./components/buttons/InstallButton";
 import Logo from './components/layout/Logo';
 import Settings from './components/layout/Settings';
 import { useState } from 'react';
@@ -34,6 +35,9 @@ function App() {
             <div style={{width: "50px", height: "40px"}}>
               <Visibility visiblePages={[pages.TRICKDETAILS, pages.COMBODETAILS, pages.POSTTRICK, pages.POSTCOMBO]} elseContent="&nbsp;">
                 <BackButton/>
+              </Visibility>
+              <Visibility visiblePages={[pages.TRICKLIST, pages.COMBOLIST]} elseContent="&nbsp;">
+                <InstallButton/>
               </Visibility>
             </div>
             <div style={{flexGrow: "1", textAlign: "center"}}>
