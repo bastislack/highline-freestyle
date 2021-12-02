@@ -8,7 +8,11 @@ const ComboList = () => {
 
   // combos query with react hooks -- means it refreshes automaticly
   const combos = useLiveQuery(() => db.getAllCombos(), []);
-  if (!combos) {return null} else console.log(combos);
+  if (!combos || combos.length == 0) {
+    return <p>You have no saved combos. For now it is only possible to create a combo using the combo generator, we are working on supporting custom combos.</p>;
+  }
+
+  console.log(combos);
 
   let previousComboLength = 0;
 
