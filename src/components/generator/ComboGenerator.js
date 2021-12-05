@@ -8,7 +8,7 @@ import useLocalStorage from '../hooks/useLocalStorage';
 import Database from "../../services/db";
 const db = new Database();
 
-const ComboGenerator = ({difficultyRangeMax, randomCombo, setRandomCombo}) => {
+const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => {
 
   const history = useHistory();
 
@@ -29,6 +29,20 @@ const ComboGenerator = ({difficultyRangeMax, randomCombo, setRandomCombo}) => {
     } else {
       return false;
     }
+  }
+
+  // Contains all diff-levels that should be EXCLUDED from the combo
+  const difficultyBlacklist = []
+  function refreshBlacklist() {
+    difficultyBlacklist.length = 0;
+    let childs = document.getElementById("specifyItemsDiv").childNodes
+    childs.forEach(element => {
+      let box = element.getElementsByTagName("input")[0]
+      if (!box.checked) {
+        difficultyBlacklist.push(box.value);
+      }
+    });
+    console.log("Current trick level blacklist: " + difficultyBlacklist);
   }
 
   // If the user wants to save the combo it is added to the database
@@ -181,7 +195,30 @@ const ComboGenerator = ({difficultyRangeMax, randomCombo, setRandomCombo}) => {
         </div>
         <div className="form-row">
           <label htmlFor="maxDifficultyRange" className="form-label">Max difficulty: {maxDifficulty}</label>
-          <input type="range" className="form-range" onChange={(e) => setMaxDifficulty(e.target.value)} min="1" max={difficultyRangeMax} step="1" id="maxDifficultyRange" />
+          <input type="range" className="form-range" onChange={(e) => { setMaxDifficulty(e.target.value); refreshBlacklist(); }} min="1" max={difficultyRangeMax} step="1" id="maxDifficultyRange" />
+        </div>
+        <div className="form-row">
+          <button className="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#advancedDifficultyOptions" aria-expanded="false" aria-controls="collapseExample">
+            Advanced Options
+          </button>
+          <div className="collapse" id="advancedDifficultyOptions">
+            <div className="card card-body">
+              <p>Allowed difficulty levels:</p>
+              <div className="btn-group btn-group-toggle row" data-toggle="buttons" id="specifyItemsDiv">
+                {Array.from(Array(parseInt(maxDifficulty)).keys()).map(diffNr => {
+                  diffNr++;
+                  return (
+                    <div className="col-3">
+                      <label className="btn btn-light allowedDiffButton">
+                        <div className="w-100">{diffNr}</div>
+                        <input id={"checkboxForLevel_" + diffNr} type="checkbox" value={diffNr} defaultChecked autoComplete="off" onChange={e => refreshBlacklist()} />
+                      </label>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
         </div>
         <div className="form-row form-check">
           <label className="form-check-label">Allow duplicates</label>

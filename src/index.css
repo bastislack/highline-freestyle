@@ -218,3 +218,7 @@
   width:100%;
   background-color: white;
 }
+
+.allowedDiffButton {
+  width:95%;
+}
