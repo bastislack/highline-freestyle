@@ -7,7 +7,7 @@ import { useLocation } from 'react-router-dom';
 import Database from "../../services/db";
 const db = new Database();
 
-const Settings = ({ sortingSchemes, sortOpt, setSortOpt }) => {
+const Settings = ({ sortingSchemes, sortOpt, setSortOpt, setShowAboutPage }) => {
 
   return (
     <Menu menuButton={<button className="btn"><BsGearFill/></button>} transition>
@@ -19,7 +19,7 @@ const Settings = ({ sortingSchemes, sortOpt, setSortOpt }) => {
       <MenuItem onClick={db.populateTricks} >Reset predefined tricks</MenuItem>
       <MenuItem onClick={db.dropUserTricks} >Delete all added tricks</MenuItem>
       <MenuItem onClick={db.dropUserAtributes} >Reset stickFrequencies</MenuItem>
-      <MenuItem onClick={() => alert("coming soon")} >About</MenuItem>
+      <MenuItem onClick={() => setShowAboutPage(true)} >About</MenuItem>
     </Menu>
   );
 }

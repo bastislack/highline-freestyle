@@ -18,6 +18,7 @@ import Settings from './components/layout/Settings';
 import { useState } from 'react';
 import Visibility from './components/containers/Visibility';
 import ScrollToTop from './components/containers/ScrollToTop';
+import About from './components/pages/About';
 
 
 function App() {
@@ -26,6 +27,8 @@ function App() {
   const [sortOpt, setSortOpt] = useState(0);
   // Randomly generated combo shown on the generator screen
   const [randomCombo, setRandomCombo] = useState(null);
+  // Boolean to check if About page should be rendered
+  const [showAboutPage, setShowAboutPage] = useState(false);
 
   return (
     <Router>
@@ -45,7 +48,7 @@ function App() {
             </div>
             <div style={{width: "50px", height: "40px"}}>
               <Visibility visiblePages={[pages.TRICKLIST]} elseContent="&nbsp;">
-                <Settings sortingSchemes={sortingSchemes} sortOpt={sortOpt} setSortOpt={setSortOpt}/>
+                <Settings sortingSchemes={sortingSchemes} sortOpt={sortOpt} setSortOpt={setSortOpt} setShowAboutPage={setShowAboutPage}/>
               </Visibility>
             </div>
           </div>
@@ -76,6 +79,7 @@ function App() {
               <ComboList />
             </Route>
           </Switch>
+          {showAboutPage && <About showAboutPage={showAboutPage} setShowAboutPage={setShowAboutPage}/>}
         </div>
         <Visibility visiblePages={[pages.TRICKLIST, pages.COMBOLIST]}>
           <FloatingActionButton />
