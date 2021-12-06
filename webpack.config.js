@@ -13,6 +13,7 @@ const webpackPlugins = [
     patterns: [
       {from: "./public/favicon.ico", to: ""},
       {from: "./public/manifest.json", to: ""},
+      {from: "./public/logo96.png", to: ""},
       {from: "./public/logo192.png", to: ""},
       {from: "./public/logo512.png", to: ""},
       {from: "./CNAME", to: ""},

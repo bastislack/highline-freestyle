@@ -1,6 +1,6 @@
 import { BsDownload } from 'react-icons/bs';
 import { useReactPWAInstall } from 'react-pwa-install';
-import logo from '../../../public/logo192.png';
+import logo from '../../../public/logo96.png';
 
 const InstallButton = () => {
 
@@ -20,8 +20,8 @@ const InstallButton = () => {
       ),
       description: "App for Highline Freestyle athletes",
     })
-      .then(() => alert("App installed successfully or instructions for install shown"))
-      .catch(() => alert("User opted out from installing"));
+      .then(console.log("App installed successfully or instructions for install shown"))
+      .catch(console.log("User cancelled installation"));
   };
 
   return (
