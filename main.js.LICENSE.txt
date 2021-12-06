@@ -26,6 +26,12 @@ License: MIT
   * Dual licensed under GPLv2 or MIT
   */
 
+/*!
+  Copyright (c) 2018 Jed Watson.
+  Licensed under the MIT License (MIT), see
+  http://jedwatson.github.io/classnames
+*/
+
 /*! *****************************************************************************
   Copyright (c) Microsoft Corporation.
     Permission to use, copy, modify, and/or distribute this software for any
