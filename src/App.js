@@ -19,6 +19,7 @@ import { useState } from 'react';
 import Visibility from './components/containers/Visibility';
 import ScrollToTop from './components/containers/ScrollToTop';
 import About from './components/pages/About';
+import NotFoundPage from './components/pages/NotFoundPage';
 
 
 function App() {
@@ -77,6 +78,9 @@ function App() {
             </Route>
             <Route path="/combos">
               <ComboList />
+            </Route>
+            <Route>
+              <NotFoundPage/>
             </Route>
           </Switch>
           {showAboutPage && <About showAboutPage={showAboutPage} setShowAboutPage={setShowAboutPage}/>}
