@@ -29,11 +29,7 @@ const About = ({ showAboutPage, setShowAboutPage }) => {
         <h5>How is your data handled?</h5>
         <p>As we are highliners we want to make this app work offline.
             Thus all your data is stored locally in your browser.
-            We use the&nbsp;
-             <Link to={{ pathname: "https://en.wikipedia.org/wiki/Web_storage" }} target="_blank">localstorage</Link> 
-            &nbsp;and&nbsp;
-             <Link to={{ pathname: "https://en.wikipedia.org/wiki/Indexed_Database_API" }} target="_blank">indexedDB</Link> 
-            &nbsp;API to save your data in your browser.
+            We use the <Link to={{ pathname: "https://en.wikipedia.org/wiki/Web_storage" }} target="_blank">localstorage</Link> and <Link to={{ pathname: "https://en.wikipedia.org/wiki/Indexed_Database_API" }} target="_blank">indexedDB</Link> API to save your data in your browser.
             We will never know about your data, only your browser knows about it!
         </p>
       </Modal.Body>
