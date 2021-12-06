@@ -98,6 +98,18 @@
   font-size: small;
 }
 
+.combo-preview {
+  margin: 2px;
+  width:100%;
+  height:100%;
+  overflow-wrap: break-word;
+}
+
+.combo-preview h3 {
+  font-weight: bold;
+  font-size: small;
+}
+
 .skillFreq {
   display: block;
 }
@@ -135,12 +147,26 @@
   text-decoration: none;
 }
 
+.link-to-combo {
+  margin-bottom: 10px;
+  text-decoration: none;
+}
+
 .link-to-trick h2 {
   font-size: 1em;
   font-family: sans-serif;
 }
 
+.link-to-combo h2 {
+  font-size: 1em;
+  font-family: sans-serif;
+}
+
 .trick-container {
+  padding: 4px;
+}
+
+.combo-container {
   padding: 4px;
 }
 

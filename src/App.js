@@ -10,7 +10,7 @@ import TrickDetails from './components/tricks/TrickDetails';
 import ComboDetails from './components/combos/ComboDetails';
 import FloatingActionButton from './components/buttons/FloatingActionButton';
 import {stickFrequencies, positions, pages, difficultyRangeMax} from './services/enums';
-import {sortingSchemes} from './services/sortingSchemes';
+import {trickSortingSchemes, comboSortingSchemes} from './services/sortingSchemes';
 import BackButton from "./components/buttons/BackButton";
 import InstallButton from "./components/buttons/InstallButton";
 import Logo from './components/layout/Logo';
@@ -48,8 +48,8 @@ function App() {
               <Logo/>
             </div>
             <div style={{width: "50px", height: "40px"}}>
-              <Visibility visiblePages={[pages.TRICKLIST]} elseContent="&nbsp;">
-                <Settings sortingSchemes={sortingSchemes} sortOpt={sortOpt} setSortOpt={setSortOpt} setShowAboutPage={setShowAboutPage}/>
+              <Visibility visiblePages={[pages.TRICKLIST, pages.COMBOLIST]} elseContent="&nbsp;">
+                <Settings sortingSchemes={[trickSortingSchemes, comboSortingSchemes]} sortOpt={sortOpt} setSortOpt={setSortOpt} setShowAboutPage={setShowAboutPage}/>
               </Visibility>
             </div>
           </div>
@@ -57,7 +57,7 @@ function App() {
         <div className="content">
           <Switch>
             <Route exact path="/">
-              <TrickList sortingSchemes={sortingSchemes} sortOpt={sortOpt}/>
+              <TrickList sortingSchemes={trickSortingSchemes} sortOpt={sortOpt}/>
             </Route>
             <Route path="/tricks/:id">
               <TrickDetails stickFrequencies={stickFrequencies}/>
@@ -77,7 +77,7 @@ function App() {
               <ComboGenerator difficultyRangeMax={difficultyRangeMax} randomCombo={randomCombo} setRandomCombo={setRandomCombo}/>
             </Route>
             <Route path="/combos">
-              <ComboList />
+              <ComboList sortingSchemes={comboSortingSchemes} sortOpt={sortOpt}/>
             </Route>
             <Route>
               <NotFoundPage/>

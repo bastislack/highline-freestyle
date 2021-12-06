@@ -50,5 +50,4 @@ const TrickList = ({ sortingSchemes, sortOpt }) => {
     </div>
   );
 }
-//{isFirst && sortingSchemes[sortOpt].showCategory && <h5>{sortingSchemes[sortOpt].catName} {current}</h5>}
 export default TrickList;
