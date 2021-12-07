@@ -248,3 +248,19 @@
 .allowedDiffButton {
   width:95%;
 }
+
+.touch-button-active {
+  background-color: rgb(121, 186, 233);
+  border:black;
+  border-style:solid;
+  border-width: 1px;
+  transition:0.5s;
+}
+
+.touch-button-inactive {
+  background-color: whitesmoke;
+  border:black;
+  border-style:dotted;
+  border-width: 1px;
+  transition:0.5s;
+}
