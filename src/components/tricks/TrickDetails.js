@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useLiveQuery } from "dexie-react-hooks";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import EditButton from '../buttons/EditButton';
 import DeleteButton from '../buttons/DeleteButton';
 
@@ -11,7 +11,7 @@ const db = new Database();
 const TrickDetails = ({stickFrequencies}) => {
   const { id } = useParams();
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const trick = useLiveQuery(() => db.getTrick(id), []);
   if (!trick) return null
@@ -54,7 +54,7 @@ const TrickDetails = ({stickFrequencies}) => {
     }
   }
 
-  const editTrick = () => history.push({pathname:"/posttrick", preTrick:trick});
+  const editTrick = () => navigate("/posttrick",{preTrick:trick});
 
   const deleteTrick = () => {
     db.deleteTrick(id)
@@ -65,7 +65,7 @@ const TrickDetails = ({stickFrequencies}) => {
         console.log(e);
       });
 
-    history.push('/');
+    navigate('/');
   };
 
   return (

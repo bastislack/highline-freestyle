@@ -1,4 +1,4 @@
-import { useParams, useLocation, useHistory, Link } from "react-router-dom";
+import { useParams, useLocation, useNavigate, Link } from "react-router-dom";
 import { useLiveQuery } from "dexie-react-hooks";
 import EditButton from '../buttons/EditButton';
 import DeleteButton from '../buttons/DeleteButton';
@@ -7,7 +7,7 @@ import Database from "../../services/db";
 const db = new Database();
 
 const ComboDetails = ({stickFrequencies, randomCombo}) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const path = useLocation().pathname.toString().toLowerCase();
 
   let combo;
@@ -53,10 +53,10 @@ const ComboDetails = ({stickFrequencies, randomCombo}) => {
         console.log(e);
       });
 
-    history.push('/combos');
+    navigate('/combos');
   };
 
-  const editCombo = () => history.push({pathname:"/postcombo", preCombo:combo});
+  const editCombo = () => navigate("/postcombo", {preCombo:combo});
 
   return (
     <div className="combo-details">

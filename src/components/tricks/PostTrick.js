@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import Database from "../../services/db";
 const db = new Database();
@@ -48,7 +48,7 @@ const PostTrick = ({stickFrequencies, positions}) => {
     preId = preTrick.id;
   }
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -71,7 +71,7 @@ const PostTrick = ({stickFrequencies, positions}) => {
     db.saveTrick(trick)
     .then(() => {
       console.log(trick);
-      history.push('/');
+      navigate('/');
     })
   }
 

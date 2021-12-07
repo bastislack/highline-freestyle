@@ -5,7 +5,7 @@ import ComboList from './components/combos/ComboList';
 import PostTrick from './components/tricks/PostTrick';
 import PostCombo from './components/combos/PostCombo';
 import ComboGenerator from './components/generator/ComboGenerator';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import TrickDetails from './components/tricks/TrickDetails';
 import ComboDetails from './components/combos/ComboDetails';
 import FloatingActionButton from './components/buttons/FloatingActionButton';
@@ -55,34 +55,20 @@ function App() {
           </div>
         </Navbar>
         <div className="content">
-          <Switch>
-            <Route exact path="/">
-              <TrickList sortingSchemes={trickSortingSchemes} sortOpt={sortOpt}/>
-            </Route>
-            <Route path="/tricks/:id">
-              <TrickDetails stickFrequencies={stickFrequencies}/>
-            </Route>
-            <Route path="/combos/:id">
-              <ComboDetails stickFrequencies={stickFrequencies}/>
-            </Route>
-            <Route path="/posttrick">
+          <Routes>
+            <Route path="/" element={<TrickList sortingSchemes={trickSortingSchemes} sortOpt={sortOpt}/>} />
+            <Route path="/tricks/:id" element={<TrickDetails stickFrequencies={stickFrequencies}/>} />
+            <Route path="/combos/:id" element={<ComboDetails stickFrequencies={stickFrequencies}/>} />
+            <Route path="/posttrick" element={
               <ScrollToTop>
                 <PostTrick stickFrequencies={stickFrequencies} positions={positions}/>
               </ScrollToTop>
-            </Route>
-            <Route path="/postcombo">
-              <PostCombo stickFrequencies={stickFrequencies}/>
-            </Route>
-            <Route path="/generator">
-              <ComboGenerator difficultyRangeMax={difficultyRangeMax} randomCombo={randomCombo} setRandomCombo={setRandomCombo}/>
-            </Route>
-            <Route path="/combos">
-              <ComboList sortingSchemes={comboSortingSchemes} sortOpt={sortOpt}/>
-            </Route>
-            <Route>
-              <NotFoundPage/>
-            </Route>
-          </Switch>
+            } />
+            <Route path="/postcombo" element={<PostCombo stickFrequencies={stickFrequencies}/>} />
+            <Route path="/generator" element={<ComboGenerator difficultyRangeMax={difficultyRangeMax} randomCombo={randomCombo} setRandomCombo={setRandomCombo}/>} />
+            <Route path="/combos" element={<ComboList sortingSchemes={comboSortingSchemes} sortOpt={sortOpt}/>} />
+            <Route path="/*" element={<NotFoundPage/>} />
+          </Routes>
           {showAboutPage && <About showAboutPage={showAboutPage} setShowAboutPage={setShowAboutPage}/>}
         </div>
         <Visibility visiblePages={[pages.TRICKLIST, pages.COMBOLIST]}>

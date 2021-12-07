@@ -1,11 +1,11 @@
-import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { BsCaretLeftFill } from 'react-icons/bs';
 
 const BackButton = () => {
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
-  const goBack = () => history.go(-1);
+  const goBack = () => navigate(-1);
 
   return (
     <button className="btn btn-link" onClick={goBack}>

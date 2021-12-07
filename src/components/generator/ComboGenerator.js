@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useLiveQuery } from "dexie-react-hooks";
 import ComboDetails from '../combos/ComboDetails';
 import { stickFrequencies } from '../../services/enums';
@@ -10,7 +10,7 @@ const db = new Database();
 
 const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => {
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [generatedCombosCount, setGeneratedCombosCount] = useLocalStorage('randomComboCount', 1);
 
@@ -58,7 +58,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
     // Increment number of generated combos by 1 so all the combos have unique names
     setGeneratedCombosCount(generatedCombosCount + 1);
     setRandomCombo(null);
-    history.push("/combos");
+    navigate("/combos");
   };
 
   const computeStats = (randomTricks) => {

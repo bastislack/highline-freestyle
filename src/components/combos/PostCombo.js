@@ -1,7 +1,7 @@
-//import { useHistory } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 
 const PostCombo = () => {
-  //const history = useHistory();
+  //const navigate = useNavigate();
 
   //const handleSubmit = (e) => {
   //  e.preventDefault();
@@ -11,7 +11,7 @@ const PostCombo = () => {
   //  ComboDataService.create(combo)
   //  .then(() => {
   //    console.log(combo);
-  //    history.push('/combos');
+  //    navigate('/combos');
   //  })
   //}
 
