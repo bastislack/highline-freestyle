@@ -179,6 +179,14 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
     computeStats(randomTricks);
   }
 
+  function toggleTouch(element){
+    var inp = document.getElementById(element.id);
+    inp.classList.toggle("touch-button-active");
+    inp.classList.toggle("touch-button-inactive");
+    //document.getElementById(element.id).toggleClass("touch-button");
+    //element.toggleClass("touch-button");
+  }
+
   return (
     <div className="generator">
       <h2>Generate a Random Combo</h2>
@@ -201,6 +209,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
           <button className="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#advancedDifficultyOptions" aria-expanded="false" aria-controls="collapseExample">
             Advanced Options
           </button>
+
           <div className="collapse" id="advancedDifficultyOptions">
             <div className="card card-body">
               <p>Allowed difficulty levels:</p>
@@ -209,10 +218,22 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
                   diffNr++;
                   return (
                     <div className="col-3">
-                      <label className="btn btn-light allowedDiffButton">
-                        <div className="w-100">{diffNr}</div>
-                        <input id={"checkboxForLevel_" + diffNr} type="checkbox" value={diffNr} defaultChecked autoComplete="off" onChange={e => refreshBlacklist()} />
-                      </label>
+                      <input 
+                      id={"checkboxForLevel_" + diffNr} 
+
+                      value={diffNr} 
+                      className="btn-check" 
+                      value={diffNr} 
+                      type="checkbox" 
+                      defaultChecked 
+                      autoComplete="off" 
+                      onChange={e => refreshBlacklist()} />
+                      <label 
+                      id={"labelForLevel_" + diffNr}
+                      className="btn  allowedDiffButton touch-button-active" 
+                      htmlFor={"checkboxForLevel_" + diffNr}
+                      onClick={(e) => toggleTouch(e.target)}
+                      >{diffNr}</label>
                     </div>
                   );
                 })}
