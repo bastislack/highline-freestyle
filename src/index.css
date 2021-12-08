@@ -264,3 +264,7 @@
   border-width: 1px;
   transition:0.5s;
 }
+
+.btn-group-long-row {
+  width:100%;
+}

@@ -18,6 +18,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
   const [removeTricks, setRemoveTricks] = useState(true);
   const [allowConsecutiveTricks, setConsecutiveTricks] = useState(false);
   const [maxDifficulty, setMaxDifficulty] = useState(difficultyRangeMax);
+  const [avgDifficulty, setAvgDifficulty] = useState(-1);
   const [comboName, setComboName] = useState("Random #" + generatedCombosCount);
 
   const tricks = useLiveQuery(() => db.getAllTricks(), []);
@@ -185,6 +186,26 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
     inp.classList.toggle("touch-button-inactive");
   }
 
+  function toggleAvgSlider(checked) {
+    var avgDifficultyRange = document.getElementById("avgDifficultyRange");
+    avgDifficultyRange.disabled = checked == false;
+
+    refreshAvgSlider();
+  }
+
+  function refreshAvgSlider() {
+    var avgDifficultyRange = document.getElementById("avgDifficultyRange");
+    var checked = document.getElementById("input_chkbx_avg").checked;
+    if (!checked) {
+      avgDifficultyRange.value = 1;
+      setAvgDifficulty(-1);
+    } else {
+      var halfdiff = maxDifficulty / 2;
+      avgDifficultyRange.value = halfdiff;
+      setAvgDifficulty(halfdiff);
+    }
+  }
+
   return (
     <div className="generator">
       <h2>Generate a Random Combo</h2>
@@ -201,7 +222,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
         </div>
         <div className="form-row">
           <label htmlFor="maxDifficultyRange" className="form-label">Max difficulty: {maxDifficulty}</label>
-          <input type="range" className="form-range" onChange={(e) => { setMaxDifficulty(e.target.value); refreshBlacklist(); }} min="1" max={difficultyRangeMax} step="1" id="maxDifficultyRange" />
+          <input type="range" className="form-range" onChange={(e) => { setMaxDifficulty(e.target.value); refreshBlacklist(); refreshAvgSlider(); }} min="1" max={difficultyRangeMax} step="1" id="maxDifficultyRange" />
         </div>
         <div className="form-row">
           <button className="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#advancedDifficultyOptions" aria-expanded="false" aria-controls="collapseExample">
@@ -211,8 +232,9 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
           <div className="collapse" id="advancedDifficultyOptions">
             <div className="card card-body">
               <div className="form-row">
-                Allowed difficulty levels:
-                <div className="btn-group btn-group-toggle row" data-toggle="buttons" id="specifyItemsDiv">
+
+                <p>Allowed difficulty levels:</p>
+                <div className="btn-group btn-group-toggle row btn-group-long-row" data-toggle="buttons" id="specifyItemsDiv">
                   {Array.from(Array(parseInt(maxDifficulty)).keys()).map(diffNr => {
                     diffNr++;
                     return (
@@ -254,6 +276,25 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
                   type="checkbox"
                   onChange={(e) => setConsecutiveTricks(e.target.checked)}
                 />
+              </div>
+
+              <div className="form-row form-check">
+                <label className="form-check-label">Average difficulty {avgDifficulty > 0 && avgDifficulty}</label>
+                <input
+                  id="input_chkbx_avg"
+                  defaultValue="False"
+                  className="form-check-input"
+                  type="checkbox"
+                  onClick={(e) => toggleAvgSlider(e.target.checked)}
+                />
+                <input type="range"
+                  disabled
+                  className="form-range"
+                  onChange={(e) => { setAvgDifficulty(e.target.value); }}
+                  min="1"
+                  max={maxDifficulty}
+                  step="0.5"
+                  id="avgDifficultyRange" />
               </div>
             </div>
           </div>
