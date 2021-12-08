@@ -183,8 +183,6 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
     var inp = document.getElementById(element.id);
     inp.classList.toggle("touch-button-active");
     inp.classList.toggle("touch-button-inactive");
-    //document.getElementById(element.id).toggleClass("touch-button");
-    //element.toggleClass("touch-button");
   }
 
   return (
@@ -220,7 +218,6 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
                     <div className="col-3">
                       <input 
                       id={"checkboxForLevel_" + diffNr} 
-
                       value={diffNr} 
                       className="btn-check" 
                       value={diffNr} 
@@ -230,7 +227,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
                       onChange={e => refreshBlacklist()} />
                       <label 
                       id={"labelForLevel_" + diffNr}
-                      className="btn  allowedDiffButton touch-button-active" 
+                      className="btn allowedDiffButton touch-button-active" 
                       htmlFor={"checkboxForLevel_" + diffNr}
                       onClick={(e) => toggleTouch(e.target)}
                       >{diffNr}</label>
