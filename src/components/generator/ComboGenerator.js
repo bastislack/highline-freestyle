@@ -293,6 +293,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
                   onChange={(e) => { setAvgDifficulty(e.target.value); }}
                   min="1"
                   max={maxDifficulty}
+                  defaultValue={avgDifficulty}
                   step="0.5"
                   id="avgDifficultyRange" />
               </div>
