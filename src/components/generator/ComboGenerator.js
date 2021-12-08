@@ -179,7 +179,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
     computeStats(randomTricks);
   }
 
-  function toggleTouch(element){
+  function toggleTouch(element) {
     var inp = document.getElementById(element.id);
     inp.classList.toggle("touch-button-active");
     inp.classList.toggle("touch-button-inactive");
@@ -210,52 +210,55 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
 
           <div className="collapse" id="advancedDifficultyOptions">
             <div className="card card-body">
-              <p>Allowed difficulty levels:</p>
-              <div className="btn-group btn-group-toggle row" data-toggle="buttons" id="specifyItemsDiv">
-                {Array.from(Array(parseInt(maxDifficulty)).keys()).map(diffNr => {
-                  diffNr++;
-                  return (
-                    <div className="col-3">
-                      <input 
-                      id={"checkboxForLevel_" + diffNr} 
-                      value={diffNr} 
-                      className="btn-check" 
-                      value={diffNr} 
-                      type="checkbox" 
-                      defaultChecked 
-                      autoComplete="off" 
-                      onChange={e => refreshBlacklist()} />
-                      <label 
-                      id={"labelForLevel_" + diffNr}
-                      className="btn allowedDiffButton touch-button-active" 
-                      htmlFor={"checkboxForLevel_" + diffNr}
-                      onClick={(e) => toggleTouch(e.target)}
-                      >{diffNr}</label>
-                    </div>
-                  );
-                })}
+              <div className="form-row">
+                Allowed difficulty levels:
+                <div className="btn-group btn-group-toggle row" data-toggle="buttons" id="specifyItemsDiv">
+                  {Array.from(Array(parseInt(maxDifficulty)).keys()).map(diffNr => {
+                    diffNr++;
+                    return (
+                      <div className="col-3">
+                        <input
+                          id={"checkboxForLevel_" + diffNr}
+                          value={diffNr}
+                          className="btn-check"
+                          value={diffNr}
+                          type="checkbox"
+                          defaultChecked
+                          autoComplete="off"
+                          onChange={e => refreshBlacklist()} />
+                        <label
+                          id={"labelForLevel_" + diffNr}
+                          className="btn allowedDiffButton touch-button-active"
+                          htmlFor={"checkboxForLevel_" + diffNr}
+                          onClick={(e) => toggleTouch(e.target)}
+                        >{diffNr}</label>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+              <div className="form-row form-check">
+                <label className="form-check-label">Allow duplicates</label>
+                <input
+                  defaultValue="False"
+                  className="form-check-input"
+                  type="checkbox"
+                  onChange={(e) => setRemoveTricks(e.target.checked == false)}
+                />
+              </div>
+              <div className="form-row form-check">
+                <label className="form-check-label">Allow consecutive tricks</label>
+                <input
+                  defaultValue="False"
+                  className="form-check-input"
+                  type="checkbox"
+                  onChange={(e) => setConsecutiveTricks(e.target.checked)}
+                />
               </div>
             </div>
           </div>
         </div>
-        <div className="form-row form-check">
-          <label className="form-check-label">Allow duplicates</label>
-          <input
-            defaultValue="False"
-            className="form-check-input"
-            type="checkbox"
-            onChange={(e) => setRemoveTricks(e.target.checked == false)}
-          />
-        </div>
-        <div className="form-row form-check">
-          <label className="form-check-label">Allow consecutive tricks</label>
-          <input
-            defaultValue="False"
-            className="form-check-input"
-            type="checkbox"
-            onChange={(e) => setConsecutiveTricks(e.target.checked)}
-          />
-        </div>
+
         <div className="row justify-content-around">
           <button className="col-sm-4 btn btn-primary">Generate</button>
           {randomCombo && (
