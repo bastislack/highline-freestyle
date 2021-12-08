@@ -3,37 +3,6 @@
   font-family: sans-serif;
   color: black;
 }
-.navbar {
-  padding: 5px;
-  display: flex;
-  align-items: center;
-  max-width: 600px;
-  margin: 0 auto;
-  border-bottom: 1px solid #f2f2f2;
-}
-.navbar h1 {
-  color: #f1356d;
-  font-size: 1em;
-  margin:0px;
-}
-
-.navbar a {
-  margin: auto;
-  text-decoration: none;
-}
-.navbar a:hover {
-  color: #f1356d;
-}
-.bottomNav {
-  padding: 5px 10px;
-  display: flex;
-  align-items: center;
-  margin: 0 auto;
-  border-bottom: 1px solid #f2f2f2;
-  background-color: #4fabec;
-  min-height: 40px;
-  
-}
 
 .nav-elem-selected {
   color:black !important;
@@ -182,9 +151,10 @@
 }
 
 .fab_button {
-  position: fixed !important;
-  bottom: 60px;
+  position: absolute;
+  bottom: 25px;
   right: 25px;
+  background-color: #4fabecc2 !important;
 }
 
 .fab_button button {

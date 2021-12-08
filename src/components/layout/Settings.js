@@ -15,7 +15,7 @@ const Settings = ({ sortingSchemes, sortOpt, setSortOpt, setShowAboutPage }) => 
   const inComboList = path === "/combos" ? true : false;
 
   return (
-    <Menu menuButton={<button className="btn"><BsGearFill/></button>} transition>
+    <Menu menuButton={<button className="btn btn-secondary btn-outline-secondary"><BsGearFill/></button>} transition>
       <MenuHeader>Sorting</MenuHeader>
       <MenuRadioGroup value={sortOpt} onRadioChange={e => setSortOpt(e.value)}>
         {inTrickList && sortingSchemes[0].map(scheme => <MenuItem value={scheme.id} key={"scheme" + scheme.id} >{scheme.name}</MenuItem>)}

@@ -25,7 +25,7 @@ const FloatingActionButton = ({ setTrickListScrollPosition, setComboListScrollPo
 
   return (
     <Link to={create} className="fab_button">
-      <Fab size="medium" onClick={updateScrollPosition} className="kc_fab_main_btn" color="secondary" aria-label="add">
+      <Fab size="medium" onClick={updateScrollPosition} color="secondary" aria-label="add">
         <i className="bi bi-plus-lg"></i>
       </Fab>
     </Link>

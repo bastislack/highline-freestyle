@@ -1,8 +1,12 @@
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const {InjectManifest} = require('workbox-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
+
+const isProduction = process.env.NODE_ENV === 'production';
+const isDevelopment = !isProduction;
 
 const webpackPlugins = [
   new HtmlWebpackPlugin({
@@ -20,9 +24,13 @@ const webpackPlugins = [
       {from: "./CNAME", to: ""},
     ],
   }),
+  new MiniCssExtractPlugin({
+    filename: isDevelopment ? '[name].css' : '[name].[hash].css',
+    chunkFilename: isDevelopment ? '[id].css' : '[id].[hash].css'
+  })
 ];
 
-if (process.env.NODE_ENV === 'production') {
+if (isProduction) {
   webpackPlugins.push(
     new InjectManifest({
       swSrc: './src/src-sw.js',
@@ -56,6 +64,39 @@ module.exports = {
         test: /\.(png|j?g|svg|gif)?$/,
         use: 'file-loader?name=./images/[name].[ext]'
       },
+      {
+        test: /\.module\.s(a|c)ss$/,
+        use: [
+          isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              sourceMap: isDevelopment
+            }
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: isDevelopment
+            }
+          }
+        ]
+      },
+      {
+        test: /\.s(a|c)ss$/,
+        exclude: /\.module.(s(a|c)ss)$/,
+        use: [
+          isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
+          'css-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: isDevelopment
+            }
+          }
+        ]
+      }
     ]
   },
   plugins: webpackPlugins

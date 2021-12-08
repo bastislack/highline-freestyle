@@ -1,0 +1,88 @@
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+
+body {
+  overflow-y: hidden;
+}
+
+.left-navigation {
+  display: flex;
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-direction: column;
+}
+
+@include media-breakpoint-down(lg) {
+  .left-navigation {
+    display: none;
+  }
+}
+
+.main-column {
+  height: 100vh;
+  display: flex;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-direction: column;
+  padding: 0;
+}
+
+.top-navigation {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+@include media-breakpoint-up(lg) {
+  .top-navigation {
+    display: none;
+  }
+}
+
+.navbar-title {
+  @extend .fs-4, .text-white
+}
+
+.main-column-content-wrapper {
+  display: flex;
+  flex-grow: 1;
+  flex-shrink: 1;
+  position: relative;
+  overflow-y: hidden;
+}
+
+.main-column-content {
+  @extend .p-3;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.bottom-navigation {
+  @extend .text-white, .bg-dark;
+  display: none;
+  padding: 5px 10px;
+  align-items: center;
+  min-height: 40px;
+}
+
+
+@include media-breakpoint-down(lg) {
+  .bottom-navigation {
+    display: flex;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-direction: row;
+  }
+}
+
+.fab:hover {
+  background: #1295f3;
+}
+
+.option-pills.nav-pills > .nav-item > .nav-link.active {
+  background-color: rgba(40, 46, 54, 1);
+  color: white;
+}
+
+.left-navigation > h6 {
+  color: #767676;
+  margin-bottom: 0;
+}
