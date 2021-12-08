@@ -238,7 +238,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
                   {Array.from(Array(parseInt(maxDifficulty)).keys()).map(diffNr => {
                     diffNr++;
                     return (
-                      <div className="col-3">
+                      <div className="col-3 col-sm-3 col-md-2 col-lg-1">
                         <input
                           id={"checkboxForLevel_" + diffNr}
                           value={diffNr}
