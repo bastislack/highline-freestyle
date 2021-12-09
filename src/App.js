@@ -65,7 +65,7 @@ function App() {
               </ScrollToTop>
             } />
             <Route path="/postcombo" element={<PostCombo stickFrequencies={stickFrequencies}/>} />
-            <Route path="/generator" element={<ComboGenerator difficultyRangeMax={difficultyRangeMax} randomCombo={randomCombo} setRandomCombo={setRandomCombo}/>} />
+            <Route path="/generator" element={<ComboGenerator difficultyRangeMax={difficultyRangeMax} randomCombo={randomCombo} setRandomCombo={setRandomCombo} positions={positions}/>} />
             <Route path="/combos" element={<ComboList sortingSchemes={comboSortingSchemes} sortOpt={sortOpt}/>} />
             <Route path="/*" element={<NotFoundPage/>} />
           </Routes>

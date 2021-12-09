@@ -8,29 +8,25 @@ import useLocalStorage from '../hooks/useLocalStorage';
 import Database from "../../services/db";
 const db = new Database();
 
-const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => {
+const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo, positions }) => {
 
   const navigate = useNavigate();
 
   const [generatedCombosCount, setGeneratedCombosCount] = useLocalStorage('randomComboCount', 1);
 
   const [numberOfTricks, setNumberOfTricks] = useState('');
-  const [removeTricks, setRemoveTricks] = useState(true);
+  const [allowDuplicates, setAllowDuplicates] = useState(false);
   const [allowConsecutiveTricks, setConsecutiveTricks] = useState(false);
   const [maxDifficulty, setMaxDifficulty] = useState(difficultyRangeMax);
   const [avgDifficulty, setAvgDifficulty] = useState(-1);
   const [comboName, setComboName] = useState("Random #" + generatedCombosCount);
+  const [startFromPosition, setStartFromPosition] = useState(positions.findIndex(item => item === "EXPOSURE"));
+  const [finishToFeet, setFinishToFeet] = useState(true);
+  const [consecutiveCheckbox, setConsecutiveCheckbox] = useState(false);
+  const [startFromCheckbox, setStartFromCheckbox] = useState(false);
 
   const tricks = useLiveQuery(() => db.getAllTricks(), []);
   if (!tricks) return null
-
-  const arePositionsSimilar = (startPos, endPos) => {
-    if ((startPos === "KOREAN" && (endPos === "CHEST" || endPos === "BACK")) || (startPos === "CHEST" && endPos === "KOREAN") || (startPos === "BACK" && endPos === "KOREAN") || (startPos === "EXPOSURE" && endPos === "STAND") || (startPos === "STAND" && endPos === "EXPOSURE")) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 
   // Contains all diff-levels that should be EXCLUDED from the combo
   const difficultyBlacklist = []
@@ -62,15 +58,13 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
     navigate("/combos");
   };
 
-  const computeStats = (randomTricks) => {
+  const computeStats = (tricksInCombo) => {
     let minDiff = Infinity;
     let maxDiff = -Infinity;
     let avgDiff;
-    let numberOfTricks = randomTricks.length;
     let totalDiff = 0;
-    const currentYear = new Date().getFullYear();
 
-    randomTricks.map(trick => {
+    tricksInCombo.map(trick => {
       if (trick.difficultyLevel < minDiff) {
         minDiff = parseInt(trick.difficultyLevel);
       }
@@ -81,6 +75,135 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
     });
 
     avgDiff = Math.round((totalDiff / numberOfTricks + Number.EPSILON) * 100) / 100;
+
+    return({
+      minDiff: minDiff,
+      maxDiff: maxDiff,
+      avgDiff: avgDiff,
+      totalDiff: totalDiff,
+      numberOfTricks: numberOfTricks,
+    });
+  }
+
+  const arePositionsSimilar = (startPos, endPos) => {
+    if ((startPos === "KOREAN" && (endPos === "CHEST" || endPos === "BACK")) || (startPos === "CHEST" && endPos === "KOREAN") || (startPos === "BACK" && endPos === "KOREAN") || (startPos === "EXPOSURE" && endPos === "STAND") || (startPos === "STAND" && endPos === "EXPOSURE")) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  const isAnyComboConditionFulfilled = (index, lastTrick, currentTrick) => {
+    const isFinishToFeetFulfilled = (currentTrick.endPos === "STAND" || currentTrick.endPos === "EXPOSURE") ? true : false;
+    const isConsecutiveTricksFulfilled = ((allowDuplicates && allowConsecutiveTricks) || lastTrick !== currentTrick) ? true : false;
+    const isGeneralComboConstraintFulfilled = (arePositionsSimilar(currentTrick.startPos, lastTrick.endPos) || currentTrick.startPos === lastTrick.endPos) ? true : false;
+    if(index === numberOfTricks - 1 && finishToFeet){
+      if(isGeneralComboConstraintFulfilled && isConsecutiveTricksFulfilled && isFinishToFeetFulfilled){
+        return true;
+      }
+    }
+    else if(isGeneralComboConstraintFulfilled && isConsecutiveTricksFulfilled){
+      return true;
+    }
+    return false;
+  }
+
+  const getFirstTrick = (availableTricks) => {
+    if(startFromCheckbox){
+      for (let i = 0; i < availableTricks.length; i++) {
+        if(availableTricks[i].startPos === positions[startFromPosition]){
+          return ({ firstTrick: availableTricks[i], indexAvailableTricks: i });
+        }
+      }
+    }
+    else {
+      return ({ firstTrick: availableTricks[0], indexAvailableTricks: 0 })
+    }
+  }
+
+  const generateCombo = (e) => {
+    e.preventDefault();
+
+    setRandomCombo(null);
+
+    if (numberOfTricks <= 1) {
+      alert("You need more than one trick for a combo!");
+      return;
+    }
+
+    let randomTricks = new Array(numberOfTricks);
+    let availableTricks = [...tricks];
+
+    let stuckPos;
+    let removedTrick;
+
+    // maximum retries until the generator stops
+    let maxRetries = 100;
+    let retries = 0;
+
+    // Shuffle array of tricks
+    let shuffleTricks = () => availableTricks.sort((a, b) => 0.5 - Math.random());
+    shuffleTricks();
+
+    // Get the first trick for the random combo
+    const { firstTrick, indexAvailableTricks } = getFirstTrick(availableTricks);
+    randomTricks[0] = firstTrick;
+    if (!allowDuplicates) removedTrick = availableTricks.splice(indexAvailableTricks, 1);
+
+    // Iteratively shuffle array of tricks and find the first trick
+    // that has a starting position that matches with the
+    // ending position of the trick before
+    //
+    // If it cant find a continuation it will try again until maxRetries
+    for (let i = 1; i < numberOfTricks; i++) {
+      if (retries > maxRetries) return alert("Couldn't find combo!");
+
+      let trickFound = false;
+      shuffleTricks();
+      let lastTrick = randomTricks[i - 1];
+      let lastPos = randomTricks[i - 1].endPos;
+      for (let j = 0; j < availableTricks.length; j++) {
+        if (isAnyComboConditionFulfilled(i, randomTricks[i - 1], availableTricks[j])) {
+          randomTricks[i] = availableTricks[j];
+          if (!allowDuplicates) removedTrick = availableTricks.splice(j, 1);
+          trickFound = true;
+          console.log("found trick: ", i + 1);
+          break;
+        }
+      }
+      // if no trick is found the last iteration of the loop is repeated
+      // but if it gets stuck on the same position twice, it starts from the begingin
+      if (!trickFound) {
+        retries++;
+        console.log("No suitable trick, after: " + lastTrick.technicalName + " from position: " + lastPos + " found, removing last trick");
+        if (i === 1 || lastPos === stuckPos) {
+          console.log("starting new");
+          availableTricks = [...tricks];
+          shuffleTricks();
+          let { firstTrick, indexAvailableTricks } = getFirstTrick(availableTricks);
+          randomTricks[0] = firstTrick;
+          if (!allowDuplicates) removedTrick = availableTricks.splice(indexAvailableTricks, 1);
+          i = 0;
+        } else {
+          if (!allowDuplicates) availableTricks.push(removedTrick);
+          i = i - 2;
+        }
+        stuckPos = lastPos;
+      }
+    }
+
+    //check integrety of combo
+    for (let i = 1; i < randomTricks.length; i++) {
+      let prev = randomTricks[i - 1];
+      let trick = randomTricks[i];
+      if (prev.endPos !== trick.startPos && !arePositionsSimilar(trick.startPos, prev.endPos)) {
+        alert("trick generator is broken");
+      }
+    }
+
+    const {minDiff, maxDiff, avgDiff, totalDiff} = computeStats(randomTricks);
+
+    const currentYear = new Date().getFullYear();
 
     setRandomCombo({
       name: comboName,
@@ -98,88 +221,6 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
     });
   }
 
-  const generateCombo = (e) => {
-    e.preventDefault();
-
-    setRandomCombo(null);
-
-    if (numberOfTricks < 1) {
-      alert("the number of tricks can't be negative or 0");
-      return;
-    } else if (parseInt(numberOfTricks) === 1) {
-      alert("You need more than one trick for a combo!");
-      return;
-    }
-
-    let randomTricks = new Array(numberOfTricks);
-    let myTricks = [...tricks];
-
-    let stuckPos;
-    let removedTrick;
-
-    // maximum retries until the generator stops
-    let maxRetries = 100;
-    let retries = 0;
-
-    // Shuffle array of tricks
-    let shuffleTricks = () => myTricks.sort((a, b) => 0.5 - Math.random());
-    shuffleTricks();
-
-    // Get the first trick for the random combo
-    randomTricks[0] = myTricks[0];
-    if (removeTricks) removedTrick = myTricks.shift();
-
-    // Iteratively shuffle array of tricks and find the first trick
-    // that has a starting position that matches with the
-    // ending position of the trick before
-    //
-    // If it cant find a continuation it will try again until maxRetries
-    for (let i = 1; i < numberOfTricks; i++) {
-      if (retries > maxRetries) return alert("couldn't find combo");
-
-      let trickFound = false;
-      shuffleTricks();
-      let lastPos = randomTricks[i - 1].endPos;
-      for (let j = 0; j < myTricks.length; j++) {
-        if ((arePositionsSimilar(myTricks[j].startPos, lastPos) || myTricks[j].startPos === lastPos) && (allowConsecutiveTricks || randomTricks[i - 1] !== myTricks[j])) {
-          randomTricks[i] = myTricks[j];
-          if (removeTricks) removedTrick = myTricks.splice(j, 1);
-          trickFound = true;
-          console.log("found trick");
-          break;
-        }
-      }
-      // if no trick is found the last iteration of the loop is repeated
-      // but if it gets stuck on the same position twice, it starts from the begingin
-      if (!trickFound) {
-        retries++;
-        console.log("No suitable trick, from position: " + lastPos + " found, removing last trick");
-        if (i === 1 || lastPos === stuckPos) {
-          console.log("starting new");
-          myTricks = [...tricks];
-          shuffleTricks();
-          randomTricks[0] = myTricks[0];
-          i = 0;
-        } else {
-          if (removeTricks) myTricks.push(removedTrick);
-          i = i - 2;
-        }
-        stuckPos = lastPos;
-      }
-    }
-
-    //check integrety of combo
-    for (let i = 1; i < randomTricks.length; i++) {
-      let prev = randomTricks[i - 1];
-      let trick = randomTricks[i];
-      if (prev.endPos !== trick.startPos && !arePositionsSimilar(trick.startPos, prev.endPos)) {
-        alert("trick generator is broken");
-      }
-    }
-
-    computeStats(randomTricks);
-  }
-
   function toggleTouch(element) {
     var inp = document.getElementById(element.id);
     inp.classList.toggle("touch-button-active");
@@ -191,6 +232,19 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
     avgDifficultyRange.disabled = checked == false;
 
     refreshAvgSlider();
+  }
+  
+  function toggleConsecutiveTricks(checked) {
+    var consecutiveTricks = document.getElementById("consecutiveTricks");
+    consecutiveTricks.disabled = checked == false;
+    setConsecutiveCheckbox(checked == true);
+
+    refreshConsecutiveTricks();
+  }
+
+  function toggleStartFrom(checked) {
+    var selectStartFrom = document.getElementById("select_start_from");
+    selectStartFrom.disabled = checked == false;
   }
 
   function refreshAvgSlider() {
@@ -205,6 +259,18 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
       setAvgDifficulty(halfdiff);
     }
   }
+
+  function refreshConsecutiveTricks() {
+    var consecutiveTricks = document.getElementById("consecutiveTricks");
+    consecutiveTricks.checked = false;
+    setConsecutiveTricks(false);
+  }
+
+  const positionList = positions.map((item, i) => {
+    return (
+      <option value={i}>{item}</option>
+    )
+  });
 
   return (
     <div className="generator">
@@ -259,24 +325,6 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
                   })}
                 </div>
               </div>
-              <div className="form-row form-check">
-                <label className="form-check-label">Allow duplicates</label>
-                <input
-                  defaultValue="False"
-                  className="form-check-input"
-                  type="checkbox"
-                  onChange={(e) => setRemoveTricks(e.target.checked == false)}
-                />
-              </div>
-              <div className="form-row form-check">
-                <label className="form-check-label">Allow consecutive tricks</label>
-                <input
-                  defaultValue="False"
-                  className="form-check-input"
-                  type="checkbox"
-                  onChange={(e) => setConsecutiveTricks(e.target.checked)}
-                />
-              </div>
 
               <div className="form-row form-check">
                 <label className="form-check-label">Average difficulty {avgDifficulty > 0 && avgDifficulty}</label>
@@ -290,12 +338,65 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
                 <input type="range"
                   disabled
                   className="form-range"
-                  onChange={(e) => { setAvgDifficulty(e.target.value); }}
+                  onChange={(e) => setAvgDifficulty(e.target.value)}
                   min="1"
                   max={maxDifficulty}
                   defaultValue={avgDifficulty}
                   step="0.5"
                   id="avgDifficultyRange" />
+              </div>
+              <div className="form-row form-check">
+                <label className="form-check-label">Finish to Feet</label>
+                <input
+                  defaultChecked={finishToFeet}
+                  className="form-check-input"
+                  type="checkbox"
+                  onClick={(e) => setFinishToFeet(e.target.checked)}
+                />
+              </div>
+              <div className="form-row form-check">
+                <label className="form-check-label">Start from:</label>
+                <input
+                  id="start_from_chkbx"
+                  className="form-check-input"
+                  type="checkbox"
+                  onChange={(e) => {toggleStartFrom(e.target.checked); setStartFromCheckbox(e.target.checked);}}
+                />
+                <select
+                  id="select_start_from"
+                  disabled
+                  className="form-control"
+                  value={startFromPosition}
+                  placeholder="EXPOSURE"
+                  onChange={(e) => setStartFromPosition(e.target.value)}
+                >
+                  {positionList}
+                </select>
+              </div>
+              <div className="form-row">
+                <div className="form-check form-check-inline">
+                  <label className="form-check-label">Allow duplicate tricks</label>
+                  <input
+                    id="input_chkbx_duplicates"
+                    className="form-check-input"
+                    type="checkbox"
+                    onClick={(e) => {
+                      setAllowDuplicates(e.target.checked);
+                      toggleConsecutiveTricks(e.target.checked);
+                    }}
+                  />
+                </div>
+                <div className="form-check form-check-inline">
+                  <label id="consecutiveTricksLabel" className={consecutiveCheckbox ? "form-check-label" : "form-check-label text-muted"}>Allow consecutive tricks</label>
+                  <input
+                    disabled
+                    id="consecutiveTricks"
+                    defaultValue="False"
+                    className="form-check-input"
+                    type="checkbox"
+                    onChange={(e) => setConsecutiveTricks(e.target.checked)}
+                  />
+                </div>
               </div>
             </div>
           </div>
