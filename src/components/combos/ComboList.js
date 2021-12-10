@@ -11,6 +11,7 @@ const ComboList = ({ sortingSchemes, sortOpt }) => {
   if (!combos || combos.length == 0) {
     return <p>You have no saved combos. For now it is only possible to create a combo using the combo generator, we are working on supporting custom combos.</p>;
   }
+  console.log(combos)
 
   function getComboDiv(combo) {
     return (
