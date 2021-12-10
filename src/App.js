@@ -31,6 +31,9 @@ function App() {
   // Boolean to check if About page should be rendered
   const [showAboutPage, setShowAboutPage] = useState(false);
 
+  const [trickListScrollPosition, setTrickListScrollPosition] = useState(0);
+  const [comboListScrollPosition, setComboListScrollPosition] = useState(0);
+
   return (
     <Router>
       <div className="App">
@@ -56,7 +59,7 @@ function App() {
         </Navbar>
         <div className="content">
           <Routes>
-            <Route path="/" element={<TrickList sortingSchemes={trickSortingSchemes} sortOpt={sortOpt}/>} />
+            <Route path="/" element={<TrickList sortingSchemes={trickSortingSchemes} sortOpt={sortOpt} scrollPosition={trickListScrollPosition} setScrollPosition={setTrickListScrollPosition}/>} />
             <Route path="/tricks/:id" element={<TrickDetails stickFrequencies={stickFrequencies}/>} />
             <Route path="/combos/:id" element={<ComboDetails stickFrequencies={stickFrequencies}/>} />
             <Route path="/posttrick" element={
@@ -66,7 +69,7 @@ function App() {
             } />
             <Route path="/postcombo" element={<PostCombo stickFrequencies={stickFrequencies}/>} />
             <Route path="/generator" element={<ComboGenerator difficultyRangeMax={difficultyRangeMax} randomCombo={randomCombo} setRandomCombo={setRandomCombo} positions={positions}/>} />
-            <Route path="/combos" element={<ComboList sortingSchemes={comboSortingSchemes} sortOpt={sortOpt}/>} />
+            <Route path="/combos" element={<ComboList sortingSchemes={comboSortingSchemes} sortOpt={sortOpt} scrollPosition={comboListScrollPosition} setScrollPosition={setComboListScrollPosition}/>} />
             <Route path="/*" element={<NotFoundPage/>} />
           </Routes>
           {showAboutPage && <About showAboutPage={showAboutPage} setShowAboutPage={setShowAboutPage}/>}

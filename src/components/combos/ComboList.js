@@ -1,10 +1,19 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom'
 import { useLiveQuery } from "dexie-react-hooks";
 
 import Database from "../../services/db";
 const db = new Database();
 
-const ComboList = ({ sortingSchemes, sortOpt }) => {
+const ComboList = ({ sortingSchemes, sortOpt, scrollPosition, setScrollPosition }) => {
+
+  useEffect(() => {
+    window.scrollTo({
+        top: scrollPosition,
+        left: 0,
+        behavior: 'smooth'
+    });
+  });
 
   // combos query with react hooks -- means it refreshes automaticly
   const combos = useLiveQuery(() => db.getAllCombos().then(c => c.sort(sortingSchemes[sortOpt].sortFunc)), [sortOpt]);
@@ -12,11 +21,15 @@ const ComboList = ({ sortingSchemes, sortOpt }) => {
     return <p>You have no saved combos. For now it is only possible to create a combo using the combo generator, we are working on supporting custom combos.</p>;
   }
 
+  const updateScrollPosition = () => {
+    setScrollPosition(window.scrollY);
+  }
+
   function getComboDiv(combo) {
     return (
       <div key={combo.id} className="combo-container col-4 col-lg-3 col-xl-2">
         <Link className="link-to-combo " to={`/combos/${combo.id}`} key={"combo" + combo.id} >
-          <button className=" btn btn-outline-success combo-preview skillFreq" freq={combo.stickFrequency}>
+          <button className=" btn btn-outline-success combo-preview skillFreq" freq={combo.stickFrequency} onClick={updateScrollPosition}>
             <h3>{combo.name}</h3>
           </button>
         </Link>
