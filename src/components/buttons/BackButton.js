@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { BsCaretLeftFill } from 'react-icons/bs';
+import { BiArrowBack } from 'react-icons/bi';
 
 const BackButton = () => {
 
@@ -8,8 +8,8 @@ const BackButton = () => {
   const goBack = () => navigate(-1);
 
   return (
-    <button className="btn btn-link" onClick={goBack}>
-      <BsCaretLeftFill/>
+    <button className="btn btn-link back-button" onClick={goBack}>
+      <BiArrowBack className="react-icon-light" />
     </button>
   );
 }

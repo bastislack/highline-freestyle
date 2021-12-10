@@ -10,11 +10,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import TrickDetails from './components/tricks/TrickDetails';
 import ComboDetails from './components/combos/ComboDetails';
 import {stickFrequencies, positions, pages, difficultyRangeMax} from './services/enums';
-import {trickSortingSchemes, comboSortingSchemes} from './services/sortingSchemes';
-import BackButton from "./components/buttons/BackButton";
-import InstallButton from "./components/buttons/InstallButton";
 import Logo from './components/layout/Logo';
-import Settings from './components/layout/Settings';
 import { useState } from 'react';
 import Visibility from './components/containers/Visibility';
 import ScrollToTop from './components/containers/ScrollToTop';
@@ -40,16 +36,13 @@ function App() {
       <div className="App">
         <div className="container-fluid">
           <div className="row flex-nowrap">
-            <LeftNav sortingSchemes={[trickSortingSchemes, comboSortingSchemes]} sortOpt={sortOpt} setSortOpt={setSortOpt} setShowAboutPage={setShowAboutPage} />
+            <LeftNav sortOpt={sortOpt} setSortOpt={setSortOpt} setShowAboutPage={setShowAboutPage} />
             <div className="main-column">
-              <TopNav>
-                <Settings sortingSchemes={[trickSortingSchemes, comboSortingSchemes]} sortOpt={sortOpt} setSortOpt={setSortOpt} setShowAboutPage={setShowAboutPage}/>
-              </TopNav>
-
+              <TopNav sortOpt={sortOpt} setSortOpt={setSortOpt} setShowAboutPage={setShowAboutPage} />
               <div className="main-column-content-wrapper">
                <div className="main-column-content">
                   <Routes>
-                    <Route path="/" element={<TrickList sortingSchemes={trickSortingSchemes} sortOpt={sortOpt} scrollPosition={trickListScrollPosition} setScrollPosition={setTrickListScrollPosition} />} />
+                    <Route path="/" element={<TrickList sortOpt={sortOpt} scrollPosition={trickListScrollPosition} setScrollPosition={setTrickListScrollPosition} />} />
                     <Route path="/tricks/:id" element={<TrickDetails stickFrequencies={stickFrequencies}/>} />
                     <Route path="/combos/:id" element={<ComboDetails stickFrequencies={stickFrequencies}/>} />
                     <Route path="/posttrick" element={
@@ -59,7 +52,7 @@ function App() {
                     } />
                     <Route path="/postcombo" element={<PostCombo stickFrequencies={stickFrequencies}/>} />
                     <Route path="/generator" element={<ComboGenerator difficultyRangeMax={difficultyRangeMax} randomCombo={randomCombo} setRandomCombo={setRandomCombo}/>} />
-                    <Route path="/combos" element={<ComboList sortingSchemes={comboSortingSchemes} sortOpt={sortOpt} scrollPosition={comboListScrollPosition} setScrollPosition={setComboListScrollPosition} />} />
+                    <Route path="/combos" element={<ComboList sortOpt={sortOpt} scrollPosition={comboListScrollPosition} setScrollPosition={setComboListScrollPosition} />} />
                     <Route path="/*" element={<NotFoundPage/>} />
                   </Routes>
                 </div>

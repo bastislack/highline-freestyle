@@ -6,7 +6,7 @@ const BottomNav = () => {
   const path = useLocation().pathname.toString().toLowerCase();
 
   return (
-    <Nav fill variant="pills" className="bottom-navigation">
+    <Nav fill variant="pills" className="hide-on-desktop bottom-navigation">
       {
         links.map((link) => {
           return <Nav.Item key={link.url}>

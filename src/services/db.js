@@ -24,7 +24,7 @@ export default class Database {
       } else {
         console.log("there are already " + count + " tricks in the database");
       }
-    }); 
+    });
   }
 
   dropUserTricks = () => {
@@ -47,7 +47,7 @@ export default class Database {
         // add the id with a 1000 offset
         const trick = [i+1000].concat(trickList[i]);
         // make key value pairs
-        const rightFormatTrick = Object.assign.apply({}, 
+        const rightFormatTrick = Object.assign.apply({},
           header.map((v,i) => ({
             [v]: trick[i]
           }))
