@@ -22,8 +22,8 @@ const Settings = ({ sortingSchemes, sortOpt, setSortOpt, setShowAboutPage }) => 
         {inComboList && sortingSchemes[1].map(scheme => <MenuItem value={scheme.id} key={"scheme" + scheme.id} >{scheme.name}</MenuItem>)}
       </MenuRadioGroup>
       <MenuDivider />
-      <MenuItem onClick={db.populateTricks} >Reset predefined tricks</MenuItem>
-      <MenuItem onClick={db.dropUserTricks} >Delete all added tricks</MenuItem>
+      <MenuItem onClick={db.dropUserTricks} >Reset all tricks</MenuItem>
+      <MenuItem onClick={db.dropUserCombos} >Reset all combos</MenuItem>
       <MenuItem onClick={() => setShowAboutPage(true)} >About</MenuItem>
     </Menu>
   );
