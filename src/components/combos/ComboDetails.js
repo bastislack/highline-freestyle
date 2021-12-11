@@ -2,11 +2,12 @@ import { useParams, useLocation, useNavigate, Link } from "react-router-dom";
 import { useLiveQuery } from "dexie-react-hooks";
 import EditButton from '../buttons/EditButton';
 import DeleteButton from '../buttons/DeleteButton';
+import { stickFrequencies } from '../../services/enums';
 
 import Database from "../../services/db";
 const db = new Database();
 
-const ComboDetails = ({ stickFrequencies, randomCombo }) => {
+const ComboDetails = ({ randomCombo }) => {
   const navigate = useNavigate();
   const path = useLocation().pathname.toString().toLowerCase();
 
@@ -105,7 +106,6 @@ const ComboDetails = ({ stickFrequencies, randomCombo }) => {
               </div>
             </div>
           )}
-          
         </article>
       )}
     </div>

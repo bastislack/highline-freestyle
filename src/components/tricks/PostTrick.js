@@ -1,28 +1,29 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { positions, stickFrequencies } from "../../services/enums";
 
 import Database from "../../services/db";
 const db = new Database();
 
-const PostTrick = ({stickFrequencies, positions}) => {
+const PostTrick = () => {
 
   const location = useLocation();
   const preTrick = location.preTrick;
 
   const [alias, setAlias] = useState(() => {
-    return preTrick ? preTrick.alias : null;
+    return preTrick ? preTrick.alias : "";
   });
   const [technicalName, setTechnicalName] = useState(() => {
-    return preTrick ? preTrick.technicalName : null;
+    return preTrick ? preTrick.technicalName : "";
   });
   const [establishedBy, setEstablishedBy] = useState(() => {
-    return preTrick ? preTrick.establishedBy : null;
+    return preTrick ? preTrick.establishedBy : "";
   });
   const [yearEstablished, setYearEstablished] = useState(() => {
-    return preTrick ? preTrick.yearEstablished : null;
+    return preTrick ? preTrick.yearEstablished : "";
   });
   const [linkToVideo, setLinkToVideo] = useState(() => {
-    return preTrick ? preTrick.linkToVideo : null;
+    return preTrick ? preTrick.linkToVideo : "";
   });
   const [startPos, setStartPos] = useState(() => {
     return preTrick ? positions.findIndex(item => item === preTrick.startPos) : positions.findIndex(item => item === "HANG");
@@ -31,16 +32,16 @@ const PostTrick = ({stickFrequencies, positions}) => {
     return preTrick ? positions.findIndex(item => item === preTrick.endPos): positions.findIndex(item => item === "EXPOSURE");
   });
   const [difficultyLevel, setDifficultyLevel] = useState(() => {
-    return preTrick ? preTrick.difficultyLevel : null;
+    return preTrick ? preTrick.difficultyLevel : "";
   });
   const [description, setDescription] = useState(() => {
-    return preTrick ? preTrick.description : null;
+    return preTrick ? preTrick.description : "";
   });
   const [tips, setTips] = useState(() => {
-    return preTrick ? preTrick.tips : null;
+    return preTrick ? preTrick.tips : "";
   });
   const [stickFrequency, setStickFrequency] = useState(() => {
-    return preTrick ? preTrick.stickFrequency : null;
+    return preTrick ? preTrick.stickFrequency : "";
   });
 
   var preId;
@@ -77,13 +78,13 @@ const PostTrick = ({stickFrequencies, positions}) => {
 
   const freqList = stickFrequencies.map((item, i) => {
     return (
-      <option value={i}>{item}</option>
+      <option value={i} key={i}>{item}</option>
     )
   });
 
   const positionList = positions.map((item, i) => {
     return (
-      <option value={i}>{item}</option>
+      <option value={i} key={i} >{item}</option>
     )
   });
 

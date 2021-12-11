@@ -108,7 +108,7 @@
 .skillFreq[freq="5"] {
   background: #39ff14;
 }
- 
+
 .skillFreq[freq="6"] {
   background: #357ded;
 }
@@ -154,7 +154,6 @@
   position: absolute;
   bottom: 25px;
   right: 25px;
-  background-color: #4fabecc2 !important;
 }
 
 .fab_button button {

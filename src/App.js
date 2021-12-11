@@ -9,7 +9,7 @@ import ComboGenerator from './components/generator/ComboGenerator';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import TrickDetails from './components/tricks/TrickDetails';
 import ComboDetails from './components/combos/ComboDetails';
-import {stickFrequencies, positions, pages, difficultyRangeMax} from './services/enums';
+import { pages, difficultyRangeMax} from './services/enums';
 import { useState } from 'react';
 import Visibility from './components/containers/Visibility';
 import ScrollToTop from './components/containers/ScrollToTop';
@@ -42,14 +42,14 @@ function App() {
                <div className="main-column-content">
                   <Routes>
                     <Route path="/" element={<TrickList sortOpt={sortOpt} scrollPosition={trickListScrollPosition} setScrollPosition={setTrickListScrollPosition} />} />
-                    <Route path="/tricks/:id" element={<TrickDetails stickFrequencies={stickFrequencies}/>} />
-                    <Route path="/combos/:id" element={<ComboDetails stickFrequencies={stickFrequencies}/>} />
+                    <Route path="/tricks/:id" element={<TrickDetails />} />
+                    <Route path="/combos/:id" element={<ComboDetails />} />
                     <Route path="/posttrick" element={
                       <ScrollToTop>
-                        <PostTrick stickFrequencies={stickFrequencies} positions={positions}/>
+                        <PostTrick />
                       </ScrollToTop>
                     } />
-                    <Route path="/postcombo" element={<PostCombo stickFrequencies={stickFrequencies}/>} />
+                    <Route path="/postcombo" element={<PostCombo />} />
                     <Route path="/generator" element={<ComboGenerator difficultyRangeMax={difficultyRangeMax} randomCombo={randomCombo} setRandomCombo={setRandomCombo}/>} />
                     <Route path="/combos" element={<ComboList sortOpt={sortOpt} scrollPosition={comboListScrollPosition} setScrollPosition={setComboListScrollPosition} />} />
                     <Route path="/*" element={<NotFoundPage/>} />
