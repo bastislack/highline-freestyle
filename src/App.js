@@ -75,7 +75,7 @@ function App() {
           {showAboutPage && <About showAboutPage={showAboutPage} setShowAboutPage={setShowAboutPage}/>}
         </div>
         <Visibility visiblePages={[pages.TRICKLIST, pages.COMBOLIST]}>
-          <FloatingActionButton />
+          <FloatingActionButton setTrickListScrollPosition={setTrickListScrollPosition} setComboListScrollPosition={setComboListScrollPosition}/>
         </Visibility>
         <BottomNav />
       </div>

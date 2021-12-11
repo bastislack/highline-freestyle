@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 
-const FloatingActionButton = () => {
+const FloatingActionButton = ({setTrickListScrollPosition, setComboListScrollPosition}) => {
   // the current Url
   const path = useLocation().pathname.toString().toLowerCase();
 
@@ -15,9 +15,17 @@ const FloatingActionButton = () => {
     alert("No path for FAB defined");
   }
 
+  const updateScrollPosition = () => {
+    if (path === "/") {
+      setTrickListScrollPosition(window.scrollY);
+    } else if (path === "/combos") {
+      setComboListScrollPosition(window.scrollY);
+    }
+  }
+
   return (
     <Link to={create}>
-      <button className="kc_fab_main_btn">
+      <button className="kc_fab_main_btn" onClick={updateScrollPosition}>
         {"+"}
       </button>
     </Link>
