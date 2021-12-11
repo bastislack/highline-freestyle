@@ -15,7 +15,7 @@ const TopNav = ({ sortOpt, setSortOpt, setShowAboutPage }) => {
   return <Navbar variant="dark" expand="lg" className="top-navigation">
     <Container fluid>
       <div className="navigation-button-container">
-        <Visibility visiblePages={[pages.TRICKDETAILS, pages.COMBODETAILS, pages.POSTTRICK, pages.POSTCOMBO]} elseContent=<InstallButton/>>
+        <Visibility visiblePages={[pages.TRICKDETAILS, pages.COMBODETAILS, pages.POSTTRICK, pages.POSTCOMBO]} elseContent={<InstallButton/>}>
           <BackButton/>
         </Visibility>
       </div>

@@ -1,8 +1,6 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useLiveQuery } from "dexie-react-hooks";
-import Visibility from '../../components/containers/Visibility';
-import { pages } from '../../services/enums';
 import { trickSortingSchemes as sortingSchemes } from '../../services/sortingSchemes';
 
 import Database from "../../services/db";

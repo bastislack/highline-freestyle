@@ -10,7 +10,6 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import TrickDetails from './components/tricks/TrickDetails';
 import ComboDetails from './components/combos/ComboDetails';
 import {stickFrequencies, positions, pages, difficultyRangeMax} from './services/enums';
-import Logo from './components/layout/Logo';
 import { useState } from 'react';
 import Visibility from './components/containers/Visibility';
 import ScrollToTop from './components/containers/ScrollToTop';
