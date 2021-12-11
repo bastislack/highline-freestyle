@@ -1,12 +1,10 @@
-import { Nav, Navbar, Dropdown, Container } from "react-bootstrap";
-import { BsGearFill } from 'react-icons/bs';
+import { Navbar, Container } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
-import { links } from "../../links";
 import { pages } from '../../services/enums';
 import Visibility from '../../components/containers/Visibility';
 import BackButton from "../../components/buttons/BackButton";
 import InstallButton from "../../components/buttons/InstallButton";
-import { parentPageOf, parentPageMatches } from '../../services/parentPage';
+import { parentPageOf } from '../../services/parentPage';
 import Settings from '../../components/layout/Settings';
 
 const TopNav = ({ sortOpt, setSortOpt, setShowAboutPage }) => {

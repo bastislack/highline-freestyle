@@ -1,10 +1,10 @@
-import { Link, useLocation } from "react-router-dom";
-import { Nav } from "react-bootstrap";
+import { useLocation } from "react-router-dom";
 import { links } from "../../links";
 import { pages } from '../../services/enums';
 import { parentPageOf, parentPageMatches } from '../../services/parentPage';
 import Visibility from '../../components/containers/Visibility';
 import { trickSortingSchemes, comboSortingSchemes } from '../../services/sortingSchemes';
+import { Nav } from "react-bootstrap";
 
 const LeftNav = ({ sortOpt, setSortOpt, setShowAboutPage }) => {
   const path = useLocation().pathname.toString().toLowerCase();
@@ -13,35 +13,43 @@ const LeftNav = ({ sortOpt, setSortOpt, setShowAboutPage }) => {
   const parentPage = parentPageOf(path);
 
   return (
-    <div className="hide-on-mobile left-navigation p-3 text-white bg-dark" style={{width: '280px'}}>
-      <a href="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none">
+    <div className="hide-on-mobile left-navigation">
+      <a href="/" className="text-decoration-none">
         <span className="fs-4 text-white">Highline Freestyle</span>
       </a>
       <hr />
-      <ul className="nav nav-pills flex-column mb-auto">
+      <Nav variant="pills" className="flex-column mb-auto">
         {
           links.map((link) => {
-            return <li className="nav-item" key={link.url}>
-              <a href={link.url} className={parentPageMatches(parentPage, link.url) ? "nav-link active" : "nav-link text-white"} aria-current="page">
-              {link.name}
-              </a>
-            </li>;
+            return <Nav.Item key={link.url}>
+              <Nav.Link href={link.url} className={parentPageMatches(parentPage, link.url) ? "active" : "text-white"}>
+                {link.name}
+              </Nav.Link>
+            </Nav.Item>
           })
         }
-      </ul>
+      </Nav>
       <Visibility visiblePages={[pages.TRICKLIST, pages.COMBOLIST]}>
         <h6>{inTrickList && "Sort Tricks"}{inComboList && "Sort Combos"}</h6>
         <hr />
         <ul className="nav nav-pills flex-column mb-auto option-pills">
           { inTrickList && trickSortingSchemes.map(scheme =>
-            <li className="nav-item" key={scheme.id}>
-              <a href="#" className={sortOpt === scheme.id ? "nav-link active" : "nav-link text-white"} onClick={() => setSortOpt(scheme.id)}>{scheme.name}</a>
-            </li>)
+            <Nav.Item key={scheme.id}>
+              <Nav.Link
+                className={sortOpt === scheme.id ? "active" : "text-white"}
+                onClick={() => setSortOpt(scheme.id)}>
+                {scheme.name}
+              </Nav.Link>
+            </Nav.Item>)
           }
           { inComboList && comboSortingSchemes.map(scheme =>
-            <li className="nav-item" key={scheme.id}>
-              <a href="#" className={sortOpt === scheme.id ? "nav-link active" : "nav-link text-white"} onClick={() => setSortOpt(scheme.id)}>{scheme.name}</a>
-            </li>)
+            <Nav.Item key={scheme.id}>
+              <Nav.Link
+                className={sortOpt === scheme.id ? "active" : "text-white"}
+                onClick={() => setSortOpt(scheme.id)}>
+                {scheme.name}
+              </Nav.Link>
+            </Nav.Item>)
           }
         </ul>
       </Visibility>

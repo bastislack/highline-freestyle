@@ -15,6 +15,8 @@ body {
 }
 
 .left-navigation {
+  @extend .p-3, .text-white, .bg-dark;
+  width: 280px;
   display: flex;
   flex-grow: 0;
   flex-shrink: 0;
