@@ -179,21 +179,14 @@
   margin-top: 8px !important;
 }
 
-.kc_fab_main_btn {
-  background-color: #4fabec;
-  width: 60px;
-  height: 60px;
-  border-radius: 100%;
-  background: #4fabec;
-  border: none;
-  outline: none;
-  color: rgb(0, 0, 0);
-  font-size: 36px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  transition: .3s;
-  position: fixed;
-  bottom: 70px;
+.fab_button {
+  position: fixed !important;
+  bottom: 60px;
   right: 25px;
+}
+
+.fab_button button {
+  background-color: #4fabecc2 !important;
 }
 
 .kc_fab_main_btn:hover {
