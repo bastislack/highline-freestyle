@@ -28,8 +28,8 @@ const TrickList = ({ sortingSchemes, sortOpt, scrollPosition, setScrollPosition 
     return (
       <div key={trick.id} className="trick-container col-4 col-lg-3 col-xl-2">
         <Link className="link-to-trick " to={`/tricks/${trick.id}`} key={"trick" + trick.id} >
-          <button className=" btn btn-outline-success trick-preview skillFreq" freq={trick.stickFrequency} onClick={updateScrollPosition}>
-            <h3>{trick.alias || trick.technicalName}</h3>
+          <button className=" btn trick-preview skillFreq" freq={trick.stickFrequency} onClick={updateScrollPosition}>
+            {trick.alias || trick.technicalName}
           </button>
         </Link>
       </div>)
