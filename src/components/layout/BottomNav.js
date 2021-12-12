@@ -1,22 +1,21 @@
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { Nav } from "react-bootstrap";
+import { links } from "../../links";
 
 const BottomNav = () => {
-
   const path = useLocation().pathname.toString().toLowerCase();
 
   return (
-    <nav className="bottomNav fixed-bottom justify-content-evenly">
-        <Link to={`/`} className="col">
-          <h1 className={(path === "/" | path.includes("tricks") | path === "/posttrick") && "nav-elem-selected"}>Tricks</h1>
-        </Link>
-        <Link to={`/combos`} className="col">
-          <h1 className={(path.includes("/combos") | path === "/postcombo") && "nav-elem-selected"}>Combos</h1>
-        </Link>
-        <Link to={`/generator`} className="col">
-          <h1 className={(path === "/generator" | path === "/random-combo") && "nav-elem-selected"}>Combo Generator</h1>
-        </Link>
-    </nav>
+    <Nav fill variant="pills" className="hide-on-desktop bottom-navigation">
+      {
+        links.map((link) => {
+          return <Nav.Item key={link.url}>
+            <Nav.Link href={link.url} className={(link.isActive(path) ? "active" : "text-white")}>{link.name}</Nav.Link>
+          </Nav.Item>;
+        })
+      }
+    </Nav>
   );
 }
- 
+
 export default BottomNav;

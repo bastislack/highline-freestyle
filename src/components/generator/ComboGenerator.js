@@ -2,13 +2,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLiveQuery } from "dexie-react-hooks";
 import ComboDetails from '../combos/ComboDetails';
-import { stickFrequencies } from '../../services/enums';
+import { stickFrequencies, positions } from '../../services/enums';
 import useLocalStorage from '../hooks/useLocalStorage';
 
 import Database from "../../services/db";
 const db = new Database();
 
-const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo, positions }) => {
+const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => {
 
   const navigate = useNavigate();
 
@@ -268,7 +268,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo, posit
 
   const positionList = positions.map((item, i) => {
     return (
-      <option value={i}>{item}</option>
+      <option value={i} key={i}>{item}</option>
     )
   });
 
@@ -304,7 +304,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo, posit
                   {Array.from(Array(parseInt(maxDifficulty)).keys()).map(diffNr => {
                     diffNr++;
                     return (
-                      <div className="col-3 col-sm-3 col-md-2 col-lg-1">
+                      <div className="col-3 col-sm-3 col-md-2 col-lg-1" key={diffNr}>
                         <input
                           id={"checkboxForLevel_" + diffNr}
                           value={diffNr}

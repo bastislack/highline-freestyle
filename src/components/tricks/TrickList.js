@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useLiveQuery } from "dexie-react-hooks";
+import { trickSortingSchemes as sortingSchemes } from '../../services/sortingSchemes';
 
 import Database from "../../services/db";
 const db = new Database();
 
-const TrickList = ({ sortingSchemes, sortOpt, scrollPosition, setScrollPosition }) => {
+const TrickList = ({ sortOpt, scrollPosition, setScrollPosition }) => {
 
   useEffect(() => {
     window.scrollTo({
@@ -38,28 +39,25 @@ const TrickList = ({ sortingSchemes, sortOpt, scrollPosition, setScrollPosition 
   let current;
 
   return (
-    <div className="justify-content-evenly">
+    <div className="row">
+      {tricks.map(trick => {
+        let isFirst = (sortingSchemes[sortOpt].attributeFunc(trick) !== current);
+        current = sortingSchemes[sortOpt].attributeFunc(trick);
 
-      <div className="row">
-        {tricks.map(trick => {
-          let isFirst = (sortingSchemes[sortOpt].attributeFunc(trick) !== current);
-          current = sortingSchemes[sortOpt].attributeFunc(trick);
+        if (isFirst && sortingSchemes[sortOpt].showCategory) {
+          return [
+            <div className="w-100 list-br-heading" key={"header" + trick.id.toString()}>
+              <h4>{sortingSchemes[sortOpt].catName} {current}</h4>
+            </div>,
+            getTrickDiv(trick)
+          ];
+        } else {
+          return (
+            getTrickDiv(trick)
+          );
+        }
 
-          if (isFirst && sortingSchemes[sortOpt].showCategory) {
-            return [
-              <div className="w-100 list-br-heading" key={"header" + trick.id.toString()}>
-                <h4>{sortingSchemes[sortOpt].catName} {current}</h4>
-              </div>,
-              getTrickDiv(trick)
-            ];
-          } else {
-            return (
-              getTrickDiv(trick)
-            );
-          }
-
-        })}
-      </div>
+      })}
     </div>
   );
 }
