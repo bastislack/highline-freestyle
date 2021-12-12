@@ -11,9 +11,9 @@ const TrickList = ({ sortingSchemes, sortOpt, scrollPosition, setScrollPosition 
     window.scrollTo({
         top: scrollPosition,
         left: 0,
-        behavior: 'smooth'
+        behavior: 'instant'
     });
-    });
+  });
 
   // tricks query with react hooks -- means it refreshes automaticly
   // and sorts it according to the sortOpt

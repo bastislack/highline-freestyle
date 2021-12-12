@@ -11,7 +11,7 @@ const ComboList = ({ sortingSchemes, sortOpt, scrollPosition, setScrollPosition 
     window.scrollTo({
         top: scrollPosition,
         left: 0,
-        behavior: 'smooth'
+        behavior: 'instant'
     });
   });
 
