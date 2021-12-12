@@ -76,7 +76,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo, posit
 
     avgDiff = Math.round((totalDiff / numberOfTricks + Number.EPSILON) * 100) / 100;
 
-    return({
+    return ({
       minDiff: minDiff,
       maxDiff: maxDiff,
       avgDiff: avgDiff,
@@ -97,21 +97,21 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo, posit
     const isFinishToFeetFulfilled = (currentTrick.endPos === "STAND" || currentTrick.endPos === "EXPOSURE") ? true : false;
     const isConsecutiveTricksFulfilled = ((allowDuplicates && allowConsecutiveTricks) || lastTrick !== currentTrick) ? true : false;
     const isGeneralComboConstraintFulfilled = (arePositionsSimilar(currentTrick.startPos, lastTrick.endPos) || currentTrick.startPos === lastTrick.endPos) ? true : false;
-    if(index === numberOfTricks - 1 && finishToFeet){
-      if(isGeneralComboConstraintFulfilled && isConsecutiveTricksFulfilled && isFinishToFeetFulfilled){
+    if (index === numberOfTricks - 1 && finishToFeet) {
+      if (isGeneralComboConstraintFulfilled && isConsecutiveTricksFulfilled && isFinishToFeetFulfilled) {
         return true;
       }
     }
-    else if(isGeneralComboConstraintFulfilled && isConsecutiveTricksFulfilled){
+    else if (isGeneralComboConstraintFulfilled && isConsecutiveTricksFulfilled) {
       return true;
     }
     return false;
   }
 
   const getFirstTrick = (availableTricks) => {
-    if(startFromCheckbox){
+    if (startFromCheckbox) {
       for (let i = 0; i < availableTricks.length; i++) {
-        if(availableTricks[i].startPos === positions[startFromPosition]){
+        if (availableTricks[i].startPos === positions[startFromPosition]) {
           return ({ firstTrick: availableTricks[i], indexAvailableTricks: i });
         }
       }
@@ -201,7 +201,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo, posit
       }
     }
 
-    const {minDiff, maxDiff, avgDiff, totalDiff} = computeStats(randomTricks);
+    const { minDiff, maxDiff, avgDiff, totalDiff } = computeStats(randomTricks);
 
     const currentYear = new Date().getFullYear();
 
@@ -233,7 +233,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo, posit
 
     refreshAvgSlider();
   }
-  
+
   function toggleConsecutiveTricks(checked) {
     var consecutiveTricks = document.getElementById("consecutiveTricks");
     consecutiveTricks.disabled = checked == false;
@@ -360,7 +360,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo, posit
                   id="start_from_chkbx"
                   className="form-check-input"
                   type="checkbox"
-                  onChange={(e) => {toggleStartFrom(e.target.checked); setStartFromCheckbox(e.target.checked);}}
+                  onChange={(e) => { toggleStartFrom(e.target.checked); setStartFromCheckbox(e.target.checked); }}
                 />
                 <select
                   id="select_start_from"
@@ -403,9 +403,13 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo, posit
         </div>
 
         <div className="row justify-content-around">
-          <button className="col-sm-4 btn btn-primary">Generate</button>
+          <div className="col">
+            <button className="col-12 btn btn-primary">Generate</button>
+          </div>
           {randomCombo && (
-            <button className="col-sm-4 btn btn-primary" onClick={saveToCombos}>Add to Combos</button>
+            <div className="col">
+              <button className="col-12 btn btn-primary" onClick={saveToCombos}>Add to Combos</button>
+            </div>
           )}
         </div>
       </form>
