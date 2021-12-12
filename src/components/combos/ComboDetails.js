@@ -6,7 +6,7 @@ import DeleteButton from '../buttons/DeleteButton';
 import Database from "../../services/db";
 const db = new Database();
 
-const ComboDetails = ({stickFrequencies, randomCombo}) => {
+const ComboDetails = ({ stickFrequencies, randomCombo }) => {
   const navigate = useNavigate();
   const path = useLocation().pathname.toString().toLowerCase();
 
@@ -22,7 +22,7 @@ const ComboDetails = ({stickFrequencies, randomCombo}) => {
     combo = useLiveQuery(() => db.getCombo(params.id), []);
   }
 
-  if (!combo) {return null;} else {console.log(combo);}
+  if (!combo) { return null; } else { console.log(combo); }
 
   const freqList = stickFrequencies.map((item, i) => {
     return (
@@ -56,57 +56,56 @@ const ComboDetails = ({stickFrequencies, randomCombo}) => {
     navigate('/combos');
   };
 
-  const editCombo = () => navigate("/postcombo", {preCombo:combo});
+  const editCombo = () => navigate("/postcombo", { preCombo: combo });
 
   return (
-    <div className="combo-details">
+    <div className="container">
       {combo && (
         <article>
-          <div className="row align-items-center justify-content-between">
-            <h2 className="col-6" align="left">{combo.name}</h2>
-
+          <div className="row">
+            <div className="col-8">
+              <h2>{combo.name}</h2>
+            </div>
             {!inGenerator &&
-              <>
-              <div className="col-3" align="center">
-                <EditButton call={editCombo}/>
+              <div className="col-4 justify-content-end">
+                <EditButton call={editCombo} />
+                <DeleteButton call={deleteCombo} />
               </div>
-
-              <div className="col-3" align="right">
-                <DeleteButton call={deleteCombo}/>
-              </div>
-              </>
             }
           </div>
-          <div className="container">
-            <div className="row justify-content-between">
-              <div className="col-sm-5">
-              {combo.tricks.map(trick => (
+
+          <div className="row">
+            {combo.tricks.map(trick => (
+              <div className="col-12">
                 <Link className="link-to-trick " to={`/tricks/${trick.id}`} key={"trick" + trick.id} >
-                  <button className="col-10 btn btn-outline-success  skillFreq" freq={trick.stickFrequency}>
+                  <button className="btn trick-preview skillFreq" freq={trick.stickFrequency}>
                     <h2>{trick.alias || trick.technicalName}</h2>
                   </button>
                 </Link>
-              ))}
               </div>
-              <div className="col-sm-5">
-                <h4>Combo stats:</h4> 
-                <p>Number of tricks: {combo.numberOfTricks}</p>
-                <p>Mininum difficulty level: {combo.minDiff}</p>
-                <p>Maximum difficulty level: {combo.maxDiff}</p>
-                <p>Average difficulty level: {combo.avgDiff}</p>
-                <p>Total difficulty level: {combo.totalDiff}</p>
-              </div>
-            </div>
+            ))}
           </div>
+
+          <div className="row">
+            <h4>Combo stats:</h4>
+            <p>Number of tricks: {combo.numberOfTricks}</p>
+            <p>Mininum difficulty level: {combo.minDiff}</p>
+            <p>Maximum difficulty level: {combo.maxDiff}</p>
+            <p>Average difficulty level: {combo.avgDiff}</p>
+            <p>Total difficulty level: {combo.totalDiff}</p>
+          </div>
+
           {!inGenerator && (
-            <>
-              <div className="skillFreq">Set your success frequency:
+            <div className="row">
+              <div className="skillFreq">
+                <h4>Set your success frequency:</h4>
                 <div onChange={selectFreq}>
                   {freqList}
                 </div>
               </div>
-            </>
+            </div>
           )}
+          
         </article>
       )}
     </div>
