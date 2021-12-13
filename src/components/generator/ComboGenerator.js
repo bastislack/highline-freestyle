@@ -4,6 +4,7 @@ import { useLiveQuery } from "dexie-react-hooks";
 import ComboDetails from '../combos/ComboDetails';
 import { stickFrequencies } from '../../services/enums';
 import useLocalStorage from '../hooks/useLocalStorage';
+import computeStats from '../../logic/combos/computeStats';
 
 import Database from "../../services/db";
 const db = new Database();
@@ -58,32 +59,6 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo, posit
     navigate("/combos");
   };
 
-  const computeStats = (tricksInCombo) => {
-    let minDiff = Infinity;
-    let maxDiff = -Infinity;
-    let avgDiff;
-    let totalDiff = 0;
-
-    tricksInCombo.map(trick => {
-      if (trick.difficultyLevel < minDiff) {
-        minDiff = parseInt(trick.difficultyLevel);
-      }
-      if (trick.difficultyLevel > maxDiff) {
-        maxDiff = parseInt(trick.difficultyLevel);
-      }
-      totalDiff += parseInt(trick.difficultyLevel);
-    });
-
-    avgDiff = Math.round((totalDiff / numberOfTricks + Number.EPSILON) * 100) / 100;
-
-    return ({
-      minDiff: minDiff,
-      maxDiff: maxDiff,
-      avgDiff: avgDiff,
-      totalDiff: totalDiff,
-      numberOfTricks: numberOfTricks,
-    });
-  }
 
   const arePositionsSimilar = (startPos, endPos) => {
     if ((startPos === "KOREAN" && (endPos === "CHEST" || endPos === "BACK")) || (startPos === "CHEST" && endPos === "KOREAN") || (startPos === "BACK" && endPos === "KOREAN") || (startPos === "EXPOSURE" && endPos === "STAND") || (startPos === "STAND" && endPos === "EXPOSURE")) {

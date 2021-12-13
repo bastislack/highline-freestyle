@@ -7,7 +7,12 @@ const db = new Database();
 const PostTrick = ({stickFrequencies, positions}) => {
 
   const location = useLocation();
-  const preTrick = location.preTrick;
+  let preTrick;
+  if(location.state){
+    preTrick = location.state.preTrick;
+  } else {
+    console.log("location no state");
+  }
 
   const [alias, setAlias] = useState(() => {
     return preTrick ? preTrick.alias : null;

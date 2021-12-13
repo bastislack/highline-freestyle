@@ -1,11 +1,14 @@
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useLiveQuery } from "dexie-react-hooks";
 
 import Database from "../../services/db";
 const db = new Database();
 
-const TrickList = ({ sortingSchemes, sortOpt, scrollPosition, setScrollPosition }) => {
+const TrickList = ({ sortingSchemes, sortOpt, scrollPosition, setScrollPosition, userCombo, setUserCombo }) => {
+
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.scrollTo({
@@ -24,15 +27,25 @@ const TrickList = ({ sortingSchemes, sortOpt, scrollPosition, setScrollPosition 
     setScrollPosition(window.scrollY);
   }
 
+  const goToTrick = (trick) => {
+    updateScrollPosition();
+    if (location.state) {
+      if (location.state.addTrickToCombo) {
+        setUserCombo([...userCombo, trick]);
+        navigate('/postcombo');
+      }
+    } else {
+      navigate(`/tricks/${trick.id}`);
+    }
+  }
+
   function getTrickDiv(trick) {
     return (
       <div key={trick.id} className="trick-container col-4 col-lg-3 col-xl-2">
-        <Link className="link-to-trick " to={`/tricks/${trick.id}`} key={"trick" + trick.id} >
-          <button className=" btn trick-preview skillFreq" freq={trick.stickFrequency} onClick={updateScrollPosition}>
+          <button className=" btn trick-preview skillFreq" freq={trick.stickFrequency} onClick={() => goToTrick(trick)}>
             {trick.alias || trick.technicalName}
           </button>
-        </Link>
-      </div>)
+      </div>);
   }
 
   let current;

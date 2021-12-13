@@ -54,7 +54,7 @@ const TrickDetails = ({stickFrequencies}) => {
     }
   }
 
-  const editTrick = () => navigate("/posttrick",{preTrick:trick});
+  const editTrick = () => navigate("/posttrick",{state: {preTrick:trick}});
 
   const deleteTrick = () => {
     db.deleteTrick(id)

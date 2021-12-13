@@ -56,7 +56,7 @@ const ComboDetails = ({ stickFrequencies, randomCombo }) => {
     navigate('/combos');
   };
 
-  const editCombo = () => navigate("/postcombo", { preCombo: combo });
+  const editCombo = () => navigate("/postcombo", { state: {preCombo: combo }});
 
   return (
     <div className="container">

@@ -30,6 +30,8 @@ function App() {
   const [randomCombo, setRandomCombo] = useState(null);
   // Boolean to check if About page should be rendered
   const [showAboutPage, setShowAboutPage] = useState(false);
+  // User made combo in postCombo screen
+  const [userCombo, setUserCombo] = useState([]);
 
   const [trickListScrollPosition, setTrickListScrollPosition] = useState(0);
   const [comboListScrollPosition, setComboListScrollPosition] = useState(0);
@@ -59,7 +61,7 @@ function App() {
         </Navbar>
         <div className="content">
           <Routes>
-            <Route path="/" element={<TrickList sortingSchemes={trickSortingSchemes} sortOpt={sortOpt} scrollPosition={trickListScrollPosition} setScrollPosition={setTrickListScrollPosition}/>} />
+            <Route path="/" element={<TrickList sortingSchemes={trickSortingSchemes} sortOpt={sortOpt} scrollPosition={trickListScrollPosition} setScrollPosition={setTrickListScrollPosition} userCombo={userCombo} setUserCombo={setUserCombo}/>} />
             <Route path="/tricks/:id" element={<TrickDetails stickFrequencies={stickFrequencies}/>} />
             <Route path="/combos/:id" element={<ComboDetails stickFrequencies={stickFrequencies}/>} />
             <Route path="/posttrick" element={
@@ -67,7 +69,11 @@ function App() {
                 <PostTrick stickFrequencies={stickFrequencies} positions={positions}/>
               </ScrollToTop>
             } />
-            <Route path="/postcombo" element={<PostCombo stickFrequencies={stickFrequencies}/>} />
+            <Route path="/postcombo" element={
+              <ScrollToTop>
+                <PostCombo stickFrequencies={stickFrequencies} positions={positions} userCombo={userCombo}/>
+              </ScrollToTop>
+            } />
             <Route path="/generator" element={<ComboGenerator difficultyRangeMax={difficultyRangeMax} randomCombo={randomCombo} setRandomCombo={setRandomCombo} positions={positions}/>} />
             <Route path="/combos" element={<ComboList sortingSchemes={comboSortingSchemes} sortOpt={sortOpt} scrollPosition={comboListScrollPosition} setScrollPosition={setComboListScrollPosition}/>} />
             <Route path="/*" element={<NotFoundPage/>} />
