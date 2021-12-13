@@ -9,7 +9,7 @@ const db = new Database();
 const ComboList = ({ sortOpt, scrollPosition, setScrollPosition }) => {
 
   useEffect(() => {
-    window.scrollTo({
+    document.getElementById("content").scrollTo({
         top: scrollPosition,
         left: 0,
         behavior: 'instant'
@@ -23,7 +23,7 @@ const ComboList = ({ sortOpt, scrollPosition, setScrollPosition }) => {
   }
 
   const updateScrollPosition = () => {
-    setScrollPosition(window.scrollY);
+    setScrollPosition(document.getElementById("content").scrollTop);
   }
 
   function getComboDiv(combo) {

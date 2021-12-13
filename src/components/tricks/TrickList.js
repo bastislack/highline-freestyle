@@ -9,7 +9,7 @@ const db = new Database();
 const TrickList = ({ sortOpt, scrollPosition, setScrollPosition }) => {
 
   useEffect(() => {
-    window.scrollTo({
+    document.getElementById("content").scrollTo({
         top: scrollPosition,
         left: 0,
         behavior: 'instant'
@@ -22,7 +22,7 @@ const TrickList = ({ sortOpt, scrollPosition, setScrollPosition }) => {
   if (!tricks) { return null } else console.log(tricks);
 
   const updateScrollPosition = () => {
-    setScrollPosition(window.scrollY);
+    setScrollPosition(document.getElementById("content").scrollTop);
   }
 
   function getTrickDiv(trick) {

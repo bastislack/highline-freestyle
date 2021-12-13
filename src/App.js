@@ -39,7 +39,7 @@ function App() {
             <div className="main-column">
               <TopNav sortOpt={sortOpt} setSortOpt={setSortOpt} setShowAboutPage={setShowAboutPage} />
               <div className="main-column-content-wrapper">
-               <div className="main-column-content">
+               <div id="content" className="main-column-content">
                   <Routes>
                     <Route path="/" element={<TrickList sortOpt={sortOpt} scrollPosition={trickListScrollPosition} setScrollPosition={setTrickListScrollPosition} />} />
                     <Route path="/tricks/:id" element={<TrickDetails />} />
