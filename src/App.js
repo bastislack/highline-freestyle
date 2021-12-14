@@ -16,6 +16,7 @@ import ScrollToTop from './components/containers/ScrollToTop';
 import About from './components/pages/About';
 import NotFoundPage from './components/pages/NotFoundPage';
 import FloatingActionButton from './components/buttons/FloatingActionButton';
+import Div100vh from 'react-div-100vh'
 
 
 function App() {
@@ -36,7 +37,7 @@ function App() {
         <div className="container-fluid">
           <div className="row flex-nowrap">
             <LeftNav sortOpt={sortOpt} setSortOpt={setSortOpt} setShowAboutPage={setShowAboutPage} />
-            <div className="main-column">
+            <Div100vh className="main-column">
               <TopNav sortOpt={sortOpt} setSortOpt={setSortOpt} setShowAboutPage={setShowAboutPage} />
               <div className="main-column-content-wrapper">
                <div id="content" className="main-column-content">
@@ -61,7 +62,7 @@ function App() {
               </div>
               <BottomNav />
               {showAboutPage && <About showAboutPage={showAboutPage} setShowAboutPage={setShowAboutPage}/>}
-            </div>
+            </Div100vh>
           </div>
        </div>
       </div>
