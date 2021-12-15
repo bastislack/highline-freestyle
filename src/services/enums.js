@@ -32,11 +32,13 @@ export const positions = [
   "DROPKNEE",
   "DOUBLE DROPKNEE",
   "INWARD DROPKNEE",
+  "LEASH",
   "KNEEHANG",
-  "SIT ONE LEG",
-  "SIT BOTH LEGS",
+  "SOUP",
+  "SIT",
   "FRODO",
   "BUDDHA",
+  "YISUS",
   "BANANA"
 ];
 
