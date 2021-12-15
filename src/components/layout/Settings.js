@@ -17,12 +17,16 @@ const Settings = ({ sortOpt, setSortOpt, setShowAboutPage }) => {
 
   return (
     <Menu menuButton={<button className="btn btn-secondary btn-outline-secondary"><BsGearFill/></button>} transition>
+    {(inTrickList || inComboList) &&
+      <>
       <MenuHeader>Sorting</MenuHeader>
       <MenuRadioGroup value={sortOpt} onRadioChange={e => setSortOpt(e.value)}>
         {inTrickList && trickSortingSchemes.map(scheme => <MenuItem value={scheme.id} key={"scheme" + scheme.id} >{scheme.name}</MenuItem>)}
         {inComboList && comboSortingSchemes.map(scheme => <MenuItem value={scheme.id} key={"scheme" + scheme.id} >{scheme.name}</MenuItem>)}
       </MenuRadioGroup>
       <MenuDivider />
+      </>
+    }
       <MenuItem onClick={db.populateTricks} >Reset predefined tricks</MenuItem>
       <MenuItem onClick={db.dropUserTricks} >Delete all added tricks</MenuItem>
       <MenuItem onClick={db.dropUserAtributes} >Reset stickFrequencies</MenuItem>
