@@ -4,6 +4,8 @@ import { useLiveQuery } from "dexie-react-hooks";
 import ComboDetails from '../combos/ComboDetails';
 import { stickFrequencies, positions } from '../../services/enums';
 import useLocalStorage from '../hooks/useLocalStorage';
+import Slider, { Range } from 'rc-slider';
+import 'rc-slider/assets/index.css';
 
 import Database from "../../services/db";
 const db = new Database();
@@ -18,6 +20,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
   const [allowDuplicates, setAllowDuplicates] = useState(false);
   const [allowConsecutiveTricks, setConsecutiveTricks] = useState(false);
   const [maxDifficulty, setMaxDifficulty] = useState(difficultyRangeMax);
+  const [diffRange, setDiffRange ] = useState([1, difficultyRangeMax]);
   const [avgDifficulty, setAvgDifficulty] = useState(-1);
   const [comboName, setComboName] = useState("Random #" + generatedCombosCount);
   const [startFromPosition, setStartFromPosition] = useState(positions.findIndex(item => item === "EXPOSURE"));
@@ -28,8 +31,13 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
   const tricks = useLiveQuery(() => db.getAllTricks(), []);
   if (!tricks) return null
 
+  let diffMarksOnRange = {};
+  for (let i = 0; i <= difficultyRangeMax; i++){
+    diffMarksOnRange[i] = i;
+  }
+
   // Contains all diff-levels that should be EXCLUDED from the combo
-  const difficultyBlacklist = []
+  const difficultyBlacklist = [];
   function refreshBlacklist() {
     difficultyBlacklist.length = 0;
     let children = document.getElementById("specifyItemsDiv").childNodes
@@ -302,7 +310,9 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
         </div>
         <div className="form-row">
           <label htmlFor="maxDifficultyRange" className="form-label">Max difficulty: {maxDifficulty}</label>
-          <input type="range" className="form-range" onChange={(e) => { setMaxDifficulty(e.target.value); refreshBlacklist(); refreshAvgSlider(); }} min="1" max={difficultyRangeMax} step="1" id="maxDifficultyRange" />
+          <Range min={0} max={maxDifficulty} marks={diffMarksOnRange} step={1} allowCross={false} defaultValue={[1, maxDifficulty]} />
+    {//<input type="range" className="form-range" onChange={(e) => { setMaxDifficulty(e.target.value); refreshBlacklist(); refreshAvgSlider(); }} min="1" max={difficultyRangeMax} step="1" id="maxDifficultyRange" />
+    }
         </div>
         <div className="form-row">
           <button className="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#advancedDifficultyOptions" aria-expanded="false" aria-controls="collapseExample">
