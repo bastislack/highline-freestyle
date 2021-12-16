@@ -1,5 +1,5 @@
 // increase this manualy if you update the predefinedTricks
-export const predefinedTricksVersion = 1;
+export const predefinedTricksVersion = 2;
 // predefinedTricks have to have an id above 10000
 export const predefinedTricks = `id,alias,technicalName,establishedBy,yearEstablished,linkToVideo,videoStartTime,videoEndTime,startPos,endPos,difficultyLevel,description,tips
 10000,,Panic Roll,Jediah Doohan,,https://www.youtube.com/watch?v=pZihozjqHfc,,,SOFA,KOREAN,1,From Sofa you spin 270 to land in Korean (or Chest) and combine it with a roll around the line.,Sit in Sofa position grab the line to the side of you with hands facing behind you. On the way up dive down where your hands are and roll around the line. Land in Korean or Chest.
@@ -66,12 +66,11 @@ export const predefinedTricks = `id,alias,technicalName,establishedBy,yearEstabl
 10061,,Cordova Roll,Ian Eisenberg,2020,https://youtu.be/Ab2gW1rv5e8?t=58,58,63,HANG,HANG,4,Go up behind the line in a Double Drop Knee position but then fully extend your upper body and upper legs while keeping the line at your ankles behind your back. Roll around the line and end up back in Hanging.,
 10062,Full Rocket,Rocket 360 to Rocket,Ian Eisenberg,2021,https://youtu.be/aYsX0kpCnAg?t=23,23,31,HANG,HANG,4,From Rocket do a 360 around an axis perpendicular to the line and land again in Rocket.,
 10063,Rocket Rewind,Rocket Roll 180 to Sofa,Ian Eisenberg,2021,https://youtu.be/aYsX0kpCnAg?t=6,6,14,HANG,SOFA,4,Start by doing a Rocket Mount but then go into a Belly Roll finishing with a 180 to Sofa.,Get a lot of momentum for the Rocket Roll and in the end do a 180 and stick your butt out as in the Sofa Roll 360.
-10064,,Back Can of Soup,Ian Eisenberg,2021,https://youtu.be/IDYpoOE8Kq8?t=32,32,37,SIT ONE LEG,STAND,4,From One Leg Sit you roll to the side in the direction of your leg that is hanging down and land to Feet in normal stance.,
 10065,Freak Nasty,Sick Nasty 180,Ian Eisenberg,2020,https://youtu.be/uOuqykzwN7w?t=147,147,162,SOFA,SOFA,4,Do a Sick Nasty but with a 180.,
-10066,Can of Soup,One Leg Sit Roll to Feet,Justin Wagers,2019,https://youtu.be/xqblad7pNLA?t=300,300,316,SIT ONE LEG,STAND,4,From One Leg Sit you roll to the side in the direction of your leg that is on the line and land to Feet in normal stance.,
+10066,Can of Soup,One Leg Sit Roll to Feet,Justin Wagers,2019,https://youtu.be/xqblad7pNLA?t=300,300,316,SOUP,STAND,4,From One Leg Sit you roll to the side in the direction of your leg that is on the line and land to Feet in normal stance.,
 10067,,Rocket Mount,Samuel Volery,2017,https://www.youtube.com/watch?v=_kGvr00D4fM,,,HANG,EXPOSURE,4,From Hanging fly up to exposure.,Get some momentum with your legs in the bottom part of the bounce. As soon as you are weightless pull the line below your feet.; This trick doesn't require as much strength as you would think! It's all about getting enough momentum with your legs.; If you can't hold the bounce in the hanging position try again with less bounce.
 10068,,Sick Nasty Roll,Samuel Volery,2019,https://youtu.be/uOuqykzwN7w?t=65,65,70,SOFA,SOFA,4,Sick Nasty with an additional Back Sofa Roll in the same bounce.,Regrab with the far hand to get into the Back Sofa Roll.
-10069,,Sofa 360 to Feet,Tlaloc Moctezuma-Burns,2020,https://youtu.be/hsALSrUdryU?t=49,49,53,SOFA,EXPOSURE,4,From Sofa you do a 360 and then land in Exposure,
+10069,Baguette,Sofa 360 to Feet,Tlaloc Moctezuma-Burns,2020,https://youtu.be/hsALSrUdryU?t=49,49,53,SOFA,EXPOSURE,4,From Sofa you do a 360 and then land in Exposure,
 10070,,Front Chest Roll to Feet,,,https://www.youtube.com/watch?v=qUxUNfgvoPs&t=35,35,37,CHEST,STAND,4,Do a Chest Roll and in the end of the roll push yourself away from the line to put your feet on.,
 10071,,Fake Sick Nasty Roll,,,https://youtu.be/hsALSrUdryU?t=153,153,157,KOREAN,SOFA,4,Sick Nasty Roll but starting from Korean.,
 10072,Flare to Feet,Sick Nasty to Feet,,,https://youtu.be/NOc4vV8hjWo?t=74,74,80,SOFA,EXPOSURE,4,From Sofa you grab the line next to you with both hands and swing the legs over the line and around behind you and then you land in Exposure on the other side of your hands.,
@@ -87,15 +86,14 @@ export const predefinedTricks = `id,alias,technicalName,establishedBy,yearEstabl
 10082,Mini-Cube,Sick Nasty 180 Front Sofa Roll,Ian Eisenberg,2021,https://www.youtube.com/watch?v=7yLCyoHgUS0&t=1142,1142,1147,SOFA,SOFA,5,Do a Sick Nasty 180 with an additional Front Sofa Roll. The motions happen at the same time rather than one after each other.,
 10083,Rocket Rewind Roll,Rocket Roll 180 Back Sofa Roll,Ian Eisenberg,2021,https://youtu.be/n2z3IyeQSj4?t=47,47,53,HANG,SOFA,5,Rocket Rewind with an additional Back Sofa Roll in the end.,
 10084,,Orbital,Ian Eisenberg,2020,https://youtu.be/qLEnzTtvTcA?t=109,109,113,STAND,KOREAN,5,"Grab the line with one hand, bring it around your body by passing it to your other hand and land in Korean.",
-10085,,Backbounce Panic Roll to Feet,Lukas Irmler,2018,https://youtu.be/Se5XNo0RSP8?t=437,437,742,BACK,EXPOSURE,5,From Backbounce go into the Panic Roll to Feet.,
+10085,,Backbounce Panic Roll to Feet,Lukas Irmler,2018,https://youtu.be/Se5XNo0RSP8?t=437,437,441,BACK,EXPOSURE,5,From Backbounce go into the Panic Roll to Feet.,
 10086,Dibahia Roll (Backflop),Back Roll from Feet,Matheus Stoco Vidal,,https://www.youtube.com/watch?v=hsALSrUdryU&t=67,67,71,STAND,KOREAN,5,From standing you jump back and roll over your shoulder to land in Korean.,Have the leash on the same side as the shoulder you roll over.
 10087,,Rocket Mount to Shoulder,Samuel Volery,2017,https://youtu.be/Se5XNo0RSP8?t=527,527,533,HANG,SHOULDER,5,From Hanging go up to shoulder stand.,When dropping down to Rocket already grab with the hands as you would for the Shoulderstand then you don't have to regrab.
 10088,,Rocket Backflip,Sebastian Egger,2021,https://youtu.be/9Ab1JPDJR-I?t=168,168,171,HANG,HANG,5,"In Rocket do a backflip, completely letting go of the line and landing back in Rocket.",
 10089,,Side Roll,Tlaloc Moctezuma-Burns,2020,https://youtu.be/Se5XNo0RSP8?t=563,563,568,SOFA,SOFA,5,Sit in Sofa and roll to the side over your neck back to Sofa.,There are more comfortable tricks to try.
 10090,,Back Chest Roll to Feet,,,https://www.instagram.com/p/CUITT4wgvmH/,,,CHEST,STAND,5,Do a Back Chest Roll and in the end of the roll push yourself away from the line to put your feet on.,
-10091,,Backbounce Panic Roll to Feet,,,https://www.youtube.com/watch?v=Se5XNo0RSP8&t=437,437,441,BACK,EXPOSURE,5,From Backbounce do a Panic Roll to Feet.,
 10092,,Hammock Roll to Feet,Augustin Moinat,2021,,,,BACK,STAND,6,Hammock Roll going directly to Feet.,
-10093,Can of Bisque,270 Can of Soup,Davis Hermes,2021,https://youtu.be/VP49hErTqM0?t=356,356,362,SIT ONE LEG,EXPOSURE,6,Do a Can of Soup and a 270 at the same time.,
+10093,Can of Bisque,270 Can of Soup,Davis Hermes,2021,https://youtu.be/VP49hErTqM0?t=356,356,362,SOUP,EXPOSURE,6,Do a Can of Soup and a 270 at the same time.,
 10094,Exporbital,Exposure Orbital to Sofa,Ian Eisenberg,2021,https://www.youtube.com/watch?v=2ykEngQRgKo&t=6,6,16,EXPOSURE,SOFA,6,Orbital to Sofa but starting in Exposure.,
 10095,,Antihero from Feet,Ian Eisenberg,2021,https://youtu.be/7yLCyoHgUS0?t=1437,1437,1442,EXPOSURE,SOFA,6,From Exposure you grab the line with one hand and roll forward. As soon as you are under the line you perform an Antihero to Sofa.,
 10096,,180 Orbital,Ian Eisenberg,2021,https://youtu.be/A8O3iGYGPPk?t=146,146,154,STAND,KOREAN,6,Do a 180 and then an Orbital.,
@@ -110,7 +108,6 @@ export const predefinedTricks = `id,alias,technicalName,establishedBy,yearEstabl
 10105,,Panic Roll to Shoulder,,,https://youtu.be/uOuqykzwN7w?t=48,48,58,SOFA,SHOULDER,6,Do the Panic Roll but instead of landing in Chest you go into Shoulderstand.,Regrab with one hand to land comfortably in Shoulderstand.
 10106,Spaghetti Roll,Double Hammock Roll from Feet,Augustin Moinat,2021,,,,STAND,BACK,7,Double Roll down to Backbounce.,
 10107,Tamatta Roll,Double Sofa Roll to Feet,Axel Weber,2021,https://www.instagram.com/p/CLU7Ni-l1sY/,,,SOFA,EXPOSURE,7,Double Sofa Roll landing in Exposure.,
-10108,Despedido,Back Korean Roll 360 to Chest,David Palomo,2021,https://www.youtube.com/watch?v=7yLCyoHgUS0&t=1036,1036,1040,KOREAN,CHEST,7,It's a Back Korean Roll and a 360 at the same time.,
 10109,Tre Nasty,Sick Nasty 360,Ian Eisenberg,2021, ,,,SOFA,SOFA,7,Start with the motion of a Sick Nasty 180 but keep spinning and do a full 360 landing back in the starting position.,
 10110,Tre Flip,Tre Nasty Roll,Ian Eisenberg,2021,https://www.instagram.com/p/CUayzIYg49i/,,,SOFA,SOFA,7,Start with the motion of a Sick Nasty 180 but keep spinning and do a full 360 landing back in the starting position.,
 10111,,Chest Roll 180 Flatspin to Feet,Ian Eisenberg,2021,https://www.youtube.com/watch?v=n2z3IyeQSj4&t=16,16,23,CHEST,EXPOSURE,7,Do a Chest Roll and in the same bounce a 180 Chest Flatspin to Feet.,
@@ -133,7 +130,6 @@ export const predefinedTricks = `id,alias,technicalName,establishedBy,yearEstabl
 10128,King Prawn,Shrimpflip 180 to Feet,Ian Eisenberg,2021,https://youtu.be/7yLCyoHgUS0?t=1560,1560,1574,HANG,EXPOSURE,8,Do a Shrimpflip 180 but then go to Feet.,
 10129,,180 Front Roll from Feet,Ian Eisenberg,2021,https://youtu.be/A8O3iGYGPPk?t=116,116,132,STAND,KOREAN,8,From Standing you turn 180 and do a Frontroll from Feet.,
 10130,,360 Orbital to Feet,Ian Eisenberg,2021,https://youtu.be/A8O3iGYGPPk?t=175,175,192,STAND,STAND,8,Orbital to Feet but with a 360 spin.,
-10131,,180 Front Yoda Roll,Ian Eisenberg,2021,https://youtu.be/Ab2gW1rv5e8?t=22,22,33,EXPOSURE,EXPOSURE,8,From Exposure do a 180 and during the spin go into the Yoda Roll.,
 10132,Darth Vader,Antihero to Feet,Ian Eisenberg,2021,https://youtu.be/Ab2gW1rv5e8?t=91,91,120,HANG,EXPOSURE,8,Like an Antihero to Sofa but landing in Exposure.,
 10133,Adrenaline Roll,Panic Roll from Feet to Feet,Ian Eisenberg,2020,https://youtu.be/qLEnzTtvTcA?t=37,37,42,STAND,EXPOSURE,8,Do a 90 with restepping and go into a Yoda Roll.,
 10134,,Han Solo,Jim Galli,2020,https://www.youtube.com/watch?v=dG9sJvKjg6E&t=323,323,327,EXPOSURE,EXPOSURE,8,Almighty Flip but instead of hooking the line with your foot you grab and pull on the leash.,
@@ -141,7 +137,7 @@ export const predefinedTricks = `id,alias,technicalName,establishedBy,yearEstabl
 10136,,Front Barrel Almighty Flip,Justin Wagers,2020,https://youtu.be/hsALSrUdryU?t=62,62,66,STAND,STAND,8,Almighty flip but from normal stance.,
 10137,,Panic Double Roll to Feet,Justin Wagers,2021,https://youtu.be/RDVaUFdqMmE?t=261,261,266,SOFA,EXPOSURE,8,Panic Roll with an additional Chest Roll landing to Feet.,
 10138,,Back Barrel Almighty Flip,Justin Wagers,2020,https://youtu.be/Se5XNo0RSP8?t=426,426,430,STAND,STAND,8,Like the barrel almighty flip but flipping the other direction.,
-10139,,Double Can of Soup,Justin Wagers,2019,https://youtu.be/xqblad7pNLA?t=585,585,592,SIT ONE LEG,STAND,8,From sitting position (one legged) you do two rolls to the side and land on your feet in normal stance.,
+10139,,Double Can of Soup,Justin Wagers,2019,https://youtu.be/xqblad7pNLA?t=585,585,592,SOUP,STAND,8,From sitting position (one legged) you do two rolls to the side and land on your feet in normal stance.,
 10140,Nirvana,Sofa Roll 360 to Feet,Salomé Cholet,2021,https://youtu.be/7yLCyoHgUS0?t=580,580,594,SOFA,EXPOSURE,8,Do a Sofa Roll 360 but go to Feet and land in Exposure.,
 10141,,Rocket Mount 360,Sebastian Egger,2021,https://www.instagram.com/p/CPgJRJHK777/,,,HANG,EXPOSURE,8,Rocket Mount with a 360.,First spin a little bit into the opposite direction to then explode out the way you really want to spin.; Try to avoid doing a Rocket Mount 180 and then restep with your feet but go for the 360 right away.
 10142,,Sofa 540 to Feet,Sebastian Egger,2021,https://www.instagram.com/p/CPgJRJHK777/,,,SOFA,EXPOSURE,8,From Sofa you do a Sofa 360 to Feet but add a 180 in the end.,Try to not do the 360 and then restep to get the 540 but instead go for the 540 directly.
@@ -170,7 +166,40 @@ export const predefinedTricks = `id,alias,technicalName,establishedBy,yearEstabl
 10165,Holy Grail,Barrel Almighty Flip to Barrel Roll,Davis Hermes,2021,https://youtu.be/UdG4DNI0SNk?t=92,92,97,STAND,STAND,11,Start by doing a Barrel Almighty Flip and go for a second roll by grabbing the line and doing a Barrel Roll.,
 10166,,Darth Vader from Feet,Ian Eisenberg,2021,https://youtu.be/HecUpHXRpDw?t=436,436,452,EXPOSURE,EXPOSURE,11,Start in Expo and roll down until you are under the line. Then do a Darth Vader.,
 10167,,Double Back Almighty Flip,Sebastian Egger,2021,https://youtu.be/HecUpHXRpDw?t=547,547,567,EXPOSURE,EXPOSURE,11,Double Back Almighty Flip,Do the first one laid out and tuck for the second one to get good momentum.; Try to get the hook at your ankle. If the line is near your toes it's hard to pull it around for the second roll.
-10168,,Double Front Almighty Flip,Sebastian Egger,2021,https://youtu.be/HecUpHXRpDw?t=780,780,814,EXPOSURE,EXPOSURE,11,Double Front Almighty Flip.,Stay open for the first one and tuck for the second one to get good momentum.`;
+10168,,Double Front Almighty Flip,Sebastian Egger,2021,https://youtu.be/HecUpHXRpDw?t=780,780,814,EXPOSURE,EXPOSURE,11,Double Front Almighty Flip.,Stay open for the first one and tuck for the second one to get good momentum.
+10169,,Back Can of Soup,Ian Eisenberg,2021,https://youtu.be/IDYpoOE8Kq8?t=32,32,37,SOUP,STAND,4,From One Leg Sit you roll to the side in the direction of your leg that is hanging down and land to Feet in normal stance.,
+10170,Despedido,Back Korean Roll 360 to Chest,David Palomo,2021,https://www.youtube.com/watch?v=7yLCyoHgUS0&t=1036,1036,1040,KOREAN,CHEST,7,It's a Back Korean Roll and a 360 at the same time.,
+10171,,180 Front Yoda Roll,Ian Eisenberg,2021,https://youtu.be/Ab2gW1rv5e8?t=22,22,33,EXPOSURE,EXPOSURE,8,From Exposure do a 180 and during the spin go into the Yoda Roll.,
+10172,Ninja Shifta,Shapeshifter to Feet,Enzo Fuchs,2021,https://www.instagram.com/p/CXOfVZGgZ7b/,,,EXPOSURE,EXPOSURE,10,Shapeshifter landing to feet.,
+10173,Dojo Roll,BS 270 Back Yoda Roll,Ian Eisenberg,2021,https://youtu.be/BOGMXJsXWCE?t=31,31,43,STAND,EXPOSURE,8,Turn 180 to your BS and go into a Back Yoda Roll finishing the last 90 degrees of spin.,
+10174,Kung Pao,Shrimp Double Flip,Ian Eisenberg,2021,https://www.instagram.com/p/CXPSK-BKQAg/,,,HANG,HANG,7,Do a Shrimpflip and in the same bounce another flip around the line.,
+10175,,Barrel late Orbital,Justin Wagers,2021,https://www.instagram.com/p/CXJSAepFj4L/,,,STAND,CHEST,9,Start with a Barrel Roll and then add an Orbital in the same bounce.,You gotta be quick for this one.
+10176,,Back No Soup,Tim Odermatt,2021,https://www.instagram.com/p/CVvIbn3lFqU/,,,SOUP,EXPOSURE,8,"It's a handless Back Can of Soup, hooking the line with one foot.",
+10177,Nasty Korean,Full Flare from Korean,Sebastian Egger,2021,,,,KOREAN,KOREAN,5,It's like the breakdance move starting from Korean and landing back in Korean.,
+10178,Dirty Sofa,Almighty from Sofa,Tim Odermatt,2021,,,,SOFA,EXPOSURE,8,Start in Sofa and then bring one foot up to the line to hook it and go for an Almighty Flip.,
+10179,,Belly to Feet,,,,,,BELLY,EXPOSURE,0,"From Belly lift one foot up on the line, remove the hand on the same side to help you balance and then press the line down with this foot and the other hand to get the second foot up.",
+10180,,Sofa to Feet,,,https://www.youtube.com/watch?v=_CqGa-iBrHE,,,SOFA,EXPOSURE,0,"From Belly lift one foot up on the line, remove the hand on the same side to help you balance and then press the line down with this foot and the other hand to get the second foot up.",You might need to shift your weight to the opposite side of the foot you are trying to get onto the line.
+10181,,Korean to Feet,,,https://www.youtube.com/watch?v=1hPL5d3en8c,,,KOREAN,STAND,0,From Korean you get both feet on top of the line. Then do a Sit Mount in the same bounce.,A higher bounce helps you standing up.
+10182,,Back to Feet,,,,,,BACK,STAND,0,From lying on your back hook one foot under the line and from this foot pull yourself to an upright position. Then use the free foot to put it on the line and stand up on it. Before the bounce ends unhook your foot and come to a standing position.,
+10183,,Chest to Feet,,,https://www.youtube.com/watch?v=Z11fkcCv_Qo,,,CHEST,STAND,0,From Chest you push the line down with one arm and the back foot in order to put your front foot on the line.,
+10184,,Sit to Feet,,,,,,SIT,STAND,0,"From Sit you stand up on the top of the bounce. If you don't have enough momentum, you can pull on the line with one arm.",
+10185,,Korean from Feet,,,https://www.youtube.com/watch?v=1hPL5d3en8c,,,STAND,KOREAN,0,From standing on the line you let the line come towards your body on the top of the bounce and then slide your feet off the line to land in Korean.,
+10186,,Back from Feet,,,,,,STAND,BACK,0,From standing on the line you let the line come towards your body on the top of the bounce and when your butt is on the line you lean all the way back and slide your feet off the line to land in Back.,
+10187,,Chest from Feet,,,https://www.youtube.com/watch?v=Z11fkcCv_Qo,,,STAND,CHEST,0,On the way to the top of the bounce you let the line come towards your body and grab it with one hand. Slide your front foot off the line and with your hand controlling the line you drop on your chest.,
+10188,,Sit from Feet,,,,,,STAND,SIT,0,From standing on the line you let the line come towards your body on the top of the bounce and sit down keeping both of your feet on the line.,
+10189,,Sofa from Feet,,,https://www.youtube.com/watch?v=_CqGa-iBrHE,,,EXPOSURE,SOFA,0,From Exposure let the line come towards your body and grab the line with both hands then slide your feet off to land in Sofa.,
+10190,,Belly from Feet,,,,,,EXPOSURE,BELLY,0,From Exposure let the line come towards your body and grab the line with both hands then slide your feet off to land in Sofa.,
+10191,,Soup to Feet,,,https://www.youtube.com/watch?v=-xz9Ex3IE-M,,,SOUP,STAND,0,"From Soup you stand up on the top of the bounce. If you don't have enough momentum, you can pull on the line with one arm.",
+10192,,Soup from Feet,,,https://www.youtube.com/watch?v=-xz9Ex3IE-M,,,STAND,SOUP,0,From standing on the line you let the line come towards your body on the top of the bounce and sit down keeping one of your feet on the line.,
+10193,,Double Shoulder Roll to Feet,Enzo Fuchs,2020,https://www.instagram.com/p/CFKdxdlq9yd/,,,SHOULDER,EXPOSURE,8,Double Shoulder Roll landing in Exposure.,
+10194,Whatever,Leashfall to Feet,Enzo Fuchs,2021,https://www.instagram.com/p/CRyXVw0ISbI/,,,LEASH,EXPOSURE,7,Drop into a leash fall and on the way up climb the leash and pull the line under your feet.,
+10195,,Reverse Whatever,Sebastian Egger,2021,https://www.instagram.com/p/CS9paqorwx0/,,,LEASH,EXPOSURE,6,Drop into a leash fall and then feet first up behind the line similar to a Reverse Obi-Wan.,Amazing leash fall safe trick.
+10196,,Sick Nasty from Feet to Feet,Enzo Fuchs,2021,https://www.instagram.com/p/CWQrmuTAwNl/,,,EXPOSURE,EXPOSURE,7,Sick Nasty from Feet to Feet.,
+10197,,Front Yoda Rewind,Sebastian Egger,2021,,,,EXPOSURE,EXPOSURE,8,It's almost a Front Yoda Roll and a Back Yoda Roll in the same bounce. Start at the very bottom of the bounce with a Front Yoda Roll so the line snaps up and after around three quarters of rotation you have some resistance of the line to push off of into the Back Yoda Roll. ,Start a lot earlier than you would for most tricks.
+10198,,Back Yoda Rewind,Tim Odermatt,2021,,,,EXPOSURE,EXPOSURE,8,It's almost a Back Yoda Roll and a Front Yoda Roll in the same bounce. Start at the very bottom of the bounce with a Back Yoda Roll so the line snaps up and after around three quarters of rotation you have some resistance of the line to push off of into the Front Yoda Roll. ,Start a lot earlier than you would for most tricks.
+10199,,Sofa Roll to Feet,,,,,,SOFA,EXPOSURE,4,Do a Sofa Roll and during the roll you lean a bit to the side so you can get one foot on the line to finish the roll you get the second foot up and stand up.,
+10200,,Back Sofa Roll to Feet,,,,,,SOFA,EXPOSURE,4,Do a Back Sofa Roll and during the roll you lean a bit to the side so you can get one foot on the line to finish the roll you get the second foot up and stand up.,
+10201,,Yisus Mount,Leonardo Ferrari,2021,https://www.instagram.com/p/CXeLk4Qldu_/,,,YISUS,EXPOSURE,5,Hanging on the line grabbing it with both hands and having it run under your elbows and shoulders press yourself up to Exposure.,Watch out for your shoulders on this one!`;
 
 // increase this manualy if you update the predefinedCombos
 export const predefinedCombosVersion = 1;
