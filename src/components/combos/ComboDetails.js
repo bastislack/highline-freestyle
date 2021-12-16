@@ -45,7 +45,7 @@ const ComboDetails = ({stickFrequencies, randomCombo}) => {
   }
 
   const deleteCombo = () => {
-    db.deleteCombo(params.id)
+    db.deleteCombo(combo.id)
       .then(() => {
         console.log("combo deleted");
       })

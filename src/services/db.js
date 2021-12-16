@@ -90,6 +90,17 @@ export default class Database {
     });
   };
 
+  // get list of all tricks
+  getTricksByIds = (ids) => {
+    return this.db.userTricks.where("id").anyOf(ids).toArray().then((userTricks) => {
+      const userKeys = userTricks.map(trick => trick.id);
+      // query all only predefinedTricks which don't have the same id as the userTricks
+      // and concat these to the userTricks
+      // also filter out tricks which are marked deleted
+      return this.db.predefinedTricks.where("id").anyOf(ids).and(trick => !userKeys.includes(trick.id)).toArray().then(preTricks => preTricks.concat(userTricks.filter(trick => !trick.deleted)));
+    });
+  };
+
   // create or update userTrick
   saveTrick = (trick) => this.db.userTricks.put(trick);
 
@@ -116,8 +127,8 @@ export default class Database {
         const header = comboList.shift().concat(["stickFrequency"]);
 
         const combos = comboList.map(combo => {
-          // convert string of tricks to an array
-          combo[2] = combo[2].split(";").map(idStr => allTricks.find(trick => trick.id === Number(idStr)));
+          // convert string of tricks to an array of numbers
+          combo[2] = combo[2].split(";").map(idStr => Number(idStr));
           // make key value pairs
           return Object.assign.apply({},
             header.map((v,i) => {
@@ -141,6 +152,12 @@ export default class Database {
   getCombo = (id) => this.db.userCombos.get(Number(id)).then(userCombo => {
     if (userCombo) return userCombo;
     else return this.db.predefinedCombos.get(Number(id));
+  }).then(combo => {
+    return this.getTricksByIds(combo.tricks).then(tricksInCombo => {
+      let comboWithTricks = combo;
+      comboWithTricks.tricks = tricksInCombo;
+      return comboWithTricks;
+    });
   });
 
   // get list of all combos
@@ -155,7 +172,12 @@ export default class Database {
   };
 
   // create or update userCombo
-  saveCombo = (combo) => this.db.userCombos.put(combo);
+  saveCombo = (combo) => {
+    const trickNumbers = combo.tricks.map(trick => trick.id);
+    var comboWithNumbers = combo;
+    comboWithNumbers.tricks = trickNumbers;
+    return this.db.userCombos.put(comboWithNumbers)
+  };
 
   // delete combo
   deleteCombo = (id) => this.db.userCombos.put({"id": Number(id), deleted: true});
