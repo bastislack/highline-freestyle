@@ -32,14 +32,28 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
   const difficultyBlacklist = []
   function refreshBlacklist() {
     difficultyBlacklist.length = 0;
-    let childs = document.getElementById("specifyItemsDiv").childNodes
-    childs.forEach(element => {
+    let children = document.getElementById("specifyItemsDiv").childNodes
+    children.forEach(element => {
       let box = element.getElementsByTagName("input")[0]
       if (!box.checked) {
         difficultyBlacklist.push(box.value);
       }
     });
     console.log("Current trick level blacklist: " + difficultyBlacklist);
+  }
+
+  // Contains all freqs that should be EXCLUDED from the combo
+  const stickFreqBlacklist = []
+  function refreshFreqBlacklist() {
+    stickFreqBlacklist.length = 0;
+    let children = document.getElementById("specifyStickFreqsDiv").childNodes
+    children.forEach(element => {
+      let box = element.getElementsByTagName("input")[0]
+      if (!box.checked) {
+        stickFreqBlacklist.push(box.value);
+      }
+    });
+    console.log("Current stick freq blacklist: " + stickFreqBlacklist);
   }
 
   // If the user wants to save the combo it is added to the database
@@ -309,7 +323,6 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
                           id={"checkboxForLevel_" + diffNr}
                           value={diffNr}
                           className="btn-check"
-                          value={diffNr}
                           type="checkbox"
                           defaultChecked
                           autoComplete="off"
@@ -325,7 +338,21 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
                   })}
                 </div>
               </div>
+              <hr/>
+              <div className="form-row">
 
+                <p>Allowed stick frequencies:</p>
+                <div className="btn-group btn-group-toggle row btn-group-long-row" data-toggle="buttons" id="specifyStickFreqsDiv">
+                  {stickFrequencies.map((item, i) => {
+                    return (
+                      <label className="skillFreq form-check" freq={i} key={i}>
+                        <input className="form-check-input" type="checkbox" value={i} name="stickFrequency" defaultChecked readOnly={true} onChange={e => refreshFreqBlacklist()} /> {item}
+                      </label>
+                    );
+                  })}
+                </div>
+              </div>
+              <hr/>
               <div className="form-row form-check">
                 <label className="form-check-label">Average difficulty {avgDifficulty > 0 && avgDifficulty}</label>
                 <input
@@ -345,6 +372,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
                   step="0.5"
                   id="avgDifficultyRange" />
               </div>
+              <hr/>
               <div className="form-row form-check">
                 <label className="form-check-label">Finish to Feet</label>
                 <input
@@ -354,6 +382,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
                   onClick={(e) => setFinishToFeet(e.target.checked)}
                 />
               </div>
+              <hr/>
               <div className="form-row form-check">
                 <label className="form-check-label">Start from:</label>
                 <input
@@ -373,6 +402,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
                   {positionList}
                 </select>
               </div>
+              <hr/>
               <div className="form-row">
                 <div className="form-check form-check-inline">
                   <label className="form-check-label">Allow duplicate tricks</label>
