@@ -3,12 +3,12 @@ import { useLiveQuery } from "dexie-react-hooks";
 import { useNavigate } from "react-router-dom";
 import EditButton from '../buttons/EditButton';
 import DeleteButton from '../buttons/DeleteButton';
-
+import { stickFrequencies } from '../../services/enums';
 
 import Database from "../../services/db";
 const db = new Database();
 
-const TrickDetails = ({stickFrequencies}) => {
+const TrickDetails = () => {
   const { id } = useParams();
 
   const navigate = useNavigate();

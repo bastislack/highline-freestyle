@@ -2,13 +2,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLiveQuery } from "dexie-react-hooks";
 import ComboDetails from '../combos/ComboDetails';
-import { stickFrequencies } from '../../services/enums';
+import { stickFrequencies, positions } from '../../services/enums';
 import useLocalStorage from '../hooks/useLocalStorage';
 
 import Database from "../../services/db";
 const db = new Database();
 
-const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo, positions }) => {
+const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => {
 
   const navigate = useNavigate();
 
@@ -32,14 +32,28 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo, posit
   const difficultyBlacklist = []
   function refreshBlacklist() {
     difficultyBlacklist.length = 0;
-    let childs = document.getElementById("specifyItemsDiv").childNodes
-    childs.forEach(element => {
+    let children = document.getElementById("specifyItemsDiv").childNodes
+    children.forEach(element => {
       let box = element.getElementsByTagName("input")[0]
       if (!box.checked) {
         difficultyBlacklist.push(box.value);
       }
     });
     console.log("Current trick level blacklist: " + difficultyBlacklist);
+  }
+
+  // Contains all freqs that should be EXCLUDED from the combo
+  const stickFreqBlacklist = []
+  function refreshFreqBlacklist() {
+    stickFreqBlacklist.length = 0;
+    let children = document.getElementById("specifyStickFreqsDiv").childNodes
+    children.forEach(element => {
+      let box = element.getElementsByTagName("input")[0]
+      if (!box.checked) {
+        stickFreqBlacklist.push(box.value);
+      }
+    });
+    console.log("Current stick freq blacklist: " + stickFreqBlacklist);
   }
 
   // If the user wants to save the combo it is added to the database
@@ -76,7 +90,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo, posit
 
     avgDiff = Math.round((totalDiff / numberOfTricks + Number.EPSILON) * 100) / 100;
 
-    return({
+    return ({
       minDiff: minDiff,
       maxDiff: maxDiff,
       avgDiff: avgDiff,
@@ -86,7 +100,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo, posit
   }
 
   const arePositionsSimilar = (startPos, endPos) => {
-    if ((startPos === "KOREAN" && (endPos === "CHEST" || endPos === "BACK")) || (startPos === "CHEST" && endPos === "KOREAN") || (startPos === "BACK" && endPos === "KOREAN") || (startPos === "EXPOSURE" && endPos === "STAND") || (startPos === "STAND" && endPos === "EXPOSURE")) {
+    if ((startPos === "KOREAN" && (endPos === "CHEST" || endPos === "BACK")) || (startPos === "CHEST" && endPos === "KOREAN") || (startPos === "BACK" && endPos === "KOREAN") || (startPos === "EXPOSURE" && endPos === "STAND") || (startPos === "STAND" && endPos === "EXPOSURE") || (startPos === "BELLY" && endPos === "CHEST") || (startPos === "CHEST" && endPos === "BELLY")) {
       return true;
     } else {
       return false;
@@ -97,21 +111,21 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo, posit
     const isFinishToFeetFulfilled = (currentTrick.endPos === "STAND" || currentTrick.endPos === "EXPOSURE") ? true : false;
     const isConsecutiveTricksFulfilled = ((allowDuplicates && allowConsecutiveTricks) || lastTrick !== currentTrick) ? true : false;
     const isGeneralComboConstraintFulfilled = (arePositionsSimilar(currentTrick.startPos, lastTrick.endPos) || currentTrick.startPos === lastTrick.endPos) ? true : false;
-    if(index === numberOfTricks - 1 && finishToFeet){
-      if(isGeneralComboConstraintFulfilled && isConsecutiveTricksFulfilled && isFinishToFeetFulfilled){
+    if (index === numberOfTricks - 1 && finishToFeet) {
+      if (isGeneralComboConstraintFulfilled && isConsecutiveTricksFulfilled && isFinishToFeetFulfilled) {
         return true;
       }
     }
-    else if(isGeneralComboConstraintFulfilled && isConsecutiveTricksFulfilled){
+    else if (isGeneralComboConstraintFulfilled && isConsecutiveTricksFulfilled) {
       return true;
     }
     return false;
   }
 
   const getFirstTrick = (availableTricks) => {
-    if(startFromCheckbox){
+    if (startFromCheckbox) {
       for (let i = 0; i < availableTricks.length; i++) {
-        if(availableTricks[i].startPos === positions[startFromPosition]){
+        if (availableTricks[i].startPos === positions[startFromPosition]) {
           return ({ firstTrick: availableTricks[i], indexAvailableTricks: i });
         }
       }
@@ -201,7 +215,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo, posit
       }
     }
 
-    const {minDiff, maxDiff, avgDiff, totalDiff} = computeStats(randomTricks);
+    const { minDiff, maxDiff, avgDiff, totalDiff } = computeStats(randomTricks);
 
     const currentYear = new Date().getFullYear();
 
@@ -233,7 +247,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo, posit
 
     refreshAvgSlider();
   }
-  
+
   function toggleConsecutiveTricks(checked) {
     var consecutiveTricks = document.getElementById("consecutiveTricks");
     consecutiveTricks.disabled = checked == false;
@@ -268,7 +282,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo, posit
 
   const positionList = positions.map((item, i) => {
     return (
-      <option value={i}>{item}</option>
+      <option value={i} key={i}>{item}</option>
     )
   });
 
@@ -304,12 +318,11 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo, posit
                   {Array.from(Array(parseInt(maxDifficulty)).keys()).map(diffNr => {
                     diffNr++;
                     return (
-                      <div className="col-3 col-sm-3 col-md-2 col-lg-1">
+                      <div className="col-3 col-sm-3 col-md-2 col-lg-1" key={diffNr}>
                         <input
                           id={"checkboxForLevel_" + diffNr}
                           value={diffNr}
                           className="btn-check"
-                          value={diffNr}
                           type="checkbox"
                           defaultChecked
                           autoComplete="off"
@@ -325,7 +338,21 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo, posit
                   })}
                 </div>
               </div>
+              <hr/>
+              <div className="form-row">
 
+                <p>Allowed stick frequencies:</p>
+                <div className="btn-group btn-group-toggle row btn-group-long-row" data-toggle="buttons" id="specifyStickFreqsDiv">
+                  {stickFrequencies.map((item, i) => {
+                    return (
+                      <label className="skillFreq form-check" freq={i} key={i}>
+                        <input className="form-check-input" type="checkbox" value={i} name="stickFrequency" defaultChecked readOnly={true} onChange={e => refreshFreqBlacklist()} /> {item}
+                      </label>
+                    );
+                  })}
+                </div>
+              </div>
+              <hr/>
               <div className="form-row form-check">
                 <label className="form-check-label">Average difficulty {avgDifficulty > 0 && avgDifficulty}</label>
                 <input
@@ -345,6 +372,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo, posit
                   step="0.5"
                   id="avgDifficultyRange" />
               </div>
+              <hr/>
               <div className="form-row form-check">
                 <label className="form-check-label">Finish to Feet</label>
                 <input
@@ -354,13 +382,14 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo, posit
                   onClick={(e) => setFinishToFeet(e.target.checked)}
                 />
               </div>
+              <hr/>
               <div className="form-row form-check">
                 <label className="form-check-label">Start from:</label>
                 <input
                   id="start_from_chkbx"
                   className="form-check-input"
                   type="checkbox"
-                  onChange={(e) => {toggleStartFrom(e.target.checked); setStartFromCheckbox(e.target.checked);}}
+                  onChange={(e) => { toggleStartFrom(e.target.checked); setStartFromCheckbox(e.target.checked); }}
                 />
                 <select
                   id="select_start_from"
@@ -373,6 +402,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo, posit
                   {positionList}
                 </select>
               </div>
+              <hr/>
               <div className="form-row">
                 <div className="form-check form-check-inline">
                   <label className="form-check-label">Allow duplicate tricks</label>
@@ -403,9 +433,13 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo, posit
         </div>
 
         <div className="row justify-content-around">
-          <button className="col-sm-4 btn btn-primary">Generate</button>
+          <div className="col">
+            <button className="col-12 btn btn-primary">Generate</button>
+          </div>
           {randomCombo && (
-            <button className="col-sm-4 btn btn-primary" onClick={saveToCombos}>Add to Combos</button>
+            <div className="col">
+              <button className="col-12 btn btn-primary" onClick={saveToCombos}>Add to Combos</button>
+            </div>
           )}
         </div>
       </form>

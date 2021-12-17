@@ -1,10 +1,20 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom'
 import { useLiveQuery } from "dexie-react-hooks";
+import { comboSortingSchemes as sortingSchemes } from '../../services/sortingSchemes';
 
 import Database from "../../services/db";
 const db = new Database();
 
-const ComboList = ({ sortingSchemes, sortOpt }) => {
+const ComboList = ({ sortOpt, scrollPosition, setScrollPosition }) => {
+
+  useEffect(() => {
+    document.getElementById("content").scrollTo({
+        top: scrollPosition,
+        left: 0,
+        behavior: 'instant'
+    });
+  });
 
   // combos query with react hooks -- means it refreshes automaticly
   const combos = useLiveQuery(() => db.getAllCombos().then(c => c.sort(sortingSchemes[sortOpt].sortFunc)), [sortOpt]);
@@ -13,11 +23,15 @@ const ComboList = ({ sortingSchemes, sortOpt }) => {
   }
   console.log(combos)
 
+  const updateScrollPosition = () => {
+    setScrollPosition(document.getElementById("content").scrollTop);
+  }
+
   function getComboDiv(combo) {
     return (
       <div key={combo.id} className="combo-container col-4 col-lg-3 col-xl-2">
         <Link className="link-to-combo " to={`/combos/${combo.id}`} key={"combo" + combo.id} >
-          <button className=" btn btn-outline-success combo-preview skillFreq" freq={combo.stickFrequency}>
+          <button className=" btn btn-outline-success combo-preview skillFreq" freq={combo.stickFrequency} onClick={updateScrollPosition}>
             <h3>{combo.name}</h3>
           </button>
         </Link>
