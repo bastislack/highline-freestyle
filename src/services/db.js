@@ -30,7 +30,7 @@ export default class Database {
     }).then(() => {
       // count the combos in the database and populate it if its empty
       this.db.versions.get("predefinedCombosVersion").then( ret => {
-        if (true || !ret || ret.version < predefinedCombosVersion) {
+        if (!ret || ret.version < predefinedCombosVersion) {
           this.populateCombos();
         } else {
           console.log("did not update predefinedCombos");
@@ -119,7 +119,6 @@ export default class Database {
   populateCombos = () => {
     this.db.predefinedCombos.clear().then(() => {
       this.getAllTricks().then(allTricks => {
-        console.log(allTricks)
         console.log("updating predefinedCombos")
         const comboList = Papa.parse(predefinedCombos, {dynamicTyping: true}).data;
 
