@@ -27,9 +27,8 @@ const Settings = ({ sortOpt, setSortOpt, setShowAboutPage }) => {
       <MenuDivider />
       </>
     }
-      <MenuItem onClick={db.populateTricks} >Reset predefined tricks</MenuItem>
-      <MenuItem onClick={db.dropUserTricks} >Delete all added tricks</MenuItem>
-      <MenuItem onClick={db.dropUserAtributes} >Reset stickFrequencies</MenuItem>
+      <MenuItem onClick={db.dropUserTricks} >Reset all tricks</MenuItem>
+      <MenuItem onClick={db.dropUserCombos} >Reset all combos</MenuItem>
       <MenuItem onClick={() => setShowAboutPage(true)} >About</MenuItem>
     </Menu>
   );

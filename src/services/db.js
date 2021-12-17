@@ -1,6 +1,7 @@
 import Dexie from "dexie";
 import Papa from "papaparse"
-import { tricklist } from "../tricklist"
+import { predefinedTricks, predefinedTricksVersion } from "../predifinedTricksCombos"
+import { predefinedCombos, predefinedCombosVersion } from "../predifinedTricksCombos"
 
 
 export default class Database {
@@ -9,136 +10,174 @@ export default class Database {
 
     this.db = new Dexie("db");
 
-    this.db.version(1).stores({
-      // this is the table for the "predefined" tricks, the id's will start from 1000 onwards
-      mainTricks: "++id, alias, technicalName, establishedBy, yearEstablished, linkToVideo, startPos, endPos, difficultyLevel, description, tips",
-      mainAttributes: "id, stickFrequency",
-      userTricks: "++id, alias, technicalName, establishedBy, yearEstablished, linkToVideo, startPos, endPos, difficultyLevel, description, tips, strickfrequency",
-      combos: "++id, name, tricks, minDiff, maxDiff, avgDiff, totalDiff, numberOfTricks, establishedBy, yearEstablished, linkToVideo, comments, stickFrequency"
+    this.db.version(2).stores({
+      // to keep track of all the versions
+      versions: "key,version",
+      // this is the table for the "predefined" tricks, the id's will start from 10000 onwards
+      predefinedTricks: "id,alias,technicalName,establishedBy,yearEstablished,linkToVideo,videoStartTime,videoEndTime,startPos,endPos,difficultyLevel,description,tips,stickFrequency",
+      userTricks: "++id,alias,technicalName,establishedBy,yearEstablished,linkToVideo,videoStartTime,videoEndTime,startPos,endPos,difficultyLevel,description,tips,stickFrequency,deleted",
+      predefinedCombos: "id, name, *tricks, minDiff, maxDiff, avgDiff, totalDiff, numberOfTricks, establishedBy, yearEstablished, linkToVideo, comments, stickFrequency",
+      userCombos: "++id, name, *tricks, minDiff, maxDiff, avgDiff, totalDiff, numberOfTricks, establishedBy, yearEstablished, linkToVideo, comments, stickFrequency, deleted"
     });
 
     // count the tricks in the database and populate it if its empty
-    this.db.mainTricks.count().then((count) => {
-      if (count === 0) {
+    this.db.versions.get("predefinedTricksVersion").then( ret => {
+      if (!ret || ret.version < predefinedTricksVersion) {
         this.populateTricks();
       } else {
-        console.log("there are already " + count + " tricks in the database");
+        console.log("did not update predefinedTricks");
       }
+    }).then(() => {
+      // count the combos in the database and populate it if its empty
+      this.db.versions.get("predefinedCombosVersion").then( ret => {
+        if (!ret || ret.version < predefinedCombosVersion) {
+          this.populateCombos();
+        } else {
+          console.log("did not update predefinedCombos");
+        }
+      }); 
     });
   }
 
+  // Tricks
+
+  // clear userTricks
   dropUserTricks = () => {
     return this.db.userTricks.clear();
   };
 
-  dropUserAtributes = () => {
-    return this.db.mainAttributes.clear();
-  };
-
+  // populate the databes with tricks from the predefinedTricks.js
   populateTricks = () => {
-    this.db.mainTricks.clear().then(() => {
-      const trickList = Papa.parse(tricklist).data;
+    this.db.predefinedTricks.clear().then(() => {
+      console.log("updating predefinedTricks")
+      const trickList = Papa.parse(predefinedTricks, {dynamicTyping: true}).data;
 
       // this uses the labels of the csv but, also adds an id
-      const header = ["id"].concat(trickList.shift());
+      const header = trickList.shift().concat(["stickFrequency"]);
 
-      const tricks = Array(trickList.length);
-      for (let i=0; i < trickList.length; i++) {
-        // add the id with a 1000 offset
-        const trick = [i+1000].concat(trickList[i]);
+      const tricks = trickList.map(trick =>
         // make key value pairs
-        const rightFormatTrick = Object.assign.apply({},
-          header.map((v,i) => ({
-            [v]: trick[i]
-          }))
-        );
-        tricks[i] = rightFormatTrick;
-      }
+        Object.assign.apply({},
+          header.map((v,i) => {
+            // add 0 for stickFrequency
+            trick.concat([0]);
+            return ({[v]: trick[i]})
+          })
+      ));
 
       // adds the tricks to the database
-      this.db.mainTricks.bulkPut(tricks).then(() =>
-        console.log("added tricks to database from the csv")
-      );
+      this.db.predefinedTricks.bulkPut(tricks).then(() => {
+        console.log("added tricks to database from the csv");
+        this.db.versions.put({"key": "predefinedTricksVersion", "version": predefinedTricksVersion});
+      });
     });
   };
 
   // get single trick by id
-  getTrick = (id) => {
-    if (id < 1000) return this.db.userTricks.get(Number(id));
-    return Promise.all(
-      this.db.mainTricks.get(Number(id)),
-      this.db.mainAttributes.get(Number(id))
-    ).then((a) => {
-      if (a[1]) return Object({...a[0], ...a[1]});
-      return a[0];
+  getTrick = (id) => this.db.userTricks.get(Number(id)).then(userTrick => {
+    if (userTrick) return userTrick;
+    else return this.db.predefinedTricks.get(Number(id));
+  });
+
+  // get list of all tricks
+  getAllTricks = () => {
+    return this.db.userTricks.toArray().then((userTricks) => {
+      const userKeys = userTricks.map(trick => trick.id);
+      // query all only predefinedTricks which don't have the same id as the userTricks
+      // and concat these to the userTricks
+      // also filter out tricks which are marked deleted
+      return this.db.predefinedTricks.where("id").noneOf(userKeys).toArray().then(preTricks => preTricks.concat(userTricks.filter(trick => !trick.deleted)));
     });
   };
 
   // get list of all tricks
-  getAllTricks = () => {
-    return Promise.all([
-      Promise.all([
-        this.db.mainTricks.toArray(),
-        this.db.mainAttributes.toArray()
-      ]).then((a) => {
-        const mainTricks = a[0];
-        const mainAttributes = a[1];
-        if (!mainAttributes) return mainTricks;
-
-        for (let i=0; i < mainAttributes.length; i++) {
-          const index = mainTricks.findIndex((trick) => trick.id === mainAttributes[i].id);
-          mainTricks[index] = Object({...mainTricks[index], ...mainAttributes[i]});
-        }
-        return mainTricks;
-      }),
-      this.db.userTricks.toArray()
-    ]).then((a) => a.flat());
+  getTricksByIds = (ids) => {
+    return this.db.userTricks.where("id").anyOf(ids).toArray().then((userTricks) => {
+      const userKeys = userTricks.map(trick => trick.id);
+      // query all only predefinedTricks which don't have the same id as the userTricks
+      // and concat these to the userTricks
+      // also filter out tricks which are marked deleted
+      return this.db.predefinedTricks.where("id").anyOf(ids).and(trick => !userKeys.includes(trick.id)).toArray().then(preTricks => preTricks.concat(userTricks.filter(trick => !trick.deleted)));
+    });
   };
 
-  // create or update trick
-  saveTrick = (obj) => {
-    if (obj.id >= 1000) return this.db.mainTricks.put(obj);
-    return this.db.userTricks.put(obj);
-  };
+  // create or update userTrick
+  saveTrick = (trick) => this.db.userTricks.put(trick);
 
   // delete trick
-  deleteTrick = (id) => {
-    if (id < 1000) console.log("can't delete this trick");
-    return this.db.userTricks.delete(Number(id));
-  };
+  deleteTrick = (id) => this.db.userTricks.put({"id": Number(id), deleted: true});
 
-  updateTrickAtributes = (obj) => {
-    return this.db.mainAttributes.put(obj);
-  };
 
   // Combos
 
+  // clear userCombos
+  dropUserCombos = () => {
+    return this.db.userCombos.clear();
+  };
+
+  // populate the databes with combos from the predefinedCombos.js
+  populateCombos = () => {
+    this.db.predefinedCombos.clear().then(() => {
+      this.getAllTricks().then(allTricks => {
+        console.log("updating predefinedCombos")
+        const comboList = Papa.parse(predefinedCombos, {dynamicTyping: true}).data;
+
+        // this uses the labels of the csv but, also adds an id
+        const header = comboList.shift().concat(["stickFrequency"]);
+
+        const combos = comboList.map(combo => {
+          // convert string of tricks to an array of numbers
+          combo[2] = combo[2].split(";").map(idStr => Number(idStr));
+          // make key value pairs
+          return Object.assign.apply({},
+            header.map((v,i) => {
+              // add 0 for stickFrequency
+              combo.concat([0]);
+              return ({[v]: combo[i]})
+            })
+          )
+        });
+
+        // adds the combos to the database
+        this.db.predefinedCombos.bulkPut(combos).then(() => {
+          console.log("added combos to database from the csv");
+          this.db.versions.put({"key": "predefinedCombosVersion", "version": predefinedCombosVersion});
+        });
+      });
+    });
+  };
+
   // get single combo by id
-  getCombo = (id) => {
-    return this.db.combos.get(Number(id));
-  };
+  getCombo = (id) => this.db.userCombos.get(Number(id)).then(userCombo => {
+    if (userCombo) return userCombo;
+    else return this.db.predefinedCombos.get(Number(id));
+  }).then(combo => {
+    return this.getTricksByIds(combo.tricks).then(tricksInCombo => {
+      let comboWithTricks = combo;
+      comboWithTricks.tricks = tricksInCombo;
+      return comboWithTricks;
+    });
+  });
 
-  // get list of all combo
+  // get list of all combos
   getAllCombos = () => {
-    return this.db.combos.toArray();
+    return this.db.userCombos.toArray().then((userCombos) => {
+      const userKeys = userCombos.map(combo => combo.id);
+      // query all only predefinedCombos which don't have the same id as the userCombos
+      // and concat these to the userCombos
+      // also filter out combos which are marked deleted
+      return this.db.predefinedCombos.where("id").noneOf(userKeys).toArray().then(preCombos => preCombos.concat(userCombos.filter(combo => !combo.deleted)));
+    });
   };
 
-  // create or update combo
-  // Input: combo object with the following fields:
-  // - name
-  // - tricks[]
-  // - establishedBy
-  // - yearEstablished
-  // - linkToVideo
-  // - comments
-  //
-  // This method computes stats of the combo and then saves it to the db
-  saveCombo = (obj) => {
-    return this.db.combos.put(obj);
+  // create or update userCombo
+  saveCombo = (combo) => {
+    const trickNumbers = combo.tricks.map(trick => trick.id);
+    var comboWithNumbers = combo;
+    comboWithNumbers.tricks = trickNumbers;
+    return this.db.userCombos.put(comboWithNumbers)
   };
 
   // delete combo
-  deleteCombo = (id) => {
-    return this.db.combos.delete(Number(id));
-  };
+  deleteCombo = (id) => this.db.userCombos.put({"id": Number(id), deleted: true});
 }

@@ -29,13 +29,11 @@ const TrickDetails = () => {
   const selectFreq = (e) => {
     const newFreq = Number(e.target.value);
     trick.stickFrequency = newFreq;
-    db.updateTrickAtributes(Object({"id": trick.id, "stickFrequency": newFreq}))
-      .then(res => {
-        console.log("changed stickFrequency");
-      })
-      .catch(e => {
-        console.log(e);
-      });
+    db.saveTrick(trick).then(res => {
+      console.log("changed stickFrequency");
+    }).catch(e => {
+      console.log(e);
+    });
   }
 
   var youtubeLink

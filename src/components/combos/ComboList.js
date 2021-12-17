@@ -21,6 +21,7 @@ const ComboList = ({ sortOpt, scrollPosition, setScrollPosition }) => {
   if (!combos || combos.length == 0) {
     return <p>You have no saved combos. For now it is only possible to create a combo using the combo generator, we are working on supporting custom combos.</p>;
   }
+  console.log(combos)
 
   const updateScrollPosition = () => {
     setScrollPosition(document.getElementById("content").scrollTop);
