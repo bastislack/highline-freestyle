@@ -94,7 +94,7 @@ const TrickDetails = () => {
             </div>
           }
 
-          {trick.difficultyLevel &&
+          {(trick.difficultyLevel >= 0) &&
             <div>
               <h3>Level: </h3>
               <div className="callout">{trick.difficultyLevel}</div>

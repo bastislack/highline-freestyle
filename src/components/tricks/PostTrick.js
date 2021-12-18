@@ -20,7 +20,7 @@ const PostTrick = () => {
     return preTrick ? preTrick.establishedBy : "";
   });
   const [yearEstablished, setYearEstablished] = useState(() => {
-    return preTrick ? preTrick.yearEstablished : "";
+    return preTrick ? preTrick.yearEstablished : new Date().getFullYear();
   });
   const [linkToVideo, setLinkToVideo] = useState(() => {
     return preTrick ? preTrick.linkToVideo : "";
@@ -59,11 +59,11 @@ const PostTrick = () => {
       alias: alias,
       technicalName: technicalName,
       establishedBy: establishedBy,
-      yearEstablished: yearEstablished,
+      yearEstablished: parseInt(yearEstablished),
       linkToVideo: linkToVideo,
-      startPos: startPos,
-      endPos: endPos,
-      difficultyLevel: difficultyLevel,
+      startPos: positions[startPos],
+      endPos: positions[endPos],
+      difficultyLevel: parseInt(difficultyLevel),
       description: description,
       tips: tips,
       stickFrequency: stickFrequency
