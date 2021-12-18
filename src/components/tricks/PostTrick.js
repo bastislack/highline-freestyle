@@ -8,7 +8,7 @@ const db = new Database();
 const PostTrick = () => {
 
   const location = useLocation();
-  const preTrick = location.preTrick;
+  const preTrick = location.state.preTrick;
 
   const [alias, setAlias] = useState(() => {
     return preTrick ? preTrick.alias : "";
