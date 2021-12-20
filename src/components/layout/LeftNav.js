@@ -5,6 +5,7 @@ import { parentPageOf, parentPageMatches } from '../../services/parentPage';
 import Visibility from '../../components/containers/Visibility';
 import { trickSortingSchemes, comboSortingSchemes } from '../../services/sortingSchemes';
 import { Nav } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const LeftNav = ({ sortOpt, setSortOpt, setShowAboutPage }) => {
   const path = useLocation().pathname.toString().toLowerCase();
@@ -22,9 +23,7 @@ const LeftNav = ({ sortOpt, setSortOpt, setShowAboutPage }) => {
         {
           links.map((link) => {
             return <Nav.Item key={link.url}>
-              <Nav.Link href={link.url} className={parentPageMatches(parentPage, link.url) ? "active" : "text-white"}>
-                {link.name}
-              </Nav.Link>
+            <Link to={link.url} className={parentPageMatches(parentPage, link.url) ? "nav-link active" : "nav-link text-white"}>{link.name}</Link>
             </Nav.Item>
           })
         }
