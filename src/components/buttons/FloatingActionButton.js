@@ -12,7 +12,7 @@ const FloatingActionButton = ({ setTrickListScrollPosition, setComboListScrollPo
   } else if (path === "/combos") {
     create = "/postcombo";
   } else {
-    alert("No path for FAB defined");
+    console.log("No path for FAB defined");
   }
 
   const updateScrollPosition = () => {
