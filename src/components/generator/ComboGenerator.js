@@ -24,37 +24,39 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
   const [finishToFeet, setFinishToFeet] = useState(true);
   const [consecutiveCheckbox, setConsecutiveCheckbox] = useState(false);
   const [startFromCheckbox, setStartFromCheckbox] = useState(false);
+  const [difficultyWhitelist, setDifficultyWhitelist] = useState(Array.from({length: difficultyRangeMax}, (_, i) => i + 1));
+  const [stickFrequencyWhitelist, setStickFrequencyWhitelist] = useState(Array.from(Array(7).keys()));
 
-  const tricks = useLiveQuery(() => db.getAllTricks(), []);
-  if (!tricks) return null
 
-  // Contains all diff-levels that should be EXCLUDED from the combo
-  const difficultyBlacklist = []
-  function refreshBlacklist() {
-    difficultyBlacklist.length = 0;
-    let children = document.getElementById("specifyItemsDiv").childNodes
+  // Contains all diff-levels that should be included from the combo
+  function refreshWhitelist() {
+    setDifficultyWhitelist([]);
+    let children = document.getElementById("specifyItemsDiv").childNodes;
     children.forEach(element => {
       let box = element.getElementsByTagName("input")[0]
-      if (!box.checked) {
-        difficultyBlacklist.push(box.value);
+      if (box.checked) {
+        setDifficultyWhitelist([...difficultyWhitelist, box.value]);
       }
     });
-    console.log("Current trick level blacklist: " + difficultyBlacklist);
+    console.log("Current trick level whitelist: " + difficultyWhitelist);
   }
 
-  // Contains all freqs that should be EXCLUDED from the combo
-  const stickFreqBlacklist = []
-  function refreshFreqBlacklist() {
-    stickFreqBlacklist.length = 0;
+  // Contains all freqs that should be included from the combo
+  function refreshFreqWhitelist() {
+    setStickFrequencyWhitelist([]);
     let children = document.getElementById("specifyStickFreqsDiv").childNodes
     children.forEach(element => {
       let box = element.getElementsByTagName("input")[0]
-      if (!box.checked) {
-        stickFreqBlacklist.push(box.value);
+      if (box.checked) {
+        setStickFrequencyWhitelist([...stickFrequencyWhitelist, box.value]);
       }
     });
-    console.log("Current stick freq blacklist: " + stickFreqBlacklist);
+    console.log("Current stick freq whitelist: " + stickFrequenceWhitelist);
   }
+
+  const tricks = useLiveQuery(() => db.getTricksByDiffAndByFreq(difficultyWhitelist,stickFrequencyWhitelist), [difficultyWhitelist, stickFrequencyWhitelist]);
+  console.log("Tricks:",tricks);
+  if (!tricks) return null
 
   // If the user wants to save the combo it is added to the database
   const saveToCombos = () => {
@@ -302,7 +304,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
         </div>
         <div className="form-row">
           <label htmlFor="maxDifficultyRange" className="form-label">Max difficulty: {maxDifficulty}</label>
-          <input type="range" className="form-range" onChange={(e) => { setMaxDifficulty(e.target.value); refreshBlacklist(); refreshAvgSlider(); }} min="1" max={difficultyRangeMax} step="1" id="maxDifficultyRange" />
+          <input type="range" className="form-range" onChange={(e) => { setMaxDifficulty(e.target.value); refreshWhitelist(); refreshAvgSlider(); }} min="1" max={difficultyRangeMax} step="1" id="maxDifficultyRange" />
         </div>
         <div className="form-row">
           <button className="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#advancedDifficultyOptions" aria-expanded="false" aria-controls="collapseExample">
@@ -326,7 +328,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
                           type="checkbox"
                           defaultChecked
                           autoComplete="off"
-                          onChange={e => refreshBlacklist()} />
+                          onChange={e => refreshWhitelist()} />
                         <label
                           id={"labelForLevel_" + diffNr}
                           className="btn allowedDiffButton touch-button-active"
@@ -346,7 +348,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
                   {stickFrequencies.map((item, i) => {
                     return (
                       <label className="skillFreq form-check" freq={i} key={i}>
-                        <input className="form-check-input" type="checkbox" value={i} name="stickFrequency" defaultChecked readOnly={true} onChange={e => refreshFreqBlacklist()} /> {item}
+                        <input className="form-check-input" type="checkbox" value={i} name="stickFrequency" defaultChecked readOnly={true} onChange={e => refreshFreqWhitelist()} /> {item}
                       </label>
                     );
                   })}
