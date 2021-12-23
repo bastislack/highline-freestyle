@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLiveQuery } from "dexie-react-hooks";
 import ComboDetails from '../combos/ComboDetails';
@@ -27,35 +27,48 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
   const [difficultyWhitelist, setDifficultyWhitelist] = useState(Array.from({length: difficultyRangeMax}, (_, i) => i + 1));
   const [stickFrequencyWhitelist, setStickFrequencyWhitelist] = useState(Array.from(Array(7).keys()));
 
-
   // Contains all diff-levels that should be included from the combo
-  function refreshWhitelist() {
-    setDifficultyWhitelist([]);
+  function refreshDiffWhitelist() {
     let children = document.getElementById("specifyItemsDiv").childNodes;
+    setDifficultyWhitelist(difficultyWhitelist.filter(level => level <= maxDifficulty));
     children.forEach(element => {
       let box = element.getElementsByTagName("input")[0]
+      let boxVal = parseInt(box.value);
       if (box.checked) {
-        setDifficultyWhitelist([...difficultyWhitelist, box.value]);
-      }
+        if (!difficultyWhitelist.includes(boxVal)){
+          let newWhitelist = difficultyWhitelist;
+          newWhitelist.splice(boxVal, 0, boxVal);
+          setDifficultyWhitelist(newWhitelist);
+        }
+      } else {
+        if (difficultyWhitelist.includes(boxVal)){
+          setDifficultyWhitelist(difficultyWhitelist.filter((level) => level !== boxVal));
+        }
+      } 
     });
-    console.log("Current trick level whitelist: " + difficultyWhitelist);
   }
 
   // Contains all freqs that should be included from the combo
   function refreshFreqWhitelist() {
-    setStickFrequencyWhitelist([]);
     let children = document.getElementById("specifyStickFreqsDiv").childNodes
     children.forEach(element => {
       let box = element.getElementsByTagName("input")[0]
+      let boxVal = parseInt(box.value);
       if (box.checked) {
-        setStickFrequencyWhitelist([...stickFrequencyWhitelist, box.value]);
+        if (!stickFrequencyWhitelist.includes(boxVal)){
+          let newWhitelist = stickFrequencyWhitelist;
+          newWhitelist.splice(boxVal, 0, boxVal);
+          setStickFrequencyWhitelist(newWhitelist);
+        }
+      } else {
+        if (stickFrequencyWhitelist.includes(boxVal)){
+          setStickFrequencyWhitelist(stickFrequencyWhitelist.filter((freq) => freq !== boxVal));
+        }
       }
     });
-    console.log("Current stick freq whitelist: " + stickFrequenceWhitelist);
   }
 
   const tricks = useLiveQuery(() => db.getTricksByDiffAndByFreq(difficultyWhitelist,stickFrequencyWhitelist), [difficultyWhitelist, stickFrequencyWhitelist]);
-  console.log("Tricks:",tricks);
   if (!tricks) return null
 
   // If the user wants to save the combo it is added to the database
@@ -304,7 +317,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
         </div>
         <div className="form-row">
           <label htmlFor="maxDifficultyRange" className="form-label">Max difficulty: {maxDifficulty}</label>
-          <input type="range" className="form-range" onChange={(e) => { setMaxDifficulty(e.target.value); refreshWhitelist(); refreshAvgSlider(); }} min="1" max={difficultyRangeMax} step="1" id="maxDifficultyRange" />
+          <input type="range" className="form-range" onChange={(e) => { setMaxDifficulty(e.target.value); refreshDiffWhitelist(); refreshAvgSlider(); }} min="0" max={difficultyRangeMax} step="1" id="maxDifficultyRange" />
         </div>
         <div className="form-row">
           <button className="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#advancedDifficultyOptions" aria-expanded="false" aria-controls="collapseExample">
@@ -328,7 +341,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
                           type="checkbox"
                           defaultChecked
                           autoComplete="off"
-                          onChange={e => refreshWhitelist()} />
+                          onChange={e => refreshDiffWhitelist()} />
                         <label
                           id={"labelForLevel_" + diffNr}
                           className="btn allowedDiffButton touch-button-active"

@@ -103,14 +103,12 @@ export default class Database {
 
   // get list of tricks by difficulty and stickFrequency
   getTricksByDiffAndByFreq = (diffLevels, stickFreqs) => {
-    return this.db.userTricks.where("difficultyLevel").anyOf(diffLevels).and(trick => (typeof(trick.stickFrequency) == "undefined") || stickFreqs.includes(trick.stickFrequency)).toArray().then((userTricks) => {
+    return this.db.userTricks.filter((trick) => { return (stickFreqs.includes(trick.stickFrequency) && diffLevels.includes(trick.difficultyLevel));}).toArray().then((userTricks) => {
       const userKeys = userTricks.map(trick => trick.id);
       // query all only predefinedTricks which don't have the same id as the userTricks
       // and concat these to the userTricks
       // also filter out tricks which are marked deleted
-      return this.db.predefinedTricks.where("difficultyLevel").anyOf(diffLevels).and(trick => (typeof(trick.stickFrequency) == "undefined") || stickFreqs.includes(trick.stickFrequency) ).and(trick => !userKeys.includes(trick.id)).toArray().then(preTricks => {
-        console.log("queryTricks:",preTricks);
-        preTricks.concat(userTricks.filter(trick => !trick.deleted))});
+      return this.db.predefinedTricks.filter((trick) => { return (stickFreqs.includes(trick.stickFrequency) && diffLevels.includes(trick.difficultyLevel));}).and(trick => !userKeys.includes(trick.id)).toArray().then(preTricks => preTricks.concat(userTricks.filter(trick => !trick.deleted)));
     });
   };
 
