@@ -55,15 +55,15 @@ export default class Database {
       // this uses the labels of the csv but, also adds an id
       const header = trickList.shift().concat(["stickFrequency"]);
 
-      const tricks = trickList.map(trick =>
+      const tricks = trickList.map(trick => {
+        // add 0 for stickFrequency
+        trick.push(0);
         // make key value pairs
         Object.assign.apply({},
           header.map((v,i) => {
-            // add 0 for stickFrequency
-            trick.concat([0]);
             return ({[v]: trick[i]})
           })
-      ));
+      );});
 
       // adds the tricks to the database
       this.db.predefinedTricks.bulkPut(tricks).then(() => {
