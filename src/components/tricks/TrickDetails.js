@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import EditButton from '../buttons/EditButton';
 import DeleteButton from '../buttons/DeleteButton';
 import { stickFrequencies } from '../../services/enums';
+import YouTube from 'react-youtube';
 
 import Database from "../../services/db";
 const db = new Database();
@@ -36,12 +37,23 @@ const TrickDetails = () => {
     });
   }
 
-  var youtubeLink
+  let youtubeId;
+  let youtubeOpts;
   var instagramLink
   if (trick && trick.linkToVideo) {
     if (trick.linkToVideo.includes("youtu")) {
       // "https://www.youtube.com/embed/<videoID>"
-      youtubeLink = "https://www.youtube.com/embed/" + trick.linkToVideo.split("/").pop().split("?v=").pop().replace("?t=", "?start=");
+      youtubeId = trick.linkToVideo.split("/").pop().split("?").at(0);
+      youtubeOpts = {
+        playerVars: {
+          autoplay: 0,
+          fs: 1,
+          rel: 0,
+          start: trick.videoStartTime,
+          end: trick.videoEndTime
+        }
+      }
+      
     }
     else if (trick.linkToVideo.includes("instagram")) {
       // "https://www.instagram.com/p/<videoID>/embed
@@ -50,6 +62,18 @@ const TrickDetails = () => {
     else {
       console.log("Could not embed this link:\n" + trick.linkToVideo);
     }
+  }
+
+  const setupYoutubePlayer = (e) => {
+    e.target.mute();
+  }
+
+  const restartVideo = (e) => {
+    e.target.loadVideoById({
+      videoId: youtubeId,
+      startSeconds: trick.videoStartTime,
+      endSeconds: trick.videoEndTime
+    });
   }
 
   const editTrick = () => navigate("/posttrick",{state: {preTrick:trick}});
@@ -122,11 +146,9 @@ const TrickDetails = () => {
             </div>
           }
 
-          {youtubeLink &&
+          {youtubeId &&
             <div className="callout video-callout">
-              <iframe className="video" id="youtubePlayer" type="text/html" title="video"
-                src={youtubeLink}
-                frameBorder="0"></iframe>
+              <YouTube className="video" videoId={youtubeId} opts={youtubeOpts} onReady={setupYoutubePlayer} onEnd={restartVideo}/>
             </div>
           }
           {instagramLink &&
