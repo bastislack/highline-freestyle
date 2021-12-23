@@ -368,7 +368,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
                 </div>
               </div>
               <hr/>
-              <div className="form-row form-check">
+    {/*<div className="form-row form-check">
                 <label className="form-check-label">Average difficulty {avgDifficulty > 0 && avgDifficulty}</label>
                 <input
                   id="input_chkbx_avg"
@@ -387,7 +387,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
                   step="0.5"
                   id="avgDifficultyRange" />
               </div>
-              <hr/>
+              <hr/>*/}
               <div className="form-row form-check">
                 <label className="form-check-label">Finish to Feet</label>
                 <input

@@ -1,23 +1,19 @@
 // increase this manualy if you update the predefinedTricks
-export const predefinedTricksVersion = 2;
+export const predefinedTricksVersion = 3;
 // predefinedTricks have to have an id above 10000
 export const predefinedTricks = `id,alias,technicalName,establishedBy,yearEstablished,linkToVideo,videoStartTime,videoEndTime,startPos,endPos,difficultyLevel,description,tips
-10000,,Panic Roll,Jediah Doohan,,https://www.youtube.com/watch?v=pZihozjqHfc,,,SOFA,KOREAN,1,From Sofa you spin 270 to land in Korean (or Chest) and combine it with a roll around the line.,Sit in Sofa position grab the line to the side of you with hands facing behind you. On the way up dive down where your hands are and roll around the line. Land in Korean or Chest.
+10000,,Panic Roll,Jediah Doohan,,https://www.youtube.com/watch?v=pZihozjqHfc,,,SOFA,KOREAN,2,From Sofa you spin 270 to land in Korean (or Chest) and combine it with a roll around the line.,Sit in Sofa position grab the line to the side of you with hands facing behind you. On the way up dive down where your hands are and roll around the line. Land in Korean or Chest.
 10001,Utinni Roll,Side Sofa Roll,Michele Eibeck,2021,https://www.instagram.com/p/CNYQEb4Jt1M/,,,SOFA,SOFA,1,Start in Sofa. Both hands next to you (right or left) holding on to the line. Then do a Sofa Roll with your body leaning towards the line where your hands are.,Stay small and compact during the roll.
-10002,Back Richy Roll,Korean to Back Sofa Roll,Richard Schupisser,,https://youtu.be/gxK7wEX6Ybc?t=54,54,58,KOREAN,SOFA,1,Same as Richy Roll but going into a Back Sofa Roll.,
-10003,Richy Roll,Korean to Front Sofa Roll,Richard Schupisser,,,,,KOREAN,SOFA,1,From Korean let yourself fall to the side and immediately after you start the roll swing one leg over the line to finish the roll as a Sofa Roll.,
+10003,Richy Roll,Korean to Sofa Roll,Richard Schupisser,,https://youtu.be/gxK7wEX6Ybc?t=54,54,58,KOREAN,SOFA,2,From Korean let yourself fall to the side and immediately after you start the roll swing one leg over the line to finish the roll as a Sofa Roll.,
 10004,,Hammock Roll,Samuel Volery,2016,https://www.youtube.com/watch?v=maY2RjAJs1g,,,BACK,BACK,1,Lie on your back and grab the line behind your head with both hands. Hook one foot under the line and roll around the line landing again in Backbounce.,
-10005,,Back Sofa Roll,Samuel Volery,2016,https://www.youtube.com/watch?v=Ugw1gRm-T0U,,,SOFA,SOFA,1,"Sit in Sofa, grab the line with both hands and press the line against your body. Then let yourself fall backward.",Leash to the side can help prevent bad falls.; If you fall into a backlever position try to not hold on to the line in order to save your shoulders.
+10005,,Sofa Roll,Samuel Volery,2016,https://www.youtube.com/watch?v=Ugw1gRm-T0U,,,SOFA,SOFA,1,"Sit in Sofa, grab the line with both hands and press the line against your body. Then let yourself fall backward.",Leash to the side can help prevent bad falls.; If you fall into a backlever position try to not hold on to the line in order to save your shoulders.
 10006,,Belly Roll,,,https://www.youtube.com/watch?v=1qJJ26dPKyc,,,BELLY,BELLY,1,With both hands on the line supporting your weight you lie on your belly and roll forward around the line.,
-10007,,Front Chest Roll,,,https://www.youtube.com/watch?v=ih6Rx-UpBfw&t=333,333,339,CHEST,CHEST,1,From lying on your chest get some momentum with your free arm and then roll around the line grabbing it with both hands. Land back in chest.,You can wrap the foot around the line to avoid falling away from the line.
-10008,,Front Sofa Roll,,,https://www.youtube.com/watch?v=Ugw1gRm-T0U,,,SOFA,SOFA,1,"Sit in Sofa, grab the line with both hands and press the line against your body. Then let yourself fall to the front.",
-10009,,Back Belly Roll,,,,,,BELLY,BELLY,1,With both hands on the line supporting your weight you lie on your belly and roll backward around the line.,
-10010,,Back Chest Roll,,,,,,CHEST,CHEST,1,From lying on your chest get some momentum with your free arm and then roll around the line grabbing it with both hands. Land back in chest.,You can wrap the foot around the line to avoid falling away from the line.
+10007,,Chest Roll,,,https://www.youtube.com/watch?v=ih6Rx-UpBfw&t=333,333,339,CHEST,CHEST,1,From lying on your chest get some momentum with your free arm and then roll around the line grabbing it with both hands. Land back in chest.,You can wrap the foot around the line to avoid falling away from the line.
 10011,,Korean Roll,,,,,,KOREAN,KOREAN,1,"Sit in Korean, grab the line in front of you with both hands and let yourself fall to the side.","Sometimes called ""Harry Potter Roll"""
 10012,,Back Korean Roll to Sofa,David Palomo,2021,https://youtu.be/7yLCyoHgUS0?t=783,783,790,KOREAN,SOFA,2,Do a Back Korean Roll but the legs go away from the line so you can go to Sofa when landing.,
 10013,,Freefall 360 Roll,Eli Ellis,2019,https://www.instagram.com/p/Bsi7_vTlN0Y/,,,SOFA,CHEST,2,Freefall with a Roll. Similar to Panic Roll but starting in Sofa facing the other anchor.,
 10014,,Expo Buddha Roll,Eli Ellis,2020,https://youtu.be/hsALSrUdryU?t=29,29,33,BUDDHA,BUDDHA,2,Buddha Roll.,
-10015,,Flowflip,Lukas Irmler,,https://www.youtube.com/watch?v=qyVdJu3VsAA,,,KOREAN,CHEST,2,Similar to a Panic Roll but you start from Korean turned 90 further away to where you want to go.,Grab the line behind your back and let yourself fall backwards. The rest happens by magic!
+10015,,Flowflip,,,https://www.youtube.com/watch?v=qyVdJu3VsAA,,,KOREAN,CHEST,2,Similar to a Panic Roll but you start from Korean turned 90 further away to where you want to go.,Grab the line behind your back and let yourself fall backwards. The rest happens by magic!
 10016,,Panic Roll to Sofa,Salomé Cholet,2021,https://youtu.be/7yLCyoHgUS0?t=491,491,496,SOFA,SOFA,2,Do a Panic Roll but before you land throw your second leg on the other side of the line as well to land back in Sofa.,
 10017,,Backbounce to Chest Roll,,,https://www.youtube.com/watch?v=ih6Rx-UpBfw&t=478,478,483,BACK,CHEST,2,From Backbounce move forward like you are going to Chest but add a Chest Roll.,
 10018,,Backbounce Panic Roll,,,https://www.youtube.com/watch?v=LPsuhcOZd0Q,,,BACK,KOREAN,2,From Backbounce swing one leg to one side and roll around the line on the other side to perform a Panic Roll.,
@@ -109,7 +105,7 @@ export const predefinedTricks = `id,alias,technicalName,establishedBy,yearEstabl
 10106,Spaghetti Roll,Double Hammock Roll from Feet,Augustin Moinat,2021,,,,STAND,BACK,7,Double Roll down to Backbounce.,
 10107,Tamatta Roll,Double Sofa Roll to Feet,Axel Weber,2021,https://www.instagram.com/p/CLU7Ni-l1sY/,,,SOFA,EXPOSURE,7,Double Sofa Roll landing in Exposure.,
 10109,Tre Nasty,Sick Nasty 360,Ian Eisenberg,2021, ,,,SOFA,SOFA,7,Start with the motion of a Sick Nasty 180 but keep spinning and do a full 360 landing back in the starting position.,
-10110,Tre Flip,Tre Nasty Roll,Ian Eisenberg,2021,https://www.instagram.com/p/CUayzIYg49i/,,,SOFA,SOFA,7,Start with the motion of a Sick Nasty 180 but keep spinning and do a full 360 landing back in the starting position.,
+10110,Tre Flip,Tre Nasty Roll,Ian Eisenberg,2021,https://www.instagram.com/p/CUayzIYg49i/,,,SOFA,SOFA,8,Start with the motion of a Sick Nasty 180 but keep spinning and do a full 360 landing back in the starting position.,
 10111,,Chest Roll 180 Flatspin to Feet,Ian Eisenberg,2021,https://www.youtube.com/watch?v=n2z3IyeQSj4&t=16,16,23,CHEST,EXPOSURE,7,Do a Chest Roll and in the same bounce a 180 Chest Flatspin to Feet.,
 10112,,Shapeshifter,Ian Eisenberg,2021,https://www.youtube.com/watch?v=QrUyUx8oJUY,,,EXPOSURE,HANG,7,From Exposure do a front flip off the line and catch the line to land in Rocket.,
 10113,,Rocket Mount Side Roll to Sofa,Ian Eisenberg,2021,https://www.youtube.com/watch?v=7yLCyoHgUS0&t=1082,1082,1091,HANG,SOFA,7,From Rocket Mount do a Side Roll with the axis of rotation perpendicular to the line and land in Sofa.,Flip one of your hands to allow for a better initiation of the momentum.
@@ -173,7 +169,7 @@ export const predefinedTricks = `id,alias,technicalName,establishedBy,yearEstabl
 10172,Ninja Shifta,Shapeshifter to Feet,Enzo Fuchs,2021,https://www.instagram.com/p/CXOfVZGgZ7b/,,,EXPOSURE,EXPOSURE,10,Shapeshifter landing to feet.,
 10173,Dojo Roll,BS 270 Back Yoda Roll,Ian Eisenberg,2021,https://youtu.be/BOGMXJsXWCE?t=31,31,43,STAND,EXPOSURE,8,Turn 180 to your BS and go into a Back Yoda Roll finishing the last 90 degrees of spin.,
 10174,Kung Pao,Shrimp Double Flip,Ian Eisenberg,2021,https://www.instagram.com/p/CXPSK-BKQAg/,,,HANG,HANG,7,Do a Shrimpflip and in the same bounce another flip around the line.,
-10175,,Barrel late Orbital,Justin Wagers,2021,https://www.instagram.com/p/CXJSAepFj4L/,,,STAND,CHEST,9,Start with a Barrel Roll and then add an Orbital in the same bounce.,You gotta be quick for this one.
+10175,,Barrel late Orbital 180,Justin Wagers,2021,https://www.instagram.com/p/CXJSAepFj4L/,,,STAND,CHEST,9,Start with a Barrel Roll and then add an Orbital in the same bounce.,You gotta be quick for this one.
 10176,,Back No Soup,Tim Odermatt,2021,https://www.instagram.com/p/CVvIbn3lFqU/,,,SOUP,EXPOSURE,8,"It's a handless Back Can of Soup, hooking the line with one foot.",
 10177,Nasty Korean,Full Flare from Korean,Sebastian Egger,2021,,,,KOREAN,KOREAN,5,It's like the breakdance move starting from Korean and landing back in Korean.,
 10178,Dirty Sofa,Almighty from Sofa,Tim Odermatt,2021,,,,SOFA,EXPOSURE,8,Start in Sofa and then bring one foot up to the line to hook it and go for an Almighty Flip.,
@@ -183,14 +179,14 @@ export const predefinedTricks = `id,alias,technicalName,establishedBy,yearEstabl
 10182,,Back to Feet,,,,,,BACK,STAND,0,From lying on your back hook one foot under the line and from this foot pull yourself to an upright position. Then use the free foot to put it on the line and stand up on it. Before the bounce ends unhook your foot and come to a standing position.,
 10183,,Chest to Feet,,,https://www.youtube.com/watch?v=Z11fkcCv_Qo,,,CHEST,STAND,0,From Chest you push the line down with one arm and the back foot in order to put your front foot on the line.,
 10184,,Sit to Feet,,,,,,SIT,STAND,0,"From Sit you stand up on the top of the bounce. If you don't have enough momentum, you can pull on the line with one arm.",
-10185,,Korean from Feet,,,https://www.youtube.com/watch?v=1hPL5d3en8c,,,STAND,KOREAN,0,From standing on the line you let the line come towards your body on the top of the bounce and then slide your feet off the line to land in Korean.,
-10186,,Back from Feet,,,,,,STAND,BACK,0,From standing on the line you let the line come towards your body on the top of the bounce and when your butt is on the line you lean all the way back and slide your feet off the line to land in Back.,
-10187,,Chest from Feet,,,https://www.youtube.com/watch?v=Z11fkcCv_Qo,,,STAND,CHEST,0,On the way to the top of the bounce you let the line come towards your body and grab it with one hand. Slide your front foot off the line and with your hand controlling the line you drop on your chest.,
-10188,,Sit from Feet,,,,,,STAND,SIT,0,From standing on the line you let the line come towards your body on the top of the bounce and sit down keeping both of your feet on the line.,
-10189,,Sofa from Feet,,,https://www.youtube.com/watch?v=_CqGa-iBrHE,,,EXPOSURE,SOFA,0,From Exposure let the line come towards your body and grab the line with both hands then slide your feet off to land in Sofa.,
-10190,,Belly from Feet,,,,,,EXPOSURE,BELLY,0,From Exposure let the line come towards your body and grab the line with both hands then slide your feet off to land in Sofa.,
+10185,,Korean Bounce,,,https://www.youtube.com/watch?v=1hPL5d3en8c,,,STAND,KOREAN,0,From standing on the line you let the line come towards your body on the top of the bounce and then slide your feet off the line to land in Korean.,
+10186,,Back Bounce,,,,,,STAND,BACK,0,From standing on the line you let the line come towards your body on the top of the bounce and when your butt is on the line you lean all the way back and slide your feet off the line to land in Back.,
+10187,,Chest Bounce,,,https://www.youtube.com/watch?v=Z11fkcCv_Qo,,,STAND,CHEST,0,On the way to the top of the bounce you let the line come towards your body and grab it with one hand. Slide your front foot off the line and with your hand controlling the line you drop on your chest.,
+10188,,Sit Bounce,,,,,,STAND,SIT,0,From standing on the line you let the line come towards your body on the top of the bounce and sit down keeping both of your feet on the line.,
+10189,,Sofa Bounce,,,https://www.youtube.com/watch?v=_CqGa-iBrHE,,,EXPOSURE,SOFA,0,From Exposure let the line come towards your body and grab the line with both hands then slide your feet off to land in Sofa.,
+10190,,Belly Bounce,,,,,,EXPOSURE,BELLY,0,From Exposure let the line come towards your body and grab the line with both hands then slide your feet off to land in Sofa.,
 10191,,Soup to Feet,,,https://www.youtube.com/watch?v=-xz9Ex3IE-M,,,SOUP,STAND,0,"From Soup you stand up on the top of the bounce. If you don't have enough momentum, you can pull on the line with one arm.",
-10192,,Soup from Feet,,,https://www.youtube.com/watch?v=-xz9Ex3IE-M,,,STAND,SOUP,0,From standing on the line you let the line come towards your body on the top of the bounce and sit down keeping one of your feet on the line.,
+10192,,Soup Bounce,,,https://www.youtube.com/watch?v=-xz9Ex3IE-M,,,STAND,SOUP,0,From standing on the line you let the line come towards your body on the top of the bounce and sit down keeping one of your feet on the line.,
 10193,,Double Shoulder Roll to Feet,Enzo Fuchs,2020,https://www.instagram.com/p/CFKdxdlq9yd/,,,SHOULDER,EXPOSURE,8,Double Shoulder Roll landing in Exposure.,
 10194,Whatever,Leashfall to Feet,Enzo Fuchs,2021,https://www.instagram.com/p/CRyXVw0ISbI/,,,LEASH,EXPOSURE,7,Drop into a leash fall and on the way up climb the leash and pull the line under your feet.,
 10195,,Reverse Whatever,Sebastian Egger,2021,https://www.instagram.com/p/CS9paqorwx0/,,,LEASH,EXPOSURE,6,Drop into a leash fall and then feet first up behind the line similar to a Reverse Obi-Wan.,Amazing leash fall safe trick.
@@ -199,10 +195,16 @@ export const predefinedTricks = `id,alias,technicalName,establishedBy,yearEstabl
 10198,,Back Yoda Rewind,Tim Odermatt,2021,,,,EXPOSURE,EXPOSURE,8,It's almost a Back Yoda Roll and a Front Yoda Roll in the same bounce. Start at the very bottom of the bounce with a Back Yoda Roll so the line snaps up and after around three quarters of rotation you have some resistance of the line to push off of into the Front Yoda Roll. ,Start a lot earlier than you would for most tricks.
 10199,,Sofa Roll to Feet,,,,,,SOFA,EXPOSURE,4,Do a Sofa Roll and during the roll you lean a bit to the side so you can get one foot on the line to finish the roll you get the second foot up and stand up.,
 10200,,Back Sofa Roll to Feet,,,,,,SOFA,EXPOSURE,4,Do a Back Sofa Roll and during the roll you lean a bit to the side so you can get one foot on the line to finish the roll you get the second foot up and stand up.,
-10201,,Yisus Mount,Leonardo Ferrari,2021,https://www.instagram.com/p/CXeLk4Qldu_/,,,YISUS,EXPOSURE,5,Hanging on the line grabbing it with both hands and having it run under your elbows and shoulders press yourself up to Exposure.,Watch out for your shoulders on this one!`;
+10201,,Yisus Mount,Leonardo Ferrari,2021,https://www.instagram.com/p/CXeLk4Qldu_/,,,YISUS,EXPOSURE,5,Hanging on the line grabbing it with both hands and having it run under your elbows and shoulders press yourself up to Exposure.,Watch out for your shoulders on this one!
+10202,,Orbital to Sofa,Ian Eisenberg,2021,,,,STAND,SOFA,5,Like an Orbital but instead of throwing your leg over the line you land in Sofa.,
+10203,,Shaolin,Ian Eisenberg,2021,,,,HANG,HANG,5,Think like you want to do a Rocket Mount to Sofa but instead of landing in Sofa you pop both legs through your arms and then drop back to Rocket.,
+10204,,Rocket Nasty,Ian Eisenberg,2021,,,,HANG,HANG,4,Sick Nasty from Rocket to Rocket.,
+10205,,Rocket Mount to DDK,Enzo Fuchs,,,,,HANG,DOUBLEDROPKNEE,4,Rocket Mount landing in Double Drop Knee.,
+10206,Fake Orbital,Orbital 180,,,,,,STAND,CHEST,4,Orbital 180 landing in Chest. The 180 makes it easier to land.,Also called Norbital.
+10207,,Tre Nasty to Feet,Ian Eisenberg,2021,,,,SOFA,STAND,8,Tre Nasty landing to Feet.,
+10208,Shrimpzilla,Kung Pao to Feet,Ian Eisenberg,2021,https://www.instagram.com/p/CXXU9U7KvZ7/,,,HANG,EXPOSURE,10,Shrimpflip to Reverse Rocket Mount.,`;
 
 // increase this manualy if you update the predefinedCombos
-export const predefinedCombosVersion = 1;
+export const predefinedCombosVersion = 2;
 // predefinedCombos have to have an id above 10000
-export const predefinedCombos = `id,name,tricks,minDiff,maxDiff,avgDiff,totalDiff,numberOfTricks,establishedBy,yearEstablished,linkToVideo,comments,stickFrequency
-10000,Axels standard combo end,10103;10119,,,,,2,Axel,2020,,stick it,0`;
+export const predefinedCombos = ``;
