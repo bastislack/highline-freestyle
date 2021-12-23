@@ -312,7 +312,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
             type="number"
             required
             value={numberOfTricks}
-            onChange={(e) => setNumberOfTricks(Number(e.target.value))}
+            onChange={(e) => setNumberOfTricks(parseInt(e.target.value))}
           />
         </div>
         <div className="form-row">
