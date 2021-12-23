@@ -59,7 +59,7 @@ export default class Database {
         // add 0 for stickFrequency
         trick.push(0);
         // make key value pairs
-        Object.assign.apply({},
+        return Object.assign.apply({},
           header.map((v,i) => {
             return ({[v]: trick[i]})
           })
