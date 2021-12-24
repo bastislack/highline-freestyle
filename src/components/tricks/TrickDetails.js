@@ -43,7 +43,14 @@ const TrickDetails = () => {
   if (trick && trick.linkToVideo) {
     if (trick.linkToVideo.includes("youtu")) {
       // "https://www.youtube.com/embed/<videoID>"
-      youtubeId = trick.linkToVideo.split("/").pop().split("?").at(0);
+      if (trick.linkToVideo.includes("youtu.be")) {
+        youtubeId = trick.linkToVideo.split("/").pop().split("?")[0];
+      } else {
+        youtubeId = trick.linkToVideo.split("/").pop().split("?v=").pop();
+        if (youtubeId.includes("&")) {
+          youtubeId = youtubeId.split("&")[0];
+        }
+      }
       youtubeOpts = {
         playerVars: {
           autoplay: 0,
