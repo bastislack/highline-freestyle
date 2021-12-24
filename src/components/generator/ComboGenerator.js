@@ -346,7 +346,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
         </div>
         <div className="form-row">
           <label htmlFor="maxDifficultyRange" className="form-label">Max difficulty: {maxDifficulty}</label>
-          <input type="range" className="form-range" onChange={(e) => changeMaxDiff(parseInt(e.target.value))} min="0" max={difficultyRangeMax} step="1" id="maxDifficultyRange" />
+          <input type="range" className="form-range" onChange={(e) => changeMaxDiff(parseInt(e.target.value))} min="0" max={difficultyRangeMax} step="1" value={maxDifficulty} id="maxDifficultyRange" />
         </div>
         <div className="form-row">
           <button className="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#advancedDifficultyOptions" aria-expanded="false" aria-controls="collapseExample">
