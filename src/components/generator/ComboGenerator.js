@@ -28,9 +28,9 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
   const [stickFrequencyWhitelist, setStickFrequencyWhitelist] = useState(Array.from(Array(7).keys()));
 
   // Contains all diff-levels that should be included from the combo
-  function refreshDiffWhitelist() {
+ /* function refreshDiffWhitelist(maxDiff) {
     let children = document.getElementById("specifyItemsDiv").childNodes;
-    setDifficultyWhitelist(difficultyWhitelist.filter(level => level <= maxDifficulty));
+    setDifficultyWhitelist(difficultyWhitelist.filter(level => level <= maxDiff));
     children.forEach(element => {
       let box = element.getElementsByTagName("input")[0]
       let boxVal = parseInt(box.value);
@@ -46,7 +46,12 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
         }
       } 
     });
-  }
+  }*/
+
+  useEffect(() => {
+    console.log("diffList:", difficultyWhitelist, "freqList:", stickFrequencyWhitelist, "toFeet:", finishToFeet);
+  }, [maxDifficulty, stickFrequencyWhitelist]);
+
 
   // Contains all freqs that should be included from the combo
   function refreshFreqWhitelist() {
@@ -68,7 +73,8 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
     });
   }
 
-  const tricks = useLiveQuery(() => db.getTricksByDiffAndByFreq(difficultyWhitelist,stickFrequencyWhitelist), [difficultyWhitelist, stickFrequencyWhitelist]);
+  const tricks = useLiveQuery(() => db.getTricksByDiffAndByFreq(difficultyWhitelist,stickFrequencyWhitelist), [maxDifficulty, stickFrequencyWhitelist]);
+  console.log(tricks);
   if (!tricks) return null
 
   // If the user wants to save the combo it is added to the database
@@ -256,12 +262,12 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
     inp.classList.toggle("touch-button-inactive");
   }
 
-  function toggleAvgSlider(checked) {
+  /*function toggleAvgSlider(checked) {
     var avgDifficultyRange = document.getElementById("avgDifficultyRange");
     avgDifficultyRange.disabled = checked == false;
 
     refreshAvgSlider();
-  }
+  }*/
 
   function toggleConsecutiveTricks(checked) {
     var consecutiveTricks = document.getElementById("consecutiveTricks");
@@ -276,7 +282,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
     selectStartFrom.disabled = checked == false;
   }
 
-  function refreshAvgSlider() {
+  /*function refreshAvgSlider() {
     var avgDifficultyRange = document.getElementById("avgDifficultyRange");
     var checked = document.getElementById("input_chkbx_avg").checked;
     if (!checked) {
@@ -287,7 +293,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
       avgDifficultyRange.value = halfdiff;
       setAvgDifficulty(halfdiff);
     }
-  }
+  }*/
 
   function refreshConsecutiveTricks() {
     var consecutiveTricks = document.getElementById("consecutiveTricks");
@@ -300,6 +306,30 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
       <option value={i} key={i}>{item}</option>
     )
   });
+
+  const changeMaxDiff = (maxDiff) => {
+    let prevMaxDiff = difficultyWhitelist.at(-1);
+    console.log("Maxdiff:", maxDiff, "max list:", prevMaxDiff);
+    if (prevMaxDiff > maxDiff) {
+      setDifficultyWhitelist(difficultyWhitelist.filter((level) => level <= maxDiff));
+    } else {
+      let newDiffList = difficultyWhitelist;
+      for (let i = 1; i <= maxDiff - prevMaxDiff; i++) {
+        newDiffList.push(prevMaxDiff + i);
+      }
+      console.log("newDiffList:", newDiffList);
+      setDifficultyWhitelist(newDiffList);
+    } 
+    setMaxDifficulty(maxDiff);
+    if (maxDiff < 4) {
+      console.log("toggle finish to Feet");
+      setFinishToFeet(false);
+    } else {
+      console.log("toggle finish to Feet");
+      setFinishToFeet(true);
+    }
+
+  }
 
   return (
     <div className="generator">
@@ -317,7 +347,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
         </div>
         <div className="form-row">
           <label htmlFor="maxDifficultyRange" className="form-label">Max difficulty: {maxDifficulty}</label>
-          <input type="range" className="form-range" onChange={(e) => { setMaxDifficulty(e.target.value); refreshDiffWhitelist(); refreshAvgSlider(); }} min="0" max={difficultyRangeMax} step="1" id="maxDifficultyRange" />
+          <input type="range" className="form-range" onChange={(e) => changeMaxDiff(e.target.value)} min="0" max={difficultyRangeMax} step="1" id="maxDifficultyRange" />
         </div>
         <div className="form-row">
           <button className="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#advancedDifficultyOptions" aria-expanded="false" aria-controls="collapseExample">
@@ -326,7 +356,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
 
           <div className="collapse" id="advancedDifficultyOptions">
             <div className="card card-body">
-              <div className="form-row">
+    {/*<div className="form-row">
 
                 <p>Allowed difficulty levels:</p>
                 <div className="btn-group btn-group-toggle row btn-group-long-row" data-toggle="buttons" id="specifyItemsDiv">
@@ -341,7 +371,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
                           type="checkbox"
                           defaultChecked
                           autoComplete="off"
-                          onChange={e => refreshDiffWhitelist()} />
+                          onChange={e => refreshDiffWhitelist(maxDifficulty)} />
                         <label
                           id={"labelForLevel_" + diffNr}
                           className="btn allowedDiffButton touch-button-active"
@@ -353,7 +383,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
                   })}
                 </div>
               </div>
-              <hr/>
+              <hr/>*/}
               <div className="form-row">
 
                 <p>Allowed stick frequencies:</p>
@@ -391,7 +421,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
               <div className="form-row form-check">
                 <label className="form-check-label">Finish to Feet</label>
                 <input
-                  defaultChecked={finishToFeet}
+                  checked={finishToFeet}
                   className="form-check-input"
                   type="checkbox"
                   onClick={(e) => setFinishToFeet(e.target.checked)}

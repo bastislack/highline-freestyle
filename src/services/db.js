@@ -139,11 +139,11 @@ export default class Database {
         const combos = comboList.map(combo => {
           // convert string of tricks to an array of numbers
           combo[2] = combo[2].split(";").map(idStr => Number(idStr));
+          // add 0 for stickFrequency
+          combo.push(0);
           // make key value pairs
           return Object.assign.apply({},
             header.map((v,i) => {
-              // add 0 for stickFrequency
-              combo.concat([0]);
               return ({[v]: combo[i]})
             })
           )
