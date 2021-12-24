@@ -181,7 +181,7 @@ const PostTrick = () => {
               required
               value={difficultyLevel}
               placeholder="8"
-              onChange={(e) => setDifficultyLevel(e.target.value)}
+              onChange={(e) => setDifficultyLevel(parseInt(e.target.value))}
             />
           </div>
           <div className="col-md-6">
