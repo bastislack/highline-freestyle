@@ -152,8 +152,8 @@ const TrickDetails = () => {
             </div>
           }
           {instagramLink &&
-            <div className="callout video-callout">
-              <iframe className="video" src={instagramLink} frameBorder="0" scrolling="no" allowtransparency="true" title="video"></iframe>
+            <div className="callout insta-callout">
+              <iframe className="insta-video" src={instagramLink} frameBorder="0" scrolling="no" allowtransparency="true" title="video"></iframe>
             </div>
           }
 
