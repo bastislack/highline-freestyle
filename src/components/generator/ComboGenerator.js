@@ -308,7 +308,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
   });
 
   const changeMaxDiff = (maxDiff) => {
-    let prevMaxDiff = difficultyWhitelist.at(-1);
+    let prevMaxDiff = difficultyWhitelist[difficultyWhitelist.length - 1];
     if (prevMaxDiff > maxDiff) {
       setDifficultyWhitelist(difficultyWhitelist.filter((level) => level <= maxDiff));
     } else {
@@ -320,14 +320,13 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
       setDifficultyWhitelist(newDiffList);
     } 
     setMaxDifficulty(maxDiff);
-    if (maxDiff < 4) {
+    if (maxDiff < 4 && finishToFeet) {
       console.log("toggle finish to Feet");
       setFinishToFeet(false);
-    } else {
+    } else if(maxDiff >= 4 && !finishToFeet) {
       console.log("toggle finish to Feet");
       setFinishToFeet(true);
     }
-
   }
 
   return (
@@ -423,7 +422,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
                   checked={finishToFeet}
                   className="form-check-input"
                   type="checkbox"
-                  onClick={(e) => setFinishToFeet(e.target.checked)}
+                  onChange={(e) => setFinishToFeet(e.target.checked)}
                 />
               </div>
               <hr/>
