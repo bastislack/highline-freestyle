@@ -8,7 +8,11 @@ import Database from "../../services/db";
 const db = new Database();
 
 const TrickList = ({ sortOpt, scrollPosition, setScrollPosition }) => {
+  let current;
   const [searchPattern, setSearchPattern] = useState("");
+  const options = {
+    keys: ['alias', 'technicalName']
+  }
   useEffect(() => {
     document.getElementById("content").scrollTo({
         top: scrollPosition,
@@ -16,12 +20,6 @@ const TrickList = ({ sortOpt, scrollPosition, setScrollPosition }) => {
         behavior: 'instant'
     });
   });
-
-  // tricks query with react hooks -- means it refreshes automaticly
-  // and sorts it according to the sortOpt
-  const tricks = useLiveQuery(() => db.getAllTricks().then(t => t.sort(sortingSchemes[sortOpt].sortFunc)), [sortOpt]);
-  if (!tricks) { return null } else console.log(tricks);
-
   const updateScrollPosition = () => {
     setScrollPosition(document.getElementById("content").scrollTop);
   }
@@ -37,12 +35,14 @@ const TrickList = ({ sortOpt, scrollPosition, setScrollPosition }) => {
       </div>)
   }
 
-  let current;
-  const options = {
-    keys: ['alias', 'technicalName']
-  }
+  // tricks query with react hooks -- means it refreshes automaticly
+  // and sorts it according to the sortOpt
+  const tricks = useLiveQuery(() => db.getAllTricks().then(t => t.sort(sortingSchemes[sortOpt].sortFunc)), [sortOpt]);
+  if (!tricks) { return null } else console.log(tricks);
+
   const fuse = new Fuse(tricks, options)
   const searchResults = searchPattern ? fuse.search(searchPattern).map(i => i.item).sort(sortingSchemes[sortOpt].sortFunc) : tricks;
+
   return (
     <div className="row">
        <input
