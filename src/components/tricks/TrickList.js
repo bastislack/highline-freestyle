@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useLiveQuery } from "dexie-react-hooks";
 import { trickSortingSchemes as sortingSchemes } from '../../services/sortingSchemes';
@@ -8,7 +8,7 @@ import Database from "../../services/db";
 const db = new Database();
 
 const TrickList = ({ sortOpt, scrollPosition, setScrollPosition }) => {
-
+  const [searchPattern, setSearchPattern] = useState("");
   useEffect(() => {
     document.getElementById("content").scrollTo({
         top: scrollPosition,
@@ -45,6 +45,13 @@ const TrickList = ({ sortOpt, scrollPosition, setScrollPosition }) => {
   const searchResults = fuse.search("obi").map(i => i.item).sort(sortingSchemes[sortOpt].sortFunc)
   return (
     <div className="row">
+       <input
+        className="form-control"
+        type="text"
+        value={searchPattern}
+        placeholder="Search"
+        onChange={(e) => setSearchPattern(e.target.value)}
+      />
       {searchResults.map(trick => {
         let isFirst = (sortingSchemes[sortOpt].attributeFunc(trick) !== current);
         current = sortingSchemes[sortOpt].attributeFunc(trick);
