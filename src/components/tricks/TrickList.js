@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useLiveQuery } from "dexie-react-hooks";
 import { trickSortingSchemes as sortingSchemes } from '../../services/sortingSchemes';
+import Fuse from 'fuse.js';
 
 import Database from "../../services/db";
 const db = new Database();
@@ -37,10 +38,14 @@ const TrickList = ({ sortOpt, scrollPosition, setScrollPosition }) => {
   }
 
   let current;
-
+  const options = {
+    keys: ['alias', 'technicalName']
+  }
+  const fuse = new Fuse(tricks, options)
+  const searchResults = fuse.search("obi").map(i => i.item).sort(sortingSchemes[sortOpt].sortFunc)
   return (
     <div className="row">
-      {tricks.map(trick => {
+      {searchResults.map(trick => {
         let isFirst = (sortingSchemes[sortOpt].attributeFunc(trick) !== current);
         current = sortingSchemes[sortOpt].attributeFunc(trick);
 
