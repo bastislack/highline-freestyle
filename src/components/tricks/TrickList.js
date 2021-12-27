@@ -42,7 +42,7 @@ const TrickList = ({ sortOpt, scrollPosition, setScrollPosition }) => {
     keys: ['alias', 'technicalName']
   }
   const fuse = new Fuse(tricks, options)
-  const searchResults = fuse.search("obi").map(i => i.item).sort(sortingSchemes[sortOpt].sortFunc)
+  const searchResults = searchPattern ? fuse.search(searchPattern).map(i => i.item).sort(sortingSchemes[sortOpt].sortFunc) : tricks;
   return (
     <div className="row">
        <input
