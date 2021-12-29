@@ -41,13 +41,13 @@ const TrickList = ({ sortOpt, scrollPosition, setScrollPosition }) => {
   if (!tricks) { return null } else console.log(tricks);
 
   const fuse = new Fuse(tricks, options)
-  const searchResults = searchPattern ? fuse.search(searchPattern).map(i => i.item).sort(sortingSchemes[sortOpt].sortFunc) : tricks;
+  const searchResults = searchPattern ? fuse.search(searchPattern).map(i => i.item) : tricks;
 
   return (
     <div className="row">
        <input
         className="form-control"
-        type="text"
+        type="search"
         value={searchPattern}
         placeholder="Search"
         onChange={(e) => setSearchPattern(e.target.value)}
@@ -56,7 +56,7 @@ const TrickList = ({ sortOpt, scrollPosition, setScrollPosition }) => {
         let isFirst = (sortingSchemes[sortOpt].attributeFunc(trick) !== current);
         current = sortingSchemes[sortOpt].attributeFunc(trick);
 
-        if (isFirst && sortingSchemes[sortOpt].showCategory) {
+        if (isFirst && sortingSchemes[sortOpt].showCategory && !searchPattern) {
           return [
             <div className="w-100 list-br-heading" key={"header" + trick.id.toString()}>
               <h4>{sortingSchemes[sortOpt].catName} {current}</h4>
