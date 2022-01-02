@@ -1,4 +1,4 @@
-export function findCombo(tricks, positions, numberOfTricks, startFromCheckbox, startFromPosition, allowDuplicates, allowConsecutiveTricks, finishToFeet) {
+export function findCombo(tricks, positions, numberOfTricks, startFromCheckbox, startFromPosition, allowDuplicates, allowConsecutiveTricks, finishToFeet, retries) {
 
   const arePositionsSimilar = (startPos, endPos) => {
     if ((startPos === "KOREAN" && (endPos === "CHEST" || endPos === "BACK")) || (startPos === "CHEST" && endPos === "KOREAN") || (startPos === "BACK" && endPos === "KOREAN") || (startPos === "EXPOSURE" && endPos === "STAND") || (startPos === "STAND" && endPos === "EXPOSURE") || (startPos === "BELLY" && endPos === "CHEST") || (startPos === "CHEST" && endPos === "BELLY")) {
@@ -25,16 +25,19 @@ export function findCombo(tricks, positions, numberOfTricks, startFromCheckbox, 
 
   const getFirstTrick = (availableTricks) => {
     if (startFromCheckbox) {
-      for (let i = 0; i < availableTricks.length; i++) {
-        if (availableTricks[i].startPos === positions[startFromPosition]) {
-          return ({ firstTrick: availableTricks[i], indexAvailableTricks: i });
-        }
-      }
+      const possibleTricks = availableTricks.filter(trick => trick.startPos === positions[startFromPosition])
+      return possibleTricks[Math.floor(Math.random() * possibleTricks.length)];
     }
     else {
-      return ({ firstTrick: availableTricks[0], indexAvailableTricks: 0 })
+      //random element
+      return availableTricks[Math.floor(Math.random() * availableTricks.length)];
     }
   }
+
+  const getRandomNumber = (min, max) => Math.random() * (max-min) + min;
+
+  if (!retries) retries =0;
+  if (retries >= 100) return alert("could not find a combo, try changing the settings");
 
   if (numberOfTricks <= 1) {
     alert("You need more than one trick for a combo!");
@@ -44,62 +47,38 @@ export function findCombo(tricks, positions, numberOfTricks, startFromCheckbox, 
   let randomTricks = new Array(numberOfTricks);
   let availableTricks = [...tricks];
 
-  let stuckPos;
-  let removedTrick;
+  if (availableTricks.length == 0) return alert("can't find a single trick which fits these settings, try changing them")
 
-  // maximum retries until the generator stops
-  let maxRetries = 100;
-  let retries = 0;
-
-  // Shuffle array of tricks
-  let shuffleTricks = () => availableTricks.sort((a, b) => 0.5 - Math.random());
-  shuffleTricks();
 
   // Get the first trick for the random combo
-  const { firstTrick, indexAvailableTricks } = getFirstTrick(availableTricks);
-  randomTricks[0] = firstTrick;
-  if (!allowDuplicates) removedTrick = availableTricks.splice(indexAvailableTricks, 1);
+  randomTricks[0] = getFirstTrick(availableTricks);
+  let sumOfDifficulties = randomTricks[0].difficultyLevel;
 
-  // Iteratively shuffle array of tricks and find the first trick
-  // that has a starting position that matches with the
-  // ending position of the trick before
-  //
-  // If it cant find a continuation it will try again until maxRetries
   for (let i = 1; i < numberOfTricks; i++) {
-    if (retries > maxRetries) return alert("Couldn't find combo!");
-
-    let trickFound = false;
-    shuffleTricks();
-    let lastTrick = randomTricks[i - 1];
-    let lastPos = randomTricks[i - 1].endPos;
-    for (let j = 0; j < availableTricks.length; j++) {
-      if (isAnyComboConditionFulfilled(i, randomTricks[i - 1], availableTricks[j])) {
-        randomTricks[i] = availableTricks[j];
-        if (!allowDuplicates) removedTrick = availableTricks.splice(j, 1);
-        trickFound = true;
-        console.log("found trick: ", i + 1);
-        break;
-      }
-    }
-    // if no trick is found the last iteration of the loop is repeated
-    // but if it gets stuck on the same position twice, it starts from the begingin
-    if (!trickFound) {
-      retries++;
-      console.log("No suitable trick, after: " + lastTrick.technicalName + " from position: " + lastPos + " found, removing last trick");
-      if (i === 1 || lastPos === stuckPos) {
-        console.log("starting new");
-        availableTricks = [...tricks];
-        shuffleTricks();
-        let { firstTrick, indexAvailableTricks } = getFirstTrick(availableTricks);
-        randomTricks[0] = firstTrick;
-        if (!allowDuplicates) removedTrick = availableTricks.splice(indexAvailableTricks, 1);
-        i = 0;
-      } else {
-        if (!allowDuplicates) availableTricks.push(removedTrick);
-        i = i - 2;
-      }
-      stuckPos = lastPos;
-    }
+    let possibleTricks = availableTricks.filter(
+      trick => isAnyComboConditionFulfilled(i, randomTricks[i-1], trick)
+      && (allowDuplicates || !randomTricks.includes(trick))
+    );
+    // can't find any tricks anymore... try again
+    if (possibleTricks.length == 0) return findCombo(tricks, positions, numberOfTricks, startFromCheckbox, startFromPosition, allowDuplicates, allowConsecutiveTricks, finishToFeet, retries+1)
+    //TODO this is an aproach for an heuristics, which tries too find tricks to fit to a certain avgDifficulty... but also has randomness
+    // add random value to difficulty
+    //for (let j = 0; j < possibleTricks.length; j++) {
+    //  possibleTricks[j].randomDiff = possibleTricks[j].difficultyLevel + getRandomNumber(-randomness,randomness);
+    //}
+    //const avgDifficulty = 3;
+    //const randomness = 10;
+    //possibleTricks.sort(
+    //  (a,b) => (
+    //    // heuristics for finding a combo with certain avrDifficultie
+    //    Math.abs(avgDifficulty - (sumOfDifficulties + b.randomDiff)/(i+1)) - Math.abs(avgDifficulty - (sumOfDifficulties + a.randomDiff)/(i+1))
+    //  )
+    //);
+    //randomTricks[i] = possibleTricks[possibleTricks.length - 1];
+    
+    // take an random trick
+    randomTricks[i] = possibleTricks[Math.floor(Math.random()*possibleTricks.length)];
+    sumOfDifficulties += possibleTricks.difficultyLevel;
   }
 
   //check integrety of combo
