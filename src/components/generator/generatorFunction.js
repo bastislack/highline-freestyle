@@ -1,4 +1,16 @@
-export function findCombo(tricks, positions, numberOfTricks, startFromCheckbox, startFromPosition, allowDuplicates, allowConsecutiveTricks, finishToFeet, avgDifficulty, maxDifficulty, retries) {
+export function findCombo(vars, retries) {
+  const [
+    tricks,
+    positions,
+    numberOfTricks,
+    startFromCheckbox,
+    startFromPosition,
+    allowDuplicates,
+    allowConsecutiveTricks,
+    finishToFeet,
+    avgDifficulty,
+    maxDifficulty
+  ] = vars;
 
   const arePositionsSimilar = (startPos, endPos) => {
     if ((startPos === "KOREAN" && (endPos === "CHEST" || endPos === "BACK")) || (startPos === "CHEST" && endPos === "KOREAN") || (startPos === "BACK" && endPos === "KOREAN") || (startPos === "EXPOSURE" && endPos === "STAND") || (startPos === "STAND" && endPos === "EXPOSURE") || (startPos === "BELLY" && endPos === "CHEST") || (startPos === "CHEST" && endPos === "BELLY")) {
@@ -75,7 +87,7 @@ export function findCombo(tricks, positions, numberOfTricks, startFromCheckbox, 
       && (allowDuplicates || !randomTricks.includes(trick))
     );
     // can't find any tricks anymore... try again
-    if (possibleTricks.length == 0) return findCombo(tricks, positions, numberOfTricks, startFromCheckbox, startFromPosition, allowDuplicates, allowConsecutiveTricks, finishToFeet, avgDifficulty, maxDifficulty, retries+1)
+    if (possibleTricks.length == 0) return findCombo(vars, retries+1)
 
     // this adds a heuristics which chooses tricks depending on how it fits towards the expected avgDifficulty,
     // but the difficultyLevels are modified with a random value of a Normal Distribution (which is depending on how extrem the avgDifficulty is),

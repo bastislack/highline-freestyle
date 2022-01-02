@@ -126,7 +126,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
     setRandomCombo(null);
 
     // find the combo with the given parameters
-    const randomTricks = findCombo(tricks, positions, numberOfTricks, startFromCheckbox, startFromPosition, allowDuplicates, allowConsecutiveTricks, finishToFeet, avgDifficulty, maxDifficulty); 
+    const randomTricks = findCombo([tricks, positions, numberOfTricks, startFromCheckbox, startFromPosition, allowDuplicates, allowConsecutiveTricks, finishToFeet, avgDifficulty, maxDifficulty]); 
 
     const { minDiff, maxDiff, avgDiff, totalDiff } = computeStats(randomTricks);
 
