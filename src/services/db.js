@@ -165,7 +165,8 @@ export default class Database {
   }).then(combo => {
     return this.getTricksByIds(combo.tricks).then(tricksInCombo => {
       let comboWithTricks = combo;
-      comboWithTricks.tricks = tricksInCombo;
+      // change the order of the tricks to the original one
+      comboWithTricks.tricks = tricksInCombo.sort((a,b) => combo.tricks.indexOf(a.id) - combo.tricks.indexOf(b.id));
       return comboWithTricks;
     });
   });
