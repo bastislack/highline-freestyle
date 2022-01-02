@@ -126,7 +126,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
     setRandomCombo(null);
 
     // find the combo with the given parameters
-    const randomTricks = findCombo(tricks, positions, numberOfTricks, startFromCheckbox, startFromPosition, allowDuplicates, allowConsecutiveTricks, finishToFeet); 
+    const randomTricks = findCombo(tricks, positions, numberOfTricks, startFromCheckbox, startFromPosition, allowDuplicates, allowConsecutiveTricks, finishToFeet, avgDifficulty, maxDifficulty); 
 
     const { minDiff, maxDiff, avgDiff, totalDiff } = computeStats(randomTricks);
 
@@ -154,12 +154,12 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
     inp.classList.toggle("touch-button-inactive");
   }
 
-  /*function toggleAvgSlider(checked) {
+  function toggleAvgSlider(checked) {
     var avgDifficultyRange = document.getElementById("avgDifficultyRange");
     avgDifficultyRange.disabled = checked == false;
 
     refreshAvgSlider();
-  }*/
+  }
 
   function toggleConsecutiveTricks(checked) {
     var consecutiveTricks = document.getElementById("consecutiveTricks");
@@ -174,7 +174,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
     selectStartFrom.disabled = checked == false;
   }
 
-  /*function refreshAvgSlider() {
+  function refreshAvgSlider() {
     var avgDifficultyRange = document.getElementById("avgDifficultyRange");
     var checked = document.getElementById("input_chkbx_avg").checked;
     if (!checked) {
@@ -185,7 +185,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
       avgDifficultyRange.value = halfdiff;
       setAvgDifficulty(halfdiff);
     }
-  }*/
+  }
 
   function refreshConsecutiveTricks() {
     var consecutiveTricks = document.getElementById("consecutiveTricks");
@@ -288,8 +288,8 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
                 </div>
               </div>
               <hr/>
-    {/*<div className="form-row form-check">
-                <label className="form-check-label">Average difficulty {avgDifficulty > 0 && avgDifficulty}</label>
+              <div className="form-row form-check">
+                <label className="form-check-label">Approximate average difficulty (the more tricks the more accurate): {avgDifficulty > 0 && avgDifficulty}</label>
                 <input
                   id="input_chkbx_avg"
                   defaultValue="False"
@@ -307,7 +307,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
                   step="0.5"
                   id="avgDifficultyRange" />
               </div>
-              <hr/>*/}
+              <hr/>
               <div className="form-row form-check">
                 <label className="form-check-label">Finish to Feet</label>
                 <input
