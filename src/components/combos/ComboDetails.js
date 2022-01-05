@@ -10,18 +10,22 @@ const db = new Database();
 const ComboDetails = ({ randomCombo }) => {
   const navigate = useNavigate();
   const path = useLocation().pathname.toString().toLowerCase();
+  const params = useParams();
 
-  let combo;
-  let params;
   const inGenerator = path === "/generator" ? true : false;
 
-  if (inGenerator) {
-    combo = randomCombo;
-  } else {
-    params = useParams();
-    // combos query with react hooks -- means it refreshes automaticly
-    combo = useLiveQuery(() => db.getCombo(params.id), []);
-  }
+  const queryFunc = () => {
+    if (inGenerator) {
+      // convert tricks back to just numbers to then query them through the hook
+      randomCombo.tricks = randomCombo.tricks.map(trick => trick.id)
+      return db.fillComboWithTricks(randomCombo);
+    } else {
+      // combos query with react hooks -- means it refreshes automaticly
+      return db.getCombo(params.id);
+    }
+  };
+
+  const combo = useLiveQuery(() => queryFunc(), []);
 
   if (!combo) { return null; } else { console.log(combo); }
 

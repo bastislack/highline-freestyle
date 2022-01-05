@@ -162,14 +162,17 @@ export default class Database {
   getCombo = (id) => this.db.userCombos.get(Number(id)).then(userCombo => {
     if (userCombo) return userCombo;
     else return this.db.predefinedCombos.get(Number(id));
-  }).then(combo => {
+  }).then(combo => this.fillComboWithTricks(combo));
+
+  // fill a combo, which has only ids as tricks with the tricks
+  fillComboWithTricks = (combo) => {
     return this.getTricksByIds(combo.tricks).then(tricksInCombo => {
       let comboWithTricks = combo;
       // change the order of the tricks to the original one
       comboWithTricks.tricks = tricksInCombo.sort((a,b) => combo.tricks.indexOf(a.id) - combo.tricks.indexOf(b.id));
       return comboWithTricks;
     });
-  });
+  };
 
   // get list of all combos
   getAllCombos = () => {
@@ -184,10 +187,13 @@ export default class Database {
 
   // create or update userCombo
   saveCombo = (combo) => {
-    const trickNumbers = combo.tricks.map(trick => trick.id);
-    var comboWithNumbers = combo;
-    comboWithNumbers.tricks = trickNumbers;
-    return this.db.userCombos.put(comboWithNumbers)
+    if (isNaN(comob.tricks[0])) {
+      const trickNumbers = combo.tricks.map(trick => trick.id);
+      var comboWithNumbers = combo;
+      comboWithNumbers.tricks = trickNumbers;
+      return this.db.userCombos.put(comboWithNumbers);
+    }
+    else return this.db.userCombos.put(combo);
   };
 
   // delete combo
