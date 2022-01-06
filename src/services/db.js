@@ -86,7 +86,7 @@ export default class Database {
       // query all only predefinedTricks which don't have the same id as the userTricks
       // and concat these to the userTricks
       // also filter out tricks which are marked deleted
-      return this.db.predefinedTricks.where("id").noneOf(userKeys).toArray().then(preTricks => preTricks.concat(userTricks.filter(trick => !trick.deleted)));
+      return this.db.predefinedTricks.where("id").noneOf(userKeys).toArray().then(preTricks => preTricks.concat(userTricks.filter(trick => !trick.deleted)).sort((a,b) => a.id - b.id));
     });
   };
 
