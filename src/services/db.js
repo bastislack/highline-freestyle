@@ -187,7 +187,7 @@ export default class Database {
 
   // create or update userCombo
   saveCombo = (combo) => {
-    if (isNaN(comob.tricks[0])) {
+    if (isNaN(combo.tricks[0])) {
       const trickNumbers = combo.tricks.map(trick => trick.id);
       var comboWithNumbers = combo;
       comboWithNumbers.tricks = trickNumbers;
