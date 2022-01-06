@@ -1,17 +1,18 @@
 import { useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useLiveQuery } from "dexie-react-hooks";
+import { trickSortingSchemes as sortingSchemes } from '../../services/sortingSchemes';
 
 import Database from "../../services/db";
 const db = new Database();
 
-const TrickList = ({ sortingSchemes, sortOpt, scrollPosition, setScrollPosition, userCombo, setUserCombo }) => {
+const TrickList = ({ sortOpt, scrollPosition, setScrollPosition, userCombo, setUserCombo }) => {
 
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
-    window.scrollTo({
+    document.getElementById("content").scrollTo({
         top: scrollPosition,
         left: 0,
         behavior: 'instant'
@@ -24,7 +25,7 @@ const TrickList = ({ sortingSchemes, sortOpt, scrollPosition, setScrollPosition,
   if (!tricks) { return null } else console.log(tricks);
 
   const updateScrollPosition = () => {
-    setScrollPosition(window.scrollY);
+    setScrollPosition(document.getElementById("content").scrollTop);
   }
 
   const goToTrick = (trick) => {
@@ -51,28 +52,25 @@ const TrickList = ({ sortingSchemes, sortOpt, scrollPosition, setScrollPosition,
   let current;
 
   return (
-    <div className="justify-content-evenly">
+    <div className="row">
+      {tricks.map(trick => {
+        let isFirst = (sortingSchemes[sortOpt].attributeFunc(trick) !== current);
+        current = sortingSchemes[sortOpt].attributeFunc(trick);
 
-      <div className="row">
-        {tricks.map(trick => {
-          let isFirst = (sortingSchemes[sortOpt].attributeFunc(trick) !== current);
-          current = sortingSchemes[sortOpt].attributeFunc(trick);
+        if (isFirst && sortingSchemes[sortOpt].showCategory) {
+          return [
+            <div className="w-100 list-br-heading" key={"header" + trick.id.toString()}>
+              <h4>{sortingSchemes[sortOpt].catName} {current}</h4>
+            </div>,
+            getTrickDiv(trick)
+          ];
+        } else {
+          return (
+            getTrickDiv(trick)
+          );
+        }
 
-          if (isFirst && sortingSchemes[sortOpt].showCategory) {
-            return [
-              <div className="w-100 list-br-heading" key={"header" + trick.id.toString()}>
-                <h4>{sortingSchemes[sortOpt].catName} {current}</h4>
-              </div>,
-              getTrickDiv(trick)
-            ];
-          } else {
-            return (
-              getTrickDiv(trick)
-            );
-          }
-
-        })}
-      </div>
+      })}
     </div>
   );
 }

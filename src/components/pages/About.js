@@ -1,5 +1,4 @@
 import Modal from 'react-bootstrap/Modal';
-import { Link } from 'react-router-dom';
 
 const About = ({ showAboutPage, setShowAboutPage }) => {
 
@@ -19,17 +18,21 @@ const About = ({ showAboutPage, setShowAboutPage }) => {
             We want both beginners and advanced athletes to benefit from using this app.
         </p>
         <h5>What are the next features we are working on?</h5>
-        <p>We want to add a ComboMaker so you can create your own custom combos.</p>
+        <ul>
+          <li>A Combo Builder will be added, so you can create your own combos.</li>
+          <li>We will provide the Frontrange Freestyler and BouncKult athlete's favorite combos.</li>
+          <li>New features and improvements on the Combo Generator.</li>
+        </ul>
         <h5>How can you contribute?</h5>
         <p>If you want to have a specific feature or a bug fix in the future versions of this app please write us via Facebook or Instagram.
             If you are a developer yourself then don't hesitate to get involved in our repository: 
             <br/>
-            <Link to={{ pathname: "https://github.com/bastislack/highline-freestyle" }} target="_blank">Github repository</Link>
+            <a href="https://github.com/bastislack/highline-freestyle">Github repository</a>
         </p>
         <h5>How is your data handled?</h5>
         <p>As we are highliners we want to make this app work offline.
             Thus all your data is stored locally in your browser.
-            We use the <Link to={{ pathname: "https://en.wikipedia.org/wiki/Web_storage" }} target="_blank">localstorage</Link> and <Link to={{ pathname: "https://en.wikipedia.org/wiki/Indexed_Database_API" }} target="_blank">indexedDB</Link> API to save your data in your browser.
+            We use the <a href="https://en.wikipedia.org/wiki/Web_storage">localstorage</a> and <a href="https://en.wikipedia.org/wiki/Indexed_Database_API">indexedDB</a> API to save your data in your browser.
             We will never know about your data, only your browser knows about it!
         </p>
       </Modal.Body>

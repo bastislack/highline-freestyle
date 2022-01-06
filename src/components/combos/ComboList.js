@@ -1,14 +1,15 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom'
 import { useLiveQuery } from "dexie-react-hooks";
+import { comboSortingSchemes as sortingSchemes } from '../../services/sortingSchemes';
 
 import Database from "../../services/db";
 const db = new Database();
 
-const ComboList = ({ sortingSchemes, sortOpt, scrollPosition, setScrollPosition }) => {
+const ComboList = ({ sortOpt, scrollPosition, setScrollPosition }) => {
 
   useEffect(() => {
-    window.scrollTo({
+    document.getElementById("content").scrollTo({
         top: scrollPosition,
         left: 0,
         behavior: 'instant'
@@ -20,9 +21,10 @@ const ComboList = ({ sortingSchemes, sortOpt, scrollPosition, setScrollPosition 
   if (!combos || combos.length == 0) {
     return <p>You have no saved combos. For now it is only possible to create a combo using the combo generator, we are working on supporting custom combos.</p>;
   }
+  console.log(combos)
 
   const updateScrollPosition = () => {
-    setScrollPosition(window.scrollY);
+    setScrollPosition(document.getElementById("content").scrollTop);
   }
 
   function getComboDiv(combo) {

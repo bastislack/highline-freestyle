@@ -3,12 +3,13 @@ import { useLiveQuery } from "dexie-react-hooks";
 import { useNavigate } from "react-router-dom";
 import EditButton from '../buttons/EditButton';
 import DeleteButton from '../buttons/DeleteButton';
-
+import { stickFrequencies } from '../../services/enums';
+import YouTube from 'react-youtube';
 
 import Database from "../../services/db";
 const db = new Database();
 
-const TrickDetails = ({stickFrequencies}) => {
+const TrickDetails = () => {
   const { id } = useParams();
 
   const navigate = useNavigate();
@@ -29,21 +30,37 @@ const TrickDetails = ({stickFrequencies}) => {
   const selectFreq = (e) => {
     const newFreq = Number(e.target.value);
     trick.stickFrequency = newFreq;
-    db.updateTrickAtributes(Object({"id": trick.id, "stickFrequency": newFreq}))
-      .then(res => {
-        console.log("changed stickFrequency");
-      })
-      .catch(e => {
-        console.log(e);
-      });
+    db.saveTrick(trick).then(res => {
+      console.log("changed stickFrequency");
+    }).catch(e => {
+      console.log(e);
+    });
   }
 
-  var youtubeLink
+  let youtubeId;
+  let youtubeOpts;
   var instagramLink
   if (trick && trick.linkToVideo) {
     if (trick.linkToVideo.includes("youtu")) {
       // "https://www.youtube.com/embed/<videoID>"
-      youtubeLink = "https://www.youtube.com/embed/" + trick.linkToVideo.split("/").pop().split("?v=").pop().replace("?t=", "?start=");
+      if (trick.linkToVideo.includes("youtu.be")) {
+        youtubeId = trick.linkToVideo.split("/").pop().split("?")[0];
+      } else {
+        youtubeId = trick.linkToVideo.split("/").pop().split("?v=").pop();
+        if (youtubeId.includes("&")) {
+          youtubeId = youtubeId.split("&")[0];
+        }
+      }
+      youtubeOpts = {
+        playerVars: {
+          autoplay: 0,
+          fs: 1,
+          rel: 0,
+          start: trick.videoStartTime,
+          end: trick.videoEndTime
+        }
+      }
+      
     }
     else if (trick.linkToVideo.includes("instagram")) {
       // "https://www.instagram.com/p/<videoID>/embed
@@ -52,6 +69,18 @@ const TrickDetails = ({stickFrequencies}) => {
     else {
       console.log("Could not embed this link:\n" + trick.linkToVideo);
     }
+  }
+
+  const setupYoutubePlayer = (e) => {
+    e.target.mute();
+  }
+
+  const restartVideo = (e) => {
+    e.target.loadVideoById({
+      videoId: youtubeId,
+      startSeconds: trick.videoStartTime,
+      endSeconds: trick.videoEndTime
+    });
   }
 
   const editTrick = () => navigate("/posttrick",{state: {preTrick:trick}});
@@ -96,7 +125,7 @@ const TrickDetails = ({stickFrequencies}) => {
             </div>
           }
 
-          {trick.difficultyLevel &&
+          {(trick.difficultyLevel >= 0) &&
             <div>
               <h3>Level: </h3>
               <div className="callout">{trick.difficultyLevel}</div>
@@ -124,16 +153,14 @@ const TrickDetails = ({stickFrequencies}) => {
             </div>
           }
 
-          {youtubeLink &&
+          {youtubeId &&
             <div className="callout video-callout">
-              <iframe className="video" id="youtubePlayer" type="text/html" title="video"
-                src={youtubeLink}
-                frameBorder="0"></iframe>
+              <YouTube className="video" videoId={youtubeId} opts={youtubeOpts} onReady={setupYoutubePlayer} onEnd={restartVideo}/>
             </div>
           }
           {instagramLink &&
-            <div className="callout video-callout">
-              <iframe className="video" src={instagramLink} frameBorder="0" scrolling="no" allowtransparency="true" title="video"></iframe>
+            <div className="callout insta-callout">
+              <iframe className="insta-video" src={instagramLink} frameBorder="0" scrolling="no" allowtransparency="true" title="video"></iframe>
             </div>
           }
 

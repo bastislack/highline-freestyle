@@ -1,4 +1,4 @@
-import 'bootstrap/dist/css/bootstrap.css';
+import './global.scss';
 import 'bootstrap/dist/js/bootstrap.js';
 import "bootstrap-icons/font/bootstrap-icons.css";
 import React from 'react';
