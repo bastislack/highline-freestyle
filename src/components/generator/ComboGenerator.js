@@ -28,50 +28,19 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
   const [difficultyWhitelist, setDifficultyWhitelist] = useState(Array.from({length: difficultyRangeMax + 1}, (_, i) => i));
   const [stickFrequencyWhitelist, setStickFrequencyWhitelist] = useState(Array.from(Array(7).keys()));
 
-  // Contains all diff-levels that should be included from the combo
- /* function refreshDiffWhitelist(maxDiff) {
-    let children = document.getElementById("specifyItemsDiv").childNodes;
-    setDifficultyWhitelist(difficultyWhitelist.filter(level => level <= maxDiff));
-    children.forEach(element => {
-      let box = element.getElementsByTagName("input")[0]
-      let boxVal = parseInt(box.value);
-      if (box.checked) {
-        if (!difficultyWhitelist.includes(boxVal)){
-          let newWhitelist = difficultyWhitelist;
-          newWhitelist.splice(boxVal, 0, boxVal);
-          setDifficultyWhitelist(newWhitelist);
-        }
-      } else {
-        if (difficultyWhitelist.includes(boxVal)){
-          setDifficultyWhitelist(difficultyWhitelist.filter((level) => level !== boxVal));
-        }
-      } 
-    });
-  }*/
-
   useEffect(() => {
     console.log("diffList:", difficultyWhitelist, "freqList:", stickFrequencyWhitelist, "toFeet:", finishToFeet);
   }, [maxDifficulty, stickFrequencyWhitelist]);
 
 
   // Contains all freqs that should be included from the combo
-  function refreshFreqWhitelist() {
-    let children = document.getElementById("specifyStickFreqsDiv").childNodes
-    children.forEach(element => {
-      let box = element.getElementsByTagName("input")[0]
-      let boxVal = parseInt(box.value);
-      if (box.checked) {
-        if (!stickFrequencyWhitelist.includes(boxVal)){
-          let newWhitelist = stickFrequencyWhitelist;
-          newWhitelist.splice(boxVal, 0, boxVal);
-          setStickFrequencyWhitelist(newWhitelist);
-        }
-      } else {
-        if (stickFrequencyWhitelist.includes(boxVal)){
-          setStickFrequencyWhitelist(stickFrequencyWhitelist.filter((freq) => freq !== boxVal));
-        }
-      }
-    });
+  function updateFreqItem(e) {
+    if (e.target.checked) {
+      setStickFrequencyWhitelist(stickFrequencyWhitelist.concat(Number(e.target.value)))
+    }
+    else {
+      setStickFrequencyWhitelist(stickFrequencyWhitelist.filter(n => n !== Number(e.target.value)))
+    }
   }
 
   const tricks = useLiveQuery(() => db.getTricksByDiffAndByFreq(difficultyWhitelist,stickFrequencyWhitelist), [maxDifficulty, stickFrequencyWhitelist]);
@@ -148,51 +117,6 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
     });
   }
 
-  function toggleTouch(element) {
-    var inp = document.getElementById(element.id);
-    inp.classList.toggle("touch-button-active");
-    inp.classList.toggle("touch-button-inactive");
-  }
-
-  function toggleAvgSlider(checked) {
-    var avgDifficultyRange = document.getElementById("avgDifficultyRange");
-    avgDifficultyRange.disabled = checked == false;
-
-    refreshAvgSlider();
-  }
-
-  function toggleConsecutiveTricks(checked) {
-    var consecutiveTricks = document.getElementById("consecutiveTricks");
-    consecutiveTricks.disabled = checked == false;
-    setConsecutiveCheckbox(checked == true);
-
-    refreshConsecutiveTricks();
-  }
-
-  function toggleStartFrom(checked) {
-    var selectStartFrom = document.getElementById("select_start_from");
-    selectStartFrom.disabled = checked == false;
-  }
-
-  function refreshAvgSlider() {
-    var avgDifficultyRange = document.getElementById("avgDifficultyRange");
-    var checked = document.getElementById("input_chkbx_avg").checked;
-    if (!checked) {
-      avgDifficultyRange.value = 1;
-      setAvgDifficulty(-1);
-    } else {
-      var halfdiff = maxDifficulty / 2;
-      avgDifficultyRange.value = halfdiff;
-      setAvgDifficulty(halfdiff);
-    }
-  }
-
-  function refreshConsecutiveTricks() {
-    var consecutiveTricks = document.getElementById("consecutiveTricks");
-    consecutiveTricks.checked = false;
-    setConsecutiveTricks(false);
-  }
-
   const positionList = positions.map((item, i) => {
     return (
       <option value={i} key={i}>{item}</option>
@@ -246,34 +170,6 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
 
           <div className="collapse" id="advancedDifficultyOptions">
             <div className="card card-body">
-    {/*<div className="form-row">
-
-                <p>Allowed difficulty levels:</p>
-                <div className="btn-group btn-group-toggle row btn-group-long-row" data-toggle="buttons" id="specifyItemsDiv">
-                  {Array.from(Array(parseInt(maxDifficulty)).keys()).map(diffNr => {
-                    diffNr++;
-                    return (
-                      <div className="col-3 col-sm-3 col-md-2 col-lg-1" key={diffNr}>
-                        <input
-                          id={"checkboxForLevel_" + diffNr}
-                          value={diffNr}
-                          className="btn-check"
-                          type="checkbox"
-                          defaultChecked
-                          autoComplete="off"
-                          onChange={e => refreshDiffWhitelist(maxDifficulty)} />
-                        <label
-                          id={"labelForLevel_" + diffNr}
-                          className="btn allowedDiffButton touch-button-active"
-                          htmlFor={"checkboxForLevel_" + diffNr}
-                          onClick={(e) => toggleTouch(e.target)}
-                        >{diffNr}</label>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-              <hr/>*/}
               <div className="form-row">
 
                 <p>Allowed stick frequencies:</p>
@@ -281,7 +177,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
                   {stickFrequencies.map((item, i) => {
                     return (
                       <label className="skillFreq form-check" freq={i} key={i}>
-                        <input className="form-check-input" type="checkbox" value={i} name="stickFrequency" defaultChecked readOnly={true} onChange={e => refreshFreqWhitelist()} /> {item}
+                        <input className="form-check-input" type="checkbox" value={i} name="stickFrequency" checked={stickFrequencyWhitelist.includes(i)} readOnly={true} onChange={e => updateFreqItem(e)} /> {item}
                       </label>
                     );
                   })}
@@ -295,15 +191,18 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
                   defaultValue="False"
                   className="form-check-input"
                   type="checkbox"
-                  onClick={(e) => toggleAvgSlider(e.target.checked)}
+                  onClick={(e) => {
+                    if (e.target.checked) setAvgDifficulty(maxDifficulty / 2);
+                    else setAvgDifficulty(-1);
+                  }}
                 />
                 <input type="range"
-                  disabled
+                  disabled={avgDifficulty == -1}
                   className="form-range"
                   onChange={(e) => setAvgDifficulty(e.target.value)}
                   min="1"
                   max={maxDifficulty}
-                  defaultValue={avgDifficulty}
+                  defaultValue={maxDifficulty / 2}
                   step="0.5"
                   id="avgDifficultyRange" />
               </div>
@@ -324,11 +223,11 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
                   id="start_from_chkbx"
                   className="form-check-input"
                   type="checkbox"
-                  onChange={(e) => { toggleStartFrom(e.target.checked); setStartFromCheckbox(e.target.checked); }}
+                  onChange={(e) => { setStartFromCheckbox(e.target.checked); }}
                 />
                 <select
                   id="select_start_from"
-                  disabled
+                  disabled={!startFromCheckbox}
                   className="form-control"
                   value={startFromPosition}
                   placeholder="EXPOSURE"
@@ -345,16 +244,13 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
                     id="input_chkbx_duplicates"
                     className="form-check-input"
                     type="checkbox"
-                    onClick={(e) => {
-                      setAllowDuplicates(e.target.checked);
-                      toggleConsecutiveTricks(e.target.checked);
-                    }}
+                    onClick={(e) => setAllowDuplicates(e.target.checked)}
                   />
                 </div>
                 <div className="form-check form-check-inline">
                   <label id="consecutiveTricksLabel" className={consecutiveCheckbox ? "form-check-label" : "form-check-label text-muted"}>Allow consecutive tricks</label>
                   <input
-                    disabled
+                    disabled={!allowDuplicates}
                     id="consecutiveTricks"
                     defaultValue="False"
                     className="form-check-input"
