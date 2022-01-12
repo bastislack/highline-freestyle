@@ -18,7 +18,6 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
   const [numberOfTricks, setNumberOfTricks] = useState('');
   const [allowDuplicates, setAllowDuplicates] = useState(false);
   const [allowConsecutiveTricks, setConsecutiveTricks] = useState(false);
-  const [maxDifficulty, setMaxDifficulty] = useState(difficultyRangeMax);
   const [avgDifficulty, setAvgDifficulty] = useState(-1);
   const [comboName, setComboName] = useState("Random #" + generatedCombosCount);
   const [startFromPosition, setStartFromPosition] = useState(positions.findIndex(item => item === "EXPOSURE"));
@@ -28,9 +27,12 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
   const [difficultyWhitelist, setDifficultyWhitelist] = useState(Array.from({length: difficultyRangeMax + 1}, (_, i) => i));
   const [stickFrequencyWhitelist, setStickFrequencyWhitelist] = useState(Array.from(Array(7).keys()));
 
+  const maxDifficulty = [...difficultyWhitelist].sort((a,b) => a - b).pop();
+
   useEffect(() => {
     console.log("diffList:", difficultyWhitelist, "freqList:", stickFrequencyWhitelist, "toFeet:", finishToFeet);
-  }, [maxDifficulty, stickFrequencyWhitelist]);
+  }, [difficultyWhitelist, stickFrequencyWhitelist]);
+
 
 
   // Contains all freqs that should be included from the combo
@@ -43,7 +45,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
     }
   }
 
-  const tricks = useLiveQuery(() => db.getTricksByDiffAndByFreq(difficultyWhitelist,stickFrequencyWhitelist), [maxDifficulty, stickFrequencyWhitelist]);
+  const tricks = useLiveQuery(() => db.getTricksByDiffAndByFreq(difficultyWhitelist,stickFrequencyWhitelist), [difficultyWhitelist, stickFrequencyWhitelist]);
   console.log(tricks);
   if (!tricks) return null
 
@@ -124,7 +126,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
   });
 
   const changeMaxDiff = (maxDiff) => {
-    let prevMaxDiff = difficultyWhitelist[difficultyWhitelist.length - 1];
+    let prevMaxDiff = maxDifficulty;
     if (prevMaxDiff > maxDiff) {
       setDifficultyWhitelist(difficultyWhitelist.filter((level) => level <= maxDiff));
     } else {
@@ -135,7 +137,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
       console.log("newDiffList:", newDiffList);
       setDifficultyWhitelist(newDiffList);
     } 
-    setMaxDifficulty(maxDiff);
+    //setMaxDifficulty(maxDiff);
     if (maxDiff < 4 && finishToFeet) {
       console.log("toggle finish to Feet");
       setFinishToFeet(false);
