@@ -10,16 +10,18 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import TrickDetails from './components/tricks/TrickDetails';
 import ComboDetails from './components/combos/ComboDetails';
 import { pages, difficultyRangeMax} from './services/enums';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Visibility from './components/containers/Visibility';
 import ScrollToTop from './components/containers/ScrollToTop';
 import About from './components/pages/About';
 import NotFoundPage from './components/pages/NotFoundPage';
 import FloatingActionButton from './components/buttons/FloatingActionButton';
 import Div100vh from 'react-div-100vh'
+import computeStats from './logic/combos/computeStats';
 
 
 function App() {
+
 
   // Sorting Options for the tricklist
   const [sortOpt, setSortOpt] = useState(0);
@@ -28,10 +30,28 @@ function App() {
   // Boolean to check if About page should be rendered
   const [showAboutPage, setShowAboutPage] = useState(false);
   // User made combo in postCombo screen
-  const [userCombo, setUserCombo] = useState([]);
+  const [userCombo, setUserCombo] = useState(null);
 
   const [trickListScrollPosition, setTrickListScrollPosition] = useState(0);
   const [comboListScrollPosition, setComboListScrollPosition] = useState(0);
+
+  useEffect(() => {
+    console.log("UserCombo:", userCombo);
+    if(userCombo) {
+      console.log("UserComboInIfState:", userCombo);
+      const { minDiff, maxDiff, avgDiff, totalDiff, numberOfTricks } = computeStats(userCombo.tricks);
+
+      setUserCombo({
+        ...userCombo,
+        minDiff: minDiff,
+        maxDiff: maxDiff,
+        avgDiff: avgDiff,
+        totalDiff: totalDiff,
+        numberOfTricks: numberOfTricks,
+        endPos: userCombo.tricks[userCombo.tricks.length-1].endPos,
+      });
+    }
+  }, [userCombo]);
 
   return (
     <Router>
@@ -52,7 +72,7 @@ function App() {
                         <PostTrick />
                       </ScrollToTop>
                     } />
-                    <Route path="/postcombo" element={<PostCombo userCombo={userCombo}/>} />
+                    <Route path="/postcombo" element={<PostCombo userCombo={userCombo} setUserCombo={setUserCombo}/>} />
                     <Route path="/generator" element={<ComboGenerator difficultyRangeMax={difficultyRangeMax} randomCombo={randomCombo} setRandomCombo={setRandomCombo}/>} />
                     <Route path="/combos" element={<ComboList sortOpt={sortOpt} scrollPosition={comboListScrollPosition} setScrollPosition={setComboListScrollPosition} />} />
                     <Route path="/*" element={<NotFoundPage/>} />

@@ -28,11 +28,11 @@ const TrickList = ({ sortOpt, scrollPosition, setScrollPosition, userCombo, setU
     setScrollPosition(document.getElementById("content").scrollTop);
   }
 
-  const goToTrick = (trick) => {
+  const onClickTrick = (trick) => {
     updateScrollPosition();
     if (location.state) {
       if (location.state.addTrickToCombo) {
-        setUserCombo([...userCombo, trick]);
+        setUserCombo({...userCombo, tricks: [...userCombo.tricks, trick]});
         navigate('/postcombo');
       }
     } else {
@@ -43,7 +43,7 @@ const TrickList = ({ sortOpt, scrollPosition, setScrollPosition, userCombo, setU
   function getTrickDiv(trick) {
     return (
       <div key={trick.id} className="trick-container col-4 col-lg-3 col-xl-2">
-          <button className=" btn trick-preview skillFreq" freq={trick.stickFrequency} onClick={() => goToTrick(trick)}>
+          <button className=" btn trick-preview skillFreq" freq={trick.stickFrequency} onClick={() => onClickTrick(trick)}>
             {trick.alias || trick.technicalName}
           </button>
       </div>);

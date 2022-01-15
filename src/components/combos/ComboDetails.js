@@ -7,18 +7,20 @@ import { stickFrequencies } from '../../services/enums';
 import Database from "../../services/db";
 const db = new Database();
 
-const ComboDetails = ({ randomCombo }) => {
+const ComboDetails = ({ comboToShow, addTrickToCombo }) => {
   const navigate = useNavigate();
   const path = useLocation().pathname.toString().toLowerCase();
   const params = useParams();
 
   const inGenerator = path === "/generator" ? true : false;
+  const inPostCombo = path === "/postcombo" ? true : false;
+
 
   const queryFunc = () => {
-    if (inGenerator) {
+    if (inGenerator || inPostCombo) {
       // convert tricks back to just numbers to then query them through the hook
-      randomCombo.tricks = randomCombo.tricks.map(trick => trick.id)
-      return db.fillComboWithTricks(randomCombo);
+      comboToShow.tricks = comboToShow.tricks.map(trick => trick.id)
+      return db.fillComboWithTricks(comboToShow);
     } else {
       // combos query with react hooks -- means it refreshes automaticly
       return db.getCombo(params.id);
@@ -90,6 +92,8 @@ const ComboDetails = ({ randomCombo }) => {
               </div>
             ))}
           </div>
+
+          {addTrickToCombo && <button onClick={addTrickToCombo}>+</button>}
 
           <div className="row">
             <h4>Combo stats:</h4>

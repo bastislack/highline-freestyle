@@ -2,17 +2,19 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import computeStats from '../../logic/combos/computeStats';
 import { stickFrequencies, positions } from '../../services/enums';
+import ComboDetails from './ComboDetails';
 
 import Database from "../../services/db";
 const db = new Database();
 
-const PostCombo = ({ userCombo }) => {
+const PostCombo = ({ userCombo, setUserCombo }) => {
 
   const navigate = useNavigate();
   const location = useLocation();
   let preCombo;
   if(location.state){
     preCombo = location.state.preCombo;
+    setUserCombo(preCombo);
   }
 
   const [name, setName] = useState(() => {
@@ -26,12 +28,6 @@ const PostCombo = ({ userCombo }) => {
   });
   const [linkToVideo, setLinkToVideo] = useState(() => {
     return preCombo ? preCombo.linkToVideo : "";
-  });
-  const [startPos, setStartPos] = useState(() => {
-    return preCombo ? positions.findIndex(item => item === preCombo.startPos) : positions.findIndex(item => item === "STAND");
-  });
-  const [endPos, setEndPos] = useState(() => {
-    return preCombo ? positions.findIndex(item => item === preCombo.endPos): positions.findIndex(item => item === "EXPOSURE");
   });
   const [minDiff, setMinDiff] = useState(() => {
     return preCombo ? preCombo.minDiff : null;
@@ -55,15 +51,6 @@ const PostCombo = ({ userCombo }) => {
     return preCombo ? preCombo.stickFrequency : 0;
   });
 
-  useEffect(() => {
-    const { minDiff, maxDiff, avgDiff, totalDiff, numberOfTricks } = computeStats(userCombo);
-    setMinDiff(minDiff);
-    setMaxDiff(maxDiff);
-    setAvgDiff(avgDiff);
-    setTotalDiff(totalDiff);
-    setNumberOfTricks(numberOfTricks);
-  }, [userCombo]);
-
   var preId;
   if (preCombo) {
     preId = preCombo.id;
@@ -79,8 +66,8 @@ const PostCombo = ({ userCombo }) => {
       establishedBy: establishedBy,
       yearEstablished: yearEstablished,
       linkToVideo: linkToVideo,
-      startPos: startPos,
-      endPos: endPos,
+      startPos: userCombo[0].startPos,
+      endPos: userCombo[userCombo.length-1].endPos,
       minDiff: minDiff,
       maxDiff: maxDiff,
       avgDiff: avgDiff,
@@ -110,40 +97,14 @@ const PostCombo = ({ userCombo }) => {
   });
 
   const addTrickToCombo = () => navigate("/", { state: {addTrickToCombo: true, preCombo: preCombo }});
+  const test = () => navigate("/");
 
   return (
     <div className="post">
       <h2>{preCombo ? "Update combo" : "Add a new combo"}</h2>
 
-      <div className="tricksInUserCombo">
-      {userCombo &&
-        <div className="row">
-          {userCombo.map(trick => (
-            <div className="col-12">
-              <Link className="link-to-trick " to={`/tricks/${trick.id}`} key={"trick" + trick.id} >
-                <button className="btn trick-preview skillFreq" freq={trick.stickFrequency}>
-                  <h2>{trick.alias || trick.technicalName}</h2>
-                </button>
-              </Link>
-            </div>
-          ))}
-        </div>
-      }
-      </div>
-
-
-      <button onClick={addTrickToCombo}>+</button>
-
-      {userCombo &&
-        <div className="row">
-          <h4>Combo stats:</h4>
-          <p>Number of tricks: {numberOfTricks}</p>
-          <p>Mininum difficulty level: {minDiff}</p>
-          <p>Maximum difficulty level: {maxDiff}</p>
-          <p>Average difficulty level: {avgDiff}</p>
-          <p>Total difficulty level: {totalDiff}</p>
-        </div>
-      }
+      {userCombo && <ComboDetails comboToShow={userCombo} addTrickToCombo={addTrickToCombo}/>}
+      {!userCombo && <button onClick={addTrickToCombo}>+</button>}
 
       <form onSubmit={handleSubmit} className="">
         <div className="row form-row">
@@ -174,7 +135,7 @@ const PostCombo = ({ userCombo }) => {
               className="form-control"
               type="number"
               value={yearEstablished}
-              placeholder="2021"
+              placeholder={new Date().getFullYear()}
               onChange={(e) => setYearEstablished(e.target.value)}
             />
           </div>
@@ -187,30 +148,6 @@ const PostCombo = ({ userCombo }) => {
               placeholder="https://youtu.be/Ab2gW1rv5e8?t=91"
               onChange={(e) => setLinkToVideo(e.target.value)}
             />
-          </div>
-          <div className="col-md-6">
-            <label className="">Start Position:</label>
-            <select
-              className="form-control"
-              required
-              value={startPos}
-              placeholder="STAND"
-              onChange={(e) => setStartPos(e.target.value)}
-            >
-              {positionList}
-            </select>
-          </div>
-          <div className="col-md-6">
-            <label className="">End Position:</label>
-            <select
-              className="form-control"
-              required
-              value={endPos}
-              placeholder="EXPOSURE"
-              onChange={(e) => setEndPos(e.target.value)}
-            >
-              {positionList}
-            </select>
           </div>
           <div className="col-md-6">
             <label className="">Comments:</label>

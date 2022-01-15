@@ -462,7 +462,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
         </div>
       </form>
       <br />
-      {randomCombo && <ComboDetails stickFrequencies={stickFrequencies} randomCombo={randomCombo} />}
+      {randomCombo && <ComboDetails comboToShow={randomCombo} />}
     </div>
   );
 }
