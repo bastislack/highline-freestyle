@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useLiveQuery } from "dexie-react-hooks";
 import { trickSortingSchemes as sortingSchemes } from '../../services/sortingSchemes';
+import computeStats from '../../logic/combos/computeStats';
 
 import Database from "../../services/db";
 const db = new Database();
@@ -28,12 +29,49 @@ const TrickList = ({ sortOpt, scrollPosition, setScrollPosition, userCombo, setU
     setScrollPosition(document.getElementById("content").scrollTop);
   }
 
+  const addTrickToUserCombo = (trick) => {
+    if (userCombo) {
+      const newTrickArray = [...userCombo.tricks, trick];
+
+      const { minDiff, maxDiff, avgDiff, totalDiff, numberOfTricks } = computeStats(newTrickArray);
+
+      setUserCombo({
+        ...userCombo,
+        tricks: newTrickArray,
+        minDiff: minDiff,
+        maxDiff: maxDiff,
+        avgDiff: avgDiff,
+        totalDiff: totalDiff,
+        numberOfTricks: numberOfTricks,
+        endPos: newTrickArray[newTrickArray.length-1].endPos,
+      });
+    } else {
+      const { minDiff, maxDiff, avgDiff, totalDiff, numberOfTricks } = computeStats([trick]);
+
+      setUserCombo({
+        tricks: [trick],
+        minDiff: minDiff,
+        maxDiff: maxDiff,
+        avgDiff: avgDiff,
+        totalDiff: totalDiff,
+        numberOfTricks: numberOfTricks,
+        startPos: trick.startPos,
+        endPos: trick.endPos,
+      });
+    }
+
+  }
+
   const onClickTrick = (trick) => {
     updateScrollPosition();
     if (location.state) {
       if (location.state.addTrickToCombo) {
-        setUserCombo({...userCombo, tricks: [...userCombo.tricks, trick]});
-        navigate('/postcombo');
+        addTrickToUserCombo(trick);
+        if (location.state.preCombo){
+          navigate('/postcombo', { state: { preCombo: location.state.preCombo }});
+        } else {
+          navigate('/postcombo');
+        }
       }
     } else {
       navigate(`/tricks/${trick.id}`);

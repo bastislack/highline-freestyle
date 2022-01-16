@@ -14,7 +14,9 @@ const PostCombo = ({ userCombo, setUserCombo }) => {
   let preCombo;
   if(location.state){
     preCombo = location.state.preCombo;
-    setUserCombo(preCombo);
+    if (!userCombo) {
+      setUserCombo(preCombo);
+    }
   }
 
   const [name, setName] = useState(() => {
@@ -30,19 +32,19 @@ const PostCombo = ({ userCombo, setUserCombo }) => {
     return preCombo ? preCombo.linkToVideo : "";
   });
   const [minDiff, setMinDiff] = useState(() => {
-    return preCombo ? preCombo.minDiff : null;
+    return preCombo && !userCombo ? preCombo.minDiff : userCombo ? userCombo.minDiff : null;
   });
   const [maxDiff, setMaxDiff] = useState(() => {
-    return preCombo ? preCombo.maxDiff : null;
+    return preCombo && !userCombo ? preCombo.maxDiff : userCombo ? userCombo.maxDiff : null;
   });
   const [avgDiff, setAvgDiff] = useState(() => {
-    return preCombo ? preCombo.avgDiff : null;
+    return preCombo && !userCombo ? preCombo.avgDiff : userCombo ? userCombo.avgDiff : null;
   });
   const [totalDiff, setTotalDiff] = useState(() => {
-    return preCombo ? preCombo.totalDiff : null;
+    return preCombo && !userCombo ? preCombo.totalDiff : userCombo ? userCombo.totalDiff : null;
   });
   const [numberOfTricks, setNumberOfTricks] = useState(() => {
-    return preCombo ? preCombo.numberOfTricks : null;
+    return preCombo && !userCombo ? preCombo.numberOfTricks : userCombo ? userCombo.numberOfTricks : null;
   });
   const [comments, setComments] = useState(() => {
     return preCombo ? preCombo.description : "";
@@ -61,22 +63,24 @@ const PostCombo = ({ userCombo, setUserCombo }) => {
 
     const combo = {
       id: preId,
-      tricks: userCombo,
+      tricks: userCombo.tricks,
       name: name,
       establishedBy: establishedBy,
       yearEstablished: yearEstablished,
       linkToVideo: linkToVideo,
-      startPos: userCombo[0].startPos,
-      endPos: userCombo[userCombo.length-1].endPos,
-      minDiff: minDiff,
-      maxDiff: maxDiff,
-      avgDiff: avgDiff,
-      totalDiff: totalDiff,
-      numberOfTricks: numberOfTricks,
+      startPos: userCombo.startPos,
+      endPos: userCombo.endPos,
+      minDiff: userCombo.minDiff,
+      maxDiff: userCombo.maxDiff,
+      avgDiff: userCombo.avgDiff,
+      totalDiff: userCombo.totalDiff,
+      numberOfTricks: userCombo.numberOfTricks,
       comments: comments,
       stickFrequency: stickFrequency
     };
     
+    setUserCombo(null);
+
     db.saveCombo(combo)
     .then(() => {
       console.log(combo);

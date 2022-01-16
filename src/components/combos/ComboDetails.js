@@ -7,7 +7,8 @@ import { stickFrequencies } from '../../services/enums';
 import Database from "../../services/db";
 const db = new Database();
 
-const ComboDetails = ({ comboToShow, addTrickToCombo }) => {
+const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
+  console.log("ComboToShow:", comboToShow?.tricks);
   const navigate = useNavigate();
   const path = useLocation().pathname.toString().toLowerCase();
   const params = useParams();
@@ -29,7 +30,7 @@ const ComboDetails = ({ comboToShow, addTrickToCombo }) => {
 
   const combo = useLiveQuery(() => queryFunc(), []);
 
-  if (!combo) { return null; } else { console.log(combo); }
+  if (!combo) { return null; } else { console.log("ComboAfterQuery:",combo.tricks); }
 
   const freqList = stickFrequencies.map((item, i) => {
     return (
@@ -63,7 +64,10 @@ const ComboDetails = ({ comboToShow, addTrickToCombo }) => {
     navigate('/combos');
   };
 
-  const editCombo = () => navigate("/postcombo", { state: { preCombo: combo }});
+  const editCombo = () => {
+    setUserCombo(null);
+    navigate("/postcombo", { state: { preCombo: combo }});
+  }
 
   return (
     <div className="container">
@@ -73,7 +77,7 @@ const ComboDetails = ({ comboToShow, addTrickToCombo }) => {
             <div className="col-8">
               <h2>{combo.name}</h2>
             </div>
-            {!inGenerator &&
+            {!inGenerator && !inPostCombo &&
               <div className="col-4 justify-content-end">
                 <EditButton call={editCombo} />
                 <DeleteButton call={deleteCombo} />
@@ -104,7 +108,7 @@ const ComboDetails = ({ comboToShow, addTrickToCombo }) => {
             <p>Total difficulty level: {combo.totalDiff}</p>
           </div>
 
-          {!inGenerator && (
+          {!inGenerator && !inPostCombo && (
             <div className="row">
               <div className="skillFreq">
                 <h4>Set your success frequency:</h4>

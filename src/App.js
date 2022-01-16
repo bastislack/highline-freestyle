@@ -17,7 +17,6 @@ import About from './components/pages/About';
 import NotFoundPage from './components/pages/NotFoundPage';
 import FloatingActionButton from './components/buttons/FloatingActionButton';
 import Div100vh from 'react-div-100vh'
-import computeStats from './logic/combos/computeStats';
 
 
 function App() {
@@ -35,24 +34,6 @@ function App() {
   const [trickListScrollPosition, setTrickListScrollPosition] = useState(0);
   const [comboListScrollPosition, setComboListScrollPosition] = useState(0);
 
-  useEffect(() => {
-    console.log("UserCombo:", userCombo);
-    if(userCombo) {
-      console.log("UserComboInIfState:", userCombo);
-      const { minDiff, maxDiff, avgDiff, totalDiff, numberOfTricks } = computeStats(userCombo.tricks);
-
-      setUserCombo({
-        ...userCombo,
-        minDiff: minDiff,
-        maxDiff: maxDiff,
-        avgDiff: avgDiff,
-        totalDiff: totalDiff,
-        numberOfTricks: numberOfTricks,
-        endPos: userCombo.tricks[userCombo.tricks.length-1].endPos,
-      });
-    }
-  }, [userCombo]);
-
   return (
     <Router>
       <div className="App">
@@ -66,7 +47,7 @@ function App() {
                   <Routes>
                     <Route path="/" element={<TrickList sortOpt={sortOpt} scrollPosition={trickListScrollPosition} setScrollPosition={setTrickListScrollPosition} userCombo={userCombo} setUserCombo={setUserCombo} />} />
                     <Route path="/tricks/:id" element={<TrickDetails />} />
-                    <Route path="/combos/:id" element={<ComboDetails />} />
+                    <Route path="/combos/:id" element={<ComboDetails setUserCombo={setUserCombo} />} />
                     <Route path="/posttrick" element={
                       <ScrollToTop>
                         <PostTrick />
@@ -79,7 +60,7 @@ function App() {
                   </Routes>
                 </div>
                 <Visibility visiblePages={[pages.TRICKLIST, pages.COMBOLIST]}>
-                  <FloatingActionButton setTrickListScrollPosition={setTrickListScrollPosition} setComboListScrollPosition={setComboListScrollPosition} />
+                  <FloatingActionButton setTrickListScrollPosition={setTrickListScrollPosition} setComboListScrollPosition={setComboListScrollPosition} setUserCombo={setUserCombo}/>
                 </Visibility>
               </div>
               <BottomNav />
