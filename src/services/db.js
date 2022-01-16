@@ -86,7 +86,7 @@ export default class Database {
       // query all only predefinedTricks which don't have the same id as the userTricks
       // and concat these to the userTricks
       // also filter out tricks which are marked deleted
-      return this.db.predefinedTricks.where("id").noneOf(userKeys).toArray().then(preTricks => preTricks.concat(userTricks.filter(trick => !trick.deleted)));
+      return this.db.predefinedTricks.where("id").noneOf(userKeys).toArray().then(preTricks => preTricks.concat(userTricks.filter(trick => !trick.deleted)).sort((a,b) => a.id - b.id));
     });
   };
 
@@ -162,13 +162,17 @@ export default class Database {
   getCombo = (id) => this.db.userCombos.get(Number(id)).then(userCombo => {
     if (userCombo) return userCombo;
     else return this.db.predefinedCombos.get(Number(id));
-  }).then(combo => {
+  }).then(combo => this.fillComboWithTricks(combo));
+
+  // fill a combo, which has only ids as tricks with the tricks
+  fillComboWithTricks = (combo) => {
     return this.getTricksByIds(combo.tricks).then(tricksInCombo => {
       let comboWithTricks = combo;
-      comboWithTricks.tricks = tricksInCombo;
+      // change the order of the tricks to the original one
+      comboWithTricks.tricks = tricksInCombo.sort((a,b) => combo.tricks.indexOf(a.id) - combo.tricks.indexOf(b.id));
       return comboWithTricks;
     });
-  });
+  };
 
   // get list of all combos
   getAllCombos = () => {
@@ -183,10 +187,13 @@ export default class Database {
 
   // create or update userCombo
   saveCombo = (combo) => {
-    const trickNumbers = combo.tricks.map(trick => trick.id);
-    var comboWithNumbers = combo;
-    comboWithNumbers.tricks = trickNumbers;
-    return this.db.userCombos.put(comboWithNumbers)
+    if (isNaN(combo.tricks[0])) {
+      const trickNumbers = combo.tricks.map(trick => trick.id);
+      var comboWithNumbers = combo;
+      comboWithNumbers.tricks = trickNumbers;
+      return this.db.userCombos.put(comboWithNumbers);
+    }
+    else return this.db.userCombos.put(combo);
   };
 
   // delete combo

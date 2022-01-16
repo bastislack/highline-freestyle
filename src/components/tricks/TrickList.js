@@ -1,12 +1,16 @@
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useLiveQuery } from "dexie-react-hooks";
 import { trickSortingSchemes as sortingSchemes } from '../../services/sortingSchemes';
+import computeStats from '../../logic/combos/computeStats';
 
 import Database from "../../services/db";
 const db = new Database();
 
-const TrickList = ({ sortOpt, scrollPosition, setScrollPosition }) => {
+const TrickList = ({ sortOpt, scrollPosition, setScrollPosition, userCombo, setUserCombo }) => {
+
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.getElementById("content").scrollTo({
@@ -25,15 +29,62 @@ const TrickList = ({ sortOpt, scrollPosition, setScrollPosition }) => {
     setScrollPosition(document.getElementById("content").scrollTop);
   }
 
+  const addTrickToUserCombo = (trick) => {
+    if (userCombo) {
+      const newTrickArray = [...userCombo.tricks, trick];
+
+      const { minDiff, maxDiff, avgDiff, totalDiff, numberOfTricks } = computeStats(newTrickArray);
+
+      setUserCombo({
+        ...userCombo,
+        tricks: newTrickArray,
+        minDiff: minDiff,
+        maxDiff: maxDiff,
+        avgDiff: avgDiff,
+        totalDiff: totalDiff,
+        numberOfTricks: numberOfTricks,
+        endPos: newTrickArray[newTrickArray.length-1].endPos,
+      });
+    } else {
+      const { minDiff, maxDiff, avgDiff, totalDiff, numberOfTricks } = computeStats([trick]);
+
+      setUserCombo({
+        tricks: [trick],
+        minDiff: minDiff,
+        maxDiff: maxDiff,
+        avgDiff: avgDiff,
+        totalDiff: totalDiff,
+        numberOfTricks: numberOfTricks,
+        startPos: trick.startPos,
+        endPos: trick.endPos,
+      });
+    }
+
+  }
+
+  const onClickTrick = (trick) => {
+    updateScrollPosition();
+    if (location.state) {
+      if (location.state.addTrickToCombo) {
+        addTrickToUserCombo(trick);
+        if (location.state.preCombo){
+          navigate('/postcombo', { state: { preCombo: location.state.preCombo }});
+        } else {
+          navigate('/postcombo');
+        }
+      }
+    } else {
+      navigate(`/tricks/${trick.id}`);
+    }
+  }
+
   function getTrickDiv(trick) {
     return (
       <div key={trick.id} className="trick-container col-4 col-lg-3 col-xl-2">
-        <Link className="link-to-trick " to={`/tricks/${trick.id}`} key={"trick" + trick.id} >
-          <button className=" btn trick-preview skillFreq" freq={trick.stickFrequency} onClick={updateScrollPosition}>
+          <button className=" btn trick-preview skillFreq" freq={trick.stickFrequency} onClick={() => onClickTrick(trick)}>
             {trick.alias || trick.technicalName}
           </button>
-        </Link>
-      </div>)
+      </div>);
   }
 
   let current;
