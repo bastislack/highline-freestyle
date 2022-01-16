@@ -7,18 +7,21 @@ import { stickFrequencies } from '../../services/enums';
 import Database from "../../services/db";
 const db = new Database();
 
-const ComboDetails = ({ randomCombo }) => {
+const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
+  console.log("ComboToShow:", comboToShow?.tricks);
   const navigate = useNavigate();
   const path = useLocation().pathname.toString().toLowerCase();
   const params = useParams();
 
   const inGenerator = path === "/generator" ? true : false;
+  const inPostCombo = path === "/postcombo" ? true : false;
+
 
   const queryFunc = () => {
-    if (inGenerator) {
+    if (inGenerator || inPostCombo) {
       // convert tricks back to just numbers to then query them through the hook
-      randomCombo.tricks = randomCombo.tricks.map(trick => trick.id)
-      return db.fillComboWithTricks(randomCombo);
+      comboToShow.tricks = comboToShow.tricks.map(trick => trick.id)
+      return db.fillComboWithTricks(comboToShow);
     } else {
       // combos query with react hooks -- means it refreshes automaticly
       return db.getCombo(params.id);
@@ -27,7 +30,7 @@ const ComboDetails = ({ randomCombo }) => {
 
   const combo = useLiveQuery(() => queryFunc(), []);
 
-  if (!combo) { return null; } else { console.log(combo); }
+  if (!combo) { return null; } else { console.log("ComboAfterQuery:",combo.tricks); }
 
   const freqList = stickFrequencies.map((item, i) => {
     return (
@@ -61,7 +64,10 @@ const ComboDetails = ({ randomCombo }) => {
     navigate('/combos');
   };
 
-  const editCombo = () => navigate("/postcombo", { state: { preCombo: combo }});
+  const editCombo = () => {
+    setUserCombo(null);
+    navigate("/postcombo", { state: { preCombo: combo }});
+  }
 
   return (
     <div className="container">
@@ -71,7 +77,7 @@ const ComboDetails = ({ randomCombo }) => {
             <div className="col-8">
               <h2>{combo.name}</h2>
             </div>
-            {!inGenerator &&
+            {!inGenerator && !inPostCombo &&
               <div className="col-4 justify-content-end">
                 <EditButton call={editCombo} />
                 <DeleteButton call={deleteCombo} />
@@ -91,6 +97,8 @@ const ComboDetails = ({ randomCombo }) => {
             ))}
           </div>
 
+          {addTrickToCombo && <button onClick={addTrickToCombo}>+</button>}
+
           <div className="row">
             <h4>Combo stats:</h4>
             <p>Number of tricks: {combo.numberOfTricks}</p>
@@ -100,7 +108,7 @@ const ComboDetails = ({ randomCombo }) => {
             <p>Total difficulty level: {combo.totalDiff}</p>
           </div>
 
-          {!inGenerator && (
+          {!inGenerator && !inPostCombo && (
             <div className="row">
               <div className="skillFreq">
                 <h4>Set your success frequency:</h4>

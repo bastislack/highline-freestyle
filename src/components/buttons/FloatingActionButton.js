@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Fab } from '@material-ui/core';
 
-const FloatingActionButton = ({ setTrickListScrollPosition, setComboListScrollPosition }) => {
+const FloatingActionButton = ({ setTrickListScrollPosition, setComboListScrollPosition, setUserCombo }) => {
   // the current Url
   const path = useLocation().pathname.toString().toLowerCase();
 
@@ -20,6 +20,7 @@ const FloatingActionButton = ({ setTrickListScrollPosition, setComboListScrollPo
       setTrickListScrollPosition(window.scrollY);
     } else if (path === "/combos") {
       setComboListScrollPosition(window.scrollY);
+      setUserCombo(null);
     }
   }
 

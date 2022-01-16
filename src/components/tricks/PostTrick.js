@@ -135,7 +135,7 @@ const PostTrick = () => {
               className="form-control"
               type="number"
               value={yearEstablished}
-              placeholder="2021"
+              placeholder={new Date().getFullYear()}
               onChange={(e) => setYearEstablished(e.target.value)}
             />
           </div>

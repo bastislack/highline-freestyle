@@ -10,7 +10,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import TrickDetails from './components/tricks/TrickDetails';
 import ComboDetails from './components/combos/ComboDetails';
 import { pages, difficultyRangeMax} from './services/enums';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Visibility from './components/containers/Visibility';
 import ScrollToTop from './components/containers/ScrollToTop';
 import About from './components/pages/About';
@@ -21,12 +21,15 @@ import Div100vh from 'react-div-100vh'
 
 function App() {
 
+
   // Sorting Options for the tricklist
   const [sortOpt, setSortOpt] = useState(0);
   // Randomly generated combo shown on the generator screen
   const [randomCombo, setRandomCombo] = useState(null);
   // Boolean to check if About page should be rendered
   const [showAboutPage, setShowAboutPage] = useState(false);
+  // User made combo in postCombo screen
+  const [userCombo, setUserCombo] = useState(null);
 
   const [trickListScrollPosition, setTrickListScrollPosition] = useState(0);
   const [comboListScrollPosition, setComboListScrollPosition] = useState(0);
@@ -42,29 +45,29 @@ function App() {
               <div className="main-column-content-wrapper">
                <div id="content" className="main-column-content">
                   <Routes>
-                    <Route path="/" element={<TrickList sortOpt={sortOpt} scrollPosition={trickListScrollPosition} setScrollPosition={setTrickListScrollPosition} />} />
+                    <Route path="/" element={<TrickList sortOpt={sortOpt} scrollPosition={trickListScrollPosition} setScrollPosition={setTrickListScrollPosition} userCombo={userCombo} setUserCombo={setUserCombo} />} />
                     <Route path="/tricks/:id" element={<TrickDetails />} />
-                    <Route path="/combos/:id" element={<ComboDetails />} />
+                    <Route path="/combos/:id" element={<ComboDetails setUserCombo={setUserCombo} />} />
                     <Route path="/posttrick" element={
                       <ScrollToTop>
                         <PostTrick />
                       </ScrollToTop>
                     } />
-                    <Route path="/postcombo" element={<PostCombo />} />
+                    <Route path="/postcombo" element={<PostCombo userCombo={userCombo} setUserCombo={setUserCombo}/>} />
                     <Route path="/generator" element={<ComboGenerator difficultyRangeMax={difficultyRangeMax} randomCombo={randomCombo} setRandomCombo={setRandomCombo}/>} />
                     <Route path="/combos" element={<ComboList sortOpt={sortOpt} scrollPosition={comboListScrollPosition} setScrollPosition={setComboListScrollPosition} />} />
                     <Route path="/*" element={<NotFoundPage/>} />
                   </Routes>
                 </div>
                 <Visibility visiblePages={[pages.TRICKLIST, pages.COMBOLIST]}>
-                  <FloatingActionButton setTrickListScrollPosition={setTrickListScrollPosition} setComboListScrollPosition={setComboListScrollPosition} />
+                  <FloatingActionButton setTrickListScrollPosition={setTrickListScrollPosition} setComboListScrollPosition={setComboListScrollPosition} setUserCombo={setUserCombo}/>
                 </Visibility>
               </div>
               <BottomNav />
               {showAboutPage && <About showAboutPage={showAboutPage} setShowAboutPage={setShowAboutPage}/>}
             </Div100vh>
           </div>
-       </div>
+        </div>
       </div>
     </Router>
   );
