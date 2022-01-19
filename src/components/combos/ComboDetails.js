@@ -3,6 +3,9 @@ import { useLiveQuery } from "dexie-react-hooks";
 import EditButton from '../buttons/EditButton';
 import DeleteButton from '../buttons/DeleteButton';
 import { stickFrequencies } from '../../services/enums';
+import arePositionsSimilar from '../../logic/combos/similarPositions';
+import { BsArrowDown } from 'react-icons/bs';
+import { IconContext } from 'react-icons';
 
 import Database from "../../services/db";
 const db = new Database();
@@ -86,15 +89,42 @@ const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
           </div>
 
           <div className="row">
-            {combo.tricks.map(trick => (
-              <div className="col-12">
-                <Link className="link-to-trick " to={`/tricks/${trick.id}`} key={"trick" + trick.id} >
-                  <button className="btn trick-preview skillFreq" freq={trick.stickFrequency}>
-                    <h2>{trick.alias || trick.technicalName}</h2>
-                  </button>
-                </Link>
-              </div>
-            ))}
+            {combo.tricks.map((trick, index) => {
+              return(index === 0 || (index > 0 && (arePositionsSimilar(trick.startPos, combo.tricks[index-1].endPos) || trick.startPos === combo.tricks[index-1].endPos)) ? 
+                <div className="col-12">
+                  <Link className="link-to-trick " to={`/tricks/${trick.id}`} key={"trick" + trick.id} >
+                    <button className="btn trick-preview skillFreq" freq={trick.stickFrequency}>
+                      <h2>{trick.alias || trick.technicalName}</h2>
+                    </button>
+                  </Link>
+                </div>
+                :
+              index > 0 && (!arePositionsSimilar(trick.startPos, combo.tricks[index-1].endPos) || trick.startPos !== combo.tricks[index-1].endPos) ?
+                <>
+                <div className="col-12">
+                  <div className="row">
+                    <small className="transition">{combo.tricks[index-1].endPos}</small>
+                  </div>
+                  <IconContext.Provider value={{ color: "grey" }}>
+                    <div className="row">
+                      <BsArrowDown className="transition"/>
+                    </div>
+                  </IconContext.Provider>
+                  <div className="row">
+                    <small className="transition">{trick.startPos}</small>
+                  </div>
+                </div>
+                <div className="col-12">
+                  <Link className="link-to-trick " to={`/tricks/${trick.id}`} key={"trick" + trick.id} >
+                    <button className="btn trick-preview skillFreq" freq={trick.stickFrequency}>
+                      <h2>{trick.alias || trick.technicalName}</h2>
+                    </button>
+                  </Link>
+                </div>
+                </>
+                : null);
+            })
+            }
           </div>
 
           {addTrickToCombo && <button onClick={addTrickToCombo}>+</button>}

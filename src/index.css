@@ -81,6 +81,17 @@
   font-size: small;
 }
 
+.transition {
+  text-align: center;
+  width: 95%;
+  margin: 2px;
+  color: grey;
+}
+
+.transition path{
+  fill: grey;
+}
+
 .skillFreq {
   display: block;
 }

@@ -1,3 +1,5 @@
+import arePositionsSimilar from '../../logic/combos/similarPositions';
+
 export function findCombo(vars, retries) {
   const [
     tricks,
@@ -11,14 +13,6 @@ export function findCombo(vars, retries) {
     avgDifficulty,
     maxDifficulty
   ] = vars;
-
-  const arePositionsSimilar = (startPos, endPos) => {
-    if ((startPos === "KOREAN" && (endPos === "CHEST" || endPos === "BACK")) || (startPos === "CHEST" && endPos === "KOREAN") || (startPos === "BACK" && endPos === "KOREAN") || (startPos === "EXPOSURE" && endPos === "STAND") || (startPos === "STAND" && endPos === "EXPOSURE") || (startPos === "BELLY" && endPos === "CHEST") || (startPos === "CHEST" && endPos === "BELLY")) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 
   const isAnyComboConditionFulfilled = (index, lastTrick, currentTrick) => {
     const isFinishToFeetFulfilled = (currentTrick.endPos === "STAND" || currentTrick.endPos === "EXPOSURE") ? true : false;
