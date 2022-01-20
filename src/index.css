@@ -251,3 +251,7 @@
 .btn-group-long-row {
   width:100%;
 }
+
+.icon-white path {
+  fill: white;
+}

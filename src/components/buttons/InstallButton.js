@@ -28,7 +28,7 @@ const InstallButton = () => {
     <>
       {supported() && !isInstalled() && (
         <button className="btn btn-link" onClick={installApp}>
-          <BsDownload className="react-icon-light" />
+          <BsDownload className="icon-white" />
         </button>
       )}
     </>

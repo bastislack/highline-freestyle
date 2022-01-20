@@ -9,7 +9,7 @@ const BackButton = () => {
 
   return (
     <button className="btn btn-link back-button" onClick={goBack}>
-      <BiArrowBack className="react-icon-light" />
+      <BiArrowBack className="icon-white"/>
     </button>
   );
 }
