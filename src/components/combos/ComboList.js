@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom'
 import { useLiveQuery } from "dexie-react-hooks";
 import { comboSortingSchemes as sortingSchemes } from '../../services/sortingSchemes';
+import { IoRocketSharp } from 'react-icons/io5';
 
 import Database from "../../services/db";
 const db = new Database();
@@ -33,6 +34,11 @@ const ComboList = ({ sortOpt, scrollPosition, setScrollPosition }) => {
         <Link className="link-to-combo " to={`/combos/${combo.id}`} key={"combo" + combo.id} >
           <button className=" btn btn-outline-success combo-preview skillFreq" freq={combo.stickFrequency} onClick={updateScrollPosition}>
             <h3>{combo.name}</h3>
+            {combo.boostSkill && (
+              <>
+              <br/>
+              <IoRocketSharp />
+              </>)}
           </button>
         </Link>
       </div>)

@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useLiveQuery } from "dexie-react-hooks";
 import { trickSortingSchemes as sortingSchemes } from '../../services/sortingSchemes';
 import computeStats from '../../logic/combos/computeStats';
+import { IoRocketSharp } from 'react-icons/io5';
 
 import Database from "../../services/db";
 const db = new Database();
@@ -83,6 +84,11 @@ const TrickList = ({ sortOpt, scrollPosition, setScrollPosition, userCombo, setU
       <div key={trick.id} className="trick-container col-4 col-lg-3 col-xl-2">
           <button className=" btn trick-preview skillFreq" freq={trick.stickFrequency} onClick={() => onClickTrick(trick)}>
             {trick.alias || trick.technicalName}
+            {trick.boostSkill && (
+              <>
+              <br/>
+              <IoRocketSharp />
+              </>)}
           </button>
       </div>);
   }
