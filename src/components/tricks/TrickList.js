@@ -14,6 +14,14 @@ const TrickList = ({ sortOpt, scrollPosition, setScrollPosition, userCombo, setU
   const location = useLocation();
   const navigate = useNavigate();
 
+  let addTrickToCombo = false;
+
+  if (location.state) {
+    if (location.state.addTrickToCombo) {
+      addTrickToCombo = true;
+    }
+  } 
+
   let current;
   const [searchPattern, setSearchPattern] = useState("");
   const options = {
@@ -65,14 +73,12 @@ const TrickList = ({ sortOpt, scrollPosition, setScrollPosition, userCombo, setU
 
   const onClickTrick = (trick) => {
     updateScrollPosition();
-    if (location.state) {
-      if (location.state.addTrickToCombo) {
-        addTrickToUserCombo(trick);
-        if (location.state.preCombo){
-          navigate('/postcombo', { state: { preCombo: location.state.preCombo }});
-        } else {
-          navigate('/postcombo');
-        }
+    if (addTrickToCombo) {
+      addTrickToUserCombo(trick);
+      if (location.state.preCombo){
+        navigate('/postcombo', { state: { preCombo: location.state.preCombo }});
+      } else {
+        navigate('/postcombo');
       }
     } else {
       navigate(`/tricks/${trick.id}`);
@@ -103,7 +109,8 @@ const TrickList = ({ sortOpt, scrollPosition, setScrollPosition, userCombo, setU
 
   return (
     <div className="row">
-       <input
+      {addTrickToCombo && <h2 style={{'font-weight': 'bold'}}>Add trick to combo</h2>}
+      <input
         className="form-control"
         type="search"
         value={searchPattern}
