@@ -5,7 +5,9 @@ import ComboDetails from '../combos/ComboDetails';
 import { stickFrequencies, positions } from '../../services/enums';
 import useLocalStorage from '../hooks/useLocalStorage';
 import computeStats from '../../logic/combos/computeStats';
-import { findCombo } from './generatorFunction'
+import { findCombo } from './generatorFunction';
+import Slider, { Range } from 'rc-slider';
+import 'rc-slider/assets/index.css';
 
 import Database from "../../services/db";
 const db = new Database();
@@ -27,14 +29,19 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
   const [startFromCheckbox, setStartFromCheckbox] = useState(false);
   const [difficultyWhitelist, setDifficultyWhitelist] = useState(Array.from({length: difficultyRangeMax + 1}, (_, i) => i));
   const [stickFrequencyWhitelist, setStickFrequencyWhitelist] = useState(Array.from(Array(7).keys()));
+  const [difficultyRangeMinMax, setDifficultyRangeMinMax] = useState([1, difficultyRangeMax]);
 
-  const maxDifficulty = [...difficultyWhitelist].sort((a,b) => a - b).pop();
+  const maxDifficulty = difficultyRangeMinMax[1];
+  const minDifficulty = difficultyRangeMinMax[0];
+
+  let diffMarksOnRange = {};
+  for (let i = 0; i <= difficultyRangeMax; i++){
+    diffMarksOnRange[i] = i;
+  }
 
   useEffect(() => {
     console.log("diffList:", difficultyWhitelist, "freqList:", stickFrequencyWhitelist, "toFeet:", finishToFeet);
   }, [difficultyWhitelist, stickFrequencyWhitelist]);
-
-
 
   // Contains all freqs that should be included from the combo
   function updateFreqItem(e) {
@@ -100,11 +107,16 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
     )
   });
 
-  const changeMaxDiff = (maxDiff) => {
+  const refreshDifficultyRangeMinMax = (diffMinMax) => {
+    setDifficultyRangeMinMax(diffMinMax);
+
     let prevMaxDiff = maxDifficulty;
+    let maxDiff = diffMinMax[1];
+    let prevMinDiff = minDifficulty;
+    let minDiff = diffMinMax[0];
     if (prevMaxDiff > maxDiff) {
       setDifficultyWhitelist(difficultyWhitelist.filter((level) => level <= maxDiff));
-    } else {
+    } else if (prevMaxDiff < maxDiff) {
       let newDiffList = difficultyWhitelist;
       for (let i = 1; i <= maxDiff - prevMaxDiff; i++) {
         newDiffList.push(prevMaxDiff + i);
@@ -112,7 +124,16 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
       console.log("newDiffList:", newDiffList);
       setDifficultyWhitelist(newDiffList);
     } 
-    //setMaxDifficulty(maxDiff);
+    if (prevMinDiff < minDiff) {
+      setDifficultyWhitelist(difficultyWhitelist.filter((level) => level >= minDiff));
+    } else if (prevMinDiff > minDiff) {
+      let newDiffList = difficultyWhitelist;
+      for (let i = 1; i <=  prevMinDiff - minDiff; i++) {
+        newDiffList.unshift(prevMinDiff - i);
+      }
+      console.log("newDiffList:", newDiffList);
+      setDifficultyWhitelist(newDiffList);
+    } 
     if (maxDiff < 4 && finishToFeet) {
       console.log("toggle finish to Feet");
       setFinishToFeet(false);
@@ -136,9 +157,9 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
             onChange={(e) => setNumberOfTricks(parseInt(e.target.value))}
           />
         </div>
-        <div className="form-row">
-          <label htmlFor="maxDifficultyRange" className="form-label">Max difficulty: {maxDifficulty}</label>
-          <input type="range" className="form-range" onChange={(e) => changeMaxDiff(parseInt(e.target.value))} min="0" max={difficultyRangeMax} step="1" value={maxDifficulty} id="maxDifficultyRange" />
+        <div className="difficultyRangeGenerator">
+          <label htmlFor="diffRange" className="form-label">Difficulty Range:</label>
+          <Range id="diffRange" step={1} value={difficultyRangeMinMax} min={0} max={difficultyRangeMax} marks={diffMarksOnRange} onChange={refreshDifficultyRangeMinMax}/>
         </div>
         <div className="form-row">
           <button className="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#advancedDifficultyOptions" aria-expanded="false" aria-controls="collapseExample">
