@@ -31,7 +31,7 @@ const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
     }
   };
 
-  const combo = useLiveQuery(() => queryFunc(), []);
+  const combo = useLiveQuery(() => queryFunc(), [comboToShow]);
 
   if (!combo) { return null; } else { console.log("ComboAfterQuery:",combo.tricks); }
 
