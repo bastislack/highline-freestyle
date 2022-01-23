@@ -1,5 +1,5 @@
 // increase this manualy if you update the predefinedTricks
-export const predefinedTricksVersion = 3;
+export const predefinedTricksVersion = 4;
 // predefinedTricks have to have an id above 10000
 export const predefinedTricks = `id,alias,technicalName,establishedBy,yearEstablished,linkToVideo,videoStartTime,videoEndTime,startPos,endPos,difficultyLevel,description,tips
 10000,,Panic Roll,Jediah Doohan,,https://www.youtube.com/watch?v=pZihozjqHfc,,,SOFA,KOREAN,2,From Sofa you spin 270 to land in Korean (or Chest) and combine it with a roll around the line.,Sit in Sofa position grab the line to the side of you with hands facing behind you. On the way up dive down where your hands are and roll around the line. Land in Korean or Chest.
@@ -202,9 +202,44 @@ export const predefinedTricks = `id,alias,technicalName,establishedBy,yearEstabl
 10205,,Rocket Mount to DDK,Enzo Fuchs,,,,,HANG,DOUBLEDROPKNEE,4,Rocket Mount landing in Double Drop Knee.,
 10206,Fake Orbital,Orbital 180,,,,,,STAND,CHEST,4,Orbital 180 landing in Chest. The 180 makes it easier to land.,Also called Norbital.
 10207,,Tre Nasty to Feet,Ian Eisenberg,2021,,,,SOFA,STAND,8,Tre Nasty landing to Feet.,
-10208,Shrimpzilla,Kung Pao to Feet,Ian Eisenberg,2021,https://www.instagram.com/p/CXXU9U7KvZ7/,,,HANG,EXPOSURE,10,Shrimpflip to Reverse Rocket Mount.,`;
+10208,Shrimpzilla,Kung Pao to Feet,Ian Eisenberg,2021,https://www.instagram.com/p/CXXU9U7KvZ7/,,,HANG,EXPOSURE,10,Shrimpflip to Reverse Rocket Mount.,
+10209,,Mini-Fireflip,Salomé Cholet,2021,,,,KOREAN,KOREAN,3,From Korean grab the line behind you and go into a Front Chest Roll. Land back in Korean looking at the other anchor.,
+10210,,Fireflip to Shoulder,Samuel Volery,2022,https://www.instagram.com/p/CYPMq9BJg55/,,,KOREAN,SHOULDER,4,From Korean grab the line behind you and go into a Front Chest Roll. Land on your shoulder to finish the trick.,
+10211,,Tre Nasty to Feet,Ian Eisenberg,2021,https://www.instagram.com/p/CXwo3hPpGiM/,,,SOFA,EXPOSURE,7,From Sofa do a Tre Nasty and then land on your Feet.,
+10212,Frog Flip,Back Roll from Chest to Feet,Ian Eisenberg,2022,https://www.instagram.com/p/CYPPtWFvkIg/,,,CHEST,STAND,7,From Chest you push off the line with both hands to get into a backflip and then land to Feet.,
+10213,,Reverse Panic Roll,,,,,,KOREAN,SOFA,3,From Korean you do a backside spin together with a back roll finishing in Sofa.,
+10214,,Reverse Panic Roll to Feet,,,,,,KOREAN,EXPOSURE,5,From Korean do a backside 270 spin together with a back roll finishing in Exposure.,
+10215,,Reverse Flowflip,,,,,,KOREAN,KOREAN,3,From Korean do a backside 360 spin together with a back roll finishing in Korean.,
+10216,,Reverse Flowflip to Feet,,,,,,KOREAN,STAND,5,From Korean do a backside 360 spin together with a back roll finishing to Feet.,
+10217,,Sick Nasty Roll from Feet,Ian Eisenberg,2021,https://youtu.be/aAq4Tf8naOM?t=80,80,84,EXPOSURE,SOFA,6,Sick Nasty Roll but starting in Exposure.,
+10218,,360 Expoorbital to Feet,Ian Eisenberg,2021,https://youtu.be/lzz9jvtYpi0?t=567,567,572,EXPOSURE,EXPOSURE,8,Expoorbital to Feet with a 360 spin.,
+10219,,Flow 540 to Feet,Tim Odermatt,2021,https://youtu.be/aAq4Tf8naOM?t=131,131,135,KOREAN,STAND,6,Like a normal Flow to Feet but adding a 180 at the end.,
+10220,Rubik's Cube,180 Darkside Roll,Ian Eisenberg,2021,https://www.instagram.com/p/CPWrEFhKBUm/,,,SOFA,EXPOSURE,9,It's a Sick Nasty 180 with a roll landing in Exposure.,
+10221,Sushi,Korean Pop,Ian Eisenberg,2021,https://youtu.be/7yLCyoHgUS0?t=1322,1322,1323,STAND,STAND,4,Stylish Korean pop from Feet to Feet.,
+10222,,Sofa 360,,,,,,SOFA,SOFA,2,From Sofa grab the line on your side and then going over your belly do a 360 landing back in Sofa.,To land it you need to stick your butt out!
+10223,,Nevermind 180,Sebastian Egger,2021,,,,NEVERMIND,EXPOSURE,4,Start as you would for a Nevermind but then use your foot that is in contact with the line to initiate a spin and do a 180 before you land in Exposure.,`;
 
 // increase this manualy if you update the predefinedCombos
-export const predefinedCombosVersion = 2;
+export const predefinedCombosVersion = 4;
 // predefinedCombos have to have an id above 10000
-export const predefinedCombos = ``;
+export const predefinedCombos = `id,name,tricks,minDiff,maxDiff,avgDiff,totalDiff,numberOfTricks,establishedBy,yearEstablished,linkToVideo,comments,stickFrequency
+10000,Axel's standard combo end,10103;10119,6,7,6.5,13,2,Axel Weber,2020,,stick it,0
+10001,Ian's classic,10202;10082;10068;10199;10119,4,7,5,25,5,Ian Eisenberg,2021,,,0
+10002,Ian's power combo,10132;10119;10120,7,8,7.33,22,3,Ian Eisenberg,2021,,,0
+10003,Ian's super power combo,10149;10143;10132;10119,7,9,8,32,4,Ian Eisenberg,2022,https://www.instagram.com/p/CY7KfMWLbB1/,,0
+10004,Ian's rocket combo,10203;10060;10062;10204;10205,4,5,4.2,21,5,Ian Eisenberg,2021,,,0
+10005,David's favorite,10186;10124;10115;10119,0,8,5.5,22,4,David Palomo,2021,,,0
+10006,Deb's favorite #1,10052;10070;10119,4,7,5,15,3,Deborah Casimiro,2021,,,0
+10007,Deb's favorite #2,10206;10209;10120,3,7,4.66,14,3,Deborah Casimiro,2021,,,0
+10008,Salomé's favorite #1,10221;10036;10067;10122,3,7,4.5,18,4,Salomé Cholet,2021,,,0
+10009,Salomé's favorite #2,10222;10050;10122,2,7,4.33,13,3,Salomé Cholet,2021,,,0
+10010,Can of Barrel Soup,10086;10066;10122,4,7,5.33,16,3,Justin Wagers,2021,,,0
+10011,Keep it going,10202;10082;10068;10199;10120;10119,4,7,5.33,32,6,Justin Wagers,2021,,,0
+10012,Magic Tricks,10115;10124,7,8,7.5,15,2,Justin Wagers,2021,https://www.instagram.com/p/CXd2bgnF2W0/,,0
+10013,Davis' favorite #1,10169;10066;10120;10119,4,7,5.5,22,4,Davis Hermes,2021,,,0
+10014,Davis' favorite #2,10124;10150,8,9,8.5,17,2,Davis Hermes,2021,https://www.instagram.com/p/CSo8Ajrg3JI/,,0
+10015,Delaney's favorite #1,10036;10122,3,7,5,10,2,Delaney Lyman,2021,https://www.instagram.com/p/CTzbWhEF99g/,,0
+10016,Ana's favorite #1,10050;10119,4,7,5.5,11,2,Ana Lincoln,2021,,,0
+10017,Basti's favorite #1,10124;10143,8,8,8,16,2,Sebastian Egger,2021,https://www.instagram.com/p/CLJKI5yq5e_/,,0
+10018,Basti's favorite #2,10077;10071;10050;10223;10119,4,7,4.8,24,5,Sebastian Egger,2021,,,0
+10019,Basti's favorite #3,10063;10069;10120,4,7,5,15,3,Sebastian Egger,2021,https://youtu.be/qUxUNfgvoPs?t=112,,0`;

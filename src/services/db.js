@@ -1,7 +1,7 @@
 import Dexie from "dexie";
 import Papa from "papaparse"
-import { predefinedTricks, predefinedTricksVersion } from "../predifinedTricksCombos"
-import { predefinedCombos, predefinedCombosVersion } from "../predifinedTricksCombos"
+import { predefinedTricks, predefinedTricksVersion } from "../predefinedTricksCombos"
+import { predefinedCombos, predefinedCombosVersion } from "../predefinedTricksCombos"
 
 
 export default class Database {
