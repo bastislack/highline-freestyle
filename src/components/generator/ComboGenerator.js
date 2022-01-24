@@ -246,7 +246,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
                   />
                 </div>
                 <div className="form-check form-check-inline">
-                  <label id="consecutiveTricksLabel" className={consecutiveCheckbox ? "form-check-label" : "form-check-label text-muted"}>Allow consecutive tricks</label>
+                  <label id="consecutiveTricksLabel" className={allowDuplicates ? "form-check-label" : "form-check-label text-muted"}>Allow consecutive tricks</label>
                   <input
                     disabled={!allowDuplicates}
                     id="consecutiveTricks"
