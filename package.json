@@ -4,6 +4,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@lingui/detect-locale": "^3.13.2",
+    "@lingui/react": "^3.13.2",
     "@material-ui/core": "^4.12.3",
     "@popperjs/core": "^2.11.0",
     "@szhsin/react-menu": "^2.2.0",
@@ -39,7 +41,9 @@
     "webpack-dev-server": "webpack-dev-server",
     "dev": "webpack serve --mode=development",
     "prod": "NODE_ENV=production webpack --mode=production",
-    "serve": "npm run prod && serve -s dist"
+    "serve": "npm run prod && serve -s dist",
+    "extract": "lingui extract",
+    "compile": "lingui compile"
   },
   "eslintConfig": {
     "extends": [
@@ -60,11 +64,14 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "^7.16.0",
+    "@babel/core": "^7.16.12",
     "@babel/plugin-proposal-class-properties": "^7.16.0",
     "@babel/preset-env": "^7.16.0",
     "@babel/preset-react": "^7.16.0",
+    "@lingui/cli": "^3.13.2",
+    "@lingui/macro": "^3.13.2",
     "babel-loader": "^8.2.3",
+    "babel-plugin-macros": "^3.1.0",
     "copy-webpack-plugin": "^9.0.1",
     "css-loader": "^6.5.1",
     "file-loader": "^6.2.0",

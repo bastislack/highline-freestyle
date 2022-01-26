@@ -5,6 +5,7 @@ import EditButton from '../buttons/EditButton';
 import DeleteButton from '../buttons/DeleteButton';
 import { stickFrequencies } from '../../services/enums';
 import YouTube from 'react-youtube';
+import { Trans } from '@lingui/macro'
 
 import Database from "../../services/db";
 const db = new Database();
@@ -60,7 +61,6 @@ const TrickDetails = () => {
           end: trick.videoEndTime
         }
       }
-      
     }
     else if (trick.linkToVideo.includes("instagram")) {
       // "https://www.instagram.com/p/<videoID>/embed
@@ -127,7 +127,7 @@ const TrickDetails = () => {
 
           {(trick.difficultyLevel >= 0) &&
             <div>
-              <h3>Level: </h3>
+              <h3><Trans id="trickDetails.level">Level</Trans>: </h3>
               <div className="callout">{trick.difficultyLevel}</div>
             </div>
           }

@@ -6,6 +6,7 @@ import Visibility from '../../components/containers/Visibility';
 import { trickSortingSchemes, comboSortingSchemes } from '../../services/sortingSchemes';
 import { Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import LanguageSelector from "../buttons/LanguageSelector"
 
 const LeftNav = ({ sortOpt, setSortOpt, setShowAboutPage }) => {
   const path = useLocation().pathname.toString().toLowerCase();
@@ -53,7 +54,8 @@ const LeftNav = ({ sortOpt, setSortOpt, setShowAboutPage }) => {
         </ul>
       </Visibility>
       <hr />
-      <a href="#" onClick={() => setShowAboutPage(true)} >About</a>
+      <LanguageSelector />
+      <a href="#" onClick={() => setShowAboutPage(true)} style={{marginTop: "1em"}}>About</a>
     </div>
   );
 }

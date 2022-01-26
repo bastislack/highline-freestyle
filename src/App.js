@@ -17,10 +17,22 @@ import About from './components/pages/About';
 import NotFoundPage from './components/pages/NotFoundPage';
 import FloatingActionButton from './components/buttons/FloatingActionButton';
 import Div100vh from 'react-div-100vh'
+import { i18n } from '@lingui/core'
+import { I18nProvider } from '@lingui/react'
+import { messages as enMessages } from './locales/en/messages'
+import { messages as esMessages } from './locales/es/messages'
+import { getLocale, setAppLanguage } from './i18n'
 
 
 function App() {
-
+  // i18n setup
+  useEffect(() => {
+        setAppLanguage(getLocale());
+    }, []);  i18n.load({
+    en: enMessages,
+    es: esMessages,
+  })
+  i18n.activate('en')
 
   // Sorting Options for the tricklist
   const [sortOpt, setSortOpt] = useState(0);
@@ -35,41 +47,43 @@ function App() {
   const [comboListScrollPosition, setComboListScrollPosition] = useState(0);
 
   return (
-    <Router>
-      <div className="App">
-        <div className="container-fluid">
-          <div className="row flex-nowrap">
-            <LeftNav sortOpt={sortOpt} setSortOpt={setSortOpt} setShowAboutPage={setShowAboutPage} />
-            <Div100vh className="main-column">
-              <TopNav sortOpt={sortOpt} setSortOpt={setSortOpt} setShowAboutPage={setShowAboutPage} />
-              <div className="main-column-content-wrapper">
-               <div id="content" className="main-column-content">
-                  <Routes>
-                    <Route path="/" element={<TrickList sortOpt={sortOpt} scrollPosition={trickListScrollPosition} setScrollPosition={setTrickListScrollPosition} userCombo={userCombo} setUserCombo={setUserCombo} />} />
-                    <Route path="/tricks/:id" element={<TrickDetails />} />
-                    <Route path="/combos/:id" element={<ComboDetails setUserCombo={setUserCombo} />} />
-                    <Route path="/posttrick" element={
-                      <ScrollToTop>
-                        <PostTrick />
-                      </ScrollToTop>
-                    } />
-                    <Route path="/postcombo" element={<PostCombo userCombo={userCombo} setUserCombo={setUserCombo}/>} />
-                    <Route path="/generator" element={<ComboGenerator difficultyRangeMax={difficultyRangeMax} randomCombo={randomCombo} setRandomCombo={setRandomCombo}/>} />
-                    <Route path="/combos" element={<ComboList sortOpt={sortOpt} scrollPosition={comboListScrollPosition} setScrollPosition={setComboListScrollPosition} />} />
-                    <Route path="/*" element={<NotFoundPage/>} />
-                  </Routes>
+    <I18nProvider i18n={i18n}>
+      <Router>
+        <div className="App">
+          <div className="container-fluid">
+            <div className="row flex-nowrap">
+              <LeftNav sortOpt={sortOpt} setSortOpt={setSortOpt} setShowAboutPage={setShowAboutPage} />
+              <Div100vh className="main-column">
+                <TopNav sortOpt={sortOpt} setSortOpt={setSortOpt} setShowAboutPage={setShowAboutPage} />
+                <div className="main-column-content-wrapper">
+                 <div id="content" className="main-column-content">
+                    <Routes>
+                      <Route path="/" element={<TrickList sortOpt={sortOpt} scrollPosition={trickListScrollPosition} setScrollPosition={setTrickListScrollPosition} userCombo={userCombo} setUserCombo={setUserCombo} />} />
+                      <Route path="/tricks/:id" element={<TrickDetails />} />
+                      <Route path="/combos/:id" element={<ComboDetails setUserCombo={setUserCombo} />} />
+                      <Route path="/posttrick" element={
+                        <ScrollToTop>
+                          <PostTrick />
+                        </ScrollToTop>
+                      } />
+                      <Route path="/postcombo" element={<PostCombo userCombo={userCombo} setUserCombo={setUserCombo}/>} />
+                      <Route path="/generator" element={<ComboGenerator difficultyRangeMax={difficultyRangeMax} randomCombo={randomCombo} setRandomCombo={setRandomCombo}/>} />
+                      <Route path="/combos" element={<ComboList sortOpt={sortOpt} scrollPosition={comboListScrollPosition} setScrollPosition={setComboListScrollPosition} />} />
+                      <Route path="/*" element={<NotFoundPage/>} />
+                    </Routes>
+                  </div>
+                  <Visibility visiblePages={[pages.TRICKLIST, pages.COMBOLIST]}>
+                    <FloatingActionButton setTrickListScrollPosition={setTrickListScrollPosition} setComboListScrollPosition={setComboListScrollPosition} setUserCombo={setUserCombo}/>
+                  </Visibility>
                 </div>
-                <Visibility visiblePages={[pages.TRICKLIST, pages.COMBOLIST]}>
-                  <FloatingActionButton setTrickListScrollPosition={setTrickListScrollPosition} setComboListScrollPosition={setComboListScrollPosition} setUserCombo={setUserCombo}/>
-                </Visibility>
-              </div>
-              <BottomNav />
-              {showAboutPage && <About showAboutPage={showAboutPage} setShowAboutPage={setShowAboutPage}/>}
-            </Div100vh>
+                <BottomNav />
+                {showAboutPage && <About showAboutPage={showAboutPage} setShowAboutPage={setShowAboutPage}/>}
+              </Div100vh>
+            </div>
           </div>
         </div>
-      </div>
-    </Router>
+      </Router>
+    </I18nProvider>
   );
 }
 
