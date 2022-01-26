@@ -103,15 +103,15 @@ const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
                 <>
                 <div className="col-12">
                   <div className="row">
-                    <small className="transition">{combo.tricks[index-1].endPos}</small>
+                    <p className="transition transition-text">{combo.tricks[index-1].endPos}</p>
                   </div>
                   <IconContext.Provider value={{ color: "grey" }}>
                     <div className="row">
-                      <BsArrowDown className="transition"/>
+                      <BsArrowDown className="transition" size={10}/>
                     </div>
                   </IconContext.Provider>
                   <div className="row">
-                    <small className="transition">{trick.startPos}</small>
+                    <p className="transition transition-text">{trick.startPos}</p>
                   </div>
                 </div>
                 <div className="col-12">

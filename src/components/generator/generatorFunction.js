@@ -9,6 +9,8 @@ export function findCombo(vars, retries) {
     startFromPosition,
     allowDuplicates,
     allowConsecutiveTricks,
+    allowSimilarPositions,
+    allowTransitions,
     finishToFeet,
     avgDifficulty,
     maxDifficulty
@@ -17,7 +19,7 @@ export function findCombo(vars, retries) {
   const isAnyComboConditionFulfilled = (index, lastTrick, currentTrick) => {
     const isFinishToFeetFulfilled = (currentTrick.endPos === "STAND" || currentTrick.endPos === "EXPOSURE") ? true : false;
     const isConsecutiveTricksFulfilled = ((allowDuplicates && allowConsecutiveTricks) || lastTrick !== currentTrick) ? true : false;
-    const isGeneralComboConstraintFulfilled = (arePositionsSimilar(currentTrick.startPos, lastTrick.endPos) || currentTrick.startPos === lastTrick.endPos) ? true : false;
+    const isGeneralComboConstraintFulfilled = ((allowSimilarPositions && arePositionsSimilar(currentTrick.startPos, lastTrick.endPos)) || currentTrick.startPos === lastTrick.endPos || allowTransitions) ? true : false;
     if (index === numberOfTricks - 1 && finishToFeet) {
       if (isGeneralComboConstraintFulfilled && isConsecutiveTricksFulfilled && isFinishToFeetFulfilled) {
         return true;
@@ -109,7 +111,7 @@ export function findCombo(vars, retries) {
   for (let i = 1; i < randomTricks.length; i++) {
     let prev = randomTricks[i - 1];
     let trick = randomTricks[i];
-    if (prev.endPos !== trick.startPos && !arePositionsSimilar(trick.startPos, prev.endPos)) {
+    if (prev.endPos !== trick.startPos && !arePositionsSimilar(trick.startPos, prev.endPos) && !allowTransitions) {
       return alert("trick generator is broken");
     }
   }

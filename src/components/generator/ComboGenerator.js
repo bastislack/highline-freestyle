@@ -21,6 +21,8 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
   const [numberOfTricks, setNumberOfTricks] = useState('');
   const [allowDuplicates, setAllowDuplicates] = useState(false);
   const [allowConsecutiveTricks, setConsecutiveTricks] = useState(false);
+  const [allowSimilarPositions, setAllowSimilarPositions] = useState(true);
+  const [allowTransitions, setAllowTransitions] = useState(false);
   const [avgDifficulty, setAvgDifficulty] = useState(-1);
   const [comboName, setComboName] = useState("Random #" + generatedCombosCount);
   const [startFromPosition, setStartFromPosition] = useState(positions.findIndex(item => item === "EXPOSURE"));
@@ -79,7 +81,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
     setRandomCombo(null);
 
     // find the combo with the given parameters
-    const randomTricks = findCombo([tricks, positions, numberOfTricks, startFromCheckbox, startFromPosition, allowDuplicates, allowConsecutiveTricks, finishToFeet, avgDifficulty, maxDifficulty]); 
+    const randomTricks = findCombo([tricks, positions, numberOfTricks, startFromCheckbox, startFromPosition, allowDuplicates, allowConsecutiveTricks, allowSimilarPositions, allowTransitions, finishToFeet, avgDifficulty, maxDifficulty]); 
 
     const { minDiff, maxDiff, avgDiff, totalDiff } = computeStats(randomTricks);
 
@@ -254,6 +256,29 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
                     className="form-check-input"
                     type="checkbox"
                     onChange={(e) => setConsecutiveTricks(e.target.checked)}
+                  />
+                </div>
+              </div>
+              <hr/>
+              <div className="form-row">
+                <div className="form-check form-check-inline">
+                  <label className="form-check-label">Allow similar positions</label>
+                  <input
+                    id="input_chkbx_similar_pos"
+                    checked={allowSimilarPositions}
+                    className="form-check-input"
+                    type="checkbox"
+                    onChange={(e) => setAllowSimilarPositions(e.target.checked)}
+                  />
+                </div>
+                <div className="form-check form-check-inline">
+                  <label className="form-check-label">Allow transitions</label>
+                  <input
+                    id="transitions"
+                    checked={allowTransitions}
+                    className="form-check-input"
+                    type="checkbox"
+                    onChange={(e) => setAllowTransitions(e.target.checked)}
                   />
                 </div>
               </div>
