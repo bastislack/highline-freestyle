@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useParams, useLocation, useNavigate, Link } from "react-router-dom";
 import { useLiveQuery } from "dexie-react-hooks";
 import EditButton from '../buttons/EditButton';
@@ -6,12 +7,15 @@ import { stickFrequencies } from '../../services/enums';
 import arePositionsSimilar from '../../logic/combos/similarPositions';
 import { BsArrowDown } from 'react-icons/bs';
 import { IconContext } from 'react-icons';
+import DeleteWarning from '../pop-ups/DeleteWarning';
 
 import Database from "../../services/db";
 const db = new Database();
 
 const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
-  console.log("ComboToShow:", comboToShow?.tricks);
+
+  const [showDeleteWarning, setShowDeleteWarning] = useState(false);
+
   const navigate = useNavigate();
   const path = useLocation().pathname.toString().toLowerCase();
   const params = useParams();
@@ -83,7 +87,7 @@ const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
             {!inGenerator && !inPostCombo &&
               <div className="col-4 justify-content-end">
                 <EditButton call={editCombo} />
-                <DeleteButton call={deleteCombo} />
+                <DeleteButton setShowDeleteWarning={setShowDeleteWarning}/>
               </div>
             }
           </div>
@@ -148,6 +152,7 @@ const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
               </div>
             </div>
           )}
+          {showDeleteWarning && <DeleteWarning showDeleteWarning={showDeleteWarning} setShowDeleteWarning={setShowDeleteWarning} itemName={combo.name} call={deleteCombo}/>}
         </article>
       )}
     </div>

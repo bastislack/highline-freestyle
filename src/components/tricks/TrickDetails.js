@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useParams } from "react-router-dom";
 import { useLiveQuery } from "dexie-react-hooks";
 import { useNavigate } from "react-router-dom";
@@ -5,11 +6,15 @@ import EditButton from '../buttons/EditButton';
 import DeleteButton from '../buttons/DeleteButton';
 import { stickFrequencies } from '../../services/enums';
 import YouTube from 'react-youtube';
+import DeleteWarning from '../pop-ups/DeleteWarning';
 
 import Database from "../../services/db";
 const db = new Database();
 
 const TrickDetails = () => {
+
+  const [showDeleteWarning, setShowDeleteWarning] = useState(false);
+
   const { id } = useParams();
 
   const navigate = useNavigate();
@@ -109,7 +114,7 @@ const TrickDetails = () => {
             </div>
 
             <div className="col-3" align="right">
-              <DeleteButton call={deleteTrick}/>
+              <DeleteButton setShowDeleteWarning={setShowDeleteWarning}/>
             </div>
           </div>
           {trick.alias && trick.technicalName &&
@@ -170,6 +175,7 @@ const TrickDetails = () => {
             </div>
           </div>
 
+          {showDeleteWarning && <DeleteWarning showDeleteWarning={showDeleteWarning} setShowDeleteWarning={setShowDeleteWarning} itemName={trick.alias || trick.technicalName} call={deleteTrick} />}
         </article>
       )}
     </div>
