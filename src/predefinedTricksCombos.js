@@ -220,7 +220,7 @@ export const predefinedTricks = `id,alias,technicalName,establishedBy,yearEstabl
 10223,,Nevermind 180,Sebastian Egger,2021,,,,NEVERMIND,EXPOSURE,4,Start as you would for a Nevermind but then use your foot that is in contact with the line to initiate a spin and do a 180 before you land in Exposure.,`;
 
 // increase this manualy if you update the predefinedCombos
-export const predefinedCombosVersion = 4;
+export const predefinedCombosVersion = 5;
 // predefinedCombos have to have an id above 10000
 export const predefinedCombos = `id,name,tricks,minDiff,maxDiff,avgDiff,totalDiff,numberOfTricks,establishedBy,yearEstablished,linkToVideo,comments,stickFrequency
 10000,Axel's standard combo end,10103;10119,6,7,6.5,13,2,Axel Weber,2020,,stick it,0
@@ -242,4 +242,7 @@ export const predefinedCombos = `id,name,tricks,minDiff,maxDiff,avgDiff,totalDif
 10016,Ana's favorite #1,10050;10119,4,7,5.5,11,2,Ana Lincoln,2021,,,0
 10017,Basti's favorite #1,10124;10143,8,8,8,16,2,Sebastian Egger,2021,https://www.instagram.com/p/CLJKI5yq5e_/,,0
 10018,Basti's favorite #2,10077;10071;10050;10223;10119,4,7,4.8,24,5,Sebastian Egger,2021,,,0
-10019,Basti's favorite #3,10063;10069;10120,4,7,5,15,3,Sebastian Egger,2021,https://youtu.be/qUxUNfgvoPs?t=112,,0`;
+10019,Basti's favorite #3,10063;10069;10120,4,7,5,15,3,Sebastian Egger,2021,https://youtu.be/qUxUNfgvoPs?t=112,,0
+10020,Backward buttery baguette,10053;10069;10143,4,8,5.33,16,3,Tlaloc Moctezuma-Burns,2021,,,0
+10021,Tlaloc's favorite #1,10089;10199;10120,4,7,5.33,16,3,Tlaloc Moctezuma-Burns,2021,,,0
+10022,Tlaloc's favorite #2,10080;10079;10042;10104,3,6,4.75,19,4,Tlaloc Moctezume-Burns,2021,,,0`;
