@@ -63,7 +63,7 @@ At the time of writing we support two separate languages; English and Spanish. T
 1. Wrap the text in a `<Trans>` tag and give it a meaningful id, so `example to translate` becomes `<Trans id="example.somethingToTranslate">example to translate</Trans>`.
 2. `npm run extract`.
 3. Edit `src/locales/es/messages.po` and fill in the missing translation.
-4. `npm run compile`.
+4. Reload the page.
 
 The id helps to keep the translations organised where a general rule would be to have a categor (e.g. links or languages) followed by a full-stop and then something describing the text. This also helps to avoid having multiple translations with the same key.
 
