@@ -105,27 +105,31 @@
 }
 
 .skillFreq[freq="1"] {
-  background: #f038ff;
-}
-
-.skillFreq[freq="2"] {
   background: #fe2712;
 }
 
+.skillFreq[freq="2"] {
+  background: #ff751f;
+}
+
 .skillFreq[freq="3"] {
-  background: #ffa500;
+  background: #ffc32b;
 }
 
 .skillFreq[freq="4"] {
-  background: #fefe33;
+  background: #ffee38;
 }
 
 .skillFreq[freq="5"] {
-  background: #39ff14;
+  background: #aee93f;
 }
 
 .skillFreq[freq="6"] {
-  background: #357ded;
+  background: #62db9d;
+}
+
+.skillFreq[freq="7"] {
+  background: #16ccfa;
 }
 
 .link-to-trick {
