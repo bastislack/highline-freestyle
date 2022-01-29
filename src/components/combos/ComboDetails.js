@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useParams, useLocation, useNavigate, Link } from "react-router-dom";
 import { useLiveQuery } from "dexie-react-hooks";
 import EditButton from '../buttons/EditButton';
+import AddButton from '../buttons/AddButton';
 import DeleteButton from '../buttons/DeleteButton';
 import { stickFrequencies } from '../../services/enums';
 import arePositionsSimilar from '../../logic/combos/similarPositions';
@@ -131,7 +132,7 @@ const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
             }
           </div>
 
-          {addTrickToCombo && <button onClick={addTrickToCombo}>+</button>}
+          {addTrickToCombo && <AddButton call={addTrickToCombo} />}
 
           <div className="row">
             <h4>Combo stats:</h4>

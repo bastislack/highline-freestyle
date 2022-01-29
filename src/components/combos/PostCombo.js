@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import computeStats from '../../logic/combos/computeStats';
 import { stickFrequencies, positions } from '../../services/enums';
 import ComboDetails from './ComboDetails';
+import AddButton from '../buttons/AddButton';
 
 import Database from "../../services/db";
 const db = new Database();
@@ -108,7 +109,7 @@ const PostCombo = ({ userCombo, setUserCombo }) => {
       <h2>{preCombo ? "Update combo" : "Add a new combo"}</h2>
 
       {userCombo && <ComboDetails comboToShow={userCombo} addTrickToCombo={addTrickToCombo}/>}
-      {!userCombo && <button onClick={addTrickToCombo}>+</button>}
+      {!userCombo && <AddButton call={addTrickToCombo} />}
 
       <form onSubmit={handleSubmit} className="">
         <div className="row form-row">
