@@ -96,7 +96,7 @@ const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
           <div className="row">
             {combo.tricks.map((trick, index) => {
               return(index === 0 || (index > 0 && (arePositionsSimilar(trick.startPos, combo.tricks[index-1].endPos) || trick.startPos === combo.tricks[index-1].endPos)) ? 
-                <div className="col-12">
+                <div className="col-12" key={index}>
                   <Link className="link-to-trick " to={`/tricks/${trick.id}`} key={"trick" + trick.id} >
                     <button className="btn trick-preview skillFreq" freq={trick.stickFrequency}>
                       <h2>{trick.alias || trick.technicalName}</h2>
@@ -106,7 +106,7 @@ const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
                 :
               index > 0 && (!arePositionsSimilar(trick.startPos, combo.tricks[index-1].endPos) || trick.startPos !== combo.tricks[index-1].endPos) ?
                 <>
-                <div className="col-12">
+                <div className="col-12" key={index}>
                   <div className="row">
                     <p className="transition transition-text">{combo.tricks[index-1].endPos}</p>
                   </div>
