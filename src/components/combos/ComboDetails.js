@@ -6,9 +6,10 @@ import AddButton from '../buttons/AddButton';
 import DeleteButton from '../buttons/DeleteButton';
 import { stickFrequencies } from '../../services/enums';
 import arePositionsSimilar from '../../logic/combos/similarPositions';
-import { BsArrowDown } from 'react-icons/bs';
+import { BsArrowDown, BsTrashFill } from 'react-icons/bs';
 import { IconContext } from 'react-icons';
 import DeleteWarning from '../pop-ups/DeleteWarning';
+import computeStats from '../../logic/combos/computeStats';
 
 import Database from "../../services/db";
 const db = new Database();
@@ -77,14 +78,56 @@ const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
     navigate("/postcombo", { state: { preCombo: combo }});
   }
 
+  const removeTrickFromCombo = (index) => {
+    combo.tricks.splice(index,1);
+    if (combo.tricks.length > 0) {
+      const { minDiff, maxDiff, avgDiff, totalDiff, numberOfTricks } = computeStats(combo.tricks);
+      setUserCombo({
+        ...comboToShow,
+        tricks: combo.tricks,
+        minDiff: minDiff,
+        maxDiff: maxDiff,
+        avgDiff: avgDiff,
+        totalDiff: totalDiff,
+        numberOfTricks: numberOfTricks,
+      });
+    } else {
+      setUserCombo(null);
+    }
+  }
+
+  const getTrickDiv = (trick, index) => {
+    return(
+      <>
+      <div className={!inPostCombo ? "col-12" : "col-9"} key={"trick" + trick.id}>
+        <Link className="link-to-trick " to={`/tricks/${trick.id}`} key={"trick" + trick.id} >
+          <button className="btn trick-preview skillFreq" freq={trick.stickFrequency}>
+            <h2>{trick.alias || trick.technicalName}</h2>
+          </button>
+        </Link>
+      </div>
+      {inPostCombo &&
+        <div className="col-2">
+          <button className="btn btn-danger" onClick={() => removeTrickFromCombo(index)}>
+            <BsTrashFill/>
+          </button>
+        </div>
+      }
+      </>
+    );
+  }
+
+
   return (
     <div className="container">
       {combo && (
         <article>
           <div className="row">
-            <div className="col-8">
-              <h2>{combo.name}</h2>
-            </div>
+            {!inPostCombo &&
+              <div className="col-8">
+                <h2>{combo.name}</h2>
+              </div>
+            }
             {!inGenerator && !inPostCombo &&
               <div className="col-4 justify-content-end">
                 <EditButton call={editCombo} />
@@ -96,17 +139,12 @@ const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
           <div className="row">
             {combo.tricks.map((trick, index) => {
               return(index === 0 || (index > 0 && (arePositionsSimilar(trick.startPos, combo.tricks[index-1].endPos) || trick.startPos === combo.tricks[index-1].endPos)) ? 
-                <div className="col-12" key={index}>
-                  <Link className="link-to-trick " to={`/tricks/${trick.id}`} key={"trick" + trick.id} >
-                    <button className="btn trick-preview skillFreq" freq={trick.stickFrequency}>
-                      <h2>{trick.alias || trick.technicalName}</h2>
-                    </button>
-                  </Link>
-                </div>
+                  getTrickDiv(trick,index)
+                
                 :
               index > 0 && (!arePositionsSimilar(trick.startPos, combo.tricks[index-1].endPos) || trick.startPos !== combo.tricks[index-1].endPos) ?
                 <>
-                <div className="col-12" key={index}>
+                <div className={!inPostCombo ? "col-12" : "col-9"} key={index}>
                   <div className="row">
                     <p className="transition transition-text">{combo.tricks[index-1].endPos}</p>
                   </div>
@@ -119,13 +157,7 @@ const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
                     <p className="transition transition-text">{trick.startPos}</p>
                   </div>
                 </div>
-                <div className="col-12">
-                  <Link className="link-to-trick " to={`/tricks/${trick.id}`} key={"trick" + trick.id} >
-                    <button className="btn trick-preview skillFreq" freq={trick.stickFrequency}>
-                      <h2>{trick.alias || trick.technicalName}</h2>
-                    </button>
-                  </Link>
-                </div>
+                {getTrickDiv(trick,index)}
                 </>
                 : null);
             })

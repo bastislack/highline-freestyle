@@ -108,7 +108,7 @@ const PostCombo = ({ userCombo, setUserCombo }) => {
     <div className="post">
       <h2>{preCombo ? "Update combo" : "Add a new combo"}</h2>
 
-      {userCombo && <ComboDetails comboToShow={userCombo} addTrickToCombo={addTrickToCombo}/>}
+      {userCombo && <ComboDetails setUserCombo={setUserCombo} comboToShow={userCombo} addTrickToCombo={addTrickToCombo}/>}
       {!userCombo && <AddButton call={addTrickToCombo} />}
 
       <form onSubmit={handleSubmit} className="">

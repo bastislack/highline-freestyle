@@ -109,7 +109,7 @@ const TrickList = ({ sortOpt, scrollPosition, setScrollPosition, userCombo, setU
 
   return (
     <div className="row">
-      {addTrickToCombo && <h2 style={{'font-weight': 'bold'}}>Add trick to combo</h2>}
+      {addTrickToCombo && <h2 style={{'fontWeight': 'bold'}}>Add trick to combo</h2>}
       <input
         className="form-control"
         type="search"
