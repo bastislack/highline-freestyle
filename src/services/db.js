@@ -92,13 +92,19 @@ export default class Database {
 
   // get list of all tricks
   getTricksByIds = (ids) => {
-    return this.db.userTricks.where("id").anyOf(ids).toArray().then((userTricks) => {
-      const userKeys = userTricks.map(trick => trick.id);
-      // query all only predefinedTricks which don't have the same id as the userTricks
-      // and concat these to the userTricks
-      // also filter out tricks which are marked deleted
-      return this.db.predefinedTricks.where("id").anyOf(ids).and(trick => !userKeys.includes(trick.id)).toArray().then(preTricks => preTricks.concat(userTricks.filter(trick => !trick.deleted)));
-    });
+    let result = [];
+    for (let i = 0; i < ids.length; i++) {
+      result.push(
+        this.db.userTricks.where("id").equals(ids[i]).last().then((userTrick) => {
+          if (userTrick) {
+            return userTrick.deleted ? null : userTrick;
+          } else {
+            return this.db.predefinedTricks.where("id").equals(ids[i]).last();
+          }
+        })
+      );
+    }
+    return result;
   };
 
   // get list of tricks by difficulty and stickFrequency
@@ -166,7 +172,8 @@ export default class Database {
 
   // fill a combo, which has only ids as tricks with the tricks
   fillComboWithTricks = (combo) => {
-    return this.getTricksByIds(combo.tricks).then(tricksInCombo => {
+    return Promise.all(this.getTricksByIds(combo.tricks)).then(tricksInCombo => {
+      tricksInCombo = tricksInCombo.filter(trick => trick);
       let comboWithTricks = combo;
       // change the order of the tricks to the original one
       comboWithTricks.tricks = tricksInCombo.sort((a,b) => combo.tricks.indexOf(a.id) - combo.tricks.indexOf(b.id));
