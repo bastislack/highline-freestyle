@@ -36,7 +36,6 @@ const ComboList = ({ sortOpt, scrollPosition, setScrollPosition }) => {
             <h3>{combo.name}</h3>
             {combo.boostSkill && (
               <>
-              <br/>
               <IoRocketSharp />
               </>)}
           </button>

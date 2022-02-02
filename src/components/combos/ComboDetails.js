@@ -7,6 +7,7 @@ import DeleteButton from '../buttons/DeleteButton';
 import { stickFrequencies } from '../../services/enums';
 import arePositionsSimilar from '../../logic/combos/similarPositions';
 import { BsArrowDown, BsTrashFill } from 'react-icons/bs';
+import { IoRocketSharp } from 'react-icons/io5';
 import { IconContext } from 'react-icons';
 import DeleteWarning from '../pop-ups/DeleteWarning';
 import computeStats from '../../logic/combos/computeStats';
@@ -117,6 +118,14 @@ const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
     );
   }
 
+  const toggleBoostSkill = () => {
+    combo.boostSkill ? combo.boostSkill = false : combo.boostSkill = true;
+    db.saveCombo(combo).then(res => {
+      console.log("changed boost");
+    }).catch(e => {
+      console.log(e);
+    });
+  }
 
   return (
     <div className="container">
@@ -186,6 +195,10 @@ const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
             </div>
           )}
           {showDeleteWarning && <DeleteWarning showDeleteWarning={showDeleteWarning} setShowDeleteWarning={setShowDeleteWarning} itemName={combo.name} call={deleteCombo}/>}
+
+          <div className="boostSkill row justify-content-center">
+            <button className={combo.boostSkill ? "col-8 col-lg-3 col-xl-2 btn btn-warning" : "col-8 col-lg-3 col-xl-2 btn btn-primary" } onClick={toggleBoostSkill}>{combo.boostSkill ? "Unboost this combo" : (<><IoRocketSharp/> Boost this combo</>)}</button>
+          </div>
         </article>
       )}
     </div>

@@ -7,6 +7,7 @@ import DeleteButton from '../buttons/DeleteButton';
 import { stickFrequencies } from '../../services/enums';
 import YouTube from 'react-youtube';
 import DeleteWarning from '../pop-ups/DeleteWarning';
+import { IoRocketSharp } from 'react-icons/io5';
 
 import Database from "../../services/db";
 const db = new Database();
@@ -102,6 +103,15 @@ const TrickDetails = () => {
     navigate('/');
   };
 
+  const toggleBoostSkill = () => {
+    trick.boostSkill ? trick.boostSkill = false : trick.boostSkill = true;
+    db.saveTrick(trick).then(res => {
+      console.log("changed boost");
+    }).catch(e => {
+      console.log(e);
+    });
+  }
+
   return (
     <div className="trick-details">
       {trick && (
@@ -173,6 +183,10 @@ const TrickDetails = () => {
             <div onChange={selectFreq}>
               {freqList}
             </div>
+          </div>
+
+          <div className="boostSkill row justify-content-center">
+            <button className={trick.boostSkill ? "col-8 col-lg-3 col-xl-2 btn btn-warning" : "col-8 col-lg-3 col-xl-2 btn btn-primary" } onClick={toggleBoostSkill}>{trick.boostSkill ? "Unboost this trick" : (<><IoRocketSharp/> Boost this trick</>)}</button>
           </div>
 
           {showDeleteWarning && <DeleteWarning showDeleteWarning={showDeleteWarning} setShowDeleteWarning={setShowDeleteWarning} itemName={trick.alias || trick.technicalName} call={deleteTrick} />}
