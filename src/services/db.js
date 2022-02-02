@@ -10,12 +10,12 @@ export default class Database {
 
     this.db = new Dexie("db");
 
-    this.db.version(2).stores({
+    this.db.version(3).stores({
       // to keep track of all the versions
       versions: "key,version",
       // this is the table for the "predefined" tricks, the id's will start from 10000 onwards
-      predefinedTricks: "id,alias,technicalName,establishedBy,yearEstablished,linkToVideo,videoStartTime,videoEndTime,startPos,endPos,difficultyLevel,description,tips,stickFrequency",
-      userTricks: "++id,alias,technicalName,establishedBy,yearEstablished,linkToVideo,videoStartTime,videoEndTime,startPos,endPos,difficultyLevel,description,tips,stickFrequency,deleted",
+      predefinedTricks: "id,alias,technicalName,establishedBy,yearEstablished,linkToVideo,videoStartTime,videoEndTime,startPos,endPos,difficultyLevel,description,tips,stickFrequency,*recommendedPrerequisites",
+      userTricks: "++id,alias,technicalName,establishedBy,yearEstablished,linkToVideo,videoStartTime,videoEndTime,startPos,endPos,difficultyLevel,description,tips,stickFrequency,*recommendedPrerequisites,deleted",
       predefinedCombos: "id, name, *tricks, minDiff, maxDiff, avgDiff, totalDiff, numberOfTricks, establishedBy, yearEstablished, linkToVideo, comments, stickFrequency",
       userCombos: "++id, name, *tricks, minDiff, maxDiff, avgDiff, totalDiff, numberOfTricks, establishedBy, yearEstablished, linkToVideo, comments, stickFrequency, deleted"
     });
@@ -64,6 +64,16 @@ export default class Database {
             return ({[v]: trick[i]})
           })
       );});
+
+      //this turns the list of recommendedPrerequisites (which are separated by an ;) into an Array
+      const tricksRecommendsAsList = tricks.map(trick => {
+        if (typeof trick.recommendedPrerequisites === "string") {
+          var newTrick = trick;
+          newTrick.recommendedPrerequisites = trick.recommendedPrerequisites.split(";").map(string => Number(string));
+          return newTrick;
+        }
+        return trick
+      })
 
       // adds the tricks to the database
       this.db.predefinedTricks.bulkPut(tricks).then(() => {
