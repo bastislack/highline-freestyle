@@ -58,7 +58,6 @@ const TrickDetails = () => {
           end: trick.videoEndTime
         }
       }
-      
     }
     else if (trick.linkToVideo.includes("instagram")) {
       // "https://www.instagram.com/p/<videoID>/embed
@@ -74,11 +73,7 @@ const TrickDetails = () => {
   }
 
   const restartVideo = (e) => {
-    e.target.loadVideoById({
-      videoId: youtubeId,
-      startSeconds: trick.videoStartTime,
-      endSeconds: trick.videoEndTime
-    });
+    e.target.seekTo(trick.videoStartTime ?? 0);
   }
 
   const editTrick = () => navigate("/posttrick",{state: {preTrick:trick}});
