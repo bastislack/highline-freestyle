@@ -19,6 +19,20 @@ export default class Database {
       predefinedCombos: "id, name, *tricks, minDiff, maxDiff, avgDiff, totalDiff, numberOfTricks, establishedBy, yearEstablished, linkToVideo, comments, stickFrequency, boostSkill",
       userCombos: "++id, name, *tricks, minDiff, maxDiff, avgDiff, totalDiff, numberOfTricks, establishedBy, yearEstablished, linkToVideo, comments, stickFrequency, deleted, boostSkill"
     });
+    this.db.version(5).stores().upgrade(tx => {
+      return tx.table("userTricks").toCollection().modify(trick => {
+        if (trick.stickFrequency === 5 || trick.stickFrequency === 6) {
+          trick.stickFrequency += 1;
+        }
+      })
+    });
+    this.db.version(6).stores().upgrade(tx => {
+      return tx.table("userCombos").toCollection().modify(combo => {
+        if (combo.stickFrequency === 5 || combo.stickFrequency === 6) {
+          combo.stickFrequency += 1;
+        }
+      })
+    });
 
     // count the tricks in the database and populate it if its empty
     this.db.versions.get("predefinedTricksVersion").then( ret => {
