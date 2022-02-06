@@ -125,7 +125,23 @@ export default class Database {
   };
 
   // create or update userTrick
-  saveTrick = (trick) => this.db.userTricks.put(trick);
+  saveTrick = (trick) => {
+    if (trick.id) return this.db.userTricks.put(trick);
+    else {
+      return this.db.predefinedTricks.toCollection().primaryKeys().then( (trickKeys) => {
+        this.db.userTricks.toCollection().primaryKeys().then( userTrickKeys => {
+          const keysSet = new Set(trickKeys.concat(userTrickKeys));
+          for (var key = 0; key < 10000; key++) {
+            if (!keysSet.has(key)) {
+              trick.id = key;
+              this.db.userTricks.put(trick)
+              break;
+            }
+          }
+        })
+      });
+    }
+  };
 
   // delete trick
   deleteTrick = (id) => this.db.userTricks.put({"id": Number(id), deleted: true});
@@ -200,13 +216,27 @@ export default class Database {
 
   // create or update userCombo
   saveCombo = (combo) => {
-    if (isNaN(combo.tricks[0])) {
-      const trickNumbers = combo.tricks.map(trick => trick.id);
-      var comboWithNumbers = combo;
-      comboWithNumbers.tricks = trickNumbers;
-      return this.db.userCombos.put(comboWithNumbers);
+    if (combo.id) return this.db.userCombos.put(combo);
+    else {
+      return this.db.predefinedCombos.toCollection().primaryKeys().then( (comboKeys) => {
+        this.db.userCombos.toCollection().primaryKeys().then( userComboKey => {
+          const keysSet = new Set(comboKeys.concat(userComboKey));
+          for (var key = 0; key < 10000; key++) {
+            if (!keysSet.has(key)) {
+              combo.id = key;
+              if (isNaN(combo.tricks[0])) {
+                const trickNumbers = combo.tricks.map(trick => trick.id);
+                var comboWithNumbers = combo;
+                comboWithNumbers.tricks = trickNumbers;
+                this.db.userCombos.put(comboWithNumbers);
+              }
+              else this.db.userCombos.put(combo);
+              break;
+            }
+          }
+        })
+      });
     }
-    else return this.db.userCombos.put(combo);
   };
 
   // delete combo
