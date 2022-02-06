@@ -4,7 +4,7 @@ import { useLiveQuery } from "dexie-react-hooks";
 import EditButton from '../buttons/EditButton';
 import AddButton from '../buttons/AddButton';
 import DeleteButton from '../buttons/DeleteButton';
-import { stickFrequencies } from '../../services/enums';
+import FreqList from '../misc/FreqList';
 import arePositionsSimilar from '../../logic/combos/similarPositions';
 import { BsArrowDown, BsTrashFill } from 'react-icons/bs';
 import { IoRocketSharp } from 'react-icons/io5';
@@ -41,14 +41,6 @@ const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
   const combo = useLiveQuery(() => queryFunc(), [comboToShow]);
 
   if (!combo) { return null; } else { console.log("ComboAfterQuery:",combo.tricks); }
-
-  const freqList = stickFrequencies.map((item, i) => {
-    return (
-      <label className="skillFreq" freq={i} key={i}>
-        <input type="radio" value={i} name="stickFrequency" checked={(combo.stickFrequency === i)} readOnly={true} /> {item}
-      </label>
-    )
-  });
 
   const selectFreq = (e) => {
     const newFreq = Number(e.target.value);
@@ -186,12 +178,10 @@ const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
 
           {!inGenerator && !inPostCombo && (
             <div className="row">
-              <div className="skillFreq">
                 <h4>Set your success frequency:</h4>
                 <div onChange={selectFreq}>
-                  {freqList}
+                  <FreqList stickable={combo}/>
                 </div>
-              </div>
             </div>
           )}
           {showDeleteWarning && <DeleteWarning showDeleteWarning={showDeleteWarning} setShowDeleteWarning={setShowDeleteWarning} itemName={combo.name} call={deleteCombo}/>}

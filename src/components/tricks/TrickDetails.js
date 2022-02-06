@@ -4,7 +4,7 @@ import { useLiveQuery } from "dexie-react-hooks";
 import { useNavigate } from "react-router-dom";
 import EditButton from '../buttons/EditButton';
 import DeleteButton from '../buttons/DeleteButton';
-import { stickFrequencies } from '../../services/enums';
+import FreqList from '../misc/FreqList';
 import YouTube from 'react-youtube';
 import DeleteWarning from '../pop-ups/DeleteWarning';
 import { IoRocketSharp } from 'react-icons/io5';
@@ -24,14 +24,6 @@ const TrickDetails = () => {
   if (!trick) return null
 
   console.log(trick);
-
-  const freqList = stickFrequencies.map((item, i) => {
-    return (
-      <label className="skillFreq form-check" freq={i} key={i}>
-        <input className="form-check-input" type="radio" value={i} name="stickFrequency" checked={(trick.stickFrequency === i)} readOnly={true} /> {item}
-      </label>
-    )
-  });
 
   const selectFreq = (e) => {
     const newFreq = Number(e.target.value);
@@ -179,10 +171,11 @@ const TrickDetails = () => {
             </div>
           }
 
-          <div className="skillFreq">Set your success frequency:
-            <div onChange={selectFreq}>
-              {freqList}
-            </div>
+          <div className="row">
+              <h4>Set your success frequency:</h4>
+              <div onChange={selectFreq}>
+                <FreqList stickable={trick}/>
+              </div>
           </div>
 
           <div className="boostSkill row justify-content-center">
