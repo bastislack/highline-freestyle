@@ -23,6 +23,19 @@ const TrickDetails = () => {
 
   const trick = useLiveQuery(() => db.getTrick(id), []);
   if (!trick) return null
+  if (trick.recommendedPrerequisites) {
+    if (!Array.isArray(trick.recommendedPrerequisites)) {
+      trick.recommendedPrerequisites = [trick.recommendedPrerequisites];
+    }
+    let promises = trick.recommendedPrerequisites.map(trickId => {
+      return db.getTrick(trickId).then(trick => {
+        return trick;
+      });
+    });
+    Promise.all(promises).then(tricks => { trick.recommendedPrerequisites = tricks;});
+  }
+
+  
 
   console.log(trick);
 
@@ -167,11 +180,28 @@ const TrickDetails = () => {
             </div>
           }
 
+          {trick.recommendedPrerequisites?.map(recommendedTrick => {
+            if(recommendedTrick){
+              return (
+                <div key={recommendedTrick.id} className="trick-container col-12">
+                  <button className="btn trick-preview skillFreq" freq={recommendedTrick.stickFrequency} onClick={() => {navigate(`/tricks/${recommendedTrick.id}`);}}>
+                    {recommendedTrick.alias || recommendedTrick.technicalName}
+                    {recommendedTrick.boostSkill && (
+                      <>
+                      <br/>
+                      <IoRocketSharp />
+                      </>)}
+                  </button>
+                </div>
+              );
+            }
+          })}
+
           <div className="row">
-              <h4>Set your success frequency:</h4>
-              <div onChange={selectFreq}>
-                <FreqList stickable={trick}/>
-              </div>
+            <h4>Set your success frequency:</h4>
+            <div onChange={selectFreq}>
+              <FreqList stickable={trick}/>
+            </div>
           </div>
 
           <div className="boostSkill row justify-content-center">
