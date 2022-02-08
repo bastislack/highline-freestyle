@@ -80,14 +80,13 @@ export default class Database {
       );});
 
       //this turns the list of recommendedPrerequisites (which are separated by an ;) into an Array
-      const tricksRecommendsAsList = tricks.map(trick => {
+      tricks.map(trick => {
         if (typeof trick.recommendedPrerequisites === "string") {
-          var newTrick = trick;
-          newTrick.recommendedPrerequisites = trick.recommendedPrerequisites.split(";").map(string => Number(string));
-          return newTrick;
+          trick.recommendedPrerequisites = trick.recommendedPrerequisites.split(";").map(string => Number(string));
+        } else if (typeof trick.recommendedPrerequisites === "number") {
+          trick.recommendedPrerequisites = [trick.recommendedPrerequisites];
         }
-        return trick
-      })
+      });
 
       // adds the tricks to the database
       this.db.predefinedTricks.bulkPut(tricks).then(() => {

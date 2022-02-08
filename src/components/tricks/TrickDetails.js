@@ -23,15 +23,12 @@ const TrickDetails = () => {
   const trick = useLiveQuery(() => db.getTrick(id), []);
   if (!trick) return null
   if (trick.recommendedPrerequisites) {
-    if (!Array.isArray(trick.recommendedPrerequisites)) {
-      trick.recommendedPrerequisites = [trick.recommendedPrerequisites];
-    }
-    let promises = trick.recommendedPrerequisites.map(trickId => {
-      return db.getTrick(trickId).then(trick => {
-        return trick;
+    let promises = trick.recommendedPrerequisites.map(recTrickId => {
+      return db.getTrick(recTrickId).then(recTrick => {
+        return recTrick;
       });
     });
-    Promise.all(promises).then(tricks => { trick.recommendedPrerequisites = tricks;});
+    Promise.all(promises).then(recTricks => { trick.recommendedPrerequisites = recTricks;});
   }
 
   
