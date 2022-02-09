@@ -27,7 +27,7 @@ const PostCombo = ({ userCombo, setUserCombo }) => {
     return preCombo ? preCombo.establishedBy : "";
   });
   const [yearEstablished, setYearEstablished] = useState(() => {
-    return preCombo ? preCombo.yearEstablished : null;
+    return preCombo ? preCombo.yearEstablished : new Date().getFullYear();
   });
   const [linkToVideo, setLinkToVideo] = useState(() => {
     return preCombo ? preCombo.linkToVideo : "";
