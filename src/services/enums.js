@@ -1,9 +1,10 @@
 export const stickFrequencies = [
   "Never tried",
   "Work in progress",
-  "Only once",
+  "Once",
   "Rarely",
   "Sometimes",
+  "Often",
   "Generally",
   "Always"
 ];

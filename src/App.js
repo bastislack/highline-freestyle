@@ -15,6 +15,7 @@ import Visibility from './components/containers/Visibility';
 import ScrollToTop from './components/containers/ScrollToTop';
 import About from './components/pages/About';
 import NotFoundPage from './components/pages/NotFoundPage';
+import ResetWarning from './components/pop-ups/ResetWarning';
 import FloatingActionButton from './components/buttons/FloatingActionButton';
 import Div100vh from 'react-div-100vh'
 
@@ -28,6 +29,7 @@ function App() {
   const [randomCombo, setRandomCombo] = useState(null);
   // Boolean to check if About page should be rendered
   const [showAboutPage, setShowAboutPage] = useState(false);
+  const [showResetWarning, setShowResetWarning] = useState(false);
   // User made combo in postCombo screen
   const [userCombo, setUserCombo] = useState(null);
 
@@ -41,7 +43,7 @@ function App() {
           <div className="row flex-nowrap">
             <LeftNav sortOpt={sortOpt} setSortOpt={setSortOpt} setShowAboutPage={setShowAboutPage} />
             <Div100vh className="main-column">
-              <TopNav sortOpt={sortOpt} setSortOpt={setSortOpt} setShowAboutPage={setShowAboutPage} />
+              <TopNav sortOpt={sortOpt} setSortOpt={setSortOpt} setShowAboutPage={setShowAboutPage} setShowResetWarning={setShowResetWarning} />
               <div className="main-column-content-wrapper">
                <div id="content" className="main-column-content">
                   <Routes>
@@ -65,6 +67,7 @@ function App() {
               </div>
               <BottomNav />
               {showAboutPage && <About showAboutPage={showAboutPage} setShowAboutPage={setShowAboutPage}/>}
+              {showResetWarning && <ResetWarning showResetWarning={showResetWarning} setShowResetWarning={setShowResetWarning}/>}
             </Div100vh>
           </div>
         </div>

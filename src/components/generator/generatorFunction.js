@@ -1,3 +1,5 @@
+import arePositionsSimilar from '../../logic/combos/similarPositions';
+
 export function findCombo(vars, retries) {
   const [
     tricks,
@@ -7,23 +9,17 @@ export function findCombo(vars, retries) {
     startFromPosition,
     allowDuplicates,
     allowConsecutiveTricks,
+    allowSimilarPositions,
+    allowTransitions,
     finishToFeet,
     avgDifficulty,
     maxDifficulty
   ] = vars;
 
-  const arePositionsSimilar = (startPos, endPos) => {
-    if ((startPos === "KOREAN" && (endPos === "CHEST" || endPos === "BACK")) || (startPos === "CHEST" && endPos === "KOREAN") || (startPos === "BACK" && endPos === "KOREAN") || (startPos === "EXPOSURE" && endPos === "STAND") || (startPos === "STAND" && endPos === "EXPOSURE") || (startPos === "BELLY" && endPos === "CHEST") || (startPos === "CHEST" && endPos === "BELLY")) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   const isAnyComboConditionFulfilled = (index, lastTrick, currentTrick) => {
     const isFinishToFeetFulfilled = (currentTrick.endPos === "STAND" || currentTrick.endPos === "EXPOSURE") ? true : false;
     const isConsecutiveTricksFulfilled = ((allowDuplicates && allowConsecutiveTricks) || lastTrick !== currentTrick) ? true : false;
-    const isGeneralComboConstraintFulfilled = (arePositionsSimilar(currentTrick.startPos, lastTrick.endPos) || currentTrick.startPos === lastTrick.endPos) ? true : false;
+    const isGeneralComboConstraintFulfilled = ((allowSimilarPositions && arePositionsSimilar(currentTrick.startPos, lastTrick.endPos)) || currentTrick.startPos === lastTrick.endPos || allowTransitions) ? true : false;
     if (index === numberOfTricks - 1 && finishToFeet) {
       if (isGeneralComboConstraintFulfilled && isConsecutiveTricksFulfilled && isFinishToFeetFulfilled) {
         return true;
@@ -115,7 +111,7 @@ export function findCombo(vars, retries) {
   for (let i = 1; i < randomTricks.length; i++) {
     let prev = randomTricks[i - 1];
     let trick = randomTricks[i];
-    if (prev.endPos !== trick.startPos && !arePositionsSimilar(trick.startPos, prev.endPos)) {
+    if (prev.endPos !== trick.startPos && !arePositionsSimilar(trick.startPos, prev.endPos) && !allowTransitions) {
       return alert("trick generator is broken");
     }
   }

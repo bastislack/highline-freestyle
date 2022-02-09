@@ -46,7 +46,7 @@ const PostTrick = () => {
     return preTrick ? preTrick.tips : "";
   });
   const [stickFrequency, setStickFrequency] = useState(() => {
-    return preTrick ? preTrick.stickFrequency : "";
+    return preTrick ? preTrick.stickFrequency : 0;
   });
 
   var preId;
@@ -77,7 +77,7 @@ const PostTrick = () => {
     db.saveTrick(trick)
     .then(() => {
       console.log(trick);
-      navigate('/');
+      setTimeout(() => {navigate('/')}, 1);
     })
   }
 
@@ -206,7 +206,7 @@ const PostTrick = () => {
           </div>
           <div className="col-md-6">
             <label className="">Stick Frequency:</label>
-            <select className="form-select" onChange={(e) => setStickFrequency(e.target.value)}>
+            <select className="form-select" onChange={(e) => setStickFrequency(Number(e.target.value))}>
               {freqList}
             </select>
           </div>

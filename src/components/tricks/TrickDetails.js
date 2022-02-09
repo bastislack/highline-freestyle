@@ -1,15 +1,21 @@
+import { useState } from 'react';
 import { useParams } from "react-router-dom";
 import { useLiveQuery } from "dexie-react-hooks";
 import { useNavigate } from "react-router-dom";
 import EditButton from '../buttons/EditButton';
 import DeleteButton from '../buttons/DeleteButton';
-import { stickFrequencies } from '../../services/enums';
+import FreqList from '../misc/FreqList';
 import YouTube from 'react-youtube';
+import DeleteWarning from '../pop-ups/DeleteWarning';
+import { IoRocketSharp } from 'react-icons/io5';
 
 import Database from "../../services/db";
 const db = new Database();
 
 const TrickDetails = () => {
+
+  const [showDeleteWarning, setShowDeleteWarning] = useState(false);
+
   const { id } = useParams();
 
   const navigate = useNavigate();
@@ -18,14 +24,6 @@ const TrickDetails = () => {
   if (!trick) return null
 
   console.log(trick);
-
-  const freqList = stickFrequencies.map((item, i) => {
-    return (
-      <label className="skillFreq form-check" freq={i} key={i}>
-        <input className="form-check-input" type="radio" value={i} name="stickFrequency" checked={(trick.stickFrequency === i)} readOnly={true} /> {item}
-      </label>
-    )
-  });
 
   const selectFreq = (e) => {
     const newFreq = Number(e.target.value);
@@ -60,7 +58,6 @@ const TrickDetails = () => {
           end: trick.videoEndTime
         }
       }
-      
     }
     else if (trick.linkToVideo.includes("instagram")) {
       // "https://www.instagram.com/p/<videoID>/embed
@@ -76,11 +73,7 @@ const TrickDetails = () => {
   }
 
   const restartVideo = (e) => {
-    e.target.loadVideoById({
-      videoId: youtubeId,
-      startSeconds: trick.videoStartTime,
-      endSeconds: trick.videoEndTime
-    });
+    e.target.seekTo(trick.videoStartTime ?? 0);
   }
 
   const editTrick = () => navigate("/posttrick",{state: {preTrick:trick}});
@@ -97,6 +90,15 @@ const TrickDetails = () => {
     navigate('/');
   };
 
+  const toggleBoostSkill = () => {
+    trick.boostSkill ? trick.boostSkill = false : trick.boostSkill = true;
+    db.saveTrick(trick).then(res => {
+      console.log("changed boost");
+    }).catch(e => {
+      console.log(e);
+    });
+  }
+
   return (
     <div className="trick-details">
       {trick && (
@@ -109,7 +111,7 @@ const TrickDetails = () => {
             </div>
 
             <div className="col-3" align="right">
-              <DeleteButton call={deleteTrick}/>
+              <DeleteButton setShowDeleteWarning={setShowDeleteWarning}/>
             </div>
           </div>
           {trick.alias && trick.technicalName &&
@@ -164,12 +166,18 @@ const TrickDetails = () => {
             </div>
           }
 
-          <div className="skillFreq">Set your success frequency:
-            <div onChange={selectFreq}>
-              {freqList}
-            </div>
+          <div className="row">
+              <h4>Set your success frequency:</h4>
+              <div onChange={selectFreq}>
+                <FreqList stickable={trick}/>
+              </div>
           </div>
 
+          <div className="boostSkill row justify-content-center">
+            <button className={trick.boostSkill ? "col-8 col-lg-3 col-xl-2 btn btn-warning" : "col-8 col-lg-3 col-xl-2 btn btn-primary" } onClick={toggleBoostSkill}>{trick.boostSkill ? "Unboost this trick" : (<><IoRocketSharp/> Boost this trick</>)}</button>
+          </div>
+
+          {showDeleteWarning && <DeleteWarning showDeleteWarning={showDeleteWarning} setShowDeleteWarning={setShowDeleteWarning} itemName={trick.alias || trick.technicalName} call={deleteTrick} />}
         </article>
       )}
     </div>

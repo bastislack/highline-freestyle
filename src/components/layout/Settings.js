@@ -5,10 +5,7 @@ import { BsGearFill } from 'react-icons/bs';
 import { useLocation } from 'react-router-dom';
 import { trickSortingSchemes, comboSortingSchemes } from '../../services/sortingSchemes';
 
-import Database from "../../services/db";
-const db = new Database();
-
-const Settings = ({ sortOpt, setSortOpt, setShowAboutPage }) => {
+const Settings = ({ sortOpt, setSortOpt, setShowAboutPage, setShowResetWarning }) => {
 
   const path = useLocation().pathname.toString().toLowerCase();
 
@@ -27,8 +24,8 @@ const Settings = ({ sortOpt, setSortOpt, setShowAboutPage }) => {
       <MenuDivider />
       </>
     }
-      <MenuItem onClick={db.dropUserTricks} >Reset all tricks</MenuItem>
-      <MenuItem onClick={db.dropUserCombos} >Reset all combos</MenuItem>
+      <MenuItem onClick={() => setShowResetWarning("tricks")} >Reset all tricks</MenuItem>
+      <MenuItem onClick={() => setShowResetWarning("combos")} >Reset all combos</MenuItem>
       <MenuItem onClick={() => setShowAboutPage(true)} >About</MenuItem>
     </Menu>
   );

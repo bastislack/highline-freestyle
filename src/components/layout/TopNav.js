@@ -7,7 +7,7 @@ import InstallButton from "../../components/buttons/InstallButton";
 import { parentPageOf } from '../../services/parentPage';
 import Settings from '../../components/layout/Settings';
 
-const TopNav = ({ sortOpt, setSortOpt, setShowAboutPage }) => {
+const TopNav = ({ sortOpt, setSortOpt, setShowAboutPage, setShowResetWarning }) => {
   const parentPage = parentPageOf(useLocation().pathname.toString().toLowerCase());
 
   return <Navbar variant="dark" expand="lg" className="top-navigation">
@@ -23,7 +23,8 @@ const TopNav = ({ sortOpt, setSortOpt, setShowAboutPage }) => {
         <Settings
           sortOpt={sortOpt}
           setSortOpt={setSortOpt}
-          setShowAboutPage={setShowAboutPage} />
+          setShowAboutPage={setShowAboutPage}
+          setShowResetWarning={setShowResetWarning} />
       </div>
     </Container>
   </Navbar>;
