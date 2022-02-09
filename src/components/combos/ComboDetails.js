@@ -186,9 +186,11 @@ const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
           )}
           {showDeleteWarning && <DeleteWarning showDeleteWarning={showDeleteWarning} setShowDeleteWarning={setShowDeleteWarning} itemName={combo.name} call={deleteCombo}/>}
 
-          <div className="boostSkill row justify-content-center">
-            <button className={combo.boostSkill ? "col-8 col-lg-3 col-xl-2 btn btn-warning" : "col-8 col-lg-3 col-xl-2 btn btn-primary" } onClick={toggleBoostSkill}>{combo.boostSkill ? "Unboost this combo" : (<><IoRocketSharp/> Boost this combo</>)}</button>
-          </div>
+          {!inGenerator && !inPostCombo && (
+            <div className="boostSkill row justify-content-center">
+              <button className={combo.boostSkill ? "col-8 col-lg-3 col-xl-2 btn btn-warning" : "col-8 col-lg-3 col-xl-2 btn btn-primary" } onClick={toggleBoostSkill}>{combo.boostSkill ? "Unboost this combo" : (<><IoRocketSharp/> Boost this combo</>)}</button>
+            </div>
+          )}
         </article>
       )}
     </div>
