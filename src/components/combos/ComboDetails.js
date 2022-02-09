@@ -45,6 +45,8 @@ const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
   const selectFreq = (e) => {
     const newFreq = Number(e.target.value);
     combo.stickFrequency = newFreq;
+    // replace tricks by their id
+    combo.tricks = combo.tricks.map(trick => trick.id);
     db.saveCombo(combo)
       .then(res => {
         console.log("changed stickFrequency");

@@ -230,12 +230,14 @@ export default class Database {
 
   // create or update userCombo
   saveCombo = (combo) => {
-    if (combo.id) return this.db.userCombos.put(combo);
+    if (combo.id) {
+      return this.db.userCombos.put(combo);
+    }
     else {
       return this.db.predefinedCombos.toCollection().primaryKeys().then( (comboKeys) => {
         this.db.userCombos.toCollection().primaryKeys().then( userComboKey => {
           const keysSet = new Set(comboKeys.concat(userComboKey));
-          for (var key = 0; key < 10000; key++) {
+          for (var key = 1; key < 10000; key++) {
             if (!keysSet.has(key)) {
               combo.id = key;
               if (isNaN(combo.tricks[0])) {
