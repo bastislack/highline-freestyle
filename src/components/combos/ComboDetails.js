@@ -114,6 +114,7 @@ const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
 
   const toggleBoostSkill = () => {
     combo.boostSkill ? combo.boostSkill = false : combo.boostSkill = true;
+    combo.tricks = combo.tricks.map(trick => trick.id);
     db.saveCombo(combo).then(res => {
       console.log("changed boost");
     }).catch(e => {

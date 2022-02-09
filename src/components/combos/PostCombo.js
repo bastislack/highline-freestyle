@@ -62,6 +62,8 @@ const PostCombo = ({ userCombo, setUserCombo }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    userCombo.tricks = userCombo.tricks.map(trick => trick.id);
+
     const combo = {
       id: preId,
       tricks: userCombo.tricks,
@@ -77,7 +79,8 @@ const PostCombo = ({ userCombo, setUserCombo }) => {
       totalDiff: userCombo.totalDiff,
       numberOfTricks: userCombo.numberOfTricks,
       comments: comments,
-      stickFrequency: stickFrequency
+      stickFrequency: stickFrequency,
+      boostSkill: userCombo.boostSkill
     };
     
     setUserCombo(null);
