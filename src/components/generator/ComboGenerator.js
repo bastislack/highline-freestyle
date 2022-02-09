@@ -195,7 +195,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
                   className="form-check-input"
                   type="checkbox"
                   onClick={(e) => {
-                    if (e.target.checked) setAvgDifficulty(maxDifficulty / 2);
+                    if (e.target.checked) setAvgDifficulty(minDifficulty + (maxDifficulty - minDifficulty) / 2);
                     else setAvgDifficulty(-1);
                   }}
                 />
@@ -203,9 +203,9 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
                   disabled={avgDifficulty == -1}
                   className="form-range"
                   onChange={(e) => setAvgDifficulty(e.target.value)}
-                  min="1"
+                  min={minDifficulty}
                   max={maxDifficulty}
-                  defaultValue={maxDifficulty / 2}
+                  defaultValue={minDifficulty + (maxDifficulty - minDifficulty) / 2}
                   step="0.5"
                   id="avgDifficultyRange" />
               </div>
