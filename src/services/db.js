@@ -145,7 +145,7 @@ export default class Database {
       return this.db.predefinedTricks.toCollection().primaryKeys().then( (trickKeys) => {
         this.db.userTricks.toCollection().primaryKeys().then( userTrickKeys => {
           const keysSet = new Set(trickKeys.concat(userTrickKeys));
-          for (var key = 0; key < 10000; key++) {
+          for (var key = 1; key < 10000; key++) {
             if (!keysSet.has(key)) {
               trick.id = key;
               this.db.userTricks.put(trick)
