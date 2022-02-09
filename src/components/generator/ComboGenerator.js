@@ -72,7 +72,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
     // Increment number of generated combos by 1 so all the combos have unique names
     setGeneratedCombosCount(generatedCombosCount + 1);
     setRandomCombo(null);
-    navigate("/combos");
+    setTimeout(() => {navigate("/combos")}, 100);
   };
 
 
