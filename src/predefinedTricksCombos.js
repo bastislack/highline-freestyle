@@ -1,5 +1,5 @@
 // increase this manualy if you update the predefinedTricks
-export const predefinedTricksVersion = 5;
+export const predefinedTricksVersion = 6;
 // predefinedTricks have to have an id above 10000
 export const predefinedTricks = `id,alias,technicalName,establishedBy,yearEstablished,linkToVideo,videoStartTime,videoEndTime,startPos,endPos,difficultyLevel,description,tips,recommendedPrerequisites
 10000,,Panic Roll,Jediah Doohan,,https://www.youtube.com/watch?v=pZihozjqHfc,,,SOFA,KOREAN,2,From Sofa you spin 270 to land in Korean (or Chest) and combine it with a roll around the line.,Sit in Sofa position grab the line to the side of you with hands facing behind you. On the way up dive down where your hands are and roll around the line. Land in Korean or Chest.,10225
@@ -149,7 +149,7 @@ export const predefinedTricks = `id,alias,technicalName,establishedBy,yearEstabl
 10152,,180 Darth Vader,Ian Eisenberg,2021,https://youtu.be/HecUpHXRpDw?t=218,218,234,HANG,EXPOSURE,9,Darth Vader with a 180.,,10132
 10153,,180 Front Almighty Flip,Ian Eisenberg,2021,https://youtu.be/n2z3IyeQSj4?t=88,88,105,EXPOSURE,EXPOSURE,9,Do a 180 and then go into a Front Almighty Flip.,,10124
 10154,,Double Barrel Roll,Justin Wagers,2021,https://www.youtube.com/watch?v=VP49hErTqM0&t=415,415,419,STAND,STAND,9,Double Barrel Roll.,,10139
-10155,Chrysalis,Frontroll from Feet to Feet,Nick Day,2021,https://youtu.be/eUJJvpkp4pM?t=55,55,63,STAND,STAND,9,In one bounce do a Frontroll starting from Feet and landing back to Feet.,Longer lines allow for more time to execute the trick.,10080;10231
+10155,Chrysalis,Frontroll from Feet to Feet,Nick Day,2021,https://www.youtube.com/watch?v=8fqUe9ZQvAc,,,STAND,STAND,9,In one bounce do a Frontroll starting from Feet and landing back to Feet.,Longer lines allow for more time to execute the trick.,10080;10231
 10156,Turtle Roll,Double Yoda Roll,Pablo Signoret,,https://www.youtube.com/watch?v=VP49hErTqM0&t=420,420,423,EXPOSURE,EXPOSURE,9,Two Yoda Rolls in one bounce.,,10107
 10157,,Fake 360 Front Almighty Flip,Sebastian Egger,2021,https://www.instagram.com/p/COPXx5vtOBy/,,,STAND,STAND,9,Starting in switch stance you do a 270 spin and go into a Front Almighty Flip in the end turn 90 to look back at the same anchor where you started.,,10153
 10158,Overflow,270 Yoda Roll Fake 90,Tim Odermatt,2021,https://www.instagram.com/p/CSHcZfUFG9H/,,,STAND,STAND,9,From your regular stance do a frontside 270 and roll around the line like you would for a Flowflip. Try to land back in your normal stance and not in Exposure.,,10171
@@ -162,7 +162,7 @@ export const predefinedTricks = `id,alias,technicalName,establishedBy,yearEstabl
 10165,Holy Grail,Barrel Almighty Flip to Barrel Roll,Davis Hermes,2021,https://youtu.be/UdG4DNI0SNk?t=92,92,97,STAND,STAND,11,Start by doing a Barrel Almighty Flip and go for a second roll by grabbing the line and doing a Barrel Roll.,,10154
 10166,,Darth Vader from Feet,Ian Eisenberg,2021,https://youtu.be/HecUpHXRpDw?t=436,436,452,EXPOSURE,EXPOSURE,11,Start in Expo and roll down until you are under the line. Then do a Darth Vader.,,10132
 10167,,Double Back Almighty Flip,Sebastian Egger,2021,https://youtu.be/HecUpHXRpDw?t=547,547,567,EXPOSURE,EXPOSURE,11,Double Back Almighty Flip,Do the first one laid out and tuck for the second one to get good momentum.; Try to get the hook at your ankle. If the line is near your toes it's hard to pull it around for the second roll.,10150;10143
-10168,,Double Front Almighty Flip,Sebastian Egger,2021,https://youtu.be/HecUpHXRpDw?t=780,780,814,EXPOSURE,EXPOSURE,11,Double Front Almighty Flip.,Stay open for the first one and tuck for the second one to get good momentum.,10156;10124
+10168,,Double Front Almighty Flip,Sebastian Egger,2021,https://youtu.be/HecUpHXRpDw?t=780,780,793,EXPOSURE,EXPOSURE,11,Double Front Almighty Flip.,Stay open for the first one and tuck for the second one to get good momentum.,10156;10124
 10169,,Back Can of Soup,Ian Eisenberg,2021,https://youtu.be/IDYpoOE8Kq8?t=32,32,37,SOUP,STAND,4,From One Leg Sit you roll to the side in the direction of your leg that is hanging down and land to Feet in normal stance.,,
 10170,Despedido,Back Korean Roll 360 to Chest,David Palomo,2021,https://www.youtube.com/watch?v=7yLCyoHgUS0&t=1036,1036,1040,KOREAN,CHEST,7,It's a Back Korean Roll and a 360 at the same time.,,
 10171,,180 Front Yoda Roll,Ian Eisenberg,2021,https://youtu.be/Ab2gW1rv5e8?t=22,22,33,EXPOSURE,EXPOSURE,8,From Exposure do a 180 and during the spin go into the Yoda Roll.,,10119
