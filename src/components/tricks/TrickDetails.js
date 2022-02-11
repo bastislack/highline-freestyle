@@ -6,6 +6,7 @@ import EditButton from '../buttons/EditButton';
 import DeleteButton from '../buttons/DeleteButton';
 import FreqList from '../misc/FreqList';
 import YouTube from 'react-youtube';
+import { Trans } from '@lingui/macro'
 import DeleteWarning from '../pop-ups/DeleteWarning';
 import { IoRocketSharp } from 'react-icons/io5';
 
@@ -129,7 +130,7 @@ const TrickDetails = () => {
 
           {(trick.difficultyLevel >= 0) &&
             <div>
-              <h3>Level: </h3>
+              <h3><Trans id="trickDetails.level">Level</Trans>: </h3>
               <div className="callout">{trick.difficultyLevel}</div>
             </div>
           }

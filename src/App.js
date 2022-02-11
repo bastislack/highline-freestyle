@@ -21,8 +21,6 @@ import Div100vh from 'react-div-100vh'
 
 
 function App() {
-
-
   // Sorting Options for the tricklist
   const [sortOpt, setSortOpt] = useState(0);
   // Randomly generated combo shown on the generator screen

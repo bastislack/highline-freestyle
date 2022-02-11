@@ -1,0 +1,1 @@
+/*eslint-disable*/module.exports={messages:{"languages.english":"English","languages.spanish":"Spanish","links.comboGenerator":"Combo Generator","links.combos":"Combos","links.tricks":"Tricks","trickDetails.level":"Level"}};

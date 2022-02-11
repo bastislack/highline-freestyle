@@ -4,6 +4,8 @@ import '@szhsin/react-menu/dist/transitions/slide.css';
 import { BsGearFill } from 'react-icons/bs';
 import { useLocation } from 'react-router-dom';
 import { trickSortingSchemes, comboSortingSchemes } from '../../services/sortingSchemes';
+import { useLingui } from "@lingui/react"
+import LanguageSelector from "../buttons/LanguageSelector"
 
 const Settings = ({ sortOpt, setSortOpt, setShowAboutPage, setShowResetWarning }) => {
 
@@ -24,8 +26,10 @@ const Settings = ({ sortOpt, setSortOpt, setShowAboutPage, setShowResetWarning }
       <MenuDivider />
       </>
     }
+
       <MenuItem onClick={() => setShowResetWarning("tricks")} >Reset all tricks</MenuItem>
       <MenuItem onClick={() => setShowResetWarning("combos")} >Reset all combos</MenuItem>
+      <MenuItem><LanguageSelector /></MenuItem>
       <MenuItem onClick={() => setShowAboutPage(true)} >About</MenuItem>
     </Menu>
   );
