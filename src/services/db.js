@@ -10,14 +10,28 @@ export default class Database {
 
     this.db = new Dexie("db");
 
-    this.db.version(2).stores({
+    this.db.version(4).stores({
       // to keep track of all the versions
       versions: "key,version",
       // this is the table for the "predefined" tricks, the id's will start from 10000 onwards
-      predefinedTricks: "id,alias,technicalName,establishedBy,yearEstablished,linkToVideo,videoStartTime,videoEndTime,startPos,endPos,difficultyLevel,description,tips,stickFrequency",
-      userTricks: "++id,alias,technicalName,establishedBy,yearEstablished,linkToVideo,videoStartTime,videoEndTime,startPos,endPos,difficultyLevel,description,tips,stickFrequency,deleted",
-      predefinedCombos: "id, name, *tricks, minDiff, maxDiff, avgDiff, totalDiff, numberOfTricks, establishedBy, yearEstablished, linkToVideo, comments, stickFrequency",
-      userCombos: "++id, name, *tricks, minDiff, maxDiff, avgDiff, totalDiff, numberOfTricks, establishedBy, yearEstablished, linkToVideo, comments, stickFrequency, deleted"
+      predefinedTricks: "id,alias,technicalName,establishedBy,yearEstablished,linkToVideo,videoStartTime,videoEndTime,startPos,endPos,difficultyLevel,description,tips,stickFrequency,*recommendedPrerequisites,boostSkill",
+      userTricks: "++id,alias,technicalName,establishedBy,yearEstablished,linkToVideo,videoStartTime,videoEndTime,startPos,endPos,difficultyLevel,description,tips,stickFrequency,*recommendedPrerequisites,deleted,boostSkill",
+      predefinedCombos: "id, name, *tricks, minDiff, maxDiff, avgDiff, totalDiff, numberOfTricks, establishedBy, yearEstablished, linkToVideo, comments, stickFrequency, boostSkill",
+      userCombos: "++id, name, *tricks, minDiff, maxDiff, avgDiff, totalDiff, numberOfTricks, establishedBy, yearEstablished, linkToVideo, comments, stickFrequency, deleted, boostSkill"
+    });
+    this.db.version(5).stores().upgrade(tx => {
+      return tx.table("userTricks").toCollection().modify(trick => {
+        if (trick.stickFrequency === 5 || trick.stickFrequency === 6) {
+          trick.stickFrequency += 1;
+        }
+      })
+    });
+    this.db.version(6).stores().upgrade(tx => {
+      return tx.table("userCombos").toCollection().modify(combo => {
+        if (combo.stickFrequency === 5 || combo.stickFrequency === 6) {
+          combo.stickFrequency += 1;
+        }
+      })
     });
 
     // count the tricks in the database and populate it if its empty
@@ -65,6 +79,16 @@ export default class Database {
           })
       );});
 
+      //this turns the list of recommendedPrerequisites (which are separated by an ;) into an Array
+      const tricksRecommendsAsList = tricks.map(trick => {
+        if (typeof trick.recommendedPrerequisites === "string") {
+          var newTrick = trick;
+          newTrick.recommendedPrerequisites = trick.recommendedPrerequisites.split(";").map(string => Number(string));
+          return newTrick;
+        }
+        return trick
+      })
+
       // adds the tricks to the database
       this.db.predefinedTricks.bulkPut(tricks).then(() => {
         console.log("added tricks to database from the csv");
@@ -92,28 +116,46 @@ export default class Database {
 
   // get list of all tricks
   getTricksByIds = (ids) => {
-    return this.db.userTricks.where("id").anyOf(ids).toArray().then((userTricks) => {
-      const userKeys = userTricks.map(trick => trick.id);
-      // query all only predefinedTricks which don't have the same id as the userTricks
-      // and concat these to the userTricks
-      // also filter out tricks which are marked deleted
-      return this.db.predefinedTricks.where("id").anyOf(ids).and(trick => !userKeys.includes(trick.id)).toArray().then(preTricks => preTricks.concat(userTricks.filter(trick => !trick.deleted)));
-    });
+    let result = [];
+    for (let i = 0; i < ids.length; i++) {
+      result.push(
+        this.db.userTricks.where("id").equals(ids[i]).last().then((userTrick) => {
+          if (userTrick) {
+            return userTrick.deleted ? null : userTrick;
+          } else {
+            return this.db.predefinedTricks.where("id").equals(ids[i]).last();
+          }
+        })
+      );
+    }
+    return result;
   };
 
-  // get list of tricks by difficulty and stickFrequency
   getTricksByDiffAndByFreq = (diffLevels, stickFreqs) => {
-    return this.db.userTricks.where("difficultyLevel").anyOf(diffLevels).and(trick => stickFreqs.includes(trick.stickFrequency)).toArray().then((userTricks) => {
-      const userKeys = userTricks.map(trick => trick.id);
-      // query all only predefinedTricks which don't have the same id as the userTricks
-      // and concat these to the userTricks
-      // also filter out tricks which are marked deleted
-      return this.db.predefinedTricks.where("difficultyLevel").anyOf(diffLevels).and(trick => stickFreqs.includes(trick.stickFrequency)).and(trick => !userKeys.includes(trick.id)).toArray().then(preTricks => preTricks.concat(userTricks.filter(trick => !trick.deleted)));
+    return this.db.userTricks.toArray().then(userTricks => {
+      userTricks = userTricks.filter(trick => { return ((diffLevels.includes(trick.difficultyLevel) && stickFreqs.includes(trick.stickFrequency)) || trick.deleted);});
+      return this.db.predefinedTricks.where("difficultyLevel").anyOf(diffLevels).and(trick => stickFreqs.includes(trick.stickFrequency)).and(trick => !userTricks.map(trick => trick.id).includes(trick.id)).toArray().then(preTricks => preTricks.concat(userTricks.filter(trick => !trick.deleted)));
     });
   };
 
   // create or update userTrick
-  saveTrick = (trick) => this.db.userTricks.put(trick);
+  saveTrick = (trick) => {
+    if (trick.id) return this.db.userTricks.put(trick);
+    else {
+      return this.db.predefinedTricks.toCollection().primaryKeys().then( (trickKeys) => {
+        this.db.userTricks.toCollection().primaryKeys().then( userTrickKeys => {
+          const keysSet = new Set(trickKeys.concat(userTrickKeys));
+          for (var key = 1; key < 10000; key++) {
+            if (!keysSet.has(key)) {
+              trick.id = key;
+              this.db.userTricks.put(trick)
+              break;
+            }
+          }
+        })
+      });
+    }
+  };
 
   // delete trick
   deleteTrick = (id) => this.db.userTricks.put({"id": Number(id), deleted: true});
@@ -166,7 +208,8 @@ export default class Database {
 
   // fill a combo, which has only ids as tricks with the tricks
   fillComboWithTricks = (combo) => {
-    return this.getTricksByIds(combo.tricks).then(tricksInCombo => {
+    return Promise.all(this.getTricksByIds(combo.tricks)).then(tricksInCombo => {
+      tricksInCombo = tricksInCombo.filter(trick => trick);
       let comboWithTricks = combo;
       // change the order of the tricks to the original one
       comboWithTricks.tricks = tricksInCombo.sort((a,b) => combo.tricks.indexOf(a.id) - combo.tricks.indexOf(b.id));
@@ -187,13 +230,29 @@ export default class Database {
 
   // create or update userCombo
   saveCombo = (combo) => {
-    if (isNaN(combo.tricks[0])) {
-      const trickNumbers = combo.tricks.map(trick => trick.id);
-      var comboWithNumbers = combo;
-      comboWithNumbers.tricks = trickNumbers;
-      return this.db.userCombos.put(comboWithNumbers);
+    if (combo.id) {
+      return this.db.userCombos.put(combo);
     }
-    else return this.db.userCombos.put(combo);
+    else {
+      return this.db.predefinedCombos.toCollection().primaryKeys().then( (comboKeys) => {
+        this.db.userCombos.toCollection().primaryKeys().then( userComboKey => {
+          const keysSet = new Set(comboKeys.concat(userComboKey));
+          for (var key = 1; key < 10000; key++) {
+            if (!keysSet.has(key)) {
+              combo.id = key;
+              if (isNaN(combo.tricks[0])) {
+                const trickNumbers = combo.tricks.map(trick => trick.id);
+                var comboWithNumbers = combo;
+                comboWithNumbers.tricks = trickNumbers;
+                this.db.userCombos.put(comboWithNumbers);
+              }
+              else this.db.userCombos.put(combo);
+              break;
+            }
+          }
+        })
+      });
+    }
   };
 
   // delete combo

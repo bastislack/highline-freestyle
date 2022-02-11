@@ -1,17 +1,24 @@
+import { useState } from 'react';
 import { useParams, useLocation, useNavigate, Link } from "react-router-dom";
 import { useLiveQuery } from "dexie-react-hooks";
 import EditButton from '../buttons/EditButton';
+import AddButton from '../buttons/AddButton';
 import DeleteButton from '../buttons/DeleteButton';
-import { stickFrequencies } from '../../services/enums';
+import FreqList from '../misc/FreqList';
 import arePositionsSimilar from '../../logic/combos/similarPositions';
-import { BsArrowDown } from 'react-icons/bs';
+import { BsArrowDown, BsTrashFill } from 'react-icons/bs';
+import { IoRocketSharp } from 'react-icons/io5';
 import { IconContext } from 'react-icons';
+import DeleteWarning from '../pop-ups/DeleteWarning';
+import computeStats from '../../logic/combos/computeStats';
 
 import Database from "../../services/db";
 const db = new Database();
 
 const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
-  console.log("ComboToShow:", comboToShow?.tricks);
+
+  const [showDeleteWarning, setShowDeleteWarning] = useState(false);
+
   const navigate = useNavigate();
   const path = useLocation().pathname.toString().toLowerCase();
   const params = useParams();
@@ -35,17 +42,11 @@ const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
 
   if (!combo) { return null; } else { console.log("ComboAfterQuery:",combo.tricks); }
 
-  const freqList = stickFrequencies.map((item, i) => {
-    return (
-      <label className="skillFreq" freq={i} key={i}>
-        <input type="radio" value={i} name="stickFrequency" checked={(combo.stickFrequency === i)} readOnly={true} /> {item}
-      </label>
-    )
-  });
-
   const selectFreq = (e) => {
     const newFreq = Number(e.target.value);
     combo.stickFrequency = newFreq;
+    // replace tricks by their id
+    combo.tricks = combo.tricks.map(trick => trick.id);
     db.saveCombo(combo)
       .then(res => {
         console.log("changed stickFrequency");
@@ -72,18 +73,69 @@ const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
     navigate("/postcombo", { state: { preCombo: combo }});
   }
 
+  const removeTrickFromCombo = (index) => {
+    combo.tricks.splice(index,1);
+    if (combo.tricks.length > 0) {
+      const { minDiff, maxDiff, avgDiff, totalDiff, numberOfTricks } = computeStats(combo.tricks);
+      setUserCombo({
+        ...comboToShow,
+        tricks: combo.tricks,
+        minDiff: minDiff,
+        maxDiff: maxDiff,
+        avgDiff: avgDiff,
+        totalDiff: totalDiff,
+        numberOfTricks: numberOfTricks,
+      });
+    } else {
+      setUserCombo(null);
+    }
+  }
+
+  const getTrickDiv = (trick, index) => {
+    return(
+      <>
+      <div className={!inPostCombo ? "col-12" : "col-9"} key={"trick" + trick.id}>
+        <Link className="link-to-trick " to={`/tricks/${trick.id}`} key={"trick" + trick.id} >
+          <button className="btn trick-preview skillFreq" freq={trick.stickFrequency}>
+            <h2>{trick.alias || trick.technicalName}</h2>
+          </button>
+        </Link>
+      </div>
+      {inPostCombo &&
+        <div className="col-2">
+          <button className="btn btn-danger" onClick={() => removeTrickFromCombo(index)}>
+            <BsTrashFill/>
+          </button>
+        </div>
+      }
+      </>
+    );
+  }
+
+  const toggleBoostSkill = () => {
+    combo.boostSkill ? combo.boostSkill = false : combo.boostSkill = true;
+    combo.tricks = combo.tricks.map(trick => trick.id);
+    db.saveCombo(combo).then(res => {
+      console.log("changed boost");
+    }).catch(e => {
+      console.log(e);
+    });
+  }
+
   return (
     <div className="container">
       {combo && (
         <article>
           <div className="row">
-            <div className="col-8">
-              <h2>{combo.name}</h2>
-            </div>
+            {!inPostCombo &&
+              <div className="col-8">
+                <h2>{combo.name}</h2>
+              </div>
+            }
             {!inGenerator && !inPostCombo &&
               <div className="col-4 justify-content-end">
                 <EditButton call={editCombo} />
-                <DeleteButton call={deleteCombo} />
+                <DeleteButton setShowDeleteWarning={setShowDeleteWarning}/>
               </div>
             }
           </div>
@@ -91,43 +143,32 @@ const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
           <div className="row">
             {combo.tricks.map((trick, index) => {
               return(index === 0 || (index > 0 && (arePositionsSimilar(trick.startPos, combo.tricks[index-1].endPos) || trick.startPos === combo.tricks[index-1].endPos)) ? 
-                <div className="col-12">
-                  <Link className="link-to-trick " to={`/tricks/${trick.id}`} key={"trick" + trick.id} >
-                    <button className="btn trick-preview skillFreq" freq={trick.stickFrequency}>
-                      <h2>{trick.alias || trick.technicalName}</h2>
-                    </button>
-                  </Link>
-                </div>
+                  getTrickDiv(trick,index)
+                
                 :
               index > 0 && (!arePositionsSimilar(trick.startPos, combo.tricks[index-1].endPos) || trick.startPos !== combo.tricks[index-1].endPos) ?
                 <>
-                <div className="col-12">
+                <div className={!inPostCombo ? "col-12" : "col-9"} key={index}>
                   <div className="row">
-                    <small className="transition">{combo.tricks[index-1].endPos}</small>
+                    <p className="transition transition-text">{combo.tricks[index-1].endPos}</p>
                   </div>
                   <IconContext.Provider value={{ color: "grey" }}>
                     <div className="row">
-                      <BsArrowDown className="transition"/>
+                      <BsArrowDown className="transition" size={10}/>
                     </div>
                   </IconContext.Provider>
                   <div className="row">
-                    <small className="transition">{trick.startPos}</small>
+                    <p className="transition transition-text">{trick.startPos}</p>
                   </div>
                 </div>
-                <div className="col-12">
-                  <Link className="link-to-trick " to={`/tricks/${trick.id}`} key={"trick" + trick.id} >
-                    <button className="btn trick-preview skillFreq" freq={trick.stickFrequency}>
-                      <h2>{trick.alias || trick.technicalName}</h2>
-                    </button>
-                  </Link>
-                </div>
+                {getTrickDiv(trick,index)}
                 </>
                 : null);
             })
             }
           </div>
 
-          {addTrickToCombo && <button onClick={addTrickToCombo}>+</button>}
+          {addTrickToCombo && <AddButton call={addTrickToCombo} />}
 
           <div className="row">
             <h4>Combo stats:</h4>
@@ -140,12 +181,17 @@ const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
 
           {!inGenerator && !inPostCombo && (
             <div className="row">
-              <div className="skillFreq">
                 <h4>Set your success frequency:</h4>
                 <div onChange={selectFreq}>
-                  {freqList}
+                  <FreqList stickable={combo}/>
                 </div>
-              </div>
+            </div>
+          )}
+          {showDeleteWarning && <DeleteWarning showDeleteWarning={showDeleteWarning} setShowDeleteWarning={setShowDeleteWarning} itemName={combo.name} call={deleteCombo}/>}
+
+          {!inGenerator && !inPostCombo && (
+            <div className="boostSkill row justify-content-center">
+              <button className={combo.boostSkill ? "col-8 col-lg-3 col-xl-2 btn btn-warning" : "col-8 col-lg-3 col-xl-2 btn btn-primary" } onClick={toggleBoostSkill}>{combo.boostSkill ? "Unboost this combo" : (<><IoRocketSharp/> Boost this combo</>)}</button>
             </div>
           )}
         </article>

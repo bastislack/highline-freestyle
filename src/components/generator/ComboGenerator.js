@@ -21,6 +21,8 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
   const [numberOfTricks, setNumberOfTricks] = useState('');
   const [allowDuplicates, setAllowDuplicates] = useState(false);
   const [allowConsecutiveTricks, setConsecutiveTricks] = useState(false);
+  const [allowSimilarPositions, setAllowSimilarPositions] = useState(true);
+  const [allowTransitions, setAllowTransitions] = useState(false);
   const [avgDifficulty, setAvgDifficulty] = useState(-1);
   const [comboName, setComboName] = useState("Random #" + generatedCombosCount);
   const [startFromPosition, setStartFromPosition] = useState(positions.findIndex(item => item === "EXPOSURE"));
@@ -28,7 +30,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
   const [consecutiveCheckbox, setConsecutiveCheckbox] = useState(false);
   const [startFromCheckbox, setStartFromCheckbox] = useState(false);
   const [difficultyWhitelist, setDifficultyWhitelist] = useState(Array.from({length: difficultyRangeMax}, (_, i) => i+1));
-  const [stickFrequencyWhitelist, setStickFrequencyWhitelist] = useState(Array.from(Array(7).keys()));
+  const [stickFrequencyWhitelist, setStickFrequencyWhitelist] = useState(Array.from({length: stickFrequencies.length - 1}, (_, i) => i+1));
   const [difficultyRangeMinMax, setDifficultyRangeMinMax] = useState([1, difficultyRangeMax]);
 
   const maxDifficulty = difficultyRangeMinMax[1];
@@ -70,7 +72,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
     // Increment number of generated combos by 1 so all the combos have unique names
     setGeneratedCombosCount(generatedCombosCount + 1);
     setRandomCombo(null);
-    navigate("/combos");
+    setTimeout(() => {navigate("/combos")}, 100);
   };
 
 
@@ -79,7 +81,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
     setRandomCombo(null);
 
     // find the combo with the given parameters
-    const randomTricks = findCombo([tricks, positions, numberOfTricks, startFromCheckbox, startFromPosition, allowDuplicates, allowConsecutiveTricks, finishToFeet, avgDifficulty, maxDifficulty]); 
+    const randomTricks = findCombo([tricks, positions, numberOfTricks, startFromCheckbox, startFromPosition, allowDuplicates, allowConsecutiveTricks, allowSimilarPositions, allowTransitions, finishToFeet, avgDifficulty, maxDifficulty]);
 
     const { minDiff, maxDiff, avgDiff, totalDiff } = computeStats(randomTricks);
 
@@ -114,26 +116,29 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
     let maxDiff = diffMinMax[1];
     let prevMinDiff = minDifficulty;
     let minDiff = diffMinMax[0];
-    if (prevMaxDiff > maxDiff) {
+
+    if (maxDiff < prevMaxDiff) {
       setDifficultyWhitelist(difficultyWhitelist.filter((level) => level <= maxDiff));
-    } else if (prevMaxDiff < maxDiff) {
-      let newDiffList = difficultyWhitelist;
+    } else if (maxDiff > prevMaxDiff) {
+      let newDiffList = [...difficultyWhitelist];
       for (let i = 1; i <= maxDiff - prevMaxDiff; i++) {
         newDiffList.push(prevMaxDiff + i);
       }
       console.log("newDiffList:", newDiffList);
       setDifficultyWhitelist(newDiffList);
-    } 
-    if (prevMinDiff < minDiff) {
+    }
+
+    if (minDiff > prevMinDiff) {
       setDifficultyWhitelist(difficultyWhitelist.filter((level) => level >= minDiff));
-    } else if (prevMinDiff > minDiff) {
-      let newDiffList = difficultyWhitelist;
+    } else if (minDiff < prevMinDiff) {
+      let newDiffList = [...difficultyWhitelist];
       for (let i = 1; i <=  prevMinDiff - minDiff; i++) {
         newDiffList.unshift(prevMinDiff - i);
       }
       console.log("newDiffList:", newDiffList);
       setDifficultyWhitelist(newDiffList);
-    } 
+    }
+
     if (maxDiff < 4 && finishToFeet) {
       console.log("toggle finish to Feet");
       setFinishToFeet(false);
@@ -154,7 +159,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
             type="number"
             required
             value={numberOfTricks}
-            onChange={(e) => setNumberOfTricks(parseInt(e.target.value))}
+            onChange={(e) => setNumberOfTricks(parseInt(e.target.value ?? '0'))}
           />
         </div>
         <div className="difficultyRangeGenerator">
@@ -190,7 +195,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
                   className="form-check-input"
                   type="checkbox"
                   onClick={(e) => {
-                    if (e.target.checked) setAvgDifficulty(maxDifficulty / 2);
+                    if (e.target.checked) setAvgDifficulty(minDifficulty + (maxDifficulty - minDifficulty) / 2);
                     else setAvgDifficulty(-1);
                   }}
                 />
@@ -198,9 +203,9 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
                   disabled={avgDifficulty == -1}
                   className="form-range"
                   onChange={(e) => setAvgDifficulty(e.target.value)}
-                  min="1"
+                  min={minDifficulty}
                   max={maxDifficulty}
-                  defaultValue={maxDifficulty / 2}
+                  defaultValue={minDifficulty + (maxDifficulty - minDifficulty) / 2}
                   step="0.5"
                   id="avgDifficultyRange" />
               </div>
@@ -254,6 +259,29 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
                     className="form-check-input"
                     type="checkbox"
                     onChange={(e) => setConsecutiveTricks(e.target.checked)}
+                  />
+                </div>
+              </div>
+              <hr/>
+              <div className="form-row">
+                <div className="form-check form-check-inline">
+                  <label className="form-check-label">Allow similar positions</label>
+                  <input
+                    id="input_chkbx_similar_pos"
+                    checked={allowSimilarPositions}
+                    className="form-check-input"
+                    type="checkbox"
+                    onChange={(e) => setAllowSimilarPositions(e.target.checked)}
+                  />
+                </div>
+                <div className="form-check form-check-inline">
+                  <label className="form-check-label">Allow transitions</label>
+                  <input
+                    id="transitions"
+                    checked={allowTransitions}
+                    className="form-check-input"
+                    type="checkbox"
+                    onChange={(e) => setAllowTransitions(e.target.checked)}
                   />
                 </div>
               </div>

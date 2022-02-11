@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import computeStats from '../../logic/combos/computeStats';
 import { stickFrequencies, positions } from '../../services/enums';
 import ComboDetails from './ComboDetails';
+import AddButton from '../buttons/AddButton';
 
 import Database from "../../services/db";
 const db = new Database();
@@ -26,7 +27,7 @@ const PostCombo = ({ userCombo, setUserCombo }) => {
     return preCombo ? preCombo.establishedBy : "";
   });
   const [yearEstablished, setYearEstablished] = useState(() => {
-    return preCombo ? preCombo.yearEstablished : null;
+    return preCombo ? preCombo.yearEstablished : new Date().getFullYear();
   });
   const [linkToVideo, setLinkToVideo] = useState(() => {
     return preCombo ? preCombo.linkToVideo : "";
@@ -61,6 +62,8 @@ const PostCombo = ({ userCombo, setUserCombo }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    userCombo.tricks = userCombo.tricks.map(trick => trick.id);
+
     const combo = {
       id: preId,
       tricks: userCombo.tricks,
@@ -76,7 +79,8 @@ const PostCombo = ({ userCombo, setUserCombo }) => {
       totalDiff: userCombo.totalDiff,
       numberOfTricks: userCombo.numberOfTricks,
       comments: comments,
-      stickFrequency: stickFrequency
+      stickFrequency: stickFrequency,
+      boostSkill: userCombo.boostSkill
     };
     
     setUserCombo(null);
@@ -84,7 +88,7 @@ const PostCombo = ({ userCombo, setUserCombo }) => {
     db.saveCombo(combo)
     .then(() => {
       console.log(combo);
-      navigate('/combos');
+      setTimeout(() => {navigate('/combos')}, 1);
     })
   }
 
@@ -107,8 +111,8 @@ const PostCombo = ({ userCombo, setUserCombo }) => {
     <div className="post">
       <h2>{preCombo ? "Update combo" : "Add a new combo"}</h2>
 
-      {userCombo && <ComboDetails comboToShow={userCombo} addTrickToCombo={addTrickToCombo}/>}
-      {!userCombo && <button onClick={addTrickToCombo}>+</button>}
+      {userCombo && <ComboDetails setUserCombo={setUserCombo} comboToShow={userCombo} addTrickToCombo={addTrickToCombo}/>}
+      {!userCombo && <AddButton call={addTrickToCombo} />}
 
       <form onSubmit={handleSubmit} className="">
         <div className="row form-row">
