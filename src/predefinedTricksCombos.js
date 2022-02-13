@@ -1,5 +1,5 @@
 // increase this manualy if you update the predefinedTricks
-export const predefinedTricksVersion = 5;
+export const predefinedTricksVersion = 6;
 // predefinedTricks have to have an id above 10000
 export const predefinedTricks = `id,alias,technicalName,establishedBy,yearEstablished,linkToVideo,videoStartTime,videoEndTime,startPos,endPos,difficultyLevel,description,tips,recommendedPrerequisites
 10000,,Panic Roll,Jediah Doohan,,https://www.youtube.com/watch?v=pZihozjqHfc,,,SOFA,KOREAN,2,From Sofa you spin 270 to land in Korean (or Chest) and combine it with a roll around the line.,Sit in Sofa position grab the line to the side of you with hands facing behind you. On the way up dive down where your hands are and roll around the line. Land in Korean or Chest.,10225
