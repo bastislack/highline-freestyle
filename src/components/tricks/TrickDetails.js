@@ -21,18 +21,21 @@ const TrickDetails = () => {
 
   const navigate = useNavigate();
 
-  const trick = useLiveQuery(() => db.getTrick(id), []);
-  if (!trick) return null
-  if (trick.recommendedPrerequisites) {
-    let promises = trick.recommendedPrerequisites.map(recTrickId => {
-      return db.getTrick(recTrickId).then(recTrick => {
-        return recTrick;
-      });
-    });
-    Promise.all(promises).then(recTricks => { trick.recommendedPrerequisites = recTricks;});
-  }
+  const trick = useLiveQuery(async () => {
+    const dbTrick = await db.getTrick(id);
+    const resolvedRecommendations = [];
 
-  
+    if (dbTrick.recommendedPrerequisites) {
+      await Promise.all (dbTrick.recommendedPrerequisites.map (async recommendedId => {
+        resolvedRecommendations.push(await db.getTrick(recommendedId));
+      }));
+    }
+
+    dbTrick.recommendedPrerequisites = resolvedRecommendations;
+    return dbTrick;
+  }, [id]);
+
+  if (!trick) return null;
 
   console.log(trick);
 
