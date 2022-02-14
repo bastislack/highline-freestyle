@@ -139,6 +139,10 @@ export default class Database {
 
   // create or update userTrick
   saveTrick = (trick) => {
+    if (trick.recommendedPrerequisites) {
+      // replace recTricks by their id
+      trick.recommendedPrerequisites = trick.recommendedPrerequisites.map(recTrick => recTrick.id);
+    }
     if (trick.id) return this.db.userTricks.put(trick);
     else {
       return this.db.predefinedTricks.toCollection().primaryKeys().then( (trickKeys) => {
