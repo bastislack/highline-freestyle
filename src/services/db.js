@@ -233,6 +233,7 @@ export default class Database {
 
   // create or update userCombo
   saveCombo = (combo) => {
+    combo.tricks = combo.tricks.map(trick => trick.id);
     if (combo.id) {
       return this.db.userCombos.put(combo);
     }
