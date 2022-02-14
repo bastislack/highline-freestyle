@@ -179,22 +179,26 @@ const TrickDetails = () => {
             </div>
           }
 
-          {trick.recommendedPrerequisites?.map(recommendedTrick => {
-            if(recommendedTrick){
-              return (
-                <div key={recommendedTrick.id} className="trick-container col-12">
-                  <button className="btn trick-preview skillFreq" freq={recommendedTrick.stickFrequency} onClick={() => {navigate(`/tricks/${recommendedTrick.id}`);}}>
-                    {recommendedTrick.alias || recommendedTrick.technicalName}
-                    {recommendedTrick.boostSkill && (
-                      <>
-                      <br/>
-                      <IoRocketSharp />
-                      </>)}
-                  </button>
-                </div>
-              );
-            }
-          })}
+          {trick.recommendedPrerequisites.length !== 0 &&
+            <div className="row">
+              <h4>Recommended Prerequisites:</h4>
+              {trick.recommendedPrerequisites.map(recommendedTrick => {
+              if(recommendedTrick){
+                return (
+                    <div key={recommendedTrick.id} className="trick-container col-12">
+                      <button className="btn trick-preview skillFreq" freq={recommendedTrick.stickFrequency} onClick={() => {navigate(`/tricks/${recommendedTrick.id}`);}}>
+                        {recommendedTrick.alias || recommendedTrick.technicalName}
+                        {recommendedTrick.boostSkill && (
+                          <>
+                          <br/>
+                          <IoRocketSharp />
+                          </>)}
+                      </button>
+                    </div>
+                );
+              }})}
+            </div>
+          }
 
           <div className="row">
             <h4>Set your success frequency:</h4>
