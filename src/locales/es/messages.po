@@ -78,6 +78,34 @@ msgstr "Combos"
 msgid "links.tricks"
 msgstr "Trucos"
 
+#: src/services/enums.js:19
+msgid "pageNames.comboDetails"
+msgstr ""
+
+#: src/services/enums.js:21
+msgid "pageNames.comboGenerator"
+msgstr ""
+
+#: src/services/enums.js:18
+msgid "pageNames.comboList"
+msgstr ""
+
+#: src/services/enums.js:20
+msgid "pageNames.createCombo"
+msgstr ""
+
+#: src/services/enums.js:17
+msgid "pageNames.createTrick"
+msgstr "Crear Truco"
+
+#: src/services/enums.js:16
+msgid "pageNames.trickDetails"
+msgstr "Detalles del Truco"
+
+#: src/services/enums.js:15
+msgid "pageNames.trickList"
+msgstr "Lista de Trucos"
+
 #: src/services/sortingSchemes.js:3
 #: src/services/sortingSchemes.js:20
 #: src/services/sortingSchemes.js:27
@@ -129,6 +157,38 @@ msgstr ""
 #: src/services/sortingSchemes.js:62
 msgid "sortingScheme.stickFrequencyUpwards"
 msgstr ""
+
+#: src/services/enums.js:11
+msgid "stickFrequency.always"
+msgstr "Siempre"
+
+#: src/services/enums.js:10
+msgid "stickFrequency.generally"
+msgstr "Generalmente"
+
+#: src/services/enums.js:4
+msgid "stickFrequency.neverTried"
+msgstr "Nunca Intentado"
+
+#: src/services/enums.js:9
+msgid "stickFrequency.often"
+msgstr "A Menudo"
+
+#: src/services/enums.js:6
+msgid "stickFrequency.once"
+msgstr "Una Vez"
+
+#: src/services/enums.js:7
+msgid "stickFrequency.rarely"
+msgstr "Raramente"
+
+#: src/services/enums.js:8
+msgid "stickFrequency.sometimes"
+msgstr "Ocasionalmente"
+
+#: src/services/enums.js:5
+msgid "stickFrequency.workInProgress"
+msgstr "Trabajo en Curso"
 
 #: src/components/tricks/TrickDetails.js:146
 msgid "trickDetails.level"
