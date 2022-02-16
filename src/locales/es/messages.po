@@ -21,18 +21,73 @@ msgstr "Inglés"
 msgid "languages.spanish"
 msgstr "Español"
 
-#: src/links.js:15
+#: src/links.js:5
+#: src/links.js:19
 msgid "links.comboGenerator"
 msgstr "Generador de Combos"
 
-#: src/links.js:10
+#: src/links.js:4
+#: src/links.js:14
 msgid "links.combos"
 msgstr "Combos"
 
-#: src/links.js:5
+#: src/links.js:3
+#: src/links.js:9
 msgid "links.tricks"
 msgstr "Trucos"
 
-#: src/components/tricks/TrickDetails.js:130
+#: src/services/sortingSchemes.js:3
+#: src/services/sortingSchemes.js:20
+#: src/services/sortingSchemes.js:27
+msgid "sortingCategory.level"
+msgstr "Nivel"
+
+#: src/services/sortingSchemes.js:7
+#: src/services/sortingSchemes.js:34
+#: src/services/sortingSchemes.js:41
+#: src/services/sortingSchemes.js:65
+#: src/services/sortingSchemes.js:72
+msgid "sortingCategory.stickFrequency"
+msgstr ""
+
+#: src/services/sortingSchemes.js:11
+#: src/services/sortingSchemes.js:51
+#: src/services/sortingSchemes.js:58
+msgid "sortingCategory.trickCombos"
+msgstr ""
+
+#: src/services/sortingSchemes.js:13
+#: src/services/sortingSchemes.js:55
+msgid "sortingScheme.lengthDownwards"
+msgstr "Longitud Hacia Abajo"
+
+#: src/services/sortingSchemes.js:12
+#: src/services/sortingSchemes.js:48
+msgid "sortingScheme.lengthUpwards"
+msgstr "Longitud Hacia Arriba"
+
+#: src/services/sortingSchemes.js:5
+#: src/services/sortingSchemes.js:24
+msgid "sortingScheme.levelDownwards"
+msgstr "Nivel Descendente"
+
+#: src/services/sortingSchemes.js:4
+#: src/services/sortingSchemes.js:17
+msgid "sortingScheme.levelUpwards"
+msgstr "Nivel Ascendente"
+
+#: src/services/sortingSchemes.js:9
+#: src/services/sortingSchemes.js:38
+#: src/services/sortingSchemes.js:69
+msgid "sortingScheme.stickFrequencyDownwards"
+msgstr ""
+
+#: src/services/sortingSchemes.js:8
+#: src/services/sortingSchemes.js:31
+#: src/services/sortingSchemes.js:62
+msgid "sortingScheme.stickFrequencyUpwards"
+msgstr ""
+
+#: src/components/tricks/TrickDetails.js:146
 msgid "trickDetails.level"
 msgstr "Nivel"
