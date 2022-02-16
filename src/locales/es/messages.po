@@ -55,6 +55,35 @@ msgstr "Sobre highline-freestyle.com"
 msgid "common.about"
 msgstr "Sobre Nosotros"
 
+#: src/components/combos/PostCombo.js:133
+#: src/components/tricks/PostTrick.js:125
+#: src/services/commonTranslations.js:5
+msgid "common.establishedBy"
+msgstr "Establecido Por"
+
+#: src/components/combos/PostCombo.js:153
+#: src/components/tricks/PostTrick.js:145
+#: src/services/commonTranslations.js:6
+msgid "common.linkToVideo"
+msgstr "Enlace al Vídeo"
+
+#: src/components/combos/PostCombo.js:122
+#: src/services/commonTranslations.js:7
+msgid "common.name"
+msgstr "Nombre"
+
+#: src/components/combos/PostCombo.js:173
+#: src/components/tricks/PostTrick.js:210
+#: src/services/commonTranslations.js:8
+msgid "common.stickFrequency"
+msgstr ""
+
+#: src/components/combos/PostCombo.js:143
+#: src/components/tricks/PostTrick.js:135
+#: src/services/commonTranslations.js:9
+msgid "common.yearEstablished"
+msgstr "Año de Creación"
+
 #: src/components/buttons/LanguageSelector.js:21
 msgid "languages.english"
 msgstr "Inglés"
@@ -106,6 +135,26 @@ msgstr "Detalles del Truco"
 msgid "pageNames.trickList"
 msgstr "Lista de Trucos"
 
+#: src/components/combos/PostCombo.js:114
+msgid "postComboPage.addANewCombo"
+msgstr ""
+
+#: src/components/combos/PostCombo.js:180
+msgid "postComboPage.addComboButton"
+msgstr ""
+
+#: src/components/combos/PostCombo.js:163
+msgid "postComboPage.comments"
+msgstr "Comentarios"
+
+#: src/components/combos/PostCombo.js:114
+msgid "postComboPage.updateCombo"
+msgstr ""
+
+#: src/components/combos/PostCombo.js:180
+msgid "postComboPage.updateComboButton"
+msgstr ""
+
 #: src/components/tricks/PostTrick.js:100
 msgid "postTrickPage.addANewTrick"
 msgstr "Añadir Un Nuevo Truco"
@@ -130,21 +179,9 @@ msgstr "Nivel de Dificultad"
 msgid "postTrickPage.endPosition"
 msgstr "Posición Final"
 
-#: src/components/tricks/PostTrick.js:125
-msgid "postTrickPage.establishedBy"
-msgstr "Establecido Por"
-
-#: src/components/tricks/PostTrick.js:145
-msgid "postTrickPage.linkToVideo"
-msgstr "Enlace al Vídeo"
-
 #: src/components/tricks/PostTrick.js:155
 msgid "postTrickPage.startPosition"
 msgstr "Posición Inicial"
-
-#: src/components/tricks/PostTrick.js:210
-msgid "postTrickPage.stickFrequency"
-msgstr ""
 
 #: src/components/tricks/PostTrick.js:114
 msgid "postTrickPage.technicalName"
@@ -161,10 +198,6 @@ msgstr "Actualice Truco"
 #: src/components/tricks/PostTrick.js:217
 msgid "postTrickPage.updateTrickButton"
 msgstr "Actualice Truco"
-
-#: src/components/tricks/PostTrick.js:135
-msgid "postTrickPage.yearEstablished"
-msgstr "Año de Creación"
 
 #: src/services/sortingSchemes.js:3
 #: src/services/sortingSchemes.js:20

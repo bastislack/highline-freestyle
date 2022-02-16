@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { positions, stickFrequencies } from "../../services/enums";
-import { Trans } from '@lingui/macro'
+import { Trans } from '@lingui/macro';
 import { i18n } from '@lingui/core';
 
 import Database from "../../services/db";
@@ -122,7 +122,7 @@ const PostTrick = () => {
             />
           </div>
           <div className="col-md-6">
-            <label className=""><Trans id="postTrickPage.establishedBy">Established By</Trans>:</label>
+            <label className=""><Trans id="common.establishedBy" />:</label>
             <input
               className="form-control"
               type="text"
@@ -132,7 +132,7 @@ const PostTrick = () => {
             />
           </div>
           <div className="col-md-6">
-            <label className=""><Trans id="postTrickPage.yearEstablished">Year Established</Trans>:</label>
+            <label className=""><Trans id="common.yearEstablished" />:</label>
             <input
               className="form-control"
               type="number"
@@ -142,7 +142,7 @@ const PostTrick = () => {
             />
           </div>
           <div className="col-md-6">
-            <label className=""><Trans id="postTrickPage.linkToVideo">Link to Video</Trans>:</label>
+            <label className=""><Trans id="common.linkToVideo" />:</label>
             <input
               className="form-control"
               type="text"
@@ -207,7 +207,7 @@ const PostTrick = () => {
             />
           </div>
           <div className="col-md-6">
-            <label className=""><Trans id="postTrickPage.stickFrequency">Stick Frequency</Trans>:</label>
+            <label className=""><Trans id="common.stickFrequency" />:</label>
             <select className="form-select" onChange={(e) => setStickFrequency(Number(e.target.value))}>
               {freqList}
             </select>
