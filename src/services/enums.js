@@ -1,4 +1,4 @@
-import { Trans, defineMessage } from '@lingui/macro'
+import { Trans } from '@lingui/macro'
 
 export const stickFrequencies = [
   <Trans id="stickFrequency.neverTried">Never tried</Trans>,

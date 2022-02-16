@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { positions, stickFrequencies } from "../../services/enums";
+import { Trans } from '@lingui/macro'
+import { i18n } from '@lingui/core';
 
 import Database from "../../services/db";
 const db = new Database();
@@ -73,7 +75,7 @@ const PostTrick = () => {
       tips: tips,
       stickFrequency: stickFrequency
     };
-    
+
     db.saveTrick(trick)
     .then(() => {
       console.log(trick);
@@ -83,7 +85,7 @@ const PostTrick = () => {
 
   const freqList = stickFrequencies.map((item, i) => {
     return (
-      <option value={i} key={i}>{item}</option>
+      <option value={i} key={i}>{i18n._(item.props['id'])}</option>
     )
   });
 
@@ -95,11 +97,11 @@ const PostTrick = () => {
 
   return (
     <div className="post">
-      <h2>{preTrick ? "Update trick" : "Add a new trick"}</h2>
+      <h2>{preTrick ? <Trans id="postTrickPage.updateTrick">Update trick</Trans> : <Trans id="postTrickPage.addANewTrick">Add a new trick</Trans>}</h2>
       <form onSubmit={handleSubmit} className="">
         <div className="row form-row">
           <div className="col-md-6">
-            <label className="">Alias:</label>
+            <label className=""><Trans id="postTrickPage.alias">Alias</Trans>:</label>
             <input
               className="form-control"
               type="text"
@@ -109,7 +111,7 @@ const PostTrick = () => {
             />
           </div>
           <div className="col-md-6">
-            <label className="">Technical Name:</label>
+            <label className=""><Trans id="postTrickPage.technicalName">Technical Name</Trans>:</label>
             <input
               className="form-control"
               type="text"
@@ -120,7 +122,7 @@ const PostTrick = () => {
             />
           </div>
           <div className="col-md-6">
-            <label className="">Established By:</label>
+            <label className=""><Trans id="postTrickPage.establishedBy">Established By</Trans>:</label>
             <input
               className="form-control"
               type="text"
@@ -130,7 +132,7 @@ const PostTrick = () => {
             />
           </div>
           <div className="col-md-6">
-            <label className="">Year Established:</label>
+            <label className=""><Trans id="postTrickPage.yearEstablished">Year Established</Trans>:</label>
             <input
               className="form-control"
               type="number"
@@ -140,7 +142,7 @@ const PostTrick = () => {
             />
           </div>
           <div className="col-md-6">
-            <label className="">Link to Video:</label>
+            <label className=""><Trans id="postTrickPage.linkToVideo">Link to Video</Trans>:</label>
             <input
               className="form-control"
               type="text"
@@ -150,7 +152,7 @@ const PostTrick = () => {
             />
           </div>
           <div className="col-md-6">
-            <label className="">Start Position:</label>
+            <label className=""><Trans id="postTrickPage.startPosition">Start Position</Trans>:</label>
             <select
               className="form-control"
               required
@@ -162,7 +164,7 @@ const PostTrick = () => {
             </select>
           </div>
           <div className="col-md-6">
-            <label className="">End Position:</label>
+            <label className=""><Trans id="postTrickPage.endPosition">End Position</Trans>:</label>
             <select
               className="form-control"
               required
@@ -174,7 +176,7 @@ const PostTrick = () => {
             </select>
           </div>
           <div className="col-md-6">
-            <label className="">Difficulty Level:</label>
+            <label className=""><Trans id="postTrickPage.difficultyLevel">Difficulty Level</Trans>:</label>
             <input
               className="form-control"
               type="number"
@@ -185,7 +187,7 @@ const PostTrick = () => {
             />
           </div>
           <div className="col-md-6">
-            <label className="">Description:</label>
+            <label className=""><Trans id="postTrickPage.description">Description</Trans>:</label>
             <input
               className="form-control"
               type="text"
@@ -196,7 +198,7 @@ const PostTrick = () => {
             />
           </div>
           <div className="col-md-6">
-            <label className="">Tips:</label>
+            <label className=""><Trans id="postTrickPage.tips">Tips</Trans>:</label>
             <input
               className="form-control"
               type="text"
@@ -205,15 +207,15 @@ const PostTrick = () => {
             />
           </div>
           <div className="col-md-6">
-            <label className="">Stick Frequency:</label>
+            <label className=""><Trans id="postTrickPage.stickFrequency">Stick Frequency</Trans>:</label>
             <select className="form-select" onChange={(e) => setStickFrequency(Number(e.target.value))}>
               {freqList}
             </select>
           </div>
         </div>
-        
-        <button className="btn btn-primary">{preTrick ? "Update Trick" : "Add Trick"}</button>
-        
+
+        <button className="btn btn-primary">{preTrick ? <Trans id="postTrickPage.updateTrickButton">Update Trick</Trans> : <Trans id="postTrickPage.addTrickButton">Add Trick</Trans>}</button>
+
       </form>
     </div>
   );

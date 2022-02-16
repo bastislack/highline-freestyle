@@ -1,4 +1,4 @@
-import { Trans, defineMessage } from '@lingui/macro'
+import { Trans, defineMessage } from '@lingui/macro';
 
 defineMessage({ id: "sortingCategory.level", message: "Level" });
 defineMessage({ id: "sortingScheme.levelUpwards", message: "Level Upwards" });

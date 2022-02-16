@@ -84,6 +84,23 @@ const someValue = <Trans id="anExample" />;
 
 So far the best way I'm aware of for providing translations for enums is to convert them to a javascript object and use `<Trans>` as mentioned above. It may be more readable to define the messages at the start of the file with `defineMessage` as mentioned above. See `src/links.js` for an example.
 
+#### `<option>` tags
+
+There is a [known bug](https://github.com/lingui/js-lingui/issues/655#issuecomment-621637390) where `<Trans>` (and any react component actually) cannot be used inside an `<option>` tag. The workaround is to directly use i18n as follows:
+
+```javascript
+import { defineMessage } from '@lingui/macro';
+import { i18n } from '@lingui/core';
+
+const Example = () => {
+  defineMessage({ id: "theDesiredMessageId", message: "The desired message" });
+
+  return <select>
+    <option value={0} key="0">{i18n._("theDesiredMessageId")}</option>
+  </select>;
+}
+```
+
 #### Why explicitly define ids for `Trans`
 
 Lingui.js supports automatic id generation but in my experience this kind of behaviour is messy. An example is if the translated text is changed, Lingui.js has no way to know that the translation was changed and instead will keep the old one and add a new one.

@@ -106,6 +106,66 @@ msgstr "Detalles del Truco"
 msgid "pageNames.trickList"
 msgstr "Lista de Trucos"
 
+#: src/components/tricks/PostTrick.js:100
+msgid "postTrickPage.addANewTrick"
+msgstr "Añadir Un Nuevo Truco"
+
+#: src/components/tricks/PostTrick.js:217
+msgid "postTrickPage.addTrickButton"
+msgstr "Añadir Truco"
+
+#: src/components/tricks/PostTrick.js:104
+msgid "postTrickPage.alias"
+msgstr "Alias"
+
+#: src/components/tricks/PostTrick.js:190
+msgid "postTrickPage.description"
+msgstr "Descripción"
+
+#: src/components/tricks/PostTrick.js:179
+msgid "postTrickPage.difficultyLevel"
+msgstr "Nivel de Dificultad"
+
+#: src/components/tricks/PostTrick.js:167
+msgid "postTrickPage.endPosition"
+msgstr "Posición Final"
+
+#: src/components/tricks/PostTrick.js:125
+msgid "postTrickPage.establishedBy"
+msgstr "Establecido Por"
+
+#: src/components/tricks/PostTrick.js:145
+msgid "postTrickPage.linkToVideo"
+msgstr "Enlace al Vídeo"
+
+#: src/components/tricks/PostTrick.js:155
+msgid "postTrickPage.startPosition"
+msgstr "Posición Inicial"
+
+#: src/components/tricks/PostTrick.js:210
+msgid "postTrickPage.stickFrequency"
+msgstr ""
+
+#: src/components/tricks/PostTrick.js:114
+msgid "postTrickPage.technicalName"
+msgstr "Nombre Técnico"
+
+#: src/components/tricks/PostTrick.js:201
+msgid "postTrickPage.tips"
+msgstr "Consejos"
+
+#: src/components/tricks/PostTrick.js:100
+msgid "postTrickPage.updateTrick"
+msgstr "Actualice Truco"
+
+#: src/components/tricks/PostTrick.js:217
+msgid "postTrickPage.updateTrickButton"
+msgstr "Actualice Truco"
+
+#: src/components/tricks/PostTrick.js:135
+msgid "postTrickPage.yearEstablished"
+msgstr "Año de Creación"
+
 #: src/services/sortingSchemes.js:3
 #: src/services/sortingSchemes.js:20
 #: src/services/sortingSchemes.js:27
