@@ -42,7 +42,7 @@
     "dev": "webpack serve --mode=development",
     "prod": "NODE_ENV=production webpack --mode=production",
     "serve": "npm run prod && serve -s dist",
-    "extract": "lingui extract",
+    "extract": "lingui extract --clean --overwrite",
     "compile": "lingui compile"
   },
   "eslintConfig": {
