@@ -49,6 +49,70 @@ msgstr "¿Cuáles son las próximas características en las que estamos trabajan
 msgid "aboutPage.title"
 msgstr "Sobre highline-freestyle.com"
 
+#: src/components/generator/ComboGenerator.js:306
+msgid "comboGeneratorPage.addToCombos"
+msgstr "Añadir a Los Combos"
+
+#: src/components/generator/ComboGenerator.js:177
+msgid "comboGeneratorPage.advancedOptions"
+msgstr "Opciones Avanzadas"
+
+#: src/components/generator/ComboGenerator.js:261
+msgid "comboGeneratorPage.allowConsecutiveTricks"
+msgstr "Permitir Trucos Consecutivos"
+
+#: src/components/generator/ComboGenerator.js:251
+msgid "comboGeneratorPage.allowDuplicateTricks"
+msgstr "Permitir Los Trucos Duplicados"
+
+#: src/components/generator/ComboGenerator.js:276
+msgid "comboGeneratorPage.allowSimilarPositions"
+msgstr "Permitir Posiciones Similares"
+
+#: src/components/generator/ComboGenerator.js:286
+msgid "comboGeneratorPage.allowTransitions"
+msgstr "Permitir Transiciones"
+
+#: src/components/generator/ComboGenerator.js:197
+msgid "comboGeneratorPage.approximateAverageDifficulty"
+msgstr "Dificultad Media Aproximada"
+
+#: src/components/generator/ComboGenerator.js:172
+msgid "comboGeneratorPage.difficultyRange"
+msgstr "Rango de Dificultad"
+
+#: src/components/generator/ComboGenerator.js:220
+msgid "comboGeneratorPage.finishToFeet"
+msgstr "Acabado a Pies"
+
+#: src/components/generator/ComboGenerator.js:302
+msgid "comboGeneratorPage.generate"
+msgstr "Generar"
+
+#: src/components/generator/ComboGenerator.js:159
+msgid "comboGeneratorPage.generateRandomCombo"
+msgstr "Generar Una Combinación Aleatoria"
+
+#: src/components/generator/ComboGenerator.js:17
+msgid "comboGeneratorPage.generator"
+msgstr "Generador"
+
+#: src/components/generator/ComboGenerator.js:162
+msgid "comboGeneratorPage.numberOfTricks"
+msgstr "Número de Trucos"
+
+#: src/components/generator/ComboGenerator.js:19
+msgid "comboGeneratorPage.random"
+msgstr "Aleatorio"
+
+#: src/components/generator/ComboGenerator.js:18
+msgid "comboGeneratorPage.randomlyGenerated"
+msgstr "¡Esta combinación fue generada al azar!"
+
+#: src/components/generator/ComboGenerator.js:230
+msgid "comboGeneratorPage.startFrom"
+msgstr "Empezar de"
+
 #: src/components/layout/LeftNav.js:59
 #: src/components/layout/Settings.js:34
 #: src/services/commonTranslations.js:3
@@ -109,19 +173,19 @@ msgstr "Trucos"
 
 #: src/services/enums.js:19
 msgid "pageNames.comboDetails"
-msgstr ""
+msgstr "Detalles del Combo"
 
 #: src/services/enums.js:21
 msgid "pageNames.comboGenerator"
-msgstr ""
+msgstr "Generador de Combos"
 
 #: src/services/enums.js:18
 msgid "pageNames.comboList"
-msgstr ""
+msgstr "Lista de Combos"
 
 #: src/services/enums.js:20
 msgid "pageNames.createCombo"
-msgstr ""
+msgstr "Crear Combo"
 
 #: src/services/enums.js:17
 msgid "pageNames.createTrick"
@@ -137,11 +201,11 @@ msgstr "Lista de Trucos"
 
 #: src/components/combos/PostCombo.js:114
 msgid "postComboPage.addANewCombo"
-msgstr ""
+msgstr "Añadir un Nuevo Combo"
 
 #: src/components/combos/PostCombo.js:180
 msgid "postComboPage.addComboButton"
-msgstr ""
+msgstr "Añadir Combo"
 
 #: src/components/combos/PostCombo.js:163
 msgid "postComboPage.comments"
@@ -149,11 +213,11 @@ msgstr "Comentarios"
 
 #: src/components/combos/PostCombo.js:114
 msgid "postComboPage.updateCombo"
-msgstr ""
+msgstr "Actualizar el Combo"
 
 #: src/components/combos/PostCombo.js:180
 msgid "postComboPage.updateComboButton"
-msgstr ""
+msgstr "Actualizar Combo"
 
 #: src/components/tricks/PostTrick.js:100
 msgid "postTrickPage.addANewTrick"

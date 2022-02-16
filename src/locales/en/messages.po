@@ -49,6 +49,70 @@ msgstr "What are the next features we are working on?"
 msgid "aboutPage.title"
 msgstr "About highline-freestyle.com"
 
+#: src/components/generator/ComboGenerator.js:306
+msgid "comboGeneratorPage.addToCombos"
+msgstr "Add to Combos"
+
+#: src/components/generator/ComboGenerator.js:177
+msgid "comboGeneratorPage.advancedOptions"
+msgstr "Advanced Options"
+
+#: src/components/generator/ComboGenerator.js:261
+msgid "comboGeneratorPage.allowConsecutiveTricks"
+msgstr "Allow consecutive tricks"
+
+#: src/components/generator/ComboGenerator.js:251
+msgid "comboGeneratorPage.allowDuplicateTricks"
+msgstr "Allow duplicate tricks"
+
+#: src/components/generator/ComboGenerator.js:276
+msgid "comboGeneratorPage.allowSimilarPositions"
+msgstr "Allow similar positions"
+
+#: src/components/generator/ComboGenerator.js:286
+msgid "comboGeneratorPage.allowTransitions"
+msgstr "Allow transitions"
+
+#: src/components/generator/ComboGenerator.js:197
+msgid "comboGeneratorPage.approximateAverageDifficulty"
+msgstr "Approximate average difficulty (the more tricks the more accurate)"
+
+#: src/components/generator/ComboGenerator.js:172
+msgid "comboGeneratorPage.difficultyRange"
+msgstr "Difficulty Range"
+
+#: src/components/generator/ComboGenerator.js:220
+msgid "comboGeneratorPage.finishToFeet"
+msgstr "Finish to Feet"
+
+#: src/components/generator/ComboGenerator.js:302
+msgid "comboGeneratorPage.generate"
+msgstr "Generate"
+
+#: src/components/generator/ComboGenerator.js:159
+msgid "comboGeneratorPage.generateRandomCombo"
+msgstr "Generate a Random Combo"
+
+#: src/components/generator/ComboGenerator.js:17
+msgid "comboGeneratorPage.generator"
+msgstr "Generator"
+
+#: src/components/generator/ComboGenerator.js:162
+msgid "comboGeneratorPage.numberOfTricks"
+msgstr "Number of Tricks"
+
+#: src/components/generator/ComboGenerator.js:19
+msgid "comboGeneratorPage.random"
+msgstr "Random"
+
+#: src/components/generator/ComboGenerator.js:18
+msgid "comboGeneratorPage.randomlyGenerated"
+msgstr "This combo was randomly generated!"
+
+#: src/components/generator/ComboGenerator.js:230
+msgid "comboGeneratorPage.startFrom"
+msgstr "Start from"
+
 #: src/components/layout/LeftNav.js:59
 #: src/components/layout/Settings.js:34
 #: src/services/commonTranslations.js:3

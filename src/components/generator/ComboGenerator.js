@@ -8,9 +8,15 @@ import computeStats from '../../logic/combos/computeStats';
 import { findCombo } from './generatorFunction';
 import Slider, { Range } from 'rc-slider';
 import 'rc-slider/assets/index.css';
+import { Trans, defineMessage } from '@lingui/macro';
+import { i18n } from '@lingui/core';
 
 import Database from "../../services/db";
 const db = new Database();
+
+defineMessage({ id: "comboGeneratorPage.generator", message: "Generator" });
+defineMessage({ id: "comboGeneratorPage.randomlyGenerated", message: "This combo was randomly generated!" });
+defineMessage({ id: "comboGeneratorPage.random", message: "Random" });
 
 const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => {
 
@@ -24,7 +30,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
   const [allowSimilarPositions, setAllowSimilarPositions] = useState(true);
   const [allowTransitions, setAllowTransitions] = useState(false);
   const [avgDifficulty, setAvgDifficulty] = useState(-1);
-  const [comboName, setComboName] = useState("Random #" + generatedCombosCount);
+  const [comboName, setComboName] = useState(i18n._("comboGeneratorPage.random") + " #" + generatedCombosCount);
   const [startFromPosition, setStartFromPosition] = useState(positions.findIndex(item => item === "EXPOSURE"));
   const [finishToFeet, setFinishToFeet] = useState(true);
   const [consecutiveCheckbox, setConsecutiveCheckbox] = useState(false);
@@ -95,10 +101,10 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
       avgDiff: avgDiff,
       totalDiff: totalDiff,
       numberOfTricks: numberOfTricks,
-      stickFrequency: "Never tried",
-      establishedBy: "Generator",
+      stickFrequency: 0,
+      establishedBy: i18n._("comboGeneratorPage.generator"),
       linkToVideo: "",
-      comments: "This combo was randomly generated!",
+      comments: i18n._("comboGeneratorPage.randomlyGenerated"),
       yearEstablished: currentYear
     });
   }
@@ -150,10 +156,10 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
 
   return (
     <div className="generator">
-      <h2>Generate a Random Combo</h2>
+      <h2><Trans id="comboGeneratorPage.generateRandomCombo">Generate a Random Combo</Trans></h2>
       <form onSubmit={generateCombo}>
         <div className="row form-row">
-          <label>Number of Tricks:</label>
+          <label><Trans id="comboGeneratorPage.numberOfTricks">Number of Tricks</Trans>:</label>
           <input
             className="form-control"
             type="number"
@@ -163,12 +169,12 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
           />
         </div>
         <div className="difficultyRangeGenerator">
-          <label htmlFor="diffRange" className="form-label">Difficulty Range:</label>
+          <label htmlFor="diffRange" className="form-label"><Trans id="comboGeneratorPage.difficultyRange">Difficulty Range</Trans>:</label>
           <Range id="diffRange" step={1} value={difficultyRangeMinMax} min={0} max={difficultyRangeMax} marks={diffMarksOnRange} onChange={refreshDifficultyRangeMinMax}/>
         </div>
         <div className="form-row">
           <button className="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#advancedDifficultyOptions" aria-expanded="false" aria-controls="collapseExample">
-            Advanced Options
+            <Trans id="comboGeneratorPage.advancedOptions">Advanced Options</Trans>
           </button>
 
           <div className="collapse" id="advancedDifficultyOptions">
@@ -188,7 +194,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
               </div>
               <hr/>
               <div className="form-row form-check">
-                <label className="form-check-label">Approximate average difficulty (the more tricks the more accurate): {avgDifficulty > 0 && avgDifficulty}</label>
+                <label className="form-check-label"><Trans id="comboGeneratorPage.approximateAverageDifficulty">Approximate average difficulty (the more tricks the more accurate)</Trans>: {avgDifficulty > 0 && avgDifficulty}</label>
                 <input
                   id="input_chkbx_avg"
                   defaultValue="False"
@@ -211,7 +217,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
               </div>
               <hr/>
               <div className="form-row form-check">
-                <label className="form-check-label">Finish to Feet</label>
+                <label className="form-check-label"><Trans id="comboGeneratorPage.finishToFeet">Finish to Feet</Trans></label>
                 <input
                   checked={finishToFeet}
                   className="form-check-input"
@@ -221,7 +227,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
               </div>
               <hr/>
               <div className="form-row form-check">
-                <label className="form-check-label">Start from:</label>
+                <label className="form-check-label"><Trans id="comboGeneratorPage.startFrom">Start from</Trans>:</label>
                 <input
                   id="start_from_chkbx"
                   className="form-check-input"
@@ -242,7 +248,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
               <hr/>
               <div className="form-row">
                 <div className="form-check form-check-inline">
-                  <label className="form-check-label">Allow duplicate tricks</label>
+                  <label className="form-check-label"><Trans id="comboGeneratorPage.allowDuplicateTricks">Allow duplicate tricks</Trans></label>
                   <input
                     id="input_chkbx_duplicates"
                     className="form-check-input"
@@ -251,7 +257,9 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
                   />
                 </div>
                 <div className="form-check form-check-inline">
-                  <label id="consecutiveTricksLabel" className={allowDuplicates ? "form-check-label" : "form-check-label text-muted"}>Allow consecutive tricks</label>
+                  <label id="consecutiveTricksLabel" className={allowDuplicates ? "form-check-label" : "form-check-label text-muted"}>
+                    <Trans id="comboGeneratorPage.allowConsecutiveTricks">Allow consecutive tricks</Trans>
+                  </label>
                   <input
                     disabled={!allowDuplicates}
                     id="consecutiveTricks"
@@ -265,7 +273,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
               <hr/>
               <div className="form-row">
                 <div className="form-check form-check-inline">
-                  <label className="form-check-label">Allow similar positions</label>
+                  <label className="form-check-label"><Trans id="comboGeneratorPage.allowSimilarPositions">Allow similar positions</Trans></label>
                   <input
                     id="input_chkbx_similar_pos"
                     checked={allowSimilarPositions}
@@ -275,7 +283,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
                   />
                 </div>
                 <div className="form-check form-check-inline">
-                  <label className="form-check-label">Allow transitions</label>
+                  <label className="form-check-label"><Trans id="comboGeneratorPage.allowTransitions">Allow transitions</Trans></label>
                   <input
                     id="transitions"
                     checked={allowTransitions}
@@ -291,11 +299,11 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
 
         <div className="row justify-content-around">
           <div className="col">
-            <button className="col-12 btn btn-primary">Generate</button>
+            <button className="col-12 btn btn-primary"><Trans id="comboGeneratorPage.generate">Generate</Trans></button>
           </div>
           {randomCombo && (
             <div className="col">
-              <button className="col-12 btn btn-primary" onClick={saveToCombos}>Add to Combos</button>
+              <button className="col-12 btn btn-primary" onClick={saveToCombos}><Trans id="comboGeneratorPage.addToCombos">Add to Combos</Trans></button>
             </div>
           )}
         </div>
