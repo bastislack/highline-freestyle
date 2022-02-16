@@ -6,6 +6,7 @@ import { useLocation } from 'react-router-dom';
 import { trickSortingSchemes, comboSortingSchemes } from '../../services/sortingSchemes';
 import { useLingui } from "@lingui/react"
 import LanguageSelector from "../buttons/LanguageSelector"
+import { Trans } from '@lingui/macro'
 
 const Settings = ({ sortOpt, setSortOpt, setShowAboutPage, setShowResetWarning }) => {
 
@@ -30,7 +31,7 @@ const Settings = ({ sortOpt, setSortOpt, setShowAboutPage, setShowResetWarning }
       <MenuItem onClick={() => setShowResetWarning("tricks")} >Reset all tricks</MenuItem>
       <MenuItem onClick={() => setShowResetWarning("combos")} >Reset all combos</MenuItem>
       <MenuItem><LanguageSelector /></MenuItem>
-      <MenuItem onClick={() => setShowAboutPage(true)} >About</MenuItem>
+      <MenuItem onClick={() => setShowAboutPage(true)} ><Trans id="common.about" /></MenuItem>
     </Menu>
   );
 }

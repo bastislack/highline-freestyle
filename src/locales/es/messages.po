@@ -13,6 +13,48 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: src/components/pages/About.js:35
+msgid "aboutPage.contributeDescription"
+msgstr "Si quieres una función específica o una corrección de errores en las futuras versiones de esta aplicación, escríbenos a través de Facebook o Instagram. Si eres un desarrollador, no dudes en participar en nuestro repositorio:<0/><1>Repositorio Github</1>"
+
+#: src/components/pages/About.js:33
+msgid "aboutPage.contributeTitle"
+msgstr "¿Cómo puede contribuir?"
+
+#: src/components/pages/About.js:44
+msgid "aboutPage.dataHandlingDescription"
+msgstr "Como somos highliners queremos que esta aplicación funcione sin conexión. Por lo tanto, todos sus datos se almacenan localmente en su navegador. Utilizamos la API <0>localstorage</0> e <1>indexedDB</1> para guardar tus datos en tu navegador. Nosotros nunca sabremos de tus datos, ¡sólo tu navegador lo sabe!"
+
+#: src/components/pages/About.js:42
+msgid "aboutPage.dataHandlingTitle"
+msgstr "¿Cómo se tratan sus datos?"
+
+#: src/components/pages/About.js:14
+msgid "aboutPage.goalDescription"
+msgstr "Esta aplicación está hecha por atletas apasionados del highline freestyle que quieren ver crecer este deporte. Como cada semana se crean más y más trucos, es difícil mantener la visión general. Aquí queremos mostrarte los trucos/combos más comunes junto con información importante para ayudarte a aprenderlos. Establecer la frecuencia de los palos en tus trucos/combos te permite tener una visión general de tu arsenal. La característica que fue la motivación inicial para hacer esta aplicación es el generador de combos aleatorios. Debería ayudarte a probar nuevos combos que de otro modo no habrías probado. Queremos que tanto los principiantes como los atletas avanzados se beneficien del uso de esta aplicación."
+
+#: src/components/pages/About.js:12
+msgid "aboutPage.goalTitle"
+msgstr "¿Cuál es el objetivo de esta aplicación?"
+
+#: src/components/pages/About.js:26
+msgid "aboutPage.nextFeaturesDescription"
+msgstr "<0><1>Se añadirá un constructor de combos para que puedas crear los tuyos propios.</1><2>Proporcionaremos los combos favoritos de los atletas de Frontrange Freestyler y BouncKult.</2><3>Nuevas características y mejoras en el generador de combos.</3></0>"
+
+#: src/components/pages/About.js:25
+msgid "aboutPage.nextFeaturesTitle"
+msgstr "¿Cuáles son las próximas características en las que estamos trabajando?"
+
+#: src/components/pages/About.js:9
+msgid "aboutPage.title"
+msgstr "Sobre highline-freestyle.com"
+
+#: src/components/layout/LeftNav.js:59
+#: src/components/layout/Settings.js:34
+#: src/services/commonTranslations.js:3
+msgid "common.about"
+msgstr "Sobre Nosotros"
+
 #: src/components/buttons/LanguageSelector.js:21
 msgid "languages.english"
 msgstr "Inglés"

@@ -13,6 +13,48 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: src/components/pages/About.js:35
+msgid "aboutPage.contributeDescription"
+msgstr "If you want to have a specific feature or a bug fix in the future versions of this app please write us via Facebook or Instagram. If you are a developer yourself then don't hesitate to get involved in our repository:<0/><1>Github repository</1>"
+
+#: src/components/pages/About.js:33
+msgid "aboutPage.contributeTitle"
+msgstr "How can you contribute?"
+
+#: src/components/pages/About.js:44
+msgid "aboutPage.dataHandlingDescription"
+msgstr "As we are highliners we want to make this app work offline. Thus all your data is stored locally in your browser. We use the <0>localstorage</0> and <1>indexedDB</1> API to save your data in your browser. We will never know about your data, only your browser knows about it!"
+
+#: src/components/pages/About.js:42
+msgid "aboutPage.dataHandlingTitle"
+msgstr "How is your data handled?"
+
+#: src/components/pages/About.js:14
+msgid "aboutPage.goalDescription"
+msgstr "This app is made by passionate highline freestyle athletes that want to see the sport grow. As more and more tricks are created every week it is hard to keep the overview. Here we want to show you the most common tricks/combos along with important information to help you learn them. Setting the stick frequency on your tricks/combos allows you to have a visual overview of your arsenal. The feature that was the initial motivation for making this app is the random combo generator. It should help you trying out new combos that you otherwise wouldn't have tried. We want both beginners and advanced athletes to benefit from using this app."
+
+#: src/components/pages/About.js:12
+msgid "aboutPage.goalTitle"
+msgstr "What is the goal of this app?"
+
+#: src/components/pages/About.js:26
+msgid "aboutPage.nextFeaturesDescription"
+msgstr "<0><1>A Combo Builder will be added, so you can create your own combos.</1><2>We will provide the Frontrange Freestyler and BouncKult athlete's favorite combos.</2><3>New features and improvements on the Combo Generator.</3></0>"
+
+#: src/components/pages/About.js:25
+msgid "aboutPage.nextFeaturesTitle"
+msgstr "What are the next features we are working on?"
+
+#: src/components/pages/About.js:9
+msgid "aboutPage.title"
+msgstr "About highline-freestyle.com"
+
+#: src/components/layout/LeftNav.js:59
+#: src/components/layout/Settings.js:34
+#: src/services/commonTranslations.js:3
+msgid "common.about"
+msgstr "About"
+
 #: src/components/buttons/LanguageSelector.js:21
 msgid "languages.english"
 msgstr "English"
