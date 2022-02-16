@@ -67,9 +67,22 @@ At the time of writing we support two separate languages; English and Spanish. T
 
 The id helps to keep the translations organised where a general rule would be to have a categor (e.g. links or languages) followed by a full-stop and then something describing the text. This also helps to avoid having multiple translations with the same key.
 
+#### Re-using the same translation
+
+Sometimes the same translation will be used in multiple places. In this case you can use linguijs' defineMessage function to define the message and then use the translation with a `<Trans id="theDefinedId" />` tag. An example:
+
+```javascript
+// Note: If you don't import defineMessage the messages will be incorrect.
+import { Trans, defineMessage } from '@lingui/macro'
+
+defineMessage({ id: "anExample:, message: "An example" });
+
+const someValue = <Trans id="anExample" />;
+```
+
 #### Enums
 
-So far the best way I'm aware of for providing translations for enums is to convert them to a javascript object and use `<Trans>` as mentioned above. See `src/links.js` for an example.
+So far the best way I'm aware of for providing translations for enums is to convert them to a javascript object and use `<Trans>` as mentioned above. It may be more readable to define the messages at the start of the file with `defineMessage` as mentioned above. See `src/links.js` for an example.
 
 #### Why explicitly define ids for `Trans`
 
