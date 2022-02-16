@@ -150,21 +150,21 @@ const TrickDetails = () => {
 
           {trick.description &&
             <div>
-              <h3>Description: </h3>
+              <h3><Trans id="trickDetails.description">Description</Trans>: </h3>
               <div className="callout">{trick.description}</div>
             </div>
           }
 
           {trick.tips &&
             <div>
-              <h3>Tips: </h3>
+              <h3><Trans id="trickDetails.tips">Tips</Trans>: </h3>
               <div className="callout">{trick.tips}</div>
             </div>
           }
 
           {trick.yearEstablished && trick.establishedBy &&
             <div>
-              <h3>Established by: </h3>
+              <h3><Trans id="common.establishedBy" />: </h3>
               <div className="callout">{trick.establishedBy} in {trick.yearEstablished}</div>
             </div>
           }
@@ -182,7 +182,7 @@ const TrickDetails = () => {
 
           {trick.recommendedPrerequisites.length !== 0 &&
             <div className="row">
-              <h4>Recommended Prerequisites:</h4>
+              <h4><Trans id="trickDetails.recommendedPrerequisites">Recommended Prerequisites</Trans>:</h4>
               {trick.recommendedPrerequisites.map(recommendedTrick => {
               if(recommendedTrick){
                 return (
@@ -202,14 +202,14 @@ const TrickDetails = () => {
           }
 
           <div className="row">
-            <h4>Set your success frequency:</h4>
+            <h4><Trans id="common.setSuccessFrequency" />:</h4>
             <div onChange={selectFreq}>
               <FreqList stickable={trick}/>
             </div>
           </div>
 
           <div className="boostSkill row justify-content-center">
-            <button className={trick.boostSkill ? "col-8 col-lg-3 col-xl-2 btn btn-warning" : "col-8 col-lg-3 col-xl-2 btn btn-primary" } onClick={toggleBoostSkill}>{trick.boostSkill ? "Unboost this trick" : (<><IoRocketSharp/> Boost this trick</>)}</button>
+            <button className={trick.boostSkill ? "col-8 col-lg-3 col-xl-2 btn btn-warning" : "col-8 col-lg-3 col-xl-2 btn btn-primary" } onClick={toggleBoostSkill}>{trick.boostSkill ? "Unboost this trick" : (<><IoRocketSharp/> <Trans id="trickDetails.boostThisTrick">Boost this trick</Trans></>)}</button>
           </div>
 
           {showDeleteWarning && <DeleteWarning showDeleteWarning={showDeleteWarning} setShowDeleteWarning={setShowDeleteWarning} itemName={trick.alias || trick.technicalName} call={deleteTrick} />}

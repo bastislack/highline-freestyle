@@ -7,3 +7,5 @@ defineMessage({ id: "common.linkToVideo", message: "Link to Video" });
 defineMessage({ id: "common.name", message: "Name" });
 defineMessage({ id: "common.stickFrequency", message: "Stick Frequency" });
 defineMessage({ id: "common.yearEstablished", message: "Year Established" });
+
+defineMessage({ id: "common.setSuccessFrequency", message: "Set your success frequency" });

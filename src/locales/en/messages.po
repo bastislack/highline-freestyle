@@ -113,6 +113,34 @@ msgstr "This combo was randomly generated!"
 msgid "comboGeneratorPage.startFrom"
 msgstr "Start from"
 
+#: src/components/combos/ComboDetails.js:176
+msgid "comboStats.averageDifficultyLevel"
+msgstr "Average difficulty level"
+
+#: src/components/combos/ComboDetails.js:192
+msgid "comboStats.boostCombo"
+msgstr "Boost this combo"
+
+#: src/components/combos/ComboDetails.js:175
+msgid "comboStats.maximumDifficultyLevel"
+msgstr "Maximum difficulty level"
+
+#: src/components/combos/ComboDetails.js:174
+msgid "comboStats.minimumDifficultyLevel"
+msgstr "Mininum difficulty level"
+
+#: src/components/combos/ComboDetails.js:173
+msgid "comboStats.numberOfTricks"
+msgstr "Number of tricks"
+
+#: src/components/combos/ComboDetails.js:172
+msgid "comboStats.title"
+msgstr "Combo stats"
+
+#: src/components/combos/ComboDetails.js:177
+msgid "comboStats.totalDifficultyLevel"
+msgstr "Total difficulty level"
+
 #: src/components/layout/LeftNav.js:59
 #: src/components/layout/Settings.js:34
 #: src/services/commonTranslations.js:3
@@ -121,6 +149,7 @@ msgstr "About"
 
 #: src/components/combos/PostCombo.js:133
 #: src/components/tricks/PostTrick.js:125
+#: src/components/tricks/TrickDetails.js:167
 #: src/services/commonTranslations.js:5
 msgid "common.establishedBy"
 msgstr "Established By"
@@ -135,6 +164,12 @@ msgstr "Link to Video"
 #: src/services/commonTranslations.js:7
 msgid "common.name"
 msgstr "Name"
+
+#: src/components/combos/ComboDetails.js:182
+#: src/components/tricks/TrickDetails.js:205
+#: src/services/commonTranslations.js:11
+msgid "common.setSuccessFrequency"
+msgstr "Set your success frequency"
 
 #: src/components/combos/PostCombo.js:173
 #: src/components/tricks/PostTrick.js:210
@@ -347,6 +382,22 @@ msgstr "Sometimes"
 msgid "stickFrequency.workInProgress"
 msgstr "Work in progress"
 
+#: src/components/tricks/TrickDetails.js:212
+msgid "trickDetails.boostThisTrick"
+msgstr "Boost this trick"
+
+#: src/components/tricks/TrickDetails.js:153
+msgid "trickDetails.description"
+msgstr "Description"
+
 #: src/components/tricks/TrickDetails.js:146
 msgid "trickDetails.level"
 msgstr "Level"
+
+#: src/components/tricks/TrickDetails.js:185
+msgid "trickDetails.recommendedPrerequisites"
+msgstr "Recommended Prerequisites"
+
+#: src/components/tricks/TrickDetails.js:160
+msgid "trickDetails.tips"
+msgstr "Tips"
