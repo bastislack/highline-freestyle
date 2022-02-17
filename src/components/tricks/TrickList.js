@@ -5,6 +5,8 @@ import { trickSortingSchemes as sortingSchemes } from '../../services/sortingSch
 import computeStats from '../../logic/combos/computeStats';
 import { IoRocketSharp } from 'react-icons/io5';
 import Fuse from 'fuse.js';
+import { i18n } from '@lingui/core';
+import * as common from '../../services/commonTranslations';
 
 import Database from "../../services/db";
 const db = new Database();
@@ -20,7 +22,7 @@ const TrickList = ({ sortOpt, scrollPosition, setScrollPosition, userCombo, setU
     if (location.state.addTrickToCombo) {
       addTrickToCombo = true;
     }
-  } 
+  }
 
   let current;
   const [searchPattern, setSearchPattern] = useState("");
@@ -114,7 +116,7 @@ const TrickList = ({ sortOpt, scrollPosition, setScrollPosition, userCombo, setU
         className="form-control"
         type="search"
         value={searchPattern}
-        placeholder="Search"
+        placeholder={i18n._(common.search)}
         onChange={(e) => setSearchPattern(e.target.value)}
       />
       {searchResults.map(trick => {

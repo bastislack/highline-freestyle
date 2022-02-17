@@ -14,9 +14,9 @@ import { i18n } from '@lingui/core';
 import Database from "../../services/db";
 const db = new Database();
 
-defineMessage({ id: "comboGeneratorPage.generator", message: "Generator" });
-defineMessage({ id: "comboGeneratorPage.randomlyGenerated", message: "This combo was randomly generated!" });
-defineMessage({ id: "comboGeneratorPage.random", message: "Random" });
+const generatorMessage = defineMessage({ id: "comboGeneratorPage.generator", message: "Generator" });
+const randomlyGeneratedMessage = defineMessage({ id: "comboGeneratorPage.randomlyGenerated", message: "This combo was randomly generated!" });
+const randomMessage = defineMessage({ id: "comboGeneratorPage.random", message: "Random" });
 
 const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => {
 
@@ -30,7 +30,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
   const [allowSimilarPositions, setAllowSimilarPositions] = useState(true);
   const [allowTransitions, setAllowTransitions] = useState(false);
   const [avgDifficulty, setAvgDifficulty] = useState(-1);
-  const [comboName, setComboName] = useState(i18n._("comboGeneratorPage.random") + " #" + generatedCombosCount);
+  const [comboName, setComboName] = useState(i18n._(randomMessage) + " #" + generatedCombosCount);
   const [startFromPosition, setStartFromPosition] = useState(positions.findIndex(item => item === "EXPOSURE"));
   const [finishToFeet, setFinishToFeet] = useState(true);
   const [consecutiveCheckbox, setConsecutiveCheckbox] = useState(false);
@@ -102,9 +102,9 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
       totalDiff: totalDiff,
       numberOfTricks: numberOfTricks,
       stickFrequency: 0,
-      establishedBy: i18n._("comboGeneratorPage.generator"),
+      establishedBy: i18n._(generatorMessage),
       linkToVideo: "",
-      comments: i18n._("comboGeneratorPage.randomlyGenerated"),
+      comments: i18n._(randomlyGeneratedMessage),
       yearEstablished: currentYear
     });
   }

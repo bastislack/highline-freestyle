@@ -1,75 +1,67 @@
-import { Trans, defineMessage } from '@lingui/macro';
+import React, { Fragment } from "react"
+import { Trans, SelectOrdinal } from '@lingui/macro';
+import * as common from './commonTranslations';
+import { BsArrowUp, BsArrowDown } from 'react-icons/bs';
 
-defineMessage({ id: "sortingCategory.level", message: "Level" });
-defineMessage({ id: "sortingScheme.levelUpwards", message: "Level Upwards" });
-defineMessage({ id: "sortingScheme.levelDownwards", message: "Level Downwards" });
-
-defineMessage({ id: "sortingCategory.stickFrequency", message: "StickFrequency" });
-defineMessage({ id: "sortingScheme.stickFrequencyUpwards" , message: "StickFrequency Upwards" });
-defineMessage({ id: "sortingScheme.stickFrequencyDownwards" , message: "StickFrequency Downwards" });
-
-defineMessage({ id: "sortingCategory.trickCombos", message: "Trick Combos" });
-defineMessage({ id: "sortingScheme.lengthUpwards", message: "Length Upwards" });
-defineMessage({ id: "sortingScheme.lengthDownwards", message: "Length Downwards" });
-
+const comboTricksTitle = (trickCount) => <SelectOrdinal id="sortingCategory.comboTricksTitle" value={trickCount} other="# Trick Combo" />;
 
 export const trickSortingSchemes = [
-  {"name": <Trans id="sortingScheme.levelUpwards" />,
+  {"name": <Fragment><Trans id={common.level.id} /> <BsArrowUp className="icon-white" /></Fragment>,
     "id": 0,
     "sortFunc": (a, b) => (a.difficultyLevel - b.difficultyLevel),
-    "catName": <Trans id="sortingCategory.level" />,
+    "catName": <Trans id={common.level.id} />,
     "attributeFunc": (a) => a.difficultyLevel,
     "showCategory": true,
   },
-  {"name": <Trans id="sortingScheme.levelDownwards" />,
+  {"name": <Fragment><Trans id={common.level.id} /> <BsArrowDown className="icon-white" /></Fragment>,
     "id": 1,
     "sortFunc": (a, b) => (b.difficultyLevel - a.difficultyLevel),
-    "catName": <Trans id="sortingCategory.level" />,
+    "catName": <Trans id={common.level.id} />,
     "attributeFunc": (a) => a.difficultyLevel,
     "showCategory": true,
   },
-  {"name": <Trans id="sortingScheme.stickFrequencyUpwards" />,
+  {"name": <Fragment><Trans id={common.stickFrequency.id} /> <BsArrowUp className="icon-white" /></Fragment>,
     "id": 2,
     "sortFunc": (a, b) => {if (a.stickFrequency >= 0) return (a.stickFrequency - b.stickFrequency);return 0.1;},
-    "catName": <Trans id="sortingCategory.stickFrequency" />,
+    "catName": <Trans id={common.stickFrequency.id} />,
     "attributeFunc": (a) => a.stickFrequency,
     "showCategory": false,
   },
-  {"name": <Trans id="sortingScheme.stickFrequencyDownwards" />,
+  {"name": <Fragment><Trans id={common.stickFrequency.id} /> <BsArrowDown className="icon-white" /></Fragment>,
     "id": 3,
     "sortFunc": (a, b) => {if (a.stickFrequency >= 0) return (b.stickFrequency - a.stickFrequency);return 1;},
-    "catName": <Trans id="sortingCategory.stickFrequency" />,
+    "catName": <Trans id={common.stickFrequency.id} />,
     "attributeFunc": (a) => a.stickFrequency,
     "showCategory": false,
   },
 ];
 
 export const comboSortingSchemes = [
-  {"name": <Trans id="sortingScheme.lengthUpwards" />,
+  {"name": <Fragment><Trans id={common.length.id} /> <BsArrowUp className="icon-white" /></Fragment>,
     "id": 0,
     "sortFunc": (a, b) => (a.numberOfTricks - b.numberOfTricks),
-    "catName": <Trans id="sortingCategory.trickCombos" />,
+    "catName": comboTricksTitle,
     "attributeFunc": (a) => a.numberOfTricks,
     "showCategory": true,
   },
-  {"name": <Trans id="sortingScheme.lengthDownwards" />,
+  {"name": <Fragment><Trans id={common.length.id} /> <BsArrowDown className="icon-white" /></Fragment>,
     "id": 1,
     "sortFunc": (a, b) => (b.numberOfTricks - a.numberOfTricks),
-    "catName": <Trans id="sortingCategory.trickCombos" />,
+    "catName": comboTricksTitle,
     "attributeFunc": (a) => a.numberOfTricks,
     "showCategory": true,
   },
-  {"name": <Trans id="sortingScheme.stickFrequencyUpwards" />,
+  {"name": <Fragment><Trans id={common.stickFrequency.id} /> <BsArrowUp className="icon-white" /></Fragment>,
     "id": 2,
     "sortFunc": (a, b) => {if (a.stickFrequency >= 0) return (a.stickFrequency - b.stickFrequency);return 0.1;},
-    "catName": <Trans id="sortingCategory.stickFrequency" />,
+    "catName": <Trans id={common.stickFrequency.id} />,
     "attributeFunc": (a) => a.stickFrequency,
     "showCategory": false,
   },
-  {"name": <Trans id="sortingScheme.stickFrequencyDownwards" />,
+  {"name": <Fragment><Trans id={common.stickFrequency.id} /> <BsArrowDown className="icon-white" /></Fragment>,
     "id": 3,
     "sortFunc": (a, b) => {if (a.stickFrequency >= 0) return (b.stickFrequency - a.stickFrequency);return 1;},
-    "catName": <Trans id="sortingCategory.stickFrequency" />,
+    "catName": <Trans id={common.stickFrequency.id} />,
     "attributeFunc": (a) => a.stickFrequency,
     "showCategory": false,
   },

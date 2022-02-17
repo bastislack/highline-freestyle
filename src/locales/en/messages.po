@@ -143,7 +143,7 @@ msgstr "Total difficulty level"
 
 #: src/components/layout/LeftNav.js:59
 #: src/components/layout/Settings.js:34
-#: src/services/commonTranslations.js:3
+#: src/services/commonTranslations.js:4
 msgid "common.about"
 msgstr "About"
 
@@ -154,34 +154,54 @@ msgstr "About"
 msgid "common.establishedBy"
 msgstr "Established By"
 
+#: src/services/commonTranslations.js:6
+msgid "common.length"
+msgstr "Length"
+
+#: src/services/commonTranslations.js:7
+msgid "common.level"
+msgstr "Level"
+
 #: src/components/combos/PostCombo.js:153
 #: src/components/tricks/PostTrick.js:145
-#: src/services/commonTranslations.js:6
+#: src/services/commonTranslations.js:8
 msgid "common.linkToVideo"
 msgstr "Link to Video"
 
 #: src/components/combos/PostCombo.js:122
-#: src/services/commonTranslations.js:7
+#: src/services/commonTranslations.js:9
 msgid "common.name"
 msgstr "Name"
 
+#: src/services/commonTranslations.js:10
+msgid "common.search"
+msgstr "Search"
+
 #: src/components/combos/ComboDetails.js:182
 #: src/components/tricks/TrickDetails.js:205
-#: src/services/commonTranslations.js:11
+#: src/services/commonTranslations.js:13
 msgid "common.setSuccessFrequency"
 msgstr "Set your success frequency"
 
 #: src/components/combos/PostCombo.js:173
 #: src/components/tricks/PostTrick.js:210
-#: src/services/commonTranslations.js:8
+#: src/services/commonTranslations.js:11
 msgid "common.stickFrequency"
 msgstr "Stick Frequency"
 
 #: src/components/combos/PostCombo.js:143
 #: src/components/tricks/PostTrick.js:135
-#: src/services/commonTranslations.js:9
+#: src/services/commonTranslations.js:12
 msgid "common.yearEstablished"
 msgstr "Year Established"
+
+#: src/components/buttons/InstallButton.js:24
+msgid "installApp.description"
+msgstr "App for Highline Freestyle athletes"
+
+#: src/components/buttons/InstallButton.js:15
+msgid "installApp.features"
+msgstr "<0><1>Tricklist</1><2>Combolist</2><3>Random combo generator</3><4>Works offline</4></0>"
 
 #: src/components/buttons/LanguageSelector.js:21
 msgid "languages.english"
@@ -298,57 +318,9 @@ msgstr "Update trick"
 msgid "postTrickPage.updateTrickButton"
 msgstr "Update Trick"
 
-#: src/services/sortingSchemes.js:3
-#: src/services/sortingSchemes.js:20
-#: src/services/sortingSchemes.js:27
-msgid "sortingCategory.level"
-msgstr "Level"
-
 #: src/services/sortingSchemes.js:7
-#: src/services/sortingSchemes.js:34
-#: src/services/sortingSchemes.js:41
-#: src/services/sortingSchemes.js:65
-#: src/services/sortingSchemes.js:72
-msgid "sortingCategory.stickFrequency"
-msgstr "StickFrequency"
-
-#: src/services/sortingSchemes.js:11
-#: src/services/sortingSchemes.js:51
-#: src/services/sortingSchemes.js:58
-msgid "sortingCategory.trickCombos"
-msgstr "Trick Combos"
-
-#: src/services/sortingSchemes.js:13
-#: src/services/sortingSchemes.js:55
-msgid "sortingScheme.lengthDownwards"
-msgstr "Length Downwards"
-
-#: src/services/sortingSchemes.js:12
-#: src/services/sortingSchemes.js:48
-msgid "sortingScheme.lengthUpwards"
-msgstr "Length Upwards"
-
-#: src/services/sortingSchemes.js:5
-#: src/services/sortingSchemes.js:24
-msgid "sortingScheme.levelDownwards"
-msgstr "Level Downwards"
-
-#: src/services/sortingSchemes.js:4
-#: src/services/sortingSchemes.js:17
-msgid "sortingScheme.levelUpwards"
-msgstr "Level Upwards"
-
-#: src/services/sortingSchemes.js:9
-#: src/services/sortingSchemes.js:38
-#: src/services/sortingSchemes.js:69
-msgid "sortingScheme.stickFrequencyDownwards"
-msgstr "StickFrequency Downwards"
-
-#: src/services/sortingSchemes.js:8
-#: src/services/sortingSchemes.js:31
-#: src/services/sortingSchemes.js:62
-msgid "sortingScheme.stickFrequencyUpwards"
-msgstr "StickFrequency Upwards"
+msgid "sortingCategory.comboTricksTitle"
+msgstr "{trickCount, selectordinal, other {# Trick Combo}}"
 
 #: src/services/enums.js:11
 msgid "stickFrequency.always"
