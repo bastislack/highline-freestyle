@@ -11,6 +11,7 @@ import { IoRocketSharp } from 'react-icons/io5';
 import { IconContext } from 'react-icons';
 import DeleteWarning from '../pop-ups/DeleteWarning';
 import computeStats from '../../logic/combos/computeStats';
+import { Trans } from '@lingui/macro';
 
 import Database from "../../services/db";
 const db = new Database();
@@ -139,9 +140,9 @@ const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
 
           <div className="row">
             {combo.tricks.map((trick, index) => {
-              return(index === 0 || (index > 0 && (arePositionsSimilar(trick.startPos, combo.tricks[index-1].endPos) || trick.startPos === combo.tricks[index-1].endPos)) ? 
+              return(index === 0 || (index > 0 && (arePositionsSimilar(trick.startPos, combo.tricks[index-1].endPos) || trick.startPos === combo.tricks[index-1].endPos)) ?
                   getTrickDiv(trick,index)
-                
+
                 :
               index > 0 && (!arePositionsSimilar(trick.startPos, combo.tricks[index-1].endPos) || trick.startPos !== combo.tricks[index-1].endPos) ?
                 <>
@@ -168,17 +169,17 @@ const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
           {addTrickToCombo && <AddButton call={addTrickToCombo} />}
 
           <div className="row">
-            <h4>Combo stats:</h4>
-            <p>Number of tricks: {combo.numberOfTricks}</p>
-            <p>Mininum difficulty level: {combo.minDiff}</p>
-            <p>Maximum difficulty level: {combo.maxDiff}</p>
-            <p>Average difficulty level: {combo.avgDiff}</p>
-            <p>Total difficulty level: {combo.totalDiff}</p>
+            <h4><Trans id="comboStats.title">Combo stats</Trans>:</h4>
+            <p><Trans id="comboStats.numberOfTricks">Number of tricks</Trans>: {combo.numberOfTricks}</p>
+            <p><Trans id="comboStats.minimumDifficultyLevel">Mininum difficulty level</Trans>: {combo.minDiff}</p>
+            <p><Trans id="comboStats.maximumDifficultyLevel">Maximum difficulty level</Trans>: {combo.maxDiff}</p>
+            <p><Trans id="comboStats.averageDifficultyLevel">Average difficulty level</Trans>: {combo.avgDiff}</p>
+            <p><Trans id="comboStats.totalDifficultyLevel">Total difficulty level</Trans>: {combo.totalDiff}</p>
           </div>
 
           {!inGenerator && !inPostCombo && (
             <div className="row">
-                <h4>Set your success frequency:</h4>
+                <h4><Trans id="common.setSuccessFrequency" />:</h4>
                 <div onChange={selectFreq}>
                   <FreqList stickable={combo}/>
                 </div>
@@ -188,7 +189,7 @@ const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
 
           {!inGenerator && !inPostCombo && (
             <div className="boostSkill row justify-content-center">
-              <button className={combo.boostSkill ? "col-8 col-lg-3 col-xl-2 btn btn-warning" : "col-8 col-lg-3 col-xl-2 btn btn-primary" } onClick={toggleBoostSkill}>{combo.boostSkill ? "Unboost this combo" : (<><IoRocketSharp/> Boost this combo</>)}</button>
+              <button className={combo.boostSkill ? "col-8 col-lg-3 col-xl-2 btn btn-warning" : "col-8 col-lg-3 col-xl-2 btn btn-primary" } onClick={toggleBoostSkill}>{combo.boostSkill ? <Trans id="comboStats.unboostCombo">Unboost this combo</Trans> : (<><IoRocketSharp/> <Trans id="comboStats.boostCombo">Boost this combo</Trans></>)}</button>
             </div>
           )}
         </article>

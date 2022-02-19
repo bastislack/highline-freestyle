@@ -13,6 +13,200 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: src/components/pages/About.js:35
+msgid "aboutPage.contributeDescription"
+msgstr "If you want to have a specific feature or a bug fix in the future versions of this app please write us via Facebook or Instagram. If you are a developer yourself then don't hesitate to get involved in our repository:<0/><1>Github repository</1>"
+
+#: src/components/pages/About.js:33
+msgid "aboutPage.contributeTitle"
+msgstr "How can you contribute?"
+
+#: src/components/pages/About.js:44
+msgid "aboutPage.dataHandlingDescription"
+msgstr "As we are highliners we want to make this app work offline. Thus all your data is stored locally in your browser. We use the <0>localstorage</0> and <1>indexedDB</1> API to save your data in your browser. We will never know about your data, only your browser knows about it!"
+
+#: src/components/pages/About.js:42
+msgid "aboutPage.dataHandlingTitle"
+msgstr "How is your data handled?"
+
+#: src/components/pages/About.js:14
+msgid "aboutPage.goalDescription"
+msgstr "This app is made by passionate highline freestyle athletes that want to see the sport grow. As more and more tricks are created every week it is hard to keep the overview. Here we want to show you the most common tricks/combos along with important information to help you learn them. Setting the stick frequency on your tricks/combos allows you to have a visual overview of your arsenal. The feature that was the initial motivation for making this app is the random combo generator. It should help you trying out new combos that you otherwise wouldn't have tried. We want both beginners and advanced athletes to benefit from using this app."
+
+#: src/components/pages/About.js:12
+msgid "aboutPage.goalTitle"
+msgstr "What is the goal of this app?"
+
+#: src/components/pages/About.js:26
+msgid "aboutPage.nextFeaturesDescription"
+msgstr "<0><1>A Combo Builder will be added, so you can create your own combos.</1><2>We will provide the Frontrange Freestyler and BouncKult athlete's favorite combos.</2><3>New features and improvements on the Combo Generator.</3></0>"
+
+#: src/components/pages/About.js:25
+msgid "aboutPage.nextFeaturesTitle"
+msgstr "What are the next features we are working on?"
+
+#: src/components/pages/About.js:9
+msgid "aboutPage.title"
+msgstr "About highline-freestyle.com"
+
+#: src/components/generator/ComboGenerator.js:306
+msgid "comboGeneratorPage.addToCombos"
+msgstr "Add to Combos"
+
+#: src/components/generator/ComboGenerator.js:177
+msgid "comboGeneratorPage.advancedOptions"
+msgstr "Advanced Options"
+
+#: src/components/generator/ComboGenerator.js:261
+msgid "comboGeneratorPage.allowConsecutiveTricks"
+msgstr "Allow consecutive tricks"
+
+#: src/components/generator/ComboGenerator.js:251
+msgid "comboGeneratorPage.allowDuplicateTricks"
+msgstr "Allow duplicate tricks"
+
+#: src/components/generator/ComboGenerator.js:276
+msgid "comboGeneratorPage.allowSimilarPositions"
+msgstr "Allow similar positions"
+
+#: src/components/generator/ComboGenerator.js:286
+msgid "comboGeneratorPage.allowTransitions"
+msgstr "Allow transitions"
+
+#: src/components/generator/ComboGenerator.js:197
+msgid "comboGeneratorPage.approximateAverageDifficulty"
+msgstr "Approximate average difficulty (the more tricks the more accurate)"
+
+#: src/components/generator/ComboGenerator.js:172
+msgid "comboGeneratorPage.difficultyRange"
+msgstr "Difficulty Range"
+
+#: src/components/generator/ComboGenerator.js:220
+msgid "comboGeneratorPage.finishToFeet"
+msgstr "Finish to Feet"
+
+#: src/components/generator/ComboGenerator.js:302
+msgid "comboGeneratorPage.generate"
+msgstr "Generate"
+
+#: src/components/generator/ComboGenerator.js:159
+msgid "comboGeneratorPage.generateRandomCombo"
+msgstr "Generate a Random Combo"
+
+#: src/components/generator/ComboGenerator.js:17
+msgid "comboGeneratorPage.generator"
+msgstr "Generator"
+
+#: src/components/generator/ComboGenerator.js:162
+msgid "comboGeneratorPage.numberOfTricks"
+msgstr "Number of Tricks"
+
+#: src/components/generator/ComboGenerator.js:19
+msgid "comboGeneratorPage.random"
+msgstr "Random"
+
+#: src/components/generator/ComboGenerator.js:18
+msgid "comboGeneratorPage.randomlyGenerated"
+msgstr "This combo was randomly generated!"
+
+#: src/components/generator/ComboGenerator.js:230
+msgid "comboGeneratorPage.startFrom"
+msgstr "Start from"
+
+#: src/components/combos/ComboDetails.js:176
+msgid "comboStats.averageDifficultyLevel"
+msgstr "Average difficulty level"
+
+#: src/components/combos/ComboDetails.js:192
+msgid "comboStats.boostCombo"
+msgstr "Boost this combo"
+
+#: src/components/combos/ComboDetails.js:175
+msgid "comboStats.maximumDifficultyLevel"
+msgstr "Maximum difficulty level"
+
+#: src/components/combos/ComboDetails.js:174
+msgid "comboStats.minimumDifficultyLevel"
+msgstr "Mininum difficulty level"
+
+#: src/components/combos/ComboDetails.js:173
+msgid "comboStats.numberOfTricks"
+msgstr "Number of tricks"
+
+#: src/components/combos/ComboDetails.js:172
+msgid "comboStats.title"
+msgstr "Combo stats"
+
+#: src/components/combos/ComboDetails.js:177
+msgid "comboStats.totalDifficultyLevel"
+msgstr "Total difficulty level"
+
+#: src/components/combos/ComboDetails.js:192
+msgid "comboStats.unboostCombo"
+msgstr "Unboost this combo"
+
+#: src/components/layout/LeftNav.js:59
+#: src/components/layout/Settings.js:34
+#: src/services/commonTranslations.js:4
+msgid "common.about"
+msgstr "About"
+
+#: src/components/combos/PostCombo.js:133
+#: src/components/tricks/PostTrick.js:125
+#: src/components/tricks/TrickDetails.js:167
+#: src/services/commonTranslations.js:5
+msgid "common.establishedBy"
+msgstr "Established By"
+
+#: src/services/commonTranslations.js:6
+msgid "common.length"
+msgstr "Length"
+
+#: src/services/commonTranslations.js:7
+msgid "common.level"
+msgstr "Level"
+
+#: src/components/combos/PostCombo.js:153
+#: src/components/tricks/PostTrick.js:145
+#: src/services/commonTranslations.js:8
+msgid "common.linkToVideo"
+msgstr "Link to Video"
+
+#: src/components/combos/PostCombo.js:122
+#: src/services/commonTranslations.js:9
+msgid "common.name"
+msgstr "Name"
+
+#: src/services/commonTranslations.js:10
+msgid "common.search"
+msgstr "Search"
+
+#: src/components/combos/ComboDetails.js:182
+#: src/components/tricks/TrickDetails.js:205
+#: src/services/commonTranslations.js:13
+msgid "common.setSuccessFrequency"
+msgstr "Set your success frequency"
+
+#: src/components/combos/PostCombo.js:173
+#: src/components/tricks/PostTrick.js:210
+#: src/services/commonTranslations.js:11
+msgid "common.stickFrequency"
+msgstr "Stick Frequency"
+
+#: src/components/combos/PostCombo.js:143
+#: src/components/tricks/PostTrick.js:135
+#: src/services/commonTranslations.js:12
+msgid "common.yearEstablished"
+msgstr "Year Established"
+
+#: src/components/buttons/InstallButton.js:24
+msgid "installApp.description"
+msgstr "App for Highline Freestyle athletes"
+
+#: src/components/buttons/InstallButton.js:15
+msgid "installApp.features"
+msgstr "<0><1>Tricklist</1><2>Combolist</2><3>Random combo generator</3><4>Works offline</4></0>"
+
 #: src/components/buttons/LanguageSelector.js:21
 msgid "languages.english"
 msgstr "English"
@@ -21,18 +215,169 @@ msgstr "English"
 msgid "languages.spanish"
 msgstr "Spanish"
 
-#: src/links.js:15
+#: src/links.js:5
+#: src/links.js:19
 msgid "links.comboGenerator"
 msgstr "Combo Generator"
 
-#: src/links.js:10
+#: src/links.js:4
+#: src/links.js:14
 msgid "links.combos"
 msgstr "Combos"
 
-#: src/links.js:5
+#: src/links.js:3
+#: src/links.js:9
 msgid "links.tricks"
 msgstr "Tricks"
 
-#: src/components/tricks/TrickDetails.js:130
+#: src/services/enums.js:19
+msgid "pageNames.comboDetails"
+msgstr "Combo Details"
+
+#: src/services/enums.js:21
+msgid "pageNames.comboGenerator"
+msgstr "Combo Generator"
+
+#: src/services/enums.js:18
+msgid "pageNames.comboList"
+msgstr "Combo List"
+
+#: src/services/enums.js:20
+msgid "pageNames.createCombo"
+msgstr "Create Combo"
+
+#: src/services/enums.js:17
+msgid "pageNames.createTrick"
+msgstr "Create Trick"
+
+#: src/services/enums.js:16
+msgid "pageNames.trickDetails"
+msgstr "Trick Details"
+
+#: src/services/enums.js:15
+msgid "pageNames.trickList"
+msgstr "Trick List"
+
+#: src/components/combos/PostCombo.js:114
+msgid "postComboPage.addANewCombo"
+msgstr "Add a new combo"
+
+#: src/components/combos/PostCombo.js:180
+msgid "postComboPage.addComboButton"
+msgstr "Add Combo"
+
+#: src/components/combos/PostCombo.js:163
+msgid "postComboPage.comments"
+msgstr "Comments"
+
+#: src/components/combos/PostCombo.js:114
+msgid "postComboPage.updateCombo"
+msgstr "Update combo"
+
+#: src/components/combos/PostCombo.js:180
+msgid "postComboPage.updateComboButton"
+msgstr "Update Combo"
+
+#: src/components/tricks/PostTrick.js:100
+msgid "postTrickPage.addANewTrick"
+msgstr "Add a new trick"
+
+#: src/components/tricks/PostTrick.js:217
+msgid "postTrickPage.addTrickButton"
+msgstr "Add Trick"
+
+#: src/components/tricks/PostTrick.js:104
+msgid "postTrickPage.alias"
+msgstr "Alias"
+
+#: src/components/tricks/PostTrick.js:190
+msgid "postTrickPage.description"
+msgstr "Description"
+
+#: src/components/tricks/PostTrick.js:179
+msgid "postTrickPage.difficultyLevel"
+msgstr "Difficulty Level"
+
+#: src/components/tricks/PostTrick.js:167
+msgid "postTrickPage.endPosition"
+msgstr "End Position"
+
+#: src/components/tricks/PostTrick.js:155
+msgid "postTrickPage.startPosition"
+msgstr "Start Position"
+
+#: src/components/tricks/PostTrick.js:114
+msgid "postTrickPage.technicalName"
+msgstr "Technical Name"
+
+#: src/components/tricks/PostTrick.js:201
+msgid "postTrickPage.tips"
+msgstr "Tips"
+
+#: src/components/tricks/PostTrick.js:100
+msgid "postTrickPage.updateTrick"
+msgstr "Update trick"
+
+#: src/components/tricks/PostTrick.js:217
+msgid "postTrickPage.updateTrickButton"
+msgstr "Update Trick"
+
+#: src/services/sortingSchemes.js:6
+msgid "sortingCategory.comboTricksTitle"
+msgstr "{trickCount, selectordinal, other {# Trick Combo}}"
+
+#: src/services/enums.js:11
+msgid "stickFrequency.always"
+msgstr "Always"
+
+#: src/services/enums.js:10
+msgid "stickFrequency.generally"
+msgstr "Generally"
+
+#: src/services/enums.js:4
+msgid "stickFrequency.neverTried"
+msgstr "Never tried"
+
+#: src/services/enums.js:9
+msgid "stickFrequency.often"
+msgstr "Often"
+
+#: src/services/enums.js:6
+msgid "stickFrequency.once"
+msgstr "Once"
+
+#: src/services/enums.js:7
+msgid "stickFrequency.rarely"
+msgstr "Rarely"
+
+#: src/services/enums.js:8
+msgid "stickFrequency.sometimes"
+msgstr "Sometimes"
+
+#: src/services/enums.js:5
+msgid "stickFrequency.workInProgress"
+msgstr "Work in progress"
+
+#: src/components/tricks/TrickDetails.js:212
+msgid "trickDetails.boostThisTrick"
+msgstr "Boost this trick"
+
+#: src/components/tricks/TrickDetails.js:153
+msgid "trickDetails.description"
+msgstr "Description"
+
+#: src/components/tricks/TrickDetails.js:146
 msgid "trickDetails.level"
 msgstr "Level"
+
+#: src/components/tricks/TrickDetails.js:185
+msgid "trickDetails.recommendedPrerequisites"
+msgstr "Recommended Prerequisites"
+
+#: src/components/tricks/TrickDetails.js:160
+msgid "trickDetails.tips"
+msgstr "Tips"
+
+#: src/components/tricks/TrickDetails.js:212
+msgid "trickDetails.unboostThisTrick"
+msgstr "Unboost this trick"

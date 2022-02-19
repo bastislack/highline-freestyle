@@ -7,6 +7,7 @@ import { trickSortingSchemes, comboSortingSchemes } from '../../services/sorting
 import { Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import LanguageSelector from "../buttons/LanguageSelector"
+import { Trans } from '@lingui/macro'
 
 const LeftNav = ({ sortOpt, setSortOpt, setShowAboutPage }) => {
   const path = useLocation().pathname.toString().toLowerCase();
@@ -55,7 +56,7 @@ const LeftNav = ({ sortOpt, setSortOpt, setShowAboutPage }) => {
       </Visibility>
       <hr />
       <LanguageSelector />
-      <a href="#" onClick={() => setShowAboutPage(true)} style={{marginTop: "1em"}}>About</a>
+      <a href="#" onClick={() => setShowAboutPage(true)} style={{marginTop: "1em"}}><Trans id="common.about" /></a>
     </div>
   );
 }

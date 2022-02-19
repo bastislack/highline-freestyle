@@ -4,6 +4,8 @@ import computeStats from '../../logic/combos/computeStats';
 import { stickFrequencies, positions } from '../../services/enums';
 import ComboDetails from './ComboDetails';
 import AddButton from '../buttons/AddButton';
+import { Trans } from '@lingui/macro';
+import { i18n } from '@lingui/core';
 
 import Database from "../../services/db";
 const db = new Database();
@@ -82,7 +84,7 @@ const PostCombo = ({ userCombo, setUserCombo }) => {
       stickFrequency: stickFrequency,
       boostSkill: userCombo.boostSkill
     };
-    
+
     setUserCombo(null);
 
     db.saveCombo(combo)
@@ -94,7 +96,7 @@ const PostCombo = ({ userCombo, setUserCombo }) => {
 
   const freqList = stickFrequencies.map((item, i) => {
     return (
-      <option key={i} value={i}>{item}</option>
+      <option key={i} value={i}>{i18n._(item.props['id'])}</option>
     )
   });
 
@@ -109,7 +111,7 @@ const PostCombo = ({ userCombo, setUserCombo }) => {
 
   return (
     <div className="post">
-      <h2>{preCombo ? "Update combo" : "Add a new combo"}</h2>
+      <h2>{preCombo ? <Trans id="postComboPage.updateCombo">Update combo</Trans> : <Trans id="postComboPage.addANewCombo">Add a new combo</Trans>}</h2>
 
       {userCombo && <ComboDetails setUserCombo={setUserCombo} comboToShow={userCombo} addTrickToCombo={addTrickToCombo}/>}
       {!userCombo && <AddButton call={addTrickToCombo} />}
@@ -117,7 +119,7 @@ const PostCombo = ({ userCombo, setUserCombo }) => {
       <form onSubmit={handleSubmit} className="">
         <div className="row form-row">
           <div className="col-md-6">
-            <label className="">Name:</label>
+            <label className=""><Trans id="common.name" />:</label>
             <input
               className="form-control"
               required
@@ -128,7 +130,7 @@ const PostCombo = ({ userCombo, setUserCombo }) => {
             />
           </div>
           <div className="col-md-6">
-            <label className="">Established By:</label>
+            <label className=""><Trans id="common.establishedBy" />:</label>
             <input
               className="form-control"
               type="text"
@@ -138,7 +140,7 @@ const PostCombo = ({ userCombo, setUserCombo }) => {
             />
           </div>
           <div className="col-md-6">
-            <label className="">Year Established:</label>
+            <label className=""><Trans id="common.yearEstablished" />:</label>
             <input
               className="form-control"
               type="number"
@@ -148,7 +150,7 @@ const PostCombo = ({ userCombo, setUserCombo }) => {
             />
           </div>
           <div className="col-md-6">
-            <label className="">Link to Video:</label>
+            <label className=""><Trans id="common.linkToVideo" />:</label>
             <input
               className="form-control"
               type="text"
@@ -158,7 +160,7 @@ const PostCombo = ({ userCombo, setUserCombo }) => {
             />
           </div>
           <div className="col-md-6">
-            <label className="">Comments:</label>
+            <label className=""><Trans id="postComboPage.comments">Comments</Trans>:</label>
             <input
               className="form-control"
               type="text"
@@ -168,15 +170,15 @@ const PostCombo = ({ userCombo, setUserCombo }) => {
             />
           </div>
           <div className="col-md-6">
-            <label className="">Stick Frequency:</label>
+            <label className=""><Trans id="common.stickFrequency" />:</label>
             <select className="form-select" onChange={(e) => setStickFrequency(e.target.value)}>
               {freqList}
             </select>
           </div>
         </div>
-        
-        <button className="btn btn-primary">{preCombo ? "Update Combo" : "Add Combo"}</button>
-        
+
+        <button className="btn btn-primary">{preCombo ? <Trans id="postComboPage.updateComboButton">Update Combo</Trans> : <Trans id="postComboPage.addComboButton">Add Combo</Trans>}</button>
+
       </form>
     </div>
   );

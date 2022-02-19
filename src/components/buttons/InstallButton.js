@@ -1,6 +1,7 @@
 import { BsDownload } from 'react-icons/bs';
 import { useReactPWAInstall } from 'react-pwa-install';
 import logo from '../../../public/logo96.png';
+import { Trans } from '@lingui/macro';
 
 const InstallButton = () => {
 
@@ -11,14 +12,16 @@ const InstallButton = () => {
       title: "Highline Freestyle",
       logo: logo,
       features: (
-        <ul>
-          <li>Tricklist</li>
-          <li>Combolist</li>
-          <li>Random combo generator</li>
-          <li>Works offline</li>
-        </ul>
+        <Trans id="installApp.features">
+          <ul>
+            <li>Tricklist</li>
+            <li>Combolist</li>
+            <li>Random combo generator</li>
+            <li>Works offline</li>
+          </ul>
+        </Trans>
       ),
-      description: "App for Highline Freestyle athletes",
+      description: <Trans id="installApp.description">App for Highline Freestyle athletes</Trans>,
     })
       .then(console.log("App installed successfully or instructions for install shown"))
       .catch(console.log("User cancelled installation"));

@@ -18,5 +18,5 @@ const DeleteWarning = ({ showDeleteWarning, setShowDeleteWarning, itemName, call
     </Modal>
   );
 }
- 
+
 export default DeleteWarning;

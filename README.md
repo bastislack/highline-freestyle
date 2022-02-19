@@ -67,9 +67,49 @@ At the time of writing we support two separate languages; English and Spanish. T
 
 The id helps to keep the translations organised where a general rule would be to have a categor (e.g. links or languages) followed by a full-stop and then something describing the text. This also helps to avoid having multiple translations with the same key.
 
+#### Common translations
+
+Sometimes the same translation will be used in multiple places. If they are common globally then they should be placed in `src/services/commonTranslations.js` otherwise they can be placed in the relevant file. In either case common translations must be defined with `defineMessage`. See [Defining a message before using it](#defining-a-message-before-using-it) for an example.
+
 #### Enums
 
-So far the best way I'm aware of for providing translations for enums is to convert them to a javascript object and use `<Trans>` as mentioned above. See `src/links.js` for an example.
+So far the best way I'm aware of for providing translations for enums is to convert them to a javascript object and use `<Trans>` as mentioned in [Defining a message before using it](#defining-a-message-before-using-it).
+
+#### `<option>` tags
+
+There is a [known bug](https://github.com/lingui/js-lingui/issues/655#issuecomment-621637390) where `<Trans>` (and any react component actually) cannot be used inside an `<option>` tag. The workaround is to directly use i18n and pre-define the message as follows:
+
+```javascript
+import { defineMessage } from '@lingui/macro';
+import { i18n } from '@lingui/core';
+
+const Example = () => {
+  const someMessage = defineMessage({ id: "theDesiredMessageId", message: "The desired message" });
+
+  return <select>
+    <option value={0} key="0">{i18n._(someMessage)}</option>
+  </select>;
+}
+```
+
+#### Defining a message before using it
+
+```javascript
+import { Trans, defineMessage } from '@lingui/macro';
+import { i18n } from '@lingui/core';
+
+const Example = () => {
+  const someMessage = defineMessage({ id: "theDesiredMessageId", message: "The desired message" });
+
+  // Use this form if you _need_ a String e.g. for the value of a setState call
+  // or for some data that is being stored.
+  const someMessageString = i18n._(someMessage);
+
+  // Where possible use this for as it handles changing the value automatically
+  // when the locale changes.
+  return <Trans id={someMessage.id} />;
+}
+```
 
 #### Why explicitly define ids for `Trans`
 
