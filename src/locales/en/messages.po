@@ -141,6 +141,10 @@ msgstr "Combo stats"
 msgid "comboStats.totalDifficultyLevel"
 msgstr "Total difficulty level"
 
+#: src/components/combos/ComboDetails.js:192
+msgid "comboStats.unboostCombo"
+msgstr "Unboost this combo"
+
 #: src/components/layout/LeftNav.js:59
 #: src/components/layout/Settings.js:34
 #: src/services/commonTranslations.js:4
@@ -318,7 +322,7 @@ msgstr "Update trick"
 msgid "postTrickPage.updateTrickButton"
 msgstr "Update Trick"
 
-#: src/services/sortingSchemes.js:7
+#: src/services/sortingSchemes.js:6
 msgid "sortingCategory.comboTricksTitle"
 msgstr "{trickCount, selectordinal, other {# Trick Combo}}"
 
@@ -373,3 +377,7 @@ msgstr "Recommended Prerequisites"
 #: src/components/tricks/TrickDetails.js:160
 msgid "trickDetails.tips"
 msgstr "Tips"
+
+#: src/components/tricks/TrickDetails.js:212
+msgid "trickDetails.unboostThisTrick"
+msgstr "Unboost this trick"

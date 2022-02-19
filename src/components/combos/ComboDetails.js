@@ -189,7 +189,7 @@ const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
 
           {!inGenerator && !inPostCombo && (
             <div className="boostSkill row justify-content-center">
-              <button className={combo.boostSkill ? "col-8 col-lg-3 col-xl-2 btn btn-warning" : "col-8 col-lg-3 col-xl-2 btn btn-primary" } onClick={toggleBoostSkill}>{combo.boostSkill ? "Unboost this combo" : (<><IoRocketSharp/> <Trans id="comboStats.boostCombo">Boost this combo</Trans></>)}</button>
+              <button className={combo.boostSkill ? "col-8 col-lg-3 col-xl-2 btn btn-warning" : "col-8 col-lg-3 col-xl-2 btn btn-primary" } onClick={toggleBoostSkill}>{combo.boostSkill ? <Trans id="comboStats.unboostCombo">Unboost this combo</Trans> : (<><IoRocketSharp/> <Trans id="comboStats.boostCombo">Boost this combo</Trans></>)}</button>
             </div>
           )}
         </article>

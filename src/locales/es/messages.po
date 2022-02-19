@@ -141,6 +141,10 @@ msgstr "Estadísticas del Combo"
 msgid "comboStats.totalDifficultyLevel"
 msgstr "Nivel Total de Dificultad"
 
+#: src/components/combos/ComboDetails.js:192
+msgid "comboStats.unboostCombo"
+msgstr "Desimpulsar el Combo"
+
 #: src/components/layout/LeftNav.js:59
 #: src/components/layout/Settings.js:34
 #: src/services/commonTranslations.js:4
@@ -318,7 +322,7 @@ msgstr "Actualice Truco"
 msgid "postTrickPage.updateTrickButton"
 msgstr "Actualice Truco"
 
-#: src/services/sortingSchemes.js:7
+#: src/services/sortingSchemes.js:6
 msgid "sortingCategory.comboTricksTitle"
 msgstr "{trickCount, selectordinal, other {Combo de # Trucos}}"
 
@@ -373,3 +377,7 @@ msgstr "Requisitos Recomendados"
 #: src/components/tricks/TrickDetails.js:160
 msgid "trickDetails.tips"
 msgstr "Consejos"
+
+#: src/components/tricks/TrickDetails.js:212
+msgid "trickDetails.unboostThisTrick"
+msgstr "Desimpulsar este Truco"

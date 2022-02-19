@@ -209,7 +209,7 @@ const TrickDetails = () => {
           </div>
 
           <div className="boostSkill row justify-content-center">
-            <button className={trick.boostSkill ? "col-8 col-lg-3 col-xl-2 btn btn-warning" : "col-8 col-lg-3 col-xl-2 btn btn-primary" } onClick={toggleBoostSkill}>{trick.boostSkill ? "Unboost this trick" : (<><IoRocketSharp/> <Trans id="trickDetails.boostThisTrick">Boost this trick</Trans></>)}</button>
+            <button className={trick.boostSkill ? "col-8 col-lg-3 col-xl-2 btn btn-warning" : "col-8 col-lg-3 col-xl-2 btn btn-primary" } onClick={toggleBoostSkill}>{trick.boostSkill ? <Trans id="trickDetails.unboostThisTrick">Unboost this trick</Trans> : (<><IoRocketSharp/> <Trans id="trickDetails.boostThisTrick">Boost this trick</Trans></>)}</button>
           </div>
 
           {showDeleteWarning && <DeleteWarning showDeleteWarning={showDeleteWarning} setShowDeleteWarning={setShowDeleteWarning} itemName={trick.alias || trick.technicalName} call={deleteTrick} />}
