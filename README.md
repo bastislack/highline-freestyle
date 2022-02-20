@@ -50,11 +50,13 @@ We don't always know what we really do, but we try to keep some order, through i
 
 sometimes after updating you have to delete your indexDB in your browser, through the development tools (__Storage__ in firefox, __Application__ in chrome)
 
+### Tests
+
+Tests are written with the jest package and can be run with `npm test`.
+
 ### Project structure
 
-right now we are just working on the main branch, until we get to have a halfway working beta version (our first milestone)
-
-after that we will develop on a separate branch and keep the main branch always working
+We are working on the develop branch and merging to main once we consider a milestone to be complete.
 
 ### i18n (internationalization)
 
