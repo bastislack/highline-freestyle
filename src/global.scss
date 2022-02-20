@@ -109,3 +109,13 @@ body {
   color: #767676;
   margin-bottom: 0;
 }
+
+.navigation-icon path {
+  @include media-breakpoint-down(lg) {
+    fill: black;
+  }
+
+  @include media-breakpoint-up(lg) {
+    fill: white;
+  }
+}
