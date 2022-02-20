@@ -6,9 +6,8 @@ import { predefinedCombos, predefinedCombosVersion } from "../predefinedTricksCo
 
 export default class Database {
 
-  constructor() {
-
-    this.db = new Dexie("db");
+  constructor(testSetupCallback = null) {
+    this.db = testSetupCallback === null ? new Dexie("db") : testSetupCallback();
 
     this.db.version(4).stores({
       // to keep track of all the versions
@@ -26,6 +25,7 @@ export default class Database {
         }
       })
     });
+
     this.db.version(6).stores().upgrade(tx => {
       return tx.table("userCombos").toCollection().modify(combo => {
         if (combo.stickFrequency === 5 || combo.stickFrequency === 6) {
@@ -34,22 +34,24 @@ export default class Database {
       })
     });
 
-    // count the tricks in the database and populate it if its empty
-    this.db.versions.get("predefinedTricksVersion").then( ret => {
-      if (!ret || ret.version < predefinedTricksVersion) {
-        this.populateTricks();
-      } else {
-        console.log("did not update predefinedTricks");
-      }
-    }).then(() => {
-      // count the combos in the database and populate it if its empty
-      this.db.versions.get("predefinedCombosVersion").then( ret => {
-        if (!ret || ret.version < predefinedCombosVersion) {
-          this.populateCombos();
+    this.db.on('ready', () => {
+      // count the tricks in the database and populate it if its empty
+      return this.db.versions.get("predefinedTricksVersion").then(ret => {
+        if (!ret || ret.version < predefinedTricksVersion) {
+          return this.populateTricks();
         } else {
-          console.log("did not update predefinedCombos");
+          console.log("did not update predefinedTricks");
         }
-      }); 
+      }).then(() => {
+        // count the combos in the database and populate it if its empty
+        return this.db.versions.get("predefinedCombosVersion").then( ret => {
+          if (!ret || ret.version < predefinedCombosVersion) {
+            return this.populateCombos();
+          } else {
+            console.log("did not update predefinedCombos");
+          }
+        });
+      });
     });
   }
 
@@ -62,7 +64,7 @@ export default class Database {
 
   // populate the databes with tricks from the predefinedTricks.js
   populateTricks = () => {
-    this.db.predefinedTricks.clear().then(() => {
+    return this.db.predefinedTricks.clear().then(() => {
       console.log("updating predefinedTricks")
       const trickList = Papa.parse(predefinedTricks, {dynamicTyping: true}).data;
 
@@ -89,7 +91,7 @@ export default class Database {
       });
 
       // adds the tricks to the database
-      this.db.predefinedTricks.bulkPut(tricks).then(() => {
+      return this.db.predefinedTricks.bulkPut(tricks).then(() => {
         console.log("added tricks to database from the csv");
         this.db.versions.put({"key": "predefinedTricksVersion", "version": predefinedTricksVersion});
       });
@@ -97,9 +99,13 @@ export default class Database {
   };
 
   // get single trick by id
-  getTrick = (id) => this.db.userTricks.get(Number(id)).then(userTrick => {
-    if (userTrick) return userTrick;
-    else return this.db.predefinedTricks.get(Number(id));
+  getTrick = (id) => this.db
+    .userTricks
+    .get(Number(id))
+    .then(userTrick => {
+      if (userTrick) return userTrick;
+      else return this.db.predefinedTricks.get(Number(id)
+    );
   });
 
   // get list of all tricks
@@ -109,7 +115,16 @@ export default class Database {
       // query all only predefinedTricks which don't have the same id as the userTricks
       // and concat these to the userTricks
       // also filter out tricks which are marked deleted
-      return this.db.predefinedTricks.where("id").noneOf(userKeys).toArray().then(preTricks => preTricks.concat(userTricks.filter(trick => !trick.deleted)).sort((a,b) => a.id - b.id));
+      return this.db
+        .predefinedTricks
+        .where("id")
+        .noneOf(userKeys)
+        .toArray()
+        .then(preTricks =>
+          preTricks
+            .concat(userTricks.filter(trick => !trick.deleted))
+            .sort((a,b) => a.id - b.id)
+        );
     });
   };
 
@@ -173,8 +188,8 @@ export default class Database {
 
   // populate the databes with combos from the predefinedCombos.js
   populateCombos = () => {
-    this.db.predefinedCombos.clear().then(() => {
-      this.getAllTricks().then(allTricks => {
+    return this.db.predefinedCombos.clear().then(() => {
+      return this.getAllTricks().then(allTricks => {
         console.log("updating predefinedCombos")
         const comboList = Papa.parse(predefinedCombos, {dynamicTyping: true}).data;
 
@@ -195,19 +210,23 @@ export default class Database {
         });
 
         // adds the combos to the database
-        this.db.predefinedCombos.bulkPut(combos).then(() => {
+        return this.db.predefinedCombos.bulkPut(combos).then(() => {
           console.log("added combos to database from the csv");
-          this.db.versions.put({"key": "predefinedCombosVersion", "version": predefinedCombosVersion});
+          return this.db.versions.put({"key": "predefinedCombosVersion", "version": predefinedCombosVersion});
         });
       });
     });
   };
 
   // get single combo by id
-  getCombo = (id) => this.db.userCombos.get(Number(id)).then(userCombo => {
-    if (userCombo) return userCombo;
-    else return this.db.predefinedCombos.get(Number(id));
-  }).then(combo => this.fillComboWithTricks(combo));
+  getCombo = (id) => this.db
+    .userCombos
+    .get(Number(id))
+    .then(userCombo => {
+      if (userCombo) return userCombo;
+      else return this.db.predefinedCombos.get(Number(id));
+    })
+    .then(combo => this.fillComboWithTricks(combo));
 
   // fill a combo, which has only ids as tricks with the tricks
   fillComboWithTricks = (combo) => {
