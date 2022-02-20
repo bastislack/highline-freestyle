@@ -43,7 +43,14 @@
     "prod": "NODE_ENV=production webpack --mode=production",
     "serve": "npm run prod && serve -s dist",
     "extract": "lingui extract",
-    "compile": "lingui compile"
+    "compile": "lingui compile",
+    "test": "jest"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.[t|j]sx?$": "babel-jest"
+    },
+    "setupFilesAfterEnv": ["./src/setupTests.js"] 
   },
   "eslintConfig": {
     "extends": [
@@ -67,20 +74,24 @@
     "@babel/core": "^7.16.12",
     "@babel/plugin-proposal-class-properties": "^7.16.7",
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
-    "@babel/preset-env": "^7.16.0",
-    "@babel/preset-react": "^7.16.0",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
     "@lingui/cli": "^3.13.2",
     "@lingui/loader": "^3.13.2",
     "@lingui/macro": "^3.13.2",
+    "babel-jest": "^27.5.1",
     "babel-loader": "^8.2.3",
     "babel-plugin-dynamic-import-node": "^2.3.3",
     "babel-plugin-macros": "^3.1.0",
     "copy-webpack-plugin": "^9.0.1",
     "css-loader": "^6.5.1",
+    "fake-indexeddb": "^3.1.7",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
+    "jest": "^27.5.1",
     "mini-css-extract-plugin": "^2.4.5",
     "node-sass": "^7.0.0",
+    "react-test-renderer": "^17.0.2",
     "sass-loader": "^12.4.0",
     "serve": "^13.0.2",
     "style-loader": "^3.3.1",
