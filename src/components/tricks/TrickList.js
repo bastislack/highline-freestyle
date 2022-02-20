@@ -20,7 +20,7 @@ const TrickList = ({ sortOpt, scrollPosition, setScrollPosition, userCombo, setU
     if (location.state.addTrickToCombo) {
       addTrickToCombo = true;
     }
-  } 
+  }
 
   let current;
   const [searchPattern, setSearchPattern] = useState("");
