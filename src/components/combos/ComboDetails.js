@@ -110,6 +110,47 @@ const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
     );
   }
 
+  let youtubeId;
+  let youtubeOpts;
+  var instagramLink
+  if (combo && combo.linkToVideo) {
+    if (combo.linkToVideo.includes("youtu")) {
+      // "https://www.youtube.com/embed/<videoID>"
+      if (combo.linkToVideo.includes("youtu.be")) {
+        youtubeId = combo.linkToVideo.split("/").pop().split("?")[0];
+      } else {
+        youtubeId = combo.linkToVideo.split("/").pop().split("?v=").pop();
+        if (youtubeId.includes("&")) {
+          youtubeId = youtubeId.split("&")[0];
+        }
+      }
+      youtubeOpts = {
+        playerVars: {
+          autoplay: 0,
+          fs: 1,
+          rel: 0,
+          start: combo.videoStartTime,
+          end: combo.videoEndTime
+        }
+      }
+    }
+    else if (combo.linkToVideo.includes("instagram")) {
+      // "https://www.instagram.com/p/<videoID>/embed
+      instagramLink = combo.linkToVideo + "embed";
+    }
+    else {
+      console.log("Could not embed this link:\n" + combo.linkToVideo);
+    }
+  }
+
+  const setupYoutubePlayer = (e) => {
+    e.target.mute();
+  }
+
+  const restartVideo = (e) => {
+    e.target.seekTo(combo.videoStartTime ?? 0);
+  }
+
   const toggleBoostSkill = () => {
     combo.boostSkill ? combo.boostSkill = false : combo.boostSkill = true;
     db.saveCombo(combo).then(res => {
@@ -175,6 +216,31 @@ const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
             <p>Average difficulty level: {combo.avgDiff}</p>
             <p>Total difficulty level: {combo.totalDiff}</p>
           </div>
+
+          {combo.yearEstablished && combo.establishedBy &&
+            <div>
+              <h5>Established by: </h5>
+              <div className="callout">{combo.establishedBy} in {combo.yearEstablished}</div>
+            </div>
+          }
+
+          {youtubeId &&
+            <div className="callout video-callout">
+              <YouTube className="video" videoId={youtubeId} opts={youtubeOpts} onReady={setupYoutubePlayer} onEnd={restartVideo}/>
+            </div>
+          }
+          {instagramLink &&
+            <div className="callout insta-callout">
+              <iframe className="insta-video" src={instagramLink} frameBorder="0" scrolling="no" allowtransparency="true" title="video"></iframe>
+            </div>
+          }
+
+          {combo.comments &&
+            <div>
+              <h5>Comments: </h5>
+              <div className="callout">{combo.comments}</div>
+            </div>
+          }
 
           {!inGenerator && !inPostCombo && (
             <div className="row">
