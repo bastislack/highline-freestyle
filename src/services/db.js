@@ -2,6 +2,7 @@ import Dexie from "dexie";
 import Papa from "papaparse"
 import { predefinedTricks, predefinedTricksVersion } from "../predefinedTricksCombos"
 import { predefinedCombos, predefinedCombosVersion } from "../predefinedTricksCombos"
+import { persist, tryPersistWithoutPromtingUser } from "./persistentStorage"
 
 
 export default class Database {
@@ -51,6 +52,9 @@ export default class Database {
         }
       }); 
     });
+
+    // try silently to persist the storage, othewise prompt when adding something to the db
+    this.persistentStorage = tryPersistWithoutPromtingUser();
   }
 
   // Tricks
@@ -140,6 +144,13 @@ export default class Database {
 
   // create or update userTrick
   saveTrick = (trick) => {
+    // if needing to prompt for persistence prompt now
+    persist();
+
+    if (trick.recommendedPrerequisites) {
+      // replace recTricks by their id
+      trick.recommendedPrerequisites = trick.recommendedPrerequisites.map(recTrick => recTrick.id);
+    }
     if (trick.id) return this.db.userTricks.put(trick);
     else {
       return this.db.predefinedTricks.toCollection().primaryKeys().then( (trickKeys) => {
@@ -230,6 +241,10 @@ export default class Database {
 
   // create or update userCombo
   saveCombo = (combo) => {
+    // if needing to prompt for persistence prompt now
+    persist();
+
+    combo.tricks = combo.tricks.map(trick => trick.id);
     if (combo.id) {
       return this.db.userCombos.put(combo);
     }
