@@ -107,7 +107,7 @@ export default class Database {
     .userTricks
     .get(Number(id))
     .then(userTrick => {
-      if (userTrick) return userTrick;
+      if (userTrick && !userTrick.deleted) return userTrick;
       else return this.db.predefinedTricks.get(Number(id)
     );
   });
@@ -138,8 +138,8 @@ export default class Database {
     for (let i = 0; i < ids.length; i++) {
       result.push(
         this.db.userTricks.where("id").equals(ids[i]).last().then((userTrick) => {
-          if (userTrick) {
-            return userTrick.deleted ? null : userTrick;
+          if (userTrick && !userTrick.deleted) {
+            return userTrick;
           } else {
             return this.db.predefinedTricks.where("id").equals(ids[i]).last();
           }
