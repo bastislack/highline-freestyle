@@ -29,6 +29,8 @@ Open an issue and describe what is you want to see different
 
 We don't always know what we really do, but we try to keep some order, through issues ...
 
+Checkout the [good first issue tag](https://github.com/bastislack/highline-freestyle/labels/good%20first%20issue), if you don't know where to start.
+
 ### Requirements:
 
 - node
