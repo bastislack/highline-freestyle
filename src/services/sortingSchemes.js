@@ -27,6 +27,20 @@ export const trickSortingSchemes = [
     "attributeFunc": (a) => a.stickFrequency,
     "showCategory": false,
   },
+  {"name": "Starting Position",
+  "id": 4,
+  "sortFunc": (a, b) => {return a.startPos.localeCompare(b.startPos, undefined, {numeric: true, sensitivity: 'base'});},
+  "catName": "Starting Position",
+  "attributeFunc": (a) => a.startPos,
+  "showCategory": true,
+  },
+  {"name": "End Position",
+  "id": 5,
+  "sortFunc": (a, b) => {return a.endPos.localeCompare(b.endPos, undefined, {numeric: true, sensitivity: 'base'});},
+  "catName": "End Position",
+  "attributeFunc": (a) => a.endPos,
+  "showCategory": true,
+  },
 ];
 
 export const comboSortingSchemes = [
