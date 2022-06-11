@@ -16,19 +16,30 @@ export function findCombo(vars, retries) {
     maxDifficulty
   ] = vars;
 
-  const isAnyComboConditionFulfilled = (index, lastTrick, currentTrick) => {
-    const isFinishToFeetFulfilled = (currentTrick.endPos === "STAND" || currentTrick.endPos === "EXPOSURE") ? true : false;
-    const isConsecutiveTricksFulfilled = ((allowDuplicates && allowConsecutiveTricks) || lastTrick !== currentTrick) ? true : false;
-    const isGeneralComboConstraintFulfilled = ((allowSimilarPositions && arePositionsSimilar(currentTrick.startPos, lastTrick.endPos)) || currentTrick.startPos === lastTrick.endPos || allowTransitions) ? true : false;
+  /**
+   * Returns true if the current trick is a legal one in regards to the
+   * specified conditions. This does not check for duplicates as it only
+   * looks at one trick and its predecessor in the combo.
+   */
+  const areLocalComboContitionsLegal = (index, lastTrick, currentTrick) => {
+    const isConsecutiveTricksLegal = allowConsecutiveTricks || lastTrick.id !== currentTrick.id;
+
+    const isEndAndStartEqual = currentTrick.startPos === lastTrick.endPos;
+    const isEndAndStartSimilar = arePositionsSimilar(currentTrick.startPos, lastTrick.endPos);
+    const isTransitionLegal = (allowSimilarPositions && isEndAndStartSimilar)
+                              || isEndAndStartEqual
+                              || allowTransitions;
+
+    if (!isConsecutiveTricksLegal || !isTransitionLegal) {
+      return false;
+    }
+
+    // If the last trick should be to feet, return if that is the case.
     if (index === numberOfTricks - 1 && finishToFeet) {
-      if (isGeneralComboConstraintFulfilled && isConsecutiveTricksFulfilled && isFinishToFeetFulfilled) {
-        return true;
-      }
+      return ["STAND", "EXPOSURE"].includes(currentTrick.endPos);
     }
-    else if (isGeneralComboConstraintFulfilled && isConsecutiveTricksFulfilled) {
-      return true;
-    }
-    return false;
+
+    return true;
   }
 
   const getFirstTrick = (availableTricks) => {
@@ -79,7 +90,7 @@ export function findCombo(vars, retries) {
 
   for (let i = 1; i < numberOfTricks; i++) {
     let possibleTricks = availableTricks.filter(
-      trick => isAnyComboConditionFulfilled(i, randomTricks[i-1], trick)
+      trick => areLocalComboContitionsLegal(i, randomTricks[i-1], trick)
       && (allowDuplicates || !randomTricks.includes(trick))
     );
     // can't find any tricks anymore... try again
