@@ -237,13 +237,16 @@ export default class Database {
 
   // fill a combo, which has only ids as tricks with the tricks
   fillComboWithTricks = (combo) => {
-    return Promise.all(this.getTricksByIds(combo.tricks)).then(tricksInCombo => {
-      tricksInCombo = tricksInCombo.filter(trick => trick);
-      let comboWithTricks = combo;
-      // change the order of the tricks to the original one
-      comboWithTricks.tricks = tricksInCombo.sort((a,b) => combo.tricks.indexOf(a.id) - combo.tricks.indexOf(b.id));
-      return comboWithTricks;
-    });
+    return Promise.all(
+      this.getTricksByIds(combo.tricks))
+        .then(tricksInCombo => {
+          // Maintain the general combo details whilst replacing the old trick ids with
+          // the full tricks (containing id, name, level, etc.).
+          let comboWithTricks = combo;
+          comboWithTricks.tricks = tricksInCombo;
+          return comboWithTricks;
+        }
+    );
   };
 
   // get list of all combos
