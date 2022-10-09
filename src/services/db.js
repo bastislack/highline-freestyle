@@ -235,18 +235,14 @@ export default class Database {
     })
     .then(combo => this.fillComboWithTricks(combo));
 
-  // fill a combo, which has only ids as tricks with the tricks
+  // fill a combo, which has only ids as tricks with the full tricks
+  // (containing id, name, level, etc.)
   fillComboWithTricks = (combo) => {
-    return Promise.all(
-      this.getTricksByIds(combo.tricks))
-        .then(tricksInCombo => {
-          // Maintain the general combo details whilst replacing the old trick ids with
-          // the full tricks (containing id, name, level, etc.).
-          let comboWithTricks = combo;
-          comboWithTricks.tricks = tricksInCombo;
-          return comboWithTricks;
-        }
-    );
+    return Promise.all(this.getTricksByIds(combo.tricks))
+      .then(tricksInCombo => {
+        combo.tricks = tricksInCombo;
+        return combo;
+      });
   };
 
   // get list of all combos
