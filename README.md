@@ -1,7 +1,3 @@
-# Update
-
-Development will continue in October!
-
 # About the app
 
 This is a collection of most of the freestyle tricks, for people to keep a better overview of all the tricks.
