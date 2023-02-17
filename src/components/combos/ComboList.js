@@ -55,7 +55,7 @@ const ComboList = ({ sortOpt, scrollPosition, setScrollPosition }) => {
           if (isFirst && sortingSchemes[sortOpt].showCategory) {
             return [
               <div className="w-100 list-br-heading" key={"header" + combo.id.toString()}>
-                <h4>{current} {sortingSchemes[sortOpt].catName}</h4>
+                <h4>{!sortingSchemes[sortOpt].attributeLast && current} {sortingSchemes[sortOpt].catName} {sortingSchemes[sortOpt].attributeLast && current}</h4>
               </div>,
               getComboDiv(combo)
             ];
