@@ -35,6 +35,20 @@ export default class Database {
       })
     });
 
+    this.db.version(7).stores().upgrade(tx => {
+      return tx.table("predefinedTricks").toArray().then(preTricks => {
+        return tx.table("userTricks").toCollection().modify(userTrick => {
+          const preTrick = preTricks.filter(trick => trick.id === userTrick.id)[0];
+          Object.keys(userTrick).forEach(key => {
+            if (key in preTrick && key !== "id" && userTrick[key] === preTrick[key]) {
+              console.log("deleting ", userTrick.id, key)
+              delete userTrick[key];
+            }
+          });
+        });
+      });
+    });
+
     this.db.on('ready', () => {
       // count the tricks in the database and populate it if its empty
       return this.db.versions.get("predefinedTricksVersion").then(ret => {
@@ -102,59 +116,86 @@ export default class Database {
     });
   };
 
+  // helper function to combine two lists, 
+  // where entries which share the same keys, get merged 
+  // and atributes of the first list are prefered
+  mergeLists = (listA, listB) => {
+    if (listA && !listB) return listA;
+    if (!listA && listB) return listB;
+    if (!listA && !listB) return null;
+    // Merge the two lists based on the common "id" attribute 
+    return listA.map((objA) => {
+      const objB = listB.find((objB) => objB.id === objA.id);
+      if (objB) {
+        // Combine the attributes of listA and listB, removing duplicates from listB
+        const objBcopy = { ...objB };
+        Object.keys(objA).forEach((key) => {
+          if (key in objB) {
+            delete objBcopy[key];
+          }
+        });
+        return { ...objA, ...objBcopy };
+      } else {
+        // If the id is unique keep it as is
+        return objA;
+      }
+    }).concat(listB.filter((objB) => !listA.some((objA) => objA.id === objB.id)))
+  };
+
   // get single trick by id
-  getTrick = (id) => this.db
-    .userTricks
-    .get(Number(id))
-    .then(userTrick => {
-      if (userTrick && !userTrick.deleted) return userTrick;
-      else return this.db.predefinedTricks.get(Number(id)
-    );
-  });
+  getTrick = (id) => this.db.userTricks.get(Number(id)).then(userTrick => {
+      return this.db.predefinedTricks.get(Number(id)).then(preTrick => {
+        if (!userTrick) return preTrick;
+        else return this.mergeLists([userTrick], [preTrick])[0];
+      });
+    });
 
   // get list of all tricks
+  //
+  // we combine all Tricks from both of the Tables, by their ids
+  // if an attribute is set by both tables, we take the attribute of the userTricks
   getAllTricks = () => {
     return this.db.userTricks.toArray().then((userTricks) => {
-      const userKeys = userTricks.map(trick => trick.id);
-      // query all only predefinedTricks which don't have the same id as the userTricks
-      // and concat these to the userTricks
-      // also filter out tricks which are marked deleted
-      return this.db
-        .predefinedTricks
-        .where("id")
-        .noneOf(userKeys)
-        .toArray()
-        .then(preTricks =>
-          preTricks
-            .concat(userTricks.filter(trick => !trick.deleted))
-            .sort((a,b) => a.id - b.id)
-        );
+      return this.db.predefinedTricks.toArray().then(preTricks => {
+        return this.mergeLists(userTricks, preTricks)
+            .filter(trick => !trick.deleted)
+            .sort((a,b) => a.id - b.id);
+        });
     });
   };
 
-  // get list of all tricks
+  // get list of tricks from ids
   getTricksByIds = (ids) => {
-    let result = [];
-    for (let i = 0; i < ids.length; i++) {
-      result.push(
-        this.db.userTricks.where("id").equals(ids[i]).last().then((userTrick) => {
-          if (userTrick && !userTrick.deleted) {
-            return userTrick;
-          } else {
-            return this.db.predefinedTricks.where("id").equals(ids[i]).last();
-          }
-        })
-      );
-    }
-    return result;
+    ids = ids.map(id => Number(id));
+    return this.db.userTricks.where("id").anyOf(ids).toArray().then(userTricks => {
+      return this.db.predefinedTricks.where("id").anyOf(ids).toArray().then(preTricks => {
+        return this.mergeLists(userTricks, preTricks);
+      });
+    });
   };
+
 
   getTricksByDiffAndByFreq = (diffLevels, stickFreqs) => {
-    return this.db.userTricks.toArray().then(userTricks => {
-      userTricks = userTricks.filter(trick => { return ((diffLevels.includes(trick.difficultyLevel) && stickFreqs.includes(trick.stickFrequency)) || trick.deleted);});
-      return this.db.predefinedTricks.where("difficultyLevel").anyOf(diffLevels).and(trick => stickFreqs.includes(trick.stickFrequency)).and(trick => !userTricks.map(trick => trick.id).includes(trick.id)).toArray().then(preTricks => preTricks.concat(userTricks.filter(trick => !trick.deleted)));
+    return this.getAllTricks().then(tricks => {
+      return tricks.filter(trick => {
+        return (diffLevels.includes(trick.difficultyLevel) && stickFreqs.includes(trick.stickFrequency));
+      });
     });
   };
+
+  //getTricksByDiffAndByFreq = (diffLevels, stickFreqs) => {
+  //  return this.db.userTricks.toArray().then(userTricks => {
+  //    userTricks = userTricks.filter(trick => { 
+  //      return ((diffLevels.includes(trick.difficultyLevel) && stickFreqs.includes(trick.stickFrequency)) || trick.deleted);
+  //    });
+  //    return this.db.predefinedTricks.where("difficultyLevel").anyOf(diffLevels)
+  //      .and(trick => stickFreqs.includes(trick.stickFrequency))
+  //      .and(trick => !userTricks.map(trick => trick.id).includes(trick.id))
+  //      .toArray().then(preTricks => {
+  //        preTricks.concat(userTricks.filter(trick => !trick.deleted))
+  //      });
+  //  });
+  //};
 
   // create or update userTrick
   saveTrick = (trick) => {
@@ -238,11 +279,10 @@ export default class Database {
   // fill a combo, which has only ids as tricks with the full tricks
   // (containing id, name, level, etc.)
   fillComboWithTricks = (combo) => {
-    return Promise.all(this.getTricksByIds(combo.tricks))
-      .then(tricksInCombo => {
-        combo.tricks = tricksInCombo;
-        return combo;
-      });
+    return this.getTricksByIds(combo.tricks).then(tricksInCombo => {
+      combo.tricks = tricksInCombo;
+      return combo;
+    });
   };
 
   // get list of all combos

@@ -41,8 +41,10 @@ const TrickDetails = () => {
 
   const selectFreq = (e) => {
     const newFreq = Number(e.target.value);
-    trick.stickFrequency = newFreq;
-    db.saveTrick(trick).then(res => {
+    let modifiedTrick = Object();
+    modifiedTrick.id = trick.id;
+    modifiedTrick.stickFrequency = newFreq;
+    db.saveTrick(modifiedTrick).then(res => {
       console.log("changed stickFrequency");
     }).catch(e => {
       console.log(e);

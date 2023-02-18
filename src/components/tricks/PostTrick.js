@@ -73,6 +73,18 @@ const PostTrick = () => {
       tips: tips,
       stickFrequency: stickFrequency
     };
+
+    // removes all attributes,which were not set or modified
+    if (trick.alias == "" || !trick.alias || preTrick && trick.alias === preTrick.alias){ delete trick.alias }
+    if (trick.technicalName == "" || !trick.technicalName || preTrick && trick.technicalName === preTrick.technicalName){ delete trick.technicalName }
+    if (trick.establishedBy == "" || !trick.establishedBy || preTrick && trick.establishedBy === preTrick.establishedBy){ delete trick.establishedBy }
+    if (trick.yearEstablished == "" || !trick.yearEstablished || preTrick && trick.yearEstablished === preTrick.yearEstablished){ delete trick.yearEstablished }
+    if (trick.linkToVideo == "" || !trick.linkToVideo || preTrick && trick.linkToVideo === preTrick.linkToVideo){ delete trick.linkToVideo }
+    if (trick.startPos == "" || !trick.startPos || preTrick && trick.startPos === preTrick.startPos){ delete trick.startPos }
+    if (trick.endPos == "" || !trick.endPos || preTrick && trick.endPos === preTrick.endPos){ delete trick.endPos }
+    if (trick.difficultyLevel == "" || !trick.difficultyLevel || preTrick && trick.difficultyLevel === preTrick.difficultyLevel){ delete trick.difficultyLevel }
+    if (trick.description == "" || !trick.description || preTrick && trick.description === preTrick.description){ delete trick.description }
+    if (trick.tips == "" || !trick.tips || preTrick && trick.tips === preTrick.tips){ delete trick.tips }
     
     db.saveTrick(trick)
     .then(() => {
