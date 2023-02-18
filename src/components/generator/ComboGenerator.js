@@ -30,7 +30,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
   const [consecutiveCheckbox, setConsecutiveCheckbox] = useState(false);
   const [startFromCheckbox, setStartFromCheckbox] = useState(false);
   const [difficultyWhitelist, setDifficultyWhitelist] = useState(Array.from({length: difficultyRangeMax}, (_, i) => i+1));
-  const [stickFrequencyWhitelist, setStickFrequencyWhitelist] = useState(Array.from({length: stickFrequencies.length - 1}, (_, i) => i+1));
+  const [stickFrequencyWhitelist, setStickFrequencyWhitelist] = useState(Array.from({length: stickFrequencies.length}, (_, i) => i));
   const [difficultyRangeMinMax, setDifficultyRangeMinMax] = useState([1, difficultyRangeMax]);
 
   const maxDifficulty = difficultyRangeMinMax[1];
