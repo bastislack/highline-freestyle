@@ -7,6 +7,9 @@ import { Trans } from '@lingui/macro'
 const LanguageSelector = () => {
     const { i18n } = useLingui();
 
+  //TODO remove this when we have the spanish version working
+  return null;
+
     return (
       <ButtonGroup>
         <ToggleButton
