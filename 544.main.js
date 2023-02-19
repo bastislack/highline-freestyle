@@ -1,0 +1,1 @@
+(self.webpackChunkhighline_freestyle=self.webpackChunkhighline_freestyle||[]).push([[544],{1544:function(e){e.exports={messages:{"languages.english":"English","languages.spanish":"Spanish","links.comboGenerator":"Combo Generator","links.combos":"Combos","links.tricks":"Tricks","trickDetails.level":"Level"}}}}]);
