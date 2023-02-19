@@ -351,4 +351,25 @@ export default class Database {
       console.error('Could not connect. ' + e);
     });
   };
+
+  // import data
+  importDatabase = (data) => {
+    return this.db.open().then(() => {
+      const idbDatabase = this.db.backendDB(); // get native IDBDatabase object from Dexie wrapper
+
+      IDBExportImport.clearDatabase(idbDatabase, function(err) {
+        if (!err) {
+          IDBExportImport.importFromJsonString(idbDatabase, data, function(err) {
+            if (!err) {
+              console.log('Imported data successfully');
+             // Dexie.on("storagemutated").fire(ObservabilitySet);
+            }
+          });
+        }
+      });
+    }).catch(function(e) {
+      console.error('Could not connect. ' + e);
+    });
+  };
+
 }

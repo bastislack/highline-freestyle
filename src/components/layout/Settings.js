@@ -6,16 +6,30 @@ import { useLocation } from 'react-router-dom';
 import { trickSortingSchemes, comboSortingSchemes } from '../../services/sortingSchemes';
 import { useLingui } from "@lingui/react"
 import LanguageSelector from "../buttons/LanguageSelector"
+import { useNavigate } from 'react-router';
 
 import Database from "../../services/db";
 const db = new Database();
 
 const Settings = ({ sortOpt, setSortOpt, setShowAboutPage, setShowResetWarning }) => {
 
+  const navigate = useNavigate();
+
   const path = useLocation().pathname.toString().toLowerCase();
 
   const inTrickList = path === "/" ? true : false;
   const inComboList = path === "/combos" ? true : false;
+
+  const selectImportFile = (e) => {
+    const fileReader = new FileReader();
+    fileReader.readAsText(e.target.files[0], "UTF-8");
+    fileReader.onload = e => {
+      console.log("importing", e.target.result);
+      db.importDatabase(e.target.result);
+      // TODO: fix this navigate, fire instead Dexie.on.storagemutated
+      navigate(0);
+    };
+  };
 
   return (
     <Menu menuButton={<button className="btn btn-secondary btn-outline-secondary"><BsGearFill/></button>} transition>
@@ -36,6 +50,9 @@ const Settings = ({ sortOpt, setSortOpt, setShowAboutPage, setShowResetWarning }
       <MenuDivider />
 
       <MenuItem onClick={() => db.exportDatabase()} >Export Database</MenuItem>
+      <SubMenu label="Import Database File">
+        <MenuItem onChange={selectImportFile} ><input type="file" /></MenuItem>
+      </SubMenu>
 
       <MenuDivider />
 
