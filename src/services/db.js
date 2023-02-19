@@ -185,20 +185,6 @@ export default class Database {
     });
   };
 
-  //getTricksByDiffAndByFreq = (diffLevels, stickFreqs) => {
-  //  return this.db.userTricks.toArray().then(userTricks => {
-  //    userTricks = userTricks.filter(trick => { 
-  //      return ((diffLevels.includes(trick.difficultyLevel) && stickFreqs.includes(trick.stickFrequency)) || trick.deleted);
-  //    });
-  //    return this.db.predefinedTricks.where("difficultyLevel").anyOf(diffLevels)
-  //      .and(trick => stickFreqs.includes(trick.stickFrequency))
-  //      .and(trick => !userTricks.map(trick => trick.id).includes(trick.id))
-  //      .toArray().then(preTricks => {
-  //        preTricks.concat(userTricks.filter(trick => !trick.deleted))
-  //      });
-  //  });
-  //};
-
   // create or update userTrick
   saveTrick = (trick) => {
     // if needing to prompt for persistence prompt now
