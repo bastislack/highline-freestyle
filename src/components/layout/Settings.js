@@ -7,6 +7,9 @@ import { trickSortingSchemes, comboSortingSchemes } from '../../services/sorting
 import { useLingui } from "@lingui/react"
 import LanguageSelector from "../buttons/LanguageSelector"
 
+import Database from "../../services/db";
+const db = new Database();
+
 const Settings = ({ sortOpt, setSortOpt, setShowAboutPage, setShowResetWarning }) => {
 
   const path = useLocation().pathname.toString().toLowerCase();
@@ -29,7 +32,17 @@ const Settings = ({ sortOpt, setSortOpt, setShowAboutPage, setShowResetWarning }
 
       <MenuItem onClick={() => setShowResetWarning("tricks")} >Reset all tricks</MenuItem>
       <MenuItem onClick={() => setShowResetWarning("combos")} >Reset all combos</MenuItem>
+
+      <MenuDivider />
+
+      <MenuItem onClick={() => db.exportDatabase()} >Export Database</MenuItem>
+
+      <MenuDivider />
+
       <MenuItem><LanguageSelector /></MenuItem>
+
+      <MenuDivider />
+
       <MenuItem onClick={() => setShowAboutPage(true)} >About</MenuItem>
     </Menu>
   );

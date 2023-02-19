@@ -18,6 +18,8 @@
     "dexie-react-hooks": "^1.0.7",
     "follow-redirects": "^1.14.7",
     "fuse.js": "^6.5.3",
+    "indexeddb-export-import": "^2.1.5",
+    "js-file-download": "^0.4.12",
     "nanoid": "^3.2.0",
     "node-forge": "^1.2.1",
     "node-localstorage": "^2.2.1",

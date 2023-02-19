@@ -3,6 +3,8 @@ import Papa from "papaparse"
 import { predefinedTricks, predefinedTricksVersion } from "../predefinedTricksCombos"
 import { predefinedCombos, predefinedCombosVersion } from "../predefinedTricksCombos"
 import { persist, tryPersistWithoutPromtingUser } from "./persistentStorage"
+import IDBExportImport from 'indexeddb-export-import';
+import fileDownload from 'js-file-download';
 
 
 export default class Database {
@@ -329,4 +331,24 @@ export default class Database {
 
   // delete combo
   deleteCombo = (id) => this.db.userCombos.put({"id": Number(id), deleted: true});
+
+  // export data
+  exportDatabase = () => {
+    return this.db.open().then(() => {
+      const idbDatabase = this.db.backendDB(); // get native IDBDatabase object from Dexie wrapper
+
+      // export to JSON, clear database, and import from JSON
+      IDBExportImport.exportToJsonString(idbDatabase, function(err, jsonString) {
+        if (err) {
+          console.error(err);
+        } else {
+          console.log('Exported as JSON: ' + jsonString);
+          const date = new Date();
+          fileDownload(jsonString, "highline-freestyle.com".concat(date.toLocaleDateString().replaceAll("/","-"), ".json"));
+        }
+      });
+    }).catch(function(e) {
+      console.error('Could not connect. ' + e);
+    });
+  };
 }
