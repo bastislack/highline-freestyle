@@ -23,24 +23,32 @@ const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
   const path = useLocation().pathname.toString().toLowerCase();
   const params = useParams();
 
-  const inGenerator = path === "/generator" ? true : false;
-  const inPostCombo = path === "/postcombo" ? true : false;
+  const inGenerator = path === "/generator"
+  const inPostCombo = path === "/postcombo"
 
 
-  const queryFunc = () => {
+  /**
+   * Depending on the page that the details are shown own, the database is queried for either the combo itself or the
+   * trick details. In either case a Promise containing an array of the tricks of the combo is returned.
+   */
+  const queryDatabaseForCombos = () => {
     if (inGenerator || inPostCombo) {
-      // convert tricks back to just numbers to then query them through the hook
+      // Convert tricks back to just numbers to then query them through the hook.
       comboToShow.tricks = comboToShow.tricks.map(trick => trick.id)
       return db.fillComboWithTricks(comboToShow);
     } else {
-      // combos query with react hooks -- means it refreshes automaticly
+      // Combos query with react hooks -- means it refreshes automatically.
       return db.getCombo(params.id);
     }
   };
 
-  const combo = useLiveQuery(() => queryFunc(), [comboToShow]);
+  const combo = useLiveQuery(() => queryDatabaseForCombos(), [comboToShow]);
 
-  if (!combo) { return null; } else { console.log("ComboAfterQuery:",combo.tricks); }
+  if (combo) {
+    console.log("ComboAfterQuery:", combo.tricks);
+  } else {
+    return null;
+  }
 
   const selectFreq = (e) => {
     const newFreq = Number(e.target.value);
