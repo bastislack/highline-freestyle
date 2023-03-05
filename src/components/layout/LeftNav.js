@@ -10,8 +10,8 @@ import LanguageSelector from "../buttons/LanguageSelector"
 
 const LeftNav = ({ sortOpt, setSortOpt, setShowAboutPage }) => {
   const path = useLocation().pathname.toString().toLowerCase();
-  const inTrickList = path === "/" ? true : false;
-  const inComboList = path === "/combos" ? true : false;
+  const inTrickList = path === "/";
+  const inComboList = path === "/combos";
   const parentPage = parentPageOf(path);
 
   return (
@@ -55,7 +55,10 @@ const LeftNav = ({ sortOpt, setSortOpt, setShowAboutPage }) => {
       </Visibility>
       <hr />
       <LanguageSelector />
-      <a href="#" onClick={() => setShowAboutPage(true)} style={{marginTop: "1em"}}>About</a>
+      <div className="row mt-1">
+          <a className="col-8" href="https://forms.gle/Kg1Kydh8tqG4f7Vv8" target="_blank">Propose new trick</a>
+          <a className="col-4" href="#" onClick={() => setShowAboutPage(true)}>About</a>
+      </div>
     </div>
   );
 }
