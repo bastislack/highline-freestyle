@@ -51,6 +51,22 @@ export default class Database {
       });
     });
 
+    this.db.version(8).stores({
+      predefinedTricks: "id,alias,technicalName,establishedBy,yearEstablished,linkToVideo,videoStartTime,videoEndTime,startPos,endPos,difficultyLevel,description,stickFrequency,*recommendedPrerequisites,boostSkill",
+      userTricks: "++id,alias,technicalName,establishedBy,yearEstablished,linkToVideo,videoStartTime,videoEndTime,startPos,endPos,difficultyLevel,description,stickFrequency,*recommendedPrerequisites,deleted,boostSkill",
+    }).upgrade(async tx => {
+      await tx.table("predefinedTricks").toCollection().modify(trick => {
+        if (!Array.isArray(trick.tips)) {
+          trick.tips = trick.tips ? trick.tips.split(";") : []
+        }
+      })
+      await tx.table("userTricks").toCollection().modify(trick => {
+        if (!Array.isArray(trick.tips)) {
+          trick.tips = trick.tips ? trick.tips.split(";") : []
+        }
+      })
+    })
+
     this.db.on('ready', () => {
       // count the tricks in the database and populate it if its empty
       return this.db.versions.get("predefinedTricksVersion").then(ret => {
@@ -82,40 +98,42 @@ export default class Database {
     return this.db.userTricks.clear();
   };
 
-  // populate the databes with tricks from the predefinedTricks.js
-  populateTricks = () => {
-    return this.db.predefinedTricks.clear().then(() => {
-      console.log("updating predefinedTricks")
-      const trickList = Papa.parse(predefinedTricks, {dynamicTyping: true}).data;
+  // populate the database with tricks from the predefinedTricks.js
+  populateTricks = async () => {
+    await this.db.predefinedTricks.clear()
 
-      // this uses the labels of the csv but, also adds an id
-      const header = trickList.shift().concat(["stickFrequency"]);
+    const trickList = Papa.parse(predefinedTricks, {dynamicTyping: true}).data;
 
-      const tricks = trickList.map(trick => {
-        // add 0 for stickFrequency
-        trick.push(0);
-        // make key value pairs
-        return Object.assign.apply({},
-          header.map((v,i) => {
+    // this uses the labels of the csv but, also adds an id
+    const header = trickList.shift().concat(["stickFrequency"]);
+
+    const tricks = trickList.map(trick => {
+      // add 0 for stickFrequency
+      trick.push(0);
+      // make key value pairs
+      return Object.assign.apply({},
+          header.map((v, i) => {
             return ({[v]: trick[i]})
           })
-      );});
-
-      //this turns the list of recommendedPrerequisites (which are separated by an ;) into an Array
-      tricks.map(trick => {
-        if (typeof trick.recommendedPrerequisites === "string") {
-          trick.recommendedPrerequisites = trick.recommendedPrerequisites.split(";").map(string => Number(string));
-        } else if (typeof trick.recommendedPrerequisites === "number") {
-          trick.recommendedPrerequisites = [trick.recommendedPrerequisites];
-        }
-      });
-
-      // adds the tricks to the database
-      return this.db.predefinedTricks.bulkPut(tricks).then(() => {
-        console.log("added tricks to database from the csv");
-        this.db.versions.put({"key": "predefinedTricksVersion", "version": predefinedTricksVersion});
-      });
+      );
     });
+
+    // This turns the list of recommendedPrerequisites (which are separated by a ";") into an Array
+    tricks.map(trick => {
+      if (typeof trick.recommendedPrerequisites === "string") {
+        trick.recommendedPrerequisites = trick.recommendedPrerequisites.split(";").map(string => Number(string));
+      } else if (typeof trick.recommendedPrerequisites === "number") {
+        trick.recommendedPrerequisites = [trick.recommendedPrerequisites];
+      }
+    });
+
+    tricks.map(trick => {
+      trick.tips = trick.tips ? trick.tips.split(";") : []
+    })
+
+    // adds the tricks to the database
+    await this.db.predefinedTricks.bulkPut(tricks)
+    await this.db.versions.put({"key": "predefinedTricksVersion", "version": predefinedTricksVersion})
   };
 
   // helper function to combine two lists, 
