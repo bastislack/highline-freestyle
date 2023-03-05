@@ -115,6 +115,13 @@ const TrickDetails = () => {
     });
   }
 
+  function TipList(props) {
+    const listItems = props.tips.map(tip =>
+      <li>{tip}</li>
+    )
+    return (<ul>{listItems}</ul>)
+  }
+
   return (
     <div className="trick-details">
       {trick && (
@@ -160,7 +167,7 @@ const TrickDetails = () => {
           {trick.tips &&
             <div>
               <h3>Tips: </h3>
-              <div className="callout">{trick.tips}</div>
+              <TipList tips={trick.tips} />
             </div>
           }
 
