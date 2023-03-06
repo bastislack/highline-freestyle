@@ -3,17 +3,13 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { positions, stickFrequencies } from "../../services/enums";
 
 import Database from "../../services/db";
+import { Form, Button, InputGroup } from "react-bootstrap";
 const db = new Database();
 
 const PostTrick = () => {
 
   const location = useLocation();
-  let preTrick;
-  if(location.state){
-    preTrick = location.state.preTrick;
-  } else {
-    console.log("location no state");
-  }
+  let preTrick = location.state?.preTrick;
 
   const [alias, setAlias] = useState(() => {
     return preTrick ? preTrick.alias : "";
@@ -43,16 +39,13 @@ const PostTrick = () => {
     return preTrick ? preTrick.description : "";
   });
   const [tips, setTips] = useState(() => {
-    return preTrick ? preTrick.tips : "";
+    return preTrick ? preTrick.tips : [];
   });
   const [stickFrequency, setStickFrequency] = useState(() => {
     return preTrick ? preTrick.stickFrequency : 0;
   });
 
-  var preId;
-  if (preTrick) {
-    preId = preTrick.id;
-  }
+  let preId = preTrick?.id;
 
   const navigate = useNavigate();
 
@@ -84,7 +77,7 @@ const PostTrick = () => {
     if (trick.endPos == "" || !trick.endPos || preTrick && trick.endPos === preTrick.endPos){ delete trick.endPos }
     if (trick.difficultyLevel == "" || !trick.difficultyLevel || preTrick && trick.difficultyLevel === preTrick.difficultyLevel){ delete trick.difficultyLevel }
     if (trick.description == "" || !trick.description || preTrick && trick.description === preTrick.description){ delete trick.description }
-    if (trick.tips == "" || !trick.tips || preTrick && trick.tips === preTrick.tips){ delete trick.tips }
+    if (trick.tips == [] || !trick.tips || preTrick && trick.tips === preTrick.tips){ delete trick.tips }
     
     db.saveTrick(trick)
     .then(() => {
@@ -104,6 +97,52 @@ const PostTrick = () => {
       <option value={i} key={i} >{item}</option>
     )
   });
+
+  /**
+   * Displays a variable length, editable list of tips. This function together with the following related ones are only
+   * slightly altered versions of the ones from the following solution to the problem:
+   * https://stackoverflow.com/a/59233716
+   */
+  function tipList() {
+    return tips.map((elem, i) =>
+      <InputGroup key={i}>
+        <Form.Control
+            type="text"
+            className="form-control"
+            value={elem||''}
+            placeholder="Try this..."
+            onChange={handleTipChange.bind(this, i)}
+        />
+        <Button
+          type="button"
+          variant="outline-danger"
+          value="remove"
+          name={i.toString()}
+          onClick={removeTip.bind(i)}
+        >
+          Remove
+        </Button>
+      </InputGroup>
+    );
+  }
+
+  function handleTipChange(i, event) {
+    let tips_ = [...tips];
+    tips_[i] = event.target.value;
+    setTips(tips_);
+  }
+
+  const removeTip = event => {
+    let index = Number(event.target.name);
+    let tips_ = [...tips];
+    tips_.splice(index, 1);
+    setTips(tips_);
+  };
+
+  const addTipField = () => {
+    setTips(tips => [...tips, '']);
+  };
+
 
   return (
     <div className="post">
@@ -208,19 +247,21 @@ const PostTrick = () => {
             />
           </div>
           <div className="col-md-6">
-            <label className="">Tips:</label>
-            <input
-              className="form-control"
-              type="text"
-              value={tips}
-              onChange={(e) => setTips(e.target.value)}
-            />
-          </div>
-          <div className="col-md-6">
             <label className="">Stick Frequency:</label>
             <select className="form-select" onChange={(e) => setStickFrequency(Number(e.target.value))}>
               {freqList}
             </select>
+          </div>
+          <div className="col-md-6">
+            <label>Tips:</label>
+            {tipList()}
+            <Button
+                variant="outline-success"
+                onClick={addTipField}
+                className={tips.length !== 0 ? "mt-2" : "ms-2"}
+            >
+              Add Tip
+            </Button>
           </div>
         </div>
         
