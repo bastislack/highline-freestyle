@@ -117,9 +117,9 @@ const TrickDetails = () => {
 
   function TipList(props) {
     const listItems = props.tips.map(tip =>
-      <li>{tip}</li>
-    )
-    return (<ul>{listItems}</ul>)
+      <li key={tip}>{tip}</li>
+    );
+    return (<ul>{listItems}</ul>);
   }
 
   return (

@@ -57,15 +57,15 @@ export default class Database {
     }).upgrade(async tx => {
       await tx.table("predefinedTricks").toCollection().modify(trick => {
         if (!Array.isArray(trick.tips)) {
-          trick.tips = trick.tips ? trick.tips.split(";") : []
+          trick.tips = trick.tips ? trick.tips.split(";") : [];
         }
-      })
+      });
       await tx.table("userTricks").toCollection().modify(trick => {
         if (!Array.isArray(trick.tips)) {
-          trick.tips = trick.tips ? trick.tips.split(";") : []
+          trick.tips = trick.tips ? trick.tips.split(";") : [];
         }
-      })
-    })
+      });
+    });
 
     this.db.on('ready', () => {
       // count the tricks in the database and populate it if its empty
@@ -100,7 +100,7 @@ export default class Database {
 
   // populate the database with tricks from the predefinedTricks.js
   populateTricks = async () => {
-    await this.db.predefinedTricks.clear()
+    await this.db.predefinedTricks.clear();
 
     const trickList = Papa.parse(predefinedTricks, {dynamicTyping: true}).data;
 
@@ -112,9 +112,7 @@ export default class Database {
       trick.push(0);
       // make key value pairs
       return Object.assign.apply({},
-          header.map((v, i) => {
-            return ({[v]: trick[i]})
-          })
+          header.map((v, i) => ({[v]: trick[i]}))
       );
     });
 
@@ -128,12 +126,12 @@ export default class Database {
     });
 
     tricks.map(trick => {
-      trick.tips = trick.tips ? trick.tips.split(";") : []
-    })
+      trick.tips = trick.tips ? trick.tips.split(";") : [];
+    });
 
     // adds the tricks to the database
-    await this.db.predefinedTricks.bulkPut(tricks)
-    await this.db.versions.put({"key": "predefinedTricksVersion", "version": predefinedTricksVersion})
+    await this.db.predefinedTricks.bulkPut(tricks);
+    await this.db.versions.put({"key": "predefinedTricksVersion", "version": predefinedTricksVersion});
   };
 
   // helper function to combine two lists, 
