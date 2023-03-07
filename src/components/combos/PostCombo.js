@@ -144,7 +144,21 @@ const PostCombo = ({ userCombo, setUserCombo }) => {
               type="number"
               value={yearEstablished}
               placeholder={new Date().getFullYear()}
-              onChange={(e) => setYearEstablished(e.target.value)}
+              onChange={(e) => {
+                var value = parseInt(e.target.value)
+                if (value >= 0 && value <= new Date().getFullYear()) {
+                  setYearEstablished(value)
+                } else {
+                  setYearEstablished(new Date().getFullYear())
+                }
+              }}
+              onBlur={(e) => {
+                const value = parseInt(e.target.value);
+                if (value < 0 || value > new Date().getFullYear()) {
+                  setYearEstablished(new Date().getFullYear());
+                }
+              }
+            }
             />
           </div>
           <div className="col-md-6">
