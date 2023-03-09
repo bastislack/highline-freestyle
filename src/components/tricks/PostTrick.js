@@ -93,6 +93,15 @@ const PostTrick = () => {
     })
   }
 
+  const handleYearChange = (event) => {
+    const year = parseInt(event.target.value);
+    if (year < 0 || year > new Date().getFullYear()) {
+      setYearEstablished(new Date().getFullYear());
+    } else {
+      setYearEstablished(year);
+    }
+  };
+
   const freqList = stickFrequencies.map((item, i) => {
     return (
       <option value={i} key={i}>{item}</option>
@@ -148,7 +157,7 @@ const PostTrick = () => {
               type="number"
               value={yearEstablished}
               placeholder={new Date().getFullYear()}
-              onChange={(e) => setYearEstablished(e.target.value)}
+              onChange={(e) => handleYearChange(e)}
             />
           </div>
           <div className="col-md-6">
