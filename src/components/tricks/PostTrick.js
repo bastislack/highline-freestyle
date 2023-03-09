@@ -194,12 +194,7 @@ const PostTrick = () => {
               value={difficultyLevel}
               placeholder="8"
               onChange={(e) => {
-                const value = parseInt(e.target.value)
-                if (value >= 0) {
-                  setDifficultyLevel(value)
-                } else {
-                  setDifficultyLevel(0)
-                }
+                setDifficultyLevel(Math.max(0, e.target.value));
               }}
               onBlur={(e) => {
                 const value = parseInt(e.target.value);
