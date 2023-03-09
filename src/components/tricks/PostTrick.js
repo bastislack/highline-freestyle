@@ -194,7 +194,7 @@ const PostTrick = () => {
               value={difficultyLevel}
               placeholder="8"
               onChange={(e) => {
-                var value = parseInt(e.target.value)
+                const value = parseInt(e.target.value)
                 if (value >= 0) {
                   setDifficultyLevel(value)
                 } else {
