@@ -202,7 +202,7 @@ const PostTrick = () => {
               required
               value={difficultyLevel}
               placeholder="8"
-              onChange={(e) => { setDifficultyLevel(Math.max(0, e.target.value)); }
+              onChange={(e) => {setDifficultyLevel(Math.max(0, e.target.value));}
             }
             />
           </div>
