@@ -119,7 +119,7 @@ const TrickDetails = () => {
     const listItems = props.tips.map(tip =>
       <li key={tip}>{tip}</li>
     );
-    return (<ul>{listItems}</ul>);
+    return (<ul className="callout">{listItems}</ul>);
   }
 
   return (
@@ -164,7 +164,7 @@ const TrickDetails = () => {
             </div>
           }
 
-          {trick.tips &&
+          {trick.tips && trick.tips.length > 0 &&
             <div>
               <h3>Tips: </h3>
               <TipList tips={trick.tips} />
