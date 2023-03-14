@@ -36,19 +36,23 @@ Checkout the [good first issue tag](https://github.com/bastislack/highline-frees
 - node
 - npm
 
-### Setup
+### Setup (linux)
 
-1. install node modules
+1. clone the repository (or download as an ZIP archive)
 
-   Open a terminal and in the root folder (highline-freestyle) run `npm install`
+   run `git clone https://github.com/bastislack/highline-freestyle.git && cd highline-freestyle`
 
-2. start the development server
+2. install node modules
+
+   Open a terminal and in the root folder (highline-freestyle) run `npm install --legacy-peer-deps`
+
+3. start the development server
 
    run `npm run dev`
 
-3. run the production environment (needed to use features of the service worker -> offline usage)
+To run the production environment (needed to use features of the service worker -> offline usage)
 
-   run `npm run serve`
+> run `npm run serve`
 
 sometimes after updating you have to delete your indexDB in your browser, through the development tools (__Storage__ in firefox, __Application__ in chrome)
 
