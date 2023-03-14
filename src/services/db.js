@@ -98,38 +98,26 @@ export default class Database {
     return this.db.userTricks.clear();
   };
 
-  // populate the database with tricks from the predefinedTricks.js
+  /**
+   * Populate the database with the trick of the predefinedTricks.js file.
+   * @returns {Promise<void>}
+   */
   populateTricks = async () => {
     await this.db.predefinedTricks.clear();
 
     const trickList = Papa.parse(predefinedTricks, {dynamicTyping: true}).data;
 
-    // this uses the labels of the csv but, also adds an id
-    const header = trickList.shift().concat(["stickFrequency"]);
-
+    const header = trickList.shift();
     const tricks = trickList.map(trick => {
-      // add 0 for stickFrequency
-      trick.push(0);
-      // make key value pairs
-      return Object.assign.apply({},
-          header.map((v, i) => ({[v]: trick[i]}))
-      );
+      return Object.assign.apply({}, header.map((v, i) => ({[v]: trick[i]})));
     });
 
-    // This turns the list of recommendedPrerequisites (which are separated by a ";") into an Array
-    tricks.map(trick => {
-      if (typeof trick.recommendedPrerequisites === "string") {
-        trick.recommendedPrerequisites = trick.recommendedPrerequisites.split(";").map(string => Number(string));
-      } else if (typeof trick.recommendedPrerequisites === "number") {
-        trick.recommendedPrerequisites = [trick.recommendedPrerequisites];
-      }
-    });
-
-    tricks.map(trick => {
+    for(const trick of tricks) {
+      trick.stickFrequency = 0;
+      trick.recommendedPrerequisites = normalizeTrickPrerequisites(trick.recommendedPrerequisites);
       trick.tips = trick.tips ? trick.tips.split(";") : [];
-    });
+    }
 
-    // adds the tricks to the database
     await this.db.predefinedTricks.bulkPut(tricks);
     await this.db.versions.put({"key": "predefinedTricksVersion", "version": predefinedTricksVersion});
   };
@@ -374,4 +362,22 @@ export default class Database {
     });
   };
 
+}
+
+/**
+ * Takes the recommended prerequisites of a trick as either a number or a semicolon separated string and returns it
+ * / them as an array of numbers (ids). If the prerequisites are of any other type, they are simply returned as they
+ * are. If undefined or null is passed, an empty array is returned.
+ */
+function normalizeTrickPrerequisites(prerequisites) {
+  if (!prerequisites) {
+    return [];
+  }
+  if (typeof prerequisites === "string") {
+    return prerequisites.split(";").map(string => Number(string));
+  }
+  if (typeof prerequisites === "number") {
+    return [prerequisites];
+  }
+  return prerequisites;
 }
