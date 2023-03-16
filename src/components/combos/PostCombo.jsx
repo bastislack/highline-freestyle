@@ -1,19 +1,18 @@
-import { useState, useEffect } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import computeStats from '../../logic/combos/computeStats';
-import { stickFrequencies, positions } from '../../services/enums';
-import ComboDetails from './ComboDetails';
-import AddButton from '../buttons/AddButton';
+import {useState, useEffect} from "react";
+import {Link, useNavigate, useLocation} from "react-router-dom";
+import computeStats from "../../logic/combos/computeStats";
+import {stickFrequencies, positions} from "../../services/enums";
+import ComboDetails from "./ComboDetails";
+import AddButton from "../buttons/AddButton";
 
 import Database from "../../services/db";
 const db = new Database();
 
-const PostCombo = ({ userCombo, setUserCombo }) => {
-
+const PostCombo = ({userCombo, setUserCombo}) => {
   const navigate = useNavigate();
   const location = useLocation();
   let preCombo;
-  if(location.state){
+  if (location.state) {
     preCombo = location.state.preCombo;
     if (!userCombo) {
       setUserCombo(preCombo);
@@ -33,19 +32,39 @@ const PostCombo = ({ userCombo, setUserCombo }) => {
     return preCombo ? preCombo.linkToVideo : "";
   });
   const [minDiff, setMinDiff] = useState(() => {
-    return preCombo && !userCombo ? preCombo.minDiff : userCombo ? userCombo.minDiff : null;
+    return preCombo && !userCombo
+      ? preCombo.minDiff
+      : userCombo
+      ? userCombo.minDiff
+      : null;
   });
   const [maxDiff, setMaxDiff] = useState(() => {
-    return preCombo && !userCombo ? preCombo.maxDiff : userCombo ? userCombo.maxDiff : null;
+    return preCombo && !userCombo
+      ? preCombo.maxDiff
+      : userCombo
+      ? userCombo.maxDiff
+      : null;
   });
   const [avgDiff, setAvgDiff] = useState(() => {
-    return preCombo && !userCombo ? preCombo.avgDiff : userCombo ? userCombo.avgDiff : null;
+    return preCombo && !userCombo
+      ? preCombo.avgDiff
+      : userCombo
+      ? userCombo.avgDiff
+      : null;
   });
   const [totalDiff, setTotalDiff] = useState(() => {
-    return preCombo && !userCombo ? preCombo.totalDiff : userCombo ? userCombo.totalDiff : null;
+    return preCombo && !userCombo
+      ? preCombo.totalDiff
+      : userCombo
+      ? userCombo.totalDiff
+      : null;
   });
   const [numberOfTricks, setNumberOfTricks] = useState(() => {
-    return preCombo && !userCombo ? preCombo.numberOfTricks : userCombo ? userCombo.numberOfTricks : null;
+    return preCombo && !userCombo
+      ? preCombo.numberOfTricks
+      : userCombo
+      ? userCombo.numberOfTricks
+      : null;
   });
   const [comments, setComments] = useState(() => {
     return preCombo ? preCombo.description : "";
@@ -62,7 +81,7 @@ const PostCombo = ({ userCombo, setUserCombo }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    userCombo.tricks = userCombo.tricks.map(trick => trick.id);
+    userCombo.tricks = userCombo.tricks.map((trick) => trick.id);
 
     const combo = {
       id: preId,
@@ -80,28 +99,33 @@ const PostCombo = ({ userCombo, setUserCombo }) => {
       numberOfTricks: userCombo.numberOfTricks,
       comments: comments,
       stickFrequency: stickFrequency,
-      boostSkill: userCombo.boostSkill
+      boostSkill: userCombo.boostSkill,
     };
-    
+
     setUserCombo(null);
 
-    db.saveCombo(combo)
-    .then(() => {
+    db.saveCombo(combo).then(() => {
       console.log(combo);
-      setTimeout(() => {navigate('/combos')}, 1);
-    })
-  }
+      setTimeout(() => {
+        navigate("/combos");
+      }, 1);
+    });
+  };
 
   const freqList = stickFrequencies.map((item, i) => {
     return (
-      <option key={i} value={i}>{item}</option>
-    )
+      <option key={i} value={i}>
+        {item}
+      </option>
+    );
   });
 
   const positionList = positions.map((item, i) => {
     return (
-      <option key={i} value={i}>{item}</option>
-    )
+      <option key={i} value={i}>
+        {item}
+      </option>
+    );
   });
 
   const handleYearChange = (event) => {
@@ -113,14 +137,21 @@ const PostCombo = ({ userCombo, setUserCombo }) => {
     }
   };
 
-  const addTrickToCombo = () => navigate("/", { state: {addTrickToCombo: true, preCombo: preCombo }});
+  const addTrickToCombo = () =>
+    navigate("/", {state: {addTrickToCombo: true, preCombo: preCombo}});
   const test = () => navigate("/");
 
   return (
     <div className="post">
       <h2>{preCombo ? "Update combo" : "Add a new combo"}</h2>
 
-      {userCombo && <ComboDetails setUserCombo={setUserCombo} comboToShow={userCombo} addTrickToCombo={addTrickToCombo}/>}
+      {userCombo && (
+        <ComboDetails
+          setUserCombo={setUserCombo}
+          comboToShow={userCombo}
+          addTrickToCombo={addTrickToCombo}
+        />
+      )}
       {!userCombo && <AddButton call={addTrickToCombo} />}
 
       <form onSubmit={handleSubmit} className="">
@@ -178,17 +209,21 @@ const PostCombo = ({ userCombo, setUserCombo }) => {
           </div>
           <div className="col-md-6">
             <label className="">Stick Frequency:</label>
-            <select className="form-select" onChange={(e) => setStickFrequency(e.target.value)}>
+            <select
+              className="form-select"
+              onChange={(e) => setStickFrequency(e.target.value)}
+            >
               {freqList}
             </select>
           </div>
         </div>
-        
-        <button className="btn btn-primary">{preCombo ? "Update Combo" : "Add Combo"}</button>
-        
+
+        <button className="btn btn-primary">
+          {preCombo ? "Update Combo" : "Add Combo"}
+        </button>
       </form>
     </div>
   );
-}
+};
 
 export default PostCombo;

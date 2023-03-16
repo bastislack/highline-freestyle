@@ -1,10 +1,9 @@
-import { BsDownload } from 'react-icons/bs';
-import { useReactPWAInstall } from 'react-pwa-install';
-import logo from '../../../public/logo96.png';
+import {BsDownload} from "react-icons/bs";
+import {useReactPWAInstall} from "react-pwa-install";
+import logo from "../../../public/logo96.png";
 
 const InstallButton = () => {
-
-  const { pwaInstall, supported, isInstalled } = useReactPWAInstall();
+  const {pwaInstall, supported, isInstalled} = useReactPWAInstall();
 
   const installApp = () => {
     pwaInstall({
@@ -20,7 +19,11 @@ const InstallButton = () => {
       ),
       description: "App for Highline Freestyle athletes",
     })
-      .then(console.log("App installed successfully or instructions for install shown"))
+      .then(
+        console.log(
+          "App installed successfully or instructions for install shown",
+        ),
+      )
       .catch(console.log("User cancelled installation"));
   };
 
@@ -33,6 +36,6 @@ const InstallButton = () => {
       )}
     </>
   );
-}
+};
 
 export default InstallButton;

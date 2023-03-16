@@ -1,7 +1,11 @@
-import { Link, useLocation } from 'react-router-dom';
-import { Fab } from '@material-ui/core';
+import {Link, useLocation} from "react-router-dom";
+import {Fab} from "@material-ui/core";
 
-const FloatingActionButton = ({ setTrickListScrollPosition, setComboListScrollPosition, setUserCombo }) => {
+const FloatingActionButton = ({
+  setTrickListScrollPosition,
+  setComboListScrollPosition,
+  setUserCombo,
+}) => {
   // the current Url
   const path = useLocation().pathname.toString().toLowerCase();
 
@@ -22,15 +26,20 @@ const FloatingActionButton = ({ setTrickListScrollPosition, setComboListScrollPo
       setComboListScrollPosition(window.scrollY);
       setUserCombo(null);
     }
-  }
+  };
 
   return (
     <Link to={create} className="fab_button">
-      <Fab size="medium" onClick={updateScrollPosition} color="secondary" aria-label="add">
+      <Fab
+        size="medium"
+        onClick={updateScrollPosition}
+        color="secondary"
+        aria-label="add"
+      >
         <i className="bi bi-plus-lg"></i>
       </Fab>
     </Link>
   );
-}
+};
 
 export default FloatingActionButton;

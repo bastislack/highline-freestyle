@@ -1,13 +1,11 @@
-import { BsTrashFill } from 'react-icons/bs';
+import {BsTrashFill} from "react-icons/bs";
 
-const DeleteButton = ({ setShowDeleteWarning }) => {
-
+const DeleteButton = ({setShowDeleteWarning}) => {
   return (
     <button className="btn" onClick={() => setShowDeleteWarning(true)}>
-      <BsTrashFill/>
+      <BsTrashFill />
     </button>
   );
-}
+};
 
 export default DeleteButton;
-

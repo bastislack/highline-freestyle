@@ -1,20 +1,24 @@
-import Modal from 'react-bootstrap/Modal';
+import Modal from "react-bootstrap/Modal";
 
 import Database from "../../services/db";
 const db = new Database();
 
-const ResetWarning = ({ showResetWarning, setShowResetWarning }) => {
-
+const ResetWarning = ({showResetWarning, setShowResetWarning}) => {
   const reset = () => {
-    if(showResetWarning === "tricks") {
+    if (showResetWarning === "tricks") {
       db.dropUserTricks();
     } else if (showResetWarning === "combos") {
       db.dropUserCombos();
     }
-  }
+  };
 
   return (
-    <Modal size="sm" show={showResetWarning} onHide={() => setShowResetWarning(false)} centered>
+    <Modal
+      size="sm"
+      show={showResetWarning}
+      onHide={() => setShowResetWarning(false)}
+      centered
+    >
       <Modal.Header>
         <Modal.Title className="h6">Reset {showResetWarning}?</Modal.Title>
       </Modal.Header>
@@ -28,13 +32,26 @@ const ResetWarning = ({ showResetWarning, setShowResetWarning }) => {
         </div>
         <div className="container">
           <div className="row justify-content-around">
-            <button className="col-4 btn btn-secondary" onClick={() => setShowResetWarning(false)}>Cancel</button>
-            <button className="col-4 btn btn-danger" onClick={() => {reset(); setShowResetWarning(false);}}>Reset</button>
+            <button
+              className="col-4 btn btn-secondary"
+              onClick={() => setShowResetWarning(false)}
+            >
+              Cancel
+            </button>
+            <button
+              className="col-4 btn btn-danger"
+              onClick={() => {
+                reset();
+                setShowResetWarning(false);
+              }}
+            >
+              Reset
+            </button>
           </div>
         </div>
       </Modal.Body>
     </Modal>
   );
-}
- 
+};
+
 export default ResetWarning;

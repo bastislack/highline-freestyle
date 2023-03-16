@@ -1,13 +1,12 @@
-import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import { positions, stickFrequencies } from "../../services/enums";
+import {useState} from "react";
+import {useNavigate, useLocation} from "react-router-dom";
+import {positions, stickFrequencies} from "../../services/enums";
 
 import Database from "../../services/db";
-import { Form, Button, InputGroup } from "react-bootstrap";
+import {Form, Button, InputGroup} from "react-bootstrap";
 const db = new Database();
 
 const PostTrick = () => {
-
   const location = useLocation();
   let preTrick = location.state?.preTrick;
 
@@ -27,10 +26,14 @@ const PostTrick = () => {
     return preTrick ? preTrick.linkToVideo : "";
   });
   const [startPos, setStartPos] = useState(() => {
-    return preTrick ? positions.findIndex(item => item === preTrick.startPos) : positions.findIndex(item => item === "HANG");
+    return preTrick
+      ? positions.findIndex((item) => item === preTrick.startPos)
+      : positions.findIndex((item) => item === "HANG");
   });
   const [endPos, setEndPos] = useState(() => {
-    return preTrick ? positions.findIndex(item => item === preTrick.endPos): positions.findIndex(item => item === "EXPOSURE");
+    return preTrick
+      ? positions.findIndex((item) => item === preTrick.endPos)
+      : positions.findIndex((item) => item === "EXPOSURE");
   });
   const [difficultyLevel, setDifficultyLevel] = useState(() => {
     return preTrick ? preTrick.difficultyLevel : "";
@@ -64,27 +67,88 @@ const PostTrick = () => {
       difficultyLevel: parseInt(difficultyLevel),
       description: description,
       tips: tips,
-      stickFrequency: stickFrequency
+      stickFrequency: stickFrequency,
     };
 
     // removes all attributes,which were not set or modified
-    if (trick.alias == "" || !trick.alias || preTrick && trick.alias === preTrick.alias){ delete trick.alias }
-    if (trick.technicalName == "" || !trick.technicalName || preTrick && trick.technicalName === preTrick.technicalName){ delete trick.technicalName }
-    if (trick.establishedBy == "" || !trick.establishedBy || preTrick && trick.establishedBy === preTrick.establishedBy){ delete trick.establishedBy }
-    if (trick.yearEstablished == "" || !trick.yearEstablished || preTrick && trick.yearEstablished === preTrick.yearEstablished){ delete trick.yearEstablished }
-    if (trick.linkToVideo == "" || !trick.linkToVideo || preTrick && trick.linkToVideo === preTrick.linkToVideo){ delete trick.linkToVideo }
-    if (trick.startPos == "" || !trick.startPos || preTrick && trick.startPos === preTrick.startPos){ delete trick.startPos }
-    if (trick.endPos == "" || !trick.endPos || preTrick && trick.endPos === preTrick.endPos){ delete trick.endPos }
-    if (trick.difficultyLevel == "" || !trick.difficultyLevel || preTrick && trick.difficultyLevel === preTrick.difficultyLevel){ delete trick.difficultyLevel }
-    if (trick.description == "" || !trick.description || preTrick && trick.description === preTrick.description){ delete trick.description }
-    if (trick.tips == [] || !trick.tips || preTrick && trick.tips === preTrick.tips){ delete trick.tips }
-    
-    db.saveTrick(trick)
-    .then(() => {
+    if (
+      trick.alias == "" ||
+      !trick.alias ||
+      (preTrick && trick.alias === preTrick.alias)
+    ) {
+      delete trick.alias;
+    }
+    if (
+      trick.technicalName == "" ||
+      !trick.technicalName ||
+      (preTrick && trick.technicalName === preTrick.technicalName)
+    ) {
+      delete trick.technicalName;
+    }
+    if (
+      trick.establishedBy == "" ||
+      !trick.establishedBy ||
+      (preTrick && trick.establishedBy === preTrick.establishedBy)
+    ) {
+      delete trick.establishedBy;
+    }
+    if (
+      trick.yearEstablished == "" ||
+      !trick.yearEstablished ||
+      (preTrick && trick.yearEstablished === preTrick.yearEstablished)
+    ) {
+      delete trick.yearEstablished;
+    }
+    if (
+      trick.linkToVideo == "" ||
+      !trick.linkToVideo ||
+      (preTrick && trick.linkToVideo === preTrick.linkToVideo)
+    ) {
+      delete trick.linkToVideo;
+    }
+    if (
+      trick.startPos == "" ||
+      !trick.startPos ||
+      (preTrick && trick.startPos === preTrick.startPos)
+    ) {
+      delete trick.startPos;
+    }
+    if (
+      trick.endPos == "" ||
+      !trick.endPos ||
+      (preTrick && trick.endPos === preTrick.endPos)
+    ) {
+      delete trick.endPos;
+    }
+    if (
+      trick.difficultyLevel == "" ||
+      !trick.difficultyLevel ||
+      (preTrick && trick.difficultyLevel === preTrick.difficultyLevel)
+    ) {
+      delete trick.difficultyLevel;
+    }
+    if (
+      trick.description == "" ||
+      !trick.description ||
+      (preTrick && trick.description === preTrick.description)
+    ) {
+      delete trick.description;
+    }
+    if (
+      trick.tips == [] ||
+      !trick.tips ||
+      (preTrick && trick.tips === preTrick.tips)
+    ) {
+      delete trick.tips;
+    }
+
+    db.saveTrick(trick).then(() => {
       console.log(trick);
-      setTimeout(() => {navigate('/')}, 1);
-    })
-  }
+      setTimeout(() => {
+        navigate("/");
+      }, 1);
+    });
+  };
 
   const handleYearChange = (event) => {
     const year = parseInt(event.target.value);
@@ -97,14 +161,18 @@ const PostTrick = () => {
 
   const freqList = stickFrequencies.map((item, i) => {
     return (
-      <option value={i} key={i}>{item}</option>
-    )
+      <option value={i} key={i}>
+        {item}
+      </option>
+    );
   });
 
   const positionList = positions.map((item, i) => {
     return (
-      <option value={i} key={i} >{item}</option>
-    )
+      <option value={i} key={i}>
+        {item}
+      </option>
+    );
   });
 
   /**
@@ -113,14 +181,14 @@ const PostTrick = () => {
    * https://stackoverflow.com/a/59233716
    */
   function tipList() {
-    return tips.map((elem, i) =>
+    return tips.map((elem, i) => (
       <InputGroup key={i}>
         <Form.Control
-            type="text"
-            className="form-control"
-            value={elem||''}
-            placeholder="Try this..."
-            onChange={handleTipChange.bind(this, i)}
+          type="text"
+          className="form-control"
+          value={elem || ""}
+          placeholder="Try this..."
+          onChange={handleTipChange.bind(this, i)}
         />
         <Button
           type="button"
@@ -132,7 +200,7 @@ const PostTrick = () => {
           Remove
         </Button>
       </InputGroup>
-    );
+    ));
   }
 
   function handleTipChange(i, event) {
@@ -141,7 +209,7 @@ const PostTrick = () => {
     setTips(tips_);
   }
 
-  const removeTip = event => {
+  const removeTip = (event) => {
     let index = Number(event.target.name);
     let tips_ = [...tips];
     tips_.splice(index, 1);
@@ -149,9 +217,8 @@ const PostTrick = () => {
   };
 
   const addTipField = () => {
-    setTips(tips => [...tips, '']);
+    setTips((tips) => [...tips, ""]);
   };
-
 
   return (
     <div className="post">
@@ -241,8 +308,9 @@ const PostTrick = () => {
               required
               value={difficultyLevel}
               placeholder="8"
-              onChange={(e) => {setDifficultyLevel(Math.max(0, e.target.value));}
-            }
+              onChange={(e) => {
+                setDifficultyLevel(Math.max(0, e.target.value));
+              }}
             />
           </div>
           <div className="col-md-6">
@@ -258,7 +326,10 @@ const PostTrick = () => {
           </div>
           <div className="col-md-6">
             <label className="">Stick Frequency:</label>
-            <select className="form-select" onChange={(e) => setStickFrequency(Number(e.target.value))}>
+            <select
+              className="form-select"
+              onChange={(e) => setStickFrequency(Number(e.target.value))}
+            >
               {freqList}
             </select>
           </div>
@@ -266,20 +337,21 @@ const PostTrick = () => {
             <label>Tips:</label>
             {tipList()}
             <Button
-                variant="outline-success"
-                onClick={addTipField}
-                className={tips.length !== 0 ? "mt-2" : "ms-2"}
+              variant="outline-success"
+              onClick={addTipField}
+              className={tips.length !== 0 ? "mt-2" : "ms-2"}
             >
               Add Tip
             </Button>
           </div>
         </div>
-        
-        <button className="btn btn-primary">{preTrick ? "Update Trick" : "Add Trick"}</button>
-        
+
+        <button className="btn btn-primary">
+          {preTrick ? "Update Trick" : "Add Trick"}
+        </button>
       </form>
     </div>
   );
-}
+};
 
 export default PostTrick;
