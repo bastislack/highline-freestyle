@@ -32,39 +32,19 @@ const PostCombo = ({userCombo, setUserCombo}) => {
     return preCombo ? preCombo.linkToVideo : "";
   });
   const [minDiff, setMinDiff] = useState(() => {
-    return preCombo && !userCombo
-      ? preCombo.minDiff
-      : userCombo
-      ? userCombo.minDiff
-      : null;
+    return preCombo && !userCombo ? preCombo.minDiff : userCombo ? userCombo.minDiff : null;
   });
   const [maxDiff, setMaxDiff] = useState(() => {
-    return preCombo && !userCombo
-      ? preCombo.maxDiff
-      : userCombo
-      ? userCombo.maxDiff
-      : null;
+    return preCombo && !userCombo ? preCombo.maxDiff : userCombo ? userCombo.maxDiff : null;
   });
   const [avgDiff, setAvgDiff] = useState(() => {
-    return preCombo && !userCombo
-      ? preCombo.avgDiff
-      : userCombo
-      ? userCombo.avgDiff
-      : null;
+    return preCombo && !userCombo ? preCombo.avgDiff : userCombo ? userCombo.avgDiff : null;
   });
   const [totalDiff, setTotalDiff] = useState(() => {
-    return preCombo && !userCombo
-      ? preCombo.totalDiff
-      : userCombo
-      ? userCombo.totalDiff
-      : null;
+    return preCombo && !userCombo ? preCombo.totalDiff : userCombo ? userCombo.totalDiff : null;
   });
   const [numberOfTricks, setNumberOfTricks] = useState(() => {
-    return preCombo && !userCombo
-      ? preCombo.numberOfTricks
-      : userCombo
-      ? userCombo.numberOfTricks
-      : null;
+    return preCombo && !userCombo ? preCombo.numberOfTricks : userCombo ? userCombo.numberOfTricks : null;
   });
   const [comments, setComments] = useState(() => {
     return preCombo ? preCombo.description : "";
@@ -137,8 +117,7 @@ const PostCombo = ({userCombo, setUserCombo}) => {
     }
   };
 
-  const addTrickToCombo = () =>
-    navigate("/", {state: {addTrickToCombo: true, preCombo: preCombo}});
+  const addTrickToCombo = () => navigate("/", {state: {addTrickToCombo: true, preCombo: preCombo}});
   const test = () => navigate("/");
 
   return (
@@ -146,11 +125,7 @@ const PostCombo = ({userCombo, setUserCombo}) => {
       <h2>{preCombo ? "Update combo" : "Add a new combo"}</h2>
 
       {userCombo && (
-        <ComboDetails
-          setUserCombo={setUserCombo}
-          comboToShow={userCombo}
-          addTrickToCombo={addTrickToCombo}
-        />
+        <ComboDetails setUserCombo={setUserCombo} comboToShow={userCombo} addTrickToCombo={addTrickToCombo} />
       )}
       {!userCombo && <AddButton call={addTrickToCombo} />}
 
@@ -209,18 +184,13 @@ const PostCombo = ({userCombo, setUserCombo}) => {
           </div>
           <div className="col-md-6">
             <label className="">Stick Frequency:</label>
-            <select
-              className="form-select"
-              onChange={(e) => setStickFrequency(e.target.value)}
-            >
+            <select className="form-select" onChange={(e) => setStickFrequency(e.target.value)}>
               {freqList}
             </select>
           </div>
         </div>
 
-        <button className="btn btn-primary">
-          {preCombo ? "Update Combo" : "Add Combo"}
-        </button>
+        <button className="btn btn-primary">{preCombo ? "Update Combo" : "Add Combo"}</button>
       </form>
     </div>
   );

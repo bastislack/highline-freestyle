@@ -6,9 +6,7 @@
   present.
 */
 async function isStoragePersisted() {
-  return await navigator.storage && navigator.storage.persisted ?
-    navigator.storage.persisted() :
-    undefined;
+  return (await navigator.storage) && navigator.storage.persisted ? navigator.storage.persisted() : undefined;
 }
 
 /** Tries to convert to persisted storage.
@@ -16,9 +14,7 @@ async function isStoragePersisted() {
   persisted the storage, false if not, and undefined if the API is not present.
 */
 export async function persist() {
-  return await navigator.storage && navigator.storage.persist ?
-    navigator.storage.persist() :
-    undefined;
+  return (await navigator.storage) && navigator.storage.persist ? navigator.storage.persist() : undefined;
 }
 
 /** Queries available disk quota.
@@ -27,9 +23,7 @@ export async function persist() {
   {quota: number, usage: number} or undefined.
 */
 async function showEstimatedQuota() {
-  return await navigator.storage && navigator.storage.estimate ?
-    navigator.storage.estimate() :
-    undefined;
+  return (await navigator.storage) && navigator.storage.estimate ? navigator.storage.estimate() : undefined;
 }
 
 /** Tries to persist storage without ever prompting user.
@@ -54,7 +48,7 @@ export async function tryPersistWithoutPromtingUser() {
     return "prompt"; // It MAY be successful to prompt. Don't know.
   }
   const permission = await navigator.permissions.query({
-    name: "persistent-storage"
+    name: "persistent-storage",
   });
   if (permission.state === "granted") {
     persisted = await navigator.storage.persist();

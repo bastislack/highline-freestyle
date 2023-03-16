@@ -35,7 +35,8 @@
     "semi": true,
     "singleQuote": false,
     "bracketSpacing": false,
-    "trailingComma": "all",
-    "arrowParens": "always"
+    "trailingComma": "es5",
+    "arrowParens": "always",
+    "printWidth": 120
   }
 }

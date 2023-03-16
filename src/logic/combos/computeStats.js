@@ -5,7 +5,7 @@ const computeStats = (tricksInCombo) => {
   let avgDiff;
   let totalDiff = 0;
 
-  tricksInCombo.map(trick => {
+  tricksInCombo.map((trick) => {
     if (trick.difficultyLevel < minDiff) {
       minDiff = parseInt(trick.difficultyLevel);
     }
@@ -17,13 +17,13 @@ const computeStats = (tricksInCombo) => {
 
   avgDiff = Math.round((totalDiff / tricksInCombo.length + Number.EPSILON) * 100) / 100;
 
-  return ({
+  return {
     minDiff: minDiff,
     maxDiff: maxDiff,
     avgDiff: avgDiff,
     totalDiff: totalDiff,
     numberOfTricks: tricksInCombo.length,
-  });
-}
+  };
+};
 
 export default computeStats;

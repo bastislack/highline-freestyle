@@ -15,10 +15,7 @@ const db = new Database();
 const ComboGenerator = ({difficultyRangeMax, randomCombo, setRandomCombo}) => {
   const navigate = useNavigate();
 
-  const [generatedCombosCount, setGeneratedCombosCount] = useLocalStorage(
-    "randomComboCount",
-    1,
-  );
+  const [generatedCombosCount, setGeneratedCombosCount] = useLocalStorage("randomComboCount", 1);
 
   const [numberOfTricks, setNumberOfTricks] = useState("");
   const [allowDuplicates, setAllowDuplicates] = useState(false);
@@ -27,22 +24,17 @@ const ComboGenerator = ({difficultyRangeMax, randomCombo, setRandomCombo}) => {
   const [allowTransitions, setAllowTransitions] = useState(false);
   const [avgDifficulty, setAvgDifficulty] = useState(-1);
   const [comboName, setComboName] = useState("Random #" + generatedCombosCount);
-  const [startFromPosition, setStartFromPosition] = useState(
-    positions.findIndex((item) => item === "EXPOSURE"),
-  );
+  const [startFromPosition, setStartFromPosition] = useState(positions.findIndex((item) => item === "EXPOSURE"));
   const [finishToFeet, setFinishToFeet] = useState(true);
   const [consecutiveCheckbox, setConsecutiveCheckbox] = useState(false);
   const [startFromCheckbox, setStartFromCheckbox] = useState(false);
   const [difficultyWhitelist, setDifficultyWhitelist] = useState(
-    Array.from({length: difficultyRangeMax}, (_, i) => i + 1),
+    Array.from({length: difficultyRangeMax}, (_, i) => i + 1)
   );
   const [stickFrequencyWhitelist, setStickFrequencyWhitelist] = useState(
-    Array.from({length: stickFrequencies.length}, (_, i) => i),
+    Array.from({length: stickFrequencies.length}, (_, i) => i)
   );
-  const [difficultyRangeMinMax, setDifficultyRangeMinMax] = useState([
-    1,
-    difficultyRangeMax,
-  ]);
+  const [difficultyRangeMinMax, setDifficultyRangeMinMax] = useState([1, difficultyRangeMax]);
 
   const maxDifficulty = difficultyRangeMinMax[1];
   const minDifficulty = difficultyRangeMinMax[0];
@@ -53,33 +45,21 @@ const ComboGenerator = ({difficultyRangeMax, randomCombo, setRandomCombo}) => {
   }
 
   useEffect(() => {
-    console.log(
-      "diffList:",
-      difficultyWhitelist,
-      "freqList:",
-      stickFrequencyWhitelist,
-      "toFeet:",
-      finishToFeet,
-    );
+    console.log("diffList:", difficultyWhitelist, "freqList:", stickFrequencyWhitelist, "toFeet:", finishToFeet);
   }, [difficultyWhitelist, stickFrequencyWhitelist]);
 
   // Contains all freqs that should be included from the combo
   function updateFreqItem(e) {
     if (e.target.checked) {
-      setStickFrequencyWhitelist(
-        stickFrequencyWhitelist.concat(Number(e.target.value)),
-      );
+      setStickFrequencyWhitelist(stickFrequencyWhitelist.concat(Number(e.target.value)));
     } else {
-      setStickFrequencyWhitelist(
-        stickFrequencyWhitelist.filter((n) => n !== Number(e.target.value)),
-      );
+      setStickFrequencyWhitelist(stickFrequencyWhitelist.filter((n) => n !== Number(e.target.value)));
     }
   }
 
   const tricks = useLiveQuery(
-    () =>
-      db.getTricksByDiffAndByFreq(difficultyWhitelist, stickFrequencyWhitelist),
-    [difficultyWhitelist, stickFrequencyWhitelist],
+    () => db.getTricksByDiffAndByFreq(difficultyWhitelist, stickFrequencyWhitelist),
+    [difficultyWhitelist, stickFrequencyWhitelist]
   );
   console.log(tricks);
   if (!tricks) return null;
@@ -159,9 +139,7 @@ const ComboGenerator = ({difficultyRangeMax, randomCombo, setRandomCombo}) => {
     let minDiff = diffMinMax[0];
 
     if (maxDiff < prevMaxDiff) {
-      setDifficultyWhitelist(
-        difficultyWhitelist.filter((level) => level <= maxDiff),
-      );
+      setDifficultyWhitelist(difficultyWhitelist.filter((level) => level <= maxDiff));
     } else if (maxDiff > prevMaxDiff) {
       let newDiffList = [...difficultyWhitelist];
       for (let i = 1; i <= maxDiff - prevMaxDiff; i++) {
@@ -172,9 +150,7 @@ const ComboGenerator = ({difficultyRangeMax, randomCombo, setRandomCombo}) => {
     }
 
     if (minDiff > prevMinDiff) {
-      setDifficultyWhitelist(
-        difficultyWhitelist.filter((level) => level >= minDiff),
-      );
+      setDifficultyWhitelist(difficultyWhitelist.filter((level) => level >= minDiff));
     } else if (minDiff < prevMinDiff) {
       let newDiffList = [...difficultyWhitelist];
       for (let i = 1; i <= prevMinDiff - minDiff; i++) {
@@ -263,8 +239,8 @@ const ComboGenerator = ({difficultyRangeMax, randomCombo, setRandomCombo}) => {
               <hr />
               <div className="form-row form-check">
                 <label className="form-check-label">
-                  Approximate average difficulty (the more tricks the more
-                  accurate): {avgDifficulty > 0 && avgDifficulty}
+                  Approximate average difficulty (the more tricks the more accurate):{" "}
+                  {avgDifficulty > 0 && avgDifficulty}
                 </label>
                 <input
                   id="input_chkbx_avg"
@@ -272,10 +248,7 @@ const ComboGenerator = ({difficultyRangeMax, randomCombo, setRandomCombo}) => {
                   className="form-check-input"
                   type="checkbox"
                   onClick={(e) => {
-                    if (e.target.checked)
-                      setAvgDifficulty(
-                        minDifficulty + (maxDifficulty - minDifficulty) / 2,
-                      );
+                    if (e.target.checked) setAvgDifficulty(minDifficulty + (maxDifficulty - minDifficulty) / 2);
                     else setAvgDifficulty(-1);
                   }}
                 />
@@ -286,9 +259,7 @@ const ComboGenerator = ({difficultyRangeMax, randomCombo, setRandomCombo}) => {
                   onChange={(e) => setAvgDifficulty(e.target.value)}
                   min={minDifficulty}
                   max={maxDifficulty}
-                  defaultValue={
-                    minDifficulty + (maxDifficulty - minDifficulty) / 2
-                  }
+                  defaultValue={minDifficulty + (maxDifficulty - minDifficulty) / 2}
                   step="0.5"
                   id="avgDifficultyRange"
                 />
@@ -328,9 +299,7 @@ const ComboGenerator = ({difficultyRangeMax, randomCombo, setRandomCombo}) => {
               <hr />
               <div className="form-row">
                 <div className="form-check form-check-inline">
-                  <label className="form-check-label">
-                    Allow duplicate tricks
-                  </label>
+                  <label className="form-check-label">Allow duplicate tricks</label>
                   <input
                     id="input_chkbx_duplicates"
                     className="form-check-input"
@@ -341,11 +310,7 @@ const ComboGenerator = ({difficultyRangeMax, randomCombo, setRandomCombo}) => {
                 <div className="form-check form-check-inline">
                   <label
                     id="consecutiveTricksLabel"
-                    className={
-                      allowDuplicates
-                        ? "form-check-label"
-                        : "form-check-label text-muted"
-                    }
+                    className={allowDuplicates ? "form-check-label" : "form-check-label text-muted"}
                   >
                     Allow consecutive tricks
                   </label>
@@ -362,9 +327,7 @@ const ComboGenerator = ({difficultyRangeMax, randomCombo, setRandomCombo}) => {
               <hr />
               <div className="form-row">
                 <div className="form-check form-check-inline">
-                  <label className="form-check-label">
-                    Allow similar positions
-                  </label>
+                  <label className="form-check-label">Allow similar positions</label>
                   <input
                     id="input_chkbx_similar_pos"
                     checked={allowSimilarPositions}

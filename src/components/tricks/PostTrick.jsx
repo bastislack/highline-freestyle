@@ -71,11 +71,7 @@ const PostTrick = () => {
     };
 
     // removes all attributes,which were not set or modified
-    if (
-      trick.alias == "" ||
-      !trick.alias ||
-      (preTrick && trick.alias === preTrick.alias)
-    ) {
+    if (trick.alias == "" || !trick.alias || (preTrick && trick.alias === preTrick.alias)) {
       delete trick.alias;
     }
     if (
@@ -99,25 +95,13 @@ const PostTrick = () => {
     ) {
       delete trick.yearEstablished;
     }
-    if (
-      trick.linkToVideo == "" ||
-      !trick.linkToVideo ||
-      (preTrick && trick.linkToVideo === preTrick.linkToVideo)
-    ) {
+    if (trick.linkToVideo == "" || !trick.linkToVideo || (preTrick && trick.linkToVideo === preTrick.linkToVideo)) {
       delete trick.linkToVideo;
     }
-    if (
-      trick.startPos == "" ||
-      !trick.startPos ||
-      (preTrick && trick.startPos === preTrick.startPos)
-    ) {
+    if (trick.startPos == "" || !trick.startPos || (preTrick && trick.startPos === preTrick.startPos)) {
       delete trick.startPos;
     }
-    if (
-      trick.endPos == "" ||
-      !trick.endPos ||
-      (preTrick && trick.endPos === preTrick.endPos)
-    ) {
+    if (trick.endPos == "" || !trick.endPos || (preTrick && trick.endPos === preTrick.endPos)) {
       delete trick.endPos;
     }
     if (
@@ -127,18 +111,10 @@ const PostTrick = () => {
     ) {
       delete trick.difficultyLevel;
     }
-    if (
-      trick.description == "" ||
-      !trick.description ||
-      (preTrick && trick.description === preTrick.description)
-    ) {
+    if (trick.description == "" || !trick.description || (preTrick && trick.description === preTrick.description)) {
       delete trick.description;
     }
-    if (
-      trick.tips == [] ||
-      !trick.tips ||
-      (preTrick && trick.tips === preTrick.tips)
-    ) {
+    if (trick.tips == [] || !trick.tips || (preTrick && trick.tips === preTrick.tips)) {
       delete trick.tips;
     }
 
@@ -190,13 +166,7 @@ const PostTrick = () => {
           placeholder="Try this..."
           onChange={handleTipChange.bind(this, i)}
         />
-        <Button
-          type="button"
-          variant="outline-danger"
-          value="remove"
-          name={i.toString()}
-          onClick={removeTip.bind(i)}
-        >
+        <Button type="button" variant="outline-danger" value="remove" name={i.toString()} onClick={removeTip.bind(i)}>
           Remove
         </Button>
       </InputGroup>
@@ -326,29 +296,20 @@ const PostTrick = () => {
           </div>
           <div className="col-md-6">
             <label className="">Stick Frequency:</label>
-            <select
-              className="form-select"
-              onChange={(e) => setStickFrequency(Number(e.target.value))}
-            >
+            <select className="form-select" onChange={(e) => setStickFrequency(Number(e.target.value))}>
               {freqList}
             </select>
           </div>
           <div className="col-md-6">
             <label>Tips:</label>
             {tipList()}
-            <Button
-              variant="outline-success"
-              onClick={addTipField}
-              className={tips.length !== 0 ? "mt-2" : "ms-2"}
-            >
+            <Button variant="outline-success" onClick={addTipField} className={tips.length !== 0 ? "mt-2" : "ms-2"}>
               Add Tip
             </Button>
           </div>
         </div>
 
-        <button className="btn btn-primary">
-          {preTrick ? "Update Trick" : "Add Trick"}
-        </button>
+        <button className="btn btn-primary">{preTrick ? "Update Trick" : "Add Trick"}</button>
       </form>
     </div>
   );

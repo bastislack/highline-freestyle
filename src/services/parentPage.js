@@ -1,4 +1,4 @@
-import { pages } from './enums';
+import {pages} from "./enums";
 
 export function parentPageOf(path) {
   if (path === "/" || path.includes("tricks") || path === "/posttrick") {
@@ -15,4 +15,3 @@ export function parentPageOf(path) {
 export function parentPageMatches(parentPage, path) {
   return parentPage == parentPageOf(path);
 }
-

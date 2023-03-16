@@ -11,12 +11,7 @@ const BottomNav = () => {
       {links.map((link) => {
         return (
           <Nav.Item key={link.url}>
-            <Link
-              to={link.url}
-              className={
-                link.isActive(path) ? "nav-link active" : "nav-link text-white"
-              }
-            >
+            <Link to={link.url} className={link.isActive(path) ? "nav-link active" : "nav-link text-white"}>
               {link.name}
             </Link>
           </Nav.Item>

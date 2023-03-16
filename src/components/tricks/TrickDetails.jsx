@@ -28,7 +28,7 @@ const TrickDetails = () => {
       await Promise.all(
         dbTrick.recommendedPrerequisites.map(async (recommendedId) => {
           resolvedRecommendations.push(await db.getTrick(recommendedId));
-        }),
+        })
       );
     }
 
@@ -217,10 +217,7 @@ const TrickDetails = () => {
               {trick.recommendedPrerequisites.map((recommendedTrick) => {
                 if (recommendedTrick) {
                   return (
-                    <div
-                      key={recommendedTrick.id}
-                      className="trick-container col-12"
-                    >
+                    <div key={recommendedTrick.id} className="trick-container col-12">
                       <button
                         className="btn trick-preview skillFreq"
                         freq={recommendedTrick.stickFrequency}
@@ -228,8 +225,7 @@ const TrickDetails = () => {
                           navigate(`/tricks/${recommendedTrick.id}`);
                         }}
                       >
-                        {recommendedTrick.alias ||
-                          recommendedTrick.technicalName}
+                        {recommendedTrick.alias || recommendedTrick.technicalName}
                         {recommendedTrick.boostSkill && (
                           <>
                             <br />
@@ -254,9 +250,7 @@ const TrickDetails = () => {
           <div className="boostSkill row justify-content-center">
             <button
               className={
-                trick.boostSkill
-                  ? "col-8 col-lg-3 col-xl-2 btn btn-warning"
-                  : "col-8 col-lg-3 col-xl-2 btn btn-primary"
+                trick.boostSkill ? "col-8 col-lg-3 col-xl-2 btn btn-warning" : "col-8 col-lg-3 col-xl-2 btn btn-primary"
               }
               onClick={toggleBoostSkill}
             >

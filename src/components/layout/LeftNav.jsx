@@ -3,10 +3,7 @@ import {links} from "../../links";
 import {pages} from "../../services/enums";
 import {parentPageOf, parentPageMatches} from "../../services/parentPage";
 import Visibility from "../../components/containers/Visibility";
-import {
-  trickSortingSchemes,
-  comboSortingSchemes,
-} from "../../services/sortingSchemes";
+import {trickSortingSchemes, comboSortingSchemes} from "../../services/sortingSchemes";
 import {Nav} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import LanguageSelector from "../buttons/LanguageSelector";
@@ -29,11 +26,7 @@ const LeftNav = ({sortOpt, setSortOpt, setShowAboutPage}) => {
             <Nav.Item key={link.url}>
               <Link
                 to={link.url}
-                className={
-                  parentPageMatches(parentPage, link.url)
-                    ? "nav-link active"
-                    : "nav-link text-white"
-                }
+                className={parentPageMatches(parentPage, link.url) ? "nav-link active" : "nav-link text-white"}
               >
                 {link.name}
               </Link>
@@ -75,11 +68,7 @@ const LeftNav = ({sortOpt, setSortOpt, setShowAboutPage}) => {
       <hr />
       <LanguageSelector />
       <div className="row mt-1">
-        <a
-          className="col-8"
-          href="https://forms.gle/Kg1Kydh8tqG4f7Vv8"
-          target="_blank"
-        >
+        <a className="col-8" href="https://forms.gle/Kg1Kydh8tqG4f7Vv8" target="_blank">
           Propose new trick
         </a>
         <a className="col-4" href="#" onClick={() => setShowAboutPage(true)}>

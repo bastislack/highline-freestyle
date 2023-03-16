@@ -41,11 +41,7 @@ function App() {
         <div className="App">
           <div className="container-fluid">
             <div className="row flex-nowrap">
-              <LeftNav
-                sortOpt={sortOpt}
-                setSortOpt={setSortOpt}
-                setShowAboutPage={setShowAboutPage}
-              />
+              <LeftNav sortOpt={sortOpt} setSortOpt={setSortOpt} setShowAboutPage={setShowAboutPage} />
               <Div100vh className="main-column">
                 <TopNav
                   sortOpt={sortOpt}
@@ -69,10 +65,7 @@ function App() {
                         }
                       />
                       <Route path="/tricks/:id" element={<TrickDetails />} />
-                      <Route
-                        path="/combos/:id"
-                        element={<ComboDetails setUserCombo={setUserCombo} />}
-                      />
+                      <Route path="/combos/:id" element={<ComboDetails setUserCombo={setUserCombo} />} />
                       <Route
                         path="/posttrick"
                         element={
@@ -83,12 +76,7 @@ function App() {
                       />
                       <Route
                         path="/postcombo"
-                        element={
-                          <PostCombo
-                            userCombo={userCombo}
-                            setUserCombo={setUserCombo}
-                          />
-                        }
+                        element={<PostCombo userCombo={userCombo} setUserCombo={setUserCombo} />}
                       />
                       <Route
                         path="/generator"
@@ -122,17 +110,9 @@ function App() {
                   </Visibility>
                 </div>
                 <BottomNav />
-                {showAboutPage && (
-                  <About
-                    showAboutPage={showAboutPage}
-                    setShowAboutPage={setShowAboutPage}
-                  />
-                )}
+                {showAboutPage && <About showAboutPage={showAboutPage} setShowAboutPage={setShowAboutPage} />}
                 {showResetWarning && (
-                  <ResetWarning
-                    showResetWarning={showResetWarning}
-                    setShowResetWarning={setShowResetWarning}
-                  />
+                  <ResetWarning showResetWarning={showResetWarning} setShowResetWarning={setShowResetWarning} />
                 )}
               </Div100vh>
             </div>

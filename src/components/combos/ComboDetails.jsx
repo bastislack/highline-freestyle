@@ -80,8 +80,7 @@ const ComboDetails = ({setUserCombo, comboToShow, addTrickToCombo}) => {
   const removeTrickFromCombo = (index) => {
     combo.tricks.splice(index, 1);
     if (combo.tricks.length > 0) {
-      const {minDiff, maxDiff, avgDiff, totalDiff, numberOfTricks} =
-        computeStats(combo.tricks);
+      const {minDiff, maxDiff, avgDiff, totalDiff, numberOfTricks} = computeStats(combo.tricks);
       setUserCombo({
         ...comboToShow,
         tricks: combo.tricks,
@@ -99,29 +98,16 @@ const ComboDetails = ({setUserCombo, comboToShow, addTrickToCombo}) => {
   const getTrickDiv = (trick, index) => {
     return (
       <>
-        <div
-          className={!inPostCombo ? "col-12" : "col-9"}
-          key={"trick" + trick.id}
-        >
-          <Link
-            className="link-to-trick "
-            to={`/tricks/${trick.id}`}
-            key={"trick" + trick.id}
-          >
-            <button
-              className="btn trick-preview skillFreq"
-              freq={trick.stickFrequency}
-            >
+        <div className={!inPostCombo ? "col-12" : "col-9"} key={"trick" + trick.id}>
+          <Link className="link-to-trick " to={`/tricks/${trick.id}`} key={"trick" + trick.id}>
+            <button className="btn trick-preview skillFreq" freq={trick.stickFrequency}>
               <h2>{trick.alias || trick.technicalName}</h2>
             </button>
           </Link>
         </div>
         {inPostCombo && (
           <div className="col-2">
-            <button
-              className="btn btn-danger"
-              onClick={() => removeTrickFromCombo(index)}
-            >
+            <button className="btn btn-danger" onClick={() => removeTrickFromCombo(index)}>
               <BsTrashFill />
             </button>
           </div>
@@ -202,27 +188,16 @@ const ComboDetails = ({setUserCombo, comboToShow, addTrickToCombo}) => {
             {combo.tricks.map((trick, index) => {
               return index === 0 ||
                 (index > 0 &&
-                  (arePositionsSimilar(
-                    trick.startPos,
-                    combo.tricks[index - 1].endPos,
-                  ) ||
+                  (arePositionsSimilar(trick.startPos, combo.tricks[index - 1].endPos) ||
                     trick.startPos === combo.tricks[index - 1].endPos)) ? (
                 getTrickDiv(trick, index)
               ) : index > 0 &&
-                (!arePositionsSimilar(
-                  trick.startPos,
-                  combo.tricks[index - 1].endPos,
-                ) ||
+                (!arePositionsSimilar(trick.startPos, combo.tricks[index - 1].endPos) ||
                   trick.startPos !== combo.tricks[index - 1].endPos) ? (
                 <>
-                  <div
-                    className={!inPostCombo ? "col-12" : "col-9"}
-                    key={index}
-                  >
+                  <div className={!inPostCombo ? "col-12" : "col-9"} key={index}>
                     <div className="row">
-                      <p className="transition transition-text">
-                        {combo.tricks[index - 1].endPos}
-                      </p>
+                      <p className="transition transition-text">{combo.tricks[index - 1].endPos}</p>
                     </div>
                     <IconContext.Provider value={{color: "grey"}}>
                       <div className="row">
@@ -230,9 +205,7 @@ const ComboDetails = ({setUserCombo, comboToShow, addTrickToCombo}) => {
                       </div>
                     </IconContext.Provider>
                     <div className="row">
-                      <p className="transition transition-text">
-                        {trick.startPos}
-                      </p>
+                      <p className="transition transition-text">{trick.startPos}</p>
                     </div>
                   </div>
                   {getTrickDiv(trick, index)}

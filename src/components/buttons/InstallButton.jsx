@@ -19,11 +19,7 @@ const InstallButton = () => {
       ),
       description: "App for Highline Freestyle athletes",
     })
-      .then(
-        console.log(
-          "App installed successfully or instructions for install shown",
-        ),
-      )
+      .then(console.log("App installed successfully or instructions for install shown"))
       .catch(console.log("User cancelled installation"));
   };
 

@@ -3,10 +3,7 @@
     "browser": true,
     "es2021": true
   },
-  "ignorePatterns": [
-    "**/*.js",
-    "**/*.d.ts"
-  ],
+  "ignorePatterns": ["**/*.js", "**/*.d.ts"],
   "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {

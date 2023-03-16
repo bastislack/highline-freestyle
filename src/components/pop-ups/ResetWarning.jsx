@@ -13,12 +13,7 @@ const ResetWarning = ({showResetWarning, setShowResetWarning}) => {
   };
 
   return (
-    <Modal
-      size="sm"
-      show={showResetWarning}
-      onHide={() => setShowResetWarning(false)}
-      centered
-    >
+    <Modal size="sm" show={showResetWarning} onHide={() => setShowResetWarning(false)} centered>
       <Modal.Header>
         <Modal.Title className="h6">Reset {showResetWarning}?</Modal.Title>
       </Modal.Header>
@@ -32,10 +27,7 @@ const ResetWarning = ({showResetWarning, setShowResetWarning}) => {
         </div>
         <div className="container">
           <div className="row justify-content-around">
-            <button
-              className="col-4 btn btn-secondary"
-              onClick={() => setShowResetWarning(false)}
-            >
+            <button className="col-4 btn btn-secondary" onClick={() => setShowResetWarning(false)}>
               Cancel
             </button>
             <button

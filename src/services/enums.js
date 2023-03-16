@@ -6,7 +6,7 @@ export const stickFrequencies = [
   "Sometimes",
   "Often",
   "Generally",
-  "Always"
+  "Always",
 ];
 
 export const pages = {
@@ -16,7 +16,7 @@ export const pages = {
   COMBOLIST: "ComboList",
   COMBODETAILS: "ComboDetails",
   POSTCOMBO: "PostCombo",
-  GENERATOR: "ComboGenerator"
+  GENERATOR: "ComboGenerator",
 };
 
 export const positions = [
@@ -40,7 +40,7 @@ export const positions = [
   "FRODO",
   "BUDDHA",
   "YISUS",
-  "BANANA"
+  "BANANA",
 ];
 
 // the maximum difficulty

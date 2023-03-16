@@ -54,7 +54,7 @@ To run the production environment (needed to use features of the service worker 
 
 > run `npm run serve`
 
-sometimes after updating you have to delete your indexDB in your browser, through the development tools (__Storage__ in firefox, __Application__ in chrome)
+sometimes after updating you have to delete your indexDB in your browser, through the development tools (**Storage** in firefox, **Application** in chrome)
 
 ### Tests
 

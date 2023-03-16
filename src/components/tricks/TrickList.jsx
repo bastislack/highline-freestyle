@@ -9,13 +9,7 @@ import Fuse from "fuse.js";
 import Database from "../../services/db";
 const db = new Database();
 
-const TrickList = ({
-  sortOpt,
-  scrollPosition,
-  setScrollPosition,
-  userCombo,
-  setUserCombo,
-}) => {
+const TrickList = ({sortOpt, scrollPosition, setScrollPosition, userCombo, setUserCombo}) => {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -47,8 +41,7 @@ const TrickList = ({
     if (userCombo) {
       const newTrickArray = [...userCombo.tricks, trick];
 
-      const {minDiff, maxDiff, avgDiff, totalDiff, numberOfTricks} =
-        computeStats(newTrickArray);
+      const {minDiff, maxDiff, avgDiff, totalDiff, numberOfTricks} = computeStats(newTrickArray);
 
       setUserCombo({
         ...userCombo,
@@ -61,8 +54,7 @@ const TrickList = ({
         endPos: newTrickArray[newTrickArray.length - 1].endPos,
       });
     } else {
-      const {minDiff, maxDiff, avgDiff, totalDiff, numberOfTricks} =
-        computeStats([trick]);
+      const {minDiff, maxDiff, avgDiff, totalDiff, numberOfTricks} = computeStats([trick]);
 
       setUserCombo({
         tricks: [trick],
@@ -113,25 +105,17 @@ const TrickList = ({
 
   // tricks query with react hooks -- means it refreshes automaticly
   // and sorts it according to the sortOpt
-  const tricks = useLiveQuery(
-    () =>
-      db.getAllTricks().then((t) => t.sort(sortingSchemes[sortOpt].sortFunc)),
-    [sortOpt],
-  );
+  const tricks = useLiveQuery(() => db.getAllTricks().then((t) => t.sort(sortingSchemes[sortOpt].sortFunc)), [sortOpt]);
   if (!tricks) {
     return null;
   } else console.log(tricks);
 
   const fuse = new Fuse(tricks, options);
-  const searchResults = searchPattern
-    ? fuse.search(searchPattern).map((i) => i.item)
-    : tricks;
+  const searchResults = searchPattern ? fuse.search(searchPattern).map((i) => i.item) : tricks;
 
   return (
     <div className="row">
-      {addTrickToCombo && (
-        <h2 style={{fontWeight: "bold"}}>Add trick to combo</h2>
-      )}
+      {addTrickToCombo && <h2 style={{fontWeight: "bold"}}>Add trick to combo</h2>}
       <input
         className="form-control"
         type="search"
@@ -145,10 +129,7 @@ const TrickList = ({
 
         if (isFirst && sortingSchemes[sortOpt].showCategory && !searchPattern) {
           return [
-            <div
-              className="w-100 list-br-heading"
-              key={"header" + trick.id.toString()}
-            >
+            <div className="w-100 list-br-heading" key={"header" + trick.id.toString()}>
               <h4>
                 {sortingSchemes[sortOpt].catName} {current}
               </h4>

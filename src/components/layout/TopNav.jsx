@@ -7,27 +7,15 @@ import InstallButton from "../../components/buttons/InstallButton";
 import {parentPageOf} from "../../services/parentPage";
 import Settings from "../../components/layout/Settings";
 
-const TopNav = ({
-  sortOpt,
-  setSortOpt,
-  setShowAboutPage,
-  setShowResetWarning,
-}) => {
-  const parentPage = parentPageOf(
-    useLocation().pathname.toString().toLowerCase(),
-  );
+const TopNav = ({sortOpt, setSortOpt, setShowAboutPage, setShowResetWarning}) => {
+  const parentPage = parentPageOf(useLocation().pathname.toString().toLowerCase());
 
   return (
     <Navbar variant="dark" expand="lg" className="top-navigation">
       <Container fluid>
         <div className="navigation-button-container">
           <Visibility
-            visiblePages={[
-              pages.TRICKDETAILS,
-              pages.COMBODETAILS,
-              pages.POSTTRICK,
-              pages.POSTCOMBO,
-            ]}
+            visiblePages={[pages.TRICKDETAILS, pages.COMBODETAILS, pages.POSTTRICK, pages.POSTCOMBO]}
             elseContent={<InstallButton />}
           >
             <BackButton />
