@@ -21,8 +21,13 @@ const ComboList = ({ scrollPosition, setScrollPosition }) => {
     });
   });
 
-  // combos query with react hooks -- means it refreshes automaticly
-  const combos = useLiveQuery(() => db.getAllCombos().then(c => c.sort(comboSortingSchemes[sortOpt].sortFunc)), [sortOpt]);
+  async function combosFromDBSorted(sortingOption) {
+    const allCombos = await db.getAllCombos();
+    return allCombos.sort(comboSortingSchemes[sortingOption].sortFunc);
+  }
+
+  // combos query with react hooks -- means it refreshes automatically
+  const combos = useLiveQuery(() => combosFromDBSorted(sortOpt), [sortOpt]);
   if (!combos || combos.length == 0) {
     return <p>You have no saved combos. For now it is only possible to create a combo using the combo generator, we are working on supporting custom combos.</p>;
   }
