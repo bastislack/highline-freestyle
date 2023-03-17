@@ -46,7 +46,14 @@ function App() {
                 <div className="main-column-content-wrapper">
                  <div id="content" className="main-column-content">
                     <Routes>
-                      <Route path="/" element={<TrickList scrollPosition={trickListScrollPosition} setScrollPosition={setTrickListScrollPosition} userCombo={userCombo} setUserCombo={setUserCombo} />} />
+                      <Route path="/" element={
+                        <TrickList
+                          scrollPosition={trickListScrollPosition}
+                          setScrollPosition={setTrickListScrollPosition}
+                          userCombo={userCombo}
+                          setUserCombo={setUserCombo}
+                        />
+                      } />
                       <Route path="/tricks/:id" element={<TrickDetails />} />
                       <Route path="/combos/:id" element={<ComboDetails setUserCombo={setUserCombo} />} />
                       <Route path="/posttrick" element={
@@ -55,8 +62,19 @@ function App() {
                         </ScrollToTop>
                       } />
                       <Route path="/postcombo" element={<PostCombo userCombo={userCombo} setUserCombo={setUserCombo}/>} />
-                      <Route path="/generator" element={<ComboGenerator difficultyRangeMax={difficultyRangeMax} randomCombo={randomCombo} setRandomCombo={setRandomCombo}/>} />
-                      <Route path="/combos" element={<ComboList scrollPosition={comboListScrollPosition} setScrollPosition={setComboListScrollPosition} />} />
+                      <Route path="/generator" element={
+                        <ComboGenerator
+                          difficultyRangeMax={difficultyRangeMax}
+                          randomCombo={randomCombo}
+                          setRandomCombo={setRandomCombo}
+                        />
+                      } />
+                      <Route path="/combos" element={
+                        <ComboList
+                          scrollPosition={comboListScrollPosition}
+                          setScrollPosition={setComboListScrollPosition}
+                          />
+                      } />
                       <Route path="/*" element={<NotFoundPage/>} />
                     </Routes>
                   </div>
