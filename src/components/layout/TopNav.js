@@ -7,7 +7,7 @@ import InstallButton from "../../components/buttons/InstallButton";
 import { parentPageOf } from '../../services/parentPage';
 import Settings from '../../components/layout/Settings';
 
-const TopNav = ({ sortOpt, setSortOpt, setShowAboutPage, setShowResetWarning }) => {
+const TopNav = ({ setShowAboutPage, setShowResetWarning }) => {
   const parentPage = parentPageOf(useLocation().pathname.toString().toLowerCase());
 
   return <Navbar variant="dark" expand="lg" className="top-navigation">
@@ -21,8 +21,6 @@ const TopNav = ({ sortOpt, setSortOpt, setShowAboutPage, setShowResetWarning }) 
       <Navbar.Brand href="/" className="me-auto hide-on-mobile">{ parentPage }</Navbar.Brand>
       <div className="hide-on-desktop nav-item">
         <Settings
-          sortOpt={sortOpt}
-          setSortOpt={setSortOpt}
           setShowAboutPage={setShowAboutPage}
           setShowResetWarning={setShowResetWarning} />
       </div>
