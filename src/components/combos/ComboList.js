@@ -66,13 +66,15 @@ const ComboList = ({ scrollPosition, setScrollPosition }) => {
         onFilter={value => setSearchPattern(value)}
         onSort={schemeId => setSortOpt(schemeId)} />
       {searchResults.map(combo => {
-        let isFirst = (comboSortingSchemes[sortOpt].attributeFunc(combo) !== current);
+        const isFirst = (comboSortingSchemes[sortOpt].attributeFunc(combo) !== current);
         current = comboSortingSchemes[sortOpt].attributeFunc(combo);
+        const catName = comboSortingSchemes[sortOpt].catName;
+        const attributeLast = comboSortingSchemes[sortOpt].attributeLast
 
         if (isFirst && comboSortingSchemes[sortOpt].showCategory && !searchPattern) {
           return [
             <div className="w-100 list-br-heading" key={"header" + combo.id.toString()}>
-              <h4>{!comboSortingSchemes[sortOpt].attributeLast && current} {comboSortingSchemes[sortOpt].catName} {comboSortingSchemes[sortOpt].attributeLast && current}</h4>
+              <h4>{!attributeLast && current} {catName} {attributeLast && current}</h4>
             </div>,
             getComboDiv(combo)
           ];
