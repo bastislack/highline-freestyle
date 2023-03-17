@@ -4,7 +4,7 @@ import { useLiveQuery } from "dexie-react-hooks";
 import { comboSortingSchemes } from '../../services/sortingSchemes';
 import { IoRocketSharp } from 'react-icons/io5';
 import Fuse from 'fuse.js';
-import SearchBar from '../SearchBar/SearchBar';
+import SearchBar from '../misc/SearchBar';
 
 import Database from "../../services/db";
 const db = new Database();

@@ -6,7 +6,7 @@ import computeStats from '../../logic/combos/computeStats';
 import { IoRocketSharp, IoSearchSharp } from 'react-icons/io5';
 import Fuse from 'fuse.js';
 import { trickSortingSchemes } from '../../services/sortingSchemes';
-import SearchBar from "../SearchBar/SearchBar"
+import SearchBar from "../misc/SearchBar"
 
 import Database from "../../services/db";
 const db = new Database();
