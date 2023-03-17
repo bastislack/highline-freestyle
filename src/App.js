@@ -23,8 +23,6 @@ import ErrorFallback from './components/pages/ErrorFallback';
 
 
 function App() {
-  // Sorting Options for the tricklist
-  const [sortOpt, setSortOpt] = useState(0);
   // Randomly generated combo shown on the generator screen
   const [randomCombo, setRandomCombo] = useState(null);
   // Boolean to check if About page should be rendered
@@ -42,13 +40,13 @@ function App() {
         <div className="App">
           <div className="container-fluid">
             <div className="row flex-nowrap">
-              <LeftNav sortOpt={sortOpt} setSortOpt={setSortOpt} setShowAboutPage={setShowAboutPage} />
+              <LeftNav setShowAboutPage={setShowAboutPage} />
               <Div100vh className="main-column">
-                <TopNav sortOpt={sortOpt} setSortOpt={setSortOpt} setShowAboutPage={setShowAboutPage} setShowResetWarning={setShowResetWarning} />
+                <TopNav setShowAboutPage={setShowAboutPage} setShowResetWarning={setShowResetWarning} />
                 <div className="main-column-content-wrapper">
                  <div id="content" className="main-column-content">
                     <Routes>
-                      <Route path="/" element={<TrickList sortOpt={sortOpt} scrollPosition={trickListScrollPosition} setScrollPosition={setTrickListScrollPosition} userCombo={userCombo} setUserCombo={setUserCombo} />} />
+                      <Route path="/" element={<TrickList scrollPosition={trickListScrollPosition} setScrollPosition={setTrickListScrollPosition} userCombo={userCombo} setUserCombo={setUserCombo} />} />
                       <Route path="/tricks/:id" element={<TrickDetails />} />
                       <Route path="/combos/:id" element={<ComboDetails setUserCombo={setUserCombo} />} />
                       <Route path="/posttrick" element={
@@ -58,7 +56,7 @@ function App() {
                       } />
                       <Route path="/postcombo" element={<PostCombo userCombo={userCombo} setUserCombo={setUserCombo}/>} />
                       <Route path="/generator" element={<ComboGenerator difficultyRangeMax={difficultyRangeMax} randomCombo={randomCombo} setRandomCombo={setRandomCombo}/>} />
-                      <Route path="/combos" element={<ComboList sortOpt={sortOpt} scrollPosition={comboListScrollPosition} setScrollPosition={setComboListScrollPosition} />} />
+                      <Route path="/combos" element={<ComboList scrollPosition={comboListScrollPosition} setScrollPosition={setComboListScrollPosition} />} />
                       <Route path="/*" element={<NotFoundPage/>} />
                     </Routes>
                   </div>
