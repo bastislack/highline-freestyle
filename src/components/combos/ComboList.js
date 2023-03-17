@@ -32,8 +32,8 @@ const ComboList = ({ scrollPosition, setScrollPosition }) => {
     return <p>You have no saved combos. For now it is only possible to create a combo using the combo generator, we are working on supporting custom combos.</p>;
   }
 
-  // TODO: Finish filtering functionality
-  const fuse = new Fuse(combos)
+  const searchOptions = { keys: ["name", "establishedBy"] };
+  const fuse = new Fuse(combos, searchOptions);
   const searchResults = searchPattern ? fuse.search(searchPattern).map(i => i.item) : combos;
 
   const updateScrollPosition = () => {
