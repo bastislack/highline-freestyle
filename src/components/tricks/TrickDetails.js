@@ -25,6 +25,8 @@ const TrickDetails = () => {
     const dbTrick = await db.getTrick(id);
     const resolvedRecommendations = [];
 
+    if (!dbTrick || !dbTrick.id) return null;
+
     if (dbTrick.recommendedPrerequisites) {
       await Promise.all (dbTrick.recommendedPrerequisites.map (async recommendedId => {
         resolvedRecommendations.push(await db.getTrick(recommendedId));
@@ -35,7 +37,7 @@ const TrickDetails = () => {
     return dbTrick;
   }, [id]);
 
-  if (!trick) return null;
+  if (!trick) return <>Trick id: {id} not found in database</>;
 
   console.log(trick);
 
