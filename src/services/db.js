@@ -151,8 +151,8 @@ export default class Database {
   // get single trick by id
   getTrick = (id) => this.db.userTricks.get(Number(id)).then(userTrick => {
       return this.db.predefinedTricks.get(Number(id)).then(preTrick => {
-        if (!userTrick) return preTrick;
-        else return this.mergeLists([userTrick], [preTrick])[0];
+        // overwrite all user set attributes
+        return {...preTrick, ...userTrick};
       });
     });
 
