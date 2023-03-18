@@ -27,7 +27,7 @@ const TrickDetails = () => {
 
     if (!dbTrick || !dbTrick.id) return null;
 
-    if (dbTrick.recommendedPrerequisites) {
+    if (dbTrick.recommendedPrerequisites && dbTrick.recommendedPrerequisites.map) {
       await Promise.all (dbTrick.recommendedPrerequisites.map (async recommendedId => {
         resolvedRecommendations.push(await db.getTrick(recommendedId));
       }));
