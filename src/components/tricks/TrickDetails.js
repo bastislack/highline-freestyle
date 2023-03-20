@@ -141,7 +141,7 @@ const TrickDetails = () => {
           </div>
           {trick.alias && trick.technicalName &&
             <div>
-              <h3>Technical Name: </h3>
+              <h6>Technical Name: </h6>
               <div className="callout">{trick.technicalName}</div>
             </div>
           }
@@ -154,28 +154,28 @@ const TrickDetails = () => {
 
           {(trick.difficultyLevel >= 0) &&
             <div>
-              <h3><Trans id="trickDetails.level">Level</Trans>: </h3>
+              <h6><Trans id="trickDetails.level">Level</Trans>: </h6>
               <div className="callout">{trick.difficultyLevel}</div>
             </div>
           }
 
           {trick.description &&
             <div>
-              <h3>Description: </h3>
+              <h6>Description: </h6>
               <div className="callout">{trick.description}</div>
             </div>
           }
 
           {trick.tips && trick.tips.length > 0 &&
             <div>
-              <h3>Tips: </h3>
+              <h6>Tips: </h6>
               <TipList tips={trick.tips} />
             </div>
           }
 
           {trick.yearEstablished && trick.establishedBy &&
             <div>
-              <h3>Established by: </h3>
+              <h6>Established by: </h6>
               <div className="callout">{trick.establishedBy} in {trick.yearEstablished}</div>
             </div>
           }
@@ -193,7 +193,7 @@ const TrickDetails = () => {
 
           {trick.recommendedPrerequisites.length !== 0 &&
             <div className="row">
-              <h4>Recommended Prerequisites:</h4>
+              <h6>Recommended Prerequisites:</h6>
               {trick.recommendedPrerequisites.map(recommendedTrick => {
               if(recommendedTrick){
                 return (
@@ -213,7 +213,7 @@ const TrickDetails = () => {
           }
 
           <div className="row">
-            <h4>Set your success frequency:</h4>
+            <h5>Set your success frequency:</h5>
             <div onChange={selectFreq}>
               <FreqList stickable={trick}/>
             </div>
