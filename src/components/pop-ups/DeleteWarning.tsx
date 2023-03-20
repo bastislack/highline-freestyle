@@ -1,6 +1,13 @@
 import Modal from "react-bootstrap/Modal";
 
-const DeleteWarning = ({showDeleteWarning, setShowDeleteWarning, itemName, call}) => {
+interface DeleteWarningProps {
+  showDeleteWarning: boolean;
+  setShowDeleteWarning: (show: boolean) => void;
+  itemName: string;
+  call: () => void;
+}
+
+const DeleteWarning = ({showDeleteWarning, setShowDeleteWarning, itemName, call}: DeleteWarningProps) => {
   return (
     <Modal size="sm" show={showDeleteWarning} onHide={() => setShowDeleteWarning(false)} centered>
       <Modal.Header>

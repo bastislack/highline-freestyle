@@ -1,6 +1,16 @@
-import {Trans} from "@lingui/macro";
+//import {Trans} from "@lingui/macro";
+// TODO: replace with proper i18n at some point.
+function Trans({children, id}: any) {
+  return children
+}
 
-export const links = [
+interface LinkEntry {
+  name: JSX.Element;
+  url: string;
+  isActive: (path: string) => boolean;
+}
+
+export const links: LinkEntry[] = [
   {
     name: <Trans id="links.tricks">Tricks</Trans>,
     url: "/",

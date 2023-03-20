@@ -1,11 +1,11 @@
 import React from "react";
-import {useLingui} from "@lingui/react";
-import {setAppLanguage} from "../../i18n";
+//import {useLingui} from "@lingui/react";
+//import {setAppLanguage} from "../../logic/i18n";
 import {ButtonGroup, ToggleButton} from "react-bootstrap";
-import {Trans} from "@lingui/macro";
+//import {Trans} from "@lingui/macro";
 
 const LanguageSelector = () => {
-  const {i18n} = useLingui();
+  //const {i18n} = useLingui();
 
   //TODO remove this when we have the spanish version working
   return null;

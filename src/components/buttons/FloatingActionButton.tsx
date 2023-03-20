@@ -1,19 +1,29 @@
 import {Link, useLocation} from "react-router-dom";
-import {Fab} from "@material-ui/core";
+import {Fab} from "@material-ui/core"; // TODO: material-ui/core is outdated.
 
-const FloatingActionButton = ({setTrickListScrollPosition, setComboListScrollPosition, setUserCombo}) => {
+interface FloatingActionButtonProps {
+  setTrickListScrollPosition: (position: number) => void;
+  setComboListScrollPosition: (position: number) => void;
+  setUserCombo: (combo: unknown) => void; // TODO
+}
+
+const FloatingActionButton = ({
+  setTrickListScrollPosition,
+  setComboListScrollPosition,
+  setUserCombo,
+}: FloatingActionButtonProps) => {
   // the current Url
   const path = useLocation().pathname.toString().toLowerCase();
 
   // the url which the button should lead to
-  let create;
+  let create = "/";
   if (path === "/") {
     create = "/posttrick";
   } else if (path === "/combos") {
     create = "/postcombo";
   } else {
     console.log("No path for FAB defined");
-  }
+  } // TODO: What exactly does this do??
 
   const updateScrollPosition = () => {
     if (path === "/") {

@@ -2,7 +2,7 @@ const computeStats = (tricksInCombo) => {
   console.log("Compute stats of:", tricksInCombo);
   let minDiff = Infinity;
   let maxDiff = -Infinity;
-  let avgDiff;
+ 
   let totalDiff = 0;
 
   tricksInCombo.map((trick) => {
@@ -15,7 +15,7 @@ const computeStats = (tricksInCombo) => {
     totalDiff += parseInt(trick.difficultyLevel);
   });
 
-  avgDiff = Math.round((totalDiff / tricksInCombo.length + Number.EPSILON) * 100) / 100;
+  const avgDiff = Math.round((totalDiff / tricksInCombo.length + Number.EPSILON) * 100) / 100;
 
   return {
     minDiff: minDiff,

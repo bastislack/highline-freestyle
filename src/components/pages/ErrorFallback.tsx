@@ -1,4 +1,13 @@
-const ErrorFallback = ({error}) => {
+interface Error {
+  name: string;
+  message: string;
+}
+
+interface ErrorFallbackProps {
+  error: Error;
+}
+
+const ErrorFallback = ({error}: ErrorFallbackProps) => {
   return (
     <div role="alert">
       <h2>Something went wrong</h2>

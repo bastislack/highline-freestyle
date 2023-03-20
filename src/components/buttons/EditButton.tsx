@@ -1,6 +1,10 @@
 import {BsPencilFill} from "react-icons/bs";
 
-const EditButton = ({call}) => {
+interface EditButtonProps {
+  call: () => void;
+}
+
+const EditButton = ({call}: EditButtonProps) => {
   return (
     <button className="btn" onClick={call}>
       <BsPencilFill />

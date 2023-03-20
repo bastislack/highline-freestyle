@@ -1,3 +1,4 @@
+// TODO: This needs a rewrite.
 import Dexie from "dexie";
 import Papa from "papaparse";
 import {predefinedTricks, predefinedTricksVersion} from "../predefinedTricksCombos";

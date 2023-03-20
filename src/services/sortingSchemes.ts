@@ -1,4 +1,14 @@
-export const trickSortingSchemes = [
+interface TrickSortingSchemeEntry {
+  name: string;
+  id: number;
+  sortFunc: (a: any, b: any) => number; // TODO!
+  catName: string; // TODO ??
+  attributeFunc: (a: any) => unknown; // TODO!
+  showCategory: boolean;
+  attributeLast?: true;
+}
+
+export const trickSortingSchemes: TrickSortingSchemeEntry[] = [
   {
     name: "Level Upwards",
     id: 0,
@@ -69,7 +79,7 @@ export const trickSortingSchemes = [
   },
 ];
 
-export const comboSortingSchemes = [
+export const comboSortingSchemes: TrickSortingSchemeEntry[] = [
   {
     name: "Length Upwards",
     id: 0,

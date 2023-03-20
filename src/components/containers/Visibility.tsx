@@ -1,7 +1,13 @@
 import {useLocation} from "react-router-dom";
 import {pages} from "../../services/enums";
 
-const Visibility = ({visiblePages, children, elseContent}) => {
+interface VisibilityProps {
+  visiblePages: string[];
+  children: JSX.Element | JSX.Element[];
+  elseContent?: JSX.Element;
+}
+
+const Visibility = ({visiblePages, children, elseContent}: VisibilityProps) => {
   const path = useLocation().pathname.toString().toLowerCase();
 
   let isVisible = false;
@@ -20,7 +26,7 @@ const Visibility = ({visiblePages, children, elseContent}) => {
     }
   });
 
-  if (isVisible === true) {
+  if (isVisible) {
     return <>{children}</>;
   } else if (elseContent !== null) {
     return <>{elseContent}</>;

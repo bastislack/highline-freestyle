@@ -10,7 +10,14 @@ import {useNavigate} from "react-router";
 import Database from "../../services/db";
 const db = new Database();
 
-const Settings = ({sortOpt, setSortOpt, setShowAboutPage, setShowResetWarning}) => {
+interface SettingsProps {
+  sortOpt: unknown;
+  setSortOpt: (sortOpt: unknown) => void;
+  setShowAboutPage: (showAboutPage: boolean) => void;
+  setShowResetWarning: (showResetWarning: string) => void; // TODO: why is this of type String?
+}
+
+const Settings = ({sortOpt, setSortOpt, setShowAboutPage, setShowResetWarning}: SettingsProps) => {
   const navigate = useNavigate();
 
   const path = useLocation().pathname.toString().toLowerCase();
@@ -18,12 +25,23 @@ const Settings = ({sortOpt, setSortOpt, setShowAboutPage, setShowResetWarning}) 
   const inTrickList = path === "/";
   const inComboList = path === "/combos";
 
-  const selectImportFile = (e) => {
+  const selectImportFile: React.FormEventHandler<HTMLInputElement> = (e) => {
+    if (!e.target) {
+      console.log("TODO: Proper Handling");
+      return;
+    }
+    const files: FileList | null = (e.target as any).files;
+    if (!files || files.length === 0) {
+      console.log("TODO: No Files found");
+      return;
+    }
+    const firstFile = files[0];
+
     const fileReader = new FileReader();
-    fileReader.readAsText(e.target.files[0], "UTF-8");
+    fileReader.readAsText(firstFile, "UTF-8");
     fileReader.onload = (e) => {
-      console.log("importing", e.target.result);
-      db.importDatabase(e.target.result);
+      console.log("importing", e.target!.result);
+      db.importDatabase(e.target!.result);
       // TODO: fix this navigate, fire instead Dexie.on.storagemutated
       navigate(0);
     };

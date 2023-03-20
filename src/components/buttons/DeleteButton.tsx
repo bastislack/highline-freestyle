@@ -1,6 +1,10 @@
 import {BsTrashFill} from "react-icons/bs";
 
-const DeleteButton = ({setShowDeleteWarning}) => {
+interface DeleteButtonProps {
+  setShowDeleteWarning: (show: boolean) => void;
+}
+
+const DeleteButton = ({setShowDeleteWarning}: DeleteButtonProps) => {
   return (
     <button className="btn" onClick={() => setShowDeleteWarning(true)}>
       <BsTrashFill />

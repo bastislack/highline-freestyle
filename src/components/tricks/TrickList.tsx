@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useLiveQuery} from "dexie-react-hooks";
 import {trickSortingSchemes as sortingSchemes} from "../../services/sortingSchemes";
@@ -7,9 +7,13 @@ import {IoRocketSharp} from "react-icons/io5";
 import Fuse from "fuse.js";
 
 import Database from "../../services/db";
+import RootContext from "../../context/rootContext";
 const db = new Database();
 
-const TrickList = ({sortOpt, scrollPosition, setScrollPosition, userCombo, setUserCombo}) => {
+const TrickList = () => {
+
+  const {setTrickListScrollPosition, trickListScrollPosition, setUserCombo, userCombo, sortingOption} = useContext(RootContext)
+
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -27,14 +31,14 @@ const TrickList = ({sortOpt, scrollPosition, setScrollPosition, userCombo, setUs
     keys: ["alias", "technicalName"],
   };
   useEffect(() => {
-    document.getElementById("content").scrollTo({
-      top: scrollPosition,
+    document.getElementById("content")!.scrollTo({
+      top: trickListScrollPosition,
       left: 0,
-      behavior: "instant",
+      behavior: "instant" as any , // TODO: instant not found
     });
   });
   const updateScrollPosition = () => {
-    setScrollPosition(document.getElementById("content").scrollTop);
+    setTrickListScrollPosition(document.getElementById("content")?.scrollTop ?? 0);
   };
 
   const addTrickToUserCombo = (trick) => {
@@ -105,7 +109,7 @@ const TrickList = ({sortOpt, scrollPosition, setScrollPosition, userCombo, setUs
 
   // tricks query with react hooks -- means it refreshes automaticly
   // and sorts it according to the sortOpt
-  const tricks = useLiveQuery(() => db.getAllTricks().then((t) => t.sort(sortingSchemes[sortOpt].sortFunc)), [sortOpt]);
+  const tricks = useLiveQuery(() => db.getAllTricks().then((t) => t.sort(sortingSchemes[sortingOption].sortFunc)), [sortingOption]);
   if (!tricks) {
     return null;
   } else console.log(tricks);
@@ -124,14 +128,14 @@ const TrickList = ({sortOpt, scrollPosition, setScrollPosition, userCombo, setUs
         onChange={(e) => setSearchPattern(e.target.value)}
       />
       {searchResults.map((trick) => {
-        let isFirst = sortingSchemes[sortOpt].attributeFunc(trick) !== current;
-        current = sortingSchemes[sortOpt].attributeFunc(trick);
+        let isFirst = sortingSchemes[sortingOption].attributeFunc(trick) !== current;
+        current = sortingSchemes[sortingOption].attributeFunc(trick);
 
-        if (isFirst && sortingSchemes[sortOpt].showCategory && !searchPattern) {
+        if (isFirst && sortingSchemes[sortingOption].showCategory && !searchPattern) {
           return [
             <div className="w-100 list-br-heading" key={"header" + trick.id.toString()}>
               <h4>
-                {sortingSchemes[sortOpt].catName} {current}
+                {sortingSchemes[sortingOption].catName} {current}
               </h4>
             </div>,
             getTrickDiv(trick),

@@ -1,4 +1,8 @@
-const AddButton = ({call}) => {
+interface AddButtonProps {
+  call: () => void;
+}
+
+const AddButton = ({call}: AddButtonProps) => {
   return (
     <button className="btn btn-primary" onClick={call}>
       +

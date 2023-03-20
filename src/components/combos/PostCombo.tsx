@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import {useState, useEffect, ChangeEvent} from "react";
 import {Link, useNavigate, useLocation} from "react-router-dom";
 import computeStats from "../../logic/combos/computeStats";
 import {stickFrequencies, positions} from "../../services/enums";
@@ -108,7 +108,7 @@ const PostCombo = ({userCombo, setUserCombo}) => {
     );
   });
 
-  const handleYearChange = (event) => {
+  const handleYearChange = (event: ChangeEvent<HTMLInputElement>) => {
     const year = parseInt(event.target.value);
     if (year < 0 || year > new Date().getFullYear()) {
       setYearEstablished(new Date().getFullYear());
@@ -118,7 +118,6 @@ const PostCombo = ({userCombo, setUserCombo}) => {
   };
 
   const addTrickToCombo = () => navigate("/", {state: {addTrickToCombo: true, preCombo: preCombo}});
-  const test = () => navigate("/");
 
   return (
     <div className="post">
@@ -158,7 +157,7 @@ const PostCombo = ({userCombo, setUserCombo}) => {
               className="form-control"
               type="number"
               value={yearEstablished}
-              placeholder={new Date().getFullYear()}
+              placeholder={new Date().getFullYear() + ""}
               onChange={(e) => handleYearChange(e)}
             />
           </div>

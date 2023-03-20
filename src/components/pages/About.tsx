@@ -1,6 +1,11 @@
 import Modal from "react-bootstrap/Modal";
 
-const About = ({showAboutPage, setShowAboutPage}) => {
+interface AboutProps {
+  showAboutPage: boolean;
+  setShowAboutPage: (show: boolean) => void;
+}
+
+const About = ({showAboutPage, setShowAboutPage}: AboutProps) => {
   return (
     <Modal show={showAboutPage} onHide={() => setShowAboutPage(false)}>
       <Modal.Header closeButton>

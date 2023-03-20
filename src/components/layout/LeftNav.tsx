@@ -2,17 +2,22 @@ import {useLocation} from "react-router-dom";
 import {links} from "../../links";
 import {pages} from "../../services/enums";
 import {parentPageOf, parentPageMatches} from "../../services/parentPage";
-import Visibility from "../../components/containers/Visibility";
+import Visibility from "../containers/Visibility";
 import {trickSortingSchemes, comboSortingSchemes} from "../../services/sortingSchemes";
 import {Nav} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import LanguageSelector from "../buttons/LanguageSelector";
+import { RootContextData } from "../../routes/root";
 
-const LeftNav = ({sortOpt, setSortOpt, setShowAboutPage}) => {
+
+const LeftNav = ({sortingOption, setSortingOption, setShowAboutPage} : RootContextData) => {
   const path = useLocation().pathname.toString().toLowerCase();
   const inTrickList = path === "/";
   const inComboList = path === "/combos";
   const parentPage = parentPageOf(path);
+  if (!parentPage) {
+    console.log("TODO: Handle Null Parent Page");
+  }
 
   return (
     <div className="hide-on-mobile left-navigation">
@@ -26,7 +31,7 @@ const LeftNav = ({sortOpt, setSortOpt, setShowAboutPage}) => {
             <Nav.Item key={link.url}>
               <Link
                 to={link.url}
-                className={parentPageMatches(parentPage, link.url) ? "nav-link active" : "nav-link text-white"}
+                className={parentPageMatches(parentPage!, link.url) ? "nav-link active" : "nav-link text-white"}
               >
                 {link.name}
               </Link>
@@ -45,8 +50,8 @@ const LeftNav = ({sortOpt, setSortOpt, setShowAboutPage}) => {
             trickSortingSchemes.map((scheme) => (
               <Nav.Item key={scheme.id}>
                 <Nav.Link
-                  className={sortOpt === scheme.id ? "active" : "text-white"}
-                  onClick={() => setSortOpt(scheme.id)}
+                  className={sortingOption === scheme.id ? "active" : "text-white"}
+                  onClick={() => setSortingOption(scheme.id)}
                 >
                   {scheme.name}
                 </Nav.Link>
@@ -56,8 +61,8 @@ const LeftNav = ({sortOpt, setSortOpt, setShowAboutPage}) => {
             comboSortingSchemes.map((scheme) => (
               <Nav.Item key={scheme.id}>
                 <Nav.Link
-                  className={sortOpt === scheme.id ? "active" : "text-white"}
-                  onClick={() => setSortOpt(scheme.id)}
+                  className={sortingOption === scheme.id ? "active" : "text-white"}
+                  onClick={() => setSortingOption(scheme.id)}
                 >
                   {scheme.name}
                 </Nav.Link>

@@ -1,4 +1,5 @@
-const arePositionsSimilar = (startPos, endPos) => {
+// TODO: Enum!
+const arePositionsSimilar = (startPos: string, endPos: string) => {
   if (
     (startPos === "KOREAN" && (endPos === "CHEST" || endPos === "BACK")) ||
     (startPos === "CHEST" && endPos === "KOREAN") ||
