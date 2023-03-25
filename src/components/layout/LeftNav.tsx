@@ -1,16 +1,19 @@
 import {useLocation} from "react-router-dom";
 import {links} from "../../links";
-import {pages} from "../../services/enums";
 import {parentPageOf, parentPageMatches} from "../../services/parentPage";
 import Visibility from "../containers/Visibility";
 import {trickSortingSchemes, comboSortingSchemes} from "../../services/sortingSchemes";
 import {Nav} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import LanguageSelector from "../buttons/LanguageSelector";
-import { RootContextData } from "../../routes/root";
+import {RootContextData} from "../../routes/root";
 
+interface LeftNavProps {
+  rootContext: RootContextData;
+}
 
-const LeftNav = ({sortingOption, setSortingOption, setShowAboutPage} : RootContextData) => {
+const LeftNav = (props: LeftNavProps) => {
+  const {sortingOption, setSortingOption, setShowAboutPage} = props.rootContext;
   const path = useLocation().pathname.toString().toLowerCase();
   const inTrickList = path === "/";
   const inComboList = path === "/combos";
@@ -39,7 +42,7 @@ const LeftNav = ({sortingOption, setSortingOption, setShowAboutPage} : RootConte
           );
         })}
       </Nav>
-      <Visibility visiblePages={[pages.TRICKLIST, pages.COMBOLIST]}>
+      <Visibility visiblePages={["TrickList", "ComboList"]}>
         <h6>
           {inTrickList && "Sort Tricks"}
           {inComboList && "Sort Combos"}

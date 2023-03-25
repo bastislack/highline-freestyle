@@ -1,9 +1,16 @@
 import Modal from "react-bootstrap/Modal";
+import {RootContextData} from "../../routes/root";
 
 import Database from "../../services/db";
 const db = new Database();
 
-const ResetWarning = ({showResetWarning, setShowResetWarning}) => {
+interface ResetWarningProps {
+  rootContext: RootContextData;
+}
+
+const ResetWarning = (props: ResetWarningProps) => {
+  const {showResetWarning, setShowResetWarning} = props.rootContext;
+
   const reset = () => {
     if (showResetWarning === "tricks") {
       db.dropUserTricks();

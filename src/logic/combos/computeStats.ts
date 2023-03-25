@@ -1,18 +1,20 @@
-const computeStats = (tricksInCombo) => {
+import {Trick} from "../../types/trick";
+
+const computeStats = (tricksInCombo: Trick[]) => {
   console.log("Compute stats of:", tricksInCombo);
   let minDiff = Infinity;
   let maxDiff = -Infinity;
- 
+
   let totalDiff = 0;
 
   tricksInCombo.map((trick) => {
     if (trick.difficultyLevel < minDiff) {
-      minDiff = parseInt(trick.difficultyLevel);
+      minDiff = trick.difficultyLevel;
     }
     if (trick.difficultyLevel > maxDiff) {
-      maxDiff = parseInt(trick.difficultyLevel);
+      maxDiff = trick.difficultyLevel;
     }
-    totalDiff += parseInt(trick.difficultyLevel);
+    totalDiff += trick.difficultyLevel;
   });
 
   const avgDiff = Math.round((totalDiff / tricksInCombo.length + Number.EPSILON) * 100) / 100;

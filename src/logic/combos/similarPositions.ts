@@ -1,5 +1,6 @@
-// TODO: Enum!
-const arePositionsSimilar = (startPos: string, endPos: string) => {
+import {Position} from "../../types/enums";
+
+export default function arePositionsSimilar(startPos: Position, endPos: Position) {
   if (
     (startPos === "KOREAN" && (endPos === "CHEST" || endPos === "BACK")) ||
     (startPos === "CHEST" && endPos === "KOREAN") ||
@@ -13,5 +14,4 @@ const arePositionsSimilar = (startPos: string, endPos: string) => {
   } else {
     return false;
   }
-};
-export default arePositionsSimilar;
+}

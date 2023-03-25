@@ -1,11 +1,20 @@
+import {Trick} from "../types/trick";
+
 interface TrickSortingSchemeEntry {
   name: string;
   id: number;
-  sortFunc: (a: any, b: any) => number; // TODO!
+  sortFunc: (a: Trick, b: Trick) => number; // TODO!
   catName: string; // TODO ??
-  attributeFunc: (a: any) => unknown; // TODO!
+  attributeFunc: (a: Trick) => unknown; // TODO!
   showCategory: boolean;
   attributeLast?: true;
+}
+
+interface ComboSortingSchemeEntry {
+  name: string;
+  showCategory: boolean;
+  id: string;
+  catName: string;
 }
 
 export const trickSortingSchemes: TrickSortingSchemeEntry[] = [
@@ -71,6 +80,12 @@ export const trickSortingSchemes: TrickSortingSchemeEntry[] = [
     name: "Year Established",
     id: 6,
     sortFunc: (a, b) => {
+      if (!a.yearEstablished) {
+        return -1;
+      }
+      if (!b.yearEstablished) {
+        return 1;
+      }
       return b.yearEstablished - a.yearEstablished;
     },
     catName: "",
@@ -79,7 +94,7 @@ export const trickSortingSchemes: TrickSortingSchemeEntry[] = [
   },
 ];
 
-export const comboSortingSchemes: TrickSortingSchemeEntry[] = [
+export const comboSortingSchemes: ComboSortingSchemeEntry[] = [
   {
     name: "Length Upwards",
     id: 0,

@@ -1,51 +1,49 @@
 import {useState} from "react";
 import {useNavigate, useLocation} from "react-router-dom";
-import {positions, stickFrequencies} from "../../services/enums";
 
 import Database from "../../services/db";
 import {Form, Button, InputGroup} from "react-bootstrap";
+import {parseTrick, Trick} from "../../types/trick";
+import {Position, StickFrequency, ZodPositionEnum} from "../../types/enums";
 const db = new Database();
 
 const PostTrick = () => {
   const location = useLocation();
-  let preTrick = location.state?.preTrick;
+  let preTrick = location.state?.preTrick as Trick | undefined; // ??? TODO: What is Pretrick, needs a "rich" type-safe representation given all the logic tied to it below.
 
   const [alias, setAlias] = useState(() => {
-    return preTrick ? preTrick.alias : "";
+    return preTrick?.alias ?? "";
   });
   const [technicalName, setTechnicalName] = useState(() => {
-    return preTrick ? preTrick.technicalName : "";
+    return preTrick?.technicalName ?? "";
   });
   const [establishedBy, setEstablishedBy] = useState(() => {
-    return preTrick ? preTrick.establishedBy : "";
+    return preTrick?.establishedBy ?? "";
   });
   const [yearEstablished, setYearEstablished] = useState(() => {
-    return preTrick ? preTrick.yearEstablished : new Date().getFullYear();
+    return preTrick?.yearEstablished ?? new Date().getFullYear();
   });
   const [linkToVideo, setLinkToVideo] = useState(() => {
-    return preTrick ? preTrick.linkToVideo : "";
+    return preTrick?.linkToVideo ?? "";
   });
-  const [startPos, setStartPos] = useState(() => {
-    return preTrick
-      ? positions.findIndex((item) => item === preTrick.startPos)
-      : positions.findIndex((item) => item === "HANG");
+  const [startPos, setStartPos] = useState<Position>(() => {
+    return preTrick?.startPos ?? "HANG";
   });
-  const [endPos, setEndPos] = useState(() => {
-    return preTrick
-      ? positions.findIndex((item) => item === preTrick.endPos)
-      : positions.findIndex((item) => item === "EXPOSURE");
+
+  const [endPos, setEndPos] = useState<Position>(() => {
+    return preTrick?.startPos ?? "EXPOSURE";
   });
   const [difficultyLevel, setDifficultyLevel] = useState(() => {
-    return preTrick ? preTrick.difficultyLevel : "";
+    return preTrick?.difficultyLevel ?? "";
   });
   const [description, setDescription] = useState(() => {
-    return preTrick ? preTrick.description : "";
+    return preTrick?.description ?? "";
   });
   const [tips, setTips] = useState(() => {
-    return preTrick ? preTrick.tips : [];
+    return preTrick?.tips ?? [];
   });
-  const [stickFrequency, setStickFrequency] = useState(() => {
-    return preTrick ? preTrick.stickFrequency : 0;
+  const [stickFrequency, setStickFrequency] = useState<StickFrequency>(() => {
+    return preTrick?.stickFrequency ?? "Never Tried";
   });
 
   let preId = preTrick?.id;
@@ -55,20 +53,23 @@ const PostTrick = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const trick = {
+    const trick = parseTrick({
       id: preId,
       alias: alias,
-      technicalName: technicalName,
-      establishedBy: establishedBy,
-      yearEstablished: parseInt(yearEstablished),
-      linkToVideo: linkToVideo,
-      startPos: positions[startPos],
-      endPos: positions[endPos],
-      difficultyLevel: parseInt(difficultyLevel),
-      description: description,
+      technicalName,
+      establishedBy,
+      yearEstablished,
+      linkToVideo,
+      startPos,
+      endPos,
+      difficultyLevel,
+      description,
       tips: tips,
-      stickFrequency: stickFrequency,
-    };
+      stickFrequency,
+    });
+
+    // Veeery Big TODO: This needs a rewrite.
+    // do not add invalid values just to delete them again.
 
     // removes all attributes,which were not set or modified
     if (trick.alias == "" || !trick.alias || (preTrick && trick.alias === preTrick.alias)) {

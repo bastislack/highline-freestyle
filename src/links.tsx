@@ -1,7 +1,7 @@
 //import {Trans} from "@lingui/macro";
 // TODO: replace with proper i18n at some point.
 function Trans({children, id}: any) {
-  return children
+  return children;
 }
 
 interface LinkEntry {

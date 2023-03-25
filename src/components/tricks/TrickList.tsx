@@ -1,5 +1,5 @@
-import {useContext, useEffect, useState} from "react";
-import {Link, useLocation, useNavigate} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {useLocation, useNavigate} from "react-router-dom";
 import {useLiveQuery} from "dexie-react-hooks";
 import {trickSortingSchemes as sortingSchemes} from "../../services/sortingSchemes";
 import computeStats from "../../logic/combos/computeStats";
@@ -7,13 +7,16 @@ import {IoRocketSharp} from "react-icons/io5";
 import Fuse from "fuse.js";
 
 import Database from "../../services/db";
-import RootContext from "../../context/rootContext";
+import {RootContextData} from "../../routes/root";
 const db = new Database();
 
-const TrickList = () => {
+interface TrickListProps {
+  rootContext: RootContextData;
+}
 
-  const {setTrickListScrollPosition, trickListScrollPosition, setUserCombo, userCombo, sortingOption} = useContext(RootContext)
-
+const TrickList = (props: TrickListProps) => {
+  const {trickListScrollPosition, setTrickListScrollPosition, userCombo, setUserCombo, sortingOption} =
+    props.rootContext;
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -34,7 +37,7 @@ const TrickList = () => {
     document.getElementById("content")!.scrollTo({
       top: trickListScrollPosition,
       left: 0,
-      behavior: "instant" as any , // TODO: instant not found
+      behavior: "instant" as any, // TODO: instant not found
     });
   });
   const updateScrollPosition = () => {
@@ -109,7 +112,10 @@ const TrickList = () => {
 
   // tricks query with react hooks -- means it refreshes automaticly
   // and sorts it according to the sortOpt
-  const tricks = useLiveQuery(() => db.getAllTricks().then((t) => t.sort(sortingSchemes[sortingOption].sortFunc)), [sortingOption]);
+  const tricks = useLiveQuery(
+    () => db.getAllTricks().then((t) => t.sort(sortingSchemes[sortingOption].sortFunc)),
+    [sortingOption]
+  );
   if (!tricks) {
     return null;
   } else console.log(tricks);

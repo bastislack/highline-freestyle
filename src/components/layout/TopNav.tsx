@@ -1,29 +1,27 @@
 import {Navbar, Container} from "react-bootstrap";
 import {useLocation} from "react-router-dom";
-import {pages} from "../../services/enums";
 import Visibility from "../containers/Visibility";
 import BackButton from "../buttons/BackButton";
-import InstallButton from "../buttons/InstallButton";
+//import InstallButton from "../buttons/InstallButton";
 import {parentPageOf} from "../../services/parentPage";
 import Settings from "./Settings";
+import {RootContextData} from "../../routes/root";
 
 interface TopNavProps {
-  sortOpt: unknown;
-  setSortOpt: (sortOpt: unknown) => void;
-  setShowAboutPage: (showAboutPage: boolean) => void;
-  setShowResetWarning: (showResetWarning: string) => void; // TODO: why is this of type String?
+  rootContext: RootContextData;
 }
 
-const TopNav = ({sortOpt, setSortOpt, setShowAboutPage, setShowResetWarning}: TopNavProps) => {
+const TopNav = (props: TopNavProps) => {
   const parentPage = parentPageOf(useLocation().pathname.toString().toLowerCase());
+  const {sortingOption, setSortingOption, setShowAboutPage, setShowResetWarning} = props.rootContext;
 
   return (
     <Navbar variant="dark" expand="lg" className="top-navigation">
       <Container fluid>
         <div className="navigation-button-container">
           <Visibility
-            visiblePages={[pages.TRICKDETAILS, pages.COMBODETAILS, pages.POSTTRICK, pages.POSTCOMBO]}
-            elseContent={<InstallButton />}
+            visiblePages={["TrickDetails", "ComboDetails", "PostTrick", "PostCombo"]}
+            elseContent={/*<InstallButton />*/ undefined} // TODO: Reinstate installbutton
           >
             <BackButton />
           </Visibility>
@@ -36,8 +34,8 @@ const TopNav = ({sortOpt, setSortOpt, setShowAboutPage, setShowResetWarning}: To
         </Navbar.Brand>
         <div className="hide-on-desktop nav-item">
           <Settings
-            sortOpt={sortOpt}
-            setSortOpt={setSortOpt}
+            sortOpt={sortingOption}
+            setSortOpt={setSortingOption}
             setShowAboutPage={setShowAboutPage}
             setShowResetWarning={setShowResetWarning}
           />

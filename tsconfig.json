@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "ES2016",
-    "jsx": "preserve",
+    "target": "ESNext",
     "useDefineForClassFields": true,
+    "jsx": "react-jsx",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "allowJs": false,
     "skipLibCheck": true,
@@ -14,7 +14,7 @@
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
+    "noEmit": true
   },
   "include": ["src"],
   "references": [{"path": "./tsconfig.node.json"}]

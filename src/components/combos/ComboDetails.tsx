@@ -13,9 +13,18 @@ import DeleteWarning from "../pop-ups/DeleteWarning";
 import computeStats from "../../logic/combos/computeStats";
 
 import Database from "../../services/db";
+import {RootContextData} from "../../routes/root";
+import {Trick} from "../../types/trick";
+import YouTube, {YouTubeEvent} from "react-youtube";
 const db = new Database();
 
-const ComboDetails = ({setUserCombo, comboToShow, addTrickToCombo}) => {
+interface ComboDetailsProps {
+  rootContext: RootContextData;
+}
+
+const ComboDetails = (props: ComboDetailsProps) => {
+  const {setUserCombo, comboToShow, addTrickToCombo} = props.rootContext;
+
   const [showDeleteWarning, setShowDeleteWarning] = useState(false);
 
   const navigate = useNavigate();
@@ -32,7 +41,7 @@ const ComboDetails = ({setUserCombo, comboToShow, addTrickToCombo}) => {
   const queryDatabaseForCombos = () => {
     if (inGenerator || inPostCombo) {
       // Convert tricks back to just numbers to then query them through the hook.
-      comboToShow.tricks = comboToShow.tricks.map((trick) => trick.id);
+      comboToShow.tricks = comboToShow.tricks.map((trick: Trick) => trick.id);
       return db.fillComboWithTricks(comboToShow);
     } else {
       // Combos query with react hooks -- means it refreshes automatically.
@@ -48,27 +57,23 @@ const ComboDetails = ({setUserCombo, comboToShow, addTrickToCombo}) => {
     return null;
   }
 
-  const selectFreq = (e) => {
-    const newFreq = Number(e.target.value);
+  const selectFreq: React.FormEventHandler<HTMLDivElement> = async (e) => {
     combo.stickFrequency = newFreq;
-    db.saveCombo(combo)
-      .then((res) => {
-        console.log("changed stickFrequency");
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    try {
+      await db.saveCombo(combo);
+      console.log("changed stickFrequency");
+    } catch (err) {
+      console.log(e);
+    }
   };
 
-  const deleteCombo = () => {
-    db.deleteCombo(combo.id)
-      .then(() => {
-        console.log("combo deleted");
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-
+  const deleteCombo = async () => {
+    try {
+      await db.deleteCombo(combo.id);
+      console.log("combo deleted");
+    } catch (err) {
+      console.log(err);
+    }
     navigate("/combos");
   };
 
@@ -77,7 +82,7 @@ const ComboDetails = ({setUserCombo, comboToShow, addTrickToCombo}) => {
     navigate("/postcombo", {state: {preCombo: combo}});
   };
 
-  const removeTrickFromCombo = (index) => {
+  const removeTrickFromCombo = (index: number) => {
     combo.tricks.splice(index, 1);
     if (combo.tricks.length > 0) {
       const {minDiff, maxDiff, avgDiff, totalDiff, numberOfTricks} = computeStats(combo.tricks);
@@ -95,7 +100,7 @@ const ComboDetails = ({setUserCombo, comboToShow, addTrickToCombo}) => {
     }
   };
 
-  const getTrickDiv = (trick, index) => {
+  const getTrickDiv = (trick: Trick, index: number) => {
     return (
       <>
         <div className={!inPostCombo ? "col-12" : "col-9"} key={"trick" + trick.id}>
@@ -147,23 +152,22 @@ const ComboDetails = ({setUserCombo, comboToShow, addTrickToCombo}) => {
     }
   }
 
-  const setupYoutubePlayer = (e) => {
+  const setupYoutubePlayer = (e: YouTubeEvent) => {
     e.target.mute();
   };
 
-  const restartVideo = (e) => {
+  const restartVideo = (e: YouTubeEvent) => {
     e.target.seekTo(combo.videoStartTime ?? 0);
   };
 
-  const toggleBoostSkill = () => {
+  const toggleBoostSkill = async () => {
     combo.boostSkill ? (combo.boostSkill = false) : (combo.boostSkill = true);
-    db.saveCombo(combo)
-      .then((res) => {
-        console.log("changed boost");
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    try {
+      await db.saveCombo(combo);
+      console.log("changed boost");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -185,7 +189,7 @@ const ComboDetails = ({setUserCombo, comboToShow, addTrickToCombo}) => {
           </div>
 
           <div className="row">
-            {combo.tricks.map((trick, index) => {
+            {combo.tricks.map((trick: Trick, index: number) => {
               return index === 0 ||
                 (index > 0 &&
                   (arePositionsSimilar(trick.startPos, combo.tricks[index - 1].endPos) ||

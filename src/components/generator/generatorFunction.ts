@@ -1,6 +1,7 @@
 import arePositionsSimilar from "../../logic/combos/similarPositions";
+import {Trick} from "../../types/trick";
 
-export function findCombo(vars, retries) {
+export function findCombo(vars: any, retries: number): any {
   const [
     tricks,
     positions,
@@ -21,7 +22,7 @@ export function findCombo(vars, retries) {
    * specified conditions. This does not check for duplicates as it only
    * looks at one trick and its predecessor in the combo.
    */
-  const areLocalComboContitionsLegal = (index, lastTrick, currentTrick) => {
+  const areLocalComboContitionsLegal = (index: number, lastTrick: Trick, currentTrick: Trick) => {
     const isConsecutiveTricksLegal = allowConsecutiveTricks || lastTrick.id !== currentTrick.id;
 
     const isEndAndStartEqual = currentTrick.startPos === lastTrick.endPos;
@@ -40,7 +41,7 @@ export function findCombo(vars, retries) {
     return true;
   };
 
-  const getFirstTrick = (availableTricks) => {
+  const getFirstTrick = (availableTricks: Trick[]) => {
     if (startFromCheckbox) {
       const possibleTricks = availableTricks.filter((trick) => trick.startPos === positions[startFromPosition]);
       return possibleTricks[Math.floor(Math.random() * possibleTricks.length)];
@@ -51,7 +52,7 @@ export function findCombo(vars, retries) {
   };
 
   // random Normal Distribution with Box-Muller transformation
-  const randn_bm = (min, max) => {
+  const randomBoxMullerDistribution = (min: number, max: number) => {
     let u = 0,
       v = 0;
     while (u === 0) u = Math.random(); //Converting [0,1) to (0,1)
@@ -59,7 +60,7 @@ export function findCombo(vars, retries) {
     let num = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
 
     num = num / 10.0 + 0.5; // Translate to 0 -> 1
-    if (num > 1 || num < 0) num = randn_bm(min, max); // resample between 0 and 1 if out of range
+    if (num > 1 || num < 0) num = randomBoxMullerDistribution(min, max); // resample between 0 and 1 if out of range
     else {
       num *= max - min; // Stretch to fill range
       num += min; // offset to min
@@ -75,8 +76,8 @@ export function findCombo(vars, retries) {
     return;
   }
 
-  let randomTricks = new Array(numberOfTricks);
-  let availableTricks = [...tricks];
+  const randomTricks = new Array(numberOfTricks);
+  const availableTricks = [...tricks];
 
   if (availableTricks.length == 0)
     return alert("can't find a single trick which fits these settings, try changing them");
@@ -86,7 +87,7 @@ export function findCombo(vars, retries) {
   let sumOfDifficulties = randomTricks[0].difficultyLevel;
 
   for (let i = 1; i < numberOfTricks; i++) {
-    let possibleTricks = availableTricks.filter(
+    const possibleTricks = availableTricks.filter(
       (trick) =>
         areLocalComboContitionsLegal(i, randomTricks[i - 1], trick) &&
         (allowDuplicates || !randomTricks.includes(trick))
@@ -101,7 +102,7 @@ export function findCombo(vars, retries) {
       for (let j = 0; j < possibleTricks.length; j++) {
         possibleTricks[j].randomDiff =
           possibleTricks[j].difficultyLevel +
-          randn_bm(
+          randomBoxMullerDistribution(
             -maxDifficulty + 2 * Math.abs(maxDifficulty / 2 - avgDifficulty),
             maxDifficulty - 2 * Math.abs(maxDifficulty / 2 - avgDifficulty)
           );
@@ -122,8 +123,8 @@ export function findCombo(vars, retries) {
 
   //check integrety of combo
   for (let i = 1; i < randomTricks.length; i++) {
-    let prev = randomTricks[i - 1];
-    let trick = randomTricks[i];
+    const prev = randomTricks[i - 1];
+    const trick = randomTricks[i];
     if (prev.endPos !== trick.startPos && !arePositionsSimilar(trick.startPos, prev.endPos) && !allowTransitions) {
       return alert("trick generator is broken");
     }

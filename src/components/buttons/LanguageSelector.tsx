@@ -10,6 +10,7 @@ const LanguageSelector = () => {
   //TODO remove this when we have the spanish version working
   return null;
 
+  /*
   return (
     <ButtonGroup>
       <ToggleButton
@@ -35,7 +36,7 @@ const LanguageSelector = () => {
         <Trans id="languages.spanish">Spanish</Trans>
       </ToggleButton>
     </ButtonGroup>
-  );
+  );*/
 };
 
 export default LanguageSelector;

@@ -1,0 +1,24 @@
+id	name	tricks	minDiff	maxDiff	avgDiff	totalDiff	numberOfTricks	establishedBy	yearEstablished	linkToVideo	comments	stickFrequency
+10000	Axel's standard combo end	10103;10119	6	7	6.5	13	2	Axel Weber	2020	stick it	0
+10001	Ian's classic	10202;10082;10068;10199;10119	4	7	5	25	5	Ian Eisenberg	2021	0
+10002	Ian's power combo	10132;10119;10120	7	8	7.33	22	3	Ian Eisenberg	2021	0
+10003	Ian's super power combo	10149;10143;10132;10119	7	9	8	32	4	Ian Eisenberg	2022	https://www.instagram.com/p/CY7KfMWLbB1/	0
+10004	Ian's rocket combo	10203;10060;10062;10204;10205	4	5	4.2	21	5	Ian Eisenberg	2021	0
+10005	David's favorite	10186;10124;10115;10119	0	8	5.5	22	4	David Palomo	2021	0
+10006	Deb's favorite #1	10052;10070;10119	4	7	5	15	3	Deborah Casimiro	2021	0
+10007	Deb's favorite #2	10206;10209;10120	3	7	4.66	14	3	Deborah Casimiro	2021	0
+10008	Salomé's favorite #1	10221;10036;10067;10122	3	7	4.5	18	4	Salomé Cholet	2021	0
+10009	Salomé's favorite #2	10222;10050;10122	2	7	4.33	13	3	Salomé Cholet	2021	0
+10010	Can of Barrel Soup	10086;10066;10122	4	7	5.33	16	3	Justin Wagers	2021	0
+10011	Keep it going	10202;10082;10068;10199;10120;10119	4	7	5.33	32	6	Justin Wagers	2021	0
+10012	Magic Tricks	10115;10124	7	8	7.5	15	2	Justin Wagers	2021	https://www.instagram.com/p/CXd2bgnF2W0/	0
+10013	Davis' favorite #1	10169;10066;10120;10119	4	7	5.5	22	4	Davis Hermes	2021	0
+10014	Davis' favorite #2	10124;10150	8	9	8.5	17	2	Davis Hermes	2021	https://www.instagram.com/p/CSo8Ajrg3JI/	0
+10015	Delaney's favorite #1	10036;10122	3	7	5	10	2	Delaney Lyman	2021	https://www.instagram.com/p/CTzbWhEF99g/	0
+10016	Ana's favorite #1	10050;10119	4	7	5.5	11	2	Ana Lincoln	2021	0
+10017	Basti's favorite #1	10124;10143	8	8	8	16	2	Sebastian Egger	2021	https://www.instagram.com/p/CLJKI5yq5e_/	0
+10018	Basti's favorite #2	10077;10071;10050;10223;10119	4	7	4.8	24	5	Sebastian Egger	2021	0
+10019	Basti's favorite #3	10063;10069;10120	4	7	5	15	3	Sebastian Egger	2021	https://youtu.be/qUxUNfgvoPs?t=112	0
+10020	Backward buttery baguette	10053;10069;10143	4	8	5.33	16	3	Tlaloc Moctezuma-Burns	2021	0
+10021	Tlaloc's favorite #1	10089;10199;10120	4	7	5.33	16	3	Tlaloc Moctezuma-Burns	2021	0
+10022	Tlaloc's favorite #2	10080;10079;10042;10104	3	6	4.75	19	4	Tlaloc Moctezume-Burns	2021	0

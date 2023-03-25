@@ -1,17 +1,17 @@
-import {pages} from "./enums";
+import {Page} from "../types/enums";
 
-export function parentPageOf(path: string) {
+export function parentPageOf(path: string): Page | undefined {
   if (path === "/" || path.includes("tricks") || path === "/posttrick") {
-    return pages["TRICKLIST"];
+    return "TrickList";
   } else if (path.includes("/combos") || path === "/postcombo") {
-    return pages["COMBOLIST"];
+    return "ComboList";
   } else if (path === "/generator" || path === "/random-combo") {
-    return pages["GENERATOR"];
+    return "ComboGenerator";
   } else {
     return undefined;
   }
 }
 
 export function parentPageMatches(parentPage: string, path: string) {
-  return parentPage == parentPageOf(path);
+  return parentPage === parentPageOf(path);
 }

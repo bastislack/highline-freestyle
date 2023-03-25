@@ -6,7 +6,7 @@ import EditButton from "../buttons/EditButton";
 import DeleteButton from "../buttons/DeleteButton";
 import FreqList from "../misc/FreqList";
 import YouTube from "react-youtube";
-import {Trans} from "@lingui/macro";
+//import {Trans} from "@lingui/macro";
 import DeleteWarning from "../pop-ups/DeleteWarning";
 import {IoRocketSharp} from "react-icons/io5";
 
@@ -22,11 +22,11 @@ const TrickDetails = () => {
 
   const trick = useLiveQuery(async () => {
     const dbTrick = await db.getTrick(id);
-    const resolvedRecommendations = [];
+    const resolvedRecommendations: string[] = [];
 
     if (dbTrick.recommendedPrerequisites) {
       await Promise.all(
-        dbTrick.recommendedPrerequisites.map(async (recommendedId) => {
+        dbTrick.recommendedPrerequisites.map(async (recommendedId: string) => {
           resolvedRecommendations.push(await db.getTrick(recommendedId));
         })
       );
@@ -158,7 +158,8 @@ const TrickDetails = () => {
           {trick.difficultyLevel >= 0 && (
             <div>
               <h3>
-                <Trans id="trickDetails.level">Level</Trans>:{" "}
+                {/*<Trans id="trickDetails.level">Level</Trans>:{" "}*/}
+                Level
               </h3>
               <div className="callout">{trick.difficultyLevel}</div>
             </div>

@@ -1,8 +1,9 @@
 import {useLocation} from "react-router-dom";
-import {pages} from "../../services/enums";
+
+import {Page} from "../../types/enums";
 
 interface VisibilityProps {
-  visiblePages: string[];
+  visiblePages: Page[];
   children: JSX.Element | JSX.Element[];
   elseContent?: JSX.Element;
 }
@@ -12,27 +13,25 @@ const Visibility = ({visiblePages, children, elseContent}: VisibilityProps) => {
 
   let isVisible = false;
 
-  visiblePages.map((page) => {
-    if (
-      (page === pages.TRICKLIST && path === "/") ||
-      (page === pages.TRICKDETAILS && path.includes("/tricks/")) ||
-      (page === pages.COMBOLIST && path === "/combos") ||
-      (page === pages.COMBODETAILS && path.includes("/combos/")) ||
-      (page === pages.POSTTRICK && path === "/posttrick") ||
-      (page === pages.POSTCOMBO && path === "/postcombo") ||
-      (page === pages.GENERATOR && path === "/generator")
-    ) {
+  for (const page of visiblePages) {
+    const conditions = [
+      page === "TrickList" && path === "/",
+      page === "TrickDetails" && path.includes("/tricks/"),
+      page === "ComboList" && path === "/combos",
+      page === "PostTrick" && path === "/posttrick",
+      page === "PostCombo" && path === "/postcombo",
+      page === "ComboGenerator" && path === "/generator",
+    ];
+    if (conditions.some((e) => e === true)) {
       isVisible = true;
+      break;
     }
-  });
-
-  if (isVisible) {
-    return <>{children}</>;
-  } else if (elseContent !== null) {
-    return <>{elseContent}</>;
   }
 
-  return null;
+  if (!isVisible) {
+    return <>{elseContent}</>;
+  }
+  return <>{children}</>;
 };
 
 export default Visibility;
