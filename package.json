@@ -12,6 +12,9 @@
     "test": ""
   },
   "dependencies": {
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@mui/material": "^5.11.14",
     "@szhsin/react-menu": "^3.5.2",
     "bootstrap": "^5.2.3",
     "dexie": "^3.2.3",
@@ -20,10 +23,12 @@
     "indexeddb-export-import": "^2.1.5",
     "js-file-download": "^0.4.12",
     "make-plural": "^7.2.0",
+    "rc-slider": "^10.1.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.2",
     "react-div-100vh": "^0.7.0",
     "react-dom": "^18.2.0",
+    "react-error-boundary": "^4.0.2",
     "react-icons": "^4.8.0",
     "react-router-dom": "^6.9.0",
     "react-youtube": "^10.1.0",

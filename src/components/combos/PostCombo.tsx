@@ -1,14 +1,14 @@
 import {useState, useEffect, ChangeEvent} from "react";
 import {Link, useNavigate, useLocation} from "react-router-dom";
 import computeStats from "../../logic/combos/computeStats";
-import {stickFrequencies, positions} from "../../services/enums";
+
 import ComboDetails from "./ComboDetails";
 import AddButton from "../buttons/AddButton";
 
-import Database from "../../services/db";
-const db = new Database();
+import Database from "../../services/database/mainDatabase";
+import {Combo} from "../../types/combo";
 
-const PostCombo = ({userCombo, setUserCombo}) => {
+const PostCombo = ({userCombo, setUserCombo}: {userCombo: Combo; setUserCombo: (combo: Combo) => void}) => {
   const navigate = useNavigate();
   const location = useLocation();
   let preCombo;
@@ -84,7 +84,7 @@ const PostCombo = ({userCombo, setUserCombo}) => {
 
     setUserCombo(null);
 
-    db.saveCombo(combo).then(() => {
+    Database.instance.combos.putUserCombo(combo).then(() => {
       console.log(combo);
       setTimeout(() => {
         navigate("/combos");

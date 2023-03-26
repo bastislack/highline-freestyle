@@ -1,4 +1,4 @@
-import {stickFrequencies} from "../../services/enums";
+import {ZodStickFrequencyEnumValues} from "../../types/enums";
 
 interface FreqListProps {
   stickable: any;
@@ -7,12 +7,11 @@ interface FreqListProps {
 const FreqList = ({stickable}: FreqListProps) => {
   return (
     <>
-      {stickFrequencies.map((item, i) => {
+      {ZodStickFrequencyEnumValues.map((item, i) => {
         return (
           //@ts-ignore
           <label className="skillFreq" freq={i} key={i}>
-            {" "}
-            {/** TODO: What is freq? label does not have a 'freq' property. */}
+            {/** TODO: What is freq? label does not have a 'freq' property. */}{" "}
             <input
               type="radio"
               value={i}

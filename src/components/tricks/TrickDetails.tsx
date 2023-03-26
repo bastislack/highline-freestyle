@@ -5,35 +5,50 @@ import {useNavigate} from "react-router-dom";
 import EditButton from "../buttons/EditButton";
 import DeleteButton from "../buttons/DeleteButton";
 import FreqList from "../misc/FreqList";
-import YouTube from "react-youtube";
+import YouTube, {YouTubeEvent} from "react-youtube";
 //import {Trans} from "@lingui/macro";
 import DeleteWarning from "../pop-ups/DeleteWarning";
 import {IoRocketSharp} from "react-icons/io5";
 
-import Database from "../../services/db";
-const db = new Database();
+import Database from "../../services/database/mainDatabase";
+import {Trick} from "../../types/trick";
+
+interface TrickWithPrerequisites extends Trick {
+  prerequisites?: Trick[];
+}
 
 const TrickDetails = () => {
   const [showDeleteWarning, setShowDeleteWarning] = useState(false);
 
   const {id} = useParams();
 
+  // TODO: Validate ID. If it is "bad", show error
+  if (!id || Number.isNaN(parseInt(id))) {
+    return null;
+  }
+
   const navigate = useNavigate();
 
-  const trick = useLiveQuery(async () => {
-    const dbTrick = await db.getTrick(id);
-    const resolvedRecommendations: string[] = [];
-
-    if (dbTrick.recommendedPrerequisites) {
-      await Promise.all(
-        dbTrick.recommendedPrerequisites.map(async (recommendedId: string) => {
-          resolvedRecommendations.push(await db.getTrick(recommendedId));
-        })
-      );
+  // TODO: What is a Live Query, and why is it suspiciously similar to a useMemo?
+  const trick: TrickWithPrerequisites | undefined = useLiveQuery(async () => {
+    const dbTrick = await Database.instance.tricks.getById(parseInt(id));
+    if (!dbTrick) {
+      return undefined;
+    }
+    if (!dbTrick.recommendedPrerequisiteIds) {
+      return dbTrick; // We skip recommendPrereqs
     }
 
-    dbTrick.recommendedPrerequisites = resolvedRecommendations;
-    return dbTrick;
+    const resolvedRecommendations: Trick[] = (
+      await Promise.all(dbTrick.recommendedPrerequisiteIds.map((id) => Database.instance.tricks.getById(id)))
+    ).filter((e: Trick | undefined) => e !== undefined) as Trick[]; // needs cast because TS assumes this might contain undefined
+
+    const dbTrickWithPrereqs: TrickWithPrerequisites = {
+      ...dbTrick,
+      prerequisites: resolvedRecommendations,
+    };
+
+    return dbTrickWithPrereqs;
   }, [id]);
 
   if (!trick) return null;
@@ -45,7 +60,8 @@ const TrickDetails = () => {
     let modifiedTrick = Object();
     modifiedTrick.id = trick.id;
     modifiedTrick.stickFrequency = newFreq;
-    db.saveTrick(modifiedTrick)
+    Database.instance.tricks
+      .putUserTrick(modifiedTrick)
       .then((res) => {
         console.log("changed stickFrequency");
       })
@@ -85,18 +101,19 @@ const TrickDetails = () => {
     }
   }
 
-  const setupYoutubePlayer = (e) => {
+  const setupYoutubePlayer = (e: YouTubeEvent) => {
     e.target.mute();
   };
 
-  const restartVideo = (e) => {
+  const restartVideo = (e: YouTubeEvent) => {
     e.target.seekTo(trick.videoStartTime ?? 0);
   };
 
   const editTrick = () => navigate("/posttrick", {state: {preTrick: trick}});
 
   const deleteTrick = () => {
-    db.deleteTrick(id)
+    Database.instance.tricks
+      .deleteUserTrickById(parseInt(id))
       .then(() => {
         console.log("trick deleted");
       })
@@ -108,8 +125,9 @@ const TrickDetails = () => {
   };
 
   const toggleBoostSkill = () => {
-    trick.boostSkill ? (trick.boostSkill = false) : (trick.boostSkill = true);
-    db.saveTrick(trick)
+    trick.boostSkill = !trick.boostSkill;
+    Database.instance.tricks
+      .putUserTrick(trick)
       .then((res) => {
         console.log("changed boost");
       })
@@ -212,10 +230,10 @@ const TrickDetails = () => {
             </div>
           )}
 
-          {trick.recommendedPrerequisites.length !== 0 && (
+          {(trick.prerequisites ?? []).length !== 0 && (
             <div className="row">
               <h4>Recommended Prerequisites:</h4>
-              {trick.recommendedPrerequisites.map((recommendedTrick) => {
+              {(trick.prerequisites ?? []).map((recommendedTrick) => {
                 if (recommendedTrick) {
                   return (
                     <div key={recommendedTrick.id} className="trick-container col-12">

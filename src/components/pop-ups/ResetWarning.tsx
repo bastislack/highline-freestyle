@@ -1,8 +1,7 @@
 import Modal from "react-bootstrap/Modal";
 import {RootContextData} from "../../routes/root";
 
-import Database from "../../services/db";
-const db = new Database();
+import Database from "../../services/database/mainDatabase";
 
 interface ResetWarningProps {
   rootContext: RootContextData;
@@ -11,11 +10,11 @@ interface ResetWarningProps {
 const ResetWarning = (props: ResetWarningProps) => {
   const {showResetWarning, setShowResetWarning} = props.rootContext;
 
-  const reset = () => {
+  const reset = async () => {
     if (showResetWarning === "tricks") {
-      db.dropUserTricks();
+      await Database.instance.tricks.dropUserTricks();
     } else if (showResetWarning === "combos") {
-      db.dropUserCombos();
+      await Database.instance.combos.dropUserCombos();
     }
   };
 

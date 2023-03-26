@@ -26,6 +26,11 @@ Some dependencies are out of data.
 `Fab` from `@material-ui/core` comes to mind here. It looks like `@material-ui/core` got renamed to `@mui/material`, but now also depends on the emotion Styling Cache.
 
 Is the FAB from MUI _really_ needed? I don't see much merit in using it as the FAB is the only time it is used.
+Also… if MUI is preferred, we should get rid of Bootstrap. No need to have two Styling Frameworks, really.
+
+### rc-slider
+
+Same as with MUI. Is a separate Library needed for that? Doesnt Bootstrap or MUI already provide that functionality?
 
 ## Database
 

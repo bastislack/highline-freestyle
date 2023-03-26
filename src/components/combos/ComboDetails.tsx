@@ -12,11 +12,10 @@ import {IconContext} from "react-icons";
 import DeleteWarning from "../pop-ups/DeleteWarning";
 import computeStats from "../../logic/combos/computeStats";
 
-import Database from "../../services/db";
+import Database from "../../services/database/mainDatabase";
 import {RootContextData} from "../../routes/root";
 import {Trick} from "../../types/trick";
 import YouTube, {YouTubeEvent} from "react-youtube";
-const db = new Database();
 
 interface ComboDetailsProps {
   rootContext: RootContextData;
@@ -38,14 +37,18 @@ const ComboDetails = (props: ComboDetailsProps) => {
    * Depending on the page that the details are shown own, the database is queried for either the combo itself or the
    * trick details. In either case a Promise containing an array of the tricks of the combo is returned.
    */
-  const queryDatabaseForCombos = () => {
+  const queryDatabaseForCombos = async () => {
     if (inGenerator || inPostCombo) {
       // Convert tricks back to just numbers to then query them through the hook.
       comboToShow.tricks = comboToShow.tricks.map((trick: Trick) => trick.id);
-      return db.fillComboWithTricks(comboToShow);
+      //Database.fillComboWithTricks(comboToShow);
+      const tricksForCombo = (await Database.instance.tricks.getTupleByIds(comboToShow.tricks)).filter(
+        (c: Trick | undefined) => c !== undefined
+      ) as Trick[];
+      // TODO: What does this do??
     } else {
       // Combos query with react hooks -- means it refreshes automatically.
-      return db.getCombo(params.id);
+      return await Database.instance.combos.getById(parseInt(params.id!));
     }
   };
 
@@ -60,7 +63,7 @@ const ComboDetails = (props: ComboDetailsProps) => {
   const selectFreq: React.FormEventHandler<HTMLDivElement> = async (e) => {
     combo.stickFrequency = newFreq;
     try {
-      await db.saveCombo(combo);
+      await Database.instance.combos.putUserCombo(combo);
       console.log("changed stickFrequency");
     } catch (err) {
       console.log(e);
@@ -69,7 +72,7 @@ const ComboDetails = (props: ComboDetailsProps) => {
 
   const deleteCombo = async () => {
     try {
-      await db.deleteCombo(combo.id);
+      await Database.instance.combos.deleteUserCombo(combo.id);
       console.log("combo deleted");
     } catch (err) {
       console.log(err);
@@ -163,7 +166,7 @@ const ComboDetails = (props: ComboDetailsProps) => {
   const toggleBoostSkill = async () => {
     combo.boostSkill ? (combo.boostSkill = false) : (combo.boostSkill = true);
     try {
-      await db.saveCombo(combo);
+      await Database.instance.combos.putUserCombo(combo);
       console.log("changed boost");
     } catch (err) {
       console.log(err);
@@ -289,11 +292,7 @@ const ComboDetails = (props: ComboDetailsProps) => {
           {!inGenerator && !inPostCombo && (
             <div className="boostSkill row justify-content-center">
               <button
-                className={
-                  combo.boostSkill
-                    ? "col-8 col-lg-3 col-xl-2 btn btn-warning"
-                    : "col-8 col-lg-3 col-xl-2 btn btn-primary"
-                }
+                className={`col-8 col-lg-3 col-xl-2 btn btn-${combo.boostSkill ? "warning" : "primary"}`}
                 onClick={toggleBoostSkill}
               >
                 {combo.boostSkill ? (

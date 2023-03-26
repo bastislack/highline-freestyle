@@ -7,8 +7,7 @@ import {trickSortingSchemes, comboSortingSchemes} from "../../services/sortingSc
 import LanguageSelector from "../buttons/LanguageSelector";
 import {useNavigate} from "react-router";
 
-import Database from "../../services/db";
-const db = new Database();
+import Database from "../../services/database/mainDatabase";
 
 interface SettingsProps {
   sortOpt: unknown;
@@ -41,7 +40,7 @@ const Settings = ({sortOpt, setSortOpt, setShowAboutPage, setShowResetWarning}: 
     fileReader.readAsText(firstFile, "UTF-8");
     fileReader.onload = (e) => {
       console.log("importing", e.target!.result);
-      db.importDatabase(e.target!.result);
+      Database.instance.serializer.importDatabase(e.target!.result);
       // TODO: fix this navigate, fire instead Dexie.on.storagemutated
       navigate(0);
     };
@@ -82,7 +81,7 @@ const Settings = ({sortOpt, setSortOpt, setShowAboutPage, setShowResetWarning}: 
 
       <MenuDivider />
 
-      <MenuItem onClick={() => db.exportDatabase()}>Export Database</MenuItem>
+      <MenuItem onClick={() => Database.instance.serializer.exportDatabase()}>Export Database</MenuItem>
       <SubMenu label="Import Database File">
         <MenuItem onChange={selectImportFile}>
           <input type="file" />

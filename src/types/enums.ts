@@ -1,7 +1,7 @@
 import {z} from "zod";
 
 /* eslint-disable @typescript-eslint/naming-convention */
-export const ZodStickFrequencyEnum = z.enum([
+export const ZodStickFrequencyEnumValues = [
   "Never Tried",
   "Work in Progress",
   "Once",
@@ -10,7 +10,9 @@ export const ZodStickFrequencyEnum = z.enum([
   "Often",
   "Generally",
   "Always",
-]);
+] as const;
+
+export const ZodStickFrequencyEnum = z.enum(ZodStickFrequencyEnumValues);
 /* eslint-enable */
 export type StickFrequency = z.infer<typeof ZodStickFrequencyEnum>;
 
@@ -47,7 +49,7 @@ export function stickFrequencyFromLegacy(legacyId: number): StickFrequency {
   throw new Error("Failed to get Stick Frequency ID. This should not happen.");
 }
 
-export const ZodPageEnum = z.enum([
+export const ZodPageEnumValues = [
   "TrickList",
   "TrickDetails",
   "PostTrick",
@@ -55,10 +57,12 @@ export const ZodPageEnum = z.enum([
   "ComboDetails",
   "PostCombo",
   "ComboGenerator",
-]);
+] as const;
+
+export const ZodPageEnum = z.enum(ZodPageEnumValues);
 export type Page = z.infer<typeof ZodPageEnum>;
 
-export const ZodPositionEnum = z.enum([
+export const ZodPositionEnumValues = [
   "STAND",
   "EXPOSURE",
   "KOREAN",
@@ -81,6 +85,8 @@ export const ZodPositionEnum = z.enum([
   "BUDDHA",
   "YISUS",
   "BANANA",
-]);
+] as const;
+
+export const ZodPositionEnum = z.enum(ZodPositionEnumValues);
 
 export type Position = z.infer<typeof ZodPositionEnum>;

@@ -2,18 +2,24 @@ import {useState, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {useLiveQuery} from "dexie-react-hooks";
 import ComboDetails from "../combos/ComboDetails";
-import {stickFrequencies, positions} from "../../services/enums";
+
 import useLocalStorage from "../hooks/useLocalStorage";
 import computeStats from "../../logic/combos/computeStats";
 import {findCombo} from "./generatorFunction";
-import Slider, {Range} from "rc-slider";
+import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 
-import Database from "../../services/db";
-const db = new Database();
+import Database from "../../services/database/mainDatabase";
+import {ZodPositionEnumValues, ZodStickFrequencyEnumValues} from "../../types/enums";
+import {RootContextData} from "../../App";
 
-const ComboGenerator = ({difficultyRangeMax, randomCombo, setRandomCombo}) => {
+interface ComboGeneratorProps {
+  rootContext: RootContextData;
+}
+
+const ComboGenerator = (props: ComboGeneratorProps) => {
   const navigate = useNavigate();
+  const {difficultyRangeMax, randomCombo, setRandomCombo} = props.rootContext;
 
   const [generatedCombosCount, setGeneratedCombosCount] = useLocalStorage("randomComboCount", 1);
 
@@ -24,7 +30,9 @@ const ComboGenerator = ({difficultyRangeMax, randomCombo, setRandomCombo}) => {
   const [allowTransitions, setAllowTransitions] = useState(false);
   const [avgDifficulty, setAvgDifficulty] = useState(-1);
   const [comboName, setComboName] = useState("Random #" + generatedCombosCount);
-  const [startFromPosition, setStartFromPosition] = useState(positions.findIndex((item) => item === "EXPOSURE"));
+  const [startFromPosition, setStartFromPosition] = useState(
+    ZodPositionEnumValues.findIndex((item) => item === "EXPOSURE")
+  );
   const [finishToFeet, setFinishToFeet] = useState(true);
   const [consecutiveCheckbox, setConsecutiveCheckbox] = useState(false);
   const [startFromCheckbox, setStartFromCheckbox] = useState(false);
@@ -32,7 +40,7 @@ const ComboGenerator = ({difficultyRangeMax, randomCombo, setRandomCombo}) => {
     Array.from({length: difficultyRangeMax}, (_, i) => i + 1)
   );
   const [stickFrequencyWhitelist, setStickFrequencyWhitelist] = useState(
-    Array.from({length: stickFrequencies.length}, (_, i) => i)
+    Array.from({length: ZodStickFrequencyEnumValues.length}, (_, i) => i)
   );
   const [difficultyRangeMinMax, setDifficultyRangeMinMax] = useState([1, difficultyRangeMax]);
 
@@ -58,7 +66,7 @@ const ComboGenerator = ({difficultyRangeMax, randomCombo, setRandomCombo}) => {
   }
 
   const tricks = useLiveQuery(
-    () => db.getTricksByDiffAndByFreq(difficultyWhitelist, stickFrequencyWhitelist),
+    () => Database.instance.tricks.getTricksByDiffAndByFreq(difficultyWhitelist, stickFrequencyWhitelist),
     [difficultyWhitelist, stickFrequencyWhitelist]
   );
   console.log(tricks);
@@ -66,7 +74,8 @@ const ComboGenerator = ({difficultyRangeMax, randomCombo, setRandomCombo}) => {
 
   // If the user wants to save the combo it is added to the database
   const saveToCombos = () => {
-    db.saveCombo(randomCombo)
+    Database.instance.combos
+      .putUserCombo(randomCombo)
       .then(() => {
         console.log("savedCombo");
       })
@@ -122,7 +131,7 @@ const ComboGenerator = ({difficultyRangeMax, randomCombo, setRandomCombo}) => {
     });
   };
 
-  const positionList = positions.map((item, i) => {
+  const positionList = ZodPositionEnumValues.map((item, i) => {
     return (
       <option value={i} key={i}>
         {item}
@@ -187,7 +196,7 @@ const ComboGenerator = ({difficultyRangeMax, randomCombo, setRandomCombo}) => {
           <label htmlFor="diffRange" className="form-label">
             Difficulty Range:
           </label>
-          <Range
+          <Slider
             id="diffRange"
             step={1}
             value={difficultyRangeMinMax}
@@ -218,7 +227,7 @@ const ComboGenerator = ({difficultyRangeMax, randomCombo, setRandomCombo}) => {
                   data-toggle="buttons"
                   id="specifyStickFreqsDiv"
                 >
-                  {stickFrequencies.map((item, i) => {
+                  {ZodStickFrequencyEnumValues.map((item, i) => {
                     return (
                       <label className="skillFreq form-check" freq={i} key={i}>
                         <input

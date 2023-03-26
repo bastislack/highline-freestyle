@@ -1,5 +1,5 @@
 import {Link, useLocation} from "react-router-dom";
-import {Fab} from "@material-ui/core"; // TODO: material-ui/core is outdated.
+import {Fab} from "@mui/material"; // TODO: material-ui/core is outdated.
 
 interface FloatingActionButtonProps {
   setTrickListScrollPosition: (position: number) => void;

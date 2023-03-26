@@ -1,7 +1,7 @@
 import {useEffect} from "react";
 
 interface ScrollToTopProps {
-  children: React.FC;
+  children: React.ReactElement;
 }
 
 function ScrollToTop({children}: ScrollToTopProps) {

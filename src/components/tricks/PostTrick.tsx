@@ -1,58 +1,112 @@
-import {useState} from "react";
+import {FC, useState} from "react";
 import {useNavigate, useLocation} from "react-router-dom";
 
-import Database from "../../services/db";
+import Database from "../../services/database/mainDatabase";
 import {Form, Button, InputGroup} from "react-bootstrap";
 import {parseTrick, Trick} from "../../types/trick";
-import {Position, StickFrequency, ZodPositionEnum} from "../../types/enums";
-const db = new Database();
+import {
+  Position,
+  StickFrequency,
+  ZodPositionEnum,
+  ZodPositionEnumValues,
+  ZodStickFrequencyEnumValues,
+} from "../../types/enums";
+import usePatchState from "../hooks/usePatchState";
 
-const PostTrick = () => {
+/**
+ * This interface defines the structure of user input which is then turned into a trick
+ */
+interface PostTrickUserInput {
+  alias: string;
+  technicalName: string;
+  establishedBy: string;
+  yearEstablished: number;
+  linkToVideo: string;
+  startPositionIndex: number;
+  endPositionIndex: number;
+  difficultyLevel: number;
+  description: string;
+  tips: string;
+  stickFrequencyIndex: number;
+}
+
+interface TextInputFieldProps {
+  label: string;
+  placeholder: string;
+  setter: (val: string) => void;
+  value: string;
+  required?: boolean;
+}
+
+const TextInputField = (props: TextInputFieldProps) => {
+  return (
+    <div className="col-md-6">
+      <label className="">{props.label}</label>
+      <input
+        className="form-control"
+        type="text"
+        required={props.required ?? false}
+        value={props.value}
+        placeholder={props.placeholder}
+        onChange={(e) => props.setter(e.target.value)}
+      />
+    </div>
+  );
+};
+
+interface DropdownSingleSelectInputProps {
+  label: string;
+  required?: boolean;
+  setter: (index: number) => void;
+  placeholderText: string;
+  value: number;
+  indexedValues: string[];
+}
+
+const DropdownSingleSelectInput = (props: DropdownSingleSelectInputProps) => {
+  return (
+    <div className="col-md-6">
+      <label className="">{props.label}</label>
+      <select
+        className="form-control"
+        required={props.required ?? false}
+        value={props.value}
+        placeholder={props.placeholderText}
+        onChange={(e) => props.setter(Number(e.target.value))} // TODO: Check if this actually returns the Index. I highly doubt that.
+      >
+        {props.indexedValues.map((e, i) => (
+          <option key={i} value={i}>
+            {e}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+};
+
+const PostTrick: FC = () => {
   const location = useLocation();
-  let preTrick = location.state?.preTrick as Trick | undefined; // ??? TODO: What is Pretrick, needs a "rich" type-safe representation given all the logic tied to it below.
-
-  const [alias, setAlias] = useState(() => {
-    return preTrick?.alias ?? "";
-  });
-  const [technicalName, setTechnicalName] = useState(() => {
-    return preTrick?.technicalName ?? "";
-  });
-  const [establishedBy, setEstablishedBy] = useState(() => {
-    return preTrick?.establishedBy ?? "";
-  });
-  const [yearEstablished, setYearEstablished] = useState(() => {
-    return preTrick?.yearEstablished ?? new Date().getFullYear();
-  });
-  const [linkToVideo, setLinkToVideo] = useState(() => {
-    return preTrick?.linkToVideo ?? "";
-  });
-  const [startPos, setStartPos] = useState<Position>(() => {
-    return preTrick?.startPos ?? "HANG";
-  });
-
-  const [endPos, setEndPos] = useState<Position>(() => {
-    return preTrick?.startPos ?? "EXPOSURE";
-  });
-  const [difficultyLevel, setDifficultyLevel] = useState(() => {
-    return preTrick?.difficultyLevel ?? "";
-  });
-  const [description, setDescription] = useState(() => {
-    return preTrick?.description ?? "";
-  });
-  const [tips, setTips] = useState(() => {
-    return preTrick?.tips ?? [];
-  });
-  const [stickFrequency, setStickFrequency] = useState<StickFrequency>(() => {
-    return preTrick?.stickFrequency ?? "Never Tried";
-  });
-
-  let preId = preTrick?.id;
-
+  const preTrick = location.state?.preTrick as Trick | undefined; // ??? TODO: What is Pretrick, needs a "rich" type-safe representation given all the logic tied to it below.
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const [userInput, setUserInput] = usePatchState<PostTrickUserInput>({
+    alias: "",
+    technicalName: "",
+    establishedBy: "",
+    yearEstablished: new Date().getFullYear(),
+    linkToVideo: "",
+    startPositionIndex: 0,
+    endPositionIndex: 0,
+    difficultyLevel: 1,
+    description: "",
+    tips: "",
+    stickFrequencyIndex: 0,
+  });
+
+  const handleSubmit: React.FormEventHandler = async (e) => {
     e.preventDefault();
 
+    // Partial allows to delete values here
     const trick = parseTrick({
       id: preId,
       alias: alias,
@@ -68,58 +122,7 @@ const PostTrick = () => {
       stickFrequency,
     });
 
-    // Veeery Big TODO: This needs a rewrite.
-    // do not add invalid values just to delete them again.
-
-    // removes all attributes,which were not set or modified
-    if (trick.alias == "" || !trick.alias || (preTrick && trick.alias === preTrick.alias)) {
-      delete trick.alias;
-    }
-    if (
-      trick.technicalName == "" ||
-      !trick.technicalName ||
-      (preTrick && trick.technicalName === preTrick.technicalName)
-    ) {
-      delete trick.technicalName;
-    }
-    if (
-      trick.establishedBy == "" ||
-      !trick.establishedBy ||
-      (preTrick && trick.establishedBy === preTrick.establishedBy)
-    ) {
-      delete trick.establishedBy;
-    }
-    if (
-      trick.yearEstablished == "" ||
-      !trick.yearEstablished ||
-      (preTrick && trick.yearEstablished === preTrick.yearEstablished)
-    ) {
-      delete trick.yearEstablished;
-    }
-    if (trick.linkToVideo == "" || !trick.linkToVideo || (preTrick && trick.linkToVideo === preTrick.linkToVideo)) {
-      delete trick.linkToVideo;
-    }
-    if (trick.startPos == "" || !trick.startPos || (preTrick && trick.startPos === preTrick.startPos)) {
-      delete trick.startPos;
-    }
-    if (trick.endPos == "" || !trick.endPos || (preTrick && trick.endPos === preTrick.endPos)) {
-      delete trick.endPos;
-    }
-    if (
-      trick.difficultyLevel == "" ||
-      !trick.difficultyLevel ||
-      (preTrick && trick.difficultyLevel === preTrick.difficultyLevel)
-    ) {
-      delete trick.difficultyLevel;
-    }
-    if (trick.description == "" || !trick.description || (preTrick && trick.description === preTrick.description)) {
-      delete trick.description;
-    }
-    if (trick.tips == [] || !trick.tips || (preTrick && trick.tips === preTrick.tips)) {
-      delete trick.tips;
-    }
-
-    db.saveTrick(trick).then(() => {
+    Database.instance.tricks.putUserTrick(trick).then(() => {
       console.log(trick);
       setTimeout(() => {
         navigate("/");
@@ -127,160 +130,74 @@ const PostTrick = () => {
     });
   };
 
-  const handleYearChange = (event) => {
-    const year = parseInt(event.target.value);
-    if (year < 0 || year > new Date().getFullYear()) {
-      setYearEstablished(new Date().getFullYear());
-    } else {
-      setYearEstablished(year);
-    }
-  };
-
-  const freqList = stickFrequencies.map((item, i) => {
-    return (
-      <option value={i} key={i}>
-        {item}
-      </option>
-    );
-  });
-
-  const positionList = positions.map((item, i) => {
-    return (
-      <option value={i} key={i}>
-        {item}
-      </option>
-    );
-  });
-
-  /**
-   * Displays a variable length, editable list of tips. This function together with the following related ones are only
-   * slightly altered versions of the ones from the following solution to the problem:
-   * https://stackoverflow.com/a/59233716
-   */
-  function tipList() {
-    return tips.map((elem, i) => (
-      <InputGroup key={i}>
-        <Form.Control
-          type="text"
-          className="form-control"
-          value={elem || ""}
-          placeholder="Try this..."
-          onChange={handleTipChange.bind(this, i)}
-        />
-        <Button type="button" variant="outline-danger" value="remove" name={i.toString()} onClick={removeTip.bind(i)}>
-          Remove
-        </Button>
-      </InputGroup>
-    ));
-  }
-
-  function handleTipChange(i, event) {
-    let tips_ = [...tips];
-    tips_[i] = event.target.value;
-    setTips(tips_);
-  }
-
-  const removeTip = (event) => {
-    let index = Number(event.target.name);
-    let tips_ = [...tips];
-    tips_.splice(index, 1);
-    setTips(tips_);
-  };
-
-  const addTipField = () => {
-    setTips((tips) => [...tips, ""]);
-  };
-
   return (
     <div className="post">
       <h2>{preTrick ? "Update trick" : "Add a new trick"}</h2>
       <form onSubmit={handleSubmit} className="">
         <div className="row form-row">
-          <div className="col-md-6">
-            <label className="">Alias:</label>
-            <input
-              className="form-control"
-              type="text"
-              value={alias}
-              placeholder="Darth Vader"
-              onChange={(e) => setAlias(e.target.value)}
-            />
-          </div>
-          <div className="col-md-6">
-            <label className="">Technical Name:</label>
-            <input
-              className="form-control"
-              type="text"
-              required
-              value={technicalName}
-              placeholder="Antihero to feet"
-              onChange={(e) => setTechnicalName(e.target.value)}
-            />
-          </div>
-          <div className="col-md-6">
-            <label className="">Established By:</label>
-            <input
-              className="form-control"
-              type="text"
-              value={establishedBy}
-              placeholder="Ian Eisenberg"
-              onChange={(e) => setEstablishedBy(e.target.value)}
-            />
-          </div>
+          <TextInputField
+            label="Alias:"
+            placeholder="Darth Vader"
+            value={userInput.alias}
+            setter={(e) => setUserInput({alias: e})}
+          />
+          <TextInputField
+            label="Technical Name:"
+            required
+            placeholder="Antihero to feet"
+            value={userInput.technicalName}
+            setter={(e) => setUserInput({technicalName: e})}
+          />
+          <TextInputField
+            label="Established By:"
+            placeholder="Ian Eisenberg"
+            value={userInput.establishedBy}
+            setter={(e) => setUserInput({establishedBy: e})}
+          />
           <div className="col-md-6">
             <label className="">Year Established:</label>
             <input
+              min={0}
+              max={new Date().getFullYear() + 1}
               className="form-control"
               type="number"
-              value={yearEstablished}
-              placeholder={new Date().getFullYear()}
-              onChange={(e) => handleYearChange(e)}
+              value={userInput.yearEstablished}
+              placeholder={new Date().getFullYear() + ""}
+              onChange={(e) => setUserInput({yearEstablished: e.target.valueAsNumber})}
             />
           </div>
-          <div className="col-md-6">
-            <label className="">Link to Video:</label>
-            <input
-              className="form-control"
-              type="text"
-              value={linkToVideo}
-              placeholder="https://youtu.be/Ab2gW1rv5e8?t=91"
-              onChange={(e) => setLinkToVideo(e.target.value)}
-            />
-          </div>
-          <div className="col-md-6">
-            <label className="">Start Position:</label>
-            <select
-              className="form-control"
-              required
-              value={startPos}
-              placeholder="HANG"
-              onChange={(e) => setStartPos(e.target.value)}
-            >
-              {positionList}
-            </select>
-          </div>
-          <div className="col-md-6">
-            <label className="">End Position:</label>
-            <select
-              className="form-control"
-              required
-              value={endPos}
-              placeholder="EXPOSURE"
-              onChange={(e) => setEndPos(e.target.value)}
-            >
-              {positionList}
-            </select>
-          </div>
+          <TextInputField
+            label="Link to Video:"
+            placeholder="https://youtu.be/Ab2gW1rv5e8?t=91"
+            value={userInput.linkToVideo}
+            setter={(e) => setUserInput({linkToVideo: e})}
+          />
+          <DropdownSingleSelectInput
+            placeholderText="TODO"
+            indexedValues={[...ZodPositionEnumValues]}
+            label="Start Position:"
+            value={userInput.startPositionIndex}
+            setter={(e) => setUserInput({startPositionIndex: e})}
+          />
+          <DropdownSingleSelectInput
+            placeholderText="TODO"
+            indexedValues={[...ZodPositionEnumValues]}
+            label="End Position:"
+            value={userInput.endPositionIndex}
+            setter={(e) => setUserInput({endPositionIndex: e})}
+          />
           <div className="col-md-6">
             <label className="">Difficulty Level:</label>
             <input
+              min={0}
+              max={11}
               className="form-control"
               type="number"
               required
-              value={difficultyLevel}
+              value={userInput.difficultyLevel}
               placeholder="8"
               onChange={(e) => {
-                setDifficultyLevel(Math.max(0, e.target.value));
+                setUserInput({difficultyLevel: e.target.valueAsNumber});
               }}
             />
           </div>
@@ -290,23 +207,26 @@ const PostTrick = () => {
               className="form-control"
               type="text"
               required
-              value={description}
+              value={userInput.description}
               placeholder="From hanging do a front flip motion and land in EXPOSURE"
-              onChange={(e) => setDescription(e.target.value)}
+              onChange={(e) => setUserInput({description: e.target.value})}
             />
           </div>
-          <div className="col-md-6">
-            <label className="">Stick Frequency:</label>
-            <select className="form-select" onChange={(e) => setStickFrequency(Number(e.target.value))}>
-              {freqList}
-            </select>
-          </div>
+          <DropdownSingleSelectInput
+            placeholderText="TODO"
+            indexedValues={[...ZodStickFrequencyEnumValues]}
+            label="Stick Frequency:"
+            value={userInput.stickFrequencyIndex}
+            setter={(e) => setUserInput({stickFrequencyIndex: e})}
+          />
           <div className="col-md-6">
             <label>Tips:</label>
-            {tipList()}
-            <Button variant="outline-success" onClick={addTipField} className={tips.length !== 0 ? "mt-2" : "ms-2"}>
-              Add Tip
-            </Button>
+            <textarea
+              className="form-control"
+              value={userInput.tips}
+              placeholder={"Here is your first tip\nAnd here is your second"}
+              onChange={(e) => setUserInput({tips: e.target.value})}
+            />
           </div>
         </div>
 

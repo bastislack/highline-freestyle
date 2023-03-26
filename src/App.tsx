@@ -9,7 +9,6 @@ import ComboGenerator from "./components/generator/ComboGenerator";
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import TrickDetails from "./components/tricks/TrickDetails";
 import ComboDetails from "./components/combos/ComboDetails";
-import {pages, difficultyRangeMax} from "./services/enums";
 import {useState, useEffect} from "react";
 import Visibility from "./components/containers/Visibility";
 import ScrollToTop from "./components/containers/ScrollToTop";
@@ -21,20 +20,60 @@ import Div100vh from "react-div-100vh";
 import {ErrorBoundary} from "react-error-boundary";
 import ErrorFallback from "./components/pages/ErrorFallback";
 import withLocalization from "./components/misc/withLocalization";
+import React from "react";
+
+export interface RootContextData {
+  sortingOption: number; // TODO,
+  setSortingOption: (value: number) => void;
+  randomCombo: string | null;
+  setRandomCombo: (value: string | null) => void;
+  showAboutPage: boolean;
+  setShowAboutPage: (show: boolean) => void;
+  showResetWarning: boolean;
+  setShowResetWarning: (show: boolean) => void;
+  userCombo: any | null;
+  setUserCombo: (combo: any | null) => void;
+  trickListScrollPosition: number;
+  setTrickListScrollPosition: (position: number) => void;
+  comboListScrollPosition: number;
+  setComboListScrollPosition: (position: number) => void;
+}
 
 function App() {
-  // Sorting Options for the tricklist
-  const [sortOpt, setSortOpt] = useState(0);
-  // Randomly generated combo shown on the generator screen
-  const [randomCombo, setRandomCombo] = useState(null);
-  // Boolean to check if About page should be rendered
+  // BIG TODO: Figure out types, possibly create enums!
+  const [sortingOption, setSortingOption] = useState(0);
+  const [randomCombo, setRandomCombo] = useState<string | null>(null);
   const [showAboutPage, setShowAboutPage] = useState(false);
   const [showResetWarning, setShowResetWarning] = useState(false);
-  // User made combo in postCombo screen
   const [userCombo, setUserCombo] = useState(null);
-
   const [trickListScrollPosition, setTrickListScrollPosition] = useState(0);
   const [comboListScrollPosition, setComboListScrollPosition] = useState(0);
+
+  // prettier-ignore
+  const CtxMemo = React.useMemo<RootContextData>(function(){
+    return {
+      // getter, setter
+      sortingOption, setSortingOption,
+      randomCombo, setRandomCombo,
+      showAboutPage, setShowAboutPage,
+      showResetWarning, setShowResetWarning,
+      userCombo, setUserCombo,
+      trickListScrollPosition, setTrickListScrollPosition,
+      comboListScrollPosition, setComboListScrollPosition,
+    }
+  }, [
+    sortingOption,
+    randomCombo,
+    showAboutPage,
+    showResetWarning,
+    userCombo,
+    trickListScrollPosition,
+    comboListScrollPosition,
+  ]);
+
+  useEffect(() => {
+    //setAppLanguage(getLocale())
+  });
 
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
@@ -42,31 +81,15 @@ function App() {
         <div className="App">
           <div className="container-fluid">
             <div className="row flex-nowrap">
-              <LeftNav sortOpt={sortOpt} setSortOpt={setSortOpt} setShowAboutPage={setShowAboutPage} />
+              <LeftNav rootContext={CtxMemo} />
               <Div100vh className="main-column">
-                <TopNav
-                  sortOpt={sortOpt}
-                  setSortOpt={setSortOpt}
-                  setShowAboutPage={setShowAboutPage}
-                  setShowResetWarning={setShowResetWarning}
-                />
+                <TopNav rootContext={CtxMemo} />
                 <div className="main-column-content-wrapper">
                   <div id="content" className="main-column-content">
                     <Routes>
-                      <Route
-                        path="/"
-                        element={
-                          <TrickList
-                            sortOpt={sortOpt}
-                            scrollPosition={trickListScrollPosition}
-                            setScrollPosition={setTrickListScrollPosition}
-                            userCombo={userCombo}
-                            setUserCombo={setUserCombo}
-                          />
-                        }
-                      />
+                      <Route path="/" element={<TrickList rootContext={CtxMemo} />} />
                       <Route path="/tricks/:id" element={<TrickDetails />} />
-                      <Route path="/combos/:id" element={<ComboDetails setUserCombo={setUserCombo} />} />
+                      <Route path="/combos/:id" element={<ComboDetails rootContext={CtxMemo} />} />
                       <Route
                         path="/posttrick"
                         element={
@@ -77,13 +100,13 @@ function App() {
                       />
                       <Route
                         path="/postcombo"
-                        element={<PostCombo userCombo={userCombo} setUserCombo={setUserCombo} />}
+                        element={<PostCombo userCombo={CtxMemo.userCombo} setUserCombo={CtxMemo.setUserCombo} />}
                       />
                       <Route
                         path="/generator"
                         element={
                           <ComboGenerator
-                            difficultyRangeMax={difficultyRangeMax}
+                            difficultyRangeMax={11}
                             randomCombo={randomCombo}
                             setRandomCombo={setRandomCombo}
                           />
@@ -93,7 +116,7 @@ function App() {
                         path="/combos"
                         element={
                           <ComboList
-                            sortOpt={sortOpt}
+                            sortOpt={sortingOption}
                             scrollPosition={comboListScrollPosition}
                             setScrollPosition={setComboListScrollPosition}
                           />
@@ -102,19 +125,17 @@ function App() {
                       <Route path="/*" element={<NotFoundPage />} />
                     </Routes>
                   </div>
-                  <Visibility visiblePages={[pages.TRICKLIST, pages.COMBOLIST]}>
+                  <Visibility visiblePages={["TrickList", "ComboList"]}>
                     <FloatingActionButton
                       setTrickListScrollPosition={setTrickListScrollPosition}
                       setComboListScrollPosition={setComboListScrollPosition}
-                      setUserCombo={setUserCombo}
+                      setUserCombo={setUserCombo as any} // TODO
                     />
                   </Visibility>
                 </div>
                 <BottomNav />
                 {showAboutPage && <About showAboutPage={showAboutPage} setShowAboutPage={setShowAboutPage} />}
-                {showResetWarning && (
-                  <ResetWarning showResetWarning={showResetWarning} setShowResetWarning={setShowResetWarning} />
-                )}
+                {showResetWarning && <ResetWarning rootContext={CtxMemo} />}
               </Div100vh>
             </div>
           </div>
@@ -124,4 +145,5 @@ function App() {
   );
 }
 
-export default withLocalization(App);
+//export default withLocalization(App);
+export default App;

@@ -6,9 +6,8 @@ import computeStats from "../../logic/combos/computeStats";
 import {IoRocketSharp} from "react-icons/io5";
 import Fuse from "fuse.js";
 
-import Database from "../../services/db";
+import Database from "../../services/database/mainDatabase";
 import {RootContextData} from "../../routes/root";
-const db = new Database();
 
 interface TrickListProps {
   rootContext: RootContextData;
@@ -113,7 +112,7 @@ const TrickList = (props: TrickListProps) => {
   // tricks query with react hooks -- means it refreshes automaticly
   // and sorts it according to the sortOpt
   const tricks = useLiveQuery(
-    () => db.getAllTricks().then((t) => t.sort(sortingSchemes[sortingOption].sortFunc)),
+    () => Database.instance.tricks.getAll().then((t) => t.sort(sortingSchemes[sortingOption].sortFunc)),
     [sortingOption]
   );
   if (!tricks) {

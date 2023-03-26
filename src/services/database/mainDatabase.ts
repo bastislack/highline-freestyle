@@ -2,7 +2,6 @@ import Dexie, {Table} from "dexie";
 import {ComboHandler} from "./comboHandler";
 import {DatabaseSerializer} from "./databaseSerializer";
 import {applyMigrations} from "./migrations";
-// If a new Version is defined, simply increment the Version in the Import
 import {UserTricksTable, UserCombosTable, PredefinedCombosTable, PredefinedTricksTable} from "./schemas/CurrentVersion";
 import {TrickHandler} from "./trickHandler";
 
@@ -16,7 +15,13 @@ export default class MainDatabase extends Dexie {
   public readonly combos: ComboHandler;
   public readonly serializer: DatabaseSerializer;
 
-  public constructor() {
+  private static singletonInstance: MainDatabase;
+
+  public static get instance() {
+    return this.singletonInstance || (this.singletonInstance = new this());
+  }
+
+  protected constructor() {
     super("db");
     applyMigrations(this);
     // TODO: fill db with on-ready event
