@@ -44,8 +44,8 @@ const ComboList = ({ scrollPosition, setScrollPosition }) => {
     return (
       <div key={combo.id} className="combo-container col-4 col-lg-3 col-xl-2">
         <Link className="link-to-combo " to={`/combos/${combo.id}`} key={"combo" + combo.id} >
-          <button className=" btn btn-outline-success combo-preview skillFreq" freq={combo.stickFrequency} onClick={updateScrollPosition}>
-            <h3>{combo.name}</h3>
+          <button className=" btn combo-preview skillFreq" freq={combo.stickFrequency} onClick={updateScrollPosition}>
+            {combo.name}
             {combo.boostSkill && (
               <>
               <IoRocketSharp />
