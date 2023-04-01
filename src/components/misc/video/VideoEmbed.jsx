@@ -1,76 +1,21 @@
-import YouTube from "react-youtube";
+import YouTubeEmbed from "./YouTubeEmbed";
+import InstagramEmbed from "./InstagramEmbed";
+import {Alert} from "react-bootstrap";
 
-function VideoEmbed ({link, timeStart, timeEnd}) {
+export default function VideoEmbed ({link, timeStart, timeEnd}) {
     if (!link) {
-        return (<></>)
+        return null;
     }
 
-    let youtubeOpts = {
-        playerVars: {
-            autoplay: 0,
-            fs: 1,
-            rel: 0,
-            start: timeStart,
-            end: timeEnd
-        }
-    }
-
-    let youtubeId;
-    let instagramLink;
+    // The "be" at the end of "youtu" is missing intentionally to account for shortened "youtu.be" links
     if (link.includes("youtu")) {
-        // "https://www.youtube.com/embed/<videoID>"
-        if (link.includes("youtu.be")) {
-            youtubeId = link.split("/").pop().split("?")[0];
-        } else {
-            youtubeId = link.split("/").pop().split("?v=").pop();
-            if (youtubeId.includes("&")) {
-                youtubeId = youtubeId.split("&")[0];
-            }
-        }
-    }
-    else if (link.includes("instagram")) {
-        // "https://www.instagram.com/p/<videoID>/embed
-        instagramLink = link + "embed";
-    }
-    else {
-        console.log("Could not embed this link:\n" + link);
+        return (<YouTubeEmbed link={link} timeStart={timeStart} timeEnd={timeEnd}/>);
     }
 
-    const setupYoutubePlayer = (e) => {
-        e.target.mute();
+    if (link.includes("instagram")) {
+        return (<InstagramEmbed link={link}/>);
     }
 
-    const restartVideo = (e) => {
-        e.target.seekTo(timeStart ?? 0);
-    }
-
-    return(
-        <>
-            {youtubeId &&
-                <div className="callout video-callout">
-                    <YouTube
-                        className="video"
-                        videoId={youtubeId}
-                        opts={youtubeOpts}
-                        onReady={setupYoutubePlayer}
-                        onEnd={restartVideo}
-                    />
-                </div>
-            }
-            {instagramLink &&
-                <div className="callout insta-callout">
-                    <iframe
-                        className="insta-video"
-                        src={instagramLink}
-                        frameBorder="0"
-                        scrolling="no"
-                        allowtransparency="true"
-                        title="video"
-                    ></iframe>
-                </div>
-            }
-        </>
-    );
+    console.warn("Could not embed this link:\n" + link);
+    return(<Alert variant="warning">Could not display video :(</Alert>);
 }
-
-export default VideoEmbed;
