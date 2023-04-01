@@ -140,7 +140,9 @@ const TrickDetails = () => {
           }
 
           {trick.linkToVideo &&
-            <VideoEmbed link={trick.linkToVideo} timeStart={trick.videoStartTime} timeEnd={trick.videoEndTime}/>
+            <div className="container-fluid mx-0 my-2 p-0" align="center">
+              <VideoEmbed link={trick.linkToVideo} timeStart={trick.videoStartTime} timeEnd={trick.videoEndTime}/>
+            </div>
           }
 
 

@@ -193,7 +193,9 @@ const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
           }
 
           {combo.linkToVideo &&
+            <div className="container-fluid mx-0 my-2 p-0" align="center">
               <VideoEmbed link={combo.linkToVideo} timeStart={combo.videoStartTime} timeEnd={combo.videoEndTime}/>
+            </div>
           }
 
           {combo.comments &&
