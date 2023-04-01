@@ -5,12 +5,12 @@ import { useNavigate } from "react-router-dom";
 import EditButton from '../buttons/EditButton';
 import DeleteButton from '../buttons/DeleteButton';
 import FreqList from '../misc/FreqList';
-import YouTube from 'react-youtube';
 import { Trans } from '@lingui/macro'
 import DeleteWarning from '../pop-ups/DeleteWarning';
 import { IoRocketSharp } from 'react-icons/io5';
 
 import Database from "../../services/db";
+import VideoEmbed from "../misc/video/VideoEmbed";
 const db = new Database();
 
 const TrickDetails = () => {
@@ -51,47 +51,6 @@ const TrickDetails = () => {
     }).catch(e => {
       console.log(e);
     });
-  }
-
-  let youtubeId;
-  let youtubeOpts;
-  var instagramLink
-  if (trick && trick.linkToVideo) {
-    if (trick.linkToVideo.includes("youtu")) {
-      // "https://www.youtube.com/embed/<videoID>"
-      if (trick.linkToVideo.includes("youtu.be")) {
-        youtubeId = trick.linkToVideo.split("/").pop().split("?")[0];
-      } else {
-        youtubeId = trick.linkToVideo.split("/").pop().split("?v=").pop();
-        if (youtubeId.includes("&")) {
-          youtubeId = youtubeId.split("&")[0];
-        }
-      }
-      youtubeOpts = {
-        playerVars: {
-          autoplay: 0,
-          fs: 1,
-          rel: 0,
-          start: trick.videoStartTime,
-          end: trick.videoEndTime
-        }
-      }
-    }
-    else if (trick.linkToVideo.includes("instagram")) {
-      // "https://www.instagram.com/p/<videoID>/embed
-      instagramLink = trick.linkToVideo + "embed";
-    }
-    else {
-      console.log("Could not embed this link:\n" + trick.linkToVideo);
-    }
-  }
-
-  const setupYoutubePlayer = (e) => {
-    e.target.mute();
-  }
-
-  const restartVideo = (e) => {
-    e.target.seekTo(trick.videoStartTime ?? 0);
   }
 
   const editTrick = () => navigate("/posttrick",{state: {preTrick:trick}});
@@ -180,16 +139,10 @@ const TrickDetails = () => {
             </div>
           }
 
-          {youtubeId &&
-            <div className="callout video-callout">
-              <YouTube className="video" videoId={youtubeId} opts={youtubeOpts} onReady={setupYoutubePlayer} onEnd={restartVideo}/>
-            </div>
+          {trick.linkToVideo &&
+            <VideoEmbed link={trick.linkToVideo} timeStart={trick.videoStartTime} timeEnd={trick.videoEndTime}/>
           }
-          {instagramLink &&
-            <div className="callout insta-callout">
-              <iframe className="insta-video" src={instagramLink} frameBorder="0" scrolling="no" allowtransparency="true" title="video"></iframe>
-            </div>
-          }
+
 
           {trick.recommendedPrerequisites.length !== 0 &&
             <div className="row">
