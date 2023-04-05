@@ -5,7 +5,7 @@ import ComboDetails from '../combos/ComboDetails';
 import { stickFrequencies, positions } from '../../services/enums';
 import useLocalStorage from '../hooks/useLocalStorage';
 import computeStats from '../../logic/combos/computeStats';
-import { findCombo } from './generatorFunction';
+import { generateRandomCombo } from './generatorFunction';
 import Slider, { Range } from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
@@ -81,7 +81,22 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
     setRandomCombo(null);
 
     // find the combo with the given parameters
-    const randomTricks = findCombo([tricks, positions, numberOfTricks, startFromCheckbox, startFromPosition, allowDuplicates, allowConsecutiveTricks, allowSimilarPositions, allowTransitions, finishToFeet, avgDifficulty, maxDifficulty]);
+    let conditions = {
+      tricks: tricks,
+      positions: positions,
+      numberOfTricks: numberOfTricks,
+      startFromCheckbox: startFromCheckbox,
+      startingPositionIndex: startFromPosition,
+      allowDuplicates: allowDuplicates,
+      allowConsecutiveTricks: allowConsecutiveTricks,
+      allowSimilarPositions: allowSimilarPositions,
+      allowTransitions: allowTransitions,
+      mustFinishToFeet: finishToFeet,
+      avgDifficulty: avgDifficulty,
+      minDifficulty: minDifficulty,
+      maxDifficulty: maxDifficulty
+    }
+    const randomTricks = generateRandomCombo(conditions);
 
     const { minDiff, maxDiff, avgDiff, totalDiff } = computeStats(randomTricks);
 

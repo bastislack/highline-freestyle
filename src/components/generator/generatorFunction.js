@@ -1,131 +1,172 @@
 import arePositionsSimilar from '../../logic/combos/similarPositions';
 
-export function findCombo(vars, retries) {
-  const [
-    tricks,
-    positions,
-    numberOfTricks,
-    startFromCheckbox,
-    startFromPosition,
-    allowDuplicates,
-    allowConsecutiveTricks,
-    allowSimilarPositions,
-    allowTransitions,
-    finishToFeet,
-    avgDifficulty,
-    maxDifficulty
-  ] = vars;
+/**
+ * Heuristically generates a random combo which adheres to the specified conditions.
+ * @param {*} conditions Conditions that the combo must meet
+ * @param {number} retries Number of times to retry when generating a combo fails
+ */
+export function generateRandomCombo(conditions, retries= 0) {
+  conditions = {
+    tricks: undefined,
+    positions: [],
+    numberOfTricks: 10,
+    startFromCheckbox: false,
+    startingPositionIndex: 0,
+    allowDuplicates: false,
+    allowConsecutiveTricks: false,
+    allowSimilarPositions: true,
+    allowTransitions: false,
+    mustFinishToFeet: true,
+    avgDifficulty: -1,
+    minDifficulty: 0,
+    maxDifficulty: 11,
+    ...conditions
+  };
 
-  /**
-   * Returns true if the current trick is a legal one in regards to the
-   * specified conditions. This does not check for duplicates as it only
-   * looks at one trick and its predecessor in the combo.
-   */
-  const areLocalComboContitionsLegal = (index, lastTrick, currentTrick) => {
-    const isConsecutiveTricksLegal = allowConsecutiveTricks || lastTrick.id !== currentTrick.id;
-
-    const isEndAndStartEqual = currentTrick.startPos === lastTrick.endPos;
-    const isEndAndStartSimilar = arePositionsSimilar(currentTrick.startPos, lastTrick.endPos);
-    const isTransitionLegal = (allowSimilarPositions && isEndAndStartSimilar)
-                              || isEndAndStartEqual
-                              || allowTransitions;
-
-    if (!isConsecutiveTricksLegal || !isTransitionLegal) {
-      return false;
-    }
-
-    // If the last trick should be to feet, return if that is the case.
-    if (index === numberOfTricks - 1 && finishToFeet) {
-      return ["STAND", "EXPOSURE"].includes(currentTrick.endPos);
-    }
-
-    return true;
+  if (retries >= 100) {
+    alert("could not find a combo, try changing the settings");
+    return;
   }
 
-  const getFirstTrick = (availableTricks) => {
-    if (startFromCheckbox) {
-      const possibleTricks = availableTricks.filter(trick => trick.startPos === positions[startFromPosition])
-      return possibleTricks[Math.floor(Math.random() * possibleTricks.length)];
-    }
-    else {
-      //random element
-      return availableTricks[Math.floor(Math.random() * availableTricks.length)];
-    }
-  }
-
-  // random Normal Distribution with Box-Muller transformation
-  const randn_bm = (min, max) => {
-    let u = 0, v = 0;
-    while(u === 0) u = Math.random() //Converting [0,1) to (0,1)
-    while(v === 0) v = Math.random()
-    let num = Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v )
-
-    num = num / 10.0 + 0.5 // Translate to 0 -> 1
-    if (num > 1 || num < 0)
-      num = randn_bm(min, max) // resample between 0 and 1 if out of range
-    else{
-      num *= max - min // Stretch to fill range
-      num += min // offset to min
-    }
-    return num
-  }
-
-  if (!retries) retries =0;
-  if (retries >= 100) return alert("could not find a combo, try changing the settings");
-
-  if (numberOfTricks <= 1) {
+  if (conditions.numberOfTricks <= 1) {
     alert("You need more than one trick for a combo!");
     return;
   }
 
-  let randomTricks = new Array(numberOfTricks);
-  let availableTricks = [...tricks];
+  const randomTricks = [];
+  let availableTricks = [...conditions.tricks];
 
-  if (availableTricks.length == 0) return alert("can't find a single trick which fits these settings, try changing them")
-
-
-  // Get the first trick for the random combo
-  randomTricks[0] = getFirstTrick(availableTricks);
-  let sumOfDifficulties = randomTricks[0].difficultyLevel;
-
-  for (let i = 1; i < numberOfTricks; i++) {
-    let possibleTricks = availableTricks.filter(
-      trick => areLocalComboContitionsLegal(i, randomTricks[i-1], trick)
-      && (allowDuplicates || !randomTricks.includes(trick))
-    );
-    // can't find any tricks anymore... try again
-    if (possibleTricks.length == 0) return findCombo(vars, retries+1)
-
-    // this adds a heuristics which chooses tricks depending on how it fits towards the expected avgDifficulty,
-    // but the difficultyLevels are modified with a random value of a Normal Distribution (which is depending on how extrem the avgDifficulty is),
-    // to have some additional randomness and not get always the same combo
-    if (avgDifficulty != -1) {
-      for (let j = 0; j < possibleTricks.length; j++) {
-        possibleTricks[j].randomDiff = possibleTricks[j].difficultyLevel + randn_bm(-maxDifficulty + 2*Math.abs(maxDifficulty/2 - avgDifficulty), maxDifficulty - 2*Math.abs(maxDifficulty/2 - avgDifficulty));
-      }
-      possibleTricks.sort(
-        (a,b) => (
-          // heuristics for finding a combo with certain avrDifficultie
-          Math.abs(avgDifficulty - (sumOfDifficulties + b.randomDiff)/(i+1)) - Math.abs(avgDifficulty - (sumOfDifficulties + a.randomDiff)/(i+1))
-        )
-      );
-      randomTricks[i] = possibleTricks[possibleTricks.length - 1];
-      sumOfDifficulties += randomTricks[i].difficultyLevel;
-    }
-    else {
-      // take an random trick
-      randomTricks[i] = possibleTricks[Math.floor(Math.random()*possibleTricks.length)];
-    }
+  if (availableTricks.length === 0) {
+    alert("can't find a single trick which fits these settings, try changing them");
+    return;
   }
 
-  //check integrety of combo
-  for (let i = 1; i < randomTricks.length; i++) {
-    let prev = randomTricks[i - 1];
-    let trick = randomTricks[i];
-    if (prev.endPos !== trick.startPos && !arePositionsSimilar(trick.startPos, prev.endPos) && !allowTransitions) {
-      return alert("trick generator is broken");
+  try {
+    let startingPosition = conditions.positions[conditions.startingPositionIndex];
+    randomTricks.push(firstTrick(availableTricks, conditions.startFromCheckbox, startingPosition));
+  } catch (err) {
+    alert(err);
+    return;
+  }
+  let sumOfDifficulties = randomTricks[0].difficultyLevel;
+
+  for (let i = 1; i < conditions.numberOfTricks; i++) {
+    let possibleTricks = availableTricks.filter(
+        trick => areLocalComboConditionsLegal(i, randomTricks[i-1], trick, conditions)
+            && (conditions.allowDuplicates || !randomTricks.includes(trick))
+    );
+
+    // can't find any tricks anymore... try again
+    if (possibleTricks.length === 0){
+      return generateRandomCombo(conditions, retries+1);
+    }
+
+    if (conditions.avgDifficulty === -1) {
+      randomTricks.push(getRandomEntryOfArray(possibleTricks));
+    } else {
+      randomTricks.push(randomTrickOfAvgDifficulty(
+          possibleTricks,
+          conditions.maxDifficulty,
+          conditions.avgDifficulty,
+          sumOfDifficulties,
+          i));
+      sumOfDifficulties += randomTricks[i].difficultyLevel;
     }
   }
 
   return randomTricks;
+}
+
+/**
+ * Returns true if the current trick is a legal one in regard to the specified conditions. This does not check for
+ * duplicates as it only looks at one trick and its predecessor in the combo.
+ */
+function areLocalComboConditionsLegal(index, lastTrick, currentTrick, conditions) {
+  const isConsecutiveTricksLegal = conditions.allowConsecutiveTricks || lastTrick.id !== currentTrick.id;
+
+  const isEndAndStartEqual = currentTrick.startPos === lastTrick.endPos;
+  const isLegalSimilar = arePositionsSimilar(currentTrick.startPos, lastTrick.endPos) && conditions.allowSimilarPositions;
+  const isTransitionLegal = isLegalSimilar || isEndAndStartEqual || conditions.allowTransitions;
+
+  if (!isConsecutiveTricksLegal || !isTransitionLegal) {
+    return false;
+  }
+
+  if (conditions.mustFinishToFeet && index === conditions.numberOfTricks - 1) {
+    return ["STAND", "EXPOSURE"].includes(currentTrick.endPos);
+  }
+
+  return true;
+}
+
+/**
+ * Find the first trick depending on whether it needs to be from a certain starting position or not.
+ */
+function firstTrick(availableTricks, isStartPositionFixed, startPosition) {
+  if (!isStartPositionFixed) {
+    return getRandomEntryOfArray(availableTricks);
+  }
+  let possibleTricks = availableTricks.filter(trick => trick.startPos === startPosition);
+  if (possibleTricks.length === 0) {
+    throw "The selected options do not contain any trick with the specified starting position.";
+  }
+  return getRandomEntryOfArray(possibleTricks);
+}
+
+/**
+ * This adds a heuristics which chooses tricks depending on how it fits towards the expected avgDifficulty,
+ * but the difficultyLevels are modified with a random value of a Normal Distribution (which is depending on how
+ * extreme the avgDifficulty is), to have some additional randomness and not get always the same combo.
+ * Original Author: weberax
+ */
+function randomTrickOfAvgDifficulty(possibleTricks, maxDifficulty, avgDifficulty, sumOfDifficulties, i) {
+  for (let j = 0; j < possibleTricks.length; j++) {
+    possibleTricks[j].randomDiff = calculateRandomDiffForTrick(maxDifficulty, avgDifficulty, possibleTricks, j);
+  }
+  possibleTricks.sort(
+      (a, b) => {
+        let difficultyScoreA = Math.abs(avgDifficulty - (sumOfDifficulties + a.randomDiff) / (i + 1));
+        let difficultyScoreB = Math.abs(avgDifficulty - (sumOfDifficulties + b.randomDiff) / (i + 1));
+        return difficultyScoreB - difficultyScoreA;
+      }
+  );
+  return possibleTricks[possibleTricks.length - 1];
+}
+
+/**
+ * Not entirely clear what this does. The function was extracted from the randomTrickOfAvgDifficulty function for
+ * easier readability.
+ * Original Author: weberax
+ */
+function calculateRandomDiffForTrick(maxDifficulty, avgDifficulty, possibleTricks, j) {
+  let min = -maxDifficulty + 2 * Math.abs(maxDifficulty / 2 - avgDifficulty);
+  let max = maxDifficulty - 2 * Math.abs(maxDifficulty / 2 - avgDifficulty);
+  return possibleTricks[j].difficultyLevel + randomNormalDist(min, max);
+}
+
+/**
+ * Random value with a Normal Distribution.
+ * Calculated through a Box-Muller transformation, based on this thread:
+ * https://stackoverflow.com/questions/25582882/javascript-math-random-normal-distribution-gaussian-bell-curve
+ */
+function randomNormalDist(min, max) {
+  let u = 1 - Math.random();
+  let v = 1 - Math.random();
+  let rand = Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v );
+
+  rand = rand / 10.0 + 0.5;
+  rand = Math.max(0, Math.min(rand, 1));
+
+  return (max - min) * rand + min;
+}
+
+
+/**
+ * Returns a random element of a given array. Returns undefined if the array is of length 0.
+ */
+function getRandomEntryOfArray(arr) {
+  if(arr.length === 0) {
+    return undefined;
+  }
+  return arr[Math.floor(Math.random() * arr.length)];
 }
