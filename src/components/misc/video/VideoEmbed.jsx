@@ -2,7 +2,7 @@ import YouTubeEmbed from "./YouTubeEmbed";
 import InstagramEmbed from "./InstagramEmbed";
 import {Alert} from "react-bootstrap";
 
-export default function VideoEmbed ({link, timeStart, timeEnd}) {
+const VideoEmbed = ({link, timeStart, timeEnd}) => {
     if (!link) {
         return null;
     }
@@ -19,3 +19,5 @@ export default function VideoEmbed ({link, timeStart, timeEnd}) {
     console.warn("Could not embed this link:\n" + link);
     return(<Alert variant="warning">Could not display video :(</Alert>);
 }
+
+export default VideoEmbed;

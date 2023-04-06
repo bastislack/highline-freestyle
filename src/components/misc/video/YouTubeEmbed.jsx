@@ -1,7 +1,7 @@
 import YouTube from "react-youtube";
 import {Ratio} from "react-bootstrap";
 
-export default function YouTubeEmbed({link, timeStart, timeEnd}) {
+const YouTubeEmbed = ({link, timeStart, timeEnd}) => {
   let youtubeOpts = {
     width: "100%",
     height: "100%",
@@ -44,3 +44,5 @@ export default function YouTubeEmbed({link, timeStart, timeEnd}) {
     </Ratio>
   );
 }
+
+export default YouTubeEmbed;
