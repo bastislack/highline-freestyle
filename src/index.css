@@ -50,30 +50,13 @@
   justify-content: left;
 }
 
-.trick-preview {
+.preview-item {
   margin: 2px;
   width:95%;
   height:95%;
   overflow-wrap: break-word;
   background-color: transparent;
   border:1px solid;
-}
-
-.trick-preview h3 {
-  font-weight: bold;
-  font-size: small;
-}
-
-.combo-preview {
-  margin: 2px;
-  width:100%;
-  height:100%;
-  overflow-wrap: break-word;
-}
-
-.combo-preview h3 {
-  font-weight: bold;
-  font-size: small;
 }
 
 .transition {

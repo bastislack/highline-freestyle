@@ -89,7 +89,7 @@ const TrickList = ({ scrollPosition, setScrollPosition, userCombo, setUserCombo 
   function getTrickDiv(trick) {
     return (
       <div key={trick.id} className="trick-container col-4 col-lg-3 col-xl-2">
-          <button className=" btn trick-preview skillFreq" freq={trick.stickFrequency} onClick={() => onClickTrick(trick)}>
+          <button className=" btn preview-item skillFreq" freq={trick.stickFrequency} onClick={() => onClickTrick(trick)}>
             {trick.alias || trick.technicalName}
             {trick.boostSkill && (
               <>

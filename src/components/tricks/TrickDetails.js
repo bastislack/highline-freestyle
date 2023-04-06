@@ -198,7 +198,7 @@ const TrickDetails = () => {
               if(recommendedTrick){
                 return (
                     <div key={recommendedTrick.id} className="trick-container col-12">
-                      <button className="btn trick-preview skillFreq" freq={recommendedTrick.stickFrequency} onClick={() => {navigate(`/tricks/${recommendedTrick.id}`);}}>
+                      <button className="btn preview-item skillFreq" freq={recommendedTrick.stickFrequency} onClick={() => {navigate(`/tricks/${recommendedTrick.id}`);}}>
                         {recommendedTrick.alias || recommendedTrick.technicalName}
                         {recommendedTrick.boostSkill && (
                           <>
