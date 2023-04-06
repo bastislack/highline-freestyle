@@ -59,11 +59,6 @@
   border:1px solid;
 }
 
-.trick-preview h3 {
-  font-weight: bold;
-  font-size: small;
-}
-
 .combo-preview {
   margin: 2px;
   width:95%;
@@ -71,11 +66,6 @@
   overflow-wrap: break-word;
   background-color: transparent;
   border:1px solid;
-}
-
-.combo-preview h3 {
-  font-weight: bold;
-  font-size: small;
 }
 
 .transition {
