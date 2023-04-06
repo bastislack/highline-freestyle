@@ -1,4 +1,4 @@
-export default function InstagramEmbed({link}) {
+const InstagramEmbed = ({link}) => {
   // "https://www.instagram.com/p/<videoID>/embed
   let instagramLink = link + "embed";
 
@@ -12,3 +12,5 @@ export default function InstagramEmbed({link}) {
     ></iframe>
   );
 }
+
+export default InstagramEmbed;
