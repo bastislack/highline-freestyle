@@ -50,16 +50,7 @@
   justify-content: left;
 }
 
-.trick-preview {
-  margin: 2px;
-  width:95%;
-  height:95%;
-  overflow-wrap: break-word;
-  background-color: transparent;
-  border:1px solid;
-}
-
-.combo-preview {
+.preview-item {
   margin: 2px;
   width:95%;
   height:95%;

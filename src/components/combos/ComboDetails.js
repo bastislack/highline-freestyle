@@ -102,7 +102,7 @@ const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
       <>
       <div className={!inPostCombo ? "col-12" : "col-9"} key={"trick" + trick.id}>
         <Link className="link-to-trick " to={`/tricks/${trick.id}`} key={"trick" + trick.id} >
-          <button className="btn trick-preview skillFreq" freq={trick.stickFrequency}>
+          <button className="btn preview-item skillFreq" freq={trick.stickFrequency}>
             <h2>{trick.alias || trick.technicalName}</h2>
           </button>
         </Link>
