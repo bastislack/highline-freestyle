@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useLiveQuery } from "dexie-react-hooks";
 import { trickSortingSchemes as sortingSchemes } from '../../services/sortingSchemes';
 import computeStats from '../../logic/combos/computeStats';
-import { IoRocketSharp, IoSearchSharp } from 'react-icons/io5';
+import { IoRocketSharp } from 'react-icons/io5';
 import Fuse from 'fuse.js';
 import { trickSortingSchemes } from '../../services/sortingSchemes';
 import SearchBar from "../misc/SearchBar"
@@ -138,4 +138,5 @@ const TrickList = ({ scrollPosition, setScrollPosition, userCombo, setUserCombo 
     </div>
   );
 }
+
 export default TrickList;

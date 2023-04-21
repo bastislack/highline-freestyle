@@ -14,7 +14,6 @@ import VideoEmbed from "../misc/video/VideoEmbed";
 const db = new Database();
 
 const TrickDetails = () => {
-
   const [showDeleteWarning, setShowDeleteWarning] = useState(false);
 
   const { id } = useParams();

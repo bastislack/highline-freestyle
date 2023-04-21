@@ -13,11 +13,11 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/components/buttons/LanguageSelector.js:21
+#: src/components/buttons/LanguageSelector.jsx:21
 msgid "languages.english"
 msgstr "English"
 
-#: src/components/buttons/LanguageSelector.js:32
+#: src/components/buttons/LanguageSelector.jsx:32
 msgid "languages.spanish"
 msgstr "Spanish"
 
@@ -33,6 +33,6 @@ msgstr "Combos"
 msgid "links.tricks"
 msgstr "Tricks"
 
-#: src/components/tricks/TrickDetails.js:130
+#: src/components/tricks/TrickDetails.jsx:130
 msgid "trickDetails.level"
 msgstr "Level"

@@ -19,6 +19,6 @@ function SearchBar({ sortingSchema, dropdownHeader, searchPattern, onFilter, onS
       </DropdownButton>
     </InputGroup>
   );
-};
+}
 
 export default SearchBar;

@@ -4,7 +4,6 @@ import Database from "../../services/db";
 const db = new Database();
 
 const ResetWarning = ({ showResetWarning, setShowResetWarning }) => {
-
   const reset = () => {
     if(showResetWarning === "tricks") {
       db.dropUserTricks();

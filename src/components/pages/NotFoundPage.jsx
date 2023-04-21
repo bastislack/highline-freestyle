@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 
 const NotFoundPage = () => {
-
   return (
     <>
       <h1>Ooops, this page just took a leash fall!</h1>
@@ -11,4 +10,3 @@ const NotFoundPage = () => {
 }
  
 export default NotFoundPage;
-

@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import computeStats from '../../logic/combos/computeStats';
+import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { stickFrequencies, positions } from '../../services/enums';
 import ComboDetails from './ComboDetails';
 import AddButton from '../buttons/AddButton';
@@ -9,7 +8,6 @@ import Database from "../../services/db";
 const db = new Database();
 
 const PostCombo = ({ userCombo, setUserCombo }) => {
-
   const navigate = useNavigate();
   const location = useLocation();
   let preCombo;

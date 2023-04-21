@@ -10,7 +10,6 @@ import Database from "../../services/db";
 const db = new Database();
 
 const Settings = ({ setShowAboutPage, setShowResetWarning }) => {
-
   const navigate = useNavigate();
 
   const path = useLocation().pathname.toString().toLowerCase();

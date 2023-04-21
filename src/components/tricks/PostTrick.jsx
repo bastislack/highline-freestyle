@@ -7,7 +7,6 @@ import { Form, Button, InputGroup } from "react-bootstrap";
 const db = new Database();
 
 const PostTrick = () => {
-
   const location = useLocation();
   let preTrick = location.state?.preTrick;
 
