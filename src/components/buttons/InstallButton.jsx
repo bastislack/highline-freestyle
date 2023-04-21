@@ -3,7 +3,6 @@ import { useReactPWAInstall } from 'react-pwa-install';
 import logo from '../../../public/logo96.png';
 
 const InstallButton = () => {
-
   const { pwaInstall, supported, isInstalled } = useReactPWAInstall();
 
   const installApp = () => {

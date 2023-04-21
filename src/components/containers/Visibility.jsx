@@ -2,7 +2,6 @@ import { useLocation } from 'react-router-dom';
 import { pages } from '../../services/enums';
 
 const Visibility = ({ visiblePages, children, elseContent }) => {
-
   const path = useLocation().pathname.toString().toLowerCase();
 
   let isVisible = false;

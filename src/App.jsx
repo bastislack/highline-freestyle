@@ -10,7 +10,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import TrickDetails from './components/tricks/TrickDetails';
 import ComboDetails from './components/combos/ComboDetails';
 import { pages, difficultyRangeMax} from './services/enums';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Visibility from './components/containers/Visibility';
 import ScrollToTop from './components/containers/ScrollToTop';
 import About from './components/pages/About';
@@ -22,7 +22,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import ErrorFallback from './components/pages/ErrorFallback';
 
 
-function App() {
+const App = () => {
   // Randomly generated combo shown on the generator screen
   const [randomCombo, setRandomCombo] = useState(null);
   // Boolean to check if About page should be rendered

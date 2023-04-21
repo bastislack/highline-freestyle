@@ -6,14 +6,13 @@ import { stickFrequencies, positions } from '../../services/enums';
 import useLocalStorage from '../hooks/useLocalStorage';
 import computeStats from '../../logic/combos/computeStats';
 import { generateRandomCombo } from './generatorFunction';
-import Slider, { Range } from 'rc-slider';
+import { Range } from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
 import Database from "../../services/db";
 const db = new Database();
 
 const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => {
-
   const navigate = useNavigate();
 
   const [generatedCombosCount, setGeneratedCombosCount] = useLocalStorage('randomComboCount', 1);

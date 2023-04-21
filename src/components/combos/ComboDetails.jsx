@@ -17,7 +17,6 @@ import VideoEmbed from "../misc/video/VideoEmbed";
 const db = new Database();
 
 const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
-
   const [showDeleteWarning, setShowDeleteWarning] = useState(false);
 
   const navigate = useNavigate();
