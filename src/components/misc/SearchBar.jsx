@@ -12,7 +12,7 @@ function SearchBar({ sortingSchema, dropdownHeader, searchPattern, onFilter, onS
       <DropdownButton title="Sort">
         <Dropdown.Header>{dropdownHeader}</Dropdown.Header>
         {sortingSchema.map(scheme => 
-          <Dropdown.Item onClick={() => onSort(scheme.id)}>
+          <Dropdown.Item key={scheme.name} onClick={() => onSort(scheme.id)}>
             {scheme.name}
           </Dropdown.Item>
         )}
