@@ -38,17 +38,13 @@ const TrickDetails = () => {
 
   if (!trick) return <>Trick id: {id} not found in database</>;
 
-  console.log(trick);
-
   const selectFreq = (e) => {
     const newFreq = Number(e.target.value);
     let modifiedTrick = Object();
     modifiedTrick.id = trick.id;
     modifiedTrick.stickFrequency = newFreq;
-    db.saveTrick(modifiedTrick).then(res => {
-      console.log("changed stickFrequency");
-    }).catch(e => {
-      console.log(e);
+    db.saveTrick(modifiedTrick).catch(e => {
+      console.warn(e);
     });
   }
 
@@ -56,11 +52,8 @@ const TrickDetails = () => {
 
   const deleteTrick = () => {
     db.deleteTrick(id)
-      .then(() => {
-        console.log("trick deleted");
-      })
       .catch(e => {
-        console.log(e);
+        console.warn(e);
       });
 
     navigate('/');
@@ -68,10 +61,8 @@ const TrickDetails = () => {
 
   const toggleBoostSkill = () => {
     trick.boostSkill ? trick.boostSkill = false : trick.boostSkill = true;
-    db.saveTrick(trick).then(res => {
-      console.log("changed boost");
-    }).catch(e => {
-      console.log(e);
+    db.saveTrick(trick).catch(e => {
+      console.warn(e);
     });
   }
 

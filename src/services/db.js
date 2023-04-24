@@ -43,7 +43,7 @@ export default class Database {
           const preTrick = preTricks.filter(trick => trick.id === userTrick.id)[0];
           Object.keys(userTrick).forEach(key => {
             if (key in preTrick && key !== "id" && userTrick[key] === preTrick[key]) {
-              console.log("deleting ", userTrick.id, key)
+              console.log("Deleting ", userTrick.id, key)
               delete userTrick[key];
             }
           });
@@ -73,7 +73,7 @@ export default class Database {
         if (!ret || ret.version < predefinedTricksVersion) {
           return this.populateTricks();
         } else {
-          console.log("did not update predefinedTricks");
+          console.log("Did not update predefinedTricks.");
         }
       }).then(() => {
         // count the combos in the database and populate it if its empty
@@ -81,7 +81,7 @@ export default class Database {
           if (!ret || ret.version < predefinedCombosVersion) {
             return this.populateCombos();
           } else {
-            console.log("did not update predefinedCombos");
+            console.log("Did not update predefinedCombos.");
           }
         });
       });
@@ -240,7 +240,7 @@ export default class Database {
   populateCombos = () => {
     return this.db.predefinedCombos.clear().then(() => {
       return this.getAllTricks().then(allTricks => {
-        console.log("updating predefinedCombos")
+        console.log("Updating predefinedCombos.")
         const comboList = Papa.parse(predefinedCombos, {dynamicTyping: true}).data;
 
         // this uses the labels of the csv but, also adds an id
@@ -261,7 +261,7 @@ export default class Database {
 
         // adds the combos to the database
         return this.db.predefinedCombos.bulkPut(combos).then(() => {
-          console.log("added combos to database from the csv");
+          console.log("Added combos to database from the csv.");
           return this.db.versions.put({"key": "predefinedCombosVersion", "version": predefinedCombosVersion});
         });
       });
@@ -360,7 +360,7 @@ export default class Database {
         if (!err) {
           IDBExportImport.importFromJsonString(idbDatabase, data, function(err) {
             if (!err) {
-              console.log('Imported data successfully');
+              console.log('Imported data successfully.');
              // Dexie.on("storagemutated").fire(ObservabilitySet);
             }
           });

@@ -46,11 +46,11 @@ export async function tryPersistWithoutPromtingUser() {
   }
   let persisted = await navigator.storage.persisted();
   if (persisted) {
-    console.log("storage is persistend");
+    console.log("Storage persisted.");
     return "persisted";
   }
   if (!navigator.permissions || !navigator.permissions.query) {
-    console.log("Not persisted, but we may prompt user when we want to.");
+    console.log("Storage not persisted, but we may prompt user when we want to.");
     return "prompt"; // It MAY be successful to prompt. Don't know.
   }
   const permission = await navigator.permissions.query({
