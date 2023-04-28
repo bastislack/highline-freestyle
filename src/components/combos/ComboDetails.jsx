@@ -14,6 +14,7 @@ import computeStats from '../../logic/combos/computeStats';
 
 import Database from "../../services/db";
 import VideoEmbed from "../misc/video/VideoEmbed";
+import ClickableSkillItem from "../misc/ClickableSkillItem";
 const db = new Database();
 
 const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
@@ -97,17 +98,19 @@ const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
   const getTrickDiv = (trick, index) => {
     return(
       <>
-      <div className={!inPostCombo ? "col-12" : "col-9"} key={"trick" + trick.id}>
-        <Link className="link-to-trick " to={`/tricks/${trick.id}`} key={"trick" + trick.id} >
-          <button className="btn preview-item skillFreq" freq={trick.stickFrequency}>
-            <h2>{trick.alias || trick.technicalName}</h2>
-          </button>
-        </Link>
+      <div className={!inPostCombo ? "col-12 mb-1" : "col-md-11 col-10 mb-1"} key={"trick" + trick.id}>
+        <ClickableSkillItem
+          name={trick.alias || trick.technicalName}
+          stickFreq={trick.stickFrequency}
+          isBoosted={trick.boostSkill}
+          onClick={() => navigate(`/tricks/${trick.id}`)}
+          compact={true}
+        />
       </div>
       {inPostCombo &&
-        <div className="col-2">
-          <button className="btn btn-danger" onClick={() => removeTrickFromCombo(index)}>
-            <BsTrashFill/>
+        <div className="col-1 p-2" align="center">
+          <button className="btn btn-link" onClick={() => removeTrickFromCombo(index)}>
+            <BsTrashFill style={{fill: '#dc3545'}}/>
           </button>
         </div>
       }
@@ -125,7 +128,7 @@ const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
   }
 
   return (
-    <div className="container">
+    <div>
       {combo && (
         <article>
           <div className="row">
@@ -142,7 +145,7 @@ const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
             }
           </div>
 
-          <div className="row">
+          <div className="row mt-3">
             {combo.tricks.map((trick, index) => {
               return(index === 0 || (index > 0 && (arePositionsSimilar(trick.startPos, combo.tricks[index-1].endPos) || trick.startPos === combo.tricks[index-1].endPos)) ? 
                   getTrickDiv(trick,index)
@@ -150,16 +153,16 @@ const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
                 :
               index > 0 && (!arePositionsSimilar(trick.startPos, combo.tricks[index-1].endPos) || trick.startPos !== combo.tricks[index-1].endPos) ?
                 <>
-                <div className={!inPostCombo ? "col-12" : "col-9"} key={index}>
-                  <div className="row">
+                <div className={!inPostCombo ? "col-12" : "col-md-11 col-10"} key={index} align="center">
+                  <div className="container-fluid">
                     <p className="transition transition-text">{combo.tricks[index-1].endPos}</p>
                   </div>
                   <IconContext.Provider value={{ color: "grey" }}>
-                    <div className="row">
+                    <div className="container-fluid">
                       <BsArrowDown className="transition" size={10}/>
                     </div>
                   </IconContext.Provider>
-                  <div className="row">
+                  <div className="container-fluid">
                     <p className="transition transition-text">{trick.startPos}</p>
                   </div>
                 </div>
@@ -170,9 +173,13 @@ const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
             }
           </div>
 
-          {addTrickToCombo && <AddButton call={addTrickToCombo} />}
+          {addTrickToCombo &&
+            <div className="mt-2">
+              <AddButton call={addTrickToCombo} />
+            </div>
+          }
 
-          <div className="row">
+          <div className="mt-3">
             <h4>Combo stats:</h4>
             <p>Number of tricks: {combo.numberOfTricks}</p>
             <p>Mininum difficulty level: {combo.minDiff}</p>

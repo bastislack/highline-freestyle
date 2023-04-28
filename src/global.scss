@@ -79,7 +79,10 @@ body {
 }
 
 .main-column-content {
-  @extend .p-3;
+  @extend .py-3;
+  @extend .py-md-4;
+  @extend .px-3;
+  @extend .px-md-5;
   overflow-y: auto;
   width: 100%;
 }

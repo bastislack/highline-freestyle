@@ -50,15 +50,6 @@
   justify-content: left;
 }
 
-.preview-item {
-  margin: 2px;
-  width:95%;
-  height:95%;
-  overflow-wrap: break-word;
-  background-color: transparent;
-  border:1px solid;
-}
-
 .transition {
   text-align: center;
   width: 95%;
@@ -130,21 +121,8 @@
   font-family: sans-serif;
 }
 
-.trick-container {
-  padding: 4px;
-}
-
 .combo-container {
   padding: 4px;
-}
-
-.list-br-heading h4 {
-  font-weight: bold;
-
-}
-
-.list-br-heading {
-  margin-top: 8px !important;
 }
 
 .fab_button {

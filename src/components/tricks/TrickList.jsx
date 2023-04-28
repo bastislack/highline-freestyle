@@ -9,6 +9,8 @@ import { trickSortingSchemes } from '../../services/sortingSchemes';
 import SearchBar from "../misc/SearchBar"
 
 import Database from "../../services/db";
+import {Col} from "react-bootstrap";
+import ClickableSkillItem from "../misc/ClickableSkillItem";
 const db = new Database();
 
 const TrickList = ({ scrollPosition, setScrollPosition, userCombo, setUserCombo }) => {
@@ -88,16 +90,15 @@ const TrickList = ({ scrollPosition, setScrollPosition, userCombo, setUserCombo 
 
   function getTrickDiv(trick) {
     return (
-      <div key={trick.id} className="trick-container col-4 col-lg-3 col-xl-2">
-          <button className=" btn preview-item skillFreq" freq={trick.stickFrequency} onClick={() => onClickTrick(trick)}>
-            {trick.alias || trick.technicalName}
-            {trick.boostSkill && (
-              <>
-              <br/>
-              <IoRocketSharp />
-              </>)}
-          </button>
-      </div>);
+      <Col key={trick.id} xs={4} lg={3} xl={2} className="p-md-2 p-1">
+        <ClickableSkillItem
+          name={trick.alias || trick.technicalName}
+          stickFreq={trick.stickFrequency}
+          isBoosted={trick.boostSkill}
+          onClick={() => onClickTrick(trick)}
+        />
+      </Col>
+    )
   }
 
   // tricks query with react hooks -- means it refreshes automaticly
@@ -111,32 +112,36 @@ const TrickList = ({ scrollPosition, setScrollPosition, userCombo, setUserCombo 
   const searchResults = searchPattern ? fuse.search(searchPattern).map(i => i.item) : tricks;
 
   return (
-    <div className="row">
-      {addTrickToCombo && <h2 style={{'fontWeight': 'bold'}}>Add trick to combo</h2>}
-      <SearchBar
-        sortingSchema={trickSortingSchemes}
-        dropdownHeader="Sort tricks"
-        searchPattern={searchPattern}
-        onFilter={value => setSearchPattern(value)}
-        onSort={schemeId => setSortOpt(schemeId)} />
-      {searchResults.map(trick => {
-        let isFirst = (sortingSchemes[sortOpt].attributeFunc(trick) !== current);
-        current = sortingSchemes[sortOpt].attributeFunc(trick);
+    <div>
+      <div className="px-md-2 px-1">
+        {addTrickToCombo && <h2 style={{'fontWeight': 'bold'}}>Add trick to combo</h2>}
+        <SearchBar
+          sortingSchema={trickSortingSchemes}
+          dropdownHeader="Sort tricks"
+          searchPattern={searchPattern}
+          onFilter={value => setSearchPattern(value)}
+          onSort={schemeId => setSortOpt(schemeId)} />
+      </div>
+      <div className="row m-0 p-0">
+        {searchResults.map(trick => {
+          let isFirst = (sortingSchemes[sortOpt].attributeFunc(trick) !== current);
+          current = sortingSchemes[sortOpt].attributeFunc(trick);
 
-        if (isFirst && sortingSchemes[sortOpt].showCategory && !searchPattern) {
-          return [
-            <div className="w-100 list-br-heading" key={"header" + trick.id.toString()}>
-              <h4>{sortingSchemes[sortOpt].catName} {current}</h4>
-            </div>,
-            getTrickDiv(trick)
-          ];
-        } else {
-          return (
-            getTrickDiv(trick)
-          );
-        }
+          if (isFirst && sortingSchemes[sortOpt].showCategory && !searchPattern) {
+            return [
+              <div className="w-100 mt-4" key={"header" + trick.id.toString()}>
+                <h4 className="fw-bold">{sortingSchemes[sortOpt].catName} {current}</h4>
+              </div>,
+              getTrickDiv(trick)
+            ];
+          } else {
+            return (
+              getTrickDiv(trick)
+            );
+          }
 
-      })}
+        })}
+      </div>
     </div>
   );
 }

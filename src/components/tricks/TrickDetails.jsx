@@ -11,6 +11,7 @@ import { IoRocketSharp } from 'react-icons/io5';
 
 import Database from "../../services/db";
 import VideoEmbed from "../misc/video/VideoEmbed";
+import ClickableSkillItem from "../misc/ClickableSkillItem";
 const db = new Database();
 
 const TrickDetails = () => {
@@ -140,24 +141,23 @@ const TrickDetails = () => {
             <div className="row">
               <h6>Recommended Prerequisites:</h6>
               {trick.recommendedPrerequisites.map(recommendedTrick => {
-              if(recommendedTrick){
-                return (
-                    <div key={recommendedTrick.id} className="trick-container col-12">
-                      <button className="btn preview-item skillFreq" freq={recommendedTrick.stickFrequency} onClick={() => {navigate(`/tricks/${recommendedTrick.id}`);}}>
-                        {recommendedTrick.alias || recommendedTrick.technicalName}
-                        {recommendedTrick.boostSkill && (
-                          <>
-                          <br/>
-                          <IoRocketSharp />
-                          </>)}
-                      </button>
+                if(recommendedTrick){
+                  return (
+                    <div key={recommendedTrick.id} className="trick-container col-12 mb-2">
+                      <ClickableSkillItem
+                        name={recommendedTrick.alias || recommendedTrick.technicalName}
+                        stickFreq={recommendedTrick.stickFrequency}
+                        isBoosted={recommendedTrick.boostSkill}
+                        onClick={() => {navigate(`/tricks/${recommendedTrick.id}`);}}
+                        />
                     </div>
-                );
-              }})}
+                  );
+                }
+              })}
             </div>
           }
 
-          <div className="row">
+          <div className="row mt-2">
             <h5>Set your success frequency:</h5>
             <div onChange={selectFreq}>
               <FreqList stickable={trick}/>

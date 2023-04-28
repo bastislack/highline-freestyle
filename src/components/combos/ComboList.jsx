@@ -7,11 +7,16 @@ import Fuse from 'fuse.js';
 import SearchBar from '../misc/SearchBar';
 
 import Database from "../../services/db";
+import {Col} from "react-bootstrap";
+import ClickableSkillItem from "../misc/ClickableSkillItem";
+import {useNavigate} from "react-router";
 const db = new Database();
 
 const ComboList = ({ scrollPosition, setScrollPosition }) => {
   const [sortOpt, setSortOpt] = useState(0);
   const [searchPattern, setSearchPattern] = useState("");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.getElementById("content").scrollTo({
@@ -42,48 +47,53 @@ const ComboList = ({ scrollPosition, setScrollPosition }) => {
 
   function getComboDiv(combo) {
     return (
-      <div key={combo.id} className="combo-container col-4 col-lg-3 col-xl-2">
-        <Link className="link-to-combo " to={`/combos/${combo.id}`} key={"combo" + combo.id} >
-          <button className=" btn preview-item skillFreq" freq={combo.stickFrequency} onClick={updateScrollPosition}>
-            {combo.name}
-            {combo.boostSkill && (
-              <>
-              <IoRocketSharp />
-              </>)}
-          </button>
-        </Link>
-      </div>)
+      <Col key={combo.id} xs={4} lg={3} xl={2} className="p-md-2 p-1">
+        <ClickableSkillItem
+          name={combo.name}
+          strickFreq={combo.stickFrequency}
+          isBoosted={combo.boostSkill}
+          onClick={() => {
+            updateScrollPosition();
+            navigate(`/combos/${combo.id}`);
+          }}
+        />
+      </Col>
+    )
   }
 
   let current;
 
   return (
-    <div className="row">
-      <SearchBar
-        sortingSchema={comboSortingSchemes}
-        dropdownHeader="Sort combos"
-        searchPattern={searchPattern}
-        onFilter={value => setSearchPattern(value)}
-        onSort={schemeId => setSortOpt(schemeId)} />
-      {searchResults.map(combo => {
-        const isFirst = (comboSortingSchemes[sortOpt].attributeFunc(combo) !== current);
-        current = comboSortingSchemes[sortOpt].attributeFunc(combo);
-        const catName = comboSortingSchemes[sortOpt].catName;
-        const attributeLast = comboSortingSchemes[sortOpt].attributeLast
+    <div>
+      <div className="px-md-2 px-1">
+        <SearchBar
+          sortingSchema={comboSortingSchemes}
+          dropdownHeader="Sort combos"
+          searchPattern={searchPattern}
+          onFilter={value => setSearchPattern(value)}
+          onSort={schemeId => setSortOpt(schemeId)} />
+      </div>
+      <div className="row m-0 p-0">
+        {searchResults.map(combo => {
+          const isFirst = (comboSortingSchemes[sortOpt].attributeFunc(combo) !== current);
+          current = comboSortingSchemes[sortOpt].attributeFunc(combo);
+          const catName = comboSortingSchemes[sortOpt].catName;
+          const attributeLast = comboSortingSchemes[sortOpt].attributeLast
 
-        if (isFirst && comboSortingSchemes[sortOpt].showCategory && !searchPattern) {
-          return [
-            <div className="w-100 list-br-heading" key={"header" + combo.id.toString()}>
-              <h4>{!attributeLast && current} {catName} {attributeLast && current}</h4>
-            </div>,
-            getComboDiv(combo)
-          ];
-        } else {
-          return (
-            getComboDiv(combo)
-          );
-        }
-      })}
+          if (isFirst && comboSortingSchemes[sortOpt].showCategory && !searchPattern) {
+            return [
+              <div className="w-100 mt-4" key={"header" + combo.id.toString()}>
+                <h4 className="fw-bold">{!attributeLast && current} {catName} {attributeLast && current}</h4>
+              </div>,
+              getComboDiv(combo)
+            ];
+          } else {
+            return (
+              getComboDiv(combo)
+            );
+          }
+        })}
+      </div>
     </div>
   );
 }
