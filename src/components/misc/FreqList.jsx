@@ -5,7 +5,7 @@ const FreqList = ({ stickable }) => {
     <>
       {stickFrequencies.map((item, i) => {
         return (
-          <label className="skillFreq" freq={i} key={i}>
+          <label className="skillFreq px-2 py-1" freq={i} key={i}>
             <input type="radio" value={i} name="stickFrequency" checked={(stickable.stickFrequency === i)} readOnly={true} /> {item}
           </label>
         );
