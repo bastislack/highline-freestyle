@@ -47,7 +47,7 @@ const ComboList = ({ scrollPosition, setScrollPosition }) => {
 
   function getComboDiv(combo) {
     return (
-      <Col key={combo.id} xs={4} lg={3} xl={2} className="p-md-2 p-1">
+      <Col key={combo.id} xs={4} lg={3} xl={2} className="p-lg-2 p-1">
         <ClickableSkillItem
           name={combo.name}
           strickFreq={combo.stickFrequency}
@@ -65,7 +65,7 @@ const ComboList = ({ scrollPosition, setScrollPosition }) => {
 
   return (
     <div>
-      <div className="px-md-2 px-1">
+      <div className="px-lg-2 px-1">
         <SearchBar
           sortingSchema={comboSortingSchemes}
           dropdownHeader="Sort combos"

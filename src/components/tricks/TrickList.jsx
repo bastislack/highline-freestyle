@@ -90,7 +90,7 @@ const TrickList = ({ scrollPosition, setScrollPosition, userCombo, setUserCombo 
 
   function getTrickDiv(trick) {
     return (
-      <Col key={trick.id} xs={4} lg={3} xl={2} className="p-md-2 p-1">
+      <Col key={trick.id} xs={4} lg={3} xl={2} className="p-lg-2 p-1">
         <ClickableSkillItem
           name={trick.alias || trick.technicalName}
           stickFreq={trick.stickFrequency}
@@ -113,7 +113,7 @@ const TrickList = ({ scrollPosition, setScrollPosition, userCombo, setUserCombo 
 
   return (
     <div>
-      <div className="px-md-2 px-1">
+      <div className="px-lg-2 px-1">
         {addTrickToCombo && <h2 style={{'fontWeight': 'bold'}}>Add trick to combo</h2>}
         <SearchBar
           sortingSchema={trickSortingSchemes}
@@ -129,7 +129,7 @@ const TrickList = ({ scrollPosition, setScrollPosition, userCombo, setUserCombo 
 
           if (isFirst && sortingSchemes[sortOpt].showCategory && !searchPattern) {
             return [
-              <div className="w-100 mt-4" key={"header" + trick.id.toString()}>
+              <div className="w-100 mt-4 mx-0 px-lg-2 px-1" key={"header" + trick.id.toString()}>
                 <h4 className="fw-bold">{sortingSchemes[sortOpt].catName} {current}</h4>
               </div>,
               getTrickDiv(trick)
