@@ -85,7 +85,6 @@ const PostCombo = ({ userCombo, setUserCombo }) => {
 
     db.saveCombo(combo)
     .then(() => {
-      console.log(combo);
       setTimeout(() => {navigate('/combos')}, 1);
     })
   }

@@ -1,5 +1,4 @@
 const computeStats = (tricksInCombo) => {
-  console.log("Compute stats of:", tricksInCombo);
   let minDiff = Infinity;
   let maxDiff = -Infinity;
   let avgDiff;

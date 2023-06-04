@@ -40,10 +40,6 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
     diffMarksOnRange[i] = i;
   }
 
-  useEffect(() => {
-    console.log("diffList:", difficultyWhitelist, "freqList:", stickFrequencyWhitelist, "toFeet:", finishToFeet);
-  }, [difficultyWhitelist, stickFrequencyWhitelist]);
-
   // Contains all freqs that should be included from the combo
   function updateFreqItem(e) {
     if (e.target.checked) {
@@ -55,17 +51,13 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
   }
 
   const tricks = useLiveQuery(() => db.getTricksByDiffAndByFreq(difficultyWhitelist,stickFrequencyWhitelist), [difficultyWhitelist, stickFrequencyWhitelist]);
-  console.log(tricks);
   if (!tricks) return null
 
   // If the user wants to save the combo it is added to the database
   const saveToCombos = () => {
     db.saveCombo(randomCombo)
-      .then(() => {
-        console.log("savedCombo");
-      })
       .catch(e => {
-        console.log(e);
+        console.warn(e);
       });
 
     // Increment number of generated combos by 1 so all the combos have unique names
@@ -138,7 +130,6 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
       for (let i = 1; i <= maxDiff - prevMaxDiff; i++) {
         newDiffList.push(prevMaxDiff + i);
       }
-      console.log("newDiffList:", newDiffList);
       setDifficultyWhitelist(newDiffList);
     }
 
@@ -149,15 +140,12 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
       for (let i = 1; i <=  prevMinDiff - minDiff; i++) {
         newDiffList.unshift(prevMinDiff - i);
       }
-      console.log("newDiffList:", newDiffList);
       setDifficultyWhitelist(newDiffList);
     }
 
     if (maxDiff < 4 && finishToFeet) {
-      console.log("toggle finish to Feet");
       setFinishToFeet(false);
     } else if(maxDiff >= 4 && !finishToFeet) {
-      console.log("toggle finish to Feet");
       setFinishToFeet(true);
     }
   }

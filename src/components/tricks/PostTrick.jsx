@@ -80,7 +80,6 @@ const PostTrick = () => {
     
     db.saveTrick(trick)
     .then(() => {
-      console.log(trick);
       setTimeout(() => {navigate('/')}, 1);
     })
   }

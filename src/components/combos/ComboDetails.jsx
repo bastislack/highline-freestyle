@@ -26,7 +26,6 @@ const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
   const inGenerator = path === "/generator"
   const inPostCombo = path === "/postcombo"
 
-
   /**
    * Depending on the page that the details are shown own, the database is queried for either the combo itself or the
    * trick details. In either case a Promise containing an array of the tricks of the combo is returned.
@@ -44,10 +43,8 @@ const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
 
   const combo = useLiveQuery(() => queryDatabaseForCombos(), [comboToShow]);
 
-  if (combo) {
-    console.log("ComboAfterQuery:", combo.tricks);
-  } else {
-    return null;
+  if (!combo) {
+    return null
   }
 
   const selectFreq = (e) => {
@@ -55,20 +52,20 @@ const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
     combo.stickFrequency = newFreq;
     db.saveCombo(combo)
       .then(res => {
-        console.log("changed stickFrequency");
+        console.log("Changed stickFrequency.");
       })
       .catch(e => {
-        console.log(e);
+        console.warn(e);
       });
   }
 
   const deleteCombo = () => {
     db.deleteCombo(combo.id)
       .then(() => {
-        console.log("combo deleted");
+        console.log("Combo deleted.");
       })
       .catch(e => {
-        console.log(e);
+        console.warn(e);
       });
 
     navigate('/combos');
@@ -121,9 +118,9 @@ const ComboDetails = ({ setUserCombo, comboToShow, addTrickToCombo }) => {
   const toggleBoostSkill = () => {
     combo.boostSkill ? combo.boostSkill = false : combo.boostSkill = true;
     db.saveCombo(combo).then(res => {
-      console.log("changed boost");
+      console.log("Changed boost.");
     }).catch(e => {
-      console.log(e);
+      console.warn(e);
     });
   }
 

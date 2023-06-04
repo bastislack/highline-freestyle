@@ -103,7 +103,9 @@ const TrickList = ({ scrollPosition, setScrollPosition, userCombo, setUserCombo 
   // tricks query with react hooks -- means it refreshes automaticly
   // and sorts it according to the sortOpt
   const tricks = useLiveQuery(() => db.getAllTricks().then(t => t.sort(sortingSchemes[sortOpt].sortFunc)), [sortOpt]);
-  if (!tricks) { return null } else console.log(tricks);
+  if (!tricks) {
+    return null;
+  }
 
   const fuse = new Fuse(tricks, options)
   const searchResults = searchPattern ? fuse.search(searchPattern).map(i => i.item) : tricks;

@@ -2,7 +2,6 @@ import { Menu, MenuItem, SubMenu, MenuDivider } from '@szhsin/react-menu';
 import '@szhsin/react-menu/dist/index.css';
 import '@szhsin/react-menu/dist/transitions/slide.css';
 import { BsGearFill } from 'react-icons/bs';
-import { useLocation } from 'react-router-dom';
 import LanguageSelector from "../buttons/LanguageSelector"
 import { useNavigate } from 'react-router';
 
@@ -12,16 +11,11 @@ const db = new Database();
 const Settings = ({ setShowAboutPage, setShowResetWarning }) => {
   const navigate = useNavigate();
 
-  const path = useLocation().pathname.toString().toLowerCase();
-
-  const inTrickList = path === "/";
-  const inComboList = path === "/combos";
-
   const selectImportFile = (e) => {
     const fileReader = new FileReader();
     fileReader.readAsText(e.target.files[0], "UTF-8");
     fileReader.onload = e => {
-      console.log("importing", e.target.result);
+      console.log("Importing", e.target.result);
       db.importDatabase(e.target.result);
       // TODO: fix this navigate, fire instead Dexie.on.storagemutated
       navigate(0);

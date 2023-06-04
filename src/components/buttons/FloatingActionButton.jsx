@@ -6,13 +6,11 @@ const FloatingActionButton = ({ setTrickListScrollPosition, setComboListScrollPo
   const path = useLocation().pathname.toString().toLowerCase();
 
   // the url which the button should lead to
-  let create;
+  let create = path;
   if (path === "/") {
     create = "/posttrick";
   } else if (path === "/combos") {
     create = "/postcombo";
-  } else {
-    console.log("No path for FAB defined");
   }
 
   const updateScrollPosition = () => {
