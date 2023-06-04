@@ -17,7 +17,7 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
 
   const [generatedCombosCount, setGeneratedCombosCount] = useLocalStorage('randomComboCount', 1);
 
-  const [numberOfTricks, setNumberOfTricks] = useState('');
+  const [numberOfTricks, setNumberOfTricks] = useState(3);
   const [allowDuplicates, setAllowDuplicates] = useState(false);
   const [allowConsecutiveTricks, setConsecutiveTricks] = useState(false);
   const [allowSimilarPositions, setAllowSimilarPositions] = useState(true);
@@ -151,46 +151,74 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
   }
 
   return (
-    <div className="generator">
-      <h2>Generate a Random Combo</h2>
-      <form onSubmit={generateCombo}>
-        <div className="row form-row">
-          <label>Number of Tricks:</label>
-          <input
-            className="form-control"
-            type="number"
-            required
-            value={numberOfTricks}
-            onChange={(e) => setNumberOfTricks(parseInt(e.target.value ?? '0'))}
-          />
+    <div>
+      <h3 className="px-1 px-lg-2 mx-0 mb-3 mb-lg-4">Generate a random Combo</h3>
+
+      <form className="px-1 px-lg-2 mx-0" onSubmit={generateCombo}>
+        <div className="row justify-content-between">
+          <div className="col-12 col-lg-2 mb-3 mb-lg-4">
+            <label>Length</label>
+            <input
+              className="form-control"
+              type="number"
+              required
+              value={numberOfTricks}
+              onChange={(e) => setNumberOfTricks(parseInt(e.target.value ?? '0'))}
+            />
+          </div>
+
+          <div style={{"height": "70px"}} className="col-12 col-lg-10 mb-3 mb-lg-4">
+            <label htmlFor="diffRange" className="form-label">Difficulty Range</label>
+            <div className="px-2">
+              <Range
+                id="diffRange"
+                step={1}
+                value={difficultyRangeMinMax}
+                min={0}
+                max={difficultyRangeMax}
+                marks={diffMarksOnRange}
+                onChange={refreshDifficultyRangeMinMax}
+              />
+            </div>
+          </div>
         </div>
-        <div className="difficultyRangeGenerator">
-          <label htmlFor="diffRange" className="form-label">Difficulty Range:</label>
-          <Range id="diffRange" step={1} value={difficultyRangeMinMax} min={0} max={difficultyRangeMax} marks={diffMarksOnRange} onChange={refreshDifficultyRangeMinMax}/>
-        </div>
-        <div className="form-row">
-          <button className="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#advancedDifficultyOptions" aria-expanded="false" aria-controls="collapseExample">
+
+        <div>
+          <button className="btn btn-link btn-sm mb-3 mb-lg-4 w-100" type="button" data-bs-toggle="collapse" data-bs-target="#advancedDifficultyOptions" aria-expanded="false" aria-controls="collapseExample">
             Advanced Options
           </button>
 
-          <div className="collapse" id="advancedDifficultyOptions">
+          <div className="collapse mb-3" id="advancedDifficultyOptions">
             <div className="card card-body">
-              <div className="form-row">
 
-                <p>Allowed stick frequencies:</p>
-                <div className="btn-group btn-group-toggle row btn-group-long-row" data-toggle="buttons" id="specifyStickFreqsDiv">
+              <div className="mb-4">
+                <div className="btn-group btn-group-vertical row w-100 ps-2 pe-0" data-toggle="buttons" id="specifyStickFreqsDiv">
                   {stickFrequencies.map((item, i) => {
                     return (
-                      <label className="skillFreq form-check" freq={i} key={i}>
-                        <input className="form-check-input" type="checkbox" value={i} name="stickFrequency" checked={stickFrequencyWhitelist.includes(i)} readOnly={true} onChange={e => updateFreqItem(e)} /> {item}
-                      </label>
+                      <div className="skillFreq my-0 py-1 px-2 w-100" freq={i}>
+                        <input
+                          className="form-check-input"
+                          id={i}
+                          type="checkbox"
+                          value={i}
+                          name="stickFrequency"
+                          checked={stickFrequencyWhitelist.includes(i)}
+                          readOnly={true}
+                          onChange={e => updateFreqItem(e)}
+                        />
+                        <label className="ms-2" freq={i} key={i} for={i}>
+                          {item}
+                        </label>
+                      </div>
                     );
                   })}
                 </div>
               </div>
-              <hr/>
-              <div className="form-row form-check">
-                <label className="form-check-label">Approximate average difficulty (the more tricks the more accurate): {avgDifficulty > 0 && avgDifficulty}</label>
+
+              <div className="form-check mb-4">
+                <label className="form-check-label">
+                  Approximate average difficulty (the more tricks the more accurate): {avgDifficulty > 0 && avgDifficulty}
+                </label>
                 <input
                   id="input_chkbx_avg"
                   defaultValue="False"
@@ -211,81 +239,87 @@ const ComboGenerator = ({ difficultyRangeMax, randomCombo, setRandomCombo }) => 
                   step="0.5"
                   id="avgDifficultyRange" />
               </div>
-              <hr/>
-              <div className="form-row form-check">
-                <label className="form-check-label">Finish to Feet</label>
-                <input
-                  checked={finishToFeet}
-                  className="form-check-input"
-                  type="checkbox"
-                  onChange={(e) => setFinishToFeet(e.target.checked)}
-                />
-              </div>
-              <hr/>
-              <div className="form-row form-check">
-                <label className="form-check-label">Start from:</label>
-                <input
-                  id="start_from_chkbx"
-                  className="form-check-input"
-                  type="checkbox"
-                  onChange={(e) => { setStartFromCheckbox(e.target.checked); }}
-                />
-                <select
-                  id="select_start_from"
-                  disabled={!startFromCheckbox}
-                  className="form-control"
-                  value={startFromPosition}
-                  placeholder="EXPOSURE"
-                  onChange={(e) => setStartFromPosition(e.target.value)}
-                >
-                  {positionList}
-                </select>
-              </div>
-              <hr/>
-              <div className="form-row">
-                <div className="form-check form-check-inline">
-                  <label className="form-check-label">Allow duplicate tricks</label>
+
+              <div className="mb-3">
+                <div className="form-row form-check">
+                  <label className="form-check-label">Start from</label>
                   <input
-                    id="input_chkbx_duplicates"
+                    id="start_from_chkbx"
                     className="form-check-input"
                     type="checkbox"
-                    onClick={(e) => setAllowDuplicates(e.target.checked)}
+                    onChange={(e) => { setStartFromCheckbox(e.target.checked); }}
                   />
+                  <select
+                    id="select_start_from"
+                    disabled={!startFromCheckbox}
+                    className="form-control"
+                    value={startFromPosition}
+                    placeholder="EXPOSURE"
+                    onChange={(e) => setStartFromPosition(e.target.value)}
+                  >
+                    {positionList}
+                  </select>
                 </div>
-                <div className="form-check form-check-inline">
-                  <label id="consecutiveTricksLabel" className={allowDuplicates ? "form-check-label" : "form-check-label text-muted"}>Allow consecutive tricks</label>
+                <div className="form-row form-check">
+                  <label className="form-check-label">Finish to Feet</label>
                   <input
-                    disabled={!allowDuplicates}
-                    id="consecutiveTricks"
-                    defaultValue="False"
+                    checked={finishToFeet}
                     className="form-check-input"
                     type="checkbox"
-                    onChange={(e) => setConsecutiveTricks(e.target.checked)}
+                    onChange={(e) => setFinishToFeet(e.target.checked)}
                   />
                 </div>
               </div>
-              <hr/>
-              <div className="form-row">
-                <div className="form-check form-check-inline">
-                  <label className="form-check-label">Allow similar positions</label>
-                  <input
-                    id="input_chkbx_similar_pos"
-                    checked={allowSimilarPositions}
-                    className="form-check-input"
-                    type="checkbox"
-                    onChange={(e) => setAllowSimilarPositions(e.target.checked)}
-                  />
+
+              <div className="mb-3">
+                <div className="form-row">
+                  <div className="form-check form-check-inline">
+                    <label className="form-check-label">Allow duplicate tricks</label>
+                    <input
+                      id="input_chkbx_duplicates"
+                      className="form-check-input"
+                      type="checkbox"
+                      onClick={(e) => setAllowDuplicates(e.target.checked)}
+                    />
+                  </div>
+                  <div className="form-check form-check-inline">
+                    <label id="consecutiveTricksLabel" className={allowDuplicates ? "form-check-label" : "form-check-label text-muted"}>Allow consecutive tricks</label>
+                    <input
+                      disabled={!allowDuplicates}
+                      id="consecutiveTricks"
+                      defaultValue="False"
+                      className="form-check-input"
+                      type="checkbox"
+                      onChange={(e) => setConsecutiveTricks(e.target.checked)}
+                    />
+                  </div>
                 </div>
-                <div className="form-check form-check-inline">
-                  <label className="form-check-label">Allow transitions</label>
-                  <input
-                    id="transitions"
-                    checked={allowTransitions}
-                    className="form-check-input"
-                    type="checkbox"
-                    onChange={(e) => setAllowTransitions(e.target.checked)}
-                  />
+              </div>
+
+              <div>
+                <div className="form-row">
+                  <div className="form-check form-check-inline">
+                    <label className="form-check-label">Allow similar positions</label>
+                    <input
+                      id="input_chkbx_similar_pos"
+                      checked={allowSimilarPositions}
+                      className="form-check-input"
+                      type="checkbox"
+                      onChange={(e) => setAllowSimilarPositions(e.target.checked)}
+                    />
+                  </div>
+                  <div className="form-check form-check-inline">
+                    <label className="form-check-label">Allow transitions</label>
+                    <input
+                      id="transitions"
+                      checked={allowTransitions}
+                      className="form-check-input"
+                      type="checkbox"
+                      onChange={(e) => setAllowTransitions(e.target.checked)}
+                    />
+                  </div>
                 </div>
+
               </div>
             </div>
           </div>

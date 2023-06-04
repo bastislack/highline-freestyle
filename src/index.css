@@ -185,16 +185,8 @@
   transition:0.5s;
 }
 
-.btn-group-long-row {
-  width:100%;
-}
-
 .icon-white path {
   fill: white;
-}
-
-.difficultyRangeGenerator {
-  margin-bottom: 30px;
 }
 
 .boostSkill {
