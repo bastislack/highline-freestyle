@@ -2,7 +2,7 @@ import Modal from 'react-bootstrap/Modal';
 
 const About = ({ showAboutPage, setShowAboutPage }) => {
   return (
-    <Modal show={showAboutPage} onHide={() => setShowAboutPage(false)}>
+    <Modal show={showAboutPage} onHide={() => setShowAboutPage(false)} size="lg">
       <Modal.Header closeButton>
         <Modal.Title>About highline-freestyle.com</Modal.Title>
       </Modal.Header>
