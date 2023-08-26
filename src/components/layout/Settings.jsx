@@ -12,14 +12,7 @@ const Settings = ({ setShowAboutPage, setShowResetWarning }) => {
   const navigate = useNavigate();
 
   const selectImportFile = (e) => {
-    const fileReader = new FileReader();
-    fileReader.readAsText(e.target.files[0], "UTF-8");
-    fileReader.onload = e => {
-      console.log("Importing", e.target.result);
-      db.importDatabase(e.target.result);
-      // TODO: fix this navigate, fire instead Dexie.on.storagemutated
-      navigate(0);
-    };
+    db.importDatabase(e.target.files[0]);
   };
 
   return (
