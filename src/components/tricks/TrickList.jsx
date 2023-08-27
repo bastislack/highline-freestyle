@@ -126,7 +126,7 @@ const TrickList = ({ scrollPosition, setScrollPosition, userCombo, setUserCombo 
         if (isFirst && sortingSchemes[sortOpt].showCategory && !searchPattern) {
           return [
             <div className="w-100 list-br-heading" key={"header" + trick.id.toString()}>
-              <h4>{sortingSchemes[sortOpt].catName} {current}</h4>
+              <h4>{sortingSchemes[sortOpt].catName} {(current === 999) ? '"to be detemined"' : current}</h4>
             </div>,
             getTrickDiv(trick)
           ];
