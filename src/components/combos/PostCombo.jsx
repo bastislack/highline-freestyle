@@ -60,8 +60,6 @@ const PostCombo = ({ userCombo, setUserCombo }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    userCombo.tricks = userCombo.tricks.map(trick => trick.id);
-
     const combo = {
       id: preId,
       tricks: userCombo.tricks,
