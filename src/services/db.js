@@ -92,6 +92,10 @@ export default class Database {
     this.persistentStorage = tryPersistWithoutPromtingUser();
   }
 
+  resetAll = () => {
+    return this.db.delete();
+  };
+
   // Tricks
 
   // clear userTricks
