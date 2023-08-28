@@ -34,6 +34,9 @@ const About = ({ showAboutPage, setShowAboutPage }) => {
             We use the <a href="https://en.wikipedia.org/wiki/Web_storage">localstorage</a> and <a href="https://en.wikipedia.org/wiki/Indexed_Database_API">indexedDB</a> API to save your data in your browser.
             We will never know about your data, only your browser knows about it!
         </p>
+        <h5>What' new?</h5>
+        <p>You can find the latest changes in the <a href="https://github.com/bastislack/highline-freestyle/blob/develop/CHANGELOG.md">Changelog</a>.
+        </p>
       </Modal.Body>
     </Modal>
   );
