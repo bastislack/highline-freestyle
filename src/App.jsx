@@ -40,7 +40,7 @@ const App = () => {
         <div className="App">
           <div className="container-fluid">
             <div className="row flex-nowrap">
-              <LeftNav setShowAboutPage={setShowAboutPage} />
+              <LeftNav setShowAboutPage={setShowAboutPage} setShowResetWarning={setShowResetWarning} />
               <Div100vh className="main-column">
                 <TopNav setShowAboutPage={setShowAboutPage} setShowResetWarning={setShowResetWarning} />
                 <div className="main-column-content-wrapper">

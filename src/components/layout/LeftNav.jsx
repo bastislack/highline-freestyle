@@ -4,8 +4,9 @@ import { parentPageOf, parentPageMatches } from '../../services/parentPage';
 import { Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import LanguageSelector from "../buttons/LanguageSelector"
+import Settings from './Settings';
 
-const LeftNav = ({ setShowAboutPage }) => {
+const LeftNav = ({ setShowAboutPage, setShowResetWarning }) => {
   const path = useLocation().pathname.toString().toLowerCase();
   const parentPage = parentPageOf(path);
 
@@ -24,6 +25,11 @@ const LeftNav = ({ setShowAboutPage }) => {
           })
         }
       </Nav>
+      <div className="d-flex justify-content-end">
+        <Settings
+          setShowAboutPage={setShowAboutPage}
+          setShowResetWarning={setShowResetWarning} />
+      </div>
       <hr />
       <LanguageSelector />
       <div className="row mt-1">
