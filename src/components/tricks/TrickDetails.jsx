@@ -41,10 +41,7 @@ const TrickDetails = () => {
 
   const selectFreq = (e) => {
     const newFreq = Number(e.target.value);
-    let modifiedTrick = Object();
-    modifiedTrick.id = trick.id;
-    modifiedTrick.stickFrequency = newFreq;
-    db.saveTrick(modifiedTrick).catch(e => {
+    db.changeTrickStickFrequency(trick.id, newFreq).catch(e => {
       console.warn(e);
     });
   }
@@ -105,7 +102,7 @@ const TrickDetails = () => {
           {(trick.difficultyLevel >= 0) &&
             <div>
               <h6><Trans id="trickDetails.level">Level</Trans>: </h6>
-              <div className="callout">{trick.difficultyLevel}</div>
+              <div className="callout">{(trick.difficultyLevel != 999) ? trick.difficultyLevel : "to be determined"}</div>
             </div>
           }
 

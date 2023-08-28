@@ -130,7 +130,7 @@ const TrickList = ({ scrollPosition, setScrollPosition, userCombo, setUserCombo 
           if (isFirst && sortingSchemes[sortOpt].showCategory && !searchPattern) {
             return [
               <div className="w-100 mt-4 mx-0 px-lg-2 px-1" key={"header" + trick.id.toString()}>
-                <h4 className="fw-bold">{sortingSchemes[sortOpt].catName} {current}</h4>
+                <h4 className="fw-bold">{sortingSchemes[sortOpt].catName} {(current === 999) ? '"to be detemined"' : current}</h4>
               </div>,
               getTrickDiv(trick)
             ];
@@ -142,6 +142,7 @@ const TrickList = ({ scrollPosition, setScrollPosition, userCombo, setUserCombo 
 
         })}
       </div>
+
     </div>
   );
 }
