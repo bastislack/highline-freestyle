@@ -230,6 +230,13 @@ export default class Database {
     }
   };
 
+  // updatesonly the stickFrequency if a trick with the id exists in the userTricks tabel, ohterwise creates a new entry
+  changeTrickStickFrequency = (trickId, newFrequency) => {
+    return this.db.userTricks.update(trickId, {stickFrequency: newFrequency}).then((worked) => {
+      if (!worked) return this.db.userTricks.put(Object({id: trickId, stickFrequency: newFrequency}));
+    });
+  };
+
   // delete trick
   deleteTrick = (id) => this.db.userTricks.put({"id": Number(id), deleted: true});
 
