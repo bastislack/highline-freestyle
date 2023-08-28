@@ -101,7 +101,7 @@ const TrickDetails = () => {
           {(trick.difficultyLevel >= 0) &&
             <div>
               <h6><Trans id="trickDetails.level">Level</Trans>: </h6>
-              <div className="callout">{trick.difficultyLevel}</div>
+              <div className="callout">{(trick.difficultyLevel != 999) ? trick.difficultyLevel : "to be determined"}</div>
             </div>
           }
 
