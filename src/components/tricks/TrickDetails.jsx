@@ -58,8 +58,8 @@ const TrickDetails = () => {
   };
 
   const toggleBoostSkill = () => {
-    trick.boostSkill ? trick.boostSkill = false : trick.boostSkill = true;
-    db.saveTrick(trick).catch(e => {
+    const isBoosted = trick.boostSkill ? false : true;
+    db.changeBoostSkill(trick.id, isBoosted).catch(e => {
       console.warn(e);
     });
   }

@@ -213,8 +213,26 @@ export default class Database {
       // replace recTricks by their id
       trick.recommendedPrerequisites = trick.recommendedPrerequisites.map(recTrick => recTrick.id);
     }
-    if (trick.id) return this.db.userTricks.put(trick);
+    if (trick.id) {
+      // trick has an id, so exists already in database
+      return this.db.predefinedTricks.get(trick.id).then( (preTrick) => {
+        if (preTrick) {
+          // we check what fields the user changed from the default and only save them into the userTricks
+          for (let attribute in preTrick) {
+            if (attribute !== "id" && trick.hasOwnProperty(attribute)) {
+              if ((preTrick[attribute] === trick[attribute] || !trick[attribute]) || (Array.isArray(preTrick[attribute]) && preTrick[attribute].toString() === trick[attribute].toString())) {
+                // comparing eiter values or if its an array the string of the whole array ()
+                delete trick[attribute];
+              };
+            };
+          };
+        };
+        // trick is a pure userTrick so all values are kept
+        return this.db.userTricks.put(trick);
+      });
+    }
     else {
+      // get new non colliding id
       return this.db.predefinedTricks.toCollection().primaryKeys().then( (trickKeys) => {
         this.db.userTricks.toCollection().primaryKeys().then( userTrickKeys => {
           const keysSet = new Set(trickKeys.concat(userTrickKeys));
@@ -234,6 +252,13 @@ export default class Database {
   changeTrickStickFrequency = (trickId, newFrequency) => {
     return this.db.userTricks.update(trickId, {stickFrequency: newFrequency}).then((worked) => {
       if (!worked) return this.db.userTricks.put(Object({id: trickId, stickFrequency: newFrequency}));
+    });
+  };
+
+  // updates only the boostSkill if a trick with the id exists in the userTricks tabel, ohterwise creates a new entry
+  changeBoostSkill = (trickId, isBoosted) => {
+    return this.db.userTricks.update(trickId, {boostSkill: isBoosted}).then((worked) => {
+      if (!worked) return this.db.userTricks.put(Object({id: trickId, boostSkill: isBoosted}));
     });
   };
 
