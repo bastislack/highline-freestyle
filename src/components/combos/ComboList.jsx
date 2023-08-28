@@ -50,7 +50,7 @@ const ComboList = ({ scrollPosition, setScrollPosition }) => {
       <Col key={combo.id} xs={4} lg={3} xl={2} className="p-lg-2 p-1">
         <ClickableSkillItem
           name={combo.name}
-          strickFreq={combo.stickFrequency}
+          stickFreq={combo.stickFrequency}
           isBoosted={combo.boostSkill}
           onClick={() => {
             updateScrollPosition();
