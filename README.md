@@ -10,10 +10,12 @@ The link to the page is: https://highline-freestyle.com
 - Tricks added by the user
 - Random combo generator
 - Possibility to mark tricks on how good you can do them
+- ComboMaker to allow the user to save his own combo
+
+### [Changelog](https://github.com/bastislack/highline-freestyle/blob/develop/CHANGELOG.md)
 
 ## Future plans
 
-- ComboMaker to allow the user to save his own combo
 - Possibility to share own tricks and combos with other people
 - Integrate judging feature for competitions
 
@@ -27,7 +29,7 @@ Open an issue and describe what is you want to see different
 
 ## Development
 
-We don't always know what we really do, but we try to keep some order, through issues ...
+Following is gives a brief introduction into the development.
 
 Checkout the [good first issue tag](https://github.com/bastislack/highline-freestyle/labels/good%20first%20issue), if you don't know where to start.
 
