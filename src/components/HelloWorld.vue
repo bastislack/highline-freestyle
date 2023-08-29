@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { combosDao } from '../lib/database';
+
 
 defineProps<{ msg: string }>()
+
+console.log(combosDao)
 
 const count = ref(0)
 </script>

@@ -9,7 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.3.4"
+    "dexie": "^3.2.4",
+    "vue": "^3.3.4",
+    "zod": "^3.22.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",
