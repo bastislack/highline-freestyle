@@ -1,5 +1,5 @@
 import DbObject from "./dbObject";
-import {DbCombosTableZod, DbMetadataZod} from "../schemas/CurrentVersionSchema"
+import {DbTricksTableZod, DbMetadataZod} from "../schemas/CurrentVersionSchema"
 import { z } from "zod";
 import { MainDatabase } from "../databaseInstance";
 
@@ -8,17 +8,23 @@ import { MainDatabase } from "../databaseInstance";
 * This is the "rich" object that should be used by the UI Layer.
 * It contains all the data that the frontend would care about, plus functions to modify, fetch adjacent data, etc.
 */
-export class Combo implements DbObject {
+export class Trick implements DbObject {
   
   #modified = {
     dataFromDatabase: {
+      technicalName: false,
       alias: false,
       establishedBy: false,
       yearEstablished: false,
+      startPosition: false,
+      endPosition: false,
+      difficultyLevel: false,
       description: false,
+      recommendedPrerequisites: false,
       tips: false,
+      variationOf: false,
       videos: false,
-      comboStatus: false,
+      showInSearchQueries: false,
       tricks: false
     },
     metadata: {
@@ -32,7 +38,6 @@ export class Combo implements DbObject {
     deleted: false
   }
 
-
   public get changed() {
     return [...Object.values(this.#modified.dataFromDatabase), ...Object.values(this.#modified.metadata)].some( e => e)
   }
@@ -45,7 +50,29 @@ export class Combo implements DbObject {
 
   public get primaryKey() {
     // Primary Key is read-only -> has no setter
-    return [this.dataFromDatabase.id, this.dataFromDatabase.comboStatus] as const
+    return [this.dataFromDatabase.id, this.dataFromDatabase.trickStatus] as const
+  }
+
+
+  public get technicalName() {
+    return this.dataFromDatabase.technicalName
+  }
+  public set technicalName(val) {
+    if(val === this.dataFromDatabase.technicalName) {
+      return
+    }
+    this.#modified.dataFromDatabase.technicalName = true
+    // this might seem confusing at first, but is basically just an access of the DbTricksTable's 
+    // definition of alias. This is mainly here so we have a single source of truth in 
+    // terms of validation, namely DbTricksTableZod of the current Version.
+    // This call will throw an error if the provided argument does not fit the contract defined
+    // by the zod type.                       |                |
+    //                                        |                |
+    // The same thing happens with the        |                |
+    // other properties, but their            |                |
+    // comments are ommited.                  |                |
+    //                                      vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+    this.dataFromDatabase.technicalName =  DbTricksTableZod._def.shape().technicalName.parse(val)
   }
 
   public get alias() {
@@ -57,17 +84,7 @@ export class Combo implements DbObject {
       return
     }
     this.#modified.dataFromDatabase.alias = true
-    // this might seem confusing at first, but is basically just an access of the DbComboTable's 
-    // definition of alias. This is mainly here so we have a single source of truth in 
-    // terms of validation, namely DbCombosTableZod of the current Version.
-    // This call will throw an error if the provided argument does not fit the contract defined
-    // by the zod type.                       |                |
-    //                                        |                |
-    // The same thing happens with the        |                |
-    // other properties, but their            |                |
-    // comments are ommited.                  |                |
-    //                            vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-    this.dataFromDatabase.alias = DbCombosTableZod._def.shape().alias.parse(val)
+    this.dataFromDatabase.alias = DbTricksTableZod._def.shape().alias.parse(val)
 
   }
 
@@ -79,7 +96,40 @@ export class Combo implements DbObject {
       return
     }
     this.#modified.dataFromDatabase.establishedBy = true
-    this.dataFromDatabase.alias = DbCombosTableZod._def.shape().establishedBy.parse(val)
+    this.dataFromDatabase.alias = DbTricksTableZod._def.shape().establishedBy.parse(val)
+  }
+
+  public get startPosition() {
+    return this.dataFromDatabase.startPosition
+  }
+  public set startPosition(val) {
+    if(val === this.dataFromDatabase.startPosition) {
+      return
+    }
+    this.#modified.dataFromDatabase.startPosition = true
+    this.dataFromDatabase.startPosition = DbTricksTableZod._def.shape().startPosition.parse(val)
+  }
+
+  public get endPosition() {
+    return this.dataFromDatabase.endPosition
+  }
+  public set endPosition(val) {
+    if(val === this.dataFromDatabase.endPosition) {
+      return
+    }
+    this.#modified.dataFromDatabase.endPosition = true
+    this.dataFromDatabase.endPosition = DbTricksTableZod._def.shape().endPosition.parse(val)
+  }
+
+  public get difficultyLevel() {
+    return this.dataFromDatabase.difficultyLevel
+  }
+  public set difficultyLevel(val) {
+    if(val === this.dataFromDatabase.difficultyLevel) {
+      return
+    }
+    this.#modified.dataFromDatabase.difficultyLevel = true
+    this.dataFromDatabase.difficultyLevel = DbTricksTableZod._def.shape().difficultyLevel.parse(val)
   }
 
   public get yearEstablished() {
@@ -90,7 +140,7 @@ export class Combo implements DbObject {
       return
     }
     this.#modified.dataFromDatabase.yearEstablished = true;
-    this.dataFromDatabase.yearEstablished = DbCombosTableZod._def.shape().yearEstablished.parse(val)
+    this.dataFromDatabase.yearEstablished = DbTricksTableZod._def.shape().yearEstablished.parse(val)
   }
 
   public get description() {
@@ -101,7 +151,24 @@ export class Combo implements DbObject {
       return
     }
     this.#modified.dataFromDatabase.description = true;
-    this.dataFromDatabase.description = DbCombosTableZod._def.shape().description.parse(val)
+    this.dataFromDatabase.description = DbTricksTableZod._def.shape().description.parse(val)
+  }
+
+  public get recommendedPrerequisites() {
+    if(!this.dataFromDatabase.recommendedPrerequisites) {
+      return undefined
+    }
+    return [...this.dataFromDatabase.recommendedPrerequisites]
+  }
+  public set recommendedPrerequisites(val) {
+    if(this.dataFromDatabase.recommendedPrerequisites === val) {
+      return
+    }
+    if(val) {
+      val = [...val]
+    }
+    this.#modified.dataFromDatabase.recommendedPrerequisites = true
+    this.dataFromDatabase.recommendedPrerequisites = DbTricksTableZod._def.shape().recommendedPrerequisites.parse(val)
   }
 
   public get tips() {
@@ -124,7 +191,35 @@ export class Combo implements DbObject {
       val = [...val] // again doing a shallow copy so you cannot modify the reference.
     }
     this.#modified.dataFromDatabase.tips = true;
-    this.dataFromDatabase.tips = DbCombosTableZod._def.shape().tips.parse(val)
+    this.dataFromDatabase.tips = DbTricksTableZod._def.shape().tips.parse(val)
+  }
+
+  public get variationOf() {
+    if(!this.dataFromDatabase.variationOf) {
+      return undefined
+    }
+    return [...this.dataFromDatabase.variationOf]
+  }
+  public set variationOf(val) {
+    if(this.dataFromDatabase.variationOf === val) {
+      return
+    }
+    if(val) {
+      val = [...val]
+    }
+    this.#modified.dataFromDatabase.variationOf = true
+    this.dataFromDatabase.variationOf = DbTricksTableZod._def.shape().variationOf.parse(val)
+  }
+
+  public get showInSearchQueries() {
+    return this.dataFromDatabase.showInSearchQueries
+  }
+  public set showInSearchQueries(val) {
+    if(val === this.dataFromDatabase.showInSearchQueries) {
+      return
+    }
+    this.#modified.dataFromDatabase.showInSearchQueries = true
+    this.dataFromDatabase.showInSearchQueries = DbTricksTableZod._def.shape().showInSearchQueries.parse(val)
   }
 
   public get dateAddedEpoch() {
@@ -147,20 +242,8 @@ export class Combo implements DbObject {
       val = [...val]
     }
     this.#modified.dataFromDatabase.videos = true;
-    this.dataFromDatabase.videos = DbCombosTableZod._def.shape().videos.parse(val)
+    this.dataFromDatabase.videos = DbTricksTableZod._def.shape().videos.parse(val)
   }
-
-  public get comboStatus() {
-    return this.dataFromDatabase.comboStatus;
-  }
-  public set comboStatus(val) {
-    if(val === this.dataFromDatabase.comboStatus) {
-      return
-    }
-    this.#modified.dataFromDatabase.comboStatus = true;
-    this.dataFromDatabase.comboStatus = DbCombosTableZod._def.shape().comboStatus.parse(val)
-  }
-
   //#endregion
 
   //#region Getters and Setters for Metadata Table
@@ -211,13 +294,13 @@ export class Combo implements DbObject {
 
 
   /**
-   * Creates a new Combo Object. This constructor should be treated as "internal" — The UI Layer should make use of the `combosDao` instead!
+   * Creates a new trick Object. This constructor should be treated as "internal" — The UI Layer should make use of the `tricksDao` instead!
    */
-  constructor(private dataFromDatabase: z.infer<typeof DbCombosTableZod>, private metadataFromDatabase: z.infer<typeof DbMetadataZod>, private db: MainDatabase) {}
+  constructor(private dataFromDatabase: z.infer<typeof DbTricksTableZod>, private metadataFromDatabase: z.infer<typeof DbMetadataZod>, private db: MainDatabase) {}
 
   
   /**
-   * Will push the new state for this combo to the database.
+   * Will push the new state for this trick to the database.
    * If refetch is true, this will then also apply the new state from the DB onto the object
    * @returns `true` on success, else an Error message
    */
@@ -236,7 +319,7 @@ export class Combo implements DbObject {
 
     this.#modified.persisting = true
     //                            if any value in Object is true -> true, else false
-    const hasComboRecordChanged = Object.values(this.#modified.dataFromDatabase).some( e => e)
+    const hasTrickRecordChanged = Object.values(this.#modified.dataFromDatabase).some( e => e)
     const hasMetadataRecordChanged = Object.values(this.#modified.metadata).some( e => e)
 
 
@@ -246,13 +329,13 @@ export class Combo implements DbObject {
     try {
       await (async () => {
         try {
-          if(hasComboRecordChanged) {
-            await this.db.combos.put(this.dataFromDatabase)
+          if(hasTrickRecordChanged) {
+            await this.db.tricks.put(this.dataFromDatabase)
           }
         }
         catch(err) {
           console.error(err)
-          response = "Failed to push update to combos table. See console for more info."
+          response = "Failed to push update to tricks table. See console for more info."
           return
         }
 
@@ -287,14 +370,14 @@ export class Combo implements DbObject {
 
   public async refetch(): Promise<string | true> {
     try {
-      const [newCombo, newMetadata] = await Promise.all([
-        this.db.combos.get(this.primaryKey),
-        this.db.metadata.get([...this.primaryKey, "Combo" as const])
+      const [newTrick, newMetadata] = await Promise.all([
+        this.db.tricks.get(this.primaryKey),
+        this.db.metadata.get([...this.primaryKey, "Trick" as const])
       ])
       // new data fetched. Now just doing a parse with zod to validate that the 
       // data on the DB aligns with the zod types.
       this.metadataFromDatabase = DbMetadataZod.parse(newMetadata)
-      this.dataFromDatabase = DbCombosTableZod.parse(newCombo)
+      this.dataFromDatabase = DbTricksTableZod.parse(newTrick)
       return true
     }
     catch(err) {
@@ -305,8 +388,7 @@ export class Combo implements DbObject {
 
 
   /**
-   * Will delete the combo and the metadata assigned to it.
-   * This will keep the tricks belonging to the combo unaffected
+   * Will delete the tricks and the metadata assigned to it.
    * @returns `true` on success, else an Error message
    */
   public async delete(): Promise<string | true> {
@@ -315,14 +397,14 @@ export class Combo implements DbObject {
     }
     try {
       await Promise.all([
-        this.db.combos.delete(this.primaryKey),
-        this.db.metadata.delete([...this.primaryKey, "Combo" as const])
+        this.db.tricks.delete(this.primaryKey),
+        this.db.metadata.delete([...this.primaryKey, "Tricks" as const])
       ])
       return true
     }
     catch (err) {
       console.error(err)
-      return "Something went wrong when trying to delete a Combo. See the console for more info."
+      return "Something went wrong when trying to delete a Trick. See the console for more info."
     }
   }
 

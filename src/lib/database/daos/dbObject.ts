@@ -19,4 +19,9 @@ export default interface DbObject {
    * Update the Object with values from the database.
    */
   refetch(): Promise<true | string>
+
+  /**
+   * Returns if the Object has been modified "locally"
+   */
+  get changed(): boolean
 }

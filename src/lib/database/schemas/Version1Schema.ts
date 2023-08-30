@@ -44,7 +44,6 @@ const DbVideoZod = z.object({
 
 const CommonDefinition = {
   id: z.number().int(),
-  technicalName: z.string().nonempty(),
   alias: z.string().nonempty().optional(),
   establishedBy: z.string().nonempty().optional(),
   yearEstablished: z.number().int().positive().optional(),
@@ -57,6 +56,7 @@ const CommonDefinition = {
 
 export const DbTricksTableZod = z.object({
   ...CommonDefinition,
+  technicalName: z.string().nonempty(),
   trickStatus: DbStickableStatusZod,
   startPosition: DbPositionZod,
   endPosition: DbPositionZod,
@@ -93,6 +93,6 @@ export async function update(_tx: Transaction) {
 
 export const schema = {
   tricks: "[id+trickStatus], technicalName, alias, establishedBy, yearEstablished, startPosition, endPosition, difficultyLevel, description, recommendedPrequisites, tips, variationOf, showInSearchQueries, dateAddedEpoch, videos",
-  combos: "[id+comboStatus], technicalName, alias, establishedBy, yearEstablished, tricks, description, tips, dateAddedEpoch, videos",
+  combos: "[id+comboStatus], alias, establishedBy, yearEstablished, tricks, description, tips, dateAddedEpoch, videos",
   metadata: "[id+entityStatus+entityCategory], stickFrequency, isFavourite, notes"
 } as const
