@@ -2,6 +2,8 @@
 import { computed, ref } from 'vue';
 import { Icon } from '@iconify/vue';
 import {isDarkMode, setColorScheme, applyColorScheme} from "../util/colorScheme"
+import { useI18n } from 'vue-i18n';
+import { setNewLocale } from '../util/locale';
 
 interface Props {
   type: "fixed" | "sticky"
@@ -50,10 +52,13 @@ const LocaleInfos: LocaleInfo[] = [
   }
 ] 
 
+const {locale} = useI18n()
+
 const isMobileNavExpanded = ref(false)
 
-function updateLocale(locale: LocaleInfo["locale"]) {
-  console.log(locale)
+function updateLocale(newLocale: LocaleInfo["locale"]) {
+  locale.value = newLocale
+  setNewLocale(newLocale)
 }
 
 function toggleDarkmode() {
