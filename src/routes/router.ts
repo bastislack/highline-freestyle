@@ -5,6 +5,11 @@ export default createRouter({
   routes: [
     {
       path: "/", component: () => import("./IndexRoute.vue"), 
+    },
+    {
+      path: "/:catchAll(.*)",
+      name: "NotFound",
+      component: () => import("./NotFoundRoute.vue")
     }
   ]
 })
