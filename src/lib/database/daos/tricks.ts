@@ -1,4 +1,4 @@
-import DbObject from "./dbObject";
+import {DbObject} from "./dbObject";
 import {DbTricksTableZod, DbMetadataZod} from "../schemas/CurrentVersionSchema"
 import { z } from "zod";
 import { MainDatabase } from "../databaseInstance";
@@ -274,15 +274,13 @@ export class Trick implements DbObject {
     if(!this.metadataFromDatabase.notes) {
       return undefined
     }
-    return [...this.metadataFromDatabase.notes]
+    return this.metadataFromDatabase.notes
   }
   public set notes(val) {
     if(val === this.metadataFromDatabase.notes) {
       return
     }
-    if(val) {
-      val = [...val]
-    }
+    
     this.#modified.metadata.notes = true
     this.metadataFromDatabase.notes = DbMetadataZod._def.shape().notes.parse(val)
   }

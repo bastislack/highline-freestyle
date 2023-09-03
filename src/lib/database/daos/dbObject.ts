@@ -2,7 +2,11 @@
  * The Proxy objects for Combos and Tricks should implement this Interface.
  * Via this interface they can commit changes to the Database.
  */
-export default interface DbObject {
+
+import { z } from "zod"
+import { DbStickableStatusZod } from "../schemas/CurrentVersionSchema"
+
+export type DbObject = {
   /**
    * Invoking this function will make a call to the Dexie Database.
    * If everything goes well a `true` is returned, else a string containing an error message.
@@ -24,4 +28,15 @@ export default interface DbObject {
    * Returns if the Object has been modified "locally"
    */
   get changed(): boolean
+}
+
+/**
+ * A common interface for Database Access Objects that return {@link DbObject}s.
+ */
+export type DbObjectDao<T extends DbObject> = {
+
+  getAll(): Promise<T[]>
+
+  createNew(newObjectWithoutId: Omit<T, "id" | keyof DbObject>, entityType: z.infer<typeof DbStickableStatusZod> ): Promise<T>
+
 }
