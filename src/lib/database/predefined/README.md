@@ -1,0 +1,1 @@
+This module is responsible for applying the fetched data from the Google Sheet 
