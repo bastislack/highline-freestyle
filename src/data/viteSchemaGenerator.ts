@@ -15,6 +15,9 @@ export default async function generateJsonSchemas() {
   const trickTableSchema = zodToJsonSchema(DbTricksTableZod.omit({trickStatus: true}),{name: "tricks"})
   const comboTableSchema = zodToJsonSchema(DbCombosTableZod.omit({comboStatus: true}), {name: "combos"})
   
-  await writeFile(join(fileURLToPath(import.meta.url), "..", "tricks", "tricks.schema.json"),JSON.stringify(trickTableSchema), "utf8")
-  await writeFile(join(fileURLToPath(import.meta.url), "..", "combos", "combos.schema.json"),JSON.stringify(comboTableSchema), "utf8")
+  // @ts-expect-error For some weird reason this is interpreted as a CommonJS Module by the LSP.
+  const thisFilePath = fileURLToPath(import.meta.url)
+
+  await writeFile(join(thisFilePath, "..", "tricks", "tricks.schema.json"),JSON.stringify(trickTableSchema), "utf8")
+  await writeFile(join(thisFilePath, "..", "combos", "combos.schema.json"),JSON.stringify(comboTableSchema), "utf8")
 }

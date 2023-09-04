@@ -10,7 +10,7 @@
 import {globby} from "globby"
 import {join} from "path";
 import {fileURLToPath} from "url"
-import { ZodError, ZodIssue, z } from "zod";
+import { ZodError, z } from "zod";
 import { DbTricksTableZod } from "../lib/database/schemas/CurrentVersionSchema"
 import {parse} from "yaml"
 import { readFile } from "fs/promises";
@@ -22,7 +22,29 @@ async function fetchYamlFile(path: string): Promise<z.infer<typeof DbTricksTable
 }
 
 
+function findDuplicateKeys(allTricks: z.infer<typeof DbTricksTableZod>[]) {
+
+  let idToTrickLookup: Record<number, (z.infer<typeof DbTricksTableZod>)[]> = {}
+
+  allTricks.forEach( e => {
+    if(!idToTrickLookup[e.id]) {
+      idToTrickLookup[e.id] = []
+    }
+    idToTrickLookup[e.id].push(e)
+  })
+
+  return Object.entries(idToTrickLookup).filter(([_,e]) => e.length > 1).map(([k,v]) => ({
+    id: k,
+    technicalNames: v.map( e => e.technicalName)
+  }))
+
+
+
+}
+
+
 export default async function viteGetAllTricks() {
+  // @ts-expect-error 
   const pattern = join(fileURLToPath(import.meta.url), "..", "tricks", "*.yaml");
   const allFilePaths = await globby(pattern)
 
@@ -44,5 +66,14 @@ export default async function viteGetAllTricks() {
       message: "At least one Trick file could not be parsed.\n\n"+errorMeta,
     }
   }
+
+  const duplicateIds = findDuplicateKeys(goodFiles)
+  if(duplicateIds.length > 0) {
+    throw {
+      plugin: "vite-plugin-highline-freestyle-data",
+      message: "Some Tricks contain the same ID.\n\n"+JSON.stringify(duplicateIds)
+    }
+  }
+
   return goodFiles
 }

@@ -1,6 +1,11 @@
-import type { MainDatabase } from "./databaseInstance";
+import type { MainDatabase } from "../databaseInstance";
 
 
 export default class CombosDAO {
-  constructor(private db: MainDatabase) {}
+  public get temp() {
+    return this.db
+  }
+
+  constructor(private db: MainDatabase) {
+  }
 }
