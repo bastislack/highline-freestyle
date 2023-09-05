@@ -92,7 +92,7 @@ export async function update(_tx: Transaction) {
 }
 
 export const schema = {
-  tricks: "[id+trickStatus], technicalName, alias, establishedBy, yearEstablished, startPosition, endPosition, difficultyLevel, description, *recommendedPrequisites, tips, *variationOf, showInSearchQueries, dateAddedEpoch, videos",
+  tricks: "[id+trickStatus], technicalName, alias, establishedBy, yearEstablished, startPosition, endPosition, difficultyLevel, description, *recommendedPrerequisites, tips, *variationOf, showInSearchQueries, dateAddedEpoch, videos",
   combos: "[id+comboStatus], alias, establishedBy, yearEstablished, *tricks, description, tips, dateAddedEpoch, videos",
   metadata: "[id+entityStatus+entityCategory], stickFrequency, isFavourite, notes"
 } as const

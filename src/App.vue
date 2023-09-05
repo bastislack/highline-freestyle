@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import {onMounted} from "vue"
 
-onMounted( () => {
-  import("./lib/database/official/isSyncNeeded.ts").then( e => e.default())
+onMounted( async() => {
+  (await import("./lib/database/official/index")).default()
 })
 
 </script>

@@ -6,3 +6,5 @@ technicalName: Example Blabla
 establishedBy: Example Exampleson
 startPosition: Sofa
 endPosition: Rocket
+recommendedPrerequisites:
+  - [2, "official"]

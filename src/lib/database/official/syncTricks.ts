@@ -72,7 +72,7 @@ async function handleArchiving(archivedTricks: z.infer<typeof DbTricksTableZod>[
 
     variationOf.forEach( f => {
       if(f.status === "rejected") {
-        console.error(`[Offical Sync] Failed to update variationOf referencing ${e.technicalName}`, f)
+        console.error(`[Official Sync] Failed to update variationOf referencing ${e.technicalName}`, f)
       }
     })
 
@@ -92,10 +92,19 @@ async function handleArchiving(archivedTricks: z.infer<typeof DbTricksTableZod>[
 
     combos.forEach( f => {
       if(f.status === "rejected") {
-        console.error(`[Offical Sync] Failed to update combos containing ${e.technicalName}`, f)
+        console.error(`[Official Sync] Failed to update combos containing ${e.technicalName}`, f)
       }
     })
 
+    // At this point references are handled. Now we just need to move the actual Trick over.
+    // This is done using a PUT and DELETE (because again, you cannot modify the Primary Key with Dexie / IndexedDB)
+    const newTrickObject = DbTricksTableZod.parse({
+      ...e,
+      trickStatus: "archived"
+    });
+
+    await db.tricks.put(newTrickObject)
+    await db.tricks.delete([e.id, "official"])
   }))
 
   const failedTrickMigrations = result.filter( e => e.status === "rejected").length
@@ -118,12 +127,14 @@ export default async function syncTricks() {
 
   const idsOfNewTricksMap = Object.fromEntries(tricks.map(e => [e.id!, true] as const))
 
-  const allCurrentOfficalTricks = await db.tricks.where("trickStatus").equals("offical").toArray()
+  const allCurrentOfficalTricks = await db.tricks.where("[id+trickStatus]").between([0,"offical"], [Infinity, "official"]).toArray()
 
   // These tricks get converted into "archived" tricks.
   const tricksThatHaveBeenRemoved =  allCurrentOfficalTricks.filter(e => idsOfNewTricksMap[e.id+""] !== true)
 
-  await handleArchiving(tricksThatHaveBeenRemoved)
+  if(tricksThatHaveBeenRemoved.length > 0) {
+    await handleArchiving(tricksThatHaveBeenRemoved)
+  }
 
   // At this point, the Database should be in a state where all to-be-archived Tricks had their references updated.
   // so we can safely PUT the new tricks into the DB.
