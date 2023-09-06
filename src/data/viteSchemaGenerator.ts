@@ -9,11 +9,31 @@ import { DbTricksTableZod, DbCombosTableZod } from "../lib/database/schemas/Curr
 import { writeFile } from "fs/promises"
 import { join } from "path"
 import { fileURLToPath } from "url"
+import { z } from "zod"
+
+const ShortIdArray = z.array(z.number().int().min(0))
+
+export const YamlTrickTableSchemaZod = DbTricksTableZod.omit({
+  trickStatus: true, 
+  recommendedPrerequisites: true, 
+  variationOf: true
+}).and(z.object({
+  recommendedPrerequisites: ShortIdArray.optional(),
+  variationOf: ShortIdArray.optional()
+}));
+
+export const YamlComboTableSchemaZod = DbCombosTableZod.omit({
+  comboStatus: true, 
+  tricks: true
+}).and(z.object({
+  tricks: ShortIdArray.nonempty()
+}));
+
 
 export default async function generateJsonSchemas() {
   // trick/comboStatus is redundant, as it will always be `official`.
-  const trickTableSchema = zodToJsonSchema(DbTricksTableZod.omit({trickStatus: true}),{name: "tricks"})
-  const comboTableSchema = zodToJsonSchema(DbCombosTableZod.omit({comboStatus: true}), {name: "combos"})
+  const trickTableSchema = zodToJsonSchema(YamlTrickTableSchemaZod,{name: "tricks"})
+  const comboTableSchema = zodToJsonSchema(YamlComboTableSchemaZod, {name: "combos"})
   
   // @ts-expect-error For some weird reason this is interpreted as a CommonJS Module by the LSP.
   const thisFilePath = fileURLToPath(import.meta.url)

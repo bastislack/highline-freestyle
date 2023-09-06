@@ -1,0 +1,9 @@
+id: 2
+technicalName: Example2
+dateAddedEpoch: 1234
+tips:
+  - Don't fall because it hurts
+  - This tip is in the top 1% of all tips out there
+  - Unintentionally left filled
+tricks:
+  - 1

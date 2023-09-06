@@ -2,13 +2,14 @@
  * This is the entry point for the Data Plugin that reads the YAML Files defining tricks and combos
  */
 
+import viteGetAllCombos from "./viteComboFetcher";
 import generateJsonSchemas from "./viteSchemaGenerator";
 import viteGetAllTricks from "./viteTrickFetcher"
 import {createHash} from "crypto"
 
 async function generateVirtualModuleContent() {
   const tricks = await viteGetAllTricks();
-  const combos = []
+  const combos = await viteGetAllCombos(tricks)
 
   // *Should* get reproducible results under Node 
   // As this code is not run on the Browser, this should be no issue.
@@ -20,8 +21,8 @@ async function generateVirtualModuleContent() {
 
   return `
   export const tricks = ${JSON.stringify(tricks)};
-  export const combos = []; // TODO
-  export const hash = "${hash}"
+  export const combos = ${JSON.stringify(combos)};
+  export const hash = "${hash}";
 
   export default ({
     tricks, combos, hash

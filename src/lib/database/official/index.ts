@@ -1,4 +1,5 @@
 import isSyncNeeded from "./isSyncNeeded";
+import syncCombos from "./syncCombos";
 import syncTricks from "./syncTricks";
 
 export default async function runSyncingProcedure() {
@@ -11,8 +12,12 @@ export default async function runSyncingProcedure() {
   catch(err) {
     console.log(err)
   }
-  // await syncCombos();
-
+  try {
+    await syncCombos();
+  }
+  catch(err) {
+    console.log(err)
+  }
   // Commit the new Hash
   // @ts-expect-error No .d.ts defined yet
   const {hash} = (await import("virtual:highline-freestyle-data")).default;

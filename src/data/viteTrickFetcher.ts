@@ -14,9 +14,18 @@ import { ZodError, z } from "zod";
 import { DbTricksTableZod } from "../lib/database/schemas/CurrentVersionSchema"
 import {parse} from "yaml"
 import { readFile } from "fs/promises";
+import { YamlTrickTableSchemaZod } from "./viteSchemaGenerator";
 
 async function fetchYamlFile(path: string): Promise<z.infer<typeof DbTricksTableZod>> {
-  const asObject = parse(await readFile(path, "utf8"))
+  const asObject = YamlTrickTableSchemaZod.parse(parse(await readFile(path, "utf8")))
+  if(asObject.recommendedPrerequisites) {
+    console.log(asObject.recommendedPrerequisites)
+    asObject.recommendedPrerequisites = asObject.recommendedPrerequisites.map( e => ([e, "official"])) as any
+  }
+  if(asObject.variationOf) {
+    asObject.variationOf = asObject.variationOf.map( e => ([e, "official"])) as any
+    
+  }
   // Makes sure the YAML has the right structure. 
   return DbTricksTableZod.parse({...asObject, trickStatus: "official"})
 }
@@ -48,6 +57,8 @@ function createRecordLookup(allTricks: z.infer<typeof DbTricksTableZod>[]) {
 
 /**
  * Tricks contain two types of References: 
+ * - recommendedPrerequisites
+ * - variationOf
  */
 function findUndefinedReferences(allTricks: z.infer<typeof DbTricksTableZod>[]) {
   
