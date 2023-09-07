@@ -15,6 +15,7 @@ import { DbTricksTableZod } from "../lib/database/schemas/CurrentVersionSchema"
 import {parse} from "yaml"
 import { readFile } from "fs/promises";
 import { YamlTrickTableSchemaZod } from "./viteSchemaGenerator";
+import buildGraph from "./variationOfCycleChecker";
 
 async function fetchYamlFile(path: string): Promise<z.infer<typeof DbTricksTableZod>> {
   const asObject = YamlTrickTableSchemaZod.parse(parse(await readFile(path, "utf8")))
@@ -139,6 +140,16 @@ export default async function viteGetAllTricks() {
     throw {
       plugin: "vite-plugin-highline-freestyle-data",
       message: "Reference Resolution failed.\n\n"+undefinedReferences.map( e=> `Failed Trick: ${e[0]}. Issue: ${e[1]}`).join("\n")
+    }
+  }
+
+  try {
+    buildGraph(goodFiles)
+  }
+  catch(err) {
+    throw {
+      plugin: "vite-plugin-highline-freestyle-data",
+      message: err
     }
   }
 
