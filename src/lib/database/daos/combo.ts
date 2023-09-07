@@ -15,6 +15,7 @@ export class Combo implements DbObject {
       alias: false,
       establishedBy: false,
       yearEstablished: false,
+      technicalName: false,
       description: false,
       tips: false,
       videos: false,
@@ -37,7 +38,7 @@ export class Combo implements DbObject {
     return [...Object.values(this.#modified.dataFromDatabase), ...Object.values(this.#modified.metadata)].some( e => e)
   }
 
-  //#region Getters and Setters for Tricks Table
+  //#region Getters and Setters for Combo Table
 
   // Getters and setters proxy the "raw" database entry. Setters will also
   // track changes via the private #modified property
@@ -47,6 +48,18 @@ export class Combo implements DbObject {
     // Primary Key is read-only -> has no setter
     return [this.dataFromDatabase.id, this.dataFromDatabase.comboStatus] as const
   }
+
+  public get technicalName() {
+    return this.dataFromDatabase.technicalName
+  }
+  public set technicalName(val) {
+    if(val === this.dataFromDatabase.technicalName) {
+      return
+    }
+    this.#modified.dataFromDatabase.technicalName = true;
+    this.dataFromDatabase.technicalName = DbCombosTableZod._def.shape().technicalName.parse(val)
+  }
+
 
   public get alias() {
     return this.dataFromDatabase.alias
@@ -92,6 +105,19 @@ export class Combo implements DbObject {
     this.#modified.dataFromDatabase.yearEstablished = true;
     this.dataFromDatabase.yearEstablished = DbCombosTableZod._def.shape().yearEstablished.parse(val)
   }
+
+  public get tricks() {
+    return [...this.dataFromDatabase.tricks]
+  }
+  public set tricks(val) {
+    if(val === this.dataFromDatabase.tricks) {
+      return
+    }
+    this.#modified.dataFromDatabase.tricks = true;
+    this.dataFromDatabase.tricks = DbCombosTableZod._def.shape().tricks.parse(val)
+  }
+
+
 
   public get description() {
     return this.dataFromDatabase.description
@@ -160,6 +186,8 @@ export class Combo implements DbObject {
     this.#modified.dataFromDatabase.comboStatus = true;
     this.dataFromDatabase.comboStatus = DbCombosTableZod._def.shape().comboStatus.parse(val)
   }
+
+
 
   //#endregion
 

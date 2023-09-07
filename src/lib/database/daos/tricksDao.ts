@@ -12,8 +12,8 @@ type DbMeta = z.infer<typeof DbMetadataZod>
 
 interface TricksQueryFilter {
   trickStatus?: DbTricks["trickStatus"],
-  offset: number,
-  limit: number
+  offset?: number,
+  limit?: number
 }
 
 
@@ -69,7 +69,7 @@ export default class TricksDAO implements DbObjectDao<Trick> {
       // Promise.allSettled does not change order of promises. So we know which error corresponds to which trick by looking at the 
       // index in the error
       for(const entry of errResults) {
-        const relevantTrick = tricksWithMetadataPromises[entry[0]]!
+        const relevantTrick = tricksWithoutMeta[entry[0]]!
         console.error({
           trick: relevantTrick,
           error: entry[1]
