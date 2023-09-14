@@ -8,7 +8,7 @@ import { parse } from "yaml"
 import { DbCombosTableZod, DbTricksTableZod } from "../lib/database/schemas/CurrentVersionSchema"
 import { readFile } from "node:fs/promises"
 import { ZodError, z } from "zod"
-import { globby } from "globby"
+import {globby} from "globby"
 import { join } from "node:path"
 import { fileURLToPath } from "node:url"
 import { YamlComboTableSchemaZod } from "./viteSchemaGenerator"
@@ -20,7 +20,7 @@ async function fetchYamlFile(path: string): Promise<z.infer<typeof DbCombosTable
     throw new Error("Combos must contain at least one trick.")
   }
 
-  asObject.tricks = asObject.tricks.map( e => ([e, "official"])) as any
+  asObject.tricks = asObject.tricks.map( trickId => ([trickId, "official"])) as any
 
   // Makes sure the YAML has the right structure. 
   return DbCombosTableZod.parse({...asObject, comboStatus: "official"})
@@ -29,11 +29,11 @@ async function fetchYamlFile(path: string): Promise<z.infer<typeof DbCombosTable
 function createRecordLookup<T extends z.infer<typeof DbCombosTableZod> | z.infer<typeof DbTricksTableZod>>(allEntities: T[]) {
   let idToComboLookup: Record<number, T[]> = {};
 
-  allEntities.forEach(e => {
-    if (!idToComboLookup[e.id]) {
-      idToComboLookup[e.id] = [];
+  allEntities.forEach(databaseEntity => {
+    if (!idToComboLookup[databaseEntity.id]) {
+      idToComboLookup[databaseEntity.id] = [];
     }
-      idToComboLookup[e.id].push(e);
+      idToComboLookup[databaseEntity.id].push(databaseEntity);
     });
   return idToComboLookup;
 }
@@ -42,9 +42,9 @@ function findDuplicateKeys(allCombos: z.infer<typeof DbCombosTableZod>[]) {
 
   let idToTrickLookup: Record<number, (z.infer<typeof DbCombosTableZod>)[]> = createRecordLookup(allCombos);
 
-  return Object.entries(idToTrickLookup).filter(([_,e]) => e.length > 1).map(([k,v]) => ({
+  return Object.entries(idToTrickLookup).filter(([_,trick]) => trick.length > 1).map(([k,v]) => ({
     id: k,
-    technicalNames: v.map( e => e.technicalName)
+    technicalNames: v.map( trick => trick.technicalName)
   }))
 }
 
@@ -55,14 +55,14 @@ function findUndefinedTrickReferences(allCombos: z.infer<typeof DbCombosTableZod
   // issues define the ID of the Combo and an issue message
   const issues: [number, string][] = []
 
-  allCombos.forEach( e => {
-    if(e.tricks) {
-      e.tricks.map( (f,i) => {
+  allCombos.forEach( combo => {
+    if(combo.tricks) {
+      combo.tricks.forEach( (f,i) => {
         if(f[1] !== "official") {
-          issues.push([e.id, `All tricks must limit themselves to official ones (not the case for ${i+1}. Entry)`])
+          issues.push([combo.id, `All tricks must limit themselves to official ones (not the case for ${i+1}. Entry)`])
         }
         else if(!idToTrickLookup[f[0]]) {
-          issues.push([e.id, `${i+1}. Entry in tricks references an ID that does not exist (id: ${f[0]}).`])
+          issues.push([combo.id, `${i+1}. Entry in tricks references an ID that does not exist (id: ${f[0]}).`])
         }
 
       })
@@ -77,21 +77,22 @@ function findUndefinedTrickReferences(allCombos: z.infer<typeof DbCombosTableZod
 
 
 export default async function viteGetAllCombos(tricks: z.infer<typeof DbTricksTableZod>[]) {
-  // @ts-expect-error 
+  // @ts-expect-error Because there are effectively two TS Projects (Vite Plugin Context 
+  //and Vue Webapp Context), TS gets a bit confused and doesn't think import.meta.url is allowed here
   const pattern = join(fileURLToPath(import.meta.url), "..", "combos", "*.yaml");
   const allFilePaths = await globby(pattern)
 
-  const parsedYamlFiles = await Promise.allSettled(allFilePaths.map( e => fetchYamlFile(e)))
-  const erroredFiles = parsedYamlFiles.map( (e,i) => e.status === "rejected" ? ({error: e.reason, path: allFilePaths[i]}) : (undefined as never) ).filter( e => e);
-  const goodFiles = parsedYamlFiles.map( e => e.status === "fulfilled" ? e.value : (undefined as never)).filter( e => e)
+  const parsedYamlFiles = await Promise.allSettled(allFilePaths.map( comboFilePath => fetchYamlFile(comboFilePath)))
+  const erroredFiles = parsedYamlFiles.map( (fileResult,i) => fileResult.status === "rejected" ? ({error: fileResult.reason, path: allFilePaths[i]}) : (undefined as never) ).filter(Boolean);
+  const goodFiles = parsedYamlFiles.map( fileResult => fileResult.status === "fulfilled" ? fileResult.value : (undefined as never)).filter(Boolean)
 
   if(erroredFiles.length) {
 
-    const errorMeta = erroredFiles.map(e => {
-      if(!(e.error instanceof ZodError)) {
-        return e.error+""
+    const errorMeta = erroredFiles.map(file => {
+      if(!(file.error instanceof ZodError)) {
+        return file.error+""
       }
-      return e.path+"\n"+e.error.errors.map( e => `${e.path}: ${e.message}`).join("\n")
+      return file.path+"\n"+file.error.errors.map( error => `${error.path}: ${error.message}`).join("\n")
     })
 
     throw {
@@ -108,11 +109,11 @@ export default async function viteGetAllCombos(tricks: z.infer<typeof DbTricksTa
     }
   }
 
-  const emptyCombos = goodFiles.filter(e => !e.tricks || e.tricks.length === 0).map( e => ([e.id, "Combo needs at least 1 trick"] as const))
+  const emptyCombos = goodFiles.filter(combo => !combo.tricks || combo.tricks.length === 0).map( combo => ([combo.id, "Combo needs at least 1 trick"] as const))
   if(emptyCombos.length > 0) {
     throw {
       plugin: "vite-plugin-highline-freestyle-data",
-      message: "Empty Combos detected.\n\n"+emptyCombos.map( e=> `Failed Combo: ${e[0]}. Issue: ${e[1]}`).join("\n")
+      message: "Empty Combos detected.\n\n"+emptyCombos.map( ([comboId, errorMessage]) => `Failed Combo: ${comboId}. Issue: ${errorMessage}`).join("\n")
     }
   }
 
@@ -120,7 +121,7 @@ export default async function viteGetAllCombos(tricks: z.infer<typeof DbTricksTa
   if(undefinedReferences.length > 0) {
     throw {
       plugin: "vite-plugin-highline-freestyle-data",
-      message: "Reference Resolution failed.\n\n"+undefinedReferences.map( e=> `Failed Combo: ${e[0]}. Issue: ${e[1]}`).join("\n")
+      message: "Reference Resolution failed.\n\n"+undefinedReferences.map( ([comboId, errorMessage]) => `Failed Combo: ${comboId}. Issue: ${errorMessage}`).join("\n")
     }
   }
 

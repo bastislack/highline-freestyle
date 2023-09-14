@@ -1,3 +1,11 @@
 {
-  "recommendations": ["Vue.volar", "Vue.vscode-typescript-vue-plugin"]
+  "recommendations": [
+    "vue.volar",
+    "vue.vscode-typescript-vue-plugin",
+    "bradlc.vscode-tailwindcss",
+    "yoavbls.pretty-ts-errors",
+    "antfu.iconify",
+    "editorconfig.editorconfig",
+    "redhat.vscode-yaml"
+  ]
 }

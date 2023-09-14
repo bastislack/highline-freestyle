@@ -35,6 +35,7 @@ export default class CombosDAO implements DbObjectDao<Combo> {
         // No filters -> nothing to modify on the query
         return start.toArray()
       }
+      this.db.combos
 
       let temp = start.filter( e => {
         if(filter.comboStatus && filter.comboStatus !== e.comboStatus) {

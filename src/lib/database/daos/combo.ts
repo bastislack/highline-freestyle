@@ -35,7 +35,7 @@ export class Combo implements DbObject {
 
 
   public get changed() {
-    return [...Object.values(this.#modified.dataFromDatabase), ...Object.values(this.#modified.metadata)].some( e => e)
+    return [...Object.values(this.#modified.dataFromDatabase), ...Object.values(this.#modified.metadata)].some(Boolean)
   }
 
   //#region Getters and Setters for Combo Table
@@ -262,8 +262,8 @@ export class Combo implements DbObject {
 
     this.#modified.persisting = true
     //                            if any value in Object is true -> true, else false
-    const hasComboRecordChanged = Object.values(this.#modified.dataFromDatabase).some( e => e)
-    const hasMetadataRecordChanged = Object.values(this.#modified.metadata).some( e => e)
+    const hasComboRecordChanged = Object.values(this.#modified.dataFromDatabase).some(Boolean)
+    const hasMetadataRecordChanged = Object.values(this.#modified.metadata).some(Boolean)
 
 
     // Immediately invoked function inside a try-catch so we do not have to worry about returning inside the catch
@@ -298,8 +298,8 @@ export class Combo implements DbObject {
       // The cast is a bit cursed and wrong here, but will do for now. All keys are keyof the relevant object as we make
       // use of Object.keys here anyways.
       //                                                                                              lmao. 
-      Object.keys(this.#modified.dataFromDatabase).forEach( e => this.#modified.dataFromDatabase[e as "alias"] = true)
-      Object.keys(this.#modified.metadata).forEach( e => this.#modified.metadata[e as "notes"] = true)
+      Object.keys(this.#modified.dataFromDatabase).forEach( dbCombo => this.#modified.dataFromDatabase[dbCombo as "alias"] = true)
+      Object.keys(this.#modified.metadata).forEach( dbMeta => this.#modified.metadata[dbMeta as "notes"] = true)
       this.#modified.persisting = false
     }
 

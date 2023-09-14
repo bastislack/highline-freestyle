@@ -23,7 +23,7 @@ export const DbPositionZod = z.enum([
   "Rocket",
   "Frodo",
   "Buddha",
-  "Yusus",
+  "Yisus",
   "Banana",
 ])
 

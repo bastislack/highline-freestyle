@@ -56,7 +56,6 @@ async function handleUnarchivingCombos(combos: DbCombo[]) {
  * **Note that this is expected to run AFTER syncTricks!**
  */
 export default async function syncCombos() {
-  // @ts-expect-error no d.ts
   const combos = z.array(DbCombosTableZod).parse((await import("virtual:highline-freestyle-data")).combos);
   console.log(combos)
   const idsOfNewCombosMap = Object.fromEntries(combos.map( e => ([e.id+"", true])))

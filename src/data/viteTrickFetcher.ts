@@ -21,10 +21,10 @@ async function fetchYamlFile(path: string): Promise<z.infer<typeof DbTricksTable
   const asObject = YamlTrickTableSchemaZod.parse(parse(await readFile(path, "utf8")))
   if(asObject.recommendedPrerequisites) {
     console.log(asObject.recommendedPrerequisites)
-    asObject.recommendedPrerequisites = asObject.recommendedPrerequisites.map( e => ([e, "official"])) as any
+    asObject.recommendedPrerequisites = asObject.recommendedPrerequisites.map( prerequisiteId => ([prerequisiteId, "official"])) as any
   }
   if(asObject.variationOf) {
-    asObject.variationOf = asObject.variationOf.map( e => ([e, "official"])) as any
+    asObject.variationOf = asObject.variationOf.map( variationId => ([variationId, "official"])) as any
     
   }
   // Makes sure the YAML has the right structure. 
@@ -36,9 +36,9 @@ function findDuplicateKeys(allTricks: z.infer<typeof DbTricksTableZod>[]) {
 
   let idToTrickLookup: Record<number, (z.infer<typeof DbTricksTableZod>)[]> = createRecordLookup(allTricks);
 
-  return Object.entries(idToTrickLookup).filter(([_,e]) => e.length > 1).map(([k,v]) => ({
-    id: k,
-    technicalNames: v.map( e => e.technicalName)
+  return Object.entries(idToTrickLookup).filter(([_,trickList]) => trickList.length > 1).map(([id,trickList]) => ({
+    id,
+    technicalNames: trickList.map( trick => trick.technicalName)
   }))
 
 }
@@ -47,11 +47,11 @@ function findDuplicateKeys(allTricks: z.infer<typeof DbTricksTableZod>[]) {
 function createRecordLookup(allTricks: z.infer<typeof DbTricksTableZod>[]) {
   let idToTrickLookup: Record<number, (z.infer<typeof DbTricksTableZod>)[]> = {};
 
-  allTricks.forEach(e => {
-    if (!idToTrickLookup[e.id]) {
-      idToTrickLookup[e.id] = [];
+  allTricks.forEach(trick => {
+    if (!idToTrickLookup[trick.id]) {
+      idToTrickLookup[trick.id] = [];
     }
-      idToTrickLookup[e.id].push(e);
+      idToTrickLookup[trick.id].push(trick);
     });
   return idToTrickLookup;
 }
@@ -68,31 +68,31 @@ function findUndefinedReferences(allTricks: z.infer<typeof DbTricksTableZod>[]) 
   // issues define the ID of the Trick and an issue message
   const issues: [number, string][] = []
 
-  allTricks.forEach( e => {
-    if(e.recommendedPrerequisites) {
-      e.recommendedPrerequisites.map( (f,i) => {
-        if(f[1] !== "official") {
-          issues.push([e.id, `All recommendedPrerequisites must limit themselves to official tricks (not the case for ${i+1}. Entry)`])
+  allTricks.forEach( trick => {
+    if(trick.recommendedPrerequisites) {
+      trick.recommendedPrerequisites.forEach( (prerequisitePrimaryKey,i) => {
+        if(prerequisitePrimaryKey[1] !== "official") {
+          issues.push([trick.id, `All recommendedPrerequisites must limit themselves to official tricks (not the case for ${i+1}. Entry)`])
         }
-        else if(!idToTrickLookup[f[0]]) {
-          issues.push([e.id, `${i+1}. Entry in recommendedPrerequisites references an ID that does not exist (id: ${f[0]}).`])
+        else if(!idToTrickLookup[prerequisitePrimaryKey[0]]) {
+          issues.push([trick.id, `${i+1}. Entry in recommendedPrerequisites references an ID that does not exist (id: ${prerequisitePrimaryKey[0]}).`])
         }
-        else if(f[0] == e.id) {
-          issues.push([e.id, `${i+1}. Entry in recommendedPrerequisites references itself (id: ${f[0]}).`])
+        else if(prerequisitePrimaryKey[0] == trick.id) {
+          issues.push([trick.id, `${i+1}. Entry in recommendedPrerequisites references itself (id: ${prerequisitePrimaryKey[0]}).`])
         }
 
       })
     }
-    if(e.variationOf) {
-      e.variationOf.map( (f,i) => {
-        if(f[1] !== "official") {
-          issues.push([e.id, `All variationOf-Entries must limit themselves to official tricks (not the case for ${i+1}. Entry)`])
+    if(trick.variationOf) {
+      trick.variationOf.forEach( (variationPrimaryKey,i) => {
+        if(variationPrimaryKey[1] !== "official") {
+          issues.push([trick.id, `All variationOf-Entries must limit themselves to official tricks (not the case for ${i+1}. Entry)`])
         }
-        else if(!idToTrickLookup[f[0]]) {
-          issues.push([e.id, `${i+1}. Entry in variationOf references an ID that does not exist (id: ${f[0]}).`])
+        else if(!idToTrickLookup[variationPrimaryKey[0]]) {
+          issues.push([trick.id, `${i+1}. Entry in variationOf references an ID that does not exist (id: ${variationPrimaryKey[0]}).`])
         }
-        else if(f[0] == e.id) {
-          issues.push([e.id, `${i+1}. Entry in variationOf references itself (id: ${f[0]}).`])
+        else if(variationPrimaryKey[0] == trick.id) {
+          issues.push([trick.id, `${i+1}. Entry in variationOf references itself (id: ${variationPrimaryKey[0]}).`])
         }
       })
     }
@@ -104,21 +104,22 @@ function findUndefinedReferences(allTricks: z.infer<typeof DbTricksTableZod>[]) 
 
 
 export default async function viteGetAllTricks() {
-  // @ts-expect-error 
+  // @ts-expect-error Because there are effectively two TS Projects (Vite Plugin Context 
+  //and Vue Webapp Context), TS gets a bit confused and doesn't think import.meta.url is allowed here
   const pattern = join(fileURLToPath(import.meta.url), "..", "tricks", "*.yaml");
   const allFilePaths = await globby(pattern)
 
-  const parsedYamlFiles = await Promise.allSettled(allFilePaths.map( e => fetchYamlFile(e)))
-  const erroredFiles = parsedYamlFiles.map( (e,i) => e.status === "rejected" ? ({error: e.reason, path: allFilePaths[i]}) : (undefined as never) ).filter( e => e);
-  const goodFiles = parsedYamlFiles.map( e => e.status === "fulfilled" ? e.value : (undefined as never)).filter( e => e)
+  const parsedYamlFiles = await Promise.allSettled(allFilePaths.map( trickFilePath => fetchYamlFile(trickFilePath)))
+  const erroredFiles = parsedYamlFiles.map( (trickYamlFile,i) => trickYamlFile.status === "rejected" ? ({error: trickYamlFile.reason, path: allFilePaths[i]}) : (undefined as never) ).filter(Boolean);
+  const goodFiles = parsedYamlFiles.map( trickYamlFile => trickYamlFile.status === "fulfilled" ? trickYamlFile.value : (undefined as never)).filter(Boolean)
 
-  if(erroredFiles.length) {
+  if(erroredFiles.length > 0) {
 
-    const errorMeta = erroredFiles.map(e => {
-      if(!(e.error instanceof ZodError)) {
-        return e.error+""
+    const errorMeta = erroredFiles.map(errorResult => {
+      if(!(errorResult.error instanceof ZodError)) {
+        return errorResult.error+""
       }
-      return e.path+"\n"+e.error.errors.map( e => `${e.path}: ${e.message}`).join("\n")
+      return errorResult.path+"\n"+errorResult.error.errors.map( error => `${error.path}: ${error.message}`).join("\n")
     })
 
     throw {

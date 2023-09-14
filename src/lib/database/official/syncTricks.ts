@@ -170,7 +170,6 @@ async function handleUnarchivingTricks(tricks: z.infer<typeof DbTricksTableZod>[
 
 
 export default async function syncTricks() {
-  // @ts-expect-error no d.ts
   const tricks = z.array(DbTricksTableZod).parse((await import("virtual:highline-freestyle-data")).tricks);
 
   const idsOfNewTricksMap = Object.fromEntries(tricks.map(e => [e.id!, true] as const))

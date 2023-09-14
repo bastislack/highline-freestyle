@@ -24,22 +24,22 @@ export default function buildGraph(tricks: Trick[]) {
    */
   const childIdToParentIdsLookup: Record<Trick["id"], Trick["id"][]> = {}
 
-  tricks.forEach( e => {
-    const parents = (e.variationOf ?? []).map( e => e[0])
-    childIdToParentIdsLookup[e.id] = parents
+  tricks.forEach( trick => {
+    const parents = (trick.variationOf ?? []).map( trickVariationPrimaryKey => trickVariationPrimaryKey[0])
+    childIdToParentIdsLookup[trick.id] = parents
   })
 
   // A recursive function that looks at the immediate parent nodes 
-  function handleTraversal(currentId: number, currentChain: Trick["id"][]) {
+  function handleTraversal(currentId: number, currentChain: Trick["id"][]) : number[] {
     if(childIdToParentIdsLookup[currentId].length === 0) {
       // We found a root!
       // Add this ID as a parent for everything in the chain
       rootsIndex[currentId] = [currentId]
-      currentChain.forEach( e => {
-        if(!rootsIndex[e]) {
-          rootsIndex[e] = []
+      currentChain.forEach( entryId => {
+        if(!rootsIndex[entryId]) {
+          rootsIndex[entryId] = []
         }
-        rootsIndex[e].push(currentId)
+        rootsIndex[entryId].push(currentId)
       })
       return [currentId];
     }
@@ -53,17 +53,19 @@ export default function buildGraph(tricks: Trick[]) {
       // This ID is known! We can short-track
       const rootIds = rootsIndex[currentId]
 
-      currentChain.forEach( e => rootsIndex[e] = rootIds )
+      currentChain.forEach( entryId => rootsIndex[entryId] = rootIds )
       return [...rootIds]
     }
 
-    const parentIds = childIdToParentIdsLookup[currentId].map( e => handleTraversal(e, [...currentChain])).flatMap( e => e)
+    const parentIds = childIdToParentIdsLookup[currentId].map( entryId => handleTraversal(entryId, [...currentChain])).flatMap( (e) => e)
     return parentIds
   }
 
-  tricks.forEach( e => {
+  // Iterate over every trick and built its "variationOf-Dependency-Graph".
+  // If any cycles are found, error.
+  tricks.forEach( trick => {
     // This will throw an Error if a cycle is discovered
-    handleTraversal(e.id, [])
+    handleTraversal(trick.id, [])
   })
 
 

@@ -1,5 +1,4 @@
 export default async function isSyncNeeded() {
-  // @ts-expect-error No .d.ts defined yet
   const {hash} = (await import("virtual:highline-freestyle-data")).default;
 
   // This is just here to tell TS that hash is a string :)
