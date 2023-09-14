@@ -26,16 +26,21 @@ async function fetchYamlFile(path: string) {
   return DbCombosTableZod.parse({...asObject, comboStatus: "official"})
 }
 
+/**
+ * This takes a list of Database Entities and creates a mapping of ID → List of Objects
+ * 
+ * This can be used to detect duplicates or to check if an Entity with a given ID exists.
+ */
 function createRecordLookup<T extends z.infer<typeof DbCombosTableZod> | z.infer<typeof DbTricksTableZod>>(allEntities: T[]) {
-  let idToComboLookup: Record<number, T[]> = {};
+  let idToEntityLookup: Record<number, T[]> = {};
 
   allEntities.forEach(databaseEntity => {
-    if (!idToComboLookup[databaseEntity.id]) {
-      idToComboLookup[databaseEntity.id] = [];
+    if (!idToEntityLookup[databaseEntity.id]) {
+      idToEntityLookup[databaseEntity.id] = [];
     }
-      idToComboLookup[databaseEntity.id].push(databaseEntity);
+      idToEntityLookup[databaseEntity.id].push(databaseEntity);
     });
-  return idToComboLookup;
+  return idToEntityLookup;
 }
 
 function findDuplicateKeys(allCombos: z.infer<typeof DbCombosTableZod>[]) {
