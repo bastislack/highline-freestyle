@@ -13,7 +13,7 @@ import { join } from "node:path"
 import { fileURLToPath } from "node:url"
 import { YamlComboTableSchemaZod } from "./viteSchemaGenerator"
 
-async function fetchYamlFile(path: string): Promise<z.infer<typeof DbCombosTableZod>> {
+async function fetchYamlFile(path: string) {
   const asObject = YamlComboTableSchemaZod.parse(parse(await readFile(path, "utf8")))
 
   if(!asObject.tricks) {
