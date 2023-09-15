@@ -1,13 +1,13 @@
 <script lang="ts" setup>
 import { onMounted, onUnmounted, ref } from 'vue';
 import DefaultLayout from '../layouts/DefaultLayout.vue';
-import databaseInstance from '../lib/database/databaseInstance';
-import { Trick } from '../lib/database/daos/tricks';
+import {tricksDao} from '../lib/database';
+import { type Trick } from '../lib/database/daos/tricks';
 
 const tricks = ref<Trick[]>([])
 
 async function fetchTricksData() {
-  return databaseInstance.tricksDao.getAll()
+  return tricksDao.getAll()
 }
 
 onMounted( async() => {
