@@ -45,9 +45,9 @@ function createRecordLookup<T extends z.infer<typeof DbCombosTableZod> | z.infer
 
 function findDuplicateKeys(allCombos: z.infer<typeof DbCombosTableZod>[]) {
 
-  let idToTrickLookup: Record<number, (z.infer<typeof DbCombosTableZod>)[]> = createRecordLookup(allCombos);
+  let idToComboLookup: Record<number, (z.infer<typeof DbCombosTableZod>)[]> = createRecordLookup(allCombos);
 
-  return Object.entries(idToTrickLookup).filter(([_,trick]) => trick.length > 1).map(([k,v]) => ({
+  return Object.entries(idToComboLookup).filter(([_,combo]) => combo.length > 1).map(([k,v]) => ({
     id: k,
     technicalNames: v.map( trick => trick.technicalName)
   }))
@@ -62,14 +62,15 @@ function findUndefinedTrickReferences(allCombos: z.infer<typeof DbCombosTableZod
 
   allCombos.forEach( combo => {
     if(combo.tricks) {
-      combo.tricks.forEach( (f,i) => {
-        if(f[1] !== "official") {
+      combo.tricks.forEach( (trickKey,i) => {
+        if(trickKey[1] !== "official") {
+          // This should never happen, as the `official` status is added by the Build Process.
+          // It's still kept here for now in case that ever changes in the future.
           issues.push([combo.id, `All tricks must limit themselves to official ones (not the case for ${i+1}. Entry)`])
         }
-        else if(!idToTrickLookup[f[0]]) {
-          issues.push([combo.id, `${i+1}. Entry in tricks references an ID that does not exist (id: ${f[0]}).`])
+        else if(!idToTrickLookup[trickKey[0]]) {
+          issues.push([combo.id, `${i+1}. Entry in tricks references an ID that does not exist (id: ${trickKey[0]}).`])
         }
-
       })
     }
   })
@@ -95,7 +96,7 @@ export default async function viteGetAllCombos(tricks: z.infer<typeof DbTricksTa
 
     const errorMeta = erroredFiles.map(file => {
       if(!(file.error instanceof ZodError)) {
-        return file.error+""
+        return String(file.error)
       }
       return file.path+"\n"+file.error.errors.map( error => `${error.path}: ${error.message}`).join("\n")
     })
@@ -114,7 +115,7 @@ export default async function viteGetAllCombos(tricks: z.infer<typeof DbTricksTa
     }
   }
 
-  const emptyCombos = goodFiles.filter(combo => !combo.tricks || combo.tricks.length === 0).map( combo => ([combo.id, "Combo needs at least 1 trick"] as const))
+  const emptyCombos = goodFiles.filter(combo => !combo.tricks || combo.tricks.length < 2).map( combo => ([combo.id, "Combo needs at least 2 tricks"] as const))
   if(emptyCombos.length > 0) {
     throw {
       plugin: "vite-plugin-highline-freestyle-data",
@@ -126,7 +127,7 @@ export default async function viteGetAllCombos(tricks: z.infer<typeof DbTricksTa
   if(undefinedReferences.length > 0) {
     throw {
       plugin: "vite-plugin-highline-freestyle-data",
-      message: "Reference Resolution failed.\n\n"+undefinedReferences.map( ([comboId, errorMessage]) => `Failed Combo: ${comboId}. Issue: ${errorMessage}`).join("\n")
+      message: "Undefined trick reference found.\n\n"+undefinedReferences.map( ([comboId, errorMessage]) => `Failed Combo: ${comboId}. Issue: ${errorMessage}`).join("\n")
     }
   }
 

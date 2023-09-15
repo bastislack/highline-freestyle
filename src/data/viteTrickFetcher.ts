@@ -17,12 +17,13 @@ import { readFile } from "fs/promises";
 import { YamlTrickTableSchemaZod } from "./viteSchemaGenerator";
 import buildGraph from "./variationOfCycleChecker";
 
-async function fetchYamlFile(path: string): Promise<z.infer<typeof DbTricksTableZod>> {
+async function fetchYamlFile(path: string) {
   const asObject = YamlTrickTableSchemaZod.parse(parse(await readFile(path, "utf8")))
+  // This turns the "simple" IDs found in the YAMLs into the Key Tuples of the Tricks (e.g. [3,2] => [ [3, "official"], [2, "official"]])
   if(asObject.recommendedPrerequisites) {
-    console.log(asObject.recommendedPrerequisites)
     asObject.recommendedPrerequisites = asObject.recommendedPrerequisites.map( prerequisiteId => ([prerequisiteId, "official"])) as any
   }
+  // same thing as above, just with the variationOf Entries.
   if(asObject.variationOf) {
     asObject.variationOf = asObject.variationOf.map( variationId => ([variationId, "official"])) as any
     
@@ -117,7 +118,7 @@ export default async function viteGetAllTricks() {
 
     const errorMeta = erroredFiles.map(errorResult => {
       if(!(errorResult.error instanceof ZodError)) {
-        return errorResult.error+""
+        return String(errorResult.error)
       }
       return errorResult.path+"\n"+errorResult.error.errors.map( error => `${error.path}: ${error.message}`).join("\n")
     })

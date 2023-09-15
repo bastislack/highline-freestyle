@@ -177,7 +177,7 @@ export default async function syncTricks() {
   const allCurrentofficialTricks = await db.tricks.where("[id+trickStatus]").between([0,"official"], [Infinity, "official"]).toArray()
 
   // These tricks get converted into "archived" tricks.
-  const tricksThatHaveBeenRemoved =  allCurrentofficialTricks.filter(e => idsOfNewTricksMap[e.id+""] !== true)
+  const tricksThatHaveBeenRemoved =  allCurrentofficialTricks.filter(e => idsOfNewTricksMap[String(e.id)] !== true)
 
   if(tricksThatHaveBeenRemoved.length > 0) {
     await handleArchiving(tricksThatHaveBeenRemoved)

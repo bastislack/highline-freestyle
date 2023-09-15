@@ -58,11 +58,11 @@ async function handleUnarchivingCombos(combos: DbCombo[]) {
 export default async function syncCombos() {
   const combos = z.array(DbCombosTableZod).parse((await import("virtual:highline-freestyle-data")).combos);
   console.log(combos)
-  const idsOfNewCombosMap = Object.fromEntries(combos.map( e => ([e.id+"", true])))
+  const idsOfNewCombosMap = Object.fromEntries(combos.map( e => ([String(e.id), true])))
 
   const allCurrentOfficialCombos = await db.combos.where("[id+comboStatus]").between([0,"official"], [Infinity, "official"]).toArray()
 
-  const combosThatHaveBeenRemoved = allCurrentOfficialCombos.filter( e => !idsOfNewCombosMap[e.id+""])
+  const combosThatHaveBeenRemoved = allCurrentOfficialCombos.filter( e => !idsOfNewCombosMap[String(e.id)])
 
   if(combosThatHaveBeenRemoved.length > 0) {
     const result = await handleArchivingCombos(combosThatHaveBeenRemoved)
