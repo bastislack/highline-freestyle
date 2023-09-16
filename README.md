@@ -46,6 +46,10 @@ Checkout the [good first issue tag](https://github.com/bastislack/highline-frees
 
 ### Setup
 
+0. (Optional) If you are using [nvm](https://github.com/nvm-sh/nvm) and switch between Node versions regularly use the correct one by running
+
+   `nvm use`
+
 1. Install node modules
 
    Open a terminal and in the root folder (highline-freestyle) run `npm install`
