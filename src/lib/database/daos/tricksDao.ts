@@ -1,6 +1,6 @@
 import type { MainDatabase } from "../databaseInstance";
 import {getMetadata, putDefault} from "./metadataHelper";
-import { Trick } from "./tricks";
+import { Trick } from "./trick";
 import {DbObject, DbObjectDao} from "./dbObject"
 import { DbMetadataZod, DbTricksTableZod } from "../schemas/CurrentVersionSchema"
 import { z } from "zod";
@@ -24,6 +24,9 @@ export default class TricksDAO implements DbObjectDao<Trick> {
     return currentTopId+1
   }
   
+  /**
+   * Creates a new Trick Object. This constructor should be treated as "internal" — The UI Layer should make use of the `tricksDao` instead of trying to create this object itself!
+   */
   constructor(private db: MainDatabase) {}
 
   public async getAll(filter?: TricksQueryFilter) {

@@ -237,7 +237,7 @@ export class Combo implements DbObject {
 
 
   /**
-   * Creates a new Combo Object. This constructor should be treated as "internal" — The UI Layer should make use of the `combosDao` instead!
+   * Creates a new Combo Object. This constructor should be treated as "internal" — The UI Layer should make use of the `combosDao` instead of trying to create this object itself!
    */
   constructor(private dataFromDatabase: z.infer<typeof DbCombosTableZod>, private metadataFromDatabase: z.infer<typeof DbMetadataZod>, private db: MainDatabase) {}
 

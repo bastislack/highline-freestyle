@@ -2,7 +2,7 @@
 import { onMounted, onUnmounted, ref } from 'vue';
 import DefaultLayout from '../layouts/DefaultLayout.vue';
 import {tricksDao} from '../lib/database';
-import { type Trick } from '../lib/database/daos/tricks';
+import { type Trick } from '../lib/database/daos/trick';
 
 const tricks = ref<Trick[]>([])
 
