@@ -1,5 +1,3 @@
-import color from "tailwindcss/colors"
-
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -9,11 +7,14 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: color.yellow[800]
-      }
+        'primary': '#7689F1',
+        'secondary': '#FFD46A',
+        'dark-gray': '#4B4D5B',
+        'light-gray': '#E6E9F8',
+        'white': '#FFFFFF',
+      },
     },
   },
   plugins: [],
   darkMode: "class"
 }
-
