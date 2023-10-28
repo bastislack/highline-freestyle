@@ -10,7 +10,10 @@ export default {
         'primary': '#7689F1',
         'secondary': '#FFD46A',
         'dark-gray': '#4B4D5B',
-        'light-gray': '#E6E9F8',
+        'light-gray': {
+          DEFAULT: '#E6E9F8',
+          250: '#F8F8FD',
+        },
         'white': '#FFFFFF',
       },
     },
