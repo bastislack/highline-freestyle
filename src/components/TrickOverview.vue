@@ -39,7 +39,8 @@ function compareTrickNames(a: Trick, b: Trick) {
 <template>
   <div v-for="level in tricksByDifficulty.size - 1" :key="level">
     <h2 class="text-2xl font-bold py-2 text-center bg-light-gray">
-      Level {{ level }}</h2>
+      Level {{ level }}
+    </h2>
     <hr class="drop-shadow border-dark-gray">
     <div class="p-4 grid grid-cols-3 gap-3">
       <div v-for="trick in tricksByDifficulty.get(level)!" :key="trick.id"
@@ -50,5 +51,17 @@ function compareTrickNames(a: Trick, b: Trick) {
       </div>
     </div>
     <hr class="border-dark-gray">
+  </div>
+  <h2 class="text-2xl font-bold py-2 text-center bg-light-gray">
+    To Be Determined
+  </h2>
+  <hr class="drop-shadow border-dark-gray">
+  <div class="p-4 grid grid-cols-3 gap-3">
+    <div v-for="trick in tricksByDifficulty.get(-1)!" :key="trick.id"
+      class="p-2 border-2 rounded-md border-dark-gray bg-light-gray-250 flex items-center justify-center container h-20 drop-shadow">
+      <p class="text-dark-gray text-center line-clamp-3 text-base/5 ">
+        {{ trick.alias && trick.alias.length > 0 ? trick.alias : trick.technicalName }}
+      </p>
+    </div>
   </div>
 </template>
