@@ -20,7 +20,7 @@ async function moveCombo(comboId: number, from: DbCombo["comboStatus"], to: DbCo
 }
 
 async function handleArchivingCombos(archivedCombos: DbCombo[]) {
-  return await Promise.allSettled( archivedCombos.map( async e => {
+  return await Promise.allSettled( archivedCombos.map( async e => db.transaction("rw", [db.combos, db.tricks, db.metadata], async() => {
     await moveCombo(e.id, "official", "archived")
 
     const newCombo = DbCombosTableZod.parse({
@@ -30,7 +30,7 @@ async function handleArchivingCombos(archivedCombos: DbCombo[]) {
 
     await db.combos.put(newCombo)
     await db.combos.delete([e.id, "official"])
-  }))
+  })))
 }
 
 async function handleUnarchivingCombos(combos: DbCombo[]) {

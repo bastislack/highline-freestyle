@@ -114,7 +114,7 @@ async function moveTrick(trickId: number, from: DbTrick["trickStatus"], to: DbTr
 
 
 async function handleArchiving(archivedTricks: z.infer<typeof DbTricksTableZod>[]) {
-  const result = await Promise.allSettled(archivedTricks.map(async e => {
+  const result = await Promise.allSettled(archivedTricks.map(async e => db.transaction("rw", [db.tricks, db.combos, db.metadata], async()=> {
     
     await moveTrick(e.id, "official", "archived")
 
@@ -127,7 +127,7 @@ async function handleArchiving(archivedTricks: z.infer<typeof DbTricksTableZod>[
 
     await db.tricks.put(newTrickObject)
     await db.tricks.delete([e.id, "official"])
-  }))
+  })))
 
   const failedTrickMigrations = result.filter( e => e.status === "rejected").length
 
