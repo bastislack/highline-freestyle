@@ -7,6 +7,9 @@ export default createRouter({
       path: "/", component: () => import("./IndexRoute.vue"), 
     },
     {
+      path: "/dbtest", component: () => import("./DbTest.vue")
+    },
+    {
       path: "/:catchAll(.*)",
       name: "NotFound",
       component: () => import("./NotFoundRoute.vue")
