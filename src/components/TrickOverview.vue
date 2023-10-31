@@ -44,9 +44,9 @@ function compareTrickNames(a: Trick, b: Trick) {
       Level {{ level }}
     </h2>
     <hr class="drop-shadow border-dark-gray">
-    <div class="p-4 grid grid-cols-3 xs:grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 gap-3">
+    <div class="p-4 flex xs:grid flex-col  xs:grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 gap-2">
       <div v-for="trick in tricksByDifficulty[level as any]!" :key="trick.id"
-        class="p-2 border-2 rounded-md border-dark-gray bg-light-gray-250 flex items-center justify-center container h-20 drop-shadow">
+        class="p-2 border rounded-md border-dark-gray bg-light-gray-250 flex items-center justify-center container h-20 drop-shadow">
         <p class="text-dark-gray text-center line-clamp-3 text-base/5 ">
           {{ trick.alias && trick.alias.length > 0 ? trick.alias : trick.technicalName }}
         </p>
