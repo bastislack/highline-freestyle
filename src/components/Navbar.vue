@@ -21,6 +21,7 @@ const links: NavLink[] = [
   {label: "index", to: "/"},
   {label: "example", to:"/example"},
   {label: "about", to:"/about"},
+  {label: "dbtest", to: "/dbtest"}
 ]
 
 const navClassList = computed( () => [
