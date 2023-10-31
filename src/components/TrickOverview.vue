@@ -43,20 +43,20 @@ function compareTrickNames(a: Trick, b: Trick) {
 
 <template>
   <div v-for="level in Object.keys(tricksByDifficulty).filter( e => Number(e) >= 0).reverse()" :key="level">
-    <h2 class="text-2xl font-bold py-2 text-center bg-light-gray">
+    <h2 class="text-2xl font-bold py-2 text-center bg-light-gray border-b border-t border-black">
       Level {{ level }}
     </h2>
-    <hr class="drop-shadow border-dark-gray">
     <div class="p-4 flex xs:grid flex-col  xs:grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 gap-2">
       <TrickOverviewCard v-for="trick in tricksByDifficulty[level as any]!" :trick="trick" :key="trick.primaryKey.join('-')" />
     </div>
-    <hr class="border-dark-gray">
   </div>
-  <h2 class="text-2xl font-bold py-2 text-center bg-light-gray">
-    To Be Determined
-  </h2>
-  <hr class="drop-shadow border-dark-gray">
-  <div class="p-4 grid grid-cols-3 xs:grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 gap-3">
-    <TrickOverviewCard v-for="trick in tricksByDifficulty['-1' as any]!" :trick="trick" :key="trick.primaryKey.join('-')" />
+  <div v-if="(tricksByDifficulty['-1'] ?? []).length > 0">
+    <h2 class="text-2xl font-bold py-2 text-center bg-light-gray border-b border-t border-black">
+      To Be Determined
+    </h2>
+ 
+    <div class="p-4 grid grid-cols-3 xs:grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 gap-3">
+      <TrickOverviewCard v-for="trick in tricksByDifficulty['-1' as any]!" :trick="trick" :key="trick.primaryKey.join('-')" />
+    </div>
   </div>
 </template>
