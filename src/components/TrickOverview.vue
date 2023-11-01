@@ -46,7 +46,7 @@ function compareTrickNames(a: Trick, b: Trick) {
     <h2 class="text-2xl font-bold py-2 text-center bg-light-gray border-b border-t border-black">
       Level {{ level }}
     </h2>
-    <div class="p-4 flex xs:grid flex-col  xs:grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 gap-2">
+    <div class="p-4 flex xs:grid flex-col xs:grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 gap-2">
       <TrickOverviewCard v-for="trick in tricksByDifficulty[level as any]!" :trick="trick" :key="trick.primaryKey.join('-')" />
     </div>
   </div>
@@ -55,7 +55,7 @@ function compareTrickNames(a: Trick, b: Trick) {
       To Be Determined
     </h2>
  
-    <div class="p-4 grid grid-cols-3 xs:grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 gap-3">
+    <div class="p-4 flex xs:grid flex-col xs:grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 gap-2">
       <TrickOverviewCard v-for="trick in tricksByDifficulty['-1' as any]!" :trick="trick" :key="trick.primaryKey.join('-')" />
     </div>
   </div>
