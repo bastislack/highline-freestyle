@@ -25,7 +25,7 @@ const links: NavLink[] = [
 ]
 
 const navClassList = computed( () => [
-  "top-0", "z-30", "pointer-events-none", "w-full", props.type === "fixed" ? "fixed" : "sticky"
+  "top-0", "z-50", "pointer-events-none", "w-full", props.type
 ])
 
 
@@ -73,7 +73,7 @@ function toggleDarkmode() {
 
 
 <template>
-  <nav :class="navClassList">
+  <nav class="h-16" :class="navClassList">
     <!-- Desktop -->
     <div class="hidden sm:flex flex-row items-center gap-3 bg-primary/90 backdrop-blur-sm p-2 pointer-events-auto dark:bg-slate-800">
       <!--       vvvvv  todo change to brand icon -->
