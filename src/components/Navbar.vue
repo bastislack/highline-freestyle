@@ -108,7 +108,7 @@ function toggleDarkmode() {
       
     </div>
     <!-- Mobile -->
-    <div class="sm:hidden ">
+    <div class="sm:hidden">
       <nav class=" flex flex-row bg-primary/90 dark:bg-slate-800 backdrop-blur-sm items-center">
         <div class="flex-1">
           <button @click="isMobileNavExpanded=!isMobileNavExpanded" class="m-1 p-2 border border-white hover:bg-white/30 rounded-lg  pointer-events-auto">
