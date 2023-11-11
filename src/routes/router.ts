@@ -4,7 +4,10 @@ export default createRouter({
   history: createWebHashHistory(),
   routes: [
     {
-      path: "/", component: () => import("./IndexRoute.vue"), 
+      path: "/", redirect: "/tricks"
+    },
+    {
+      path: "/tricks", component: () => import("./IndexRoute.vue"), 
     },
     {
       path: "/dbtest", component: () => import("./DbTest.vue")

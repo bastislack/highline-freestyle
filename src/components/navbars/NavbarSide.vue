@@ -2,7 +2,7 @@
 import { Icon } from '@iconify/vue';
 import { useI18n } from 'vue-i18n';
 
-import messages from "../i18n/index"
+import messages from "../../i18n/index"
 
 const i18n = useI18n({
   messages,
@@ -18,7 +18,7 @@ interface NavLink {
 }
 
 const links: NavLink[] = [
-  {tKey: "navbar.tricks", to: "/", icon: "ic:baseline-auto-awesome"},
+  {tKey: "navbar.tricks", to: "/tricks", icon: "ic:baseline-auto-awesome"},
   {tKey: "navbar.combos", to:"/combos", icon: "ic:baseline-spoke"},
   {tKey: "navbar.glossary", to: "/glossary", icon: "ic:sharp-menu-book"},
   {tKey: "navbar.generator", to: "/generator", icon: "ic:sharp-factory"},
@@ -37,7 +37,7 @@ const links: NavLink[] = [
       <div class="h-8"></div>
       <ul class="flex flex-col gap-1 text-stone-700 font-prose">
         <li v-for="entry in links">
-          <RouterLink :to="entry.to" class="hover:bg-stone-100 px-7 py-2 flex flex-row gap-4" active-class="text-green-500 border-r-4 border-green-500 bg-green-50 hover:bg-stone-50">
+          <RouterLink :to="entry.to" class="hover:bg-stone-100 px-7 py-2 flex flex-row gap-4" active-class="text-green-500 border-r-4 border-green-500 bg-stone-100 hover:bg-stone-50">
             <Icon class="w-6 h-6 m-0 p-0" :icon="entry.icon"/>
             <div class="h-6 m-0 p-0 text-lg flex flex-col justify-center items-center">
               <span>{{ t(entry.tKey) }}</span>
