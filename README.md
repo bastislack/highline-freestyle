@@ -57,6 +57,8 @@ Checkout the [good first issue tag](https://github.com/bastislack/highline-frees
 2. Start the development server
 
    run `npm run dev`
+   
+   (or `npm run host` if you want to expose the website to the local network)
 
 3. Run the production environment (needed to use features of the service worker -> offline usage)
 
