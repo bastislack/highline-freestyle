@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import NavbarSide from '../components/NavbarSide.vue';
+import NavbarBottom from '../components/NavbarBottom.vue';
 
 </script>
 
@@ -12,6 +13,9 @@ import NavbarSide from '../components/NavbarSide.vue';
       </div>
       <div>
         <slot />
+        <div class="visible md:collapse">
+          <NavbarBottom />
+        </div>
       </div>
     </div>
   </div>

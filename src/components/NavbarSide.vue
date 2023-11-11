@@ -13,7 +13,7 @@ interface NavLink {
 
 const links: NavLink[] = [
   {label: "Tricks", to: "/", icon: "ic:baseline-auto-awesome"},
-  {label: "Combos", to:"/combos", icon: "ic:baseline-linear-scale"},
+  {label: "Combos", to:"/combos", icon: "ic:baseline-spoke"},
   {label: "Glossary", to: "/glossary", icon: "ic:sharp-menu-book"},
   {label: "Generator", to: "/generator", icon: "ic:sharp-factory"},
   {label: "Settings", to:"/settings", icon: "ic:round-settings"}
@@ -42,13 +42,13 @@ function toggleDarkmode() {
 
 
 <template>
-  <nav class="z-30 fixed">
-    <!-- Desktop -->
-    <div class="h-screen w-56 bg-white m-0">
+  <!-- Desktop -->
+  <nav class="z-30 fixed left-0">
+    <div class="h-screen w-56 bg-white m-0 border-r border-stone-500">
       <div class="h-4"></div>
       <div class="p-6 my-0 font-black">Here is the logo</div>
       <div class="h-8"></div>
-      <ul class="flex flex-col gap-1 text-zinc-700 font-prose">
+      <ul class="flex flex-col gap-1 text-stone-700 font-prose">
         <li v-for="entry in links">
           <RouterLink :to="entry.to" class="hover:bg-green-50 px-7 py-2 flex flex-row gap-4">
             <Icon class="w-6 h-6 m-0 p-0" :icon="entry.icon"/>
