@@ -30,12 +30,12 @@ const links: NavLink[] = [
 
 <template>
   <!-- Mobile -->
-  <nav class="fixed bottom-0 inset-x-0 z-30 h-16 w-full bg-white border-t border-stone-400 visible md:collapse">
+  <nav class="fixed bottom-0 inset-x-0 z-30 h-16 w-full bg-white border-t border-stone-400 visible lg:collapse">
     <ul class="h-full grid justify-items-stretch items-center grid-cols-5 text-stone-700">
       <li v-for="entry in links">
          <RouterLink :to="entry.to" class="flex flex-col items-center rounded-lg px-2 py-2" active-class="text-green-500 group is-active">
            <Icon class="w-6 h-6" :icon="entry.icon"/>
-           <div class="collapse group-[.is-active]:visible group-[.is-active]:md:collapse text-sm font-prose">
+           <div class="collapse group-[.is-active]:visible group-[.is-active]:lg:collapse text-sm font-prose">
             {{ t(entry.tKey) }}
           </div>
          </RouterLink>
