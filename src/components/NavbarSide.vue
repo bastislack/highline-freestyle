@@ -50,7 +50,7 @@ function toggleDarkmode() {
       <div class="h-8"></div>
       <ul class="flex flex-col gap-1 text-stone-700 font-prose">
         <li v-for="entry in links">
-          <RouterLink :to="entry.to" class="hover:bg-green-50 px-7 py-2 flex flex-row gap-4">
+          <RouterLink :to="entry.to" class="hover:bg-stone-100 px-7 py-2 flex flex-row gap-4" active-class="text-green-500 border-r-4 border-green-500 bg-green-50 hover:bg-stone-50">
             <Icon class="w-6 h-6 m-0 p-0" :icon="entry.icon"/>
             <div class="h-6 m-0 p-0 text-lg flex flex-col justify-center items-center">
               <span>{{entry.label}}</span>
