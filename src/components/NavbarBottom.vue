@@ -1,34 +1,29 @@
 <script lang="ts" setup>
 import { Icon } from '@iconify/vue';
 import { useI18n } from 'vue-i18n';
-import { setNewLocale } from '../util/locale';
+
+import messages from "../i18n/index"
+
+const i18n = useI18n({
+  messages,
+  useScope: "local"
+})  
+
+const {t} = i18n;
 
 interface NavLink {
-  label: string,
+  tKey: string,
   to: string,
   icon: string,
-  enabled: boolean
 }
 
 const links: NavLink[] = [
-  {label: "Tricks", to: "/", icon: "ic:baseline-auto-awesome", enabled: true},
-  {label: "Combos", to:"/combos", icon: "ic:baseline-spoke", enabled: false},
-  {label: "Glossary", to: "/glossary", icon: "ic:sharp-menu-book", enabled: false},
-  {label: "Generator", to: "/generator", icon: "ic:sharp-factory", enabled: false},
-  {label: "Settings", to:"/settings", icon: "ic:round-settings", enabled: false}
+  {tKey: "navbar.tricks", to: "/", icon: "ic:baseline-auto-awesome"},
+  {tKey: "navbar.combos", to:"/combos", icon: "ic:baseline-spoke"},
+  {tKey: "navbar.glossary", to: "/glossary", icon: "ic:sharp-menu-book"},
+  {tKey: "navbar.generator", to: "/generator", icon: "ic:sharp-factory"},
+  {tKey: "navbar.more", to:"/more", icon: "ic:baseline-more-horiz"}
 ]
-
-interface LocaleInfo {
-  locale: "en" | "fr" | "es" | "de",
-  icon: string
-}
-
-const {locale} = useI18n()
-
-function updateLocale(newLocale: LocaleInfo["locale"]) {
-  locale.value = newLocale
-  setNewLocale(newLocale)
-}
 
 </script>
 
@@ -40,7 +35,9 @@ function updateLocale(newLocale: LocaleInfo["locale"]) {
       <li v-for="entry in links">
          <RouterLink :to="entry.to" class="flex flex-col items-center rounded-lg hover:bg-stone-100 px-2 py-2" active-class="text-green-600 group is-active">
            <Icon class="w-6 h-6" :icon="entry.icon"/>
-           <div class="collapse group-[.is-active]:visible group-[.is-active]:md:collapse text-xs font-prose">{{ entry.label }}</div>
+           <div class="collapse group-[.is-active]:visible group-[.is-active]:md:collapse text-xs font-prose">
+            {{ t(entry.tKey) }}
+          </div>
          </RouterLink>
       </li>
     </ul>

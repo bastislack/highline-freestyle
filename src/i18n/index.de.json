@@ -1,3 +1,11 @@
 {
-  "greeting": "Hallo Welt!"
+  "greeting": "Hallo Welt!",
+
+  "navbar": {
+    "tricks": "Tricks",
+    "combos": "Kombos",
+    "glossary": "Glossar",
+    "generator": "Generator",
+    "more": "Mehr"
+  }
 }

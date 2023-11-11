@@ -13,6 +13,7 @@ export function setNewLocale(locale: z.infer<typeof LocalesZod> ) {
 }
 
 export function getPreferredLocale() {
+  return "de"
   const locale = LocalesZod.safeParse(window.localStorage.getItem("PREFERRED_LOCALE") ?? "en")
   if(!locale.success) {
     console.error("Found unknown locale in localStorage. Falling back to 'en'.")
