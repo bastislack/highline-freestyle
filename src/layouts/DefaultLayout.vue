@@ -5,7 +5,7 @@ import NavbarBottom from '../components/navbars/NavbarBottom.vue';
 </script>
 
 <template>
-  <div class="flex flex-col min-h-screen dark:bg-gray-950 m-0 p-0">
+  <div class="flex flex-col min-h-screen bg-white text-stone-900 m-0 p-0">
     <div class="flex flex-row m-0 p-0">
       <div class="collapse lg:visible">
         <NavbarSide />

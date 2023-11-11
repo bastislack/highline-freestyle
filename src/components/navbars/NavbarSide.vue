@@ -31,13 +31,13 @@ const links: NavLink[] = [
 <template>
   <!-- Desktop -->
   <nav class="z-30 fixed left-0">
-    <div class="h-screen w-56 bg-white m-0 border-r border-stone-500">
+    <div class="h-screen w-56 bg-white m-0 border-r border-stone-300 shadow-sm">
       <div class="h-4"></div>
       <div class="px-7 py-6 my-0 font-black">Logo</div>
       <div class="h-8"></div>
       <ul class="flex flex-col gap-1 text-stone-700 font-prose">
         <li v-for="entry in links">
-          <RouterLink :to="entry.to" class="hover:bg-stone-100 px-7 py-2 flex flex-row gap-4" active-class="text-green-500 border-r-4 border-green-500 bg-stone-100 hover:bg-stone-50">
+          <RouterLink :to="entry.to" class="hover:bg-stone-100 px-7 py-2 flex flex-row gap-4" active-class="text-green-500 border-l-4 border-green-500 bg-stone-100 hover:bg-stone-50">
             <Icon class="w-6 h-6 m-0 p-0" :icon="entry.icon"/>
             <div class="h-6 m-0 p-0 text-lg flex flex-col justify-center items-center">
               <span>{{ t(entry.tKey) }}</span>
