@@ -22,7 +22,7 @@ const links: NavLink[] = [
   {translationKey: "navbar.combos", to:"/combos", icon: "ic:baseline-spoke"},
   {translationKey: "navbar.glossary", to: "/glossary", icon: "ic:sharp-menu-book"},
   {translationKey: "navbar.generator", to: "/generator", icon: "ic:sharp-factory"},
-  {translationKey: "navbar.more", to:"/more", icon: "ic:baseline-more-horiz"}
+  {translationKey: "navbar.more", to:"/about", icon: "ic:baseline-more-horiz"}
 ]
 
 </script>
