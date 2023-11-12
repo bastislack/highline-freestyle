@@ -21,7 +21,7 @@ const links: NavLink[] = [
   {translationKey: "tricks", to: "/tricks", icon: "ic:baseline-auto-awesome"},
   {translationKey: "combos", to:"/combos", icon: "ic:baseline-spoke"},
   {translationKey: "glossary", to: "/glossary", icon: "ic:sharp-menu-book"},
-  {translationKey: "generator", to: "/generator", icon: "ic:sharp-factory"},
+  {translationKey: "generator", to: "/combos/generate", icon: "ic:sharp-factory"},
   {translationKey: "more", to:"/about", icon: "ic:baseline-more-horiz"}
 ]
 
