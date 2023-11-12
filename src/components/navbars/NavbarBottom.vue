@@ -2,7 +2,7 @@
 import { Icon } from '@iconify/vue';
 import { useI18n } from 'vue-i18n';
 
-import messages from "../../i18n/index"
+import messages from "../../i18n/navbar/navbar"
 
 const i18n = useI18n({
   messages,
@@ -18,11 +18,11 @@ interface NavLink {
 }
 
 const links: NavLink[] = [
-  {translationKey: "navbar.tricks", to: "/tricks", icon: "ic:baseline-auto-awesome"},
-  {translationKey: "navbar.combos", to:"/combos", icon: "ic:baseline-spoke"},
-  {translationKey: "navbar.glossary", to: "/glossary", icon: "ic:sharp-menu-book"},
-  {translationKey: "navbar.generator", to: "/generator", icon: "ic:sharp-factory"},
-  {translationKey: "navbar.more", to:"/about", icon: "ic:baseline-more-horiz"}
+  {translationKey: "tricks", to: "/tricks", icon: "ic:baseline-auto-awesome"},
+  {translationKey: "combos", to:"/combos", icon: "ic:baseline-spoke"},
+  {translationKey: "glossary", to: "/glossary", icon: "ic:sharp-menu-book"},
+  {translationKey: "generator", to: "/generator", icon: "ic:sharp-factory"},
+  {translationKey: "more", to:"/about", icon: "ic:baseline-more-horiz"}
 ]
 
 </script>
