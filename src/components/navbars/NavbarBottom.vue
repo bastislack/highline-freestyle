@@ -12,17 +12,17 @@ const i18n = useI18n({
 const {t} = i18n;
 
 interface NavLink {
-  tKey: string,
+  translationKey: string,
   to: string,
   icon: string,
 }
 
 const links: NavLink[] = [
-  {tKey: "navbar.tricks", to: "/tricks", icon: "ic:baseline-auto-awesome"},
-  {tKey: "navbar.combos", to:"/combos", icon: "ic:baseline-spoke"},
-  {tKey: "navbar.glossary", to: "/glossary", icon: "ic:sharp-menu-book"},
-  {tKey: "navbar.generator", to: "/generator", icon: "ic:sharp-factory"},
-  {tKey: "navbar.more", to:"/more", icon: "ic:baseline-more-horiz"}
+  {translationKey: "navbar.tricks", to: "/tricks", icon: "ic:baseline-auto-awesome"},
+  {translationKey: "navbar.combos", to:"/combos", icon: "ic:baseline-spoke"},
+  {translationKey: "navbar.glossary", to: "/glossary", icon: "ic:sharp-menu-book"},
+  {translationKey: "navbar.generator", to: "/generator", icon: "ic:sharp-factory"},
+  {translationKey: "navbar.more", to:"/more", icon: "ic:baseline-more-horiz"}
 ]
 
 </script>
@@ -36,7 +36,7 @@ const links: NavLink[] = [
          <RouterLink :to="entry.to" class="flex flex-col items-center p-2" active-class="text-green-500 group is-active bg-stone-100 py-1 rounded-lg">
            <Icon class="w-6 h-6" :icon="entry.icon"/>
            <div class="collapse group-[.is-active]:visible group-[.is-active]:lg:collapse text-sm font-prose">
-            {{ t(entry.tKey) }}
+            {{ t(entry.translationKey) }}
           </div>
          </RouterLink>
       </li>

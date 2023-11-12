@@ -12,17 +12,17 @@ const i18n = useI18n({
 const {t} = i18n;
 
 interface NavLink {
-  tKey: string,
+  translationKey: string,
   to: string,
   icon: string
 }
 
 const links: NavLink[] = [
-  {tKey: "navbar.tricks", to: "/tricks", icon: "ic:baseline-auto-awesome"},
-  {tKey: "navbar.combos", to:"/combos", icon: "ic:baseline-spoke"},
-  {tKey: "navbar.glossary", to: "/glossary", icon: "ic:sharp-menu-book"},
-  {tKey: "navbar.generator", to: "/generator", icon: "ic:sharp-factory"},
-  {tKey: "navbar.more", to:"/more", icon: "ic:baseline-more-horiz"}
+  {translationKey: "navbar.tricks", to: "/tricks", icon: "ic:baseline-auto-awesome"},
+  {translationKey: "navbar.combos", to:"/combos", icon: "ic:baseline-spoke"},
+  {translationKey: "navbar.glossary", to: "/glossary", icon: "ic:sharp-menu-book"},
+  {translationKey: "navbar.generator", to: "/generator", icon: "ic:sharp-factory"},
+  {translationKey: "navbar.more", to:"/more", icon: "ic:baseline-more-horiz"}
 ]
 
 </script>
@@ -40,7 +40,7 @@ const links: NavLink[] = [
           <RouterLink :to="entry.to" class="hover:bg-stone-100 px-7 py-2 flex flex-row gap-4" active-class="text-green-500 border-l-4 border-green-500 bg-stone-100 hover:bg-stone-50">
             <Icon class="w-6 h-6 m-0 p-0" :icon="entry.icon"/>
             <div class="h-6 m-0 p-0 text-lg flex flex-col justify-center items-center">
-              <span>{{ t(entry.tKey) }}</span>
+              <span>{{ t(entry.translationKey) }}</span>
             </div>
           </RouterLink>
         </li>
