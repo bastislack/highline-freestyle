@@ -42,34 +42,36 @@ const DbVideoZod = z.object({
 })
 
 
-const CommonDefinition = {
+export const DbTricksTableZod = z.object({
   id: z.number().int(),
+  trickStatus: DbStickableStatusZod,
   technicalName: z.string().nonempty(),
   alias: z.string().nonempty().optional(),
   establishedBy: z.string().nonempty().optional(),
   yearEstablished: z.number().int().positive().optional(),
-  description: z.string().nonempty().optional(),
-  tips: z.array(z.string().nonempty()).optional(),
-  dateAddedEpoch: z.number().int().min(0),
-  videos: z.array(DbVideoZod).optional()
-} as const
-
-
-export const DbTricksTableZod = z.object({
-  ...CommonDefinition,
-  trickStatus: DbStickableStatusZod,
   startPosition: DbPositionZod,
   endPosition: DbPositionZod,
   difficultyLevel: z.number().int().min(0),
+  description: z.string().nonempty().optional(),
   recommendedPrerequisites: z.array(DbReferenceZod).optional(),
+  tips: z.array(z.string().nonempty()).optional(),
   variationOf: z.array(DbReferenceZod).optional(),
   showInSearchQueries: z.boolean(),
+  dateAddedEpoch: z.number().int().min(0),
+  videos: z.array(DbVideoZod).optional(),
 })
 
 export const DbCombosTableZod = z.object({
-  ...CommonDefinition,
+  id: z.number().int(),
   comboStatus: DbStickableStatusZod,
-  tricks: z.array(DbReferenceZod).nonempty()
+  name: z.string().nonempty(),
+  establishedBy: z.string().nonempty().optional(),
+  yearEstablished: z.number().int().positive().optional(),
+  tricks: z.array(DbReferenceZod).nonempty(),
+  description: z.string().nonempty().optional(),
+  tips: z.array(z.string().nonempty()).optional(),
+  dateAddedEpoch: z.number().int().min(0),
+  videos: z.array(DbVideoZod).optional(),
 })
 
 export const DbMetadataZod = z.object({
@@ -93,6 +95,6 @@ export async function update(_tx: Transaction) {
 
 export const schema = {
   tricks: "[id+trickStatus], technicalName, alias, establishedBy, yearEstablished, startPosition, endPosition, difficultyLevel, description, *recommendedPrerequisites, tips, *variationOf, showInSearchQueries, dateAddedEpoch, videos",
-  combos: "[id+comboStatus], alias, establishedBy, yearEstablished, *tricks, description, tips, dateAddedEpoch, videos",
+  combos: "[id+comboStatus], name, establishedBy, yearEstablished, *tricks, description, tips, dateAddedEpoch, videos",
   metadata: "[id+entityStatus+entityCategory], stickFrequency, isFavourite, notes"
 } as const
