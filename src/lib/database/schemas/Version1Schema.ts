@@ -48,7 +48,7 @@ const CommonDefinition = {
   description: z.string().nonempty().optional(),
   tips: z.array(z.string().nonempty()).optional(),
   dateAddedEpoch: z.number().int().min(0),
-  videos: z.array(DbVideoZod).optional(),
+  videos: z.array(DbVideoZod).optional()
 } as const
 
 export const DbTricksTableZod = z.object({
@@ -61,14 +61,14 @@ export const DbTricksTableZod = z.object({
   difficultyLevel: z.number().int().min(0),
   recommendedPrerequisites: z.array(DbReferenceZod).optional(),
   variationOf: z.array(DbReferenceZod).optional(),
-  showInSearchQueries: z.boolean(),
+  showInSearchQueries: z.boolean()
 })
 
 export const DbCombosTableZod = z.object({
   ...CommonDefinition,
   comboStatus: DbStickableStatusZod,
   name: z.string().nonempty(),
-  tricks: z.array(DbReferenceZod).nonempty(),
+  tricks: z.array(DbReferenceZod).nonempty()
 })
 
 export const DbMetadataZod = z.object({
