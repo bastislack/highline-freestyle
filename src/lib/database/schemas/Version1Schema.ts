@@ -41,11 +41,8 @@ const DbVideoZod = z.object({
   endTime: z.number().min(0).optional()
 })
 
-
 const CommonDefinition = {
   id: z.number().int(),
-  technicalName: z.string().nonempty(),
-  alias: z.string().nonempty().optional(),
   establishedBy: z.string().nonempty().optional(),
   yearEstablished: z.number().int().positive().optional(),
   description: z.string().nonempty().optional(),
@@ -54,21 +51,23 @@ const CommonDefinition = {
   videos: z.array(DbVideoZod).optional()
 } as const
 
-
 export const DbTricksTableZod = z.object({
   ...CommonDefinition,
   trickStatus: DbStickableStatusZod,
+  technicalName: z.string().nonempty(),
+  alias: z.string().nonempty().optional(),
   startPosition: DbPositionZod,
   endPosition: DbPositionZod,
   difficultyLevel: z.number().int().min(0),
   recommendedPrerequisites: z.array(DbReferenceZod).optional(),
   variationOf: z.array(DbReferenceZod).optional(),
-  showInSearchQueries: z.boolean(),
+  showInSearchQueries: z.boolean()
 })
 
 export const DbCombosTableZod = z.object({
   ...CommonDefinition,
   comboStatus: DbStickableStatusZod,
+  name: z.string().nonempty(),
   tricks: z.array(DbReferenceZod).nonempty()
 })
 
@@ -93,6 +92,6 @@ export async function update(_tx: Transaction) {
 
 export const schema = {
   tricks: "[id+trickStatus], technicalName, alias, establishedBy, yearEstablished, startPosition, endPosition, difficultyLevel, description, *recommendedPrerequisites, tips, *variationOf, showInSearchQueries, dateAddedEpoch, videos",
-  combos: "[id+comboStatus], alias, establishedBy, yearEstablished, *tricks, description, tips, dateAddedEpoch, videos",
+  combos: "[id+comboStatus], name, establishedBy, yearEstablished, *tricks, description, tips, dateAddedEpoch, videos",
   metadata: "[id+entityStatus+entityCategory], stickFrequency, isFavourite, notes"
 } as const

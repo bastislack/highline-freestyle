@@ -104,8 +104,7 @@ export default class CombosDAO implements DbObjectDao<Combo> {
     const comboObject: DbCombo = DbCombosTableZod.parse({
       id,
       comboStatus,
-      technicalName: objectWithoutId.technicalName,
-      alias: objectWithoutId.alias,
+      name: objectWithoutId.name,
       establishedBy: objectWithoutId.establishedBy,
       yearEstablished: objectWithoutId.yearEstablished,
       tricks: objectWithoutId.tricks,

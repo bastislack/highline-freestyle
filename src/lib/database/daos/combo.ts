@@ -12,10 +12,9 @@ export class Combo implements DbObject {
   
   #modified = {
     dataFromDatabase: {
-      alias: false,
+      name: false,
       establishedBy: false,
       yearEstablished: false,
-      technicalName: false,
       description: false,
       tips: false,
       videos: false,
@@ -49,27 +48,14 @@ export class Combo implements DbObject {
     return [this.dataFromDatabase.id, this.dataFromDatabase.comboStatus] as const
   }
 
-  public get technicalName() {
-    return this.dataFromDatabase.technicalName
+  public get name() {
+    return this.dataFromDatabase.name
   }
-  public set technicalName(val) {
-    if(val === this.dataFromDatabase.technicalName) {
+  public set name(val) {
+    if(val === this.dataFromDatabase.name) {
       return
     }
-    this.#modified.dataFromDatabase.technicalName = true;
-    this.dataFromDatabase.technicalName = DbCombosTableZod._def.shape().technicalName.parse(val)
-  }
-
-
-  public get alias() {
-    return this.dataFromDatabase.alias
-  }
-
-  public set alias(val) {
-    if(val === this.dataFromDatabase.alias) {
-      return
-    }
-    this.#modified.dataFromDatabase.alias = true
+    this.#modified.dataFromDatabase.name = true;
     // this might seem confusing at first, but is basically just an access of the DbComboTable's 
     // definition of alias. This is mainly here so we have a single source of truth in 
     // terms of validation, namely DbCombosTableZod of the current Version.
@@ -80,8 +66,7 @@ export class Combo implements DbObject {
     // other properties, but their            |                |
     // comments are ommited.                  |                |
     //                            vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-    this.dataFromDatabase.alias = DbCombosTableZod._def.shape().alias.parse(val)
-
+    this.dataFromDatabase.name = DbCombosTableZod._def.shape().name.parse(val)
   }
 
   public get establishedBy() {
@@ -92,7 +77,7 @@ export class Combo implements DbObject {
       return
     }
     this.#modified.dataFromDatabase.establishedBy = true
-    this.dataFromDatabase.alias = DbCombosTableZod._def.shape().establishedBy.parse(val)
+    this.dataFromDatabase.establishedBy = DbCombosTableZod._def.shape().establishedBy.parse(val)
   }
 
   public get yearEstablished() {
@@ -298,7 +283,7 @@ export class Combo implements DbObject {
       // The cast is a bit cursed and wrong here, but will do for now. All keys are keyof the relevant object as we make
       // use of Object.keys here anyways.
       //                                                                                              lmao. 
-      Object.keys(this.#modified.dataFromDatabase).forEach( dbCombo => this.#modified.dataFromDatabase[dbCombo as "alias"] = true)
+      Object.keys(this.#modified.dataFromDatabase).forEach( dbCombo => this.#modified.dataFromDatabase[dbCombo as "name"] = true)
       Object.keys(this.#modified.metadata).forEach( dbMeta => this.#modified.metadata[dbMeta as "notes"] = true)
       this.#modified.persisting = false
     }
