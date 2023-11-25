@@ -16,6 +16,8 @@ interface NavLink {
   to: string;
 }
 
+const test = 'dsads';
+
 const links: NavLink[] = [
   { label: 'index', to: '/' },
   { label: 'example', to: '/example' },
