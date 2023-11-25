@@ -4,3 +4,5 @@ public
 CNAME
 LICENSE
 prettier.config.cjs
+# Ignore dot files
+.*
