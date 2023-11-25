@@ -1,5 +1,5 @@
 {
   "*.ts": "eslint --fix",
   "*.vue": "eslint --fix",
-  "*": "prettier --write"
+  "*": "prettier --ignore-unknown --write"
 }

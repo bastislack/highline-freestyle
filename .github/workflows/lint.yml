@@ -25,4 +25,6 @@ jobs:
       - name: 'Debug: Print all Changes'
         run: git --no-pager diff --diff-filter=ACMR --name-only "origin/${GITHUB_BASE_REF}...origin/${GITHUB_HEAD_REF}"
       - name: Run lint-staged
-        run: npx lint-staged --diff="origin/${GITHUB_BASE_REF}...origin/${GITHUB_HEAD_REF}"
+        # lint-staged gets it's own config for the CI which will not write changes
+        # e.g. using prettier --check instead of prettier --write
+        run: npx lint-staged --config .lintstagedrc-ci --diff="origin/${GITHUB_BASE_REF}...origin/${GITHUB_HEAD_REF}"
