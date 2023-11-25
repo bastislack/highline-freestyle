@@ -83,10 +83,14 @@ export default class TricksDAO implements DbObjectDao<Trick> {
   }
 
   public async getById(id: number, trickStatus: DbTricks["trickStatus"]) {
-    let [trick, meta] = await Promise.all([
+
+    const response = await Promise.all([
       this.db.tricks.get([id, trickStatus]),
       this.db.metadata.get([id, trickStatus, "Trick"])
     ])
+    const trick = response[0];
+    let meta = response[1];
+
     if(!trick) {
       return undefined
     }

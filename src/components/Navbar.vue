@@ -77,7 +77,7 @@ function toggleDarkmode() {
       <RouterLink to="/" class="md:text-2xl hidden md:block text-white font-heading hover:underline">Highline Freestyle</RouterLink>
       <div class="flex-1"/>
       <ul class=" inline-flex flex-row gap-1 text-white font-prose">
-        <li v-for="entry in links">
+        <li v-for="entry in links" :key="entry.to">
           <RouterLink :to="entry.to" class="rounded-lg md:text-xl hover:bg-black/20 p-3">{{entry.label}}</RouterLink>
         </li>
       </ul>
@@ -93,7 +93,7 @@ function toggleDarkmode() {
         <div class="hidden group-hover:block absolute top-full right-0 pl-20 pb-20 pt-5 -mt-5 ">
           <div class="mt-3 border rounded-lg dark:bg-slate-700 bg-white dark:border-slate-800 dark:text-white">
             <div class=" inline-flex flex-col divide-y dark:divide-slate-800">
-                <button @click="updateLocale(locale.locale)" v-for="locale in LocaleInfos" class="p-4 hover:bg-black/10 flex flex-row items-center gap-3">
+                <button @click="updateLocale(locale.locale)" v-for="locale in LocaleInfos" :key="locale.locale" class="p-4 hover:bg-black/10 flex flex-row items-center gap-3">
                   <Icon class="w-8 h-8" :icon="locale.icon"/>
                   <span>{{ locale.locale }}</span>
                 </button>
@@ -132,7 +132,7 @@ function toggleDarkmode() {
             </div>
 
             <div class=" flex flex-col gap-1 text-black font-prose">
-              <RouterLink v-for="route of links" :to="route.to" class="p-4 pl-8 border border-primary dark:border-white/40 dark:hover:border-transparent hover:border-transparent grid items-stretch rounded-lg  group transition-all duration-150 hover:bg-primary">
+              <RouterLink v-for="route of links" :to="route.to" :key="route.to" class="p-4 pl-8 border border-primary dark:border-white/40 dark:hover:border-transparent hover:border-transparent grid items-stretch rounded-lg  group transition-all duration-150 hover:bg-primary">
                 <div class="inline-flex flex-row items-center">
                   <h2 class="text-primary dark:text-white group-hover:text-white text-xl sm:text-3xl font-black font-heading tracking-tight">{{ route.label }}</h2>
                   <span class="flex-1"/>
@@ -154,7 +154,7 @@ function toggleDarkmode() {
 
             <div class="mt-3 border border-primary dark:border-white/40 rounded-lg">
               <div class=" flex flex-col divide-y divide-primary dark:divide-white/40">
-                <button v-for="locale of LocaleInfos" @click="updateLocale(locale.locale)" class="p-4 duration-150 hover:bg-primary hover:text-white text-primary dark:text-white text-xl  first:rounded-t-md last:rounded-b-md flex flex-row items-center gap-3">
+                <button v-for="locale of LocaleInfos" :key="locale.locale" @click="updateLocale(locale.locale)" class="p-4 duration-150 hover:bg-primary hover:text-white text-primary dark:text-white text-xl  first:rounded-t-md last:rounded-b-md flex flex-row items-center gap-3">
                   <Icon :icon="locale.icon" class="w-8 h-8" /><span>{{ locale.locale }}</span>
                 </button>
               </div>

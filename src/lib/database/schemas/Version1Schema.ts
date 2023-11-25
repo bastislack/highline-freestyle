@@ -1,4 +1,3 @@
-import { Transaction } from "dexie"
 import {z} from "zod"
 
 
@@ -86,7 +85,7 @@ export const DbMetadataZod = z.object({
  * 
  * This is a NOOP for this particular Version (because there is no previous version, so you cannot really do a migration)
  */
-export async function update(_tx: Transaction) {
+export async function update( /*_tx: Transaction */ ) {
   return;
 }
 

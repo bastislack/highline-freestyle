@@ -21,10 +21,14 @@ async function fetchYamlFile(path: string) {
   const asObject = YamlTrickTableSchemaZod.parse(parse(await readFile(path, "utf8")))
   // This turns the "simple" IDs found in the YAMLs into the Key Tuples of the Tricks (e.g. [3,2] => [ [3, "official"], [2, "official"]])
   if(asObject.recommendedPrerequisites) {
+    // cast as any is fine as we parse the object before returning with Zod
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     asObject.recommendedPrerequisites = asObject.recommendedPrerequisites.map( prerequisiteId => ([prerequisiteId, "official"])) as any
   }
   // same thing as above, just with the variationOf Entries.
   if(asObject.variationOf) {
+    // cast as any is fine as we parse the object before returning with Zod
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     asObject.variationOf = asObject.variationOf.map( variationId => ([variationId, "official"])) as any
     
   }
@@ -35,7 +39,7 @@ async function fetchYamlFile(path: string) {
 
 function findDuplicateKeys(allTricks: z.infer<typeof DbTricksTableZod>[]) {
 
-  let idToTrickLookup: Record<number, (z.infer<typeof DbTricksTableZod>)[]> = createRecordLookup(allTricks);
+  const idToTrickLookup: Record<number, (z.infer<typeof DbTricksTableZod>)[]> = createRecordLookup(allTricks);
 
   return Object.entries(idToTrickLookup).filter(([_,trickList]) => trickList.length > 1).map(([id,trickList]) => ({
     id,
@@ -46,7 +50,7 @@ function findDuplicateKeys(allTricks: z.infer<typeof DbTricksTableZod>[]) {
 
 
 function createRecordLookup(allTricks: z.infer<typeof DbTricksTableZod>[]) {
-  let idToTrickLookup: Record<number, (z.infer<typeof DbTricksTableZod>)[]> = {};
+  const idToTrickLookup: Record<number, (z.infer<typeof DbTricksTableZod>)[]> = {};
 
   allTricks.forEach(trick => {
     if (!idToTrickLookup[trick.id]) {
@@ -64,7 +68,7 @@ function createRecordLookup(allTricks: z.infer<typeof DbTricksTableZod>[]) {
  */
 function findUndefinedReferences(allTricks: z.infer<typeof DbTricksTableZod>[]) {
   
-  let idToTrickLookup: Record<number, (z.infer<typeof DbTricksTableZod>)[]> = createRecordLookup(allTricks);
+  const idToTrickLookup: Record<number, (z.infer<typeof DbTricksTableZod>)[]> = createRecordLookup(allTricks);
 
   // issues define the ID of the Trick and an issue message
   const issues: [number, string][] = []

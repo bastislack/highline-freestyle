@@ -82,10 +82,13 @@ export default class CombosDAO implements DbObjectDao<Combo> {
   }
 
   public async getById(id: number, comboStatus: DbCombo["comboStatus"]) {
-    let [combo, meta] = await Promise.all([
+    const response = await Promise.all([
       this.db.combos.get([id, comboStatus]),
       this.db.metadata.get([id, comboStatus, "Combo"])
     ])
+
+    const combo = response[0];
+    let meta = response[1]
 
     if(!combo) {
       return undefined

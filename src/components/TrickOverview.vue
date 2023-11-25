@@ -20,7 +20,7 @@ allTricks.forEach(trick => {
 })
 
 Object.keys(tricksByDifficulty).forEach(
-  e => tricksByDifficulty[e as any] = tricksByDifficulty[e as any].sort(compareTrickNames)
+  e => tricksByDifficulty[e as unknown as number] = tricksByDifficulty[e as unknown as number].sort(compareTrickNames)
 );
 
 console.log(tricksByDifficulty)

@@ -20,8 +20,9 @@ async function fetchYamlFile(path: string) {
     throw new Error("Combos must contain at least one trick.")
   }
 
+  // cast as any on the next line is okay as we immediately parse the object with Zod.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   asObject.tricks = asObject.tricks.map( trickId => ([trickId, "official"])) as any
-
   // Makes sure the YAML has the right structure. 
   return DbCombosTableZod.parse({...asObject, comboStatus: "official"})
 }
@@ -32,7 +33,7 @@ async function fetchYamlFile(path: string) {
  * This can be used to detect duplicates or to check if an Entity with a given ID exists.
  */
 function createRecordLookup<T extends z.infer<typeof DbCombosTableZod> | z.infer<typeof DbTricksTableZod>>(allEntities: T[]) {
-  let idToEntityLookup: Record<number, T[]> = {};
+  const idToEntityLookup: Record<number, T[]> = {};
 
   allEntities.forEach(databaseEntity => {
     if (!idToEntityLookup[databaseEntity.id]) {
@@ -45,17 +46,17 @@ function createRecordLookup<T extends z.infer<typeof DbCombosTableZod> | z.infer
 
 function findDuplicateKeys(allCombos: z.infer<typeof DbCombosTableZod>[]) {
 
-  let idToComboLookup: Record<number, (z.infer<typeof DbCombosTableZod>)[]> = createRecordLookup(allCombos);
+  const idToComboLookup: Record<number, (z.infer<typeof DbCombosTableZod>)[]> = createRecordLookup(allCombos);
 
   return Object.entries(idToComboLookup).filter(([_,combo]) => combo.length > 1).map(([k,v]) => ({
     id: k,
-    technicalNames: v.map( trick => trick.technicalName)
+    names: v.map( trick => trick.name)
   }))
 }
 
 function findUndefinedTrickReferences(allCombos: z.infer<typeof DbCombosTableZod>[], allTricks: z.infer<typeof DbTricksTableZod>[]) {
   
-  let idToTrickLookup: Record<number, (z.infer<typeof DbTricksTableZod>)[]> = createRecordLookup(allTricks);
+  const idToTrickLookup: Record<number, (z.infer<typeof DbTricksTableZod>)[]> = createRecordLookup(allTricks);
 
   // issues define the ID of the Combo and an issue message
   const issues: [number, string][] = []
