@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const LocalesZod = z.enum([
-  "en", "fr", "es", "de",
+  "en", "fr", "es",
 ])
 
 /**
