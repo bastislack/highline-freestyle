@@ -2,16 +2,14 @@
 import DefaultLayout from '../layouts/DefaultLayout.vue';
 import TrickOverview from '../components/TrickOverview.vue';
 import LoadingSpinner from '../components/LoadingSpinner.vue';
-
 </script>
-
 
 <template>
   <DefaultLayout :flex-spacer="true">
     <Suspense>
       <TrickOverview />
       <template #fallback>
-        <LoadingSpinner/>
+        <LoadingSpinner />
       </template>
     </Suspense>
   </DefaultLayout>

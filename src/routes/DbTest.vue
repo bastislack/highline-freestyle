@@ -1,36 +1,30 @@
 <script lang="ts" setup>
 import { onMounted, onUnmounted, ref } from 'vue';
 import DefaultLayout from '../layouts/DefaultLayout.vue';
-import {tricksDao} from '../lib/database';
+import { tricksDao } from '../lib/database';
 import { type Trick } from '../lib/database/daos/trick';
 
-const tricks = ref<Trick[]>([])
+const tricks = ref<Trick[]>([]);
 
 async function fetchTricksData() {
-  return tricksDao.getAll()
+  return tricksDao.getAll();
 }
 
-onMounted( async() => {
+onMounted(async () => {
   // Setup code
-  tricks.value = await fetchTricksData()
-  console.log(tricks.value)
-})
+  tricks.value = await fetchTricksData();
+  console.log(tricks.value);
+});
 
-onUnmounted( () => {
+onUnmounted(() => {
   // (Potential) Cleanup Code
-})
-
-
-
+});
 </script>
-
 
 <template>
   <DefaultLayout :flex-spacer="true">
     <div class="text-white p-4">
-      <ul class="w-100 overflow-x-scroll">
-      </ul>
+      <ul class="w-100 overflow-x-scroll"></ul>
     </div>
   </DefaultLayout>
-
 </template>
