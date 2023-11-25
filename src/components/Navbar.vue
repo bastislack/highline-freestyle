@@ -30,7 +30,7 @@ const navClassList = computed( () => [
 
 
 interface LocaleInfo {
-  locale: "en" | "fr" | "es" | "de",
+  locale: "en" | "fr" | "es",
   icon: string
 }
 
@@ -47,10 +47,6 @@ const LocaleInfos: LocaleInfo[] = [
     locale: "es",
     icon: "flag:es-4x3"
   },
-  {
-    locale: "de",
-    icon: "flag:de-4x3"
-  }
 ] 
 
 const {locale} = useI18n()
