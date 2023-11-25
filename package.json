@@ -12,7 +12,9 @@
     "lint:eslint": "eslint --ext .ts,.vue,.json src",
     "lint:eslint:fix": "eslint --ext .ts,.vue,.json src --fix",
     "lint:prettier": "prettier src --check",
-    "lint:prettier:fix": "prettier src --write"
+    "lint:prettier:fix": "prettier src --write",
+    "lint:staged": "lint-staged",
+    "prepare": "husky install"
   },
   "dependencies": {
     "dexie": "^3.2.4",
@@ -31,6 +33,8 @@
     "eslint": "^8.54.0",
     "eslint-plugin-vue": "^9.18.1",
     "globby": "^13.2.2",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.1.0",
     "postcss": "^8.4.29",
     "prettier": "3.1.0",
     "rollup-plugin-visualizer": "^5.9.2",
