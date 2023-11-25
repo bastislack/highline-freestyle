@@ -21,6 +21,6 @@ jobs:
       - name: Install Dependencies from Lock-File
         run: npm ci
       - name: 'Debug: Print all Changes'
-        run: git --no-pager diff --diff-filter=ACMR --name-only "${GITHUB_BASE_REF}...${GITHUB_HEAD_REF}"
+        run: git --no-pager diff --diff-filter=ACMR --name-only "origin/${GITHUB_BASE_REF}...origin/${GITHUB_HEAD_REF}"
       - name: Run lint-staged
-        run: npx lint-staged --diff="${GITHUB_BASE_REF}...${GITHUB_HEAD_REF}"
+        run: npx lint-staged --diff="origin/${GITHUB_BASE_REF}...origin/${GITHUB_HEAD_REF}"
