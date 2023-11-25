@@ -1,5 +1,5 @@
 {
-  "*.ts": "eslint",
-  "*.vue": "eslint",
-  "*": "prettier --ignore-unknown --check"
+  "src/**/*.ts": "eslint",
+  "src/**/*.vue": "eslint",
+  "src/**/*": "prettier --ignore-unknown --check"
 }
