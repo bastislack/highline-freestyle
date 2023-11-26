@@ -4,6 +4,7 @@ import { Icon } from '@iconify/vue';
 import {isDarkMode, setColorScheme, applyColorScheme} from "../util/colorScheme"
 import { useI18n } from 'vue-i18n';
 import { setNewLocale } from '../util/locale';
+import SearchBar from './SearchBar.vue'
 
 interface Props {
   type: "fixed" | "sticky"
@@ -121,6 +122,7 @@ function toggleDarkmode() {
           </RouterLink>
         </div>
         <div class="flex-1"/>
+          <SearchBar @update-search-query="(searchText) => $emit('updateSearchQuery', searchText)"/>
         <div/>
       </nav>
       <div id="mobile-nav-container" :class="`hidden fixed top-0 overflow-hidden left-0 w-full h-full group/wrapper pointer-events-auto ${isMobileNavExpanded ? 'active' : ''}`">

@@ -12,8 +12,8 @@ const props = defineProps<Props>()
 
 <template>
   <div class="flex flex-col min-h-screen dark:bg-gray-950">
-    <Navbar type="fixed" />
-    <div class="h-14"/>
+    <Navbar type="fixed" @update-search-query="(searchText) => $emit('updateSearchQuery', searchText)"/>
+    <div class="h-16"/>
     <slot />
     <div v-if="props.flexSpacer ?? true" class="flex-1"/>
     <Footer/>

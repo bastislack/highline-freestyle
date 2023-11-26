@@ -1,8 +1,11 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { Trick } from '../util/trick';
 import { tricks } from '../util/tricks';
-import SearchBar from './SearchBar.vue'
+
+const props = defineProps<{
+  searchText: string
+}>()
 
 const allTricks: Trick[] = tricks
 
@@ -40,11 +43,14 @@ function compareTrickNames(a: Trick, b: Trick): number {
   }
 }
 
-function updateSearch(searchText: string): void {
+watch(() => props.searchText, onUpdateSearchQuery)
+
+function onUpdateSearchQuery(searchText: string): void {
   searchText = searchText.trim()
   if (searchText) {
     filterTricks(searchText)
     isSearchActive.value = true
+    console.log('searching')
   } else {
     filteredTricks.value = []
     isSearchActive.value = false
@@ -62,7 +68,6 @@ function filterTricks(searchText: string): void {
 
 
 <template>
-  <SearchBar @update-search-text="updateSearch" />
   <div v-if="!isSearchActive">
     <div v-for="level in Object.keys(tricksByDifficulty).length - 1" :key="level">
       <hr class="border-dark-gray">
@@ -93,7 +98,7 @@ function filterTricks(searchText: string): void {
       </div>
     </div>
   </div>
-  <div v-else>
+  <div v-else-if="isSearchActive && filteredTricks.length > 0">
     <div class="p-4 grid grid-cols-3 xs:grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 gap-3">
       <div v-for="trick in filteredTricks" :key="trick.id"
         class="p-2 border-2 rounded-md border-dark-gray bg-light-gray-250 flex items-center justify-center container h-20 drop-shadow">
@@ -102,5 +107,10 @@ function filterTricks(searchText: string): void {
         </p>
       </div>
     </div>
+  </div>
+  <div v-else>
+    <p class="text-center text-2xl font-bold">
+      No tricks found :(
+    </p>
   </div>
 </template>
