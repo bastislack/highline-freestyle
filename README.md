@@ -7,23 +7,23 @@ The link to the page is: https://highline-freestyle.com
 
 ## Features
 
-- Predefinded tricks from the [google sheet](https://docs.google.com/spreadsheets/d/1amLK2b6BQkJ10I3LcbUe-D-wgQpHkcgoIrL10TPkHPo) **Feedback to tricks, on this sheet as a comment and not as an issue**
-- Tricks added by the user
+### Currently in work
+
+- Predefinded tricks from the [google sheet](https://docs.google.com/spreadsheets/d/1amLK2b6BQkJ10I3LcbUe-D-wgQpHkcgoIrL10TPkHPo) **Feedback to tricks, on this sheet as a comment and not as an issue** are preloaded in the app for everyone
+- Users can track their own progress by marking how good they are at certain tricks
+- Custom tricks can be added by the user
+
+### After that
+- Predefined combos from the google sheet get preloaded in the app for everyone
+- Users can track their own progress by marking how good they are at certain combos
+- Custom combos can be added by the user
+- Glossary of basic positions (Korean, Sofa, Rocket, ...)
 - Random combo generator
-- Possibility to mark tricks on how good you can do them
-
-
-## Future plans
-
-- ComboMaker to allow the user to save his own combo
-- Possibility to share own tricks and combos with other people
-- Integrate judging feature for competitions
-
 
 
 # Get involved
 
-Help us out develop an awesome app!
+Help us out develop an awesome app! Everyone is welcome :)
 
 
 ## Bugs, suggestions, feedback
@@ -57,41 +57,15 @@ Checkout the [good first issue tag](https://github.com/bastislack/highline-frees
 2. Start the development server
 
    run `npm run dev`
-
-3. Run the production environment (needed to use features of the service worker -> offline usage)
-
-   run `npm run serve`
+   
+   (or `npm run host` if you want to expose the website to the local network)
 
 Sometimes after updating you have to delete your indexDB in your browser, through the development tools (__Storage__ in Firefox, __Application__ in Chrome).
 
 
-### Tests
-
-Tests are written with the jest package and can be run with `npm test`.
-
-
 ### Project structure
 
-We are working on the develop branch and merging to main once we consider a milestone to be complete.
+To work on the rewrite, simply work off of the rewrite branch and create a pull request back onto it with your fix or feature.
 
+For all other questions either consult the [wiki](https://github.com/bastislack/highline-freestyle/wiki) or open an issue.
 
-### i18n (internationalization)
-
-At the time of writing we support two separate languages; English and Spanish. This is implemented using a package called Lingui.js which is [well documented](https://lingui.js.org/tutorials/react.html). It's really worth reading the documentation to understand everything that's possible (e.g. handling plurals). The basic flow for adding a new piece of translated text is:
-
-1. Wrap the text in a `<Trans>` tag and give it a meaningful id, so `example to translate` becomes `<Trans id="example.somethingToTranslate">example to translate</Trans>`.
-2. `npm run extract`.
-3. Edit `src/locales/es/messages.po` and fill in the missing translation.
-4. Reload the page.
-
-The id helps to keep the translations organised where a general rule would be to have a categor (e.g. links or languages) followed by a full-stop and then something describing the text. This also helps to avoid having multiple translations with the same key.
-
-
-#### Enums
-
-So far the best way I'm aware of for providing translations for enums is to convert them to a javascript object and use `<Trans>` as mentioned above. See `src/links.js` for an example.
-
-
-#### Why explicitly define ids for `Trans`
-
-Lingui.js supports automatic id generation but in my experience this kind of behaviour is messy. An example is if the translated text is changed, Lingui.js has no way to know that the translation was changed and instead will keep the old one and add a new one.
