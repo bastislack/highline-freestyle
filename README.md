@@ -29,6 +29,9 @@ Open an issue and describe what is you want to see different
 
 ## Development
 
+> [!IMPORTANT]
+> We are in the middle of a rewrite. Check and use the [rewrite branch](https://github.com/bastislack/highline-freestyle/tree/rewrite) for anything beyond small fixes to the app in its current state.
+
 Following is gives a brief introduction into the development.
 
 Checkout the [good first issue tag](https://github.com/bastislack/highline-freestyle/labels/good%20first%20issue), if you don't know where to start.
