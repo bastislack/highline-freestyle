@@ -1,1 +1,1 @@
-export * from "./Version1Schema"
+export * from './Version1Schema';

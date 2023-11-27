@@ -1,5 +1,5 @@
-import en from "./notFound.en.json"
+import en from './notFound.en.json';
 
 export default {
-  en
-}
+  en,
+};

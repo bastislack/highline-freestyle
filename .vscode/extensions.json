@@ -6,6 +6,8 @@
     "yoavbls.pretty-ts-errors",
     "antfu.iconify",
     "editorconfig.editorconfig",
-    "redhat.vscode-yaml"
+    "redhat.vscode-yaml",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode"
   ]
 }

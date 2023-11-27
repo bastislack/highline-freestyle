@@ -7,7 +7,15 @@
     "dev": "vite",
     "host": "vite --host",
     "build": "vue-tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "npm run lint:eslint && npm run lint:prettier",
+    "lint:fix": "npm run lint:eslint:fix && npm run lint:prettier:fix",
+    "lint:eslint": "eslint --ext .ts,.vue,.json src",
+    "lint:eslint:fix": "eslint --ext .ts,.vue,.json src --fix",
+    "lint:prettier": "prettier src --check",
+    "lint:prettier:fix": "prettier src --write",
+    "lint:staged": "lint-staged",
+    "prepare": "husky install"
   },
   "dependencies": {
     "dexie": "^3.2.4",
@@ -19,17 +27,24 @@
   "devDependencies": {
     "@iconify/vue": "^4.1.1",
     "@types/node": "^20.5.9",
+    "@typescript-eslint/eslint-plugin": "^6.12.0",
+    "@typescript-eslint/parser": "^6.12.0",
     "@vitejs/plugin-vue": "^4.2.3",
     "autoprefixer": "^10.4.15",
+    "eslint": "^8.54.0",
+    "eslint-plugin-vue": "^9.18.1",
     "globby": "^13.2.2",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.1.0",
     "postcss": "^8.4.29",
+    "prettier": "3.1.0",
     "rollup-plugin-visualizer": "^5.9.2",
     "tailwindcss": "^3.3.3",
     "typescript": "^5.0.2",
     "vite": "^4.4.5",
+    "vite-plugin-pwa": "^0.16.5",
     "vue-tsc": "^1.8.5",
     "yaml": "^2.3.2",
-    "zod-to-json-schema": "^3.21.4",
-    "vite-plugin-pwa": "^0.16.5"
+    "zod-to-json-schema": "^3.21.4"
   }
 }
