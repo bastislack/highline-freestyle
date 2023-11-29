@@ -85,9 +85,7 @@ function updateLocale(newLocale: LocaleInfo['locale']) {
           <Icon icon="material-symbols:translate" class="text-white w-8 h-8" />
         </button>
         <div class="hidden group-hover:block absolute top-full right-0 pl-20 pb-20 pt-5 -mt-5">
-          <div
-            class="mt-3 border rounded-lg bg-white"
-          >
+          <div class="mt-3 border rounded-lg bg-white">
             <div class="inline-flex flex-col divide-y">
               <button
                 @click="updateLocale(locale.locale)"

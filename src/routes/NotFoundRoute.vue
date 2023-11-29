@@ -20,9 +20,7 @@ const { t } = i18n;
     <div class="flex flex-1 flex-col justify-center self-stretch">
       <div class="flex flex-row justify-center">
         <div class="flex flex-col">
-          <h1
-            class="text-5xl font-bold transition-all duration-200 hover:-translate-y-3"
-          >
+          <h1 class="text-5xl font-bold transition-all duration-200 hover:-translate-y-3">
             {{ t('heading') }}
           </h1>
           <p class="text-sm">{{ route.fullPath }}</p>
