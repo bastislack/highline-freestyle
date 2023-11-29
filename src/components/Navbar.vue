@@ -64,7 +64,7 @@ function updateLocale(newLocale: LocaleInfo['locale']) {
   <nav :class="navClassList">
     <!-- Desktop -->
     <div
-      class="hidden sm:flex flex-row items-center gap-3 bg-primary/90 backdrop-blur-sm p-2 pointer-events-auto dark:bg-slate-800"
+      class="hidden sm:flex flex-row items-center gap-3 bg-primary/90 backdrop-blur-sm p-2 pointer-events-auto"
     >
       <!--       vvvvv  todo change to brand icon -->
       <Icon icon="tabler:error-404" class="w-8 h-8 text-white" />
@@ -86,9 +86,9 @@ function updateLocale(newLocale: LocaleInfo['locale']) {
         </button>
         <div class="hidden group-hover:block absolute top-full right-0 pl-20 pb-20 pt-5 -mt-5">
           <div
-            class="mt-3 border rounded-lg dark:bg-slate-700 bg-white dark:border-slate-800 dark:text-white"
+            class="mt-3 border rounded-lg bg-white"
           >
-            <div class="inline-flex flex-col divide-y dark:divide-slate-800">
+            <div class="inline-flex flex-col divide-y">
               <button
                 @click="updateLocale(locale.locale)"
                 v-for="locale in LocaleInfos"
@@ -105,7 +105,7 @@ function updateLocale(newLocale: LocaleInfo['locale']) {
     </div>
     <!-- Mobile -->
     <div class="sm:hidden">
-      <nav class="flex flex-row bg-primary/90 dark:bg-slate-800 backdrop-blur-sm items-center">
+      <nav class="flex flex-row bg-primary/90 backdrop-blur-sm items-center">
         <div class="flex-1">
           <button
             @click="isMobileNavExpanded = !isMobileNavExpanded"
@@ -139,13 +139,13 @@ function updateLocale(newLocale: LocaleInfo['locale']) {
           class="absolute w-full pointer-events-none -translate-x-full group-[.active]/wrapper:translate-x-0 transition-all duration-200"
         >
           <div
-            class="mt-5 flex flex-col bg-white p-4 mr-12 pointer-events-auto overflow-y-scroll h-screen rounded-r-lg pb-24 dark:bg-slate-900"
+            class="mt-5 flex flex-col bg-white p-4 mr-12 pointer-events-auto overflow-y-scroll h-screen rounded-r-lg pb-24"
           >
             <div class="flex flex-row items-center justify-between mb-3">
-              <h2 class="text-2xl font-heading dark:text-white">Navigation Bar</h2>
+              <h2 class="text-2xl font-heading">Navigation Bar</h2>
               <button
                 @click="isMobileNavExpanded = false"
-                class="p-4 hover:bg-neutral-100 dark:hover:bg-white/10 rounded-full dark:text-white"
+                class="p-4 hover:bg-neutral-100 rounded-full"
               >
                 <Icon class="w-6 h-6" icon="ic:outline-close" />
               </button>
@@ -156,29 +156,29 @@ function updateLocale(newLocale: LocaleInfo['locale']) {
                 v-for="route of links"
                 :to="route.to"
                 :key="route.to"
-                class="p-4 pl-8 border border-primary dark:border-white/40 dark:hover:border-transparent hover:border-transparent grid items-stretch rounded-lg group transition-all duration-150 hover:bg-primary"
+                class="p-4 pl-8 border border-primary hover:border-transparent grid items-stretch rounded-lg group transition-all duration-150 hover:bg-primary"
               >
                 <div class="inline-flex flex-row items-center">
                   <h2
-                    class="text-primary dark:text-white group-hover:text-white text-xl sm:text-3xl font-black font-heading tracking-tight"
+                    class="text-primary group-hover:text-white text-xl sm:text-3xl font-black font-heading tracking-tight"
                   >
                     {{ route.label }}
                   </h2>
                   <span class="flex-1" />
                   <Icon
-                    class="w-6 sm:w-12 dark:text-white text-primary group-hover:text-white -translate-x-2 group-hover:translate-x-0 transition-all duration-150"
+                    class="w-6 sm:w-12 text-primary group-hover:text-white -translate-x-2 group-hover:translate-x-0 transition-all duration-150"
                     icon="ic:twotone-chevron-right"
                   />
                 </div>
               </RouterLink>
             </div>
-            <div class="mt-3 border border-primary dark:border-white/40 rounded-lg">
-              <div class="flex flex-col divide-y divide-primary dark:divide-white/40">
+            <div class="mt-3 border border-primary rounded-lg">
+              <div class="flex flex-col divide-y divide-primary">
                 <button
                   v-for="locale of LocaleInfos"
                   :key="locale.locale"
                   @click="updateLocale(locale.locale)"
-                  class="p-4 duration-150 hover:bg-primary hover:text-white text-primary dark:text-white text-xl first:rounded-t-md last:rounded-b-md flex flex-row items-center gap-3"
+                  class="p-4 duration-150 hover:bg-primary hover:text-white text-primary text-xl first:rounded-t-md last:rounded-b-md flex flex-row items-center gap-3"
                 >
                   <Icon :icon="locale.icon" class="w-8 h-8" /><span>{{ locale.locale }}</span>
                 </button>
