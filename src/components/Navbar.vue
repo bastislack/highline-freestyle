@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue';
 import { Icon } from '@iconify/vue';
-import { isDarkMode, setColorScheme, applyColorScheme } from '../util/colorScheme';
 import { useI18n } from 'vue-i18n';
 import { setNewLocale } from '../util/locale';
 
@@ -59,12 +58,6 @@ function updateLocale(newLocale: LocaleInfo['locale']) {
   locale.value = newLocale;
   setNewLocale(newLocale);
 }
-
-function toggleDarkmode() {
-  const isDark = isDarkMode();
-  setColorScheme(!isDark ? 'dark' : 'light');
-  applyColorScheme();
-}
 </script>
 
 <template>
@@ -87,13 +80,6 @@ function toggleDarkmode() {
         </li>
       </ul>
       <div class="h-5 w-[1px] bg-white/30" />
-      <button class="darkmode-switch hover:bg-black/20 p-1 rounded-full" @click="toggleDarkmode()">
-        <Icon icon="material-symbols:wb-sunny" class="hidden dark:block text-white w-8 h-8" />
-        <Icon
-          icon="material-symbols:dark-mode-rounded"
-          class="block dark:hidden text-white w-8 h-8"
-        />
-      </button>
       <div class="group relative">
         <button class="hover:bg-black/20 p-1 rounded-full group/i18n">
           <Icon icon="material-symbols:translate" class="text-white w-8 h-8" />
@@ -186,33 +172,6 @@ function toggleDarkmode() {
                 </div>
               </RouterLink>
             </div>
-
-            <button
-              @click="toggleDarkmode()"
-              class="darkmode-switch flex flex-row p-4 pl-8 mt-5 items-center justify-between border border-primary dark:border-white/40 dark:hover:border-transparent hover:border-transparent rounded-lg group transition-all duration-150 hover:bg-primary"
-            >
-              <div>
-                <span
-                  class="text-primary dark:text-white block dark:hidden group-hover:text-white text-xl sm:text-3xl font-black font-heading tracking-tight"
-                  >{DarkLightModeI18n[locale].dark}</span
-                >
-                <span
-                  class="text-primary dark:text-white hidden dark:block group-hover:text-white text-xl sm:text-3xl font-black font-heading tracking-tight"
-                  >{DarkLightModeI18n[locale].light}</span
-                >
-              </div>
-              <div>
-                <Icon
-                  icon="material-symbols:wb-sunny"
-                  class="hidden dark:block text-primary dark:text-white group-hover:text-white w-8 h-8"
-                />
-                <Icon
-                  icon="material-symbols:dark-mode-rounded"
-                  class="block dark:hidden text-primary dark:text-white group-hover:text-white w-8 h-8"
-                />
-              </div>
-            </button>
-
             <div class="mt-3 border border-primary dark:border-white/40 rounded-lg">
               <div class="flex flex-col divide-y divide-primary dark:divide-white/40">
                 <button
