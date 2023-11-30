@@ -10,7 +10,7 @@ const props = defineProps<Props>();
 </script>
 
 <template>
-  <div class="flex flex-col min-h-screen dark:bg-gray-950">
+  <div class="flex flex-col min-h-screen">
     <Navbar type="fixed" />
     <div class="h-14" />
     <slot />

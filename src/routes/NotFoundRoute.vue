@@ -20,17 +20,15 @@ const { t } = i18n;
     <div class="flex flex-1 flex-col justify-center self-stretch">
       <div class="flex flex-row justify-center">
         <div class="flex flex-col">
-          <h1
-            class="text-5xl font-bold dark:text-white transition-all duration-200 hover:-translate-y-3"
-          >
+          <h1 class="text-5xl font-bold transition-all duration-200 hover:-translate-y-3">
             {{ t('heading') }}
           </h1>
           <p class="text-sm">{{ route.fullPath }}</p>
-          <p class="text-md dark:text-neutral-300 text-neutral-400">
+          <p class="text-md text-neutral-400">
             {{ t('body') }}
           </p>
           <RouterLink
-            class="p-2 rounded-lg dark:border-neutral-400 border-primary border text-lg mt-4 dark:text-neutral-400 text-primary hover:text-white hover:dark:bg-slate-800 hover:border-transparent dark:hover:border-transparent hover:bg-primary duration-150"
+            class="p-2 rounded-lg border-primary border text-lg mt-4 text-primary hover:text-white hover:border-transparent hover:bg-primary duration-150"
             to="/"
           >
             {{ t('backToIndex') }}
