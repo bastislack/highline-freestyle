@@ -1,4 +1,0 @@
-{
-  "src/**/*.{ts,vue}": "eslint",
-  "src/**/*": "prettier --ignore-unknown --check"
-}
