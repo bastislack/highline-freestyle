@@ -3,11 +3,9 @@
 name: Linting
 
 on:
-  pull_request:
+  push:
     branches:
-      - main
-      - develop
-      - rewrite
+      - "**"
 
 jobs:
   lint:
@@ -22,7 +20,7 @@ jobs:
           cache: 'npm'
       - name: Install Dependencies from Lock-File
         run: npm ci
-      - name: Run lint-staged
-        # lint-staged gets it's own config for the CI which will not write changes
-        # e.g. using prettier --check instead of prettier --write
-        run: npx lint-staged --config .lintstagedrc-ci --diff="origin/${GITHUB_BASE_REF}...origin/${GITHUB_HEAD_REF}"
+      - name: Run Eslint
+        run: npm run lint:eslint
+      - name: Run Prettier
+        run: npm run lint:prettier
