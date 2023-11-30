@@ -5,5 +5,5 @@ import fr from './notFound.fr.json';
 export default {
   en,
   es,
-  fr
+  fr,
 };
