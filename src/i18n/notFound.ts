@@ -1,6 +1,6 @@
-import en from './notFound.en.json';
-import es from './notFound.es.json';
-import fr from './notFound.fr.json';
+import en from './notFound/notFound.en.json';
+import es from './notFound/notFound.es.json';
+import fr from './notFound/notFound.fr.json';
 
 export default {
   en,

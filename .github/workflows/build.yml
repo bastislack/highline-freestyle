@@ -1,0 +1,24 @@
+# Script has been derived from @hbarcelos
+# https://github.com/lint-staged/lint-staged/issues/1198#issue-1337493947
+name: Build App
+
+on:
+  push:
+    branches:
+      - "**"
+
+jobs:
+  build:
+    name: Build the App with Vite
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          cache: 'npm'
+      - name: Install Dependencies from Lock-File
+        run: npm ci
+      - name: Build with Vite
+        run: npm run build
