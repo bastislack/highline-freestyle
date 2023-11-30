@@ -2,7 +2,7 @@
 import DefaultLayout from '../layouts/DefaultLayout.vue';
 import { useI18n } from 'vue-i18n';
 
-import messages from '../i18n/notFound/notFound';
+import messages from '../i18n/notFound';
 import { useRoute } from 'vue-router';
 
 const i18n = useI18n({
