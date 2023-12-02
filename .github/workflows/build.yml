@@ -6,6 +6,11 @@ on:
   push:
     branches:
       - "**"
+  pull_request:
+    branches:
+      - main
+      - develop
+      - rewrite
 
 jobs:
   build:

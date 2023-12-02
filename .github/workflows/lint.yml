@@ -6,7 +6,12 @@ on:
   push:
     branches:
       - "**"
-
+  pull_request:
+    branches:
+      - main
+      - develop
+      - rewrite
+      
 jobs:
   lint:
     name: Run ESLint and Prettier for changes
