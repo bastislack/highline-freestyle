@@ -1,11 +1,6 @@
-# Script has been derived from @hbarcelos
-# https://github.com/lint-staged/lint-staged/issues/1198#issue-1337493947
 name: Linting
 
 on:
-  push:
-    branches:
-      - "**"
   pull_request:
     branches:
       - main

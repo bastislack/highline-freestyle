@@ -1,0 +1,72 @@
+name: Sync from Google Sheets
+
+on:
+  workflow_dispatch:
+
+env:
+  TARGET_HEAD_REF: "rewrite"
+  TARGET_REPOSITORY: ${{ github.repository }}
+  FORCE_COLOR: 1
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    name: Sync Data from Google Sheets
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Setup Git Config
+        run: |
+          git config user.name "Github Action"
+          git config user.email "noreply@github.com"
+      - uses: actions/setup-node@v3
+        with:
+          cache: 'npm'
+      - name: Prepare the Branch
+        run: |
+          # Check into the "main" branch (currently rewrite)
+ 
+          git checkout ${TARGET_HEAD_REF}
+          git pull
+
+          # Check if a "chore/sheets" Branch does not exists.
+          if [ -z $(git branch --list --remotes origin/chore/sheets) ]
+          then
+
+            # Create it if it is missing
+            git checkout -b chore/sheets
+            git branch --set-upstream-to=origin/chore/sheets chore/sheets || true
+          fi
+          git checkout chore/sheets
+
+          # This can fail if the branch is not on remote. 
+          # If that's the case, we don't care. It will be created on commit / push
+          git pull || true 
+
+          # If here: Branch exists. But might still have a bad state.
+          # Merge from rewrite and favour their (rewrite) changes on conflicts
+          git rebase origin/${TARGET_HEAD_REF} -X theirs
+          
+          git status
+
+          # If here: Branch set up and will (hopefully :P) not create any issues on changes
+      - name: Install Dependencies from Lock-File
+        run: npm ci
+      - name: Sync with the Sheet
+        run: npx vite-node ./scripts/fetchFromSheet.ts
+        # Sync with the Sheet has created some changes. For the next step these changes have to be staged,
+        # otherwise the diffing will not work
+      - name: Add YAML Changes to Git
+        run: |
+          git add src/data
+          npm run lint:staged -- --allow-empty
+          git status
+      - name: Run the PR Procedure
+        run: TARGET_HEAD_REF="origin/${TARGET_HEAD_REF}" npx vite-node ./scripts/createPrForSheetsIfNeeded.ts
+        env:
+          GH_TOKEN: ${{ github.token }}
