@@ -29,6 +29,12 @@ module.exports = {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          50: "#eff3fc",
+          100: "#d0defb",
+          300: "#8aacf4",
+          700: "#1147bb",
+          900: "#0d358c",
+          950: "#09235d",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -37,6 +43,12 @@ module.exports = {
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
+          50: "#fcefef",
+          100: "#fde8e8",
+          300: "#f7a1a1",
+          700: "#bc1010",
+          900: "#8d0c0c",
+          950: "#5e0808",
         },
         muted: {
           DEFAULT: "hsl(var(--muted))",
@@ -53,6 +65,27 @@ module.exports = {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
+        },
+        skill1: {
+          DEFAULT: "#ff5544",
+        },
+        skill2: {
+          DEFAULT: "#ff8b43",
+        },
+        skill3: {
+          DEFAULT: "#ffbf43",
+        },
+        skill4: {
+          DEFAULT: "#fff265",
+        },
+        skill5: {
+          DEFAULT: "#c8f17c",
+        },
+        skill6: {
+          DEFAULT: "#8be9b8",
+        },
+        skill7: {
+          DEFAULT: "#59deff",
         },
       },
       borderRadius: {
