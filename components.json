@@ -1,5 +1,5 @@
 {
-  "style": "new-york",
+  "style": "default",
   "typescript": true,
   "tailwind": {
     "config": "tailwind.config.js",
