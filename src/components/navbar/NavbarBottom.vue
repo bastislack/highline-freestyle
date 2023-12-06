@@ -70,13 +70,17 @@ const links: NavLink[] = [
       <li v-for="entry in links" v-bind:key="entry.translationKey">
         <RouterLink
           :to="entry.to"
-          class="flex flex-col items-center p-2"
+          class="bottomnav-column p-2 duration-200 group items-center"
           active-class="text-primary group is-active bg-primary-50 py-1 rounded-lg"
         >
-          <Icon class="w-6 h-6" :icon="entry.icon" />
-          <div class="collapse group-[.is-active]:visible text-sm font-prose">
-            {{ t(entry.translationKey) }}
+          <div class="flex justify-center">
+            <Icon class="w-6 h-6" :icon="entry.icon" />
           </div>
+          <span
+            class="opacity-0 group-[.is-active]:opacity-100 text-sm duration-150 font-prose overflow-hidden flex justify-center pointer-events-none"
+          >
+            {{ t(entry.translationKey) }}
+          </span>
         </RouterLink>
       </li>
       <DropdownMenu>
@@ -108,3 +112,15 @@ const links: NavLink[] = [
     </ul>
   </nav>
 </template>
+
+<style lang="scss">
+.bottomnav-column {
+  display: grid;
+  grid-template-rows: min-content 0fr;
+  overflow: hidden;
+  transition: all 100ms;
+  &.is-active {
+    grid-template-rows: min-content 1fr;
+  }
+}
+</style>
