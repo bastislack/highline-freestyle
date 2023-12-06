@@ -1,8 +1,18 @@
 <script lang="ts" setup>
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+
 import { Icon } from '@iconify/vue';
 import { useI18n } from 'vue-i18n';
 
 import messages from '../../i18n/navbar';
+import DropdownMenuGroup from '../ui/dropdown-menu/DropdownMenuGroup.vue';
+import { setNewLocale } from '@/util/locale';
 
 const i18n = useI18n({
   messages,
@@ -10,6 +20,33 @@ const i18n = useI18n({
 });
 
 const { t } = i18n;
+
+interface LocaleInfo {
+  locale: 'en' | 'fr' | 'es';
+  name: string;
+}
+
+const LocaleInfos: LocaleInfo[] = [
+  {
+    locale: 'en',
+    name: 'English',
+  },
+  {
+    locale: 'es',
+    name: 'Español',
+  },
+  {
+    locale: 'fr',
+    name: 'Français',
+  },
+];
+
+const { locale } = useI18n();
+
+function updateLocale(newLocale: LocaleInfo['locale']) {
+  locale.value = newLocale;
+  setNewLocale(newLocale);
+}
 
 interface NavLink {
   translationKey: string;
@@ -21,22 +58,20 @@ const links: NavLink[] = [
   { translationKey: 'tricks', to: '/tricks', icon: 'ic:baseline-auto-awesome' },
   { translationKey: 'combos', to: '/combos', icon: 'ic:baseline-spoke' },
   { translationKey: 'glossary', to: '/glossary', icon: 'ic:sharp-menu-book' },
-  //{translationKey: "generator", to: "/combos/generate", icon: "ic:sharp-factory"},
-  { translationKey: 'more', to: '/about', icon: 'ic:baseline-more-horiz' },
 ];
 </script>
 
 <template>
   <!-- Mobile -->
   <nav
-    class="fixed bottom-0 inset-x-0 z-30 h-16 w-full bg-white border-t border-stone-300 shadow-sm"
+    class="fixed bottom-0 inset-x-0 z-30 h-16 w-full bg-white border-t border-stone-300 shadow-sm px-2"
   >
     <ul class="h-full grid justify-items-stretch items-center grid-cols-4 text-gray-700">
       <li v-for="entry in links" v-bind:key="entry.translationKey">
         <RouterLink
           :to="entry.to"
           class="flex flex-col items-center p-2"
-          active-class="text-primary group is-active bg-primary-100 py-1 rounded-lg"
+          active-class="text-primary group is-active bg-primary-50 py-1 rounded-lg"
         >
           <Icon class="w-6 h-6" :icon="entry.icon" />
           <div class="collapse group-[.is-active]:visible text-sm font-prose">
@@ -44,6 +79,32 @@ const links: NavLink[] = [
           </div>
         </RouterLink>
       </li>
+      <DropdownMenu>
+        <DropdownMenuTrigger class="flex justify-center p-2">
+          <Icon class="w-6 h-6" icon="ic:baseline-more-horiz" />
+        </DropdownMenuTrigger>
+        <DropdownMenuContent class="mb-3 mr-1 w-36 text-lg">
+          <DropdownMenuGroup>
+            <DropdownMenuItem
+              v-for="lang in LocaleInfos"
+              v-bind:key="lang.locale"
+              @click="updateLocale(lang.locale)"
+              class="text-base"
+            >
+              <Icon v-if="lang.locale == locale" class="h-5 w-5 mr-3" icon="ic:round-check" />
+              <div v-else class="w-5 mr-3"></div>
+              {{ lang.name }}
+            </DropdownMenuItem>
+          </DropdownMenuGroup>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem class="text-base">
+            <RouterLink to="/about" class="flex">
+              <Icon class="h-5 w-5 mr-3" icon="ic:outline-info" />
+              {{ t('about') }}
+            </RouterLink>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </ul>
   </nav>
 </template>
