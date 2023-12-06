@@ -57,7 +57,7 @@ const links: NavLink[] = [
 <template>
   <!-- Desktop -->
   <nav
-    class="fixed z-30 left-0 h-screen w-56 m-0 border-r shadow-sm bg-background border-gray-300 flex flex-col justify-between overflow-scroll"
+    class="fixed z-30 left-0 h-screen w-56 m-0 border-r shadow-sm bg-background border-gray-300 flex flex-col justify-between overflow-auto"
   >
     <!-- Top section (Logo and most frequent routes)-->
     <div>
