@@ -84,10 +84,10 @@ const links: NavLink[] = [
         </RouterLink>
       </li>
       <DropdownMenu>
-        <DropdownMenuTrigger class="flex justify-center p-2">
+        <DropdownMenuTrigger class="flex justify-center p-2 data-[state=open]:text-primary">
           <Icon class="w-6 h-6" icon="ic:baseline-more-horiz" />
         </DropdownMenuTrigger>
-        <DropdownMenuContent class="mb-3 mr-1 w-36 text-lg">
+        <DropdownMenuContent class="mb-3 mr-1 w-36 text-lg lg:collapse">
           <DropdownMenuGroup>
             <DropdownMenuItem
               v-for="lang in LocaleInfos"
