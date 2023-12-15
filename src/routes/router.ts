@@ -22,5 +22,10 @@ export default createRouter({
       name: 'NotFound',
       component: () => import('./NotFoundRoute.vue'),
     },
+    {
+      path: '/tricks/:status/:id',
+      name: 'Trick Details',
+      component: () => import('./tricks/TrickDetails.vue'),
+    },
   ],
 });
