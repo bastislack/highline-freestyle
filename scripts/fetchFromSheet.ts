@@ -11,6 +11,28 @@ import { fileURLToPath } from 'url';
 import { stringify } from 'yaml';
 import { z } from 'zod';
 
+const spreadsheetId = process.env['SHEET_ID'];
+const combosGid = process.env['SHEET_COMBOS_GID'];
+const tricksGid = process.env['SHEET_TRICKS_GID'];
+const videosGid = process.env['SHEET_VIDEOS_GID'];
+
+let missingEnvs = false;
+Object.entries({
+  SHEET_ID: spreadsheetId,
+  SHEET_COMBOS_GID: combosGid,
+  SHEET_TRICKS_GID: tricksGid,
+  SHEET_VIDEOS_GID: videosGid,
+}).forEach(([k, v]) => {
+  if (Number.isInteger(Number(v))) {
+    console.error(chalk.red('ERR: Missing Env Var ' + k));
+    missingEnvs = true;
+  }
+});
+
+if (missingEnvs) {
+  exit(1);
+}
+
 /**
  * Fetches a Tab-Separated Value File from Google Sheets and returns as a nested array of lines of columns.
  */
@@ -33,19 +55,19 @@ console.log(chalk.blue('Fetching CSVs from Google Sheets...'));
 
 const [tricksCells, combosCells, videoCells] = await Promise.allSettled(
   [
-    { sheetId: '1h1PGIrOPx16KH8IOiMh3SD1bSh1xIWFFrSL84Xyxj38', sheetGid: '0', name: 'Tricks' },
+    { sheetId: spreadsheetId, tricksGid, name: 'Tricks' },
     {
-      sheetId: '1h1PGIrOPx16KH8IOiMh3SD1bSh1xIWFFrSL84Xyxj38',
-      sheetGid: '2129196972',
+      sheetId: spreadsheetId,
+      sheetGid: combosGid,
       name: 'Combos',
     },
     {
-      sheetId: '1h1PGIrOPx16KH8IOiMh3SD1bSh1xIWFFrSL84Xyxj38',
-      sheetGid: '738540593',
+      sheetId: spreadsheetId,
+      sheetGid: videosGid,
       name: 'Videos',
     },
   ]
-    .map(async (e) => [e.name, await fetchTsvFromGoogleSheets(e.sheetId, e.sheetGid)] as const)
+    .map(async (e) => [e.name, await fetchTsvFromGoogleSheets(e.sheetId!, e.sheetGid!)] as const)
     .map((e) =>
       e
         .then((e) => {
@@ -144,24 +166,25 @@ const { YamlTrickTableSchemaZod, YamlComboTableSchemaZod } = await import(
 );
 
 console.log(chalk.blue(`Parsing Tricks...`));
-
-const trickObjects = trickRawObjects.map((e) =>
+const trickObjects = trickRawObjects.map((csvTrick) =>
   YamlTrickTableSchemaZod.safeParse({
-    ...e,
-    id: Number(e.id),
-    recommendedPrerequisites: e.recommendedPrerequisites
-      ? e.recommendedPrerequisites.split(',').map((e) => Number(e.trim()))
+    ...csvTrick,
+    id: Number(csvTrick.id),
+    recommendedPrerequisites: csvTrick.recommendedPrerequisites
+      ? csvTrick.recommendedPrerequisites.split(',').map((e) => Number(e.trim()))
       : [],
-    variationOf: e.variationOf ? e.variationOf.split(',').map((e) => Number(e.trim())) : [],
-    tips: (e.tips ?? '')
+    variationOf: csvTrick.variationOf
+      ? csvTrick.variationOf.split(',').map((e) => Number(e.trim()))
+      : [],
+    tips: (csvTrick.tips ?? '')
       .split(';')
       .map((e) => e.trim())
       .filter(Boolean),
-    videos: videoLookup['trick-' + e.id],
-    difficultyLevel: Number(e.difficultyLevel),
-    showInSearchQueries: e.showInSearchQueries === 'TRUE',
-    dateAddedEpoch: new Date(e.dateAddedIso8601).getTime(),
-    yearEstablished: e.yearEstablished ? Number(e.yearEstablished) : undefined,
+    videos: videoLookup['trick-' + csvTrick.id],
+    difficultyLevel: Number(csvTrick.difficultyLevel),
+    showInSearchQueries: csvTrick.showInSearchQueries === 'TRUE',
+    dateAddedEpoch: new Date(csvTrick.dateAddedIso8601).getTime(),
+    yearEstablished: csvTrick.yearEstablished ? Number(csvTrick.yearEstablished) : undefined,
   } as z.infer<typeof YamlTrickTableSchemaZod>)
 );
 
@@ -301,6 +324,7 @@ function createContentForEntity(data: unknown) {
 console.log(chalk.blue('Writing new Trick files...'));
 await Promise.all(
   trickObjects
+    .filter((e) => e.success)
     .map((e) => (e.success === true ? e.data : (undefined as never)))
     .map(async (e) => {
       const fileName = `${e.id}-${e.technicalName.toLowerCase().trim().replaceAll(' ', '-')}`;
@@ -317,6 +341,7 @@ await Promise.all(
 console.log(chalk.blue('Writing new Combo files...'));
 await Promise.all(
   comboObjects
+    .filter((e) => e.success)
     .map((e) => (e.success === true ? e.data : (undefined as never)))
     .map(async (e) => {
       const fileName = `${e.id}-${e.name.toLowerCase().trim().replaceAll(' ', '-')}`;

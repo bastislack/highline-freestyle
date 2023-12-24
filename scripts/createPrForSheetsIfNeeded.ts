@@ -36,7 +36,8 @@ function parseDiffOutput(output: string) {
     });
 }
 
-// Tries to find a Pull Requests with "automatic", "sheet-update" Tags that belongs has its HEAD on the current branch.
+// Tries to find a Pull Requests with "automatic", "sheet-update" Tags where the HEAD is the current branch.
+//  Or in less technical: Is there already a PR that merges the current branch into $TARGET_HEAD_REF?
 async function findPr() {
   const currentBranch = await $`git rev-parse --abbrev-ref HEAD`.quiet();
   const jsonResponseShell =
