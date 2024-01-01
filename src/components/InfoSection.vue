@@ -17,7 +17,7 @@ defineProps<{
       <Icon :icon="icon" class="w-5 h-5 align-baseline" />
       <div class="text-lg">{{ title }}</div>
     </div>
-    <Separator class="mb-2 mt-1" />
+    <Separator class="mb-2 mt-0" />
     <div :class="{ 'text-muted-foreground': isInfoMissing }" class="pl-6">
       <div v-if="isInfoMissing">
         {{ missingMessage }}

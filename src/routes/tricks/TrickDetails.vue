@@ -67,7 +67,7 @@ watch(route, async () => {
   <DefaultLayout>
     <div v-if="trick !== undefined" class="w-full">
       <!-- Header -->
-      <div class="p-3 lg:p-6">
+      <div class="p-3 lg:p-6 xl:px-12">
         <div class="text-2xl">
           {{ trick.alias ? trick.alias : trick.technicalName }}
         </div>
@@ -85,7 +85,7 @@ watch(route, async () => {
         v-if="trick.videos !== undefined && trick.videos.length >= 1"
         class="bg-secondary w-full"
       >
-        <div class="p-3 lg:p-6">
+        <div class="p-3 lg:p-6 xl:px-12">
           <div v-for="video in trick.videos" v-bind:key="video.link">
             {{ video.link }}
           </div>
@@ -94,7 +94,7 @@ watch(route, async () => {
       </div>
 
       <!-- Other info-->
-      <div class="p-3 lg:p-6 grid grid-cols-1 lg:grid-cols-2 gap-y-4 gap-x-5">
+      <div class="p-3 lg:p-6 xl:px-12 grid grid-cols-1 lg:grid-cols-2 gap-y-4 gap-x-5">
         <InfoSection title="Description" icon="ic:baseline-text-snippet">
           {{ trick.description }}
         </InfoSection>
@@ -132,7 +132,9 @@ watch(route, async () => {
           </ul>
         </InfoSection>
 
-        <InfoSection title="Prerequisites" icon="ic:round-undo"> </InfoSection>
+        <InfoSection title="Prerequisites" icon="ic:round-undo">
+          <!-- Continue here -->
+        </InfoSection>
       </div>
     </div>
   </DefaultLayout>
