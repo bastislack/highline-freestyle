@@ -2,15 +2,23 @@
 import { useRoute } from 'vue-router';
 import { z } from 'zod';
 import { onMounted, ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 
+import Separator from '@/components/ui/separator/Separator.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
+import InfoSection from '@/components/InfoSection.vue';
 import { DbTricksTableZod } from '@/lib/database/schemas/Version1Schema';
 import { tricksDao, Trick } from '@/lib/database';
 
-const route = useRoute();
+import messages from '../../i18n/tricks/trickDetails';
 
-let inputError: boolean = false;
-let errorMsg: string[] = [];
+const i18n = useI18n({
+  messages,
+  useScope: 'local',
+});
+
+const { t } = i18n;
+const route = useRoute();
 
 function parseAndValidateId(): z.SafeParseReturnType<number, number> {
   const idRaw = Number(route.params.id);
@@ -57,17 +65,57 @@ watch(route, async () => {
 
 <template>
   <DefaultLayout>
-    <div class="m-3 lg:m-6">
-      <div v-if="inputError">
-        <h3 class="text-2xl">Error</h3>
-        <div>{{ errorMsg }}</div>
-      </div>
-      <div v-else>
-        <h3 class="text-2xl">Success</h3>
-        <!--<div>{{ status }}</div>-->
-        <!--<div>{{ '' + id }}</div>-->
-        <div v-if="trick !== undefined">
+    <div v-if="trick !== undefined" class="w-full">
+      <!-- Header -->
+      <div class="p-3 lg:p-6">
+        <div class="text-2xl">
+          {{ trick.alias ? trick.alias : trick.technicalName }}
+        </div>
+        <div>
+          {{ trick.startPosition + ' ' + t('to') + ' ' + trick.endPosition }}
+        </div>
+        <div v-if="trick.alias !== undefined" class="text-muted-foreground">
           {{ trick.technicalName }}
+        </div>
+      </div>
+      <Separator />
+
+      <!-- Videos -->
+      <div
+        v-if="trick.videos !== undefined && trick.videos.length >= 1"
+        class="bg-secondary w-full"
+      >
+        <div class="p-3 lg:p-6">
+          <div v-for="video in trick.videos" v-bind:key="video.link">
+            {{ video.link }}
+          </div>
+        </div>
+        <Separator />
+      </div>
+
+      <!-- Other info-->
+      <div class="p-3 lg:p-6 grid grid-cols-1 lg:grid-cols-2 gap-3">
+        <InfoSection title="Description" icon="ic:baseline-text-snippet">
+          {{ trick.description }}
+        </InfoSection>
+
+        <div class="grid grid-cols-2 gap-2">
+          <InfoSection
+            title="Invented by"
+            icon="ic:baseline-person"
+            :is-info-missing="trick.establishedBy === undefined"
+            missing-message="Unknown"
+          >
+            {{ trick.establishedBy }}
+          </InfoSection>
+          <InfoSection
+            title="Invented in"
+            icon="ic:baseline-calendar-month"
+            :is-info-missing="trick.yearEstablished === undefined"
+            missing-message="Unknown"
+          >
+            {{ trick.yearEstablished }}
+          </InfoSection>
         </div>
       </div>
     </div>

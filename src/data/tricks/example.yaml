@@ -1,11 +1,13 @@
 id: 1
+alias: Mini-Fireflip
 dateAddedEpoch: 1693779919
-difficultyLevel: 0
+difficultyLevel: 2
+description: From Korean grab the line behind you and go into a Front Chest Roll. Land back in Korean looking at the other anchor.
 showInSearchQueries: true
-technicalName: Example Blabla
-establishedBy: Example Exampleson
-startPosition: Sofa
-endPosition: Rocket
+technicalName: 180 Chest Roll from Korean
+establishedBy: Salomé Cholet
+startPosition: Korean
+endPosition: Korean
 variationOf:
   - 2
   - 3
