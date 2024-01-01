@@ -94,7 +94,7 @@ watch(route, async () => {
       </div>
 
       <!-- Other info-->
-      <div class="p-3 lg:p-6 grid grid-cols-1 lg:grid-cols-2 gap-3">
+      <div class="p-3 lg:p-6 grid grid-cols-1 lg:grid-cols-2 gap-y-4 gap-x-5">
         <InfoSection title="Description" icon="ic:baseline-text-snippet">
           {{ trick.description }}
         </InfoSection>
@@ -109,14 +109,30 @@ watch(route, async () => {
             {{ trick.establishedBy }}
           </InfoSection>
           <InfoSection
-            title="Invented in"
+            title="in"
             icon="ic:baseline-calendar-month"
             :is-info-missing="trick.yearEstablished === undefined"
             missing-message="Unknown"
           >
+            <!-- TODO: This seems incorrect. -->
             {{ trick.yearEstablished }}
           </InfoSection>
         </div>
+
+        <InfoSection
+          title="Tips"
+          icon="ic:outline-lightbulb"
+          :is-info-missing="trick.tips === undefined || trick.tips.length == 0"
+          missing-message="No tips for you!"
+        >
+          <ul class="list-disc list-inside">
+            <li v-for="(tip, index) in trick.tips" :key="index" class="pb-1">
+              {{ tip }}
+            </li>
+          </ul>
+        </InfoSection>
+
+        <InfoSection title="Prerequisites" icon="ic:round-undo"> </InfoSection>
       </div>
     </div>
   </DefaultLayout>
