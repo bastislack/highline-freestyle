@@ -16,20 +16,29 @@ const combosGid = process.env['SHEET_COMBOS_GID'];
 const tricksGid = process.env['SHEET_TRICKS_GID'];
 const videosGid = process.env['SHEET_VIDEOS_GID'];
 
-let missingEnvs = false;
+let failedEnvs = false;
 Object.entries({
   SHEET_ID: spreadsheetId,
   SHEET_COMBOS_GID: combosGid,
   SHEET_TRICKS_GID: tricksGid,
   SHEET_VIDEOS_GID: videosGid,
-}).forEach(([k, v]) => {
+}).forEach(([k, v], i) => {
+  if (!v) {
+    console.error(chalk.red('ERR: Missing Env Var ' + k));
+    failedEnvs = true;
+  }
+
+  if (i == 0) {
+    return;
+  }
+
   if (Number.isInteger(Number(v))) {
     console.error(chalk.red('ERR: Missing Env Var ' + k));
-    missingEnvs = true;
+    failedEnvs = true;
   }
 });
 
-if (missingEnvs) {
+if (failedEnvs) {
   exit(1);
 }
 

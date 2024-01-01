@@ -7,6 +7,10 @@ env:
   TARGET_HEAD_REF: "rewrite"
   TARGET_REPOSITORY: ${{ github.repository }}
   FORCE_COLOR: 1
+  SHEET_ID: 1h1PGIrOPx16KH8IOiMh3SD1bSh1xIWFFrSL84Xyxj38
+  SHEET_COMBOS_GID: 2129196972
+  SHEET_TRICKS_GID: 0
+  SHEET_VIDEOS_GID: 738540593
 
 permissions:
   contents: write
