@@ -204,6 +204,7 @@ if (trickObjects.some((e) => !e.success)) {
   trickObjects
     .map((e, i) => [e, i] as const)
     .filter(([e]) => !e.success)
+    // Mapping as never because TS does not understand that success is always `true` here because of the prior `.filter`
     .map(([e, i]) => (e.success ? (e.data as never) : ([e.error, i] as const)))
     .map(([e, i]) =>
       console.log(chalk.red(`[trick-${trickRawObjects[i]['id']}]:`), chalk.gray(e.toString()))
@@ -241,6 +242,7 @@ if (comboObjects.some((e) => !e.success)) {
   comboObjects
     .map((e, i) => [e, i] as const)
     .filter(([e]) => !e.success)
+    // Mapping as never because TS does not understand that success is always `true` here because of the prior `.filter`
     .map(([e, i]) => (e.success ? (e.data as never) : ([e.error, i] as const)))
     .map(([e, i]) =>
       console.log(chalk.red(`[combo-${combosRawObjects[i]['id']}]:`), chalk.gray(e.toString()))
@@ -334,6 +336,7 @@ console.log(chalk.blue('Writing new Trick files...'));
 await Promise.all(
   trickObjects
     .filter((e) => e.success)
+    // Mapping as never because TS does not understand that success is always `true` here because of the prior `.filter`
     .map((e) => (e.success === true ? e.data : (undefined as never)))
     .map(async (e) => {
       const fileName = `${e.id}-${e.technicalName.toLowerCase().trim().replaceAll(' ', '-')}`;
@@ -351,6 +354,7 @@ console.log(chalk.blue('Writing new Combo files...'));
 await Promise.all(
   comboObjects
     .filter((e) => e.success)
+    // Mapping as never because TS does not understand that success is always `true` here because of the prior `.filter`
     .map((e) => (e.success === true ? e.data : (undefined as never)))
     .map(async (e) => {
       const fileName = `${e.id}-${e.name.toLowerCase().trim().replaceAll(' ', '-')}`;

@@ -61,15 +61,18 @@ jobs:
           # If here: Branch set up and will (hopefully :P) not create any issues on changes
       - name: Install Dependencies from Lock-File
         run: npm ci
-      - name: Sync with the Sheet
+      - name: Fetch Changes from Google Sheet
         run: npx vite-node ./scripts/fetchFromSheet.ts
-        # Sync with the Sheet has created some changes. For the next step these changes have to be staged,
-        # otherwise the diffing will not work
+        # Fetching from the Google Sheets might have created some changes in the YAML Files.
+        # Stage any YAML Files. The --allow-empty is needed here, otherwise husky will try to 
+        # create an empty commit, fail, and as result, break the pipeline.
       - name: Add YAML Changes to Git
         run: |
           git add src/data
           npm run lint:staged -- --allow-empty
           git status
+        # Staged changes are used in the createPrForSheetsIfNeeded.ts Script to 
+        # determine if a new PR and/or commit is needed.
       - name: Run the PR Procedure
         run: TARGET_HEAD_REF="origin/${TARGET_HEAD_REF}" npx vite-node ./scripts/createPrForSheetsIfNeeded.ts
         env:
