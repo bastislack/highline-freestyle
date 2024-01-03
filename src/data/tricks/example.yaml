@@ -1,6 +1,7 @@
 id: 1
 alias: Mini-Fireflip
 dateAddedEpoch: 1693779919
+yearEstablished: 2020
 difficultyLevel: 2
 description: From Korean grab the line behind you and go into a Front Chest Roll. Land back in Korean looking at the other anchor.
 showInSearchQueries: true
@@ -10,7 +11,6 @@ startPosition: Korean
 endPosition: Korean
 variationOf:
   - 2
-  - 3
 tips:
   - Do this one specific thing. And do it very late in the bounce!
   - Flipedy-flop, have fun!

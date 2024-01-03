@@ -67,8 +67,21 @@ async function getFullRecommendedPrerequisites(trick: Trick): Promise<Trick[]> {
   );
 }
 
+async function getVariationOfFull(trick: Trick): Promise<Trick[]> {
+  if (trick === undefined || trick.variationOf === undefined || trick.variationOf.length == 0) {
+    return [];
+  }
+  return await Promise.all(
+    trick.variationOf.map(
+      async (variationParent): Promise<Trick> =>
+        await tricksDao.getById(variationParent[0], variationParent[1])
+    )
+  );
+}
+
 let trick = ref<Trick>(undefined);
 const recommendedPrerequisitesFull = ref<Trick[]>([]);
+const variationOfFull = ref<Trick[]>([]);
 
 // Load content initially
 onMounted(async () => {
@@ -82,6 +95,7 @@ watch(route, async () => {
 
 watch(trick, async () => {
   recommendedPrerequisitesFull.value = await getFullRecommendedPrerequisites(trick.value);
+  variationOfFull.value = await getVariationOfFull(trick.value);
 });
 </script>
 
@@ -90,7 +104,7 @@ watch(trick, async () => {
     <div v-if="trick !== undefined" class="w-full">
       <!-- Header -->
       <div class="p-3 md:p-5 lg:p-6 xl:px-12">
-        <div class="text-2xl">
+        <div class="text-3xl mb-1">
           {{ trick.alias ? trick.alias : trick.technicalName }}
         </div>
         <div>
@@ -100,6 +114,7 @@ watch(trick, async () => {
           {{ trick.technicalName }}
         </div>
       </div>
+
       <Separator />
 
       <!-- Videos -->
@@ -112,27 +127,89 @@ watch(trick, async () => {
             {{ video.link }}
           </div>
         </div>
-        <Separator />
       </div>
+
+      <Separator />
 
       <!-- Other info-->
       <div class="p-3 md:p-5 lg:p-6 xl:px-12 grid grid-cols-1 lg:grid-cols-2 gap-y-6 gap-x-5">
+        <InfoSection
+          v-if="variationOfFull !== undefined && variationOfFull.length != 0"
+          title="Variation of"
+          icon="ic:twotone-fork-right"
+        >
+          <ul v-if="variationOfFull.length > 1" class="list-disc list-inside">
+            <li
+              v-for="variation in variationOfFull"
+              :key="variation.primaryKey[1] + '-' + variation.primaryKey[0]"
+              class="pb-1"
+            >
+              <a
+                :href="'#/tricks/' + variation.primaryKey[1] + '/' + variation.primaryKey[0]"
+                class="underline"
+              >
+                {{ variation.alias ? variation.alias : variation.technicalName }}
+              </a>
+            </li>
+          </ul>
+          <div v-else>
+            <a
+              :href="
+                '#/tricks/' +
+                variationOfFull[0].primaryKey[1] +
+                '/' +
+                variationOfFull[0].primaryKey[0]
+              "
+              class="underline"
+            >
+              {{
+                variationOfFull[0].alias
+                  ? variationOfFull[0].alias
+                  : variationOfFull[0].technicalName
+              }}
+            </a>
+          </div>
+        </InfoSection>
+
         <InfoSection
           title="Description"
           icon="ic:baseline-text-snippet"
           :is-info-missing="trick.description === undefined || trick.description.length == 0"
           missing-message="Description missing"
-          has-separator-on-bottom
         >
           {{ trick.description }}
         </InfoSection>
+
+        <div
+          v-if="trick.establishedBy !== undefined || trick.yearEstablished !== undefined"
+          class="grid gap-2"
+          :class="
+            trick.establishedBy !== undefined && trick.yearEstablished !== undefined
+              ? 'grid-cols-2'
+              : 'grid-cols-1'
+          "
+        >
+          <InfoSection
+            v-if="trick.establishedBy !== undefined"
+            title="Invented by"
+            icon="ic:baseline-person"
+          >
+            {{ trick.establishedBy }}
+          </InfoSection>
+          <InfoSection
+            v-if="trick.yearEstablished !== undefined"
+            :title="trick.establishedBy == undefined ? 'Invented in' : 'in'"
+            icon="ic:baseline-calendar-month"
+          >
+            {{ trick.yearEstablished }}
+          </InfoSection>
+        </div>
 
         <InfoSection
           title="Tips"
           icon="ic:outline-lightbulb"
           :is-info-missing="trick.tips === undefined || trick.tips.length == 0"
           missing-message="No tips for you!"
-          has-separator-on-bottom
         >
           <ul class="list-disc list-inside">
             <li v-for="(tip, index) in trick.tips" :key="index" class="pb-1">
@@ -145,7 +222,6 @@ watch(trick, async () => {
           v-if="recommendedPrerequisitesFull.length > 0"
           title="Prerequisites"
           icon="ic:round-undo"
-          has-separator-on-bottom
         >
           <!-- Continue here -->
           <ul class="list-disc list-inside">
@@ -163,28 +239,6 @@ watch(trick, async () => {
             </li>
           </ul>
         </InfoSection>
-
-        <div class="grid grid-cols-2 gap-2">
-          <InfoSection
-            title="Invented by"
-            icon="ic:baseline-person"
-            :is-info-missing="trick.establishedBy === undefined"
-            missing-message="Unknown"
-            has-separator-on-bottom
-          >
-            {{ trick.establishedBy }}
-          </InfoSection>
-          <InfoSection
-            title="in the year"
-            icon="ic:baseline-calendar-month"
-            :is-info-missing="trick.yearEstablished === undefined"
-            missing-message="Unknown"
-            has-separator-on-bottom
-          >
-            <!-- TODO: This seems incorrect. -->
-            {{ trick.yearEstablished }}
-          </InfoSection>
-        </div>
       </div>
     </div>
   </DefaultLayout>
