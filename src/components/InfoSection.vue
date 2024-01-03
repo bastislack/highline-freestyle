@@ -8,23 +8,25 @@ defineProps<{
   icon: string;
   isInfoMissing?: boolean;
   missingMessage?: string;
+  hasSeparatorOnBottom?: boolean;
 }>();
 </script>
 
 <template>
   <div>
-    <div class="flex flex-row items-center gap-1">
-      <Icon :icon="icon" class="w-5 h-5 align-baseline" />
-      <div class="text-lg">{{ title }}</div>
+    <div class="flex flex-row items-center gap-2 mb-2">
+      <Icon :icon="icon" class="w-6 h-6 align-baseline" />
+      <div class="text-lg font-medium">{{ title }}</div>
     </div>
-    <Separator class="mb-2 mt-0" />
-    <div :class="{ 'text-muted-foreground': isInfoMissing }" class="pl-6">
+    <!--<Separator class="mb-2 mt-0" />-->
+    <div :class="{ 'text-muted-foreground': isInfoMissing }" class="pl-8 text-sm">
       <div v-if="isInfoMissing">
         {{ missingMessage }}
       </div>
       <div v-else>
         <slot />
       </div>
+      <Separator v-if="hasSeparatorOnBottom" class="mt-3" />
     </div>
   </div>
 </template>
