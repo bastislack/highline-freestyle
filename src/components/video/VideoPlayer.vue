@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import YoutubePlayer from './platforms/YoutubePlayer.vue';
+
 defineProps<{
   url: string;
   startTime?: number;
@@ -7,5 +9,7 @@ defineProps<{
 </script>
 
 <template>
-  <div>Here goes the video</div>
+  <div class="w-full">
+    <YoutubePlayer :url="url" :start-time="startTime" :end-time="endTime" />
+  </div>
 </template>
