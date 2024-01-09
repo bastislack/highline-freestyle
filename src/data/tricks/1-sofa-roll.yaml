@@ -1,0 +1,32 @@
+#
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root.
+#
+
+id: 1
+establishedBy: Samuel Volery
+yearEstablished: 2016
+description: Sit in Sofa, grab the line with both hands and press the line
+  against your butt/thighs. Then throw yourself forward or backward, initiating
+  the roll. To stop the roll, extend your legs.
+tips:
+  - Leash to the side can help prevent bad falls
+  - If you fall into a backlever position let go of the line in order to save
+    your shoulders
+  - You can practice this trick with a hangover clipped in to save energy and
+    get familiar with the movement without fear of falling badly
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.youtube.com/watch?v=Ugw1gRm-T0U
+    startTime: 3
+    endTime: 12
+technicalName: Sofa Roll
+startPosition: Sofa
+endPosition: Sofa
+difficultyLevel: 1
+showInSearchQueries: true
+recommendedPrerequisites: []
+variationOf: []
