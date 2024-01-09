@@ -76,16 +76,22 @@ const [tricksCells, combosCells, videoCells] = await Promise.allSettled(
       name: 'Videos',
     },
   ]
-    .map(async (e) => [e.name, await fetchTsvFromGoogleSheets(e.sheetId!, e.sheetGid!)] as const)
-    .map((e) =>
-      e
-        .then((e) => {
-          console.log(chalk.green(`Fetched ${e[0]}, found ${e[1].length - 1} rows.`));
-          return e[1];
+    .map(
+      async (googleTableData) =>
+        [
+          googleTableData.name,
+          await fetchTsvFromGoogleSheets(googleTableData.sheetId!, googleTableData.sheetGid!),
+        ] as const
+    )
+    .map((nameAndDataPromise) =>
+      nameAndDataPromise
+        .then(([tableName, tableData]) => {
+          console.log(chalk.green(`Fetched ${tableName}, found ${tableData.length - 1} rows.`));
+          return tableData;
         })
-        .catch((e) => {
-          console.log(chalk.red(`Failed to fetch a table; ${e}`));
-          throw e;
+        .catch((err) => {
+          console.log(chalk.red(`Failed to fetch a table; ${err}`));
+          throw err;
         })
     )
 );
