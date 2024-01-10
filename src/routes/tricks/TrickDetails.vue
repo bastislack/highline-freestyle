@@ -3,8 +3,10 @@ import { useRoute } from 'vue-router';
 import { z } from 'zod';
 import { onMounted, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { Icon } from '@iconify/vue';
 
 import Separator from '@/components/ui/separator/Separator.vue';
+import Badge from '@/components/ui/badge/Badge.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import InfoSection from '@/components/InfoSection.vue';
 import { DbTricksTableZod } from '@/lib/database/schemas/Version1Schema';
@@ -79,9 +81,28 @@ async function getVariationOfFull(trick: Trick): Promise<Trick[]> {
   );
 }
 
+/**
+ * I am not certain if this function is super accurate or how leap years
+ * and time zones are handled. But nothing hinges on this function being
+ * super accurate so it is fine this way, being about right, give or take
+ * about a day.
+ */
+function daysSinceEpoch(epoch: number): number {
+  const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
+
+  const today = new Date();
+  const date = new Date(epoch * 1000);
+
+  const timeDiff = today.getTime() - date.getTime();
+  const daysDiff = Math.ceil(timeDiff / MILLISECONDS_PER_DAY);
+
+  return daysDiff;
+}
+
 let trick = ref<Trick>(undefined);
 const recommendedPrerequisitesFull = ref<Trick[]>([]);
 const variationOfFull = ref<Trick[]>([]);
+const isNewTrick = ref<boolean>(false);
 
 // Load content initially
 onMounted(async () => {
@@ -96,6 +117,7 @@ watch(route, async () => {
 watch(trick, async () => {
   recommendedPrerequisitesFull.value = await getFullRecommendedPrerequisites(trick.value);
   variationOfFull.value = await getVariationOfFull(trick.value);
+  isNewTrick.value = daysSinceEpoch(trick.value.dateAddedEpoch) <= 14;
 });
 </script>
 
@@ -112,6 +134,19 @@ watch(trick, async () => {
         </div>
         <div v-if="trick.alias !== undefined" class="text-muted-foreground">
           {{ trick.technicalName }}
+        </div>
+
+        <div class="flex flex-row gap-2">
+          <Badge v-if="trick.primaryKey[1] == 'official'" variant="default" class="mt-2">
+            <Icon icon="ic:round-check-circle" class="mr-1" /> Official
+          </Badge>
+          <Badge v-if="trick.primaryKey[1] == 'archived'" variant="destructive" class="mt-2">
+            <Icon icon="ic:baseline-archive" class="mr-1" /> Archived
+          </Badge>
+          <Badge v-if="isNewTrick" variant="secondary" class="mt-2">
+            <Icon icon="ic:baseline-filter-vintage" class="mr-1" />
+            New
+          </Badge>
         </div>
       </div>
 
