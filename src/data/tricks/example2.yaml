@@ -6,3 +6,7 @@ technicalName: Example Blabla2
 establishedBy: Example2
 startPosition: Rocket
 endPosition: Soup
+videos:
+  - link: https://www.google.com
+    startTime: 10
+    endTime: 300

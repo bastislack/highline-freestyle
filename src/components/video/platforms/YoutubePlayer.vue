@@ -10,10 +10,12 @@ function embedURLfromRegularURL(url_: string, startTime_?: number, endTime_?: nu
 
   const videoID: string = videoIdFromURL(url_);
 
-  let suffix: string = startTime_ || endTime_ ? '?' : '';
+  let suffix: string = startTime_ || endTime_ ? '?version=3&loop=1&modestbranding=1&' : '';
   suffix += startTime_ ? 'start=' + startTime_ : '';
   suffix += startTime_ && endTime_ ? '&' : '';
-  suffix += endTime_ ? 'start=' + endTime_ : '';
+  suffix += endTime_ ? 'end=' + endTime_ : '';
+
+  console.log(prefix + videoID + suffix);
 
   return prefix + videoID + suffix;
 }
