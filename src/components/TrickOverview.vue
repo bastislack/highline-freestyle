@@ -40,6 +40,7 @@ function compareTrickNames(a: Trick, b: Trick) {
 
 <template>
   <div
+    class="w-full"
     v-for="level in Object.keys(tricksByDifficulty)
       .filter((e) => Number(e) >= 0)
       .reverse()"

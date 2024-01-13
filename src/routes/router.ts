@@ -8,6 +8,10 @@ export default createRouter({
       component: () => import('./IndexRoute.vue'),
     },
     {
+      path: '/tricks/new',
+      component: () => import('./tricks/NewTrickRoute.vue'),
+    },
+    {
       path: '/dbtest',
       component: () => import('./DbTest.vue'),
     },
