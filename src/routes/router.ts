@@ -18,14 +18,14 @@ export default createRouter({
       component: () => import('./ThemeTest.vue'),
     },
     {
-      path: '/:catchAll(.*)',
-      name: 'NotFound',
-      component: () => import('./NotFoundRoute.vue'),
-    },
-    {
       path: '/tricks/:status/:id',
       name: 'Trick Details',
       component: () => import('./tricks/TrickDetails.vue'),
+    },
+    {
+      path: '/:catchAll(.*)',
+      name: 'NotFound',
+      component: () => import('./NotFoundRoute.vue'),
     },
   ],
 });
