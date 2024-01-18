@@ -1,0 +1,19 @@
+#
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root.
+#
+
+id: 1
+establishedBy: Waldi
+yearEstablished: 2023
+description: Some Description
+tips:
+  - Don't fall lol
+dateAddedEpoch: 1673481600000
+name: ExampleCombo
+tricks:
+  - 1
+  - 2
