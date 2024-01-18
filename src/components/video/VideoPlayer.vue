@@ -28,7 +28,7 @@ function platformFromUrl(url_: string): Platform {
     const hostname = hostnameFromUrl(url_);
     console.log('Hostname:', hostname);
 
-    if (['youtube.com', 'youtu.be'].includes(hostname)) {
+    if (['www.youtube.com', 'youtube.com', 'www.youtu.be.com', 'youtu.be'].includes(hostname)) {
       return Platform.YouTube;
     }
 

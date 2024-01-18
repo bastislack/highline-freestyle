@@ -218,7 +218,7 @@ watch(trick, async () => {
                 class="pb-1"
               >
                 <a
-                  :href="'#/tricks/' + variation.primaryKey[1] + '/' + variation.primaryKey[0]"
+                  :href="'/tricks/' + variation.primaryKey[1] + '/' + variation.primaryKey[0]"
                   class="underline"
                 >
                   {{ variation.alias ? variation.alias : variation.technicalName }}
@@ -228,7 +228,7 @@ watch(trick, async () => {
             <div v-else>
               <a
                 :href="
-                  '#/tricks/' +
+                  '/tricks/' +
                   variationOfFull[0].primaryKey[1] +
                   '/' +
                   variationOfFull[0].primaryKey[0]
@@ -304,9 +304,7 @@ watch(trick, async () => {
                 class="pb-1"
               >
                 <a
-                  :href="
-                    '#/tricks/' + prerequisite.primaryKey[1] + '/' + prerequisite.primaryKey[0]
-                  "
+                  :href="'/tricks/' + prerequisite.primaryKey[1] + '/' + prerequisite.primaryKey[0]"
                   class="underline"
                 >
                   {{ prerequisite.alias ? prerequisite.alias : prerequisite.technicalName }}
