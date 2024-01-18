@@ -25,14 +25,14 @@ function numToString(number_: number, minLength: number): string {
 </script>
 
 <template>
-  <div v-if="start || end" class="flex flex-row gap-7 justify-center w-64">
+  <div v-if="start || end" class="flex flex-row gap-7 justify-center w-64 text-sm">
     <div v-if="start" class="flex flex-row gap-1">
-      <Icon icon="ic:round-play-arrow" class="w-6 h-6" />
+      <Icon icon="ic:round-play-arrow" class="w-5 h-5" />
       {{ minutesSecondsFromSeconds(start) }}
     </div>
     <div v-if="start && end">to</div>
     <div v-if="end" class="flex flex-row gap-1">
-      <Icon icon="ic:round-stop" class="w-6 h-6" />
+      <Icon icon="ic:round-stop" class="w-5 h-5" />
       {{ minutesSecondsFromSeconds(end) }}
     </div>
   </div>

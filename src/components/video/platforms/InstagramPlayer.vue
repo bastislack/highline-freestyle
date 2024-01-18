@@ -18,5 +18,10 @@ defineProps<{
       title="video"
     ></iframe>
   </div>
-  <Duration v-if="startTime || endTime" :start="startTime" :end="endTime" class="mx-auto mt-2" />
+  <Duration
+    v-if="startTime || endTime"
+    :start="startTime"
+    :end="endTime"
+    class="mx-auto mt-2 text-muted-foreground"
+  />
 </template>

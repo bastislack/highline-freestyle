@@ -9,7 +9,6 @@ import Separator from '@/components/ui/separator/Separator.vue';
 import Badge from '@/components/ui/badge/Badge.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import InfoSection from '@/components/InfoSection.vue';
-//import VideoPlayer from '@/components/video/VideoPlayer.vue';
 import VideoCarousel from '@/components/video/VideoCarousel.vue';
 import { DbTricksTableZod } from '@/lib/database/schemas/Version1Schema';
 import { tricksDao, Trick } from '@/lib/database';
@@ -199,15 +198,6 @@ watch(trick, async () => {
           class="bg-secondary w-full"
         >
           <div class="p-3 md:p-5 lg:p-6 xl:px-12">
-            <div v-for="video in trick.videos" v-bind:key="video.link">
-              <!--
-              <VideoPlayer
-                :url="video.link"
-                :start-time="video.startTime"
-                :end-time="video.endTime"
-              />
-              -->
-            </div>
             <VideoCarousel :videos="trick.videos" />
           </div>
         </div>

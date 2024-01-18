@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import Duration from '../Duration.vue';
+
 defineProps<{
   url: string;
   startTime?: number;
@@ -47,6 +49,12 @@ function videoIdFromURL(url_: string): string {
       allowfullscreen
     ></iframe>
   </div>
+  <Duration
+    v-if="startTime || endTime"
+    :start="startTime"
+    :end="endTime"
+    class="mx-auto mt-2 text-muted-foreground"
+  />
 </template>
 
 <style>
