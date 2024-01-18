@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import Duration from '../Duration.vue';
+
 defineProps<{
   url: string;
   startTime?: number;
@@ -7,10 +9,14 @@ defineProps<{
 </script>
 
 <template>
-  <div class="text-center">
-    <span class="text-xl">Instagram embed</span><br />
-    URL: {{ url }}<br />
-    Start: {{ startTime }}<br />
-    End: {{ endTime }}
+  <div class="w-100 flex justify-center">
+    <iframe
+      class="aspect-[9/16] rounded-md"
+      :src="url + '/embed'"
+      allowtransparency="true"
+      scrolling="no"
+      title="video"
+    ></iframe>
   </div>
+  <Duration v-if="startTime || endTime" :start="startTime" :end="endTime" class="mx-auto mt-2" />
 </template>

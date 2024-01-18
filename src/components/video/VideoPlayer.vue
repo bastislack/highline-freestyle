@@ -3,6 +3,7 @@ import { Icon } from '@iconify/vue/dist/iconify.js';
 
 import YoutubePlayer from './platforms/YoutubePlayer.vue';
 import InstagramPlayer from './platforms/InstagramPlayer.vue';
+import Duration from './Duration.vue';
 
 defineProps<{
   url: string;
@@ -25,12 +26,13 @@ function hostnameFromUrl(url_: string): string {
 function platformFromUrl(url_: string): Platform {
   try {
     const hostname = hostnameFromUrl(url_);
+    console.log('Hostname:', hostname);
 
     if (['youtube.com', 'youtu.be'].includes(hostname)) {
       return Platform.YouTube;
     }
 
-    if (['instagram.com'].includes(hostname)) {
+    if (['www.instagram.com', 'instagram.com'].includes(hostname)) {
       return Platform.Instagram;
     }
   } catch {
@@ -38,23 +40,6 @@ function platformFromUrl(url_: string): Platform {
   }
 
   return Platform.Unknown;
-}
-
-function minutesSecondsFromSeconds(seconds: number): string {
-  let minutes: number = Math.floor(seconds / 60);
-  let remainingSeconds: number = Math.floor(seconds % 60);
-
-  return numToString(minutes, 2) + ':' + numToString(remainingSeconds, 2);
-}
-
-function numToString(number_: number, minLength: number): string {
-  let numAsString = number_.toString();
-
-  while (numAsString.length < minLength) {
-    numAsString = '0' + numAsString;
-  }
-
-  return numAsString;
 }
 </script>
 
@@ -90,10 +75,18 @@ function numToString(number_: number, minLength: number): string {
         URL: <a :href="url" class="underline">{{ url }}</a
         ><br />
       </div>
+      <Duration
+        v-if="startTime || endTime"
+        :start="startTime"
+        :end="endTime"
+        class="mt-1 mx-auto"
+      />
+      <!--
       <div v-if="startTime || endTime" class="flex flex-row justify-center gap-5 mt-1">
         <div v-if="startTime">Start: {{ minutesSecondsFromSeconds(startTime) }}<br /></div>
         <div v-if="endTime">End: {{ minutesSecondsFromSeconds(endTime) }}</div>
       </div>
+      -->
     </div>
 
     <!-- Fallback if URL is invalid -->
@@ -110,13 +103,12 @@ function numToString(number_: number, minLength: number): string {
         URL: <a :href="url" class="underline">{{ url }}</a
         ><br />
       </div>
-      <div
+      <Duration
         v-if="startTime || endTime"
-        class="flex flex-row justify-center gap-5 mt-1 text-muted-foreground"
-      >
-        <div v-if="startTime">Start: {{ minutesSecondsFromSeconds(startTime) }}<br /></div>
-        <div v-if="endTime">End: {{ minutesSecondsFromSeconds(endTime) }}</div>
-      </div>
+        :start="startTime"
+        :end="endTime"
+        class="mt-1 mx-auto"
+      />
     </div>
   </div>
 </template>
