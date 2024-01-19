@@ -3,6 +3,7 @@
 
 import type { Trick } from '../lib/database/daos/trick';
 import TrickOverviewCard from './TrickOverviewCard.vue';
+import Section from './ui/section/Section.vue';
 
 const allTricks = await (await import('../lib/database')).tricksDao.getAll();
 
@@ -39,8 +40,7 @@ function compareTrickNames(a: Trick, b: Trick) {
 </script>
 
 <template>
-  <div
-    class="w-full"
+  <Section
     v-for="level in Object.keys(tricksByDifficulty)
       .filter((e) => Number(e) >= 0)
       .reverse()"
@@ -58,8 +58,8 @@ function compareTrickNames(a: Trick, b: Trick) {
         :key="trick.primaryKey.join('-')"
       />
     </div>
-  </div>
-  <div v-if="(tricksByDifficulty['-1'] ?? []).length > 0">
+  </Section>
+  <Section v-if="(tricksByDifficulty['-1'] ?? []).length > 0">
     <h2 class="text-2xl font-bold py-2 text-center bg-light-gray border-b border-t border-black">
       To Be Determined
     </h2>
@@ -73,5 +73,5 @@ function compareTrickNames(a: Trick, b: Trick) {
         :key="trick.primaryKey.join('-')"
       />
     </div>
-  </div>
+  </Section>
 </template>
