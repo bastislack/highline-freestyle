@@ -10,6 +10,7 @@ const props = defineProps<{
   value: string;
   placeholder?: string;
   multiline?: boolean;
+  typeOverride?: string;
 }>();
 
 const emits = defineEmits<{
@@ -43,7 +44,7 @@ const inputClasses = computed(() => {
       v-else
       :value="value"
       @input="(event) => emits('update:value', (event.target! as HTMLInputElement).value)"
-      type="text"
+      :type="typeOverride ?? 'text'"
       :id="id"
       :class="inputClasses"
       :placeholder="placeholder"

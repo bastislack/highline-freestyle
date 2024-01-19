@@ -9,7 +9,7 @@ const props = defineProps<{
 }>();
 
 const inputClasses = computed(() => {
-  const classes = `bg-gray-50 border  text-sm rounded-lg block w-full p-2.5`.split(' ');
+  const classes = `bg-gray-50 border text-sm rounded-lg block w-full p-2.5`.split(' ');
 
   if (props.issues && props.issues.length > 0) {
     classes.push('border-red-300', 'text-red-600');

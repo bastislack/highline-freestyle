@@ -7,7 +7,7 @@ const props = defineProps<{
   name: string;
   description?: string;
   issues?: string[];
-  value: number | undefined;
+  value: string;
   placeholder?: string;
   min?: number;
   max?: number;
@@ -15,11 +15,14 @@ const props = defineProps<{
 }>();
 
 const emits = defineEmits<{
-  (eventName: 'update:value', newValue: number | undefined): void;
+  (eventName: 'update:value', newValue: string | undefined): void;
 }>();
 
 const inputClasses = computed(() => {
-  const classes = `bg-gray-50 border  text-sm rounded-lg block w-full p-2.5`.split(' ');
+  const classes =
+    `bg-gray-50 border text-sm rounded-lg invalid:border-red-300 invalid:text-red-600 block w-full p-2.5`.split(
+      ' '
+    );
 
   if (props.issues && props.issues.length > 0) {
     classes.push('border-red-300', 'text-red-600');
@@ -29,24 +32,13 @@ const inputClasses = computed(() => {
 
   return classes;
 });
-
-function extractValue(input: string) {
-  if (input.trim().length === 0 || Number.isNaN(Number(input))) {
-    return undefined;
-  }
-
-  return Number(input);
-}
 </script>
 
 <template>
   <GenericFormElement :description="description" :id="id" :name="name" :issues="issues">
     <input
       :value="value"
-      @input="
-        (event) =>
-          emits('update:value', extractValue((event.target! as HTMLInputElement).value as string))
-      "
+      @input="(event) => emits('update:value', (event.target! as HTMLInputElement).value as string)"
       type="number"
       :id="id"
       :class="inputClasses"

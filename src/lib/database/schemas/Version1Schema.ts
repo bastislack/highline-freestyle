@@ -53,7 +53,7 @@ export const DbTricksTableZod = z.object({
   alias: z.string().nonempty().optional(),
   startPosition: DbPositionZod,
   endPosition: DbPositionZod,
-  difficultyLevel: z.number().int().min(0),
+  difficultyLevel: z.number().int().min(0).optional(),
   recommendedPrerequisites: z.array(DbReferenceZod).optional(),
   variationOf: z.array(DbReferenceZod).optional(),
   showInSearchQueries: z.boolean(),
