@@ -10,7 +10,7 @@ import NavbarBottom from '../components/navbar/NavbarBottom.vue';
         <NavbarSide />
         <div class="w-56" />
       </div>
-      <div class="w-full">
+      <div class="w-full min-h-screen flex flex-col items-center">
         <slot />
         <div class="block lg:hidden">
           <div class="h-16 w-full" />
