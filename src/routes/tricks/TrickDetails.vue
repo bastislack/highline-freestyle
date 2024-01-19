@@ -10,6 +10,7 @@ import Badge from '@/components/ui/badge/Badge.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import InfoSection from '@/components/InfoSection.vue';
 import VideoCarousel from '@/components/video/VideoCarousel.vue';
+import Section from '@/components/ui/section/Section.vue';
 import { DbTricksTableZod } from '@/lib/database/schemas/Version1Schema';
 import { tricksDao, Trick } from '@/lib/database';
 
@@ -157,8 +158,8 @@ watch(trick, async () => {
       <!-- Standard trick page -->
       <div v-else>
         <!-- Header -->
-        <div class="p-3 md:p-5 lg:p-6 xl:px-12">
-          <div class="flex flex-row justify-between gap-1 lg:justify-start lg:gap-20">
+        <Section>
+          <div class="flex flex-row justify-between gap-1 lg:gap-20">
             <div class="text-3xl mb-1">
               {{ trick.alias ? trick.alias : trick.technicalName }}
             </div>
@@ -188,131 +189,127 @@ watch(trick, async () => {
               New
             </Badge>
           </div>
-        </div>
-
-        <Separator />
+        </Section>
 
         <!-- Videos -->
-        <div
+        <Section
           v-if="trick.videos !== undefined && trick.videos.length >= 1"
           class="bg-secondary w-full"
         >
-          <div class="p-3 md:p-5 lg:p-6 xl:px-12">
-            <VideoCarousel :videos="trick.videos" />
-          </div>
-        </div>
-
-        <Separator />
+          <VideoCarousel :videos="trick.videos" />
+        </Section>
+        <Separator v-else />
 
         <!-- Other info-->
-        <div class="p-3 md:p-5 lg:p-6 xl:px-12 grid grid-cols-1 lg:grid-cols-2 gap-y-6 gap-x-5">
-          <InfoSection
-            v-if="variationOfFull !== undefined && variationOfFull.length != 0"
-            title="Variation of"
-            icon="ic:twotone-fork-right"
-          >
-            <ul v-if="variationOfFull.length > 1" class="list-disc list-inside">
-              <li
-                v-for="variation in variationOfFull"
-                :key="variation.primaryKey[1] + '-' + variation.primaryKey[0]"
-                class="pb-1"
-              >
-                <a
-                  :href="'/tricks/' + variation.primaryKey[1] + '/' + variation.primaryKey[0]"
+        <Section>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-y-6 gap-x-5">
+            <InfoSection
+              v-if="variationOfFull !== undefined && variationOfFull.length != 0"
+              title="Variation of"
+              icon="ic:twotone-fork-right"
+            >
+              <ul v-if="variationOfFull.length > 1" class="list-disc list-inside">
+                <li
+                  v-for="variation in variationOfFull"
+                  :key="variation.primaryKey[1] + '-' + variation.primaryKey[0]"
+                  class="pb-1"
+                >
+                  <RouterLink
+                    :to="'/tricks/' + variation.primaryKey[1] + '/' + variation.primaryKey[0]"
+                    class="underline"
+                  >
+                    {{ variation.alias ? variation.alias : variation.technicalName }}
+                  </RouterLink>
+                </li>
+              </ul>
+              <div v-else>
+                <RouterLink
+                  :to="
+                    '/tricks/' +
+                    variationOfFull[0].primaryKey[1] +
+                    '/' +
+                    variationOfFull[0].primaryKey[0]
+                  "
                   class="underline"
                 >
-                  {{ variation.alias ? variation.alias : variation.technicalName }}
-                </a>
-              </li>
-            </ul>
-            <div v-else>
-              <a
-                :href="
-                  '/tricks/' +
-                  variationOfFull[0].primaryKey[1] +
-                  '/' +
-                  variationOfFull[0].primaryKey[0]
-                "
-                class="underline"
-              >
-                {{
-                  variationOfFull[0].alias
-                    ? variationOfFull[0].alias
-                    : variationOfFull[0].technicalName
-                }}
-              </a>
-            </div>
-          </InfoSection>
-
-          <InfoSection
-            title="Description"
-            icon="ic:baseline-text-snippet"
-            :is-info-missing="trick.description === undefined || trick.description.length == 0"
-            missing-message="Description missing"
-          >
-            {{ trick.description }}
-          </InfoSection>
-
-          <div
-            v-if="trick.establishedBy !== undefined || trick.yearEstablished !== undefined"
-            class="grid gap-2"
-            :class="
-              trick.establishedBy !== undefined && trick.yearEstablished !== undefined
-                ? 'grid-cols-2'
-                : 'grid-cols-1'
-            "
-          >
-            <InfoSection
-              v-if="trick.establishedBy !== undefined"
-              title="Invented by"
-              icon="ic:baseline-person"
-            >
-              {{ trick.establishedBy }}
+                  {{
+                    variationOfFull[0].alias
+                      ? variationOfFull[0].alias
+                      : variationOfFull[0].technicalName
+                  }}
+                </RouterLink>
+              </div>
             </InfoSection>
+
             <InfoSection
-              v-if="trick.yearEstablished !== undefined"
-              :title="trick.establishedBy == undefined ? 'Invented in' : 'in'"
-              icon="ic:baseline-calendar-month"
+              title="Description"
+              icon="ic:baseline-text-snippet"
+              :is-info-missing="trick.description === undefined || trick.description.length == 0"
+              missing-message="Description missing"
             >
-              {{ trick.yearEstablished }}
+              {{ trick.description }}
+            </InfoSection>
+
+            <div
+              v-if="trick.establishedBy !== undefined || trick.yearEstablished !== undefined"
+              class="grid gap-2"
+              :class="
+                trick.establishedBy !== undefined && trick.yearEstablished !== undefined
+                  ? 'grid-cols-2'
+                  : 'grid-cols-1'
+              "
+            >
+              <InfoSection
+                v-if="trick.establishedBy !== undefined"
+                title="Invented by"
+                icon="ic:baseline-person"
+              >
+                {{ trick.establishedBy }}
+              </InfoSection>
+              <InfoSection
+                v-if="trick.yearEstablished !== undefined"
+                :title="trick.establishedBy == undefined ? 'Invented in' : 'in'"
+                icon="ic:baseline-calendar-month"
+              >
+                {{ trick.yearEstablished }}
+              </InfoSection>
+            </div>
+
+            <InfoSection
+              title="Tips"
+              icon="ic:outline-lightbulb"
+              :is-info-missing="trick.tips === undefined || trick.tips.length == 0"
+              missing-message="No tips for you!"
+            >
+              <ul class="list-disc list-inside">
+                <li v-for="(tip, index) in trick.tips" :key="index" class="pb-1">
+                  {{ tip }}
+                </li>
+              </ul>
+            </InfoSection>
+
+            <InfoSection
+              v-if="recommendedPrerequisitesFull.length > 0"
+              title="Prerequisites"
+              icon="ic:round-undo"
+            >
+              <ul class="list-disc list-inside">
+                <li
+                  v-for="(prerequisite, index) in recommendedPrerequisitesFull"
+                  :key="index"
+                  class="pb-1"
+                >
+                  <RouterLink
+                    :to="'/tricks/' + prerequisite.primaryKey[1] + '/' + prerequisite.primaryKey[0]"
+                    class="underline"
+                  >
+                    {{ prerequisite.alias ? prerequisite.alias : prerequisite.technicalName }}
+                  </RouterLink>
+                </li>
+              </ul>
             </InfoSection>
           </div>
-
-          <InfoSection
-            title="Tips"
-            icon="ic:outline-lightbulb"
-            :is-info-missing="trick.tips === undefined || trick.tips.length == 0"
-            missing-message="No tips for you!"
-          >
-            <ul class="list-disc list-inside">
-              <li v-for="(tip, index) in trick.tips" :key="index" class="pb-1">
-                {{ tip }}
-              </li>
-            </ul>
-          </InfoSection>
-
-          <InfoSection
-            v-if="recommendedPrerequisitesFull.length > 0"
-            title="Prerequisites"
-            icon="ic:round-undo"
-          >
-            <!-- Continue here -->
-            <ul class="list-disc list-inside">
-              <li
-                v-for="(prerequisite, index) in recommendedPrerequisitesFull"
-                :key="index"
-                class="pb-1"
-              >
-                <a
-                  :href="'/tricks/' + prerequisite.primaryKey[1] + '/' + prerequisite.primaryKey[0]"
-                  class="underline"
-                >
-                  {{ prerequisite.alias ? prerequisite.alias : prerequisite.technicalName }}
-                </a>
-              </li>
-            </ul>
-          </InfoSection>
-        </div>
+        </Section>
       </div>
     </div>
   </DefaultLayout>
