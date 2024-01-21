@@ -15,6 +15,7 @@ import { DbTricksTableZod } from '@/lib/database/schemas/Version1Schema';
 import { tricksDao, Trick } from '@/lib/database';
 
 import messages from '../../i18n/tricks/trickDetails';
+import ErrorInfo from '@/components/ErrorInfo.vue';
 
 const i18n = useI18n({
   messages,
@@ -137,23 +138,15 @@ watch(trick, async () => {
 <template>
   <DefaultLayout>
     <!-- Finished loading -->
-    <div v-if="trickLoadingComplete" class="w-full">
+    <div v-if="trickLoadingComplete" class="w-full h-full">
       <!-- Trick does not exist -->
-      <div v-if="trick === undefined" class="grid justify-items-center pt-36 p-10">
-        <div class="text-2xl">Something went wrong!</div>
-        <div class="mb-5 text-muted-foreground">Paul the problem parrot appears:</div>
-        <div
-          class="flex flex-row text-destructive align-center border border-border p-3 rounded-xl"
-        >
-          <Icon
-            icon="fluent-emoji-high-contrast:parrot"
-            class="h-16 w-16 md:h-20 md:w-20 text-destructive mr-2 flex-none"
-          />
-          <div class="align-middle">
-            "What are you doing, silly human? This trick does not exist on your device. Chrip."
-          </div>
-        </div>
-      </div>
+      <Section v-if="trick === undefined" class="h-full flex flex-col justify-center">
+        <ErrorInfo
+          title="Trick does not exist in your database!"
+          :code="404"
+          description="You tried to access a trick, which is not stored on your device."
+        />
+      </Section>
 
       <!-- Standard trick page -->
       <div v-else>
