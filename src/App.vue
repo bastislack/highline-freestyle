@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
+import Toaster from './components/ui/toast/Toaster.vue';
 
 onMounted(async () => {
   // This imports the migration procedure that syncs the offical tricks and combos
@@ -11,4 +12,5 @@ onMounted(async () => {
 
 <template>
   <RouterView />
+  <Toaster />
 </template>

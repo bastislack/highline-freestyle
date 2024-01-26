@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import DefaultLayout from '../../layouts/DefaultLayout.vue';
 import TextInput from '../../components/ui/form/TextInput.vue';
-import { Ref, computed, ref } from 'vue';
+import { Ref, computed, h, ref } from 'vue';
 import PositionSelectInput from '@/components/ui/form/PositionSelectInput.vue';
 import { DbPositionZod } from '@/lib/database/schemas/CurrentVersionSchema';
 import { z } from 'zod';
@@ -13,8 +13,12 @@ import GenericFormElement from '@/components/ui/form/GenericFormElement.vue';
 import { useRouter } from 'vue-router';
 import { CreateNewTrickType } from '@/lib/database/daos/tricksDao';
 import databaseInstance from '@/lib/database/databaseInstance';
+import { useToast, ToastAction } from '@/components/ui/toast';
 
 const router = useRouter();
+const toast = useToast();
+
+const createAnother = ref(false);
 
 const technicalTrickName = ref('');
 const aliasName = ref('');
@@ -87,6 +91,20 @@ const trickDifficultyIssues = computed(() => {
   return issues;
 });
 
+function reset() {
+  startPosition.value = 'Stand';
+  endPosition.value = 'Sit';
+  [
+    technicalTrickName,
+    aliasName,
+    tipsString,
+    descriptionString,
+    establishedByString,
+    yearEstablishedString,
+    trickDifficultyString,
+  ].forEach((e) => (e.value = ''));
+}
+
 const canSubmit = computed(
   () =>
     ![
@@ -144,9 +162,52 @@ async function handleSubmit() {
     notes: undefined,
     stickFrequency: undefined,
   };
+  try {
+    const result = await databaseInstance.tricksDao.createNew(trick, 'userDefined');
 
-  const result = await databaseInstance.tricksDao.createNew(trick, 'userDefined');
-  console.log('id of new trick is ' + result.primaryKey);
+    if (createAnother.value) {
+      reset();
+      toast.toast({
+        title: `Created trick ${result.technicalName}`,
+        action: h(
+          ToastAction,
+          {
+            altText: 'Go to Trick',
+            onClick: () => {
+              router.push('/tricks/' + result.primaryKey[1] + '/' + result.primaryKey[0]);
+            },
+          },
+          { default: () => 'Go to trick' }
+        ),
+        duration: 5000,
+      });
+    } else {
+      toast.toast({
+        title: `Created trick ${result.technicalName}`,
+        action: h(
+          ToastAction,
+          {
+            altText: 'Add another one',
+            onClick: () => {
+              router.push('/tricks/new');
+            },
+          },
+          { default: () => 'Add another one' }
+        ),
+        duration: 5000,
+      });
+      router.push('/tricks/' + result.primaryKey[1] + '/' + result.primaryKey[0]);
+    }
+  } catch (err) {
+    console.error(err);
+    toast.toast({
+      title: 'Uh oh…',
+      description:
+        'An error happened when trying to insert the new trick into the DB. Check the console (F12) for more info.',
+      class: 'bg-destructive-700 text-white',
+      duration: 5000,
+    });
+  }
 
   // TODO: Error Handling, Rerouting and Toast
 }
@@ -276,7 +337,7 @@ async function handleSubmit() {
         </div>
         <div class="col-span-2 inline-flex flex-col sm:flex-row justify-end gap-1">
           <div class="inline-flex flex-row items-center gap-2">
-            <input type="checkbox" id="create-another" />
+            <input type="checkbox" v-model="createAnother" id="create-another" />
             <abbr
               title="Checking this will not switch you to your newly created trick. This can be useful if you want to create multiple tricks."
             >
