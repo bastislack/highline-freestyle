@@ -1,5 +1,12 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { computed, onMounted } from 'vue';
+import { useFavicon, usePreferredColorScheme } from '@vueuse/core';
+
+const browserTheme = usePreferredColorScheme();
+const favicon = computed(() =>
+  browserTheme.value === 'dark' ? 'favicon_light.ico' : 'favicon.ico'
+);
+useFavicon(favicon);
 
 onMounted(async () => {
   // This imports the migration procedure that syncs the offical tricks and combos
