@@ -96,8 +96,8 @@ watchEffect(async () => {
 </script>
 
 <template>
-  <div v-if="isTrickLoadingComplete">
-    <div v-if="!trick">
+  <div v-if="isTrickLoadingComplete" class="h-full">
+    <div v-if="!trick" class="h-full">
       <Section v-if="trick === undefined" class="h-full flex flex-col justify-center">
         <ErrorInfo
           title="Trick does not exist in your database!"

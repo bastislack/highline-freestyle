@@ -56,22 +56,20 @@ let status = computed(() => {
 
 <template>
   <DefaultLayout>
-    <Section v-if="!status" class="w-full h-full">
+    <Section v-if="!status" class="w-full h-full flex flex-col items-center justify-center">
       <ErrorInfo
         :code="422"
         title="The provided trick status is invalid!"
         description='Check your URL. Only the values "official", "userDefined" and "archived" are allowed at the status position in "/tricks/<status>/<id>".'
       />
     </Section>
-    <Section v-else-if="!id" class="w-full h-full">
+    <Section v-else-if="!id" class="w-full h-full flex flex-col items-center justify-center">
       <ErrorInfo
         :code="422"
         title="The provided trick id is invalid!"
         description='Check your URL. Only numbers are allowed at the id position in "/tricks/<status>/<id>".'
       />
     </Section>
-    <div v-else class="w-full h-full">
-      <TrickDetailsContent :status="status" :id="id" />
-    </div>
+    <TrickDetailsContent v-else class="w-full h-full" :status="status" :id="id" />
   </DefaultLayout>
 </template>
