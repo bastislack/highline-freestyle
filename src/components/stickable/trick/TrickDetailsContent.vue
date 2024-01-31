@@ -9,8 +9,10 @@ import Badge from '@/components/ui/badge/Badge.vue';
 import InfoElement from '@/components/stickable/InfoElement.vue';
 import VideoCarousel from '@/components/video/VideoCarousel.vue';
 import Section from '@/components/ui/section/Section.vue';
+import Header from '@/components/stickable/Header.vue';
 import ErrorInfo from '@/components/ErrorInfo.vue';
 import Separator from '@/components/ui/separator/Separator.vue';
+import Button from '@/components/ui/button/Button.vue';
 
 const props = defineProps<{
   status: 'official' | 'userDefined' | 'archived';
@@ -108,7 +110,16 @@ watchEffect(async () => {
     </div>
 
     <div v-else>
-      <Section>
+      <Header>
+        {{ trick.alias ? trick.alias : trick.technicalName }}
+
+        <template #buttonRight>
+          <Button size="icon" variant="ghost" disabled>
+            <Icon icon="ic:round-edit" class="h-6 w-6 text-primary" />
+          </Button>
+        </template>
+      </Header>
+      <Section class="mt-1 lg:mt-0">
         <div class="flex flex-row justify-between gap-1 lg:gap-20">
           <div class="text-3xl mb-1">
             {{ trick.alias ? trick.alias : trick.technicalName }}
