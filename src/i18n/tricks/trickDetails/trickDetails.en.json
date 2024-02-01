@@ -1,5 +1,48 @@
 {
-  "to": "to",
-  "established-by": "Established by",
-  "in-the-year": "in"
+  "error": {
+    "invalid-status": {
+      "title": "The provided trick status is invalid!",
+      "description": "Check your URL. Only the values \"official\", \"userDefined\" and \"archived\" are allowed at the status position in \"/tricks/<status>/<id>\"."
+    },
+    "invalid-id": {
+      "title": "The provided trick id is invalid!",
+      "description": "Check your URL. Only numbers are allowed at the id position in \"/tricks/<status>/<id>\"."
+    },
+    "trick-not-in-db": {
+      "title": "This trick does not exist in your database!",
+      "description": "You tried to access a trick, which is not stored on your device."
+    }
+  },
+  "badges": {
+    "official": "Official",
+    "archived": "Archived",
+    "new": "New"
+  },
+  "header": {
+    "difficulty": "Difficulty",
+    "to": "to"
+  },
+  "info": {
+    "variation-of": {
+      "title": "Variation of"
+    },
+    "description": {
+      "title": "Description",
+      "missing-message": "Description missing"
+    },
+    "invented-by": {
+      "title": "Invented by"
+    },
+    "invented-in": {
+      "title-full": "Invented in",
+      "title-in": "in"
+    },
+    "tips": {
+      "title": "Tips",
+      "missing-message": "To tips provided"
+    },
+    "prerequisites": {
+      "title": "Prerequisites"
+    }
+  }
 }

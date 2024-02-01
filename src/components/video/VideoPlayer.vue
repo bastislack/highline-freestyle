@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n';
 import { Icon } from '@iconify/vue/dist/iconify.js';
 
+import messages from '@/i18n/video';
 import YoutubePlayer from './platforms/YoutubePlayer.vue';
 import InstagramPlayer from './platforms/InstagramPlayer.vue';
 import Duration from './Duration.vue';
@@ -10,6 +12,12 @@ defineProps<{
   startTime?: number;
   endTime?: number;
 }>();
+
+const i18n = useI18n({
+  messages,
+  useScope: 'local',
+});
+const { t } = i18n;
 
 enum Platform {
   InvalidURL,
@@ -68,11 +76,11 @@ function platformFromUrl(url_: string): Platform {
         <Icon icon="ic:baseline-videocam-off" class="w-8 h-8" />
       </div>
       <div class="text-lg text-center mb-3 lg:mb-5">
-        Only YouTube and Instagram videos can be displayed!
+        {{ t('error.only-youtube-and-insta') }}
       </div>
 
       <div class="text-center">
-        URL: <a :href="url" class="underline">{{ url }}</a
+        {{ t('url') }}: <a :href="url" class="underline">{{ url }}</a
         ><br />
       </div>
       <Duration
@@ -81,12 +89,6 @@ function platformFromUrl(url_: string): Platform {
         :end="endTime"
         class="mt-1 mx-auto"
       />
-      <!--
-      <div v-if="startTime || endTime" class="flex flex-row justify-center gap-5 mt-1">
-        <div v-if="startTime">Start: {{ minutesSecondsFromSeconds(startTime) }}<br /></div>
-        <div v-if="endTime">End: {{ minutesSecondsFromSeconds(endTime) }}</div>
-      </div>
-      -->
     </div>
 
     <!-- Fallback if URL is invalid -->
@@ -97,11 +99,13 @@ function platformFromUrl(url_: string): Platform {
       <div class="flex justify-center w-full text-destructive">
         <Icon icon="ic:baseline-link-off" class="w-8 h-8" />
       </div>
-      <div class="text-lg text-center mb-3 lg:mb-5 text-destructive">Invalid video URL!</div>
+      <div class="text-lg text-center mb-3 lg:mb-5 text-destructive">
+        {{ t('error.invalid-url') }}
+      </div>
 
       <div class="text-center text-muted-foreground">
-        URL: <a :href="url" class="underline">{{ url }}</a
-        ><br />
+        {{ t('url') }}: <a :href="url" class="underline">{{ url }}</a>
+        <br />
       </div>
       <Duration
         v-if="startTime || endTime"

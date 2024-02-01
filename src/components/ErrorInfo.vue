@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { Icon } from '@iconify/vue/dist/iconify.js';
+import { useI18n } from 'vue-i18n';
 
+import messages from '@/i18n/error';
 import Button from '@/components/ui/button/Button.vue';
 import { Separator } from '@/components/ui/separator';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
@@ -13,6 +15,13 @@ defineProps<{
   debug?: string;
   hideImage?: boolean;
 }>();
+
+const i18n = useI18n({
+  messages,
+  useScope: 'local',
+});
+
+const { t } = i18n;
 
 const isDebugOpen = ref(false);
 
@@ -29,7 +38,6 @@ function hasHistory(): boolean {
         src="@/assets/img/leashfall.svg"
         class="h-full md:w-auto max-h-72 sm:max-h-80 xl:max-h-96 p-3 pb-7 sm:py-4 md:pb-3"
       />
-      <!--<div class="text-sm text-muted-foreground">Your request has taken a whipper!</div>-->
 
       <div class="grow w-full flex flex-col gap-1">
         <div class="w-full text-3xl font-bold text-justify">
@@ -54,7 +62,7 @@ function hasHistory(): boolean {
           <div class="flex flex-row justify-between items-center text-muted-foreground">
             <div class="flex flex-row gap-1 items-center">
               <Icon icon="ic:round-code" class="w-5 h-5" />
-              Debug info
+              {{ t('debug-info') }}
             </div>
             <CollapsibleTrigger as-child>
               <Button variant="ghost" size="icon">
@@ -78,7 +86,7 @@ function hasHistory(): boolean {
     </div>
 
     <Button @click="hasHistory() ? $router.back() : $router.push('/')">
-      {{ hasHistory() ? 'Back' : 'Home' }}
+      {{ hasHistory() ? t('back') : t('home') }}
     </Button>
   </div>
 </template>

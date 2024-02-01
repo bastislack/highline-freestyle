@@ -1,0 +1,11 @@
+{
+  "duration": {
+    "to": "to",
+    "not-specified": "No duration specified"
+  },
+  "error": {
+    "only-youtube-and-insta": "Only YouTube and Instagram videos can be displayed!",
+    "invalid-url": "Invalid video URL!"
+  },
+  "url": "URL"
+}

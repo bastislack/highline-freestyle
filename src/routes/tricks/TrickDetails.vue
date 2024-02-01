@@ -1,37 +1,24 @@
 <script lang="ts" setup>
 import { useRoute } from 'vue-router';
-//import { z } from 'zod';
 import { computed } from 'vue';
-//import { useI18n } from 'vue-i18n';
-//import { Icon } from '@iconify/vue';
+import { useI18n } from 'vue-i18n';
 
-//import Separator from '@/components/ui/separator/Separator.vue';
-//import Badge from '@/components/ui/badge/Badge.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
-//import InfoElement from '@/components/stickable/InfoElement.vue';
-//import VideoCarousel from '@/components/video/VideoCarousel.vue';
-//import Section from '@/components/ui/section/Section.vue';
 import TrickDetailsContent from '@/components/stickable/trick/TrickDetailsContent.vue';
 import { DbTricksTableZod } from '@/lib/database/schemas/Version1Schema';
-//import { tricksDao, Trick } from '@/lib/database';
 import Section from '@/components/ui/section/Section.vue';
-
-//import messages from '../../i18n/tricks/trickDetails';
 import ErrorInfo from '@/components/ErrorInfo.vue';
 
-/*
+import messages from '@/i18n/tricks/trickDetails';
+
 const i18n = useI18n({
   messages,
   useScope: 'local',
 });
 
 const { t } = i18n;
-*/
 
 const route = useRoute();
-
-//const id = ref<number>(0);
-//const status = ref<"official" | "userDefined" | "archived">("userDefined");
 
 function parseAndValidateId(): number | undefined {
   const raw = Number(route.params.id);
@@ -59,15 +46,15 @@ let status = computed(() => {
     <Section v-if="!status" class="w-full h-full flex flex-col items-center justify-center">
       <ErrorInfo
         :code="422"
-        title="The provided trick status is invalid!"
-        description='Check your URL. Only the values "official", "userDefined" and "archived" are allowed at the status position in "/tricks/<status>/<id>".'
+        :title="t('error.invalid-status.title')"
+        :description="t('error.invalid-status.description')"
       />
     </Section>
     <Section v-else-if="!id" class="w-full h-full flex flex-col items-center justify-center">
       <ErrorInfo
         :code="422"
-        title="The provided trick id is invalid!"
-        description='Check your URL. Only numbers are allowed at the id position in "/tricks/<status>/<id>".'
+        :title="t('error.invalid-id.title')"
+        :description="t('error.invalid-id.description')"
       />
     </Section>
     <TrickDetailsContent v-else class="w-full h-full" :status="status" :id="id" />

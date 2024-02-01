@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue';
+import { computed, ref, watchEffect } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { Icon } from '@iconify/vue/dist/iconify.js';
 
 import messages from '@/i18n/tricks/trickDetails';
-import { tricksDao, Trick } from '@/lib/database';
+import { tricksDao } from '@/lib/database';
+import { Trick } from '@/lib/database/daos/trick';
 import Badge from '@/components/ui/badge/Badge.vue';
 import InfoElement from '@/components/stickable/InfoElement.vue';
 import VideoCarousel from '@/components/video/VideoCarousel.vue';
@@ -26,12 +27,12 @@ const i18n = useI18n({
 
 const { t } = i18n;
 
-const trick = ref<Trick>(undefined);
+const trick = ref<Trick | undefined>(undefined);
 const recommendedPrerequisitesFull = ref<Trick[]>([]);
 const variationOfFull = ref<Trick[]>([]);
 const isTrickLoadingComplete = ref<boolean>(false);
 
-async function getFullRecommendedPrerequisites(trick: Trick): Promise<Trick[]> {
+async function getFullRecommendedPrerequisites(trick?: Trick): Promise<Trick[]> {
   if (
     trick === undefined ||
     trick.recommendedPrerequisites === undefined ||
@@ -39,24 +40,28 @@ async function getFullRecommendedPrerequisites(trick: Trick): Promise<Trick[]> {
   ) {
     return [];
   }
-  return await Promise.all(
-    trick.recommendedPrerequisites.map(
-      async (prerequisiteIdStatus): Promise<Trick> =>
-        await tricksDao.getById(prerequisiteIdStatus[0], prerequisiteIdStatus[1])
+  return (
+    await Promise.all(
+      trick.recommendedPrerequisites.map(
+        async (prerequisiteIdStatus): Promise<Trick | undefined> =>
+          await tricksDao.getById(prerequisiteIdStatus[0], prerequisiteIdStatus[1])
+      )
     )
-  );
+  ).filter((item) => item !== undefined) as Trick[];
 }
 
-async function getVariationOfFull(trick: Trick): Promise<Trick[]> {
+async function getVariationOfFull(trick?: Trick): Promise<Trick[]> {
   if (trick === undefined || trick.variationOf === undefined || trick.variationOf.length == 0) {
     return [];
   }
-  return await Promise.all(
-    trick.variationOf.map(
-      async (variationParent): Promise<Trick> =>
-        await tricksDao.getById(variationParent[0], variationParent[1])
+  return (
+    await Promise.all(
+      trick.variationOf.map(
+        async (variationParent): Promise<Trick | undefined> =>
+          await tricksDao.getById(variationParent[0], variationParent[1])
+      )
     )
-  );
+  ).filter((item) => item !== undefined) as Trick[];
 }
 
 /**
@@ -77,21 +82,20 @@ function daysSinceEpoch(epoch: number): number {
   return daysDiff;
 }
 
-function isTrickNew(trick_: Trick): boolean {
-  if (trick_ === undefined || trick_.dateAddedEpoch === undefined) {
+const isTrickNew = computed(() => {
+  if (trick.value === undefined || trick.value.dateAddedEpoch === undefined) {
     return false;
   }
-
   const IS_NEW_DAYS = 30;
-  return daysSinceEpoch(trick_.dateAddedEpoch) <= IS_NEW_DAYS;
-}
+  return daysSinceEpoch(trick.value.dateAddedEpoch) <= IS_NEW_DAYS;
+});
 
 watchEffect(async () => {
   isTrickLoadingComplete.value = false;
 
   trick.value = await tricksDao.getById(props.id, props.status);
-  recommendedPrerequisitesFull.value = await getFullRecommendedPrerequisites(trick.value);
-  variationOfFull.value = await getVariationOfFull(trick.value);
+  recommendedPrerequisitesFull.value = await getFullRecommendedPrerequisites(trick.value as Trick);
+  variationOfFull.value = await getVariationOfFull(trick.value as Trick);
 
   isTrickLoadingComplete.value = true;
 });
@@ -102,9 +106,9 @@ watchEffect(async () => {
     <div v-if="!trick" class="h-full">
       <Section v-if="trick === undefined" class="h-full flex flex-col justify-center">
         <ErrorInfo
-          title="Trick does not exist in your database!"
           :code="404"
-          description="You tried to access a trick, which is not stored on your device."
+          :title="t('error.trick-not-in-db.title')"
+          :description="t('error.trick-not-in-db.description')"
         />
       </Section>
     </div>
@@ -125,7 +129,7 @@ watchEffect(async () => {
             {{ trick.alias ? trick.alias : trick.technicalName }}
           </div>
           <div class="text-3xl text-primary flex flex-row gap-1 flex-none">
-            <div class="text-xs self-baseline">Difficulty</div>
+            <div class="text-xs self-baseline">{{ t('header.difficulty') }}</div>
             <div class="self-baseline">
               {{ trick.difficultyLevel ? trick.difficultyLevel : '?' }}
             </div>
@@ -135,19 +139,21 @@ watchEffect(async () => {
           {{ trick.technicalName }}
         </div>
         <div>
-          {{ trick.startPosition + ' ' + t('to') + ' ' + trick.endPosition }}
+          {{ trick.startPosition + ' ' + t('header.to') + ' ' + trick.endPosition }}
         </div>
 
         <div class="flex flex-row gap-2">
           <Badge v-if="trick.primaryKey[1] == 'official'" variant="default" class="mt-2">
-            <Icon icon="ic:round-check-circle" class="mr-1" /> Official
+            <Icon icon="ic:round-check-circle" class="mr-1" />
+            {{ t('badges.official') }}
           </Badge>
           <Badge v-if="trick.primaryKey[1] == 'archived'" variant="destructive" class="mt-2">
-            <Icon icon="ic:baseline-archive" class="mr-1" /> Archived
+            <Icon icon="ic:baseline-archive" class="mr-1" />
+            {{ t('badges.archived') }}
           </Badge>
-          <Badge v-if="isTrickNew(trick)" variant="secondary" class="mt-2">
+          <Badge v-if="isTrickNew" variant="secondary" class="mt-2">
             <Icon icon="ic:baseline-filter-vintage" class="mr-1" />
-            New
+            {{ t('badges.new') }}
           </Badge>
         </div>
       </Section>
@@ -166,7 +172,7 @@ watchEffect(async () => {
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-y-6 gap-x-5">
           <InfoElement
             v-if="variationOfFull !== undefined && variationOfFull.length != 0"
-            title="Variation of"
+            :title="t('info.variation-of.title')"
             icon="ic:twotone-fork-right"
           >
             <ul v-if="variationOfFull.length > 1" class="list-disc list-inside">
@@ -203,10 +209,10 @@ watchEffect(async () => {
           </InfoElement>
 
           <InfoElement
-            title="Description"
+            :title="t('info.description.title')"
             icon="ic:baseline-text-snippet"
             :is-info-missing="trick.description === undefined || trick.description.length == 0"
-            missing-message="Description missing"
+            :missing-message="t('info.description.missing-message')"
           >
             {{ trick.description }}
           </InfoElement>
@@ -222,14 +228,18 @@ watchEffect(async () => {
           >
             <InfoElement
               v-if="trick.establishedBy !== undefined"
-              title="Invented by"
+              :title="t('info.invented-by.title')"
               icon="ic:baseline-person"
             >
               {{ trick.establishedBy }}
             </InfoElement>
             <InfoElement
               v-if="trick.yearEstablished !== undefined"
-              :title="trick.establishedBy == undefined ? 'Invented in' : 'in'"
+              :title="
+                trick.establishedBy == undefined
+                  ? t('info.invented-in.title-full')
+                  : t('info.invented-in.title-in')
+              "
               icon="ic:baseline-calendar-month"
             >
               {{ trick.yearEstablished }}
@@ -237,10 +247,10 @@ watchEffect(async () => {
           </div>
 
           <InfoElement
-            title="Tips"
+            :title="t('info.tips.title')"
             icon="ic:outline-lightbulb"
             :is-info-missing="trick.tips === undefined || trick.tips.length == 0"
-            missing-message="No tips for you!"
+            :missing-message="t('info.tips.missing-message')"
           >
             <ul class="list-disc list-inside">
               <li v-for="(tip, index) in trick.tips" :key="index" class="pb-1">
@@ -251,7 +261,7 @@ watchEffect(async () => {
 
           <InfoElement
             v-if="recommendedPrerequisitesFull.length > 0"
-            title="Prerequisites"
+            :title="t('info.prerequisites.title')"
             icon="ic:round-undo"
           >
             <ul class="list-disc list-inside">
