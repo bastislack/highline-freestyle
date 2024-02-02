@@ -1,0 +1,48 @@
+{
+  "error": {
+    "invalid-status": {
+      "title": "Le statut trick fourni n'est pas valide !",
+      "description": "Vérifier l'URL. Seules les valeurs \"official\", \"userDefined\" et \"archived\" sont autorisées à la position d'état dans \"/tricks/<status>/<id>\"."
+    },
+    "invalid-id": {
+      "title": "L'identifiant trick fourni n'est pas valide !",
+      "description": "Vérifier l'URL. Seuls les chiffres sont autorisés à la position id dans \"/tricks/<status>/<id>\"."
+    },
+    "trick-not-in-db": {
+      "title": "Cette trick n'existe pas dans ta base de données !",
+      "description": "Tu as essayé d'accéder à une astuce qui n'est pas stockée sur ton appareil."
+    }
+  },
+  "badges": {
+    "official": "Officielle",
+    "archived": "Archivé",
+    "new": "Nouveau"
+  },
+  "header": {
+    "difficulty": "Difficulté",
+    "to": "à"
+  },
+  "info": {
+    "variation-of": {
+      "title": "Variation de"
+    },
+    "description": {
+      "title": "Description",
+      "missing-message": "Description manquante"
+    },
+    "invented-by": {
+      "title": "Inventé par"
+    },
+    "invented-in": {
+      "title-full": "Inventé en",
+      "title-in": "en"
+    },
+    "tips": {
+      "title": "Conseils",
+      "missing-message": "Aucun conseil n'est donné"
+    },
+    "prerequisites": {
+      "title": "Prérequis"
+    }
+  }
+}
