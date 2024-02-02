@@ -14,6 +14,13 @@ import { useRouter } from 'vue-router';
 import { CreateNewTrickType } from '@/lib/database/daos/tricksDao';
 import databaseInstance from '@/lib/database/databaseInstance';
 import { useToast, ToastAction } from '@/components/ui/toast';
+import { useI18n } from 'vue-i18n';
+import messages from '@/i18n/tricks/new/index';
+
+const { t } = useI18n({
+  messages,
+  scope: 'local',
+});
 
 const router = useRouter();
 const toast = useToast();
@@ -165,19 +172,21 @@ async function handleSubmit() {
   try {
     const result = await databaseInstance.tricksDao.createNew(trick, 'userDefined');
 
+    console.log(result);
+
     if (createAnother.value) {
       reset();
       toast.toast({
-        title: `Created trick ${result.technicalName}`,
+        title: t('TOAST_CREATED_TRICK', { name: result.alias ?? result.technicalName }),
         action: h(
           ToastAction,
           {
-            altText: 'Go to Trick',
+            altText: t('TOAST_GOTO_TRICK'),
             onClick: () => {
               router.push('/tricks/' + result.primaryKey[1] + '/' + result.primaryKey[0]);
             },
           },
-          { default: () => 'Go to trick' }
+          { default: () => t('TOAST_GOTO_TRICK') }
         ),
         duration: 5000,
       });
@@ -187,12 +196,12 @@ async function handleSubmit() {
         action: h(
           ToastAction,
           {
-            altText: 'Add another one',
+            altText: t('TOAST_ADD_ANOTHER_TRICK'),
             onClick: () => {
               router.push('/tricks/new');
             },
           },
-          { default: () => 'Add another one' }
+          { default: () => t('TOAST_ADD_ANOTHER_TRICK') }
         ),
         duration: 5000,
       });
@@ -201,9 +210,8 @@ async function handleSubmit() {
   } catch (err) {
     console.error(err);
     toast.toast({
-      title: 'Uh oh…',
-      description:
-        'An error happened when trying to insert the new trick into the DB. Check the console (F12) for more info.',
+      title: t('ERR_TOAST_TITLE'),
+      description: t('ERR_TOAST_MESSAGE'),
       class: 'bg-destructive-700 text-white',
       duration: 5000,
     });
@@ -216,42 +224,42 @@ async function handleSubmit() {
 <template>
   <DefaultLayout>
     <Section>
-      <h1 class="text-3xl my-4 font-black">Create a new custom trick</h1>
+      <h1 class="text-3xl my-4 font-black">{{ t('TITLE_HEADING') }}</h1>
 
       <section class="grid gap-6 grid-cols-2">
         <TextInput
           class="col-span-2 md:col-span-1"
           id="technical-name-input"
           name="Technical Name"
-          description="What's the trick's technical name?"
+          :description="t('QUESTION_TECHNICAL_NAME')"
           v-model:value="technicalTrickName"
           :issues="trickNameIssues"
           :required="true"
-          placeholder="180 Chestroll Crazyness"
+          :placeholder="t('PLACEHOLDER_TECHNICAL_NAME')"
         />
         <TextInput
           class="col-span-2 md:col-span-1"
           id="alias-name-input"
           name="Alias Name"
-          description="What do you actually call this?"
+          :description="t('QUESTION_ALIAS_NAME')"
           v-model:value="aliasName"
-          placeholder="Chewbacca"
+          :placeholder="t('PLACEHOLDER_ALIAS_NAME')"
         />
         <TextInput
           class="col-span-2 md:col-span-1"
           id="established-by-input"
           name="Established By"
-          description="Who originally came up with it?"
+          :description="t('QUESTION_ESTABLISHED_BY')"
           v-model:value="establishedByString"
-          placeholder="Ian, probably"
+          :placeholder="t('PLACEHOLDER_ESTABLISHED_BY')"
         />
         <NumberInput
           class="col-span-2 md:col-span-1"
           id="difficulty"
           name="Difficulty"
-          description="How hard is this trick? 1: Very easy, 10: Very hard. Keep this empty if you're not sure."
+          :description="t('QUESTION_DIFFICULTY')"
           v-model:value="trickDifficultyString"
-          placeholder="I'm not sure"
+          :placeholder="t('PLACEHOLDER_DIFFICULTY')"
           :min="0"
           :max="10"
           :step="1"
@@ -262,7 +270,7 @@ async function handleSubmit() {
           v-model:value="startPosition"
           id="startPosition"
           name="Start Position"
-          description="In what Position does the Trick start?"
+          :description="t('QUESTION_POSITION_START')"
           :issues="startPositionIssues"
         />
         <PositionSelectInput
@@ -270,32 +278,33 @@ async function handleSubmit() {
           v-model:value="endPosition"
           id="endPosition"
           name="End Position"
-          description="In what Position does the Trick end?"
+          :description="t('QUESTION_POSITION_END')"
           :issues="endPositionIssues"
         />
         <TextInput
           class="col-span-2"
           id="description"
           name="Description"
-          description="Any details you wish to share about the trick?"
+          :description="t('QUESTION_DESCRIPTION')"
+          :placeholder="t('PLACEHOLDER_DESCRIPTION')"
           v-model:value="descriptionString"
-          :placeholder="'A fitting description'"
+          multiline
         />
 
         <TextInput
           class="col-span-2"
           id="tips"
           name="Tips"
-          description="Do you have any tips to master this trick? Put each tip on a separate line"
+          :description="t('QUESTION_TIPS')"
+          :placeholder="t('PLACEHOLDER_TIPS')"
           v-model:value="tipsString"
-          :placeholder="'This is my first tip.\nAnd this is my second tip.'"
           multiline
         />
         <NumberInput
           class="col-span-2 md:col-span-1"
           id="yearEstablished"
           name="Year Established"
-          description="Do you know when this trick was first introduced?"
+          :description="t('QUESTION_YEAR_ESTABLISHED')"
           v-model:value="yearEstablishedString"
           :placeholder="'e.g. 2023'"
           :min="1900"
@@ -307,12 +316,12 @@ async function handleSubmit() {
           class="col-span-2 md:col-span-1"
           id="variantOf"
           name="Variant Of"
-          description="Is this a variant of any other trick?"
+          :description="t('QUESTION_VARIANT_OF')"
         >
           <div
             class="w-full h-12 border border-neutral-700 flex justify-center items-center text-neutral-400 italic text-xs rounded-lg border-dashed"
           >
-            This component has yet to be implemented
+            {{ t('COMPONENT_NOT_IMPLEMENTED') }}
           </div>
         </GenericFormElement>
         <GenericFormElement
@@ -324,7 +333,7 @@ async function handleSubmit() {
           <div
             class="w-full h-12 border border-neutral-700 flex justify-center items-center text-neutral-400 italic text-xs rounded-lg border-dashed"
           >
-            This component has yet to be implemented
+            {{ t('COMPONENT_NOT_IMPLEMENTED') }}
           </div>
         </GenericFormElement>
         <div v-if="!canSubmit" :class="`col-span-2 p-4 bg-red-200 flex flex-row rounded-lg`">
@@ -335,28 +344,28 @@ async function handleSubmit() {
             </p>
           </div>
         </div>
-        <div class="col-span-2 inline-flex flex-col sm:flex-row justify-end gap-1">
+        <div class="col-span-2 inline-flex flex-row justify-end gap-1 flex-wrap">
           <div class="inline-flex flex-row items-center gap-2">
             <input type="checkbox" v-model="createAnother" id="create-another" />
-            <abbr
-              title="Checking this will not switch you to your newly created trick. This can be useful if you want to create multiple tricks."
-            >
-              <label for="create-another">Create another trick afterwards</label>
+            <abbr :title="t('CHECKBOX_ANOTHER_TRICK_HINT')">
+              <label for="create-another">{{ t('CHECKBOX_ANOTHER_TRICK') }}</label>
             </abbr>
           </div>
           <div class="flex-1" />
-          <Button
-            @click="
-              (ev) => {
-                ev.preventDefault();
-                router.back();
-              }
-            "
-            variant="secondary"
-          >
-            Cancel
-          </Button>
-          <Button @click="() => handleSubmit()" :disabled="!canSubmit"> Create </Button>
+          <div class="inline-flex gap-1">
+            <Button
+              @click="
+                (ev) => {
+                  ev.preventDefault();
+                  router.back();
+                }
+              "
+              variant="secondary"
+            >
+              Cancel
+            </Button>
+            <Button @click="() => handleSubmit()" :disabled="!canSubmit"> Create </Button>
+          </div>
         </div>
       </section>
     </Section>

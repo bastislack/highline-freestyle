@@ -23,7 +23,7 @@ const inputClasses = computed(() => {
 
 <template>
   <div class="inline-flex flex-col">
-    <label :for="id" class="inline-flex flex-col mb-2 flex-1 text-gray-900 dark:text-white">
+    <label :for="id" class="inline-flex flex-col mb-2 flex-1 text-gray-900">
       <span class="text-lg font-medium">{{ name }}</span>
       <span v-if="description" class="text-gray-600 text-sm"> {{ description }}</span>
       <span :key="i" class="text-red-600 text-sm" v-for="(issue, i) of issues ?? []">

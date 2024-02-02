@@ -1,0 +1,33 @@
+{
+  "TITLE_HEADING": "Create a new custom trick",
+  "QUESTION_TECHNICAL_NAME": "What's the trick's technical name?",
+  "QUESTION_ALIAS_NAME": "What do you actually call this?",
+  "QUESTION_ESTABLISHED_BY": "Who originally came up with it?",
+  "QUESTION_DIFFICULTY": "How hard is this trick? 1: Very easy, 10: Very hard. Keep this empty if you're not sure.",
+  "QUESTION_POSITION_START": "In what Position does the Trick start?",
+  "QUESTION_POSITION_END": "In what Position does the Trick end?",
+  "QUESTION_DESCRIPTION": "Any details you wish to share about the trick?",
+  "QUESTION_TIPS": "Do you have any tips to master this trick? Put each tip on a separate line",
+  "QUESTION_YEAR_ESTABLISHED": "Do you know when this trick was invented?",
+  "QUESTION_VARIANT_OF": "Is this a variant of any other trick?",
+  "QUESTION_RECOMMENDED_PREREQS": "Are there any tricks you would recommend to learn before trying this one?",
+
+  "PLACEHOLDER_TECHNICAL_NAME": "180 Chestroll Crazyness",
+  "PLACEHOLDER_ALIAS_NAME": "Chewbacca",
+  "PLACEHOLDER_ESTABLISHED_BY": "Ian, probably",
+  "PLACEHOLDER_DIFFICULTY": "I'm not sure",
+  "PLACEHOLDER_DESCRIPTION": "A fitting description",
+  "PLACEHOLDER_TIPS": "This is my first tip.\nAnd this is my second tip.",
+
+  "COMPONENT_NOT_IMPLEMENTED": "This component has yet to be implemented",
+
+  "CHECKBOX_ANOTHER_TRICK": "Create another trick afterwards",
+  "CHECKBOX_ANOTHER_TRICK_HINT": "Checking this will not switch you to your newly created trick. This can be useful if you want to create multiple tricks.",
+
+  "TOAST_CREATED_TRICK": "Created trick {name}",
+  "TOAST_GOTO_TRICK": "Go to Trick",
+  "TOAST_ADD_ANOTHER_TRICK": "Add another one",
+
+  "ERR_TOAST_TITLE": "Uh oh…",
+  "ERR_TOAST_MESSAGE": "An error happened when trying to insert the new trick into the DB. Check the console (F12) for more info."
+}

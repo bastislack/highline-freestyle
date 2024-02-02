@@ -4,6 +4,7 @@ import { DbPositionZod } from '@/lib/database/schemas/CurrentVersionSchema';
 import GenericFormElement from './GenericFormElement.vue';
 
 import { z } from 'zod';
+import { useI18n } from 'vue-i18n';
 
 const props = defineProps<{
   id: string;
@@ -36,6 +37,12 @@ const inputClasses = computed(() => {
   return classes;
 });
 
+import messages from '@/i18n/common/positions';
+const { t } = useI18n({
+  messages,
+  scope: 'local',
+});
+
 const selectableValues = props.selectionFilter
   ? Object.values(DbPositionZod.Values).filter(props.selectionFilter)
   : Object.values(DbPositionZod.Values);
@@ -52,7 +59,7 @@ const selectableValues = props.selectionFilter
       :id="id"
       :class="inputClasses"
     >
-      <option v-for="entry in selectableValues" :key="entry">
+      <option :label="t(entry)" v-for="entry in selectableValues" :key="entry">
         {{ entry }}
       </option>
     </select>
