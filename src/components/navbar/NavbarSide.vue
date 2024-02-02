@@ -61,9 +61,11 @@ const links: NavLink[] = [
   >
     <!-- Top section (Logo and most frequent routes)-->
     <div>
+      <div class="h-6"></div>
+      <RouterLink to="/">
+        <img src="@/assets/logo/logo_big.svg" class="px-4" />
+      </RouterLink>
       <div class="h-4"></div>
-      <div class="px-7 py-6 my-0 font-black">Logo</div>
-      <div class="h-8"></div>
       <ul class="flex flex-col gap-1 text-gray-800 font-prose">
         <li v-for="entry in links" v-bind:key="entry.translationKey">
           <RouterLink
