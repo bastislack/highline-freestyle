@@ -128,9 +128,9 @@ watchEffect(async () => {
           <div class="text-3xl mb-1">
             {{ trick.alias ? trick.alias : trick.technicalName }}
           </div>
-          <div class="text-3xl text-primary flex flex-row gap-1 flex-none">
-            <div class="text-xs self-baseline">{{ t('header.difficulty') }}</div>
-            <div class="self-baseline">
+          <div class="text-3xl text-primary flex flex-row gap-1 items-center">
+            <div class="text-xs">{{ t('header.difficulty') }}</div>
+            <div class="">
               {{ trick.difficultyLevel ? trick.difficultyLevel : '?' }}
             </div>
           </div>

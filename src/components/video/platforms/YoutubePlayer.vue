@@ -27,23 +27,60 @@ const isUrlValid = computed(() => {
   }
 });
 
-function embedURLfromRegularURL(url_: string, startTime_?: number, endTime_?: number): string {
+const isClipUrl = (url: string) => {
+  let params: URLSearchParams;
+  try {
+    params = new URL(url).searchParams;
+  } catch (err) {
+    console.error({
+      message: 'Trick contains a URL that could not be parsed',
+      err,
+    });
+    return false;
+  }
+
+  if (!params.get('clip')) {
+    return false;
+  }
+
+  if (!['clipt', 'amp;clipt'].some((e) => params.get(e))) {
+    return false;
+  }
+
+  return true;
+};
+
+function embedURLfromRegularURL(url: string, startTime?: number, endTime?: number): string {
   if (!isUrlValid.value) {
     return '';
   }
 
-  const prefix: string = 'https://www.youtube-nocookie.com/embed/';
+  if (isClipUrl(url)) {
+    // We can just embed the URL directly. In this instance, start and end times are ignored entirely
 
-  const videoID: string = videoIdFromURL(url_);
+    const { pathname, search } = new URL(url);
+    const newUrl = new URL(pathname + search, 'https://www.youtube.com').toString();
+    return newUrl;
+  }
 
-  let suffix: string = startTime_ || endTime_ ? '?version=3&loop=1&modestbranding=1&' : '';
-  suffix += startTime_ ? 'start=' + startTime_ : '';
-  suffix += startTime_ && endTime_ ? '&' : '';
-  suffix += endTime_ ? 'end=' + endTime_ : '';
+  const searchParams = {
+    version: '3',
+    loop: '1',
+    modestbranding: '1',
+    ...(startTime && { start: String(startTime) }),
+    ...(endTime && { end: String(endTime) }),
+  };
 
-  console.log(prefix + videoID + suffix);
+  const videoID: string = videoIdFromURL(url);
 
-  return prefix + videoID + suffix;
+  const newUrl = new URL(`/embed/${videoID}`, 'https://www.youtube-nocookie.com');
+
+  for (const [key, value] of Object.entries(searchParams)) {
+    newUrl.searchParams.append(key, value);
+  }
+
+  console.log(newUrl.toString());
+  return newUrl.toString();
 }
 
 /**
@@ -51,9 +88,9 @@ function embedURLfromRegularURL(url_: string, startTime_?: number, endTime_?: nu
  * https://stackoverflow.com/a/8260383
  * @param url Youtube URL in any format (youtube.com, youtu.be, ...)
  */
-function videoIdFromURL(url_: string): string {
+function videoIdFromURL(url: string): string {
   var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
-  var match = url_.match(regExp);
+  var match = url.match(regExp);
   if (match && match[7].length == 11) {
     return match[7];
   }
