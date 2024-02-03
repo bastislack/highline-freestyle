@@ -82,11 +82,13 @@ function hasHistory(): boolean {
             {{ debug }}
           </CollapsibleContent>
         </Collapsible>
+
+        <div class="inline-flex flex-row justify-center md:justify-start mt-3">
+          <Button class="" @click="hasHistory() ? $router.back() : $router.push('/')">
+            {{ hasHistory() ? t('back') : t('home') }}
+          </Button>
+        </div>
       </div>
     </div>
-
-    <Button @click="hasHistory() ? $router.back() : $router.push('/')">
-      {{ hasHistory() ? t('back') : t('home') }}
-    </Button>
   </div>
 </template>
