@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 import GenericFormElement from './GenericFormElement.vue';
+import Input from '@/components/ui/input/Input.vue';
 
 const props = defineProps<{
   id: string;
@@ -40,13 +41,12 @@ const inputClasses = computed(() => {
       :value="value"
       @input="(event) => emits('update:value', (event.target! as HTMLInputElement).value)"
     ></textarea>
-    <input
+    <Input
       v-else
       :value="value"
       @input="(event) => emits('update:value', (event.target! as HTMLInputElement).value)"
       :type="typeOverride ?? 'text'"
       :id="id"
-      class="bg-gray-50 border text-sm rounded-lg block w-full p-2.5 focus:outline focus:outline-primary-700 focus:invalid:outline-red-700"
       :placeholder="placeholder"
     />
   </GenericFormElement>

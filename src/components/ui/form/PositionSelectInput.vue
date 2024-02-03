@@ -1,7 +1,15 @@
 <script lang="ts" setup>
-import { computed } from 'vue';
 import { DbPositionZod } from '@/lib/database/schemas/CurrentVersionSchema';
 import GenericFormElement from './GenericFormElement.vue';
+
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 import { z } from 'zod';
 import { useI18n } from 'vue-i18n';
@@ -25,18 +33,6 @@ const emits = defineEmits<{
   (eventName: 'update:value', newValue: z.infer<typeof DbPositionZod>): void;
 }>();
 
-const inputClasses = computed(() => {
-  const classes = `bg-gray-50 border  text-sm rounded-lg block w-full p-2.5`.split(' ');
-
-  if (props.issues && props.issues.length > 0) {
-    classes.push('border-red-300', 'text-red-600');
-  } else {
-    classes.push('border-gray-300', 'text-gray-900');
-  }
-
-  return classes;
-});
-
 import messages from '@/i18n/common/positions';
 const { t } = useI18n({
   messages,
@@ -50,18 +46,24 @@ const selectableValues = props.selectionFilter
 
 <template>
   <GenericFormElement :description="description" :id="id" :name="name" :issues="issues">
-    <select
-      :value="value"
-      @input="
-        (event) =>
-          emits('update:value', DbPositionZod.parse((event.target! as HTMLInputElement).value))
+    <Select
+      :model-value="value"
+      @update:model-value="
+        (e) => {
+          emits('update:value', DbPositionZod.parse((e as any).value));
+        }
       "
-      :id="id"
-      :class="inputClasses"
     >
-      <option :label="t(entry)" v-for="entry in selectableValues" :key="entry">
-        {{ entry }}
-      </option>
-    </select>
+      <SelectTrigger>
+        <SelectValue :placeholder="value">{{ value }}</SelectValue>
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          <SelectItem :value="entry" v-for="entry of selectableValues" :key="entry">
+            {{ t(entry) }}
+          </SelectItem>
+        </SelectGroup>
+      </SelectContent>
+    </Select>
   </GenericFormElement>
 </template>
