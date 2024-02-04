@@ -7,6 +7,7 @@ import messages from '@/i18n/error';
 import Button from '@/components/ui/button/Button.vue';
 import { Separator } from '@/components/ui/separator';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import ImgLeashFallUrl from '@/assets/img/leashfall.svg?url';
 
 defineProps<{
   title: string;
@@ -35,7 +36,7 @@ function hasHistory(): boolean {
     <div class="w-full flex flex-col items-center md:flex-row md:gap-3">
       <img
         v-if="!hideImage"
-        src="@/assets/img/leashfall.svg"
+        :src="ImgLeashFallUrl"
         class="h-full md:w-auto max-h-72 sm:max-h-80 xl:max-h-96 p-3 pb-7 sm:py-4 md:pb-3"
       />
 
