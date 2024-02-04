@@ -24,17 +24,11 @@ function minutesSecondsFromSeconds(seconds: number): string {
   let minutes: number = Math.floor(seconds / 60);
   let remainingSeconds: number = Math.floor(seconds % 60);
 
-  return numToString(minutes, 2) + ':' + numToString(remainingSeconds, 2);
+  return zeroPadNumber(minutes, 2) + ':' + zeroPadNumber(remainingSeconds, 2);
 }
 
-function numToString(number_: number, minLength: number): string {
-  let numAsString = number_.toString();
-
-  while (numAsString.length < minLength) {
-    numAsString = '0' + numAsString;
-  }
-
-  return numAsString;
+function zeroPadNumber(number_: number, minLength: number): string {
+  return number_.toString().padStart(minLength, '0');
 }
 </script>
 
