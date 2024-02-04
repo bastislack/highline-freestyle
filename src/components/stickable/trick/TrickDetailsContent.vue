@@ -115,7 +115,7 @@ watchEffect(async () => {
 
     <div v-else>
       <Header>
-        {{ trick.alias ? trick.alias : trick.technicalName }}
+        {{ trick.alias ?? trick.technicalName }}
 
         <template #buttonRight>
           <Button size="icon" variant="ghost" disabled>
@@ -126,7 +126,7 @@ watchEffect(async () => {
       <Section class="mt-1 lg:mt-0">
         <div class="flex flex-row justify-between gap-1 lg:gap-20">
           <div class="text-3xl mb-1">
-            {{ trick.alias ? trick.alias : trick.technicalName }}
+            {{ trick.alias ?? trick.technicalName }}
           </div>
           <div class="text-3xl text-primary flex flex-row gap-1 items-center">
             <div class="text-xs">{{ t('header.difficulty') }}</div>
@@ -185,7 +185,7 @@ watchEffect(async () => {
                   :to="'/tricks/' + variation.primaryKey[1] + '/' + variation.primaryKey[0]"
                   class="underline"
                 >
-                  {{ variation.alias ? variation.alias : variation.technicalName }}
+                  {{ variation.alias ?? variation.technicalName }}
                 </RouterLink>
               </li>
             </ul>
@@ -274,7 +274,7 @@ watchEffect(async () => {
                   :to="'/tricks/' + prerequisite.primaryKey[1] + '/' + prerequisite.primaryKey[0]"
                   class="underline"
                 >
-                  {{ prerequisite.alias ? prerequisite.alias : prerequisite.technicalName }}
+                  {{ prerequisite.alias ?? prerequisite.technicalName }}
                 </RouterLink>
               </li>
             </ul>
