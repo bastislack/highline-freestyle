@@ -24,11 +24,11 @@ watch(currentVideoIndex, () => {
   isCurrentVideoLast.value = currentVideoIndex.value == props.videos.length - 1;
 });
 
-function skipToNext() {
+function goToNext() {
   currentVideoIndex.value = Math.min(currentVideoIndex.value + 1, props.videos.length - 1);
 }
 
-function skipToPrev() {
+function goToPrev() {
   currentVideoIndex.value = Math.max(currentVideoIndex.value - 1, 0);
 }
 </script>
@@ -47,7 +47,7 @@ function skipToPrev() {
     class="flex flex-row justify-between align-middle mt-4 lg:mt-5"
   >
     <Button
-      @click="skipToPrev"
+      @click="goToPrev"
       variant="ghost"
       size="icon"
       class="text-primary hover:text-primary-700"
@@ -62,7 +62,7 @@ function skipToPrev() {
     </div>
 
     <Button
-      @click="skipToNext"
+      @click="goToNext"
       variant="ghost"
       size="icon"
       class="text-primary hover:text-primary-700"
