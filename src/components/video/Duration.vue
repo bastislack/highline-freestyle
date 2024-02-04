@@ -15,6 +15,11 @@ const i18n = useI18n({
 });
 const { t } = i18n;
 
+/**
+ * Takes a number of seconds and pretty prints in mm:ss notation
+ * e.g. 54 -> 00:54
+ *      125 -> 02:05
+ */
 function minutesSecondsFromSeconds(seconds: number): string {
   let minutes: number = Math.floor(seconds / 60);
   let remainingSeconds: number = Math.floor(seconds % 60);
