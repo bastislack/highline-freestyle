@@ -1,0 +1,48 @@
+{
+  "error": {
+    "invalid-status": {
+      "title": "¡El estado del truco proporcionado no es válido!",
+      "description": "Compruebe su URL. Sólo se permiten los valores \"official\", \"userDefined\" y \"archived\" en la posición de estado en \"/tricks/<status>/<id>\"."
+    },
+    "invalid-id": {
+      "title": "¡El ID de truco proporcionado no es válido!",
+      "description": "Compruebe su URL. Sólo se permiten números en la posición id en \"/tricks/<status>/<id>\"."
+    },
+    "trick-not-in-db": {
+      "title": "¡Este truco no existe en su base de datos!",
+      "description": "Has intentado acceder a un truco que no está almacenado en tu dispositivo."
+    }
+  },
+  "badges": {
+    "official": "Oficial",
+    "archived": "Archivado",
+    "new": "Nuevo"
+  },
+  "header": {
+    "difficulty": "Dificultad",
+    "to": "a"
+  },
+  "info": {
+    "variation-of": {
+      "title": "Variación de"
+    },
+    "description": {
+      "title": "Descripción",
+      "missing-message": "Falta descripción"
+    },
+    "invented-by": {
+      "title": "Inventado por"
+    },
+    "invented-in": {
+      "title-full": "Inventado en",
+      "title-in": "en"
+    },
+    "tips": {
+      "title": "Consejos",
+      "missing-message": "Sin consejos"
+    },
+    "prerequisites": {
+      "title": "Prerrequisitos"
+    }
+  }
+}
