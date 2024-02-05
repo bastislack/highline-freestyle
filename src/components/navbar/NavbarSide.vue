@@ -6,6 +6,7 @@ import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 import messages from '../../i18n/navbar';
 import { setNewLocale } from '@/util/locale';
+import ImgLogoUrl from '@/assets/logo/logo_big.svg?url';
 
 const i18n = useI18n({
   messages,
@@ -63,7 +64,7 @@ const links: NavLink[] = [
     <div>
       <div class="h-6"></div>
       <RouterLink to="/">
-        <img src="@/assets/logo/logo_big.svg" class="px-4" />
+        <img :src="ImgLogoUrl" class="px-4" />
       </RouterLink>
       <div class="h-4"></div>
       <ul class="flex flex-col gap-1 text-gray-800 font-prose">
