@@ -5,7 +5,7 @@ export default createRouter({
   routes: [
     {
       path: '/',
-      component: () => import('./IndexRoute.vue'),
+      redirect: '/tricks',
     },
     {
       path: '/tricks',
@@ -24,6 +24,19 @@ export default createRouter({
       // Can be removed if theme is ever firmly determined.
       path: '/theme',
       component: () => import('./ThemeTest.vue'),
+    },
+    {
+      path: '/tricks',
+      children: [
+        {
+          path: '',
+          component: () => import('./IndexRoute.vue'),
+        },
+        {
+          path: ':status/:id',
+          component: () => import('./tricks/TrickDetails.vue'),
+        },
+      ],
     },
     {
       path: '/:catchAll(.*)',

@@ -1,0 +1,12 @@
+{
+  "duration": {
+    "to": "a",
+    "not-specified": "Duración no especificada"
+  },
+  "error": {
+    "only-youtube-and-insta": "¡Sólo se pueden visualizar vídeos de YouTube e Instagram!",
+    "invalid-url": "¡URL de vídeo no válida!",
+    "invalid-youtube": "URL de vídeo no válida ¡La URL de YouTube proporcionada no se puede analizar! No se puede mostrar el vídeo."
+  },
+  "url": "URL"
+}
