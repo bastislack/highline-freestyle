@@ -5,7 +5,7 @@ export default createRouter({
   routes: [
     {
       path: '/',
-      component: () => import('./IndexRoute.vue'),
+      redirect: '/tricks',
     },
     {
       path: '/dbtest',
@@ -18,9 +18,17 @@ export default createRouter({
       component: () => import('./ThemeTest.vue'),
     },
     {
-      path: '/tricks/:status/:id',
-      name: 'Trick Details',
-      component: () => import('./tricks/TrickDetails.vue'),
+      path: '/tricks',
+      children: [
+        {
+          path: '',
+          component: () => import('./IndexRoute.vue'),
+        },
+        {
+          path: ':status/:id',
+          component: () => import('./tricks/TrickDetails.vue'),
+        },
+      ],
     },
     {
       path: '/:catchAll(.*)',
