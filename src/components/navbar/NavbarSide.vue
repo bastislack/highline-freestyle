@@ -53,6 +53,11 @@ const links: NavLink[] = [
   { translationKey: 'combos', to: '/combos', icon: 'ic:baseline-spoke' },
   { translationKey: 'glossary', to: '/glossary', icon: 'ic:sharp-menu-book' },
 ];
+
+const bottomLinks: NavLink[] = [
+  { translationKey: 'about', to: '/about', icon: 'ic:outline-info' },
+  { translationKey: 'settings', to: '/settings', icon: 'ic:round-settings' },
+];
 </script>
 
 <template>
@@ -102,11 +107,21 @@ const links: NavLink[] = [
         </div>
       </Button>
       <Separator orientation="horizontal" class="my-3" />
-      <Button size="sm" variant="ghost" as-child class="w-full">
-        <RouterLink to="/about">
+      <Button
+        v-for="entry in bottomLinks"
+        :key="entry.translationKey"
+        size="sm"
+        variant="ghost"
+        as-child
+        class="w-full"
+      >
+        <RouterLink
+          :to="entry.to"
+          active-class="bg-primary-50 hover:bg-primary-50 text-primary hover:text-primary"
+        >
           <div class="flex w-full">
-            <Icon class="h-5 w-5 mr-3" icon="ic:outline-info" />
-            {{ t('about') }}
+            <Icon class="h-5 w-5 mr-3" :icon="entry.icon" />
+            {{ t(entry.translationKey) }}
           </div>
         </RouterLink>
       </Button>

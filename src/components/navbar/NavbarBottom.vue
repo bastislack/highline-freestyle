@@ -59,6 +59,11 @@ const links: NavLink[] = [
   { translationKey: 'combos', to: '/combos', icon: 'ic:baseline-spoke' },
   { translationKey: 'glossary', to: '/glossary', icon: 'ic:sharp-menu-book' },
 ];
+
+const dropdownLinks: NavLink[] = [
+  { translationKey: 'about', to: '/about', icon: 'ic:outline-info' },
+  { translationKey: 'settings', to: '/settings', icon: 'ic:round-settings' },
+];
 </script>
 
 <template>
@@ -101,10 +106,18 @@ const links: NavLink[] = [
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
-          <DropdownMenuItem class="text-base">
-            <RouterLink to="/about" class="flex">
-              <Icon class="h-5 w-5 mr-3" icon="ic:outline-info" />
-              {{ t('about') }}
+          <DropdownMenuItem
+            v-for="entry in dropdownLinks"
+            :key="entry.translationKey"
+            class="text-base"
+          >
+            <RouterLink
+              :to="entry.to"
+              class="flex flex-row items-center w-full rounded"
+              active-class="text-primary"
+            >
+              <Icon class="h-5 w-5 mr-3" :icon="entry.icon" />
+              {{ t(entry.translationKey) }}
             </RouterLink>
           </DropdownMenuItem>
         </DropdownMenuContent>
