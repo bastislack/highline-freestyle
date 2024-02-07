@@ -31,6 +31,10 @@ export default createRouter({
       ],
     },
     {
+      path: '/settings',
+      component: () => import('./Settings.vue'),
+    },
+    {
       path: '/:catchAll(.*)',
       name: 'NotFound',
       component: () => import('./NotFoundRoute.vue'),
