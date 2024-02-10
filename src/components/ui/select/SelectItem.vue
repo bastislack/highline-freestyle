@@ -23,6 +23,7 @@ const forwardedProps = useForwardProps(delegatedProps);
 </script>
 
 <template>
+  <!-- @vue-ignore -->
   <SelectItem
     v-bind="forwardedProps"
     :class="

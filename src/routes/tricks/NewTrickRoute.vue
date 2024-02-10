@@ -19,6 +19,14 @@ import PositionSelectInput from '@/components/ui/customForm/PositionSelectInput.
 import buildPositionFormValidator from '@/lib/formValidators/positionFormValidator';
 import MultilineTextInput from '@/components/ui/customForm/MultilineTextInput.vue';
 import TrickSelect from '@/components/ui/customForm/TrickSelect.vue';
+import { CreateNewTrickType } from '@/lib/database/daos/tricksDao';
+import databaseInstance from '@/lib/database/databaseInstance';
+import { ToastAction, useToast } from '@/components/ui/toast';
+import { useRouter } from 'vue-router';
+import { h } from 'vue';
+
+const toast = useToast();
+const router = useRouter();
 
 const { t } = useI18n({
   messages: i18nMerge(messages, messages_errors, messages_positions),
@@ -77,105 +85,57 @@ const form = useForm({
   },
 });
 
-// async function postSubmitLogic() {
-//   function setIfIsContentful<T = string>(
-//     input: Ref<string>,
-//     factory?: (val: string) => T
-//   ): T | undefined {
-//     const trimmed = input.value.trim();
-
-//     if (trimmed.length === 0) {
-//       return undefined;
-//     }
-
-//     factory ??= (val) => val as T;
-
-//     return factory(trimmed);
-//   }
-
-//   const technicalName = technicalTrickName.value.trim();
-//   const alias = setIfIsContentful(aliasName);
-//   const establishedBy = setIfIsContentful(establishedByString);
-//   const difficultyLevel = setIfIsContentful<number>(trickDifficultyString, Number);
-//   const description = setIfIsContentful(descriptionString);
-//   const tips = tipsString.value
-//     .split('\n')
-//     .filter((e) => e.trim().length > 0)
-//     .map((e) => e.trim());
-//   const yearEstablished = setIfIsContentful<number>(yearEstablishedString, Number);
-
-//   const trick: CreateNewTrickType = {
-//     technicalName,
-//     alias,
-//     dateAddedEpoch: new Date().getTime(),
-//     establishedBy,
-//     difficultyLevel,
-//     startPosition: startPosition.value,
-//     endPosition: endPosition.value,
-//     description,
-//     tips,
-//     yearEstablished,
-//     recommendedPrerequisites: [],
-//     variationOf: [],
-//     showInSearchQueries: true,
-//     videos: [],
-//     isFavourite: false,
-//     notes: undefined,
-//     stickFrequency: undefined,
-//   };
-//   try {
-//     const result = await databaseInstance.tricksDao.createNew(trick, 'userDefined');
-
-//     console.log(result);
-
-//     if (createAnother.value) {
-//       reset();
-//       toast.toast({
-//         title: t('TOAST_CREATED_TRICK', { name: result.alias ?? result.technicalName }),
-//         action: h(
-//           ToastAction,
-//           {
-//             altText: t('TOAST_GOTO_TRICK'),
-//             onClick: () => {
-//               router.push('/tricks/' + result.primaryKey[1] + '/' + result.primaryKey[0]);
-//             },
-//           },
-//           { default: () => t('TOAST_GOTO_TRICK') }
-//         ),
-//         duration: 5000,
-//       });
-//     } else {
-//       toast.toast({
-//         title: `Created trick ${result.technicalName}`,
-//         action: h(
-//           ToastAction,
-//           {
-//             altText: t('TOAST_ADD_ANOTHER_TRICK'),
-//             onClick: () => {
-//               router.push('/tricks/new');
-//             },
-//           },
-//           { default: () => t('TOAST_ADD_ANOTHER_TRICK') }
-//         ),
-//         duration: 5000,
-//       });
-//       router.push('/tricks/' + result.primaryKey[1] + '/' + result.primaryKey[0]);
-//     }
-//   } catch (err) {
-//     console.error(err);
-//     toast.toast({
-//       title: t('ERR_TOAST_TITLE'),
-//       description: t('ERR_TOAST_MESSAGE'),
-//       class: 'bg-destructive-700 text-white',
-//       duration: 5000,
-//     });
-//   }
-
-//   // TODO: Error Handling, Rerouting and Toast
-// }
-
-const submit = form.handleSubmit((vals) => {
+const submit = form.handleSubmit(async (vals) => {
   const validatedVals = formSchemaZod.parse(vals);
+
+  const trick: CreateNewTrickType = {
+    technicalName: validatedVals.technicalName,
+    alias: validatedVals.alias,
+    dateAddedEpoch: new Date().getTime(),
+    establishedBy: validatedVals.establishedBy,
+    difficultyLevel: validatedVals.difficulty,
+    startPosition: validatedVals.startPosition,
+    endPosition: validatedVals.endPosition,
+    description: validatedVals.description,
+    tips: validatedVals.tips,
+    yearEstablished: validatedVals.yearEstablished,
+    recommendedPrerequisites: [],
+    variationOf: [],
+    showInSearchQueries: true,
+    videos: [],
+    isFavourite: false,
+    notes: undefined,
+    stickFrequency: undefined,
+  };
+  try {
+    const result = await databaseInstance.tricksDao.createNew(trick, 'userDefined');
+
+    console.log(result);
+
+    toast.toast({
+      title: `Created trick ${result.technicalName}`,
+      action: h(
+        ToastAction,
+        {
+          altText: t('TOAST_ADD_ANOTHER_TRICK'),
+          onClick: () => {
+            router.push('/tricks/new');
+          },
+        },
+        { default: () => t('TOAST_ADD_ANOTHER_TRICK') }
+      ),
+      duration: 5000,
+    });
+    router.push('/tricks/' + result.primaryKey[1] + '/' + result.primaryKey[0]);
+  } catch (err) {
+    console.error(err);
+    toast.toast({
+      title: t('ERR_TOAST_TITLE'),
+      description: t('ERR_TOAST_MESSAGE'),
+      class: 'bg-destructive-700 text-white',
+      duration: 5000,
+    });
+  }
 
   console.log('Submit: ', validatedVals);
 });
