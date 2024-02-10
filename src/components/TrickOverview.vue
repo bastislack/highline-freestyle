@@ -7,15 +7,16 @@ import Section from './ui/section/Section.vue';
 
 const allTricks = await (await import('../lib/database')).tricksDao.getAll();
 
-const tricksByDifficulty: Record<number, Trick[]> = {};
+const tricksByDifficulty: Record<string, Trick[]> = {};
 
 allTricks.forEach((trick) => {
   const difficultyLevel = trick.difficultyLevel;
-  if (!tricksByDifficulty[difficultyLevel]) {
-    tricksByDifficulty[difficultyLevel] = [];
+  const key = typeof difficultyLevel === 'number' ? Number(difficultyLevel) : 'unknown';
+  if (!tricksByDifficulty[key]) {
+    tricksByDifficulty[key] = [];
   }
 
-  tricksByDifficulty[difficultyLevel].push(trick);
+  tricksByDifficulty[key].push(trick);
 });
 
 Object.keys(tricksByDifficulty).forEach(

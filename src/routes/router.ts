@@ -28,6 +28,10 @@ export default createRouter({
           path: ':status/:id',
           component: () => import('./tricks/TrickDetails.vue'),
         },
+        {
+          path: 'new',
+          component: () => import('./tricks/NewTrickRoute.vue'),
+        },
       ],
     },
     {

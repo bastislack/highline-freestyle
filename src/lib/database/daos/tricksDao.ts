@@ -5,7 +5,7 @@ import { DbObject, DbObjectDao } from './dbObject';
 import { DbMetadataZod, DbTricksTableZod } from '../schemas/CurrentVersionSchema';
 import { z } from 'zod';
 
-type CreateNewTrickType = Omit<Trick, 'id' | 'primaryKey' | keyof DbObject>;
+export type CreateNewTrickType = Omit<Trick, 'id' | 'primaryKey' | keyof DbObject>;
 
 type DbTricks = z.infer<typeof DbTricksTableZod>;
 type DbMeta = z.infer<typeof DbMetadataZod>;
@@ -19,7 +19,10 @@ interface TricksQueryFilter {
 export default class TricksDAO implements DbObjectDao<Trick> {
   private async getNextId(trickStatus: DbTricks['trickStatus']) {
     const currentTopId = (
-      await this.db.tricks.where('trickStatus').equals(trickStatus).toArray()
+      await this.db.tricks
+        .where('[id+trickStatus]')
+        .between([0, trickStatus], [Infinity, trickStatus])
+        .toArray()
     ).reduce((prev, curr) => (prev.id > curr.id ? prev : curr)).id;
     return currentTopId + 1;
   }

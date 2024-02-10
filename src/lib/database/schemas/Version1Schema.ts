@@ -1,28 +1,28 @@
 import { z } from 'zod';
 
 export const DbPositionZod = z.enum([
-  'Stand',
-  'Exposure',
-  'Korean',
-  'Sofa',
-  'Chest',
   'Back',
   'Belly',
-  'Shoulder',
-  'Hang',
-  'Nevermind',
-  'Dropknee',
-  'Double Drop Knee',
-  'Inward Drop Knee',
-  'Leash',
-  'Kneehang',
-  'Soup',
-  'Sit',
-  'Rocket',
-  'Frodo',
-  'Buddha',
-  'Yisus',
   'Banana',
+  'Buddha',
+  'Chest',
+  'Double Drop Knee',
+  'Dropknee',
+  'Exposure',
+  'Frodo',
+  'Hang',
+  'Inward Drop Knee',
+  'Kneehang',
+  'Korean',
+  'Leash',
+  'Nevermind',
+  'Rocket',
+  'Shoulder',
+  'Sit',
+  'Stand',
+  'Sofa',
+  'Soup',
+  'Yisus',
 ]);
 
 export const DbStickableStatusZod = z.enum(['official', 'userDefined', 'archived']);
@@ -30,7 +30,7 @@ export const DbStickableStatusZod = z.enum(['official', 'userDefined', 'archived
 // [id, trickStatus] OR [id, comboStatus]
 const DbReferenceZod = z.tuple([z.number().int(), DbStickableStatusZod]);
 
-const DbVideoZod = z.object({
+export const DbVideoZod = z.object({
   link: z.string().nonempty().url(),
   startTime: z.number().min(0).optional(),
   endTime: z.number().min(0).optional(),
@@ -53,7 +53,7 @@ export const DbTricksTableZod = z.object({
   alias: z.string().nonempty().optional(),
   startPosition: DbPositionZod,
   endPosition: DbPositionZod,
-  difficultyLevel: z.number().int().min(0),
+  difficultyLevel: z.number().int().min(0).optional(),
   recommendedPrerequisites: z.array(DbReferenceZod).optional(),
   variationOf: z.array(DbReferenceZod).optional(),
   showInSearchQueries: z.boolean(),
