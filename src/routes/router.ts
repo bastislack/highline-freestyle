@@ -8,14 +8,6 @@ export default createRouter({
       redirect: '/tricks',
     },
     {
-      path: '/tricks',
-      component: () => import('./tricks/TricksRoute.vue'),
-    },
-    {
-      path: '/tricks/new',
-      component: () => import('./tricks/NewTrickRoute.vue'),
-    },
-    {
       path: '/dbtest',
       component: () => import('./DbTest.vue'),
     },
@@ -35,6 +27,10 @@ export default createRouter({
         {
           path: ':status/:id',
           component: () => import('./tricks/TrickDetails.vue'),
+        },
+        {
+          path: 'new',
+          component: () => import('./tricks/NewTrickRoute.vue'),
         },
       ],
     },

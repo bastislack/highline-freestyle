@@ -1,224 +1,184 @@
 <script lang="ts" setup>
 import DefaultLayout from '../../layouts/DefaultLayout.vue';
-import TextInput from '../../components/ui/form/TextInput.vue';
-import { Ref, computed, h, ref } from 'vue';
-import PositionSelectInput from '@/components/ui/form/PositionSelectInput.vue';
-import { DbPositionZod } from '@/lib/database/schemas/CurrentVersionSchema';
+import TextInput from '../../components/ui/customForm/TextInput.vue';
 import { z } from 'zod';
-import NumberInput from '@/components/ui/form/NumberInput.vue';
-import Button from '@/components/ui/button/Button.vue';
+import { useForm } from 'vee-validate';
+import buildIntegerFormValidator from '@/lib/formValidators/integerFormValidator';
+import stringFormValidator from '@/lib/formValidators/stringFormValidator';
+import { Button } from '@/components/ui/button';
+
 import Section from '@/components/ui/section/Section.vue';
 
-import GenericFormElement from '@/components/ui/form/GenericFormElement.vue';
-import { useRouter } from 'vue-router';
-import { CreateNewTrickType } from '@/lib/database/daos/tricksDao';
-import databaseInstance from '@/lib/database/databaseInstance';
-import { useToast, ToastAction } from '@/components/ui/toast';
 import { useI18n } from 'vue-i18n';
 import messages from '@/i18n/tricks/new/index';
+import messages_positions from '@/i18n/common/positions';
+import messages_errors from '@/i18n/error.ts';
+import { i18nMerge } from '@/i18n/i18nmerge';
+import { DbPositionZod } from '@/lib/database/schemas/CurrentVersionSchema';
+import PositionSelectInput from '@/components/ui/customForm/PositionSelectInput.vue';
+import buildPositionFormValidator from '@/lib/formValidators/positionFormValidator';
+import MultilineTextInput from '@/components/ui/customForm/MultilineTextInput.vue';
+import TrickSelect from '@/components/ui/customForm/TrickSelect.vue';
 
 const { t } = useI18n({
-  messages,
+  messages: i18nMerge(messages, messages_errors, messages_positions),
   scope: 'local',
 });
 
-const router = useRouter();
-const toast = useToast();
-
-const createAnother = ref(false);
-
-const technicalTrickName = ref('');
-const aliasName = ref('');
-const trickNameIssues = computed(() =>
-  technicalTrickName.value.trim().length > 0 ? [] : ['cannot be empty']
-);
-
-const buildPositionValidator = (ref: Ref<z.infer<typeof DbPositionZod> | undefined>) => {
-  return function () {
-    if (typeof ref.value !== 'string') {
-      return ['must be defined'];
-    }
-    const result = DbPositionZod.safeParse(ref.value);
-    if (result.success) {
-      return [];
-    }
-    return result.error.errors.map((e) => JSON.stringify(e.code));
-  };
-};
-
-const startPosition = ref<z.infer<typeof DbPositionZod>>('Stand');
-const endPosition = ref<z.infer<typeof DbPositionZod>>('Sit');
-const startPositionIssues = computed(buildPositionValidator(startPosition));
-const endPositionIssues = computed(buildPositionValidator(endPosition));
-
-const tipsString = ref('');
-const descriptionString = ref('');
-
-const establishedByString = ref('');
-const yearEstablishedString = ref('');
-const trickDifficultyString = ref('');
-
-const yearEstablishedIssues = computed(() => {
-  if (yearEstablishedString.value.trim().length === 0) {
-    return [];
+function preprocessZodNumberType(x: unknown) {
+  if (typeof x !== 'string') {
+    return x;
   }
-
-  const asNumber = Number(yearEstablishedString.value.trim());
-  if (Number.isNaN(asNumber)) {
-    return ['input is not a number'];
+  if (x.trim().length === 0) {
+    return undefined;
   }
-  const issues: string[] = [];
-  if (!Number.isInteger(asNumber)) {
-    issues.push('please enter an integer (no commas)');
-  }
-  if (asNumber < 1900) {
-    issues.push('select a year after 1900');
-  }
-
-  return issues;
-});
-
-const trickDifficultyIssues = computed(() => {
-  if (trickDifficultyString.value.trim().length === 0) {
-    return [];
-  }
-
-  const asNumber = Number(trickDifficultyString.value.trim());
-  if (Number.isNaN(asNumber)) {
-    return ['input is not a number'];
-  }
-  const issues: string[] = [];
-  if (!Number.isInteger(asNumber)) {
-    issues.push('please enter an integer (no commas)');
-  }
-  if (asNumber < 1 || asNumber > 10) {
-    issues.push('make sure your input is between 1 and 10 (inclusive)');
-  }
-
-  return issues;
-});
-
-function reset() {
-  startPosition.value = 'Stand';
-  endPosition.value = 'Sit';
-  [
-    technicalTrickName,
-    aliasName,
-    tipsString,
-    descriptionString,
-    establishedByString,
-    yearEstablishedString,
-    trickDifficultyString,
-  ].forEach((e) => (e.value = ''));
+  return Number(x.trim());
 }
 
-const canSubmit = computed(
-  () =>
-    ![
-      trickNameIssues,
-      startPositionIssues,
-      endPositionIssues,
-      yearEstablishedIssues,
-      trickDifficultyIssues,
-    ].some((e) => e.value.length > 0)
-);
-
-async function handleSubmit() {
-  function setIfIsContentful<T = string>(
-    input: Ref<string>,
-    factory?: (val: string) => T
-  ): T | undefined {
-    const trimmed = input.value.trim();
-
-    if (trimmed.length === 0) {
-      return undefined;
-    }
-
-    factory ??= (val) => val as T;
-
-    return factory(trimmed);
+function preprocessZodStringType(x: unknown) {
+  if (typeof x !== 'string') {
+    return x;
   }
-
-  const technicalName = technicalTrickName.value.trim();
-  const alias = setIfIsContentful(aliasName);
-  const establishedBy = setIfIsContentful(establishedByString);
-  const difficultyLevel = setIfIsContentful<number>(trickDifficultyString, Number);
-  const description = setIfIsContentful(descriptionString);
-  const tips = tipsString.value
-    .split('\n')
-    .filter((e) => e.trim().length > 0)
-    .map((e) => e.trim());
-  const yearEstablished = setIfIsContentful<number>(yearEstablishedString, Number);
-
-  const trick: CreateNewTrickType = {
-    technicalName,
-    alias,
-    dateAddedEpoch: new Date().getTime(),
-    establishedBy,
-    difficultyLevel,
-    startPosition: startPosition.value,
-    endPosition: endPosition.value,
-    description,
-    tips,
-    yearEstablished,
-    recommendedPrerequisites: [],
-    variationOf: [],
-    showInSearchQueries: true,
-    videos: [],
-    isFavourite: false,
-    notes: undefined,
-    stickFrequency: undefined,
-  };
-  try {
-    const result = await databaseInstance.tricksDao.createNew(trick, 'userDefined');
-
-    console.log(result);
-
-    if (createAnother.value) {
-      reset();
-      toast.toast({
-        title: t('TOAST_CREATED_TRICK', { name: result.alias ?? result.technicalName }),
-        action: h(
-          ToastAction,
-          {
-            altText: t('TOAST_GOTO_TRICK'),
-            onClick: () => {
-              router.push('/tricks/' + result.primaryKey[1] + '/' + result.primaryKey[0]);
-            },
-          },
-          { default: () => t('TOAST_GOTO_TRICK') }
-        ),
-        duration: 5000,
-      });
-    } else {
-      toast.toast({
-        title: `Created trick ${result.technicalName}`,
-        action: h(
-          ToastAction,
-          {
-            altText: t('TOAST_ADD_ANOTHER_TRICK'),
-            onClick: () => {
-              router.push('/tricks/new');
-            },
-          },
-          { default: () => t('TOAST_ADD_ANOTHER_TRICK') }
-        ),
-        duration: 5000,
-      });
-      router.push('/tricks/' + result.primaryKey[1] + '/' + result.primaryKey[0]);
-    }
-  } catch (err) {
-    console.error(err);
-    toast.toast({
-      title: t('ERR_TOAST_TITLE'),
-      description: t('ERR_TOAST_MESSAGE'),
-      class: 'bg-destructive-700 text-white',
-      duration: 5000,
-    });
+  if (x.trim().length === 0) {
+    return undefined;
   }
-
-  // TODO: Error Handling, Rerouting and Toast
+  return x.trim();
 }
+
+/**
+ * This is not used for the actual validation, but for the "post-validation" step where form strings may get coerced into Numbers, etc.
+ */
+const formSchemaZod = z.object({
+  technicalName: z.preprocess(preprocessZodStringType, z.string().min(1)),
+  alias: z.preprocess(preprocessZodStringType, z.string().optional()),
+  establishedBy: z.preprocess(preprocessZodStringType, z.string().optional()),
+  difficulty: z.preprocess(preprocessZodNumberType, z.number().int().min(1).max(10).optional()),
+  startPosition: DbPositionZod,
+  endPosition: DbPositionZod,
+  description: z.preprocess(preprocessZodStringType, z.string().optional()),
+  tips: z.preprocess((val) => {
+    const response = preprocessZodStringType(val);
+    if (typeof response !== 'string') {
+      return response;
+    }
+    return response.split('\n').filter((e) => e.trim().length > 0);
+  }, z.array(z.string()).optional()),
+  yearEstablished: z.preprocess(preprocessZodNumberType, z.number().int().min(1900).optional()),
+  // variantOf: z.unknown().optional(), // will be added later
+  // recommendedPrerequisites: z.unknown().optional(), // will be added later,
+  // videos: z.array(DbVideoZod).optional(),
+});
+
+const form = useForm({
+  validateOnMount: true,
+  initialValues: {
+    startPosition: DbPositionZod.Values.Buddha,
+    endPosition: DbPositionZod.Values['Double Drop Knee'],
+  },
+});
+
+// async function postSubmitLogic() {
+//   function setIfIsContentful<T = string>(
+//     input: Ref<string>,
+//     factory?: (val: string) => T
+//   ): T | undefined {
+//     const trimmed = input.value.trim();
+
+//     if (trimmed.length === 0) {
+//       return undefined;
+//     }
+
+//     factory ??= (val) => val as T;
+
+//     return factory(trimmed);
+//   }
+
+//   const technicalName = technicalTrickName.value.trim();
+//   const alias = setIfIsContentful(aliasName);
+//   const establishedBy = setIfIsContentful(establishedByString);
+//   const difficultyLevel = setIfIsContentful<number>(trickDifficultyString, Number);
+//   const description = setIfIsContentful(descriptionString);
+//   const tips = tipsString.value
+//     .split('\n')
+//     .filter((e) => e.trim().length > 0)
+//     .map((e) => e.trim());
+//   const yearEstablished = setIfIsContentful<number>(yearEstablishedString, Number);
+
+//   const trick: CreateNewTrickType = {
+//     technicalName,
+//     alias,
+//     dateAddedEpoch: new Date().getTime(),
+//     establishedBy,
+//     difficultyLevel,
+//     startPosition: startPosition.value,
+//     endPosition: endPosition.value,
+//     description,
+//     tips,
+//     yearEstablished,
+//     recommendedPrerequisites: [],
+//     variationOf: [],
+//     showInSearchQueries: true,
+//     videos: [],
+//     isFavourite: false,
+//     notes: undefined,
+//     stickFrequency: undefined,
+//   };
+//   try {
+//     const result = await databaseInstance.tricksDao.createNew(trick, 'userDefined');
+
+//     console.log(result);
+
+//     if (createAnother.value) {
+//       reset();
+//       toast.toast({
+//         title: t('TOAST_CREATED_TRICK', { name: result.alias ?? result.technicalName }),
+//         action: h(
+//           ToastAction,
+//           {
+//             altText: t('TOAST_GOTO_TRICK'),
+//             onClick: () => {
+//               router.push('/tricks/' + result.primaryKey[1] + '/' + result.primaryKey[0]);
+//             },
+//           },
+//           { default: () => t('TOAST_GOTO_TRICK') }
+//         ),
+//         duration: 5000,
+//       });
+//     } else {
+//       toast.toast({
+//         title: `Created trick ${result.technicalName}`,
+//         action: h(
+//           ToastAction,
+//           {
+//             altText: t('TOAST_ADD_ANOTHER_TRICK'),
+//             onClick: () => {
+//               router.push('/tricks/new');
+//             },
+//           },
+//           { default: () => t('TOAST_ADD_ANOTHER_TRICK') }
+//         ),
+//         duration: 5000,
+//       });
+//       router.push('/tricks/' + result.primaryKey[1] + '/' + result.primaryKey[0]);
+//     }
+//   } catch (err) {
+//     console.error(err);
+//     toast.toast({
+//       title: t('ERR_TOAST_TITLE'),
+//       description: t('ERR_TOAST_MESSAGE'),
+//       class: 'bg-destructive-700 text-white',
+//       duration: 5000,
+//     });
+//   }
+
+//   // TODO: Error Handling, Rerouting and Toast
+// }
+
+const submit = form.handleSubmit((vals) => {
+  const validatedVals = formSchemaZod.parse(vals);
+
+  console.log('Submit: ', validatedVals);
+});
 </script>
 
 <template>
@@ -226,148 +186,134 @@ async function handleSubmit() {
     <Section>
       <h1 class="text-3xl my-4 font-black">{{ t('TITLE_HEADING') }}</h1>
 
-      <section class="grid gap-6 grid-cols-2">
+      <form class="grid gap-6 grid-cols-2" :validation-schema="formSchemaZod" @submit="submit">
         <TextInput
-          class="col-span-2 md:col-span-1"
-          id="technical-name-input"
-          name="Technical Name"
+          :title="t('LABEL_TECHNICAL_NAME')"
           :description="t('QUESTION_TECHNICAL_NAME')"
-          v-model:value="technicalTrickName"
-          :issues="trickNameIssues"
-          :required="true"
           :placeholder="t('PLACEHOLDER_TECHNICAL_NAME')"
+          form-field-name="technicalName"
+          class="col-span-2 md:col-span-1"
+          :validator="stringFormValidator({ required: true }, t)"
         />
         <TextInput
-          class="col-span-2 md:col-span-1"
-          id="alias-name-input"
-          name="Alias Name"
+          :title="t('LABEL_ALIAS_NAME')"
           :description="t('QUESTION_ALIAS_NAME')"
-          v-model:value="aliasName"
           :placeholder="t('PLACEHOLDER_ALIAS_NAME')"
-        />
-        <TextInput
+          form-field-name="alias"
           class="col-span-2 md:col-span-1"
-          id="established-by-input"
-          name="Established By"
-          :description="t('QUESTION_ESTABLISHED_BY')"
-          v-model:value="establishedByString"
-          :placeholder="t('PLACEHOLDER_ESTABLISHED_BY')"
-        />
-        <NumberInput
-          class="col-span-2 md:col-span-1"
-          id="difficulty"
-          name="Difficulty"
-          :description="t('QUESTION_DIFFICULTY')"
-          v-model:value="trickDifficultyString"
-          :placeholder="t('PLACEHOLDER_DIFFICULTY')"
-          :min="0"
-          :max="10"
-          :step="1"
-          :issues="trickDifficultyIssues"
-        />
-        <PositionSelectInput
-          class="col-span-2 sm:col-span-1"
-          v-model:value="startPosition"
-          id="startPosition"
-          name="Start Position"
-          :description="t('QUESTION_POSITION_START')"
-          :issues="startPositionIssues"
-        />
-        <PositionSelectInput
-          class="col-span-2 sm:col-span-1"
-          v-model:value="endPosition"
-          id="endPosition"
-          name="End Position"
-          :description="t('QUESTION_POSITION_END')"
-          :issues="endPositionIssues"
-        />
-        <TextInput
-          class="col-span-2"
-          id="description"
-          name="Description"
-          :description="t('QUESTION_DESCRIPTION')"
-          :placeholder="t('PLACEHOLDER_DESCRIPTION')"
-          v-model:value="descriptionString"
-          multiline
+          :validator="stringFormValidator({ required: false }, t)"
         />
 
         <TextInput
+          :title="t('LABEL_ESTABLISHED_BY')"
+          :description="t('QUESTION_ESTABLISHED_BY')"
+          :placeholder="t('PLACEHOLDER_ESTABLISHED_BY')"
+          form-field-name="establishedBy"
+          class="col-span-2 md:col-span-1"
+          :validator="stringFormValidator({ required: false }, t)"
+        />
+
+        <TextInput
+          class="col-span-2 md:col-span-1"
+          :title="t('LABEL_DIFFICULTY')"
+          :description="t('QUESTION_DIFFICULTY')"
+          :placeholder="t('PLACEHOLDER_DIFFICULTY')"
+          form-field-name="difficulty"
+          :validator="
+            buildIntegerFormValidator(
+              {
+                minInclusive: 1,
+                maxInclusive: 10,
+                required: false,
+              },
+              t
+            )
+          "
+        />
+
+        <PositionSelectInput
+          class="col-span-2 md:col-span-1"
+          :title="t('LABEL_POSITION_START')"
+          :description="t('QUESTION_POSITION_START')"
+          form-field-name="startPosition"
+          :validator="buildPositionFormValidator({ required: true }, t)"
+        />
+
+        <PositionSelectInput
+          class="col-span-2 md:col-span-1"
+          :title="t('LABEL_POSITION_END')"
+          :description="t('QUESTION_POSITION_END')"
+          form-field-name="endPosition"
+          :validator="buildPositionFormValidator({ required: true }, t)"
+        />
+
+        <TextInput
+          class="col-span-2 md:col-span-1"
+          :title="t('LABEL_YEAR_ESTABLISHED')"
+          :description="t('QUESTION_YEAR_ESTABLISHED')"
+          placeholder="2024"
+          form-field-name="yearEstablished"
+          :validator="
+            buildIntegerFormValidator(
+              {
+                minInclusive: 1900,
+                maxInclusive: new Date().getUTCFullYear(),
+                required: false,
+              },
+              t
+            )
+          "
+        />
+
+        <MultilineTextInput
+          input-class="h-16"
+          class="col-span-2 md:col-span-1"
+          :title="t('LABEL_DESCRIPTION')"
+          :description="t('QUESTION_DESCRIPTION')"
+          :placeholder="t('PLACEHOLDER_DESCRIPTION')"
+          form-field-name="description"
+          :validator="stringFormValidator({ required: false }, t)"
+        />
+        <MultilineTextInput
+          input-class="h-16"
           class="col-span-2"
-          id="tips"
-          name="Tips"
+          :title="t('LABEL_TIPS')"
           :description="t('QUESTION_TIPS')"
           :placeholder="t('PLACEHOLDER_TIPS')"
-          v-model:value="tipsString"
-          multiline
+          form-field-name="tips"
+          :validator="stringFormValidator({ required: false }, t)"
         />
-        <NumberInput
+
+        <TrickSelect
+          input-class="h-16"
           class="col-span-2 md:col-span-1"
-          id="yearEstablished"
-          name="Year Established"
-          :description="t('QUESTION_YEAR_ESTABLISHED')"
-          v-model:value="yearEstablishedString"
-          :placeholder="'e.g. 2023'"
-          :min="1900"
-          :step="1"
-          :issues="yearEstablishedIssues"
-        />
-        <span />
-        <GenericFormElement
-          class="col-span-2 md:col-span-1"
-          id="variantOf"
-          name="Variant Of"
+          :title="t('LABEL_VARIANT_OF')"
           :description="t('QUESTION_VARIANT_OF')"
-        >
-          <div
-            class="w-full h-12 border border-neutral-700 flex justify-center items-center text-neutral-400 italic text-xs rounded-lg border-dashed"
-          >
-            {{ t('COMPONENT_NOT_IMPLEMENTED') }}
-          </div>
-        </GenericFormElement>
-        <GenericFormElement
+          form-field-name="variantOf"
+          :validator="stringFormValidator({ required: false }, t)"
+        />
+        <TrickSelect
+          input-class="h-16"
           class="col-span-2 md:col-span-1"
-          id="recommendedPrereqs"
-          name="Recommended Prerequisites"
-          description="Are there any tricks you would recommend to learn before trying this one?"
-        >
-          <div
-            class="w-full h-12 border border-neutral-700 flex justify-center items-center text-neutral-400 italic text-xs rounded-lg border-dashed"
-          >
-            {{ t('COMPONENT_NOT_IMPLEMENTED') }}
-          </div>
-        </GenericFormElement>
-        <div v-if="!canSubmit" :class="`col-span-2 p-4 bg-red-200 flex flex-row rounded-lg`">
-          <div class="inline-flex flex-col">
-            <p class="text-lg">Summary</p>
-            <p class="text-sm">
-              There are still some issues. You need to fix those before you can create the trick.
-            </p>
-          </div>
+          :title="t('LABEL_RECOMMENDED_PREREQS')"
+          :description="t('QUESTION_RECOMMENDED_PREREQS')"
+          form-field-name="recommendedPrerequisites"
+          :validator="stringFormValidator({ required: false }, t)"
+        />
+        <TrickSelect
+          input-class="h-16"
+          class="col-span-2"
+          :title="t('LABEL_VIDEOS')"
+          :description="t('QUESTION_VIDEOS')"
+          form-field-name="videos"
+          :validator="stringFormValidator({ required: false }, t)"
+        />
+
+        <div class="col-span-2 gap-2 inline-flex justify-end">
+          <Button variant="ghost" @click="() => form.resetForm()"> {{ t('BUTTON_RESET') }} </Button>
+          <Button type="submit"> {{ t('BUTTON_SUBMIT') }} </Button>
         </div>
-        <div class="col-span-2 inline-flex flex-row justify-end gap-1 flex-wrap">
-          <div class="inline-flex flex-row items-center gap-2">
-            <input type="checkbox" v-model="createAnother" id="create-another" />
-            <abbr :title="t('CHECKBOX_ANOTHER_TRICK_HINT')">
-              <label for="create-another">{{ t('CHECKBOX_ANOTHER_TRICK') }}</label>
-            </abbr>
-          </div>
-          <div class="flex-1" />
-          <div class="inline-flex gap-1">
-            <Button
-              @click="
-                (ev) => {
-                  ev.preventDefault();
-                  router.back();
-                }
-              "
-              variant="secondary"
-            >
-              Cancel
-            </Button>
-            <Button @click="() => handleSubmit()" :disabled="!canSubmit"> Create </Button>
-          </div>
-        </div>
-      </section>
+      </form>
     </Section>
   </DefaultLayout>
 </template>

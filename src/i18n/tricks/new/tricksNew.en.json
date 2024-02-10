@@ -1,5 +1,19 @@
 {
   "TITLE_HEADING": "Create a new custom trick",
+
+  "LABEL_TECHNICAL_NAME": "Technical Name",
+  "LABEL_ALIAS_NAME": "Alias Name",
+  "LABEL_ESTABLISHED_BY": "Established By",
+  "LABEL_DIFFICULTY": "Trick Difficulty",
+  "LABEL_POSITION_START": "Starting Position",
+  "LABEL_POSITION_END": "Ending Position",
+  "LABEL_DESCRIPTION": "Description",
+  "LABEL_TIPS": "Tips",
+  "LABEL_YEAR_ESTABLISHED": "Year established",
+  "LABEL_VARIANT_OF": "Variant of",
+  "LABEL_RECOMMENDED_PREREQS": "Recommended Prerequisites",
+  "LABEL_VIDEOS": "Videos",
+
   "QUESTION_TECHNICAL_NAME": "What's the trick's technical name?",
   "QUESTION_ALIAS_NAME": "What do you actually call this?",
   "QUESTION_ESTABLISHED_BY": "Who originally came up with it?",
@@ -11,6 +25,7 @@
   "QUESTION_YEAR_ESTABLISHED": "Do you know when this trick was invented?",
   "QUESTION_VARIANT_OF": "Is this a variant of any other trick?",
   "QUESTION_RECOMMENDED_PREREQS": "Are there any tricks you would recommend to learn before trying this one?",
+  "QUESTION_VIDEOS": "Do you have any videos showing the trick?",
 
   "PLACEHOLDER_TECHNICAL_NAME": "180 Chestroll Crazyness",
   "PLACEHOLDER_ALIAS_NAME": "Chewbacca",
@@ -29,5 +44,8 @@
   "TOAST_ADD_ANOTHER_TRICK": "Add another one",
 
   "ERR_TOAST_TITLE": "Uh oh…",
-  "ERR_TOAST_MESSAGE": "An error happened when trying to insert the new trick into the DB. Check the console (F12) for more info."
+  "ERR_TOAST_MESSAGE": "An error happened when trying to insert the new trick into the DB. Check the console (F12) for more info.",
+
+  "BUTTON_SUBMIT": "Submit",
+  "BUTTON_RESET": "Reset"
 }
