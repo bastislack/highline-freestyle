@@ -1,3 +1,6 @@
 {
-  "heading-settings": "Settings"
+  "heading-settings": "Settings",
+  "cookies": {
+    "heading": "Cookies"
+  }
 }
