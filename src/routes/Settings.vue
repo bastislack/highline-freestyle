@@ -6,6 +6,7 @@ import Section from '@/components/ui/section/Section.vue';
 import Separator from '@/components/ui/separator/Separator.vue';
 import Switch from '@/components/ui/switch/Switch.vue';
 import messages from '@/i18n/settings';
+import { isEmbedAllowed, setEmbedPreference } from '@/util/trackingPreferences';
 import { Icon } from '@iconify/vue/dist/iconify.js';
 
 const i18n = useI18n({
@@ -13,6 +14,14 @@ const i18n = useI18n({
   useScope: 'local',
 });
 const { t } = i18n;
+
+function setYouTubeEmbedPreference(allowEmbed: boolean): void {
+  setEmbedPreference('YOUTUBE', allowEmbed);
+}
+
+function setInstagramEmbedPreference(allowEmbed: boolean): void {
+  setEmbedPreference('INSTAGRAM', allowEmbed);
+}
 </script>
 
 <template>
@@ -31,7 +40,10 @@ const { t } = i18n;
             <div class="font-medium">{{ t('cookies.youtube.name') }}</div>
             <div class="text-muted-foreground text-sm">{{ t('cookies.youtube.description') }}</div>
           </div>
-          <Switch />
+          <Switch
+            @update:checked="setYouTubeEmbedPreference"
+            :checked="isEmbedAllowed('YOUTUBE')"
+          />
         </div>
         <div class="flex flex-row items-center justify-between">
           <div class="flex flex-col gap-0">
@@ -40,7 +52,10 @@ const { t } = i18n;
               {{ t('cookies.instagram.description') }}
             </div>
           </div>
-          <Switch />
+          <Switch
+            @update:checked="setInstagramEmbedPreference"
+            :checked="isEmbedAllowed('INSTAGRAM')"
+          />
         </div>
       </div>
     </Section>
