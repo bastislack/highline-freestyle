@@ -1,0 +1,15 @@
+{
+  "heading-settings": "Ajustes",
+  "cookies": {
+    "heading": "Cookies",
+    "description": "No colocamos ninguna cookie en tu navegador ni recopilamos datos sobre ti. Sin embargo, cuando mostramos vídeos a través de Instagram o YouTube, es muy probable que coloquen cookies en su navegador.",
+    "youtube": {
+      "name": "YouTube",
+      "description": "Permitir que se muestren incrustaciones de YouTube"
+    },
+    "instagram": {
+      "name": "Instagram",
+      "description": "Permitir que se muestren las incrustaciones de Instagram"
+    }
+  }
+}
