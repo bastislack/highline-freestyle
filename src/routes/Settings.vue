@@ -6,6 +6,7 @@ import Section from '@/components/ui/section/Section.vue';
 import Separator from '@/components/ui/separator/Separator.vue';
 import Switch from '@/components/ui/switch/Switch.vue';
 import messages from '@/i18n/settings';
+import { Icon } from '@iconify/vue/dist/iconify.js';
 
 const i18n = useI18n({
   messages,
@@ -17,22 +18,30 @@ const { t } = i18n;
 <template>
   <DefaultLayout>
     <Section>
-      <div class="text-3xl">{{ t('heading-settings') }}</div>
-      <Separator />
-      <div class="text-2xl">{{ t('cookies.heading') }}</div>
-      <div class="flex flex-row items-center justify-between">
-        <div class="flex flex-col gap-0">
-          <div class="text-lg font-medium">YouTube</div>
-          <div class="text-muted-foreground">Allow YouTube embeds to be shown</div>
-        </div>
-        <Switch />
+      <div class="text-2xl">{{ t('heading-settings') }}</div>
+      <Separator class="my-2" />
+      <div class="flex flex-row gap-2 align-middle">
+        <Icon icon="ic:round-cookie" class="w-6 h-6" />
+        <div class="text-xl font-medium">{{ t('cookies.heading') }}</div>
       </div>
-      <div class="flex flex-row items-center justify-between">
-        <div class="flex flex-col gap-0">
-          <div class="text-lg font-medium">Instagram</div>
-          <div class="text-muted-foreground">Allow Instagram embeds to be shown</div>
+      <div class="text-muted-foreground text-sm mb-2">{{ t('cookies.description') }}</div>
+      <div class="flex flex-col gap-2">
+        <div class="flex flex-row items-center justify-between">
+          <div class="flex flex-col gap-0">
+            <div class="font-medium">{{ t('cookies.youtube.name') }}</div>
+            <div class="text-muted-foreground text-sm">{{ t('cookies.youtube.description') }}</div>
+          </div>
+          <Switch />
         </div>
-        <Switch />
+        <div class="flex flex-row items-center justify-between">
+          <div class="flex flex-col gap-0">
+            <div class="font-medium">{{ t('cookies.instagram.name') }}</div>
+            <div class="text-muted-foreground text-sm">
+              {{ t('cookies.instagram.description') }}
+            </div>
+          </div>
+          <Switch />
+        </div>
       </div>
     </Section>
   </DefaultLayout>

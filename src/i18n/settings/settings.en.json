@@ -1,6 +1,15 @@
 {
   "heading-settings": "Settings",
   "cookies": {
-    "heading": "Cookies"
+    "heading": "Cookies",
+    "description": "We don't place any cookies in your browser and don't collect any data on you. When we display videos using Instagram or YouTube though, it is very likely that they will place cookies in your browser.",
+    "youtube": {
+      "name": "YouTube",
+      "description": "Allow YouTube embeds to be shown"
+    },
+    "instagram": {
+      "name": "Instagram",
+      "description": "Allow Instagram embeds to be shown"
+    }
   }
 }
