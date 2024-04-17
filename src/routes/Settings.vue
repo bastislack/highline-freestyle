@@ -22,15 +22,15 @@ const { t } = i18n;
       <div class="text-2xl">{{ t('heading-settings') }}</div>
       <Separator class="my-2" />
       <div class="flex flex-row gap-2 align-middle">
-        <Icon icon="ic:round-cookie" class="w-6 h-6" />
-        <div class="text-xl font-medium">{{ t('cookies.heading') }}</div>
+        <Icon icon="ic:round-track-changes" class="w-6 h-6" />
+        <div class="text-xl font-medium">{{ t('tracking.heading') }}</div>
       </div>
-      <div class="text-muted-foreground text-sm mb-2">{{ t('cookies.description') }}</div>
+      <div class="text-muted-foreground text-sm mb-2">{{ t('tracking.description') }}</div>
       <div class="flex flex-col gap-2">
         <div class="flex flex-row items-center justify-between">
           <div class="flex flex-col gap-0">
-            <div class="font-medium">{{ t('cookies.youtube.name') }}</div>
-            <div class="text-muted-foreground text-sm">{{ t('cookies.youtube.description') }}</div>
+            <div class="font-medium">{{ t('tracking.youtube.name') }}</div>
+            <div class="text-muted-foreground text-sm">{{ t('tracking.youtube.description') }}</div>
           </div>
           <Switch
             @update:checked="(pref) => setEmbedPreference('YOUTUBE', pref)"
@@ -39,9 +39,9 @@ const { t } = i18n;
         </div>
         <div class="flex flex-row items-center justify-between">
           <div class="flex flex-col gap-0">
-            <div class="font-medium">{{ t('cookies.instagram.name') }}</div>
+            <div class="font-medium">{{ t('tracking.instagram.name') }}</div>
             <div class="text-muted-foreground text-sm">
-              {{ t('cookies.instagram.description') }}
+              {{ t('tracking.instagram.description') }}
             </div>
           </div>
           <Switch

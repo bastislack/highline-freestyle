@@ -1,8 +1,8 @@
 {
   "heading-settings": "Paramètres",
-  "cookies": {
-    "heading": "Cuisières",
-    "description": "Nous ne plaçons aucun cookie dans votre navigateur et ne collectons aucune donnée vous concernant. Cependant, lorsque nous affichons des vidéos en utilisant Instagram ou YouTube, il est très probable qu'ils placent des cookies dans votre navigateur.",
+  "tracking": {
+    "heading": "Tracage",
+    "description": "Nous ne plaçons pas de cookies dans votre navigateur et ne recueillons aucune donnée sur vous. Cependant, lorsque nous afficherons des vidéos à l'aide d'Instagram ou de YouTube, il est très probable que ces services placent des cookies dans votre navigateur et/ou vous suivent.",
     "youtube": {
       "name": "YouTube",
       "description": "Permitir que se muestren las incrustas de YouTube"
