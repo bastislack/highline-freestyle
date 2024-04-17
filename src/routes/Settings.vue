@@ -14,14 +14,6 @@ const i18n = useI18n({
   useScope: 'local',
 });
 const { t } = i18n;
-
-function setYouTubeEmbedPreference(allowEmbed: boolean): void {
-  setEmbedPreference('YOUTUBE', allowEmbed);
-}
-
-function setInstagramEmbedPreference(allowEmbed: boolean): void {
-  setEmbedPreference('INSTAGRAM', allowEmbed);
-}
 </script>
 
 <template>
@@ -41,7 +33,7 @@ function setInstagramEmbedPreference(allowEmbed: boolean): void {
             <div class="text-muted-foreground text-sm">{{ t('cookies.youtube.description') }}</div>
           </div>
           <Switch
-            @update:checked="setYouTubeEmbedPreference"
+            @update:checked="(pref) => setEmbedPreference('YOUTUBE', pref)"
             :checked="isEmbedAllowed('YOUTUBE')"
           />
         </div>
@@ -53,7 +45,7 @@ function setInstagramEmbedPreference(allowEmbed: boolean): void {
             </div>
           </div>
           <Switch
-            @update:checked="setInstagramEmbedPreference"
+            @update:checked="(pref) => setEmbedPreference('INSTAGRAM', pref)"
             :checked="isEmbedAllowed('INSTAGRAM')"
           />
         </div>
