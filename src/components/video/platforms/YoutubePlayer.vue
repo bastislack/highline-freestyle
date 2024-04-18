@@ -5,6 +5,8 @@ import { useI18n } from 'vue-i18n';
 
 import messages from '@/i18n/video';
 import Duration from '../Duration.vue';
+import EmbedPrompt from '../EmbedPrompt.vue';
+import { isEmbedAllowed } from '@/util/trackingPreferences';
 
 const props = defineProps<{
   url: string;
@@ -99,7 +101,9 @@ function videoIdFromURL(url: string): string {
 </script>
 
 <template>
-  <div v-if="isUrlValid">
+  <EmbedPrompt v-if="!isEmbedAllowed('YOUTUBE')" site="YOUTUBE" />
+
+  <div v-else-if="isUrlValid">
     <div class="videowrapper">
       <iframe
         width="560"
@@ -118,6 +122,7 @@ function videoIdFromURL(url: string): string {
       class="mx-auto mt-2 text-muted-foreground"
     />
   </div>
+
   <div
     v-else
     class="w-full bg-muted text-muted-foreground border border-border p-3 lg:p-5 rounded-sm text-sm"

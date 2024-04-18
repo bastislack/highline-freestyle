@@ -8,5 +8,18 @@
     "invalid-url": "Invalid video URL!",
     "invalid-youtube": "The provided YouTube URL can't be parsed! The video can't be shown."
   },
+  "embedPermissions": {
+    "heading": "Allow video embeds?",
+    "details": "To display videos we use Instagram or YouTube. It is very likely that these services will track you. We ourselfs neither track you nor collect any data on you. You can revoke your permission in the settings page.",
+    "youtubeAndInstagram": "YouTube & Instagram",
+    "youtube": {
+      "question": "We currently don't have your permission to display YouTube videos. Do you want to give your permission?",
+      "onlyYouTube": "Only YouTube"
+    },
+    "instagram": {
+      "question": "We currently don't have your permission to display Instagram videos. Do you want to give your permission?",
+      "onlyInstagram": "Only Instagram"
+    }
+  },
   "url": "URL"
 }
