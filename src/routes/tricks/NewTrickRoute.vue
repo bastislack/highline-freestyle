@@ -148,7 +148,7 @@ function hasHistory(): boolean {
 <template>
   <DefaultLayout>
     <Section>
-      <h1 class="text-3xl my-4 font-black">{{ t('TITLE_HEADING') }}</h1>
+      <h1 class="text-2xl md:text-3xl my-4 font-black">{{ t('TITLE_HEADING') }}</h1>
 
       <form
         class="grid gap-4 lg:gap-6 grid-cols-4"
