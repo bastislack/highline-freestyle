@@ -11,6 +11,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { RuleExpression } from 'vee-validate';
+import { cn } from '@/lib/utils';
 
 const props = defineProps<{
   title: string;
@@ -24,6 +25,7 @@ const props = defineProps<{
    * This is optional. If no function is provided all values are permitted.
    */
   selectionFilter?: (position: z.infer<typeof DbPositionZod>) => boolean;
+  class?: string;
 }>();
 
 import {
@@ -59,13 +61,12 @@ const selectableValues = props.selectionFilter
     :validate-on-blur="true"
     :rules="validator as RuleExpression<unknown>"
   >
-    <FormItem class="flex flex-col justify-stretch">
+    <FormItem :class="cn('flex flex-col justify-stretch', props.class)">
       <FormLabel class="font-bold"> {{ title }}</FormLabel>
       <FormDescription v-if="description">
         {{ description }}
       </FormDescription>
       <FormMessage />
-      <div class="flex-1" />
       <FormControl>
         <Select
           :model-value="value"

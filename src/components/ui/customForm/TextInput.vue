@@ -38,7 +38,6 @@ const props = defineProps<{
         {{ description }}
       </FormDescription>
       <FormMessage />
-      <div class="flex-1" />
       <FormControl>
         <Input type="text" :placeholder="placeholder" v-bind="componentField" />
       </FormControl>

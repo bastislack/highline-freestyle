@@ -150,12 +150,16 @@ function hasHistory(): boolean {
     <Section>
       <h1 class="text-3xl my-4 font-black">{{ t('TITLE_HEADING') }}</h1>
 
-      <form class="grid gap-6 grid-cols-2" :validation-schema="formSchemaZod" @submit="submit">
+      <form
+        class="grid gap-4 lg:gap-6 grid-cols-4"
+        :validation-schema="formSchemaZod"
+        @submit="submit"
+      >
         <TextInput
           :title="t('LABEL_TECHNICAL_NAME')"
           :placeholder="t('PLACEHOLDER_TECHNICAL_NAME')"
           form-field-name="technicalName"
-          class="col-span-2 md:col-span-1"
+          class="col-span-4 md:col-span-2"
           :validator="stringFormValidator({ required: true }, t)"
         />
         <TextInput
@@ -163,20 +167,26 @@ function hasHistory(): boolean {
           :description="t('QUESTION_ALIAS_NAME')"
           :placeholder="t('PLACEHOLDER_ALIAS_NAME')"
           form-field-name="alias"
-          class="col-span-2 md:col-span-1"
+          class="col-span-4 md:col-span-2"
           :validator="stringFormValidator({ required: false }, t)"
         />
 
-        <TextInput
-          :title="t('LABEL_ESTABLISHED_BY')"
-          :placeholder="t('PLACEHOLDER_ESTABLISHED_BY')"
-          form-field-name="establishedBy"
-          class="col-span-2 md:col-span-1"
-          :validator="stringFormValidator({ required: false }, t)"
+        <PositionSelectInput
+          class="col-span-4 md:col-span-1"
+          :title="t('LABEL_POSITION_START')"
+          form-field-name="startPosition"
+          :validator="buildPositionFormValidator({ required: true }, t)"
+        />
+
+        <PositionSelectInput
+          class="col-span-4 md:col-span-1"
+          :title="t('LABEL_POSITION_END')"
+          form-field-name="endPosition"
+          :validator="buildPositionFormValidator({ required: true }, t)"
         />
 
         <TextInput
-          class="col-span-2 md:col-span-1"
+          class="col-span-4 md:col-span-2"
           :title="t('LABEL_DIFFICULTY')"
           :description="t('QUESTION_DIFFICULTY')"
           :placeholder="t('PLACEHOLDER_DIFFICULTY')"
@@ -193,22 +203,25 @@ function hasHistory(): boolean {
           "
         />
 
-        <PositionSelectInput
-          class="col-span-2 md:col-span-1"
-          :title="t('LABEL_POSITION_START')"
-          form-field-name="startPosition"
-          :validator="buildPositionFormValidator({ required: true }, t)"
-        />
-
-        <PositionSelectInput
-          class="col-span-2 md:col-span-1"
-          :title="t('LABEL_POSITION_END')"
-          form-field-name="endPosition"
-          :validator="buildPositionFormValidator({ required: true }, t)"
+        <MultilineTextInput
+          input-class="h-16"
+          class="col-span-4"
+          :title="t('LABEL_DESCRIPTION')"
+          :placeholder="t('PLACEHOLDER_DESCRIPTION')"
+          form-field-name="description"
+          :validator="stringFormValidator({ required: false }, t)"
         />
 
         <TextInput
-          class="col-span-2 md:col-span-1"
+          :title="t('LABEL_ESTABLISHED_BY')"
+          :placeholder="t('PLACEHOLDER_ESTABLISHED_BY')"
+          form-field-name="establishedBy"
+          class="col-span-4 md:col-span-2"
+          :validator="stringFormValidator({ required: false }, t)"
+        />
+
+        <TextInput
+          class="col-span-4 md:col-span-2"
           :title="t('LABEL_YEAR_ESTABLISHED')"
           placeholder="2024"
           form-field-name="yearEstablished"
@@ -226,15 +239,7 @@ function hasHistory(): boolean {
 
         <MultilineTextInput
           input-class="h-16"
-          class="col-span-2 md:col-span-1"
-          :title="t('LABEL_DESCRIPTION')"
-          :placeholder="t('PLACEHOLDER_DESCRIPTION')"
-          form-field-name="description"
-          :validator="stringFormValidator({ required: false }, t)"
-        />
-        <MultilineTextInput
-          input-class="h-16"
-          class="col-span-2"
+          class="col-span-4"
           :title="t('LABEL_TIPS')"
           :description="t('QUESTION_TIPS')"
           :placeholder="t('PLACEHOLDER_TIPS')"
@@ -244,7 +249,7 @@ function hasHistory(): boolean {
 
         <TrickSelect
           input-class="h-16"
-          class="col-span-2 md:col-span-1"
+          class="col-span-4 md:col-span-2"
           :title="t('LABEL_VARIANT_OF')"
           :description="t('QUESTION_VARIANT_OF')"
           form-field-name="variantOf"
@@ -252,7 +257,7 @@ function hasHistory(): boolean {
         />
         <TrickSelect
           input-class="h-16"
-          class="col-span-2 md:col-span-1"
+          class="col-span-4 md:col-span-2"
           :title="t('LABEL_RECOMMENDED_PREREQS')"
           :description="t('QUESTION_RECOMMENDED_PREREQS')"
           form-field-name="recommendedPrerequisites"
@@ -260,13 +265,13 @@ function hasHistory(): boolean {
         />
         <TrickSelect
           input-class="h-16"
-          class="col-span-2"
+          class="col-span-4"
           :title="t('LABEL_VIDEOS')"
           form-field-name="videos"
           :validator="stringFormValidator({ required: false }, t)"
         />
 
-        <div class="col-span-2 gap-2 inline-flex justify-end">
+        <div class="col-span-4 gap-2 inline-flex justify-end">
           <Button variant="ghost" @click="hasHistory() ? $router.back() : $router.push('/')">
             {{ t('BUTTON_CANCEL') }}
           </Button>

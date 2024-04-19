@@ -37,7 +37,6 @@ const props = defineProps<{
         {{ description }}
       </FormDescription>
       <FormMessage />
-      <div class="flex-1" />
       <FormControl>
         <span class="border border-dashed rounded-lg border-slate-800 p-3">
           COMPONENT_NOT_IMPLEMENTED

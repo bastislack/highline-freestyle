@@ -38,7 +38,6 @@ const props = defineProps<{
         {{ description }}
       </FormDescription>
       <FormMessage />
-      <div class="flex-1" />
       <FormControl>
         <textarea
           :placeholder="placeholder"
