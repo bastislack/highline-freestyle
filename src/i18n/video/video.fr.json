@@ -8,5 +8,18 @@
     "invalid-url": "URL vidéo non valide !",
     "invalid-youtube": "L'URL YouTube fournie ne peut pas être analysée ! La vidéo ne peut pas être affichée."
   },
+  "embedPermissions": {
+    "heading": "Autoriser les ancres vidéo ?",
+    "details": "Pour afficher des vidéos, nous utilisons Instagram ou YouTube. Il est très probable que ces services vous permettront de suivre. Nous ne nous suivons pas et ne recueillons aucune donnée sur vous. Vous pouvez révoquer votre permission sur la page des paramètres.",
+    "youtubeAndInstagram": "YouTube et Instagram",
+    "youtube": {
+      "question": "Nous n'avons actuellement pas votre permission d'afficher des vidéos YouTube. Voulez-vous donner votre permission ?",
+      "onlyYouTube": "Uniquement YouTube"
+    },
+    "instagram": {
+      "question": "Nous n'avons actuellement pas votre permission d'afficher des vidéos Instagram. Voulez-vous donner votre permission ?",
+      "onlyInstagram": "Uniquement Instagram"
+    }
+  },
   "url": "URL"
 }

@@ -8,5 +8,18 @@
     "invalid-url": "¡URL de vídeo no válida!",
     "invalid-youtube": "URL de vídeo no válida ¡La URL de YouTube proporcionada no se puede analizar! No se puede mostrar el vídeo."
   },
+  "embedPermissions": {
+    "heading": "Permite las incrustas de vídeo?",
+    "details": "Para mostrar videos usamos Instagram o YouTube. Es muy probable que estos servicios te rastreen. Nosotros no te rasgamos ni recopilamos ningún dato sobre ti. Puede revocar su permiso en la página de configuración.",
+    "youtubeAndInstagram": "YouTube & Instagram",
+    "youtube": {
+      "question": "Actualmente no tenemos su permiso para mostrar videos de YouTube. Quieres darte su permiso?",
+      "onlyYouTube": "Sólo YouTube"
+    },
+    "instagram": {
+      "question": "Actualmente no tenemos tu permiso para mostrar videos de Instagram. Quieres darte su permiso?",
+      "onlyInstagram": "Sólo Instagram"
+    }
+  },
   "url": "URL"
 }
