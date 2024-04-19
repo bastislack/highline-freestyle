@@ -172,14 +172,14 @@ function hasHistory(): boolean {
         />
 
         <PositionSelectInput
-          class="col-span-4 md:col-span-1"
+          class="col-span-2 md:col-span-1"
           :title="t('LABEL_POSITION_START')"
           form-field-name="startPosition"
           :validator="buildPositionFormValidator({ required: true }, t)"
         />
 
         <PositionSelectInput
-          class="col-span-4 md:col-span-1"
+          class="col-span-2 md:col-span-1"
           :title="t('LABEL_POSITION_END')"
           form-field-name="endPosition"
           :validator="buildPositionFormValidator({ required: true }, t)"
