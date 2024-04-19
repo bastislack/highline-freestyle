@@ -153,7 +153,6 @@ function hasHistory(): boolean {
       <form class="grid gap-6 grid-cols-2" :validation-schema="formSchemaZod" @submit="submit">
         <TextInput
           :title="t('LABEL_TECHNICAL_NAME')"
-          :description="t('QUESTION_TECHNICAL_NAME')"
           :placeholder="t('PLACEHOLDER_TECHNICAL_NAME')"
           form-field-name="technicalName"
           class="col-span-2 md:col-span-1"
@@ -170,7 +169,6 @@ function hasHistory(): boolean {
 
         <TextInput
           :title="t('LABEL_ESTABLISHED_BY')"
-          :description="t('QUESTION_ESTABLISHED_BY')"
           :placeholder="t('PLACEHOLDER_ESTABLISHED_BY')"
           form-field-name="establishedBy"
           class="col-span-2 md:col-span-1"
@@ -198,7 +196,6 @@ function hasHistory(): boolean {
         <PositionSelectInput
           class="col-span-2 md:col-span-1"
           :title="t('LABEL_POSITION_START')"
-          :description="t('QUESTION_POSITION_START')"
           form-field-name="startPosition"
           :validator="buildPositionFormValidator({ required: true }, t)"
         />
@@ -206,7 +203,6 @@ function hasHistory(): boolean {
         <PositionSelectInput
           class="col-span-2 md:col-span-1"
           :title="t('LABEL_POSITION_END')"
-          :description="t('QUESTION_POSITION_END')"
           form-field-name="endPosition"
           :validator="buildPositionFormValidator({ required: true }, t)"
         />
@@ -214,7 +210,6 @@ function hasHistory(): boolean {
         <TextInput
           class="col-span-2 md:col-span-1"
           :title="t('LABEL_YEAR_ESTABLISHED')"
-          :description="t('QUESTION_YEAR_ESTABLISHED')"
           placeholder="2024"
           form-field-name="yearEstablished"
           :validator="
@@ -233,7 +228,6 @@ function hasHistory(): boolean {
           input-class="h-16"
           class="col-span-2 md:col-span-1"
           :title="t('LABEL_DESCRIPTION')"
-          :description="t('QUESTION_DESCRIPTION')"
           :placeholder="t('PLACEHOLDER_DESCRIPTION')"
           form-field-name="description"
           :validator="stringFormValidator({ required: false }, t)"
@@ -268,7 +262,6 @@ function hasHistory(): boolean {
           input-class="h-16"
           class="col-span-2"
           :title="t('LABEL_VIDEOS')"
-          :description="t('QUESTION_VIDEOS')"
           form-field-name="videos"
           :validator="stringFormValidator({ required: false }, t)"
         />

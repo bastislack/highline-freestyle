@@ -14,7 +14,7 @@ import { RuleExpression } from 'vee-validate';
 
 const props = defineProps<{
   title: string;
-  description: string;
+  description?: string;
   formFieldName: string;
   validator: FormValidator;
   /**
@@ -61,7 +61,7 @@ const selectableValues = props.selectionFilter
   >
     <FormItem class="flex flex-col justify-stretch">
       <FormLabel class="font-bold"> {{ title }}</FormLabel>
-      <FormDescription>
+      <FormDescription v-if="description">
         {{ description }}
       </FormDescription>
       <FormMessage />

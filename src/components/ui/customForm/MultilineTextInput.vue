@@ -14,7 +14,7 @@ import { RuleExpression } from 'vee-validate';
 
 const props = defineProps<{
   title: string;
-  description: string;
+  description?: string;
   formFieldName: string;
   placeholder?: string;
   class?: string;
@@ -34,7 +34,7 @@ const props = defineProps<{
   >
     <FormItem :class="cn('flex flex-col justify-stretch', props.class)">
       <FormLabel class="font-bold"> {{ title }}</FormLabel>
-      <FormDescription>
+      <FormDescription v-if="description">
         {{ description }}
       </FormDescription>
       <FormMessage />
