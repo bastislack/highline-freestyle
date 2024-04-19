@@ -1,44 +1,51 @@
 {
-  "TITLE_HEADING": "Create a new trick",
+  "titleHeading": "Create a new trick",
 
-  "LABEL_TECHNICAL_NAME": "Technical Name",
-  "LABEL_ALIAS_NAME": "Alias Name",
-  "LABEL_ESTABLISHED_BY": "Established By",
-  "LABEL_DIFFICULTY": "Difficulty",
-  "LABEL_POSITION_START": "Starting Position",
-  "LABEL_POSITION_END": "Ending Position",
-  "LABEL_DESCRIPTION": "Description",
-  "LABEL_TIPS": "Tips",
-  "LABEL_YEAR_ESTABLISHED": "Year established",
-  "LABEL_VARIANT_OF": "Variant of",
-  "LABEL_RECOMMENDED_PREREQS": "Recommended Prerequisites",
-  "LABEL_VIDEOS": "Videos",
+  "label": {
+    "technicalName": "Technical Name",
+    "alias": "Alias",
+    "positionStart": "Starting Position",
+    "positionEnd": "Ending Position",
+    "difficulty": "Difficulty",
+    "description": "Description",
+    "establishedBy": "Established by",
+    "inTheYear": "in the year",
+    "tips": "Tips",
+    "variantOf": "Variatn of",
+    "recommendedPrereq": "Recommended Prerequisites",
+    "videos": "Videos"
+  },
 
-  "QUESTION_ALIAS_NAME": "What do you actually call this?",
-  "QUESTION_DIFFICULTY": "1 to 10. Keep empty if unsure.",
-  "QUESTION_TIPS": "Put each tip on a separate line.",
-  "QUESTION_VARIANT_OF": "Is this a variant of another trick?",
-  "QUESTION_RECOMMENDED_PREREQS": "Are there any tricks you would recommend to learn before trying this one?",
+  "question": {
+    "alias": "What do you actually call this?",
+    "difficulty": "1 to 10. Keep empty if unsure.",
+    "tips": "Put each tip on a separate line.",
+    "variantOf": "Is this a variant of another trick?",
+    "recommendedPrereq": "Tricks you would recommend to learn before trying this one?"
+  },
 
-  "PLACEHOLDER_TECHNICAL_NAME": "180 Chestroll Crazyness",
-  "PLACEHOLDER_ALIAS_NAME": "Chewbacca",
-  "PLACEHOLDER_ESTABLISHED_BY": "Ian, probably",
-  "PLACEHOLDER_DIFFICULTY": "I'm not sure",
-  "PLACEHOLDER_DESCRIPTION": "A fitting description",
-  "PLACEHOLDER_TIPS": "This is my first tip.\nAnd this is my second tip.",
+  "placeholder": {
+    "technicalName": "180 Chestroll Crazyness",
+    "alias": "Chewbacca Roll",
+    "establishedBy": "Ian, probably",
+    "description": "A fitting description",
+    "tips": "This is my first tip.\nAnd this is my second tip.",
+    "difficulty": "I'm not sure"
+  },
 
-  "COMPONENT_NOT_IMPLEMENTED": "This component has yet to be implemented",
+  "componentNotImplemented": "This component has yet to be implemented",
 
-  "CHECKBOX_ANOTHER_TRICK": "Create another trick afterwards",
-  "CHECKBOX_ANOTHER_TRICK_HINT": "Checking this will not switch you to your newly created trick. This can be useful if you want to create multiple tricks.",
+  "toast": {
+    "createdTrick": "Created trick {name}",
+    "goToTrick": "Go to Trick",
+    "addAnotherTrick": "Add another one"
+  },
 
-  "TOAST_CREATED_TRICK": "Created trick {name}",
-  "TOAST_GOTO_TRICK": "Go to Trick",
-  "TOAST_ADD_ANOTHER_TRICK": "Add another one",
+  "error": {
+    "title": "Uh oh…",
+    "message": "An error happened when trying to insert the new trick into the DB. Check the console (F12) for more info."
+  },
 
-  "ERR_TOAST_TITLE": "Uh oh…",
-  "ERR_TOAST_MESSAGE": "An error happened when trying to insert the new trick into the DB. Check the console (F12) for more info.",
-
-  "BUTTON_SUBMIT": "Create",
-  "BUTTON_CANCEL": "Cancel"
+  "buttonSubmit": "Create",
+  "buttonCancel": "Cancel"
 }

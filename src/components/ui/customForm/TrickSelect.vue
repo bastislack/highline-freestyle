@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { useI18n } from 'vue-i18n';
+import messages from '@/i18n/tricks/new/index';
 import { FormValidator } from '@/lib/formValidators/validatorMessages';
 import { cn } from '@/lib/utils';
 
@@ -20,6 +22,11 @@ const props = defineProps<{
   validator: FormValidator;
   class?: string;
 }>();
+
+const { t } = useI18n({
+  messages: messages,
+  scope: 'local',
+});
 </script>
 
 <template>
@@ -39,7 +46,7 @@ const props = defineProps<{
       <FormMessage />
       <FormControl>
         <span class="border border-dashed rounded-lg border-slate-800 p-3">
-          COMPONENT_NOT_IMPLEMENTED
+          {{ t('componentNotImplemented') }}
         </span>
       </FormControl>
     </FormItem>

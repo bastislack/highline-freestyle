@@ -113,16 +113,16 @@ const submit = form.handleSubmit(async (vals) => {
     console.log(result);
 
     toast.toast({
-      title: `Created trick ${result.technicalName}`,
+      title: t('toast.createdTrick', { name: result.technicalName }),
       action: h(
         ToastAction,
         {
-          altText: t('TOAST_ADD_ANOTHER_TRICK'),
+          altText: t('toast.addAnotherTrick'),
           onClick: () => {
             router.push('/tricks/new');
           },
         },
-        { default: () => t('TOAST_ADD_ANOTHER_TRICK') }
+        { default: () => t('toast.addAnotherTrick') }
       ),
       duration: 5000,
     });
@@ -130,8 +130,8 @@ const submit = form.handleSubmit(async (vals) => {
   } catch (err) {
     console.error(err);
     toast.toast({
-      title: t('ERR_TOAST_TITLE'),
-      description: t('ERR_TOAST_MESSAGE'),
+      title: t('error.title'),
+      description: t('error.message'),
       class: 'bg-destructive-700 text-white',
       duration: 5000,
     });
@@ -148,7 +148,7 @@ function hasHistory(): boolean {
 <template>
   <DefaultLayout>
     <Section>
-      <h1 class="text-2xl md:text-3xl my-4 font-black">{{ t('TITLE_HEADING') }}</h1>
+      <h1 class="text-2xl md:text-3xl my-4 font-black">{{ t('titleHeading') }}</h1>
 
       <form
         class="grid gap-4 lg:gap-6 grid-cols-4"
@@ -156,16 +156,16 @@ function hasHistory(): boolean {
         @submit="submit"
       >
         <TextInput
-          :title="t('LABEL_TECHNICAL_NAME')"
-          :placeholder="t('PLACEHOLDER_TECHNICAL_NAME')"
+          :title="t('label.technicalName')"
+          :placeholder="t('placeholder.technicalName')"
           form-field-name="technicalName"
           class="col-span-4 md:col-span-2"
           :validator="stringFormValidator({ required: true }, t)"
         />
         <TextInput
-          :title="t('LABEL_ALIAS_NAME')"
-          :description="t('QUESTION_ALIAS_NAME')"
-          :placeholder="t('PLACEHOLDER_ALIAS_NAME')"
+          :title="t('label.alias')"
+          :description="t('question.alias')"
+          :placeholder="t('placeholder.alias')"
           form-field-name="alias"
           class="col-span-4 md:col-span-2"
           :validator="stringFormValidator({ required: false }, t)"
@@ -173,23 +173,23 @@ function hasHistory(): boolean {
 
         <PositionSelectInput
           class="col-span-2 md:col-span-1"
-          :title="t('LABEL_POSITION_START')"
+          :title="t('label.positionStart')"
           form-field-name="startPosition"
           :validator="buildPositionFormValidator({ required: true }, t)"
         />
 
         <PositionSelectInput
           class="col-span-2 md:col-span-1"
-          :title="t('LABEL_POSITION_END')"
+          :title="t('label.positionEnd')"
           form-field-name="endPosition"
           :validator="buildPositionFormValidator({ required: true }, t)"
         />
 
         <TextInput
           class="col-span-4 md:col-span-2"
-          :title="t('LABEL_DIFFICULTY')"
-          :description="t('QUESTION_DIFFICULTY')"
-          :placeholder="t('PLACEHOLDER_DIFFICULTY')"
+          :title="t('label.difficulty')"
+          :description="t('question.difficulty')"
+          :placeholder="t('placeholder.difficulty')"
           form-field-name="difficulty"
           :validator="
             buildIntegerFormValidator(
@@ -206,15 +206,15 @@ function hasHistory(): boolean {
         <MultilineTextInput
           input-class="h-16"
           class="col-span-4"
-          :title="t('LABEL_DESCRIPTION')"
-          :placeholder="t('PLACEHOLDER_DESCRIPTION')"
+          :title="t('label.description')"
+          :placeholder="t('placeholder.description')"
           form-field-name="description"
           :validator="stringFormValidator({ required: false }, t)"
         />
 
         <TextInput
-          :title="t('LABEL_ESTABLISHED_BY')"
-          :placeholder="t('PLACEHOLDER_ESTABLISHED_BY')"
+          :title="t('label.establishedBy')"
+          :placeholder="t('placeholder.establishedBy')"
           form-field-name="establishedBy"
           class="col-span-4 md:col-span-2"
           :validator="stringFormValidator({ required: false }, t)"
@@ -222,7 +222,7 @@ function hasHistory(): boolean {
 
         <TextInput
           class="col-span-4 md:col-span-2"
-          :title="t('LABEL_YEAR_ESTABLISHED')"
+          :title="t('label.inTheYear')"
           placeholder="2024"
           form-field-name="yearEstablished"
           :validator="
@@ -240,9 +240,9 @@ function hasHistory(): boolean {
         <MultilineTextInput
           input-class="h-16"
           class="col-span-4"
-          :title="t('LABEL_TIPS')"
-          :description="t('QUESTION_TIPS')"
-          :placeholder="t('PLACEHOLDER_TIPS')"
+          :title="t('label.tips')"
+          :description="t('question.tips')"
+          :placeholder="t('placeholder.tips')"
           form-field-name="tips"
           :validator="stringFormValidator({ required: false }, t)"
         />
@@ -250,32 +250,32 @@ function hasHistory(): boolean {
         <TrickSelect
           input-class="h-16"
           class="col-span-4 md:col-span-2"
-          :title="t('LABEL_VARIANT_OF')"
-          :description="t('QUESTION_VARIANT_OF')"
+          :title="t('label.variantOf')"
+          :description="t('question.variantOf')"
           form-field-name="variantOf"
           :validator="stringFormValidator({ required: false }, t)"
         />
         <TrickSelect
           input-class="h-16"
           class="col-span-4 md:col-span-2"
-          :title="t('LABEL_RECOMMENDED_PREREQS')"
-          :description="t('QUESTION_RECOMMENDED_PREREQS')"
+          :title="t('label.recommendedPrereq')"
+          :description="t('question.recommendedPrereq')"
           form-field-name="recommendedPrerequisites"
           :validator="stringFormValidator({ required: false }, t)"
         />
         <TrickSelect
           input-class="h-16"
           class="col-span-4"
-          :title="t('LABEL_VIDEOS')"
+          :title="t('label.videos')"
           form-field-name="videos"
           :validator="stringFormValidator({ required: false }, t)"
         />
 
         <div class="col-span-4 gap-2 inline-flex justify-end">
           <Button variant="ghost" @click="hasHistory() ? $router.back() : $router.push('/')">
-            {{ t('BUTTON_CANCEL') }}
+            {{ t('buttonCancel') }}
           </Button>
-          <Button type="submit"> {{ t('BUTTON_SUBMIT') }} </Button>
+          <Button type="submit"> {{ t('buttonSubmit') }} </Button>
         </div>
       </form>
     </Section>
