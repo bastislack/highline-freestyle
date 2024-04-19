@@ -46,6 +46,6 @@
   "ERR_TOAST_TITLE": "Uh oh…",
   "ERR_TOAST_MESSAGE": "An error happened when trying to insert the new trick into the DB. Check the console (F12) for more info.",
 
-  "BUTTON_SUBMIT": "Submit",
-  "BUTTON_RESET": "Reset"
+  "BUTTON_SUBMIT": "Create",
+  "BUTTON_CANCEL": "Cancel"
 }

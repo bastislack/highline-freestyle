@@ -139,6 +139,10 @@ const submit = form.handleSubmit(async (vals) => {
 
   console.log('Submit: ', validatedVals);
 });
+
+function hasHistory(): boolean {
+  return window.history.length > 2;
+}
 </script>
 
 <template>
@@ -270,7 +274,9 @@ const submit = form.handleSubmit(async (vals) => {
         />
 
         <div class="col-span-2 gap-2 inline-flex justify-end">
-          <Button variant="ghost" @click="() => form.resetForm()"> {{ t('BUTTON_RESET') }} </Button>
+          <Button variant="ghost" @click="hasHistory() ? $router.back() : $router.push('/')">
+            {{ t('BUTTON_CANCEL') }}
+          </Button>
           <Button type="submit"> {{ t('BUTTON_SUBMIT') }} </Button>
         </div>
       </form>
