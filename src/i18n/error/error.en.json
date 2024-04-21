@@ -5,7 +5,7 @@
 
   "INPUT_REQUIRED": "This is required",
   "INPUT_NOT_NUMBER": "Please enter a number",
-  "INPUT_NOT_INTEGER": "Please enter an integer",
+  "INPUT_NOT_INTEGER": "Please enter a whole number",
   "INPUT_NUMBER_BELOW_MIN": "Input must be no less than {value}",
   "INPUT_NUMBER_ABOVE_MAX": "Input must be no more than {value}",
   "POSITION_INVALID": "Provided Position is invalid",

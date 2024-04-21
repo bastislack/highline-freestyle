@@ -1,5 +1,14 @@
 {
   "back": "De vuelta",
   "home": "Hogar",
-  "debug-info": "Información de debug"
+  "debug-info": "Información de debug",
+
+  "INPUT_REQUIRED": "Esto es necesario",
+  "INPUT_NOT_NUMBER": "Introduzca un número",
+  "INPUT_NOT_INTEGER": "Introduzca un número entero",
+  "INPUT_NUMBER_BELOW_MIN": "La entrada no debe ser inferior a {value}",
+  "INPUT_NUMBER_ABOVE_MAX": "La entrada no debe ser mayor que {value}",
+  "POSITION_INVALID": "Proporcionado La posición no es válida",
+  "INPUT_TOO_SHORT": "La entrada debe tener al menos {limit} caracteres",
+  "INPUT_TOO_LONG": "La entrada debe tener como máximo {limit} caracteres"
 }

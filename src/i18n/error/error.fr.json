@@ -1,5 +1,14 @@
 {
   "back": "Dos du retour",
   "home": "Foyer",
-  "debug-info": "Informations de débogage"
+  "debug-info": "Informations de débogage",
+
+  "INPUT_REQUIRED": "Ceci est nécessaire",
+  "INPUT_NOT_NUMBER": "Veuillez saisir un numéro",
+  "INPUT_NOT_INTEGER": "Veuillez saisir un nombre entier",
+  "INPUT_NUMBER_BELOW_MIN": "L'entrée ne doit pas être inférieure à {value}",
+  "INPUT_NUMBER_ABOVE_MAX": "L'entrée ne doit pas dépasser {value}",
+  "POSITION_INVALID": "Fourni La position n'est pas valide",
+  "INPUT_TOO_SHORT": "L'entrée doit comporter au moins {limit} caractères",
+  "INPUT_TOO_LONG": "L'entrée doit comporter au maximum {limit} caractères"
 }
