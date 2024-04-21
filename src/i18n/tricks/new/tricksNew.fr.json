@@ -1,1 +1,51 @@
-{}
+{
+  "titleHeading": "Créer un nouveau trick",
+
+  "label": {
+    "technicalName": "Nom technique",
+    "alias": "Alias",
+    "positionStart": "Position initiale",
+    "positionEnd": "Position finale",
+    "difficulty": "Difficulté",
+    "description": "Description",
+    "establishedBy": "Inventé par",
+    "inTheYear": "en l'an",
+    "tips": "Conseils",
+    "variantOf": "Variation de",
+    "recommendedPrereq": "Prérequis",
+    "videos": "Vidéos"
+  },
+
+  "question": {
+    "alias": "Qu'est-ce que vous appelez-vous vraiment ceci ?",
+    "difficulty": "1 à 10. Restez vides en cas de doute.",
+    "tips": "Placez chaque embout sur une ligne distincte.",
+    "variantOf": "S'agit-il d'une variante d'une autre trick ?",
+    "recommendedPrereq": "Des tricks que vous recommanderiez d'apprendre avant d'essayer celle-ci ?"
+  },
+
+  "placeholder": {
+    "technicalName": "180 Chestroll Folie",
+    "alias": "Roule de Chewbacca",
+    "establishedBy": "Ian, probablement",
+    "description": "Une description appropriée",
+    "tips": "Voici mon premier conseil.\nEt voici mon deuxième conseil.",
+    "difficulty": "Je ne suis pas sûr"
+  },
+
+  "componentNotImplemented": "Cet élément n'a pas encore été mis en œuvre.",
+
+  "toast": {
+    "createdTrick": "Trick créé {name}",
+    "goToTrick": "Aller à le trick",
+    "addAnotherTrick": "En ajouter un autre"
+  },
+
+  "error": {
+    "title": "Uh oh…",
+    "message": "Une erreur s'est produite lors de l'insertion de la nouvelle trick dans la base de données. Consultez la console (F12) pour plus d'informations."
+  },
+
+  "buttonSubmit": "Créer",
+  "buttonCancel": "Annuler"
+}
