@@ -4,6 +4,8 @@
 import type { Trick } from '../lib/database/daos/trick';
 import TrickOverviewCard from './TrickOverviewCard.vue';
 import Section from './ui/section/Section.vue';
+import Button from './ui/button/Button.vue';
+import { Icon } from '@iconify/vue/dist/iconify.js';
 
 const allTricks = await (await import('../lib/database')).tricksDao.getAll();
 
@@ -75,4 +77,13 @@ function compareTrickNames(a: Trick, b: Trick) {
       />
     </div>
   </Section>
+  <Button
+    as-child
+    size="icon"
+    class="fixed bottom-20 lg:bottom-6 right-4 lg:right-6 rounded-full w-12 h-12 drop-shadow-lg"
+  >
+    <RouterLink to="/tricks/new">
+      <Icon icon="ic:baseline-add" class="w-8 h-8" />
+    </RouterLink>
+  </Button>
 </template>
