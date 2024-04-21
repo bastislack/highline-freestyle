@@ -1,1 +1,51 @@
-{}
+{
+  "titleHeading": "Crear un nuevo truco",
+
+  "label": {
+    "technicalName": "Nombre técnico",
+    "alias": "Alias",
+    "positionStart": "Posición inicial",
+    "positionEnd": "Posición final",
+    "difficulty": "Dificultad",
+    "description": "Descripción",
+    "establishedBy": "Inventado por",
+    "inTheYear": "en el año",
+    "tips": "Consejos",
+    "variantOf": "Variación de",
+    "recommendedPrereq": "Prerrequisitos",
+    "videos": "Vídeos"
+  },
+
+  "question": {
+    "alias": "Cómo llamas realmente a esto?",
+    "difficulty": "1 a 10. Manténte vacía si no está seguro.",
+    "tips": "Pon cada punta en una línea separada.",
+    "variantOf": "Es esta una variante de otro truco?",
+    "recommendedPrereq": "Trucos que recomendarías aprender antes de probar esto?"
+  },
+
+  "placeholder": {
+    "technicalName": "180 locura de Chestroll",
+    "alias": "Chewbacca Roll",
+    "establishedBy": "Ian, probablemente",
+    "description": "Una descripción adecuada",
+    "tips": "Este es mi primer consjo.\nY este es mi segundo consejo.",
+    "difficulty": "No estoy seguro."
+  },
+
+  "componentNotImplemented": "Este componente aún no se ha puesto en práctica",
+
+  "toast": {
+    "createdTrick": "Truco creado {name}",
+    "goToTrick": "Ir a Truco",
+    "addAnotherTrick": "Añade otro"
+  },
+
+  "error": {
+    "title": "Uh oh…",
+    "message": "Se ha producido un error al intentar insertar el nuevo truco en la DB. Comprueba la consola (F12) para más información."
+  },
+
+  "buttonSubmit": "Crea",
+  "buttonCancel": "Cancelar"
+}

@@ -8,11 +8,11 @@
     "positionEnd": "Ending Position",
     "difficulty": "Difficulty",
     "description": "Description",
-    "establishedBy": "Established by",
+    "establishedBy": "Invented by",
     "inTheYear": "in the year",
     "tips": "Tips",
-    "variantOf": "Variatn of",
-    "recommendedPrereq": "Recommended Prerequisites",
+    "variantOf": "Variant of",
+    "recommendedPrereq": "Prerequisites",
     "videos": "Videos"
   },
 
@@ -33,7 +33,7 @@
     "difficulty": "I'm not sure"
   },
 
-  "componentNotImplemented": "This component has yet to be implemented",
+  "componentNotImplemented": "This component has yet to be implemented.",
 
   "toast": {
     "createdTrick": "Created trick {name}",
