@@ -14,6 +14,7 @@ import Header from '@/components/stickable/Header.vue';
 import ErrorInfo from '@/components/ErrorInfo.vue';
 import Separator from '@/components/ui/separator/Separator.vue';
 import Button from '@/components/ui/button/Button.vue';
+import ArchivedDescisionDialog from '@/components/stickable/ArchivedDescisionDialog.vue';
 
 const props = defineProps<{
   status: 'official' | 'userDefined' | 'archived';
@@ -157,6 +158,13 @@ watchEffect(async () => {
           </Badge>
         </div>
       </Section>
+
+      <!-- Dialog if trick is an archived one-->
+      <ArchivedDescisionDialog
+        :trick-id="trick.primaryKey[0]"
+        :trick-status="trick.primaryKey[1]"
+        :trick-name="trick.alias ?? trick.technicalName"
+      />
 
       <!-- Videos -->
       <Section
