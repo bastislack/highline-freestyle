@@ -17,7 +17,7 @@ export type DbObject = {
    * Invoke this to delete an Entity.
    * **It is the UIs responsibility to protect against - for example - deleting predefined tricks**
    */
-  delete(): Promise<true | string>;
+  delete(): Promise<void>;
 
   /**
    * Update the Object with values from the database.

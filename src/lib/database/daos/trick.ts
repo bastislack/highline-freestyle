@@ -2,6 +2,7 @@ import { DbObject } from './dbObject';
 import { DbTricksTableZod, DbMetadataZod } from '../schemas/CurrentVersionSchema';
 import { z } from 'zod';
 import { MainDatabase } from '../databaseInstance';
+import { primaryKeysMatch } from '@/lib/utils';
 
 /**
  * This is the "rich" object that should be used by the UI Layer.
@@ -393,21 +394,54 @@ export class Trick implements DbObject {
 
   /**
    * Will delete the tricks and the metadata assigned to it.
-   * @returns `true` on success, else an Error message
+   * @returns void on success else throws an Error message
    */
-  public async delete(): Promise<string | true> {
+  public async delete(): Promise<void> {
     if (this.#modified.deleted) {
-      return true;
+      return;
     }
-    try {
-      await Promise.all([
-        this.db.tricks.delete(this.primaryKey),
-        this.db.metadata.delete([...this.primaryKey, 'Tricks' as const]),
-      ]);
-      return true;
-    } catch (err) {
-      console.error(err);
-      return 'Something went wrong when trying to delete a Trick. See the console for more info.';
-    }
+    return this.db.transaction('rw', this.db.tricks, this.db.metadata, this.db.combos, async () => {
+      // Delete the trick itself
+      this.db.tricks.delete(this.primaryKey);
+
+      // Delte the tricks metadata
+      this.db.metadata.delete([...this.primaryKey, 'Tricks' as const]);
+
+      const allTricks = await this.db.tricks.toArray();
+      allTricks.forEach((trick) => {
+        // Remove trick from other tricks recommended prerequisites
+        if (trick.recommendedPrerequisites) {
+          const newPrereq = trick.recommendedPrerequisites.filter(
+            (primaryKey) => !primaryKeysMatch(primaryKey, this.primaryKey)
+          );
+          if (trick.recommendedPrerequisites.length !== newPrereq.length) {
+            this.db.tricks.update([trick.id, trick.trickStatus], {
+              recommendedPrerequisites: newPrereq,
+            });
+          }
+        }
+
+        // Remove trick from other tricks variation of
+        if (trick.variationOf) {
+          const newVariation = trick.variationOf.filter(
+            (primaryKey) => !primaryKeysMatch(primaryKey, this.primaryKey)
+          );
+          if (trick.variationOf.length !== newVariation.length) {
+            this.db.tricks.update([trick.id, trick.trickStatus], { variationOf: newVariation });
+          }
+        }
+      });
+
+      // Remove trick from any comobs containing it
+      const allCombos = await this.db.combos.toArray();
+      allCombos.forEach((combo) => {
+        const newComboTricks = combo.tricks.filter(
+          (trick) => trick[0] != this.primaryKey[0] || trick[1] != this.primaryKey[1]
+        );
+        if (newComboTricks.length !== combo.tricks.length) {
+          this.db.combos.update([combo.id, combo.comboStatus], { tricks: newComboTricks });
+        }
+      });
+    });
   }
 }
