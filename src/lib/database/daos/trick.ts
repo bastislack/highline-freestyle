@@ -404,8 +404,8 @@ export class Trick implements DbObject {
       // Delete the trick itself
       this.db.tricks.delete(this.primaryKey);
 
-      // Delte the tricks metadata
-      this.db.metadata.delete([...this.primaryKey, 'Tricks' as const]);
+      // Delete the tricks metadata
+      this.db.metadata.delete([...this.primaryKey, 'Trick' as const]);
 
       const allTricks = await this.db.tricks.toArray();
       allTricks.forEach((trick) => {

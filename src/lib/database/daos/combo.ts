@@ -315,21 +315,20 @@ export class Combo implements DbObject {
   /**
    * Will delete the combo and the metadata assigned to it.
    * This will keep the tricks belonging to the combo unaffected
-   * @returns `true` on success, else an Error message
+   * @returns nothing if successful, raises an error if not.
    */
-  public async delete(): Promise<string | true> {
+  public async delete(): Promise<void> {
     if (this.#modified.deleted) {
-      return true;
+      return;
     }
     try {
       await Promise.all([
         this.db.combos.delete(this.primaryKey),
         this.db.metadata.delete([...this.primaryKey, 'Combo' as const]),
       ]);
-      return true;
     } catch (err) {
       console.error(err);
-      return 'Something went wrong when trying to delete a Combo. See the console for more info.';
+      throw err;
     }
   }
 }

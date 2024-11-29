@@ -12,6 +12,7 @@ import {
 import Button from '@/components/ui/button/Button.vue';
 import { useToast } from '@/components/ui/toast';
 import { tricksDao } from '@/lib/database';
+import router from '@/routes/router';
 
 let props = defineProps<{
   trickName: string;
@@ -37,14 +38,16 @@ async function deleteTrickIfPossible() {
   const name = trick.alias ?? trick.technicalName;
   try {
     await trick.delete();
+    toast({
+      title: `Deleted trick ${name}`,
+    });
+    router.push({ path: '/tricks' });
   } catch (err) {
-    //TODO: Add Toast for user to see the error.
-    console.error(`Failed to delete trick ${name} with error:`, err);
+    toast({
+      title: `Failed to delete trick ${name}`,
+      description: `${err}`,
+    });
   }
-
-  toast({
-    title: `Deleted trick ${name}`,
-  });
 }
 </script>
 
