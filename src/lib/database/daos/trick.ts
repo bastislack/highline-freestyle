@@ -444,4 +444,94 @@ export class Trick implements DbObject {
       });
     });
   }
+
+  public async updateStatusPersistent(
+    status: 'official' | 'archived' | 'userDefined'
+  ): Promise<void> {
+    if (this.#modified.deleted) {
+      return;
+    }
+
+    return this.db.transaction('rw', this.db.tricks, this.db.metadata, this.db.combos, async () => {
+      const originalPrimaryKey = this.primaryKey;
+
+      // Check for id collision and generate new id if necessary
+      const allIdsOfTargetStatus: number[] = (await this.db.tricks.toArray())
+        .filter((trick) => trick.trickStatus === status)
+        .map((trick) => trick.id);
+      let newId = originalPrimaryKey[0];
+      if (allIdsOfTargetStatus.includes(originalPrimaryKey[0])) {
+        newId = Math.max(...allIdsOfTargetStatus) + 1;
+      }
+      const newPrimaryKey = [newId, status];
+
+      // Update trick itself
+      this.db.tricks.update(originalPrimaryKey, { id: newId, trickStatus: status });
+
+      // Update metadata
+      this.db.metadata.update([...originalPrimaryKey, 'Trick'], {
+        id: newId,
+        entityStatus: status,
+      });
+
+      // Update recommended prerequisites
+      const allTricks = await this.db.tricks.toArray();
+      allTricks.forEach((trick) => {
+        if (!trick.recommendedPrerequisites) {
+          return;
+        }
+        if (!trick.recommendedPrerequisites.some((e) => primaryKeysMatch(e, originalPrimaryKey))) {
+          return;
+        }
+
+        const newPrerequisites = trick.recommendedPrerequisites.map((prerequisitePrimaryKey) => {
+          return primaryKeysMatch(prerequisitePrimaryKey, originalPrimaryKey)
+            ? newPrimaryKey
+            : prerequisitePrimaryKey;
+        });
+        this.db.tricks.update([trick.id, trick.trickStatus], {
+          recommendedPrerequisites: newPrerequisites,
+        });
+      });
+
+      // Update other tricks variationOf
+      allTricks.forEach((trick) => {
+        if (!trick.variationOf) {
+          return;
+        }
+        if (!trick.variationOf.some((e) => primaryKeysMatch(e, originalPrimaryKey))) {
+          return;
+        }
+
+        const newVariationOf = trick.variationOf.map((trickPrimaryKey) => {
+          return primaryKeysMatch(trickPrimaryKey, originalPrimaryKey)
+            ? newPrimaryKey
+            : trickPrimaryKey;
+        });
+        this.db.tricks.update([trick.id, trick.trickStatus], {
+          variationOf: newVariationOf,
+        });
+      });
+
+      // Update all references in combos
+      const allCombos = await this.db.combos.toArray();
+      allCombos.forEach((combo) => {
+        if (!combo.tricks) {
+          return;
+        }
+        if (!combo.tricks.some((e) => primaryKeysMatch(e, originalPrimaryKey))) {
+          return;
+        }
+
+        const newComboTricks = combo.tricks.map((trickPrimaryKey) => {
+          return primaryKeysMatch(trickPrimaryKey, originalPrimaryKey)
+            ? newPrimaryKey
+            : trickPrimaryKey;
+        });
+        this.db.combos.update([combo.id, combo.comboStatus], {
+          tricks: newComboTricks,
+        });
+      });
+    });
+  }
 }

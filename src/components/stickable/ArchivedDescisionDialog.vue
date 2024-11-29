@@ -9,12 +9,42 @@ import {
 } from '@/components/ui/dialog';
 import DeleteTrickDialog from '@/components/stickable/trick/DeleteTrickDialog.vue';
 import Button from '../ui/button/Button.vue';
+import { tricksDao } from '@/lib/database';
+import { useToast } from '../ui/toast';
+import router from '@/routes/router';
 
-defineProps<{
+const props = defineProps<{
   trickName: string;
   trickStatus: 'archived' | 'official' | 'userDefined';
   trickId: number;
 }>();
+
+const { toast } = useToast();
+
+async function updateOfficialToUserDefined() {
+  const trick = await tricksDao.getById(props.trickId, props.trickStatus);
+
+  if (!trick) {
+    toast({
+      title: 'Failed to change trick into custom one!',
+      description: "Couldn't locate the trick in the database.",
+    });
+    return;
+  }
+
+  try {
+    trick.updateStatusPersistent('userDefined');
+    toast({
+      title: `Converted ${trick.alias ?? trick.technicalName} to custom trick`,
+    });
+    router.push({ path: `/tricks/userDefined/${trick.primaryKey[0]}` });
+  } catch (err) {
+    toast({
+      title: `Failed to change ${trick.alias ?? trick.technicalName} to custom trick`,
+      description: `${err}`,
+    });
+  }
+}
 </script>
 
 <template>
@@ -36,7 +66,7 @@ defineProps<{
           :trick-status="trickStatus"
           :trick-id="trickId"
         />
-        <Button size="sm">Convert into custom Trick</Button>
+        <Button size="sm" @click="updateOfficialToUserDefined">Convert into custom Trick</Button>
       </DialogFooter>
     </DialogContent>
   </Dialog>

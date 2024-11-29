@@ -23,8 +23,6 @@ let props = defineProps<{
 const { toast } = useToast();
 
 async function deleteTrickIfPossible() {
-  console.log('Deleting.');
-
   const trick = await tricksDao.getById(props.trickId, props.trickStatus);
 
   if (!trick) {
