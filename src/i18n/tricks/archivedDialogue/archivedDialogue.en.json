@@ -1,0 +1,19 @@
+{
+  "toasts": {
+    "success": {
+      "title": "Converted {trickName} to custom trick."
+    },
+    "failedNotInDB": {
+      "title": "Failed to change trick into custom one!",
+      "description": "Couldn't locate the trick in the database."
+    },
+    "failedWithError": {
+      "title": "Failed to change {trickName} to custom trick!"
+    }
+  },
+  "dialogue": {
+    "title": "This trick ({trickName}) has been archived!",
+    "description": "This trick used to be an official one but has been removed from the list of official tricks. You can keep the trick by converting it into a custom one (allowing you to edit it from now on) or delete it from your list of tricks. If you don't take any action now, you will be prompted again next time.",
+    "convertButton": "Convert into custom Trick"
+  }
+}

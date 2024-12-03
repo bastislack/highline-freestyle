@@ -1,0 +1,19 @@
+{
+  "toasts": {
+    "success": {
+      "title": "Convertido {trickName} a truco personalizado."
+    },
+    "failedNotInDB": {
+      "title": "No se ha podido cambiar el truco por uno personalizado.",
+      "description": "No se ha podido localizar el truco en la base de datos."
+    },
+    "failedWithError": {
+      "title": "Error al cambiar {trickName} a un truco personalizado."
+    }
+  },
+  "dialogue": {
+    "title": "¡Este truco ({trickName}) ha sido archivado!",
+    "description": "Este truco solía ser oficial pero ha sido eliminado de la lista de trucos oficiales. Puedes conservar el truco convirtiéndolo en uno personalizado (lo que te permitirá editarlo a partir de ahora) o eliminarlo de tu lista de trucos. Si no realizas ninguna acción ahora, se te pedirá de nuevo la próxima vez.",
+    "convertButton": "Convertir en Truco personalizado"
+  }
+}

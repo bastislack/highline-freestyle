@@ -1,0 +1,19 @@
+{
+  "toasts": {
+    "success": {
+      "title": "Conversion de {trickName} en trick personnalisé."
+    },
+    "failedNotInDB": {
+      "title": "Échec de la transformation de le trick en une trick personnalisée !",
+      "description": "Il n'a pas été possible de localiser le trick dans la base de données."
+    },
+    "failedWithError": {
+      "title": "Échec de la modification de {trickName} en trick personnalisé !"
+    }
+  },
+  "dialogue": {
+    "title": "Ce trick ({trickName}) a été archivé !",
+    "description": "Ce trick était un trick officiel mais a été retiré de la liste des trick officiels. Vous pouvez conserver ce trick en le convertissant en trick personnalisé (ce qui vous permettra de le modifier à partir de maintenant) ou le supprimer de votre liste de tricks. Si vous n'agissez pas maintenant, vous serez à nouveau invité à le faire la prochaine fois.",
+    "convertButton": "Convertir en trick personnalisé"
+  }
+}

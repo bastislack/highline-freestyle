@@ -12,6 +12,15 @@ import Button from '../ui/button/Button.vue';
 import { tricksDao } from '@/lib/database';
 import { useToast } from '../ui/toast';
 import router from '@/routes/router';
+import { useI18n } from 'vue-i18n';
+import messages from '@/i18n/tricks/archivedDialogue';
+
+const i18n = useI18n({
+  messages,
+  useScope: 'local',
+});
+
+const { t } = i18n;
 
 const props = defineProps<{
   trickName: string;
@@ -26,8 +35,8 @@ async function updateOfficialToUserDefined() {
 
   if (!trick) {
     toast({
-      title: 'Failed to change trick into custom one!',
-      description: "Couldn't locate the trick in the database.",
+      title: t('toasts.failedNotInDB.title'),
+      description: t('toasts.failedNotInDB.description'),
     });
     return;
   }
@@ -35,12 +44,12 @@ async function updateOfficialToUserDefined() {
   try {
     trick.updateStatusPersistent('userDefined');
     toast({
-      title: `Converted ${trick.alias ?? trick.technicalName} to custom trick`,
+      title: t('toasts.success.title', { trickName: props.trickName }),
     });
     router.push({ path: `/tricks/userDefined/${trick.primaryKey[0]}` });
   } catch (err) {
     toast({
-      title: `Failed to change ${trick.alias ?? trick.technicalName} to custom trick`,
+      title: t('toasts.failedWithError.title', { trickName: props.trickName }),
       description: `${err}`,
     });
   }
@@ -51,13 +60,8 @@ async function updateOfficialToUserDefined() {
   <Dialog :default-open="true">
     <DialogContent>
       <DialogHeader>
-        <DialogTitle>This trick has been archived!</DialogTitle>
-        <DialogDescription>
-          This trick used to be an official one but has been removed from the list of official
-          tricks. You can keep the trick by converting it into a custom one (allowing you to edit it
-          from now on) or delete it from your list of tricks. If you don't take any action now, you
-          will be prompted again next time.
-        </DialogDescription>
+        <DialogTitle>{{ t('dialogue.title', { trickName: trickName }) }}</DialogTitle>
+        <DialogDescription>{{ t('dialogue.description') }}</DialogDescription>
       </DialogHeader>
 
       <DialogFooter>
@@ -66,7 +70,9 @@ async function updateOfficialToUserDefined() {
           :trick-status="trickStatus"
           :trick-id="trickId"
         />
-        <Button size="sm" @click="updateOfficialToUserDefined">Convert into custom Trick</Button>
+        <Button size="sm" @click="updateOfficialToUserDefined">{{
+          t('dialogue.convertButton')
+        }}</Button>
       </DialogFooter>
     </DialogContent>
   </Dialog>

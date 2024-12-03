@@ -13,6 +13,15 @@ import Button from '@/components/ui/button/Button.vue';
 import { useToast } from '@/components/ui/toast';
 import { tricksDao } from '@/lib/database';
 import router from '@/routes/router';
+import { useI18n } from 'vue-i18n';
+import messages from '@/i18n/tricks/delete';
+
+const i18n = useI18n({
+  messages,
+  useScope: 'local',
+});
+
+const { t } = i18n;
 
 let props = defineProps<{
   trickName: string;
@@ -27,8 +36,8 @@ async function deleteTrickIfPossible() {
 
   if (!trick) {
     toast({
-      title: 'Failed to delete',
-      description: "Couldn't locate the trick in the database.",
+      title: t('toasts.failedNotInDB.title', { trickName: props.trickName }),
+      description: t('toasts.failedNotInDB.description'),
     });
     return;
   }
@@ -37,12 +46,12 @@ async function deleteTrickIfPossible() {
   try {
     await trick.delete();
     toast({
-      title: `Deleted trick ${name}`,
+      title: t('toasts.success.title', { trickName: name }),
     });
     router.push({ path: '/tricks' });
   } catch (err) {
     toast({
-      title: `Failed to delete trick ${name}`,
+      title: t('toasts.failedWithError.title', { trickName: name }),
       description: `${err}`,
     });
   }
@@ -54,18 +63,18 @@ async function deleteTrickIfPossible() {
     <DialogTrigger
       class="text-destructive font-medium text-sm hover:bg-destructive-100 rounded-md p-2"
     >
-      Delete
+      {{ t('triggerButton') }}
     </DialogTrigger>
     <DialogContent>
       <DialogHeader>
-        <DialogTitle>Delete trick {{ trickName }} permanently?</DialogTitle>
-        <DialogDescription> You can not undo this action! </DialogDescription>
+        <DialogTitle>{{ t('dialogue.title', { trickName: trickName }) }}</DialogTitle>
+        <DialogDescription>{{ t('dialogue.description') }}</DialogDescription>
       </DialogHeader>
       <DialogFooter>
-        <DialogClose class="font-medium text-sm p-2">Cancel</DialogClose>
-        <Button @click="deleteTrickIfPossible" variant="destructive" size="sm"
-          >Delete permanently</Button
-        >
+        <DialogClose class="font-medium text-sm p-2">{{ t('dialogue.cancelButton') }}</DialogClose>
+        <Button @click="deleteTrickIfPossible" variant="destructive" size="sm">
+          {{ t('dialogue.deleteButton') }}
+        </Button>
       </DialogFooter>
     </DialogContent>
   </Dialog>
