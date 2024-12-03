@@ -1,0 +1,21 @@
+{
+  "toasts": {
+    "success": {
+      "title": "Deleted {trickName}."
+    },
+    "failedNotInDB": {
+      "title": "Failed to delete {trickName}!",
+      "description": "Couldn't locate the trick in the database."
+    },
+    "failedWithError": {
+      "title": "Failed to delete {trickName}!"
+    }
+  },
+  "triggerButton": "Delete",
+  "dialogue": {
+    "title": "Delete {trickName} permanently?",
+    "description": "You cannot undo this action!",
+    "deleteButton": "Delete permanently",
+    "cancelButton": "Cancel"
+  }
+}

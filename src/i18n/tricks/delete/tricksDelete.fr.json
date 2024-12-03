@@ -1,0 +1,21 @@
+{
+  "toasts": {
+    "success": {
+      "title": "Supprimer {trickName}."
+    },
+    "failedNotInDB": {
+      "title": "Échec de la suppression du {trickName}!",
+      "description": "Impossible de localiser l'astuce dans la base de données"
+    },
+    "failedWithError": {
+      "title": "Échec de la suppression du {trickName}!"
+    }
+  },
+  "triggerButton": "Supprimer",
+  "dialogue": {
+    "title": "Supprimer {trickName} définitivement ?",
+    "description": "Vous ne pouvez pas annuler cette action !",
+    "deleteButton": "Supprimer définitivement",
+    "cancelButton": "Annuler"
+  }
+}

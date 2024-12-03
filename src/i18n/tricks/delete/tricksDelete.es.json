@@ -1,0 +1,21 @@
+{
+  "toasts": {
+    "success": {
+      "title": "Borrar {trickName}."
+    },
+    "failedNotInDB": {
+      "title": "Error al borrar el {trickName}!",
+      "description": "No se pudo localizar el truco en la base de datos."
+    },
+    "failedWithError": {
+      "title": "Error al borrar el {trickName}!"
+    }
+  },
+  "triggerButton": "Borrar",
+  "dialogue": {
+    "title": "¿Borrar el {trickName} permanentemente?",
+    "description": "No puedes deshacer esta acción.",
+    "deleteButton": "Borrar permanentemente",
+    "cancelButton": "Cancelar"
+  }
+}
