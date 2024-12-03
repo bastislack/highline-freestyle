@@ -25,6 +25,12 @@ export type DbObject = {
   refetch(): Promise<true | string>;
 
   /**
+   * Update the status of the Object, resulting in the update of its primary key and all references.
+   * Needed primarily for converting archived tricks to userDefined tricks.
+   */
+  updateStatusPersistent(status: 'official' | 'archived' | 'userDefined'): Promise<void>;
+
+  /**
    * Returns if the Object has been modified "locally"
    */
   get changed(): boolean;
