@@ -477,10 +477,10 @@ export class Trick implements DbObject {
       // Update recommended prerequisites
       const allTricks = await this.db.tricks.toArray();
       allTricks.forEach((trick) => {
-        if (!trick.recommendedPrerequisites) {
-          return;
-        }
-        if (!trick.recommendedPrerequisites.some((e) => primaryKeysMatch(e, originalPrimaryKey))) {
+        if (
+          !trick.recommendedPrerequisites ||
+          !trick.recommendedPrerequisites.some((e) => primaryKeysMatch(e, originalPrimaryKey))
+        ) {
           return;
         }
 
@@ -496,10 +496,10 @@ export class Trick implements DbObject {
 
       // Update other tricks variationOf
       allTricks.forEach((trick) => {
-        if (!trick.variationOf) {
-          return;
-        }
-        if (!trick.variationOf.some((e) => primaryKeysMatch(e, originalPrimaryKey))) {
+        if (
+          !trick.variationOf ||
+          !trick.variationOf.some((e) => primaryKeysMatch(e, originalPrimaryKey))
+        ) {
           return;
         }
 

@@ -31,7 +31,7 @@ let props = defineProps<{
 
 const { toast } = useToast();
 
-async function deleteTrickIfPossible() {
+async function deleteTrick() {
   const trick = await tricksDao.getById(props.trickId, props.trickStatus);
 
   if (!trick) {
@@ -72,7 +72,7 @@ async function deleteTrickIfPossible() {
       </DialogHeader>
       <DialogFooter>
         <DialogClose class="font-medium text-sm p-2">{{ t('dialogue.cancelButton') }}</DialogClose>
-        <Button @click="deleteTrickIfPossible" variant="destructive" size="sm">
+        <Button @click="deleteTrick" variant="destructive" size="sm">
           {{ t('dialogue.deleteButton') }}
         </Button>
       </DialogFooter>
