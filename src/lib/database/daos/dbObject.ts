@@ -27,8 +27,11 @@ export type DbObject = {
   /**
    * Update the status of the Object, resulting in the update of its primary key and all references.
    * Needed primarily for converting archived tricks to userDefined tricks.
+   * Returns the new id and status of the object.
    */
-  updateStatusPersistent(status: 'official' | 'archived' | 'userDefined'): Promise<void>;
+  updateStatusPersistent(
+    status: 'official' | 'archived' | 'userDefined'
+  ): Promise<[number, 'official' | 'archived' | 'userDefined']>;
 
   /**
    * Returns if the Object has been modified "locally"

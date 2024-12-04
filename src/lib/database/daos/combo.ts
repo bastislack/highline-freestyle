@@ -332,9 +332,9 @@ export class Combo implements DbObject {
     }
   }
 
-  public async updateStatusPersistent(_: 'official' | 'archived' | 'userDefined'): Promise<void> {
-    throw new Error(
-      "Not implemented! Function updateStatusPersistent(status: 'official' | 'archived' | 'userDefined'): Promise<void>"
-    );
+  public async updateStatusPersistent(
+    _: 'official' | 'archived' | 'userDefined'
+  ): Promise<[number, 'official' | 'archived' | 'userDefined']> {
+    throw new Error("Not implemented! Function 'updateStatusPersistent'.");
   }
 }

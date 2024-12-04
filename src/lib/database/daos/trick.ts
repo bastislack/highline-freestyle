@@ -447,12 +447,19 @@ export class Trick implements DbObject {
 
   public async updateStatusPersistent(
     status: 'official' | 'archived' | 'userDefined'
-  ): Promise<void> {
+  ): Promise<[number, 'official' | 'archived' | 'userDefined']> {
     if (this.#modified.deleted) {
-      return;
+      throw new Error('Cannot update status! Trick has been deleted.');
     }
 
-    return this.db.transaction('rw', this.db.tricks, this.db.metadata, this.db.combos, async () => {
+    // Gets updated in transaction. If the transaction fails an error is thrown by the transaction
+    // and the value of the variable becomes irrelevant. Otherwise it is returned after the transaction.
+    let newPrimaryKey: [number, 'official' | 'archived' | 'userDefined'] = [
+      this.primaryKey[0],
+      this.primaryKey[1],
+    ];
+
+    await this.db.transaction('rw', this.db.tricks, this.db.metadata, this.db.combos, async () => {
       const originalPrimaryKey = this.primaryKey;
 
       // Check for id collision and generate new id if necessary
@@ -463,7 +470,7 @@ export class Trick implements DbObject {
       if (allIdsOfTargetStatus.includes(originalPrimaryKey[0])) {
         newId = Math.max(...allIdsOfTargetStatus) + 1;
       }
-      const newPrimaryKey = [newId, status];
+      newPrimaryKey = [newId, status];
 
       // Update trick itself
       this.db.tricks.update(originalPrimaryKey, { id: newId, trickStatus: status });
@@ -533,5 +540,6 @@ export class Trick implements DbObject {
         });
       });
     });
+    return newPrimaryKey;
   }
 }

@@ -42,11 +42,11 @@ async function updateOfficialToUserDefined() {
   }
 
   try {
-    trick.updateStatusPersistent('userDefined');
+    const [newId, newStatus] = await trick.updateStatusPersistent('userDefined');
     toast({
       title: t('toasts.success.title', { trickName: props.trickName }),
     });
-    router.push({ path: `/tricks/userDefined/${trick.primaryKey[0]}` });
+    router.push({ path: `/tricks/${newStatus}/${newId}` });
   } catch (err) {
     toast({
       title: t('toasts.failedWithError.title', { trickName: props.trickName }),
