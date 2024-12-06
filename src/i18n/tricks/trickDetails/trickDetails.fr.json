@@ -44,5 +44,10 @@
     "prerequisites": {
       "title": "Prérequis"
     }
+  },
+  "metadata": {
+    "stick-frequency": {
+      "title": "Fréquence du stick"
+    }
   }
 }

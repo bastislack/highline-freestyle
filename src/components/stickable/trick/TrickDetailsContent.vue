@@ -294,7 +294,7 @@ watchEffect(async () => {
 
       <Section class="w-full h-fit bg-secondary">
         <InfoElement
-          title="Stick Frequency"
+          :title="t('metadata.stick-frequency.title')"
           icon="ic:sharp-stacked-bar-chart"
           class="w-full flex flex-col items-center"
           noLeftPad
