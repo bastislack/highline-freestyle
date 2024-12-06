@@ -81,9 +81,11 @@ const options = ref<[number, string, string][]>([
           class="w-[25%] h-fit text-center overflow-visible flex flex-col gap-1 items-center"
         >
           <div class="h-1 w-1 rounded-full" :class="dotClasses(option[0])" />
-          <span class="w-fit px-1 inline" :class="highlightSelectionClasses(option[0])">
-            {{ option[1] }}
-          </span>
+          <div>
+            <span class="w-fit px-1" :class="highlightSelectionClasses(option[0])">
+              {{ option[1] }}
+            </span>
+          </div>
         </div>
       </div>
     </div>

@@ -15,6 +15,7 @@ import ErrorInfo from '@/components/ErrorInfo.vue';
 import Separator from '@/components/ui/separator/Separator.vue';
 import Button from '@/components/ui/button/Button.vue';
 import ArchivedDecisionDialog from '@/components/stickable/ArchivedDecisionDialog.vue';
+import TrickStickFrequencySelector from '../stickFrequencySelector/TrickStickFrequencySelector.vue';
 
 const props = defineProps<{
   status: 'official' | 'userDefined' | 'archived';
@@ -289,6 +290,17 @@ watchEffect(async () => {
             </ul>
           </InfoElement>
         </div>
+      </Section>
+
+      <Section class="w-full h-fit bg-secondary">
+        <InfoElement
+          title="Stick Frequency"
+          icon="ic:sharp-stacked-bar-chart"
+          class="w-full flex flex-col items-center"
+          noLeftPad
+        >
+          <TrickStickFrequencySelector class="text-base" :trickId="id" :trickStatus="status" />
+        </InfoElement>
       </Section>
     </div>
   </div>

@@ -2,39 +2,50 @@
 import { ref, watchEffect } from 'vue';
 import { tricksDao } from '@/lib/database';
 import StickFrequencySelector from './StickFrequencySelector.vue';
-import { Trick } from '@/lib/database/daos/trick';
+import { useToast } from '@/components/ui/toast';
 
 const props = defineProps<{
   trickId: number;
   trickStatus: 'official' | 'archived' | 'userDefined';
 }>();
 
-const trick = ref<Trick>();
+const { toast } = useToast();
+
 const frequencyModel = ref<[number]>([0]);
 
 watchEffect(async () => {
-  trick.value = await tricksDao.getById(props.trickId, props.trickStatus);
-  if (trick.value === undefined) {
+  const trick = await tricksDao.getById(props.trickId, props.trickStatus);
+  if (trick === undefined) {
     throw new Error(`Unknown trick with key [${props.trickId}, ${props.trickStatus}]`);
   }
-  frequencyModel.value = [trick.value.stickFrequency ?? 0];
+  frequencyModel.value = [trick.stickFrequency ?? 0];
 });
 
 async function updateStickFrequency(frequencyArr: [number]) {
-  if (trick.value === undefined) {
-    throw new Error('Trick is undefined!');
-  }
   const frequency = Math.max(0, Math.min(frequencyArr[0], 7));
+
+  const trick = await tricksDao.getById(props.trickId, props.trickStatus);
+  if (trick === undefined) {
+    throw new Error(`Unknown trick with key [${props.trickId}, ${props.trickStatus}]`);
+  }
+
+  try {
+    trick.stickFrequency = frequency;
+    await trick.persist();
+  } catch (err) {
+    toast({
+      title: 'Failed to update Stick Frequency!',
+      description:
+        'This error is probably on us. Please report it at https://github.com/bastislack/highline-freestyle/issues. Check the console for more details.',
+    });
+    console.error(err);
+    throw err;
+  }
+
   frequencyModel.value = [frequency];
-  trick.value.stickFrequency = frequency;
-  await trick.value.persist();
 }
 </script>
 
 <template>
-  <StickFrequencySelector
-    :frequency="frequencyModel"
-    @update:frequency="updateStickFrequency"
-    class="w-full"
-  />
+  <StickFrequencySelector :frequency="frequencyModel" @update:frequency="updateStickFrequency" />
 </template>
