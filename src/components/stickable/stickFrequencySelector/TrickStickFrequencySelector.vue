@@ -3,6 +3,15 @@ import { ref, watchEffect } from 'vue';
 import { tricksDao } from '@/lib/database';
 import StickFrequencySelector from './StickFrequencySelector.vue';
 import { useToast } from '@/components/ui/toast';
+import { useI18n } from 'vue-i18n';
+import messages from '@/i18n/metadata/stickFrequency';
+
+const i18n = useI18n({
+  messages,
+  useScope: 'local',
+});
+
+const { t } = i18n;
 
 const props = defineProps<{
   trickId: number;
@@ -34,9 +43,9 @@ async function updateStickFrequency(frequencyArr: [number]) {
     await trick.persist();
   } catch (err) {
     toast({
-      title: 'Failed to update Stick Frequency!',
-      description:
-        'This error is probably on us. Please report it at https://github.com/bastislack/highline-freestyle/issues. Check the console for more details.',
+      title: t('trick.errorCannotUpdate.title'),
+      description: t('trick.errorCannotUpdate.description'),
+      variant: 'destructive',
     });
     console.error(err);
     throw err;
