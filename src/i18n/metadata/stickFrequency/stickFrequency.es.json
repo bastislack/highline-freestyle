@@ -1,0 +1,12 @@
+{
+  "levels": {
+    "neverTried": "Nunca probado",
+    "practicing": "Practicar",
+    "once": "Una vez",
+    "rarely": "Raramentey",
+    "sometimes": "En ocasiones",
+    "often": "A menudo",
+    "generally": "En general",
+    "always": "Siempre"
+  }
+}

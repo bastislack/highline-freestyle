@@ -1,6 +1,15 @@
 <script setup lang="ts">
 import { computed, ref, defineModel } from 'vue';
 import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from 'radix-vue';
+import { useI18n } from 'vue-i18n';
+import messages from '@/i18n/metadata/stickFrequency';
+
+const i18n = useI18n({
+  messages,
+  useScope: 'local',
+});
+
+const { t } = i18n;
 
 const sliderValue = defineModel<[number]>('frequency');
 
@@ -26,14 +35,14 @@ function dotClasses(level: number): string {
 }
 
 const options = ref<[number, string, string][]>([
-  [0, 'Never tried', 'bg-white'],
-  [1, 'Practicing', 'bg-skill1'],
-  [2, 'Once', 'bg-skill2'],
-  [3, 'Rarely', 'bg-skill3'],
-  [4, 'Sometimes', 'bg-skill4'],
-  [5, 'Often', 'bg-skill5'],
-  [6, 'Generally', 'bg-skill6'],
-  [7, 'Always', 'bg-skill7'],
+  [0, 'levels.neverTried', 'bg-white'],
+  [1, 'levels.practicing', 'bg-skill1'],
+  [2, 'levels.once', 'bg-skill2'],
+  [3, 'levels.rarely', 'bg-skill3'],
+  [4, 'levels.sometimes', 'bg-skill4'],
+  [5, 'levels.often', 'bg-skill5'],
+  [6, 'levels.generally', 'bg-skill6'],
+  [7, 'levels.always', 'bg-skill7'],
 ]);
 </script>
 
@@ -46,9 +55,9 @@ const options = ref<[number, string, string][]>([
           :key="'' + option"
           class="w-[25%] h-fit text-center overflow-visible flex flex-col gap-1 items-center"
         >
-          <span class="w-fit px-1 inline-block" :class="highlightSelectionClasses(option[0])">{{
-            option[1]
-          }}</span>
+          <span class="w-fit px-1 inline-block" :class="highlightSelectionClasses(option[0])">
+            {{ t(option[1]) }}
+          </span>
           <div class="h-1 w-1 rounded-full" :class="dotClasses(option[0])" />
         </div>
       </div>
@@ -83,7 +92,7 @@ const options = ref<[number, string, string][]>([
           <div class="h-1 w-1 rounded-full" :class="dotClasses(option[0])" />
           <div>
             <span class="w-fit px-1" :class="highlightSelectionClasses(option[0])">
-              {{ option[1] }}
+              {{ t(option[1]) }}
             </span>
           </div>
         </div>
