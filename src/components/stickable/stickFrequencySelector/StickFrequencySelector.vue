@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, defineModel } from 'vue';
+import { computed, ref } from 'vue';
 import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from 'radix-vue';
 import { useI18n } from 'vue-i18n';
 import messages from '@/i18n/metadata/stickFrequency';
@@ -11,6 +11,7 @@ const i18n = useI18n({
 
 const { t } = i18n;
 
+// eslint-disable-next-line no-undef
 const sliderValue = defineModel<[number]>('frequency');
 
 const sliderColor = computed<string>(() => {
