@@ -37,8 +37,16 @@ module.exports = {
           950: "#09235d",
         },
         secondary: {
+          // Color values are derived from the tailwindcss "gray" class
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
+          50: "#f9fafb",
+          100: "#f3f4f6",
+          300: "#d1d5db",
+          500: "#6b7280",
+          700: "#374151",
+          900: "#111827",
+          950: "#030712",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
