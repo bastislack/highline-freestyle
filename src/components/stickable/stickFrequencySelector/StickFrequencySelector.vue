@@ -32,7 +32,7 @@ function dotClasses(level: number): string {
   if (sliderValue.value === undefined) {
     throw new Error('frequency model not set!');
   }
-  return level === sliderValue.value[0] ? 'bg-gray-950 ' : 'bg-gray-400';
+  return level === sliderValue.value[0] ? 'bg-secondary-950 ' : 'bg-secondary-400';
 }
 
 const options = ref<[number, string, string][]>([
