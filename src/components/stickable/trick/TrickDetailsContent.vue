@@ -15,9 +15,10 @@ import ErrorInfo from '@/components/ErrorInfo.vue';
 import Separator from '@/components/ui/separator/Separator.vue';
 import Button from '@/components/ui/button/Button.vue';
 import ArchivedDecisionDialog from '@/components/stickable/ArchivedDecisionDialog.vue';
+import { StickableStatus } from '@/lib/utils';
 
 const props = defineProps<{
-  status: 'official' | 'userDefined' | 'archived';
+  status: StickableStatus;
   id: number;
 }>();
 

@@ -14,6 +14,7 @@ import { useToast } from '../ui/toast';
 import router from '@/routes/router';
 import { useI18n } from 'vue-i18n';
 import messages from '@/i18n/tricks/archivedDialogue';
+import { StickableStatus } from '@/lib/utils';
 
 const i18n = useI18n({
   messages,
@@ -24,7 +25,7 @@ const { t } = i18n;
 
 const props = defineProps<{
   trickName: string;
-  trickStatus: 'archived' | 'official' | 'userDefined';
+  trickStatus: StickableStatus;
   trickId: number;
 }>();
 

@@ -15,6 +15,7 @@ import { tricksDao } from '@/lib/database';
 import router from '@/routes/router';
 import { useI18n } from 'vue-i18n';
 import messages from '@/i18n/tricks/delete';
+import { StickableStatus } from '@/lib/utils';
 
 const i18n = useI18n({
   messages,
@@ -25,7 +26,7 @@ const { t } = i18n;
 
 let props = defineProps<{
   trickName: string;
-  trickStatus: 'archived' | 'official' | 'userDefined';
+  trickStatus: StickableStatus;
   trickId: number;
 }>();
 
