@@ -16,6 +16,7 @@ import Separator from '@/components/ui/separator/Separator.vue';
 import Button from '@/components/ui/button/Button.vue';
 import ArchivedDecisionDialog from '@/components/stickable/ArchivedDecisionDialog.vue';
 import { StickableStatus } from '@/lib/utils';
+import IsFavoriteToggle from '../IsFavoriteToggle.vue';
 
 const props = defineProps<{
   status: StickableStatus;
@@ -119,10 +120,11 @@ watchEffect(async () => {
       <Header>
         {{ trick.alias ?? trick.technicalName }}
 
-        <template #buttonRight>
+        <template #buttonsRight>
           <Button size="icon" variant="ghost" disabled>
             <Icon icon="ic:round-edit" class="h-6 w-6 text-primary" />
           </Button>
+          <IsFavoriteToggle stickable-type="Trick" :id="id" :status="status" />
         </template>
       </Header>
       <Section class="mt-1 lg:mt-0">
