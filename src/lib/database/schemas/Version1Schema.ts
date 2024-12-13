@@ -28,7 +28,7 @@ export const DbPositionZod = z.enum([
 export const DbStickableStatusZod = z.enum(['official', 'userDefined', 'archived']);
 
 // [id, trickStatus] OR [id, comboStatus]
-const DbReferenceZod = z.tuple([z.number().int(), DbStickableStatusZod]);
+export const DbReferenceZod = z.tuple([z.number().int(), DbStickableStatusZod]);
 
 export const DbVideoZod = z.object({
   link: z.string().nonempty().url(),
