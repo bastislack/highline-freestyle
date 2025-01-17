@@ -22,7 +22,7 @@ export default createRouter({
       children: [
         {
           path: '',
-          component: () => import('./IndexRoute.vue'),
+          component: () => import('./tricks/TrickList.vue'),
         },
         {
           path: ':status/:id',
