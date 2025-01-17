@@ -1,0 +1,18 @@
+{
+  "levels": {
+    "neverTried": "Never tried",
+    "practicing": "Practicing",
+    "once": "Once",
+    "rarely": "Rarely",
+    "sometimes": "Sometimes",
+    "often": "Often",
+    "generally": "Generally",
+    "always": "Always"
+  },
+  "trick": {
+    "errorCannotUpdate": {
+      "title": "Failed to update Stick Frequency!",
+      "description": "This error is probably on us. Please report it at https://github.com/bastislack/highline-freestyle/issues. Check the console for more details."
+    }
+  }
+}

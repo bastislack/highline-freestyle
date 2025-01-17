@@ -23,7 +23,9 @@ function hasHistory(): boolean {
         <slot></slot>
       </div>
 
-      <slot name="buttonRight" class="h-6 w-6"></slot>
+      <div class="h-fit w-fit flex flex-row justify-end gap-0">
+        <slot name="buttonsRight"></slot>
+      </div>
     </div>
   </section>
 </template>

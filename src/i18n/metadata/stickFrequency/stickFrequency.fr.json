@@ -1,0 +1,18 @@
+{
+  "levels": {
+    "neverTried": "Jamais essayé",
+    "practicing": "Pratiquer",
+    "once": "Une fois",
+    "rarely": "Rarement",
+    "sometimes": "Parfois",
+    "often": "Souvent",
+    "generally": "En général",
+    "always": "Toujours"
+  },
+  "trick": {
+    "errorCannotUpdate": {
+      "title": "Échec de la mise à jour de la fréquence du stick !",
+      "description": "Cette erreur est probablement de notre fait. Veuillez la signaler à https://github.com/bastislack/highline-freestyle/issues. Vérifiez la console pour plus de détails."
+    }
+  }
+}

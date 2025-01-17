@@ -1,0 +1,18 @@
+{
+  "levels": {
+    "neverTried": "Nunca probado",
+    "practicing": "Practicar",
+    "once": "Una vez",
+    "rarely": "Raramentey",
+    "sometimes": "En ocasiones",
+    "often": "A menudo",
+    "generally": "En general",
+    "always": "Siempre"
+  },
+  "trick": {
+    "errorCannotUpdate": {
+      "title": "¡Error al actualizar Stick Frecuencia!",
+      "description": "Este error es probablemente nuestro. Por favor, infórmenos en https://github.com/bastislack/highline-freestyle/issues. Compruebe la consola para más detalles."
+    }
+  }
+}

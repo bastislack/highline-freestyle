@@ -70,7 +70,7 @@ export const DbMetadataZod = z.object({
   id: z.number().int(),
   entityStatus: DbStickableStatusZod,
   entityCategory: z.enum(['Combo', 'Trick']),
-  stickFrequency: z.enum(['']).optional(),
+  stickFrequency: z.number().int().min(0).max(7).optional(),
   isFavourite: z.boolean().default(false),
   notes: z.string().optional(),
 });

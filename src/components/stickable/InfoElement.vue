@@ -9,6 +9,7 @@ defineProps<{
   isInfoMissing?: boolean;
   missingMessage?: string;
   hasSeparatorOnBottom?: boolean;
+  noLeftPad?: boolean;
 }>();
 </script>
 
@@ -18,7 +19,7 @@ defineProps<{
       <Icon :icon="icon" class="w-6 h-6 align-baseline" />
       <div class="text-lg font-medium">{{ title }}</div>
     </div>
-    <div :class="{ 'text-muted-foreground': isInfoMissing }" class="pl-8 text-sm">
+    <div :class="{ 'text-muted-foreground': isInfoMissing, 'pl-8': !noLeftPad }" class="text-sm">
       <div v-if="isInfoMissing">
         {{ missingMessage }}
       </div>
