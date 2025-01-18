@@ -1,4 +1,5 @@
 const animate = require("tailwindcss-animate")
+const colors = require("tailwindcss/colors")
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -78,27 +79,13 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        skill1: {
-          DEFAULT: "#ff5544",
-        },
-        skill2: {
-          DEFAULT: "#ff8b43",
-        },
-        skill3: {
-          DEFAULT: "#ffbf43",
-        },
-        skill4: {
-          DEFAULT: "#fff265",
-        },
-        skill5: {
-          DEFAULT: "#c8f17c",
-        },
-        skill6: {
-          DEFAULT: "#8be9b8",
-        },
-        skill7: {
-          DEFAULT: "#59deff",
-        },
+        skill1: {DEFAULT: colors.red[500], ...colors.red},
+        skill2: {DEFAULT: colors.orange[500], ...colors.orange},
+        skill3: {DEFAULT: colors.yellow[400], ...colors.yellow},
+        skill4: {DEFAULT: colors.lime[300], ...colors.lime},
+        skill5: {DEFAULT: colors.green[300], ...colors.green},
+        skill6: {DEFAULT: colors.teal[300], ...colors.teal},
+        skill7: {DEFAULT: colors.sky[300], ...colors.sky},
       },
       borderRadius: {
         lg: "var(--radius)",
