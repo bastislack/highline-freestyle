@@ -22,32 +22,16 @@ type SearchItem = {
   isFavorite: boolean;
 };
 
-function sortByPrimaryKeyCondition(a: Trick, b: Trick): number {
+function comparePrimaryKey(a: Trick, b: Trick): number {
   const statusOrder = ['official', 'userDefined', 'archived'];
   const statusDiff = statusOrder.indexOf(a.primaryKey[1]) - statusOrder.indexOf(b.primaryKey[1]);
-
-  if (statusDiff !== 0) {
-    return statusDiff;
-  }
-
-  return a.primaryKey[0] - b.primaryKey[0];
+  return statusDiff || a.primaryKey[0] - b.primaryKey[0];
 }
 
-function sortByDifficultyAscendingCondition(a: Trick, b: Trick): number {
-  let comp = 0;
-  if (a.difficultyLevel !== undefined && b.difficultyLevel !== undefined) {
-    comp = a.difficultyLevel - b.difficultyLevel;
-  } else if (a.difficultyLevel === undefined) {
-    comp = b.difficultyLevel === undefined ? 0 : 1;
-  } else {
-    comp = -1;
-  }
-
-  if (comp == 0) {
-    return sortByPrimaryKeyCondition(a, b);
-  }
-
-  return comp;
+function compareDifficulty(a: Trick, b: Trick): number {
+  const difficultyA = a.difficultyLevel || Number.MAX_VALUE;
+  const difficultyB = b.difficultyLevel || Number.MAX_VALUE;
+  return difficultyA - difficultyB || comparePrimaryKey(a, b);
 }
 
 function getParameter(trick: Trick, parameter: 'difficulty'): string {
@@ -57,26 +41,31 @@ function getParameter(trick: Trick, parameter: 'difficulty'): string {
   return '';
 }
 
+function searchItemFromTrick(trick: Trick): SearchItem {
+  return {
+    name: trick.alias ?? trick.technicalName,
+    primaryKey: [trick.primaryKey[0], trick.primaryKey[1]],
+    stickFrequency: trick.stickFrequency,
+    isFavorite: trick.isFavourite,
+    isNew: isStickableNew(trick.dateAddedEpoch),
+  };
+}
+
 async function search(): Promise<SearchResult> {
-  const allTricks = (await tricksDao.getAll()).sort((a, b) =>
-    sortByDifficultyAscendingCondition(a, b)
-  );
+  const allTricks = (await tricksDao.getAll()).sort((a, b) => compareDifficulty(a, b));
+
   let currentGroup = getParameter(allTricks[0], 'difficulty');
   let result: SearchResult = [{ title: currentGroup, items: [] }];
+
   for (let trick of allTricks) {
-    let searchItem: SearchItem = {
-      name: trick.alias ?? trick.technicalName,
-      primaryKey: [trick.primaryKey[0], trick.primaryKey[1]],
-      stickFrequency: trick.stickFrequency,
-      isFavorite: trick.isFavourite,
-      isNew: isStickableNew(trick.dateAddedEpoch),
-    };
     if (getParameter(trick, 'difficulty') !== currentGroup) {
       currentGroup = getParameter(trick, 'difficulty');
       result.push({ title: currentGroup, items: [] });
     }
+    const searchItem = searchItemFromTrick(trick);
     result[result.length - 1].items.push(searchItem);
   }
+
   return result;
 }
 
@@ -89,49 +78,6 @@ watchEffect(async () => {
 function linkToDetails(primaryKey: PrimaryKey): string {
   return `/tricks/${primaryKey[1]}/${primaryKey[0]}`;
 }
-
-/*
-const searchResult = ref<SearchResult>([
-  {
-    title: 'Level 1',
-    items: [
-      {
-        name: 'Sofa Roll',
-        primaryKey: [0, 'official'],
-        stickFrequency: 2,
-        isNew: false,
-        isFavorite: false,
-      },
-      {
-        name: 'Korean Roll',
-        primaryKey: [1, 'official'],
-        stickFrequency: 2,
-        isNew: false,
-        isFavorite: false,
-      },
-      {
-        name: 'Chest Roll',
-        primaryKey: [2, 'official'],
-        stickFrequency: 6,
-        isNew: false,
-        isFavorite: true,
-      },
-    ],
-  },
-  {
-    title: 'Level 2',
-    items: [
-      {
-        name: 'Sofa Roll',
-        primaryKey: [0, 'official'],
-        stickFrequency: 2,
-        isNew: false,
-        isFavorite: false,
-      },
-    ],
-  },
-]);
-*/
 </script>
 
 <template>
