@@ -53,7 +53,7 @@ const computedClass = computed<string>(() => {
     class="p-1 rounded-sm border flex flex-col items-center justify-center text-center"
     :class="computedClass"
   >
-    <div>{{ title }}</div>
+    <div class="flex-grow flex items-center">{{ title }}</div>
     <div
       v-if="isNew || status === 'userDefined'"
       class="my-1 flex flex-row justify-center gap-1 flex-wrap"
