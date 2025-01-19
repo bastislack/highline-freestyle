@@ -50,10 +50,19 @@ const computedClass = computed<string>(() => {
 <template>
   <RouterLink
     :to="linkToDetails"
-    class="p-1 rounded-sm border flex flex-col items-center justify-center text-center"
+    class="p-1 rounded-sm border flex flex-col items-center justify-center text-center relative overflow-clip"
     :class="computedClass"
   >
-    <div class="flex-grow flex items-center">{{ title }}</div>
+    <div v-if="isFavorite">
+      <Icon icon="ic:round-star" class="absolute top-1 right-1 h-5 w-5 z-10" />
+      <div class="absolute top-0 right-0 w-7 h-7 z-0 blur-md rounded-full" :class="fillClass"></div>
+      <div class="absolute top-0 right-0 w-7 h-7 z-0 blur-md rounded-full" :class="fillClass"></div>
+      <div class="absolute top-0 right-0 w-6 h-6 z-0 blur-sm rounded-full" :class="fillClass"></div>
+      <div class="absolute top-0 right-0 w-6 h-6 z-0 blur-sm rounded-full" :class="fillClass"></div>
+    </div>
+
+    <div class="flex-grow flex flex-col justify-around w-full">{{ title }}</div>
+
     <div
       v-if="isNew || status === 'userDefined'"
       class="my-1 flex flex-row justify-center gap-1 flex-wrap"
