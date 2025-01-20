@@ -6,6 +6,17 @@ import { PrimaryKey } from '@/lib/utils';
 import { ref, watchEffect } from 'vue';
 import { isStickableNew } from '@/util/misc';
 import OverviewCard from '@/components/stickable/OverviewCard.vue';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Input } from '@/components/ui/input';
+import Separator from '@/components/ui/separator/Separator.vue';
 
 type SearchResult = SearchSection[];
 
@@ -78,11 +89,52 @@ watchEffect(async () => {
 function linkToDetails(primaryKey: PrimaryKey): string {
   return `/tricks/${primaryKey[1]}/${primaryKey[0]}`;
 }
+
+const selectValue = ref('difficulty-asc');
+
+const sortingOptions = [
+  { title: 'Difficulty', directionTitle: 'Up', value: 'difficulty-asc' },
+  { title: 'Difficulty', directionTitle: 'Down', value: 'difficulty-desc' },
+  { title: 'Start Position', value: 'startPos' },
+  { title: 'End Position', value: 'endPos' },
+  { title: 'Invention year', directionTitle: 'Up', value: 'yearEstablished-asc' },
+  { title: 'Invention year', directionTitle: 'Down', value: 'yearEstablished-desc' },
+];
 </script>
 
 <template>
   <DefaultLayout>
-    <div class="w-full h-24 border border-red-500 text-center text-red-500">Search Parameters</div>
+    <div class="flex flex-row gap-1 w-full h-fit p-2 my-2">
+      <div class="grow">
+        <Input placeholder="Search" />
+      </div>
+
+      <div class="w-[170px] flex-initial">
+        <Select v-model="selectValue">
+          <SelectTrigger class="w-[170px] grow-0 shrink-0">
+            <SelectValue placeholder="Select a fruit" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>Sorting</SelectLabel>
+              <SelectItem
+                v-for="option in sortingOptions"
+                :value="option.value"
+                :key="option.value"
+              >
+                {{ option.title }}
+                <span v-if="option.directionTitle" class="text-muted-foreground">{{
+                  option.directionTitle
+                }}</span>
+              </SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </div>
+    </div>
+
+    <Separator class="mb-2" />
+
     <div class="w-full flex flex-col gap-5">
       <div v-for="section in searchResult" class="w-full flex flex-col gap-1" :key="section.title">
         <div class="text-lg font-medium px-3 w-full text-center">{{ section.title }}</div>
