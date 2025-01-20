@@ -5,7 +5,7 @@ import { Trick } from '@/lib/database/daos/trick';
 import { PrimaryKey } from '@/lib/utils';
 import { ref, watchEffect } from 'vue';
 import { isStickableNew } from '@/util/misc';
-import OverviewCard from '@/components/stickable/OverviewCard.vue';
+import StickableOverviewCard from '@/components/stickable/StickableOverviewCard.vue';
 import {
   Select,
   SelectContent,
@@ -33,7 +33,7 @@ type SearchItem = {
   isFavorite: boolean;
 };
 
-type SortOptions =
+type SortOrder =
   | 'difficulty-asc'
   | 'difficulty-desc'
   | 'startPos'
@@ -81,7 +81,7 @@ function capitalizeAllWords(s: string) {
     .join(' ');
 }
 
-function getParameterForSortOption(trick: Trick, sortOption: SortOptions): string {
+function getParameterForSortOption(trick: Trick, sortOption: SortOrder): string {
   switch (sortOption) {
     case 'difficulty-asc':
     case 'difficulty-desc':
@@ -96,8 +96,8 @@ function getParameterForSortOption(trick: Trick, sortOption: SortOptions): strin
   }
 }
 
-function sortTricks(tricks: Trick[], sortingOption: SortOptions): Trick[] {
-  switch (sortingOption) {
+function sortTricks(tricks: Trick[], sorting: SortOrder): Trick[] {
+  switch (sorting) {
     case 'difficulty-asc':
       return tricks.sort((a, b) => compareDifficulty(a, b) || comparePrimaryKey(a, b));
     case 'difficulty-desc':
@@ -123,11 +123,8 @@ function searchItemFromTrick(trick: Trick): SearchItem {
   };
 }
 
-async function search(sorting: SortOptions): Promise<SearchResult> {
-  const allTricks = await tricksDao.getAll();
-  const sortedTricks = sortTricks(allTricks, sorting);
-
-  let currentGroup = getParameterForSortOption(allTricks[0], sorting);
+function groupTricksToSearchResult(sortedTricks: Trick[], sorting: SortOrder): SearchResult {
+  let currentGroup = getParameterForSortOption(sortedTricks[0], sorting);
   let result: SearchResult = [{ title: currentGroup, items: [] }];
 
   for (let trick of sortedTricks) {
@@ -138,17 +135,18 @@ async function search(sorting: SortOptions): Promise<SearchResult> {
     const searchItem = searchItemFromTrick(trick);
     result[result.length - 1].items.push(searchItem);
   }
-
   return result;
+}
+
+async function search(sorting: SortOrder): Promise<SearchResult> {
+  const allTricks = await tricksDao.getAll();
+  const sortedTricks = sortTricks(allTricks, sorting);
+  return groupTricksToSearchResult(sortedTricks, sorting);
 }
 
 const searchResult = ref<SearchResult>();
 
-function linkToDetails(primaryKey: PrimaryKey): string {
-  return `/tricks/${primaryKey[1]}/${primaryKey[0]}`;
-}
-
-const activeSortingOption = ref<SortOptions>('difficulty-asc');
+const activeSortingOption = ref<SortOrder>('difficulty-asc');
 
 const sortingOptions = [
   { title: 'Difficulty', directionTitle: 'Up', value: 'difficulty-asc' },
@@ -162,6 +160,10 @@ const sortingOptions = [
 watchEffect(async () => {
   searchResult.value = await search(activeSortingOption.value);
 });
+
+function linkToDetails(primaryKey: PrimaryKey): string {
+  return `/tricks/${primaryKey[1]}/${primaryKey[0]}`;
+}
 </script>
 
 <template>
@@ -201,7 +203,7 @@ watchEffect(async () => {
       <div v-for="section in searchResult" class="w-full flex flex-col gap-1" :key="section.title">
         <div class="text-lg font-medium px-3 w-full text-center">{{ section.title }}</div>
         <div class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 p-2 w-full">
-          <OverviewCard
+          <StickableOverviewCard
             v-for="item in section.items"
             :key="item.primaryKey[1] + ':' + item.primaryKey[0]"
             :title="item.name"
