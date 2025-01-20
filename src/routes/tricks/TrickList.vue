@@ -33,6 +33,14 @@ type SearchItem = {
   isFavorite: boolean;
 };
 
+type SortOptions =
+  | 'difficulty-asc'
+  | 'difficulty-desc'
+  | 'startPos'
+  | 'endPos'
+  | 'yearEstablished-asc'
+  | 'yearEstablished-desc';
+
 function comparePrimaryKey(a: Trick, b: Trick): number {
   const statusOrder = ['official', 'userDefined', 'archived'];
   const statusDiff = statusOrder.indexOf(a.primaryKey[1]) - statusOrder.indexOf(b.primaryKey[1]);
@@ -42,14 +50,67 @@ function comparePrimaryKey(a: Trick, b: Trick): number {
 function compareDifficulty(a: Trick, b: Trick): number {
   const difficultyA = a.difficultyLevel || Number.MAX_VALUE;
   const difficultyB = b.difficultyLevel || Number.MAX_VALUE;
-  return difficultyA - difficultyB || comparePrimaryKey(a, b);
+  return difficultyA - difficultyB;
 }
 
-function getParameter(trick: Trick, parameter: 'difficulty'): string {
-  if (parameter === 'difficulty') {
-    return trick.difficultyLevel ? `Difficulty ${trick.difficultyLevel}` : 'Not determined';
+function compareLowerCaseString(a: string, b: string): number {
+  if (a.toLowerCase() < b.toLowerCase()) return -1;
+  if (a.toLowerCase() > b.toLowerCase()) return 1;
+  return 0;
+}
+
+function compareStartPosition(a: Trick, b: Trick): number {
+  return compareLowerCaseString(a.startPosition, b.startPosition);
+}
+
+function compareEndPosition(a: Trick, b: Trick): number {
+  return compareLowerCaseString(a.endPosition, b.endPosition);
+}
+
+function compareYearEstablished(a: Trick, b: Trick): number {
+  const yearEstablishedA: number = a.yearEstablished ?? Number.MAX_VALUE;
+  const yearEstablishedB: number = b.yearEstablished ?? Number.MAX_VALUE;
+  return yearEstablishedA - yearEstablishedB;
+}
+
+function capitalizeAllWords(s: string) {
+  return s
+    .toLowerCase()
+    .split(' ')
+    .map((word) => word[0].toUpperCase() + word.substring(1))
+    .join(' ');
+}
+
+function getParameterForSortOption(trick: Trick, sortOption: SortOptions): string {
+  switch (sortOption) {
+    case 'difficulty-asc':
+    case 'difficulty-desc':
+      return trick.difficultyLevel ? `Difficulty ${trick.difficultyLevel}` : 'Not determined';
+    case 'startPos':
+      return trick.startPosition ? capitalizeAllWords(trick.startPosition) : 'Unknown';
+    case 'endPos':
+      return trick.endPosition ? capitalizeAllWords(trick.endPosition) : 'Unknown';
+    case 'yearEstablished-asc':
+    case 'yearEstablished-desc':
+      return trick.yearEstablished ? trick.yearEstablished.toString() : 'Unknown';
   }
-  return '';
+}
+
+function sortTricks(tricks: Trick[], sortingOption: SortOptions): Trick[] {
+  switch (sortingOption) {
+    case 'difficulty-asc':
+      return tricks.sort((a, b) => compareDifficulty(a, b) || comparePrimaryKey(a, b));
+    case 'difficulty-desc':
+      return tricks.sort((a, b) => -compareDifficulty(a, b) || comparePrimaryKey(a, b));
+    case 'startPos':
+      return tricks.sort((a, b) => compareStartPosition(a, b) || comparePrimaryKey(a, b));
+    case 'endPos':
+      return tricks.sort((a, b) => compareEndPosition(a, b) || comparePrimaryKey(a, b));
+    case 'yearEstablished-asc':
+      return tricks.sort((a, b) => compareYearEstablished(a, b) || comparePrimaryKey(a, b));
+    case 'yearEstablished-desc':
+      return tricks.sort((a, b) => -compareYearEstablished(a, b) || comparePrimaryKey(a, b));
+  }
 }
 
 function searchItemFromTrick(trick: Trick): SearchItem {
@@ -62,15 +123,16 @@ function searchItemFromTrick(trick: Trick): SearchItem {
   };
 }
 
-async function search(): Promise<SearchResult> {
-  const allTricks = (await tricksDao.getAll()).sort((a, b) => compareDifficulty(a, b));
+async function search(sorting: SortOptions): Promise<SearchResult> {
+  const allTricks = await tricksDao.getAll();
+  const sortedTricks = sortTricks(allTricks, sorting);
 
-  let currentGroup = getParameter(allTricks[0], 'difficulty');
+  let currentGroup = getParameterForSortOption(allTricks[0], sorting);
   let result: SearchResult = [{ title: currentGroup, items: [] }];
 
-  for (let trick of allTricks) {
-    if (getParameter(trick, 'difficulty') !== currentGroup) {
-      currentGroup = getParameter(trick, 'difficulty');
+  for (let trick of sortedTricks) {
+    if (getParameterForSortOption(trick, sorting) !== currentGroup) {
+      currentGroup = getParameterForSortOption(trick, sorting);
       result.push({ title: currentGroup, items: [] });
     }
     const searchItem = searchItemFromTrick(trick);
@@ -82,15 +144,11 @@ async function search(): Promise<SearchResult> {
 
 const searchResult = ref<SearchResult>();
 
-watchEffect(async () => {
-  searchResult.value = await search();
-});
-
 function linkToDetails(primaryKey: PrimaryKey): string {
   return `/tricks/${primaryKey[1]}/${primaryKey[0]}`;
 }
 
-const selectValue = ref('difficulty-asc');
+const activeSortingOption = ref<SortOptions>('difficulty-asc');
 
 const sortingOptions = [
   { title: 'Difficulty', directionTitle: 'Up', value: 'difficulty-asc' },
@@ -100,6 +158,10 @@ const sortingOptions = [
   { title: 'Invention year', directionTitle: 'Up', value: 'yearEstablished-asc' },
   { title: 'Invention year', directionTitle: 'Down', value: 'yearEstablished-desc' },
 ];
+
+watchEffect(async () => {
+  searchResult.value = await search(activeSortingOption.value);
+});
 </script>
 
 <template>
@@ -109,9 +171,9 @@ const sortingOptions = [
         <Input placeholder="Search" />
       </div>
 
-      <div class="w-[170px] flex-initial">
-        <Select v-model="selectValue">
-          <SelectTrigger class="w-[170px] grow-0 shrink-0">
+      <div class="w-[175px] flex-initial">
+        <Select v-model="activeSortingOption">
+          <SelectTrigger class="w-[175px] grow-0 shrink-0">
             <SelectValue placeholder="Select a fruit" />
           </SelectTrigger>
           <SelectContent>
