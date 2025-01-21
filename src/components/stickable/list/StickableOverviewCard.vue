@@ -2,7 +2,7 @@
 import { StickableStatus } from '@/lib/utils';
 import { computed } from 'vue';
 import { RouterLink } from 'vue-router';
-import Badge from '../ui/badge/Badge.vue';
+import Badge from '@/components/ui/badge/Badge.vue';
 import { Icon } from '@iconify/vue/dist/iconify.js';
 
 const props = defineProps<{
