@@ -37,7 +37,7 @@ watchEffect(async () => {
 </script>
 
 <template>
-  <div class="flex flex-row gap-1 w-full h-fit p-2 my-2">
+  <div class="flex flex-row gap-1 w-full h-fit">
     <div class="grow">
       <Input placeholder="Search" />
     </div>

@@ -8,7 +8,7 @@ function hasHistory(): boolean {
 
 <template>
   <section class="w-full flex flex-col items-center px-3 py-2 bg-background drop-shadow">
-    <div class="w-full max-w-4xl flex flex-row justify-between items-center">
+    <div class="w-full max-w-5xl flex flex-row justify-between items-center">
       <slot name="buttonLeft" class="h-6 w-6">
         <Button
           size="icon"
