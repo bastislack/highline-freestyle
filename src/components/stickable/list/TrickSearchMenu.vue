@@ -11,7 +11,6 @@ import {
 } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { SearchParameters, SortOrder } from '@/types/search';
-import { defineModel } from 'vue';
 import { useI18n } from 'vue-i18n';
 import messages from '@/i18n/searchMenu';
 
@@ -20,6 +19,7 @@ const { t } = useI18n({
   useScope: 'local',
 });
 
+// eslint-disable-next-line no-undef
 const searchParameters = defineModel<SearchParameters>('searchParameters');
 if (searchParameters.value === undefined) {
   throw new Error('Search Parameters model needs to be passed to TrickSearchMenu!');
