@@ -34,29 +34,6 @@ function compareYearEstablished(a: Trick, b: Trick): number {
   return yearEstablishedA - yearEstablishedB;
 }
 
-function capitalizeAllWords(s: string) {
-  return s
-    .toLowerCase()
-    .split(' ')
-    .map((word) => word[0].toUpperCase() + word.substring(1))
-    .join(' ');
-}
-
-function getParameterForSortOption(trick: Trick, sortOption: SortOrder): string {
-  switch (sortOption) {
-    case 'difficulty-asc':
-    case 'difficulty-desc':
-      return trick.difficultyLevel ? `Difficulty ${trick.difficultyLevel}` : 'Not determined';
-    case 'startPos':
-      return trick.startPosition ? capitalizeAllWords(trick.startPosition) : 'Unknown';
-    case 'endPos':
-      return trick.endPosition ? capitalizeAllWords(trick.endPosition) : 'Unknown';
-    case 'yearEstablished-asc':
-    case 'yearEstablished-desc':
-      return trick.yearEstablished ? trick.yearEstablished.toString() : 'Unknown';
-  }
-}
-
 function sortTricks(tricks: Trick[], sorting: SortOrder): Trick[] {
   switch (sorting) {
     case 'difficulty-asc':
@@ -84,13 +61,17 @@ function searchItemFromTrick(trick: Trick): SearchItem {
   };
 }
 
-function groupTricksToSearchResult(sortedTricks: Trick[], sorting: SortOrder): SearchResult {
-  let currentGroup = getParameterForSortOption(sortedTricks[0], sorting);
+function groupTricksToSearchResult(
+  sortedTricks: Trick[],
+  sorting: SortOrder,
+  mapTrickToAttribute: (t: Trick, sort: SortOrder) => string
+): SearchResult {
+  let currentGroup = mapTrickToAttribute(sortedTricks[0], sorting);
   const result: SearchResult = [{ title: currentGroup, items: [] }];
 
   for (const trick of sortedTricks) {
-    if (getParameterForSortOption(trick, sorting) !== currentGroup) {
-      currentGroup = getParameterForSortOption(trick, sorting);
+    if (mapTrickToAttribute(trick, sorting) !== currentGroup) {
+      currentGroup = mapTrickToAttribute(trick, sorting);
       result.push({ title: currentGroup, items: [] });
     }
     const searchItem = searchItemFromTrick(trick);
@@ -101,9 +82,14 @@ function groupTricksToSearchResult(sortedTricks: Trick[], sorting: SortOrder): S
 
 export function searchInTricks(
   allTricks: Trick[],
-  searchParameters: SearchParameters
+  searchParameters: SearchParameters,
+  mapTrickToAttribute: (t: Trick, sort: SortOrder) => string
 ): SearchResult {
   const sortedTricks = sortTricks(allTricks, searchParameters.sortOrder);
-  const searchResult = groupTricksToSearchResult(sortedTricks, searchParameters.sortOrder);
+  const searchResult = groupTricksToSearchResult(
+    sortedTricks,
+    searchParameters.sortOrder,
+    mapTrickToAttribute
+  );
   return searchResult;
 }

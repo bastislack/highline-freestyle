@@ -1,14 +1,27 @@
 <script lang="ts" setup>
-import DefaultLayout from '@/layouts/DefaultLayout.vue';
+import { ref, watch } from 'vue';
 import { tricksDao } from '@/lib/database';
 import { PrimaryKey } from '@/lib/utils';
-import { ref, watch } from 'vue';
+import { SearchParameters, SearchResult, SortOrder } from '@/types/search';
+import { Trick } from '@/lib/database/daos/trick';
+import { searchInTricks } from '@/services/searchAndFilterTricks';
+
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
+import TrickSearchMenu from '@/components/stickable/list/TrickSearchMenu.vue';
 import StickableOverviewCard from '@/components/stickable/list/StickableOverviewCard.vue';
 import Separator from '@/components/ui/separator/Separator.vue';
-import { SearchParameters, SearchResult } from '@/types/search';
-import TrickSearchMenu from '@/components/stickable/list/TrickSearchMenu.vue';
-import { searchInTricks } from '@/services/searchAndFilterTricks';
 import Section from '@/components/ui/section/Section.vue';
+
+import { useI18n } from 'vue-i18n';
+import { i18nMerge } from '@/i18n/i18nmerge';
+import messages_list from '@/i18n/list';
+import messages_positions from '@/i18n/common/positions';
+
+const i18n = useI18n({
+  messages: i18nMerge(messages_list, messages_positions),
+  scope: 'local',
+});
+const { t } = i18n;
 
 const LOCAL_STORAGE_PARAMETERS_KEY: string = 'SearchParameters-Tricks';
 const DEFAULT_SEARCH_PARAMETERS: SearchParameters = { sortOrder: 'difficulty-asc' };
@@ -29,11 +42,28 @@ function storeSearchParameters(parameters: SearchParameters) {
 const searchParameters = ref<SearchParameters>(loadSearchParameters());
 const searchResult = ref<SearchResult>();
 
+function trickToAttribute(trick: Trick, sortOption: SortOrder): string {
+  switch (sortOption) {
+    case 'difficulty-asc':
+    case 'difficulty-desc':
+      return trick.difficultyLevel
+        ? t('sectionTitles.difficulty', { difficulty: trick.difficultyLevel })
+        : t('sectionTitles.notDetermined');
+    case 'startPos':
+      return trick.startPosition ? t(trick.startPosition) : t('sectionTitles.unknown');
+    case 'endPos':
+      return trick.endPosition ? t(trick.endPosition) : t('sectionTitles.unknown');
+    case 'yearEstablished-asc':
+    case 'yearEstablished-desc':
+      return trick.yearEstablished ? trick.yearEstablished.toString() : t('sectionTitles.unknown');
+  }
+}
+
 watch(
-  searchParameters,
+  [searchParameters, i18n.locale],
   async () => {
     const allTricks = await tricksDao.getAll();
-    searchResult.value = searchInTricks(allTricks, searchParameters.value);
+    searchResult.value = searchInTricks(allTricks, searchParameters.value, trickToAttribute);
     storeSearchParameters(searchParameters.value);
   },
   { immediate: true, deep: true }
