@@ -1,0 +1,12 @@
+{
+  "textSearchPlaceholder": "Search",
+  "sortOptionsLabel": "Sorting",
+  "sortOptions": {
+    "difficulty": "Difficulty",
+    "startPosition": "Start Position",
+    "endPosition": "End Position",
+    "inventionYear": "Invention year",
+    "ascending": "Up",
+    "descending": "Down"
+  }
+}

@@ -12,19 +12,42 @@ import {
 import { Input } from '@/components/ui/input';
 import { SearchParameters, SortOrder } from '@/types/search';
 import { defineModel } from 'vue';
+import { useI18n } from 'vue-i18n';
+import messages from '@/i18n/searchMenu';
+
+const { t } = useI18n({
+  messages,
+  useScope: 'local',
+});
 
 const searchParameters = defineModel<SearchParameters>('searchParameters');
 if (searchParameters.value === undefined) {
   throw new Error('Search Parameters model needs to be passed to TrickSearchMenu!');
 }
 
-const sortingOptions = [
-  { title: 'Difficulty', directionTitle: 'Up', value: 'difficulty-asc' },
-  { title: 'Difficulty', directionTitle: 'Down', value: 'difficulty-desc' },
-  { title: 'Start Position', value: 'startPos' },
-  { title: 'End Position', value: 'endPos' },
-  { title: 'Invention year', directionTitle: 'Up', value: 'yearEstablished-asc' },
-  { title: 'Invention year', directionTitle: 'Down', value: 'yearEstablished-desc' },
+const sortingOptions: { titleKey: string; directionTitleKey?: string; value: SortOrder }[] = [
+  {
+    titleKey: 'sortOptions.difficulty',
+    directionTitleKey: 'sortOptions.ascending',
+    value: 'difficulty-asc',
+  },
+  {
+    titleKey: 'sortOptions.difficulty',
+    directionTitleKey: 'sortOptions.descending',
+    value: 'difficulty-desc',
+  },
+  { titleKey: 'sortOptions.startPosition', value: 'startPos' },
+  { titleKey: 'sortOptions.endPosition', value: 'endPos' },
+  {
+    titleKey: 'sortOptions.inventionYear',
+    directionTitleKey: 'sortOptions.ascending',
+    value: 'yearEstablished-asc',
+  },
+  {
+    titleKey: 'sortOptions.inventionYear',
+    directionTitleKey: 'sortOptions.descending',
+    value: 'yearEstablished-desc',
+  },
 ];
 const activeSortingOption = ref<SortOrder>(searchParameters.value?.sortOrder);
 
@@ -39,7 +62,7 @@ watchEffect(async () => {
 <template>
   <div class="flex flex-row gap-1 w-full h-fit">
     <div class="grow">
-      <Input placeholder="Search" />
+      <Input :placeholder="t('textSearchPlaceholder')" />
     </div>
 
     <div class="w-[175px] flex-initial">
@@ -49,12 +72,12 @@ watchEffect(async () => {
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            <SelectLabel>Sorting</SelectLabel>
+            <SelectLabel>{{ t('sortOptionsLabel') }}</SelectLabel>
             <SelectItem v-for="option in sortingOptions" :value="option.value" :key="option.value">
-              {{ option.title }}
-              <span v-if="option.directionTitle" class="text-muted-foreground">{{
-                option.directionTitle
-              }}</span>
+              {{ t(option.titleKey) }}
+              <span v-if="option.directionTitleKey" class="text-muted-foreground">
+                {{ t(option.directionTitleKey) }}
+              </span>
             </SelectItem>
           </SelectGroup>
         </SelectContent>
