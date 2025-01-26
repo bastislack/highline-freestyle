@@ -3,5 +3,12 @@
     "difficulty": "Dificultad {difficulty}",
     "unknown": "Desconocido",
     "notDetermined": "No determinado"
+  },
+  "cards": {
+    "badges": {
+      "personal": "Personal",
+      "archived": "Archivado",
+      "new": "Nuevo"
+    }
   }
 }

@@ -4,6 +4,13 @@ import { computed } from 'vue';
 import { RouterLink } from 'vue-router';
 import Badge from '@/components/ui/badge/Badge.vue';
 import { Icon } from '@iconify/vue/dist/iconify.js';
+import { useI18n } from 'vue-i18n';
+import messages from '@/i18n/list';
+
+const { t } = useI18n({
+  messages,
+  useScope: 'local',
+});
 
 const props = defineProps<{
   title: string;
@@ -69,11 +76,11 @@ const computedClass = computed<string>(() => {
     >
       <Badge v-if="status === 'userDefined'" class="px-2" variant="secondary">
         <Icon icon="ic:round-person" class="mr-1" />
-        Custom
+        {{ t('cards.badges.personal') }}
       </Badge>
       <Badge v-else-if="status === 'archived'" class="px-2" variant="destructive">
         <Icon icon="ic:baseline-archive" class="mr-1" />
-        Archived
+        {{ t('cards.badges.archived') }}
       </Badge>
 
       <Badge
@@ -82,7 +89,7 @@ const computedClass = computed<string>(() => {
         variant="secondary"
       >
         <Icon icon="ic:baseline-filter-vintage" class="mr-1" />
-        New
+        {{ t('cards.badges.new') }}
       </Badge>
     </div>
   </RouterLink>
