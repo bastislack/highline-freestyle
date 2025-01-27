@@ -21,6 +21,7 @@ import { useI18n } from 'vue-i18n';
 import { i18nMerge } from '@/i18n/i18nmerge';
 import messages from '@/i18n/searchMenu';
 import messagesStickableStatus from '@/i18n/common/stickableStatus';
+import { Icon } from '@iconify/vue/dist/iconify.js';
 
 const { t } = useI18n({
   messages: i18nMerge(messages, messagesStickableStatus),
@@ -90,17 +91,49 @@ const includedStatusesTriggerVariant = computed(() => {
     searchParameters.value?.includedStatuses.includes('archived');
   return allOptionsChecked ? 'secondary' : 'default';
 });
+
+// TEXT SEARCH
+
+function resetSearchText() {
+  if (searchParameters.value !== undefined) {
+    searchParameters.value.searchText = undefined;
+  }
+}
+
+function setSearchText(text: string | number) {
+  if (searchParameters.value !== undefined) {
+    searchParameters.value.searchText = text.toString();
+  }
+}
+
+const textSearchContainsText = computed<boolean>(() => {
+  return searchParameters.value !== undefined && !!searchParameters.value.searchText;
+});
 </script>
 
 <template>
   <section class="flex flex-col gap-1">
     <div class="flex flex-row gap-1 w-full h-fit">
-      <div class="grow">
-        <Input :placeholder="t('textSearchPlaceholder')" />
+      <div class="grow relative">
+        <Input
+          :placeholder="t('textSearchPlaceholder')"
+          class="pr-10"
+          :model-value="searchParameters?.searchText"
+          v-on:update:model-value="setSearchText"
+        />
+        <Button
+          v-if="textSearchContainsText"
+          variant="ghost"
+          size="icon"
+          class="absolute top-0 right-0"
+          :onclick="resetSearchText"
+        >
+          <Icon icon="ic:round-close" class="h-5 w-5" />
+        </Button>
       </div>
 
       <div class="w-[175px] flex-initial">
-        <Select v-model="activeSortingOption">
+        <Select v-model="activeSortingOption" :disabled="textSearchContainsText">
           <SelectTrigger class="w-[175px] grow-0 shrink-0">
             <SelectValue placeholder="Select a fruit" />
           </SelectTrigger>
@@ -125,7 +158,7 @@ const includedStatusesTriggerVariant = computed(() => {
 
     <div class="flex flex-row gap-1 w-full">
       <DropdownMenu>
-        <DropdownMenuTrigger as-child>
+        <DropdownMenuTrigger as-child :disabled="textSearchContainsText">
           <Button :variant="includedStatusesTriggerVariant" size="sm">
             {{ t('includedStickableStatuses.triggerTitle') }}
           </Button>
