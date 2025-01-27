@@ -1,4 +1,4 @@
-import { PrimaryKey } from '@/lib/utils';
+import { PrimaryKey, StickableStatus } from '@/lib/utils';
 
 export type SearchResult = SearchSection[];
 
@@ -26,4 +26,5 @@ export type SortOrder =
 export type SearchParameters = {
   searchText?: string;
   sortOrder: SortOrder;
+  includedStatuses: StickableStatus[];
 };

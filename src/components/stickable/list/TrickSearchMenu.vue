@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue';
+import { computed, ref, watchEffect } from 'vue';
 import {
   Select,
   SelectContent,
@@ -13,6 +13,12 @@ import { Input } from '@/components/ui/input';
 import { SearchParameters, SortOrder } from '@/types/search';
 import { useI18n } from 'vue-i18n';
 import messages from '@/i18n/searchMenu';
+import DropdownMenu from '@/components/ui/dropdown-menu/DropdownMenu.vue';
+import DropdownMenuTrigger from '@/components/ui/dropdown-menu/DropdownMenuTrigger.vue';
+import DropdownMenuContent from '@/components/ui/dropdown-menu/DropdownMenuContent.vue';
+import DropdownMenuCheckboxItem from '@/components/ui/dropdown-menu/DropdownMenuCheckboxItem.vue';
+import Button from '@/components/ui/button/Button.vue';
+import { StickableStatus } from '@/lib/utils';
 
 const { t } = useI18n({
   messages,
@@ -24,6 +30,8 @@ const searchParameters = defineModel<SearchParameters>('searchParameters');
 if (searchParameters.value === undefined) {
   throw new Error('Search Parameters model needs to be passed to TrickSearchMenu!');
 }
+
+// SORTING
 
 const sortingOptions: { titleKey: string; directionTitleKey?: string; value: SortOrder }[] = [
   {
@@ -57,31 +65,88 @@ watchEffect(async () => {
   }
   searchParameters.value.sortOrder = activeSortingOption.value;
 });
+
+// STATUS
+
+function updateIncludedStatuses(status: StickableStatus) {
+  if (searchParameters.value?.includedStatuses.includes(status)) {
+    const newIncludedStatuses = searchParameters.value.includedStatuses.filter(
+      (element) => element !== status
+    );
+    if (newIncludedStatuses.length > 0) {
+      searchParameters.value.includedStatuses = newIncludedStatuses;
+    }
+    return;
+  }
+  searchParameters.value?.includedStatuses.push(status);
+}
+
+const includedStatusesTriggerVariant = computed(() => {
+  const allOptionsChecked =
+    searchParameters.value?.includedStatuses.includes('official') &&
+    searchParameters.value?.includedStatuses.includes('userDefined') &&
+    searchParameters.value?.includedStatuses.includes('archived');
+  return allOptionsChecked ? 'secondary' : 'default';
+});
 </script>
 
 <template>
-  <div class="flex flex-row gap-1 w-full h-fit">
-    <div class="grow">
-      <Input :placeholder="t('textSearchPlaceholder')" />
+  <section class="flex flex-col gap-1">
+    <div class="flex flex-row gap-1 w-full h-fit">
+      <div class="grow">
+        <Input :placeholder="t('textSearchPlaceholder')" />
+      </div>
+
+      <div class="w-[175px] flex-initial">
+        <Select v-model="activeSortingOption">
+          <SelectTrigger class="w-[175px] grow-0 shrink-0">
+            <SelectValue placeholder="Select a fruit" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>{{ t('sortOptionsLabel') }}</SelectLabel>
+              <SelectItem
+                v-for="option in sortingOptions"
+                :value="option.value"
+                :key="option.value"
+              >
+                {{ t(option.titleKey) }}
+                <span v-if="option.directionTitleKey" class="text-muted-foreground">
+                  {{ t(option.directionTitleKey) }}
+                </span>
+              </SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </div>
     </div>
 
-    <div class="w-[175px] flex-initial">
-      <Select v-model="activeSortingOption">
-        <SelectTrigger class="w-[175px] grow-0 shrink-0">
-          <SelectValue placeholder="Select a fruit" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
-            <SelectLabel>{{ t('sortOptionsLabel') }}</SelectLabel>
-            <SelectItem v-for="option in sortingOptions" :value="option.value" :key="option.value">
-              {{ t(option.titleKey) }}
-              <span v-if="option.directionTitleKey" class="text-muted-foreground">
-                {{ t(option.directionTitleKey) }}
-              </span>
-            </SelectItem>
-          </SelectGroup>
-        </SelectContent>
-      </Select>
+    <div class="flex flex-row gap-1 w-full">
+      <DropdownMenu>
+        <DropdownMenuTrigger as-child>
+          <Button :variant="includedStatusesTriggerVariant" size="sm"> Status </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuCheckboxItem
+            :checked="searchParameters?.includedStatuses.includes('official')"
+            @update:checked="updateIncludedStatuses('official')"
+          >
+            Official
+          </DropdownMenuCheckboxItem>
+          <DropdownMenuCheckboxItem
+            :checked="searchParameters?.includedStatuses.includes('userDefined')"
+            @update:checked="updateIncludedStatuses('userDefined')"
+          >
+            Personal
+          </DropdownMenuCheckboxItem>
+          <DropdownMenuCheckboxItem
+            :checked="searchParameters?.includedStatuses.includes('archived')"
+            @update:checked="updateIncludedStatuses('archived')"
+          >
+            Archived
+          </DropdownMenuCheckboxItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </div>
-  </div>
+  </section>
 </template>
