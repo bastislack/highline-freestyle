@@ -11,17 +11,19 @@ import {
 } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { SearchParameters, SortOrder } from '@/types/search';
-import { useI18n } from 'vue-i18n';
-import messages from '@/i18n/searchMenu';
 import DropdownMenu from '@/components/ui/dropdown-menu/DropdownMenu.vue';
 import DropdownMenuTrigger from '@/components/ui/dropdown-menu/DropdownMenuTrigger.vue';
 import DropdownMenuContent from '@/components/ui/dropdown-menu/DropdownMenuContent.vue';
 import DropdownMenuCheckboxItem from '@/components/ui/dropdown-menu/DropdownMenuCheckboxItem.vue';
 import Button from '@/components/ui/button/Button.vue';
 import { StickableStatus } from '@/lib/utils';
+import { useI18n } from 'vue-i18n';
+import { i18nMerge } from '@/i18n/i18nmerge';
+import messages from '@/i18n/searchMenu';
+import messagesStickableStatus from '@/i18n/common/stickableStatus';
 
 const { t } = useI18n({
-  messages,
+  messages: i18nMerge(messages, messagesStickableStatus),
   useScope: 'local',
 });
 
@@ -124,26 +126,28 @@ const includedStatusesTriggerVariant = computed(() => {
     <div class="flex flex-row gap-1 w-full">
       <DropdownMenu>
         <DropdownMenuTrigger as-child>
-          <Button :variant="includedStatusesTriggerVariant" size="sm"> Status </Button>
+          <Button :variant="includedStatusesTriggerVariant" size="sm">
+            {{ t('includedStickableStatuses.triggerTitle') }}
+          </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuCheckboxItem
             :checked="searchParameters?.includedStatuses.includes('official')"
             @update:checked="updateIncludedStatuses('official')"
           >
-            Official
+            {{ t('official') }}
           </DropdownMenuCheckboxItem>
           <DropdownMenuCheckboxItem
             :checked="searchParameters?.includedStatuses.includes('userDefined')"
             @update:checked="updateIncludedStatuses('userDefined')"
           >
-            Personal
+            {{ t('userDefined') }}
           </DropdownMenuCheckboxItem>
           <DropdownMenuCheckboxItem
             :checked="searchParameters?.includedStatuses.includes('archived')"
             @update:checked="updateIncludedStatuses('archived')"
           >
-            Archived
+            {{ t('archived') }}
           </DropdownMenuCheckboxItem>
         </DropdownMenuContent>
       </DropdownMenu>

@@ -10,5 +10,8 @@
       "archived": "Archivado",
       "new": "Nuevo"
     }
+  },
+  "info": {
+    "noTrickMatchingSearch": "Oh, no. No hay trucos que coincidan con su búsqueda."
   }
 }

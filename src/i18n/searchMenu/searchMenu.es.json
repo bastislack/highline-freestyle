@@ -8,5 +8,8 @@
     "inventionYear": "Intenvtion year",
     "ascending": "Arriba",
     "descending": "Abajo"
+  },
+  "includedStickableStatuses": {
+    "triggerTitle": "Estado"
   }
 }

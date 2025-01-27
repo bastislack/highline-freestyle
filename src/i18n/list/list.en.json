@@ -10,5 +10,8 @@
       "archived": "Archived",
       "new": "New"
     }
+  },
+  "info": {
+    "noTrickMatchingSearch": "Oh no. There are not tricks matching your search input."
   }
 }

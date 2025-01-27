@@ -8,5 +8,8 @@
     "inventionYear": "Invention year",
     "ascending": "Up",
     "descending": "Down"
+  },
+  "includedStickableStatuses": {
+    "triggerTitle": "Status"
   }
 }
