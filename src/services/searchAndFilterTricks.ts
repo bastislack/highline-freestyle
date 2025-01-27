@@ -66,6 +66,9 @@ function groupTricksToSearchResult(
   sorting: SortOrder,
   mapTrickToAttribute: (t: Trick, sort: SortOrder) => string
 ): SearchResult {
+  if (sortedTricks.length === 0) {
+    return [];
+  }
   let currentGroup = mapTrickToAttribute(sortedTricks[0], sorting);
   const result: SearchResult = [{ title: currentGroup, items: [] }];
 
@@ -85,7 +88,11 @@ export function searchInTricks(
   searchParameters: SearchParameters,
   mapTrickToAttribute: (t: Trick, sort: SortOrder) => string
 ): SearchResult {
-  const sortedTricks = sortTricks(allTricks, searchParameters.sortOrder);
+  const filteredTricks = allTricks.filter((trick) =>
+    searchParameters.includedStatuses.includes(trick.primaryKey[1])
+  );
+
+  const sortedTricks = sortTricks(filteredTricks, searchParameters.sortOrder);
   const searchResult = groupTricksToSearchResult(
     sortedTricks,
     searchParameters.sortOrder,

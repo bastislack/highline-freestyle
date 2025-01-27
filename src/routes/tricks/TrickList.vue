@@ -93,6 +93,17 @@ function linkToDetails(primaryKey: PrimaryKey): string {
 
     <Section>
       <div class="w-full flex flex-col gap-5">
+        <div v-if="!searchResult || searchResult.length == 0" class="text-xl text-center mt-3">
+          Oh no. There are not tricks matching your search input.<br /><span class="font-semibold"
+            >:(</span
+          >
+          <div class="flex flex-row justify-center mt-3">
+            <img
+              src="https://media1.tenor.com/m/XQLVLptLIBEAAAAd/maes-b-lost-in-a-field.gif"
+              class="w-48"
+            />
+          </div>
+        </div>
         <div
           v-for="section in searchResult"
           class="w-full flex flex-col gap-1"
