@@ -3,7 +3,7 @@
   "home": "Foyer",
   "debug-info": "Informations de débogage",
 
-  "INPUT_REQUIRED": "Ceci est nécessaire",
+  "Required": "Ceci est nécessaire",
   "INPUT_NOT_NUMBER": "Veuillez saisir un numéro",
   "INPUT_NOT_INTEGER": "Veuillez saisir un nombre entier",
   "INPUT_NUMBER_BELOW_MIN": "L'entrée ne doit pas être inférieure à {value}",

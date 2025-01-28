@@ -3,7 +3,7 @@
   "home": "Home",
   "debug-info": "Debug info",
 
-  "INPUT_REQUIRED": "This is required",
+  "Required": "This is required",
   "INPUT_NOT_NUMBER": "Please enter a number",
   "INPUT_NOT_INTEGER": "Please enter a whole number",
   "INPUT_NUMBER_BELOW_MIN": "Input must be no less than {value}",

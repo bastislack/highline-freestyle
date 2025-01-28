@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { DbPositionZod } from '@/lib/database/schemas/CurrentVersionSchema';
-import { FormValidator } from '@/lib/formValidators/validatorMessages';
 
 import {
   FormControl,
@@ -10,14 +9,12 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { RuleExpression } from 'vee-validate';
 import { cn } from '@/lib/utils';
 
 const props = defineProps<{
   title: string;
   description?: string;
   formFieldName: string;
-  validator: FormValidator;
   /**
    * Defines which Positions should be selectable.
    * Filter acts identical inner function of an array's `.filter(inner)`.
@@ -59,7 +56,6 @@ const selectableValues = props.selectionFilter
     :validate-on-change="true"
     :validate-on-input="true"
     :validate-on-blur="true"
-    :rules="validator as RuleExpression<unknown>"
   >
     <FormItem :class="cn('flex flex-col justify-stretch', props.class)">
       <FormLabel class="font-bold"> {{ title }}</FormLabel>
@@ -68,15 +64,7 @@ const selectableValues = props.selectionFilter
       </FormDescription>
       <FormMessage />
       <FormControl>
-        <Select
-          :model-value="value"
-          @update:model-value="
-            (e) => {
-              const selectedValue = (e as any as { value: z.infer<typeof DbPositionZod> }).value;
-              handleChange(selectedValue, true);
-            }
-          "
-        >
+        <Select :model-value="value" @update:model-value="handleChange($event, true)">
           <SelectTrigger>
             <SelectValue :placeholder="value">{{ value }}</SelectValue>
           </SelectTrigger>

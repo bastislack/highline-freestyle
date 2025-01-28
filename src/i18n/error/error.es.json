@@ -3,7 +3,7 @@
   "home": "Hogar",
   "debug-info": "Información de debug",
 
-  "INPUT_REQUIRED": "Esto es necesario",
+  "Required": "Esto es necesario",
   "INPUT_NOT_NUMBER": "Introduzca un número",
   "INPUT_NOT_INTEGER": "Introduzca un número entero",
   "INPUT_NUMBER_BELOW_MIN": "La entrada no debe ser inferior a {value}",

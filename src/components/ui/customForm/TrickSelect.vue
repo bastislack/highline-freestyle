@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { useI18n } from 'vue-i18n';
 import messages from '@/i18n/tricks/new/index';
-import { FormValidator } from '@/lib/formValidators/validatorMessages';
 import { cn } from '@/lib/utils';
 
 import {
@@ -12,14 +11,12 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { RuleExpression } from 'vee-validate';
 
 const props = defineProps<{
   title: string;
   description?: string;
   formFieldName: string;
   placeholder?: string;
-  validator: FormValidator;
   class?: string;
 }>();
 
@@ -36,7 +33,6 @@ const { t } = useI18n({
     :validate-on-change="true"
     :validate-on-input="true"
     :validate-on-blur="true"
-    :rules="validator as RuleExpression<unknown>"
   >
     <FormItem :class="cn('flex flex-col justify-stretch', props.class)">
       <FormLabel class="font-bold"> {{ title }}</FormLabel>
