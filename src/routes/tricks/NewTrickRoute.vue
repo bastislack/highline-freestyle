@@ -12,7 +12,7 @@ import Section from '@/components/ui/section/Section.vue';
 import { useI18n } from 'vue-i18n';
 import messages from '@/i18n/tricks/new/index';
 import messages_positions from '@/i18n/common/positions';
-import messages_errors from '@/i18n/error.ts';
+import messages_errors from '@/i18n/error';
 import { i18nMerge } from '@/i18n/i18nmerge';
 import { DbPositionZod } from '@/lib/database/schemas/CurrentVersionSchema';
 import PositionSelectInput from '@/components/ui/customForm/PositionSelectInput.vue';
