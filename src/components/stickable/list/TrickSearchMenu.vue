@@ -88,13 +88,14 @@ function updateIncludedStatuses(status: StickableStatus) {
   searchParameters.value?.includedStatuses.push(status);
 }
 
-const includedStatusesTriggerVariant = computed(() => {
-  const allOptionsChecked =
-    searchParameters.value?.includedStatuses.includes('official') &&
-    searchParameters.value?.includedStatuses.includes('userDefined') &&
-    searchParameters.value?.includedStatuses.includes('archived');
-  return allOptionsChecked ? 'secondary' : 'default';
-});
+const shouldStatusBeHighlighted = computed(
+  () =>
+    !(
+      searchParameters.value?.includedStatuses.includes('official') &&
+      searchParameters.value?.includedStatuses.includes('userDefined') &&
+      searchParameters.value?.includedStatuses.includes('archived')
+    )
+);
 
 // TEXT SEARCH
 
@@ -125,8 +126,12 @@ watchEffect(() => {
     throw new Error('Search Parameters model needs to be passed to TrickSearchMenu!');
   }
   searchParameters.value.showFavoritesAtTop = favoritesTreatment.value === 'showAtTop';
-  console.log(favoritesTreatment.value);
 });
+
+// GENERAL
+function highlightFilterClasses(highlight: boolean | undefined): string {
+  return highlight ? 'font-medium' : 'font-normal';
+}
 </script>
 
 <template>
@@ -177,7 +182,11 @@ watchEffect(() => {
     <div class="flex flex-row flex-wrap gap-1 w-full">
       <DropdownMenu>
         <DropdownMenuTrigger as-child :disabled="textSearchContainsText">
-          <Button :variant="includedStatusesTriggerVariant" size="sm">
+          <Button
+            variant="secondary"
+            size="sm"
+            :class="highlightFilterClasses(shouldStatusBeHighlighted)"
+          >
             {{ t('includedStickableStatuses.triggerTitle') }}
           </Button>
         </DropdownMenuTrigger>
@@ -205,7 +214,11 @@ watchEffect(() => {
 
       <DropdownMenu>
         <DropdownMenuTrigger as-child :disabled="textSearchContainsText">
-          <Button variant="secondary" size="sm">
+          <Button
+            variant="secondary"
+            size="sm"
+            :class="highlightFilterClasses(searchParameters?.showFavoritesAtTop)"
+          >
             Favorites: {{ searchParameters?.showFavoritesAtTop ? 'Top' : 'Regular' }}
           </Button>
         </DropdownMenuTrigger>
