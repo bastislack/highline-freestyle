@@ -196,6 +196,11 @@ export function searchInTricks(
   }
 
   const isolatedFavorites = sortedTricks.filter((trick) => trick.isFavourite);
+
+  if (isolatedFavorites.length == 0) {
+    return groupTricksToSearchResult(sortedTricks, searchParameters.sortOrder, mapTrickToAttribute);
+  }
+
   const sortedTricksWithoutFavorites = sortedTricks.filter((trick) => !trick.isFavourite);
   const favoritesSearchItem: SearchSection = {
     title: 'Favorites',
