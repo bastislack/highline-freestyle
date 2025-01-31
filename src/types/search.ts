@@ -27,4 +27,5 @@ export type SearchParameters = {
   searchText?: string;
   sortOrder: SortOrder;
   includedStatuses: StickableStatus[];
+  showFavoritesAtTop: boolean;
 };

@@ -22,6 +22,10 @@ import { i18nMerge } from '@/i18n/i18nmerge';
 import messages from '@/i18n/searchMenu';
 import messagesStickableStatus from '@/i18n/common/stickableStatus';
 import { Icon } from '@iconify/vue/dist/iconify.js';
+import DropdownMenuRadioGroup from '@/components/ui/dropdown-menu/DropdownMenuRadioGroup.vue';
+import DropdownMenuRadioItem from '@/components/ui/dropdown-menu/DropdownMenuRadioItem.vue';
+import DropdownMenuLabel from '@/components/ui/dropdown-menu/DropdownMenuLabel.vue';
+import DropdownMenuSeparator from '@/components/ui/dropdown-menu/DropdownMenuSeparator.vue';
 
 const { t } = useI18n({
   messages: i18nMerge(messages, messagesStickableStatus),
@@ -62,7 +66,7 @@ const sortingOptions: { titleKey: string; directionTitleKey?: string; value: Sor
 ];
 const activeSortingOption = ref<SortOrder>(searchParameters.value?.sortOrder);
 
-watchEffect(async () => {
+watchEffect(() => {
   if (searchParameters.value === undefined) {
     throw new Error('Search Parameters model needs to be passed to TrickSearchMenu!');
   }
@@ -108,6 +112,20 @@ function setSearchText(text: string | number) {
 
 const textSearchContainsText = computed<boolean>(() => {
   return searchParameters.value !== undefined && !!searchParameters.value.searchText;
+});
+
+// FAVORITES
+
+type FavoritesAtTopOptions = 'showAtTop' | 'dontShowAtTop';
+const favoritesTreatment = ref<FavoritesAtTopOptions>(
+  searchParameters.value.showFavoritesAtTop ? 'showAtTop' : 'dontShowAtTop'
+);
+watchEffect(() => {
+  if (!searchParameters.value) {
+    throw new Error('Search Parameters model needs to be passed to TrickSearchMenu!');
+  }
+  searchParameters.value.showFavoritesAtTop = favoritesTreatment.value === 'showAtTop';
+  console.log(favoritesTreatment.value);
 });
 </script>
 
@@ -156,7 +174,7 @@ const textSearchContainsText = computed<boolean>(() => {
       </div>
     </div>
 
-    <div class="flex flex-row gap-1 w-full">
+    <div class="flex flex-row flex-wrap gap-1 w-full">
       <DropdownMenu>
         <DropdownMenuTrigger as-child :disabled="textSearchContainsText">
           <Button :variant="includedStatusesTriggerVariant" size="sm">
@@ -182,6 +200,22 @@ const textSearchContainsText = computed<boolean>(() => {
           >
             {{ t('archived') }}
           </DropdownMenuCheckboxItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+
+      <DropdownMenu>
+        <DropdownMenuTrigger as-child :disabled="textSearchContainsText">
+          <Button variant="secondary" size="sm">
+            Favorites: {{ searchParameters?.showFavoritesAtTop ? 'Top' : 'Regular' }}
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuLabel> Favorites position </DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuRadioGroup v-model="favoritesTreatment">
+            <DropdownMenuRadioItem value="showAtTop"> Top </DropdownMenuRadioItem>
+            <DropdownMenuRadioItem value="dontShowAtTop"> Regular place </DropdownMenuRadioItem>
+          </DropdownMenuRadioGroup>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
