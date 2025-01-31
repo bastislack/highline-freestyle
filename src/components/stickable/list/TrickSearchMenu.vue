@@ -219,15 +219,25 @@ function highlightFilterClasses(highlight: boolean | undefined): string {
             size="sm"
             :class="highlightFilterClasses(searchParameters?.showFavoritesAtTop)"
           >
-            Favorites: {{ searchParameters?.showFavoritesAtTop ? 'Top' : 'Regular' }}
+            {{
+              t(
+                searchParameters?.showFavoritesAtTop
+                  ? 'favoritesPlacement.triggerTitleTop'
+                  : 'favoritesPlacement.triggerTitleRegular'
+              )
+            }}
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuLabel> Favorites position </DropdownMenuLabel>
+          <DropdownMenuLabel> {{ t('favoritesPlacement.menuLabel') }} </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuRadioGroup v-model="favoritesTreatment">
-            <DropdownMenuRadioItem value="showAtTop"> Top </DropdownMenuRadioItem>
-            <DropdownMenuRadioItem value="dontShowAtTop"> Regular place </DropdownMenuRadioItem>
+            <DropdownMenuRadioItem value="showAtTop">
+              {{ t('favoritesPlacement.radioItems.top') }}
+            </DropdownMenuRadioItem>
+            <DropdownMenuRadioItem value="dontShowAtTop">
+              {{ t('favoritesPlacement.radioItems.regular') }}
+            </DropdownMenuRadioItem>
           </DropdownMenuRadioGroup>
         </DropdownMenuContent>
       </DropdownMenu>

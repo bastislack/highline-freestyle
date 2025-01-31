@@ -11,5 +11,14 @@
   },
   "includedStickableStatuses": {
     "triggerTitle": "Estado"
+  },
+  "favoritesPlacement": {
+    "triggerTitleTop": "Favoritos: Top",
+    "triggerTitleRegular": "Favoritos: Regular",
+    "menuLabel": "Posición de favoritos",
+    "radioItems": {
+      "top": "Top",
+      "regular": "Regular"
+    }
   }
 }
