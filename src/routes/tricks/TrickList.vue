@@ -75,7 +75,12 @@ watch(
   [searchParameters, i18n.locale],
   async () => {
     const allTricks = await tricksDao.getAll();
-    searchResult.value = searchInTricks(allTricks, searchParameters.value, trickToAttribute);
+    searchResult.value = searchInTricks(
+      allTricks,
+      searchParameters.value,
+      trickToAttribute,
+      t('sectionTitles.favorites')
+    );
     storeSearchParameters(searchParameters.value);
   },
   { immediate: true, deep: true }

@@ -170,7 +170,8 @@ function groupTricksToSearchResult(
 export function searchInTricks(
   allTricks: Trick[],
   searchParameters: SearchParameters,
-  mapTrickToAttribute: (t: Trick, sort: SortOrder) => string
+  mapTrickToAttribute: (t: Trick, sort: SortOrder) => string,
+  favoritesSectionTitle: string
 ): SearchResult {
   if (searchParameters.searchText !== undefined && searchParameters.searchText !== '') {
     const matchingTricks = textSearch(allTricks, searchParameters.searchText);
@@ -203,7 +204,7 @@ export function searchInTricks(
 
   const sortedTricksWithoutFavorites = sortedTricks.filter((trick) => !trick.isFavourite);
   const favoritesSearchItem: SearchSection = {
-    title: 'Favorites',
+    title: favoritesSectionTitle,
     items: isolatedFavorites.map((trick) => searchItemFromTrick(trick, 'alias')),
   };
   const searchResultWithoutFavorites = groupTricksToSearchResult(

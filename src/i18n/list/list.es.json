@@ -2,7 +2,8 @@
   "sectionTitles": {
     "difficulty": "Dificultad {difficulty}",
     "unknown": "Desconocido",
-    "notDetermined": "No determinado"
+    "notDetermined": "No determinado",
+    "favorites": "Favoritos"
   },
   "cards": {
     "badges": {
