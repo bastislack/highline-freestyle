@@ -1,5 +1,11 @@
 import { Trick } from '@/lib/database/daos/trick';
-import { SearchItem, SearchParameters, SearchResult, SortOrder } from '@/types/search';
+import {
+  SearchItem,
+  SearchParameters,
+  SearchResult,
+  SearchSection,
+  SortOrder,
+} from '@/types/search';
 import { isStickableNew } from '@/util/misc';
 
 type TrickNameToUse = 'alias' | 'technical';
@@ -184,5 +190,21 @@ export function searchInTricks(
   );
 
   const sortedTricks = sortTricks(filteredTricks, searchParameters.sortOrder);
-  return groupTricksToSearchResult(sortedTricks, searchParameters.sortOrder, mapTrickToAttribute);
+
+  if (!searchParameters.showFavoritesAtTop) {
+    return groupTricksToSearchResult(sortedTricks, searchParameters.sortOrder, mapTrickToAttribute);
+  }
+
+  const isolatedFavorites = sortedTricks.filter((trick) => trick.isFavourite);
+  const sortedTricksWithoutFavorites = sortedTricks.filter((trick) => !trick.isFavourite);
+  const favoritesSearchItem: SearchSection = {
+    title: 'Favorites',
+    items: isolatedFavorites.map((trick) => searchItemFromTrick(trick, 'alias')),
+  };
+  const searchResultWithoutFavorites = groupTricksToSearchResult(
+    sortedTricksWithoutFavorites,
+    searchParameters.sortOrder,
+    mapTrickToAttribute
+  );
+  return [favoritesSearchItem].concat(searchResultWithoutFavorites);
 }
