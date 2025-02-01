@@ -20,5 +20,13 @@
       "top": "Top",
       "regular": "Regular"
     }
+  },
+  "preferredName": {
+    "triggerTitleAlias": "Name: Alias",
+    "triggerTitleTechnicalName": "Name: Technical",
+    "radioItems": {
+      "alias": "Alias (if possible)",
+      "technicalName": "Technical Name"
+    }
   }
 }

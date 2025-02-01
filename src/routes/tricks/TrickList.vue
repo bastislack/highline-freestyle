@@ -28,6 +28,7 @@ const DEFAULT_SEARCH_PARAMETERS: SearchParameters = {
   sortOrder: 'difficulty-asc',
   includedStatuses: ['official', 'userDefined', 'archived'],
   showFavoritesAtTop: true,
+  preferredName: 'alias',
 };
 
 function loadSearchParameters(): SearchParameters {
@@ -42,6 +43,7 @@ function loadSearchParameters(): SearchParameters {
     parameters.includedStatuses || DEFAULT_SEARCH_PARAMETERS.includedStatuses;
   parameters.showFavoritesAtTop =
     parameters.showFavoritesAtTop || DEFAULT_SEARCH_PARAMETERS.showFavoritesAtTop;
+  parameters.preferredName = parameters.preferredName || DEFAULT_SEARCH_PARAMETERS.preferredName;
 
   return parameters;
 }

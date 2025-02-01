@@ -10,7 +10,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
-import { SearchParameters, SortOrder } from '@/types/search';
+import { SearchParameters, SortOrder, TrickNameOption } from '@/types/search';
 import DropdownMenu from '@/components/ui/dropdown-menu/DropdownMenu.vue';
 import DropdownMenuTrigger from '@/components/ui/dropdown-menu/DropdownMenuTrigger.vue';
 import DropdownMenuContent from '@/components/ui/dropdown-menu/DropdownMenuContent.vue';
@@ -128,7 +128,18 @@ watchEffect(() => {
   searchParameters.value.showFavoritesAtTop = favoritesTreatment.value === 'showAtTop';
 });
 
+// NAME
+
+const preferredName = ref<TrickNameOption>(searchParameters.value.preferredName);
+watchEffect(() => {
+  if (!searchParameters.value) {
+    throw new Error('Search Parameters model needs to be passed to TrickSearchMenu!');
+  }
+  searchParameters.value.preferredName = preferredName.value;
+});
+
 // GENERAL
+
 function highlightFilterClasses(highlight: boolean | undefined): string {
   return highlight ? 'font-medium' : 'font-normal';
 }
@@ -237,6 +248,34 @@ function highlightFilterClasses(highlight: boolean | undefined): string {
             </DropdownMenuRadioItem>
             <DropdownMenuRadioItem value="dontShowAtTop">
               {{ t('favoritesPlacement.radioItems.regular') }}
+            </DropdownMenuRadioItem>
+          </DropdownMenuRadioGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
+
+      <DropdownMenu>
+        <DropdownMenuTrigger as-child :disabled="textSearchContainsText">
+          <Button
+            variant="secondary"
+            size="sm"
+            :class="highlightFilterClasses(searchParameters?.preferredName == 'technicalName')"
+          >
+            {{
+              t(
+                searchParameters?.preferredName == 'alias'
+                  ? 'preferredName.triggerTitleAlias'
+                  : 'preferredName.triggerTitleTechnicalName'
+              )
+            }}
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuRadioGroup v-model="preferredName">
+            <DropdownMenuRadioItem value="alias">
+              {{ t('preferredName.radioItems.alias') }}
+            </DropdownMenuRadioItem>
+            <DropdownMenuRadioItem value="technicalName">
+              {{ t('preferredName.radioItems.technicalName') }}
             </DropdownMenuRadioItem>
           </DropdownMenuRadioGroup>
         </DropdownMenuContent>

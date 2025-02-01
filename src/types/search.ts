@@ -23,9 +23,12 @@ export type SortOrder =
   | 'yearEstablished-asc'
   | 'yearEstablished-desc';
 
+export type TrickNameOption = 'alias' | 'technicalName';
+
 export type SearchParameters = {
   searchText?: string;
   sortOrder: SortOrder;
   includedStatuses: StickableStatus[];
   showFavoritesAtTop: boolean;
+  preferredName: TrickNameOption;
 };
