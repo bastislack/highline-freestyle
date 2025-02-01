@@ -20,5 +20,13 @@
       "top": "Top",
       "regular": "Régulier"
     }
+  },
+  "preferredName": {
+    "triggerTitleAlias": "Nom : Alias",
+    "triggerTitleTechnicalName": "Nom : Technique",
+    "radioItems": {
+      "alias": "Alias (si possible)",
+      "technicalName": "Nom technique"
+    }
   }
 }
