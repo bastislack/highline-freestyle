@@ -5,10 +5,9 @@ import {
   SearchResult,
   SearchSection,
   SortOrder,
+  TrickNameOption,
 } from '@/types/search';
 import { isStickableNew } from '@/util/misc';
-
-type TrickNameToUse = 'alias' | 'technical';
 
 function equalLengthStringDistance(a: string, b: string): number {
   if (a.length !== b.length) {
@@ -52,7 +51,7 @@ function textDistance(baseText: string, query: string): number {
 function trickNameDistance(
   trick: Trick,
   query: string
-): { distance: number; nameToUse: TrickNameToUse } {
+): { distance: number; nameToUse: TrickNameOption } {
   query = query.toLowerCase();
   const technicalName = trick.technicalName.toLowerCase();
   const alias = (trick.alias || '').toLowerCase();
@@ -62,10 +61,13 @@ function trickNameDistance(
 
   return distanceAlias <= distanceTechnicalName
     ? { distance: distanceAlias, nameToUse: 'alias' }
-    : { distance: distanceTechnicalName, nameToUse: 'technical' };
+    : { distance: distanceTechnicalName, nameToUse: 'technicalName' };
 }
 
-function textSearch(tricks: Trick[], query: string): { trick: Trick; nameToUse: TrickNameToUse }[] {
+function textSearch(
+  tricks: Trick[],
+  query: string
+): { trick: Trick; nameToUse: TrickNameOption }[] {
   const MATCH_DISTANCE_MAX = Math.ceil(query.length / 3);
   return tricks
     .map((trick) => {
@@ -135,7 +137,7 @@ function sortTricks(tricks: Trick[], sorting: SortOrder): Trick[] {
   }
 }
 
-function searchItemFromTrick(trick: Trick, name: TrickNameToUse): SearchItem {
+function searchItemFromTrick(trick: Trick, name: TrickNameOption): SearchItem {
   return {
     name: name === 'alias' ? trick.alias ?? trick.technicalName : trick.technicalName,
     primaryKey: [trick.primaryKey[0], trick.primaryKey[1]],
@@ -148,7 +150,8 @@ function searchItemFromTrick(trick: Trick, name: TrickNameToUse): SearchItem {
 function groupTricksToSearchResult(
   sortedTricks: Trick[],
   sorting: SortOrder,
-  mapTrickToAttribute: (t: Trick, sort: SortOrder) => string
+  mapTrickToAttribute: (t: Trick, sort: SortOrder) => string,
+  nameToUse: TrickNameOption
 ): SearchResult {
   if (sortedTricks.length === 0) {
     return [];
@@ -161,7 +164,7 @@ function groupTricksToSearchResult(
       currentGroup = mapTrickToAttribute(trick, sorting);
       result.push({ title: currentGroup, items: [] });
     }
-    const searchItem = searchItemFromTrick(trick, 'alias');
+    const searchItem = searchItemFromTrick(trick, nameToUse);
     result[result.length - 1].items.push(searchItem);
   }
   return result;
@@ -193,24 +196,37 @@ export function searchInTricks(
   const sortedTricks = sortTricks(filteredTricks, searchParameters.sortOrder);
 
   if (!searchParameters.showFavoritesAtTop) {
-    return groupTricksToSearchResult(sortedTricks, searchParameters.sortOrder, mapTrickToAttribute);
+    return groupTricksToSearchResult(
+      sortedTricks,
+      searchParameters.sortOrder,
+      mapTrickToAttribute,
+      searchParameters.preferredName
+    );
   }
 
   const isolatedFavorites = sortedTricks.filter((trick) => trick.isFavourite);
 
   if (isolatedFavorites.length == 0) {
-    return groupTricksToSearchResult(sortedTricks, searchParameters.sortOrder, mapTrickToAttribute);
+    return groupTricksToSearchResult(
+      sortedTricks,
+      searchParameters.sortOrder,
+      mapTrickToAttribute,
+      searchParameters.preferredName
+    );
   }
 
   const sortedTricksWithoutFavorites = sortedTricks.filter((trick) => !trick.isFavourite);
   const favoritesSearchItem: SearchSection = {
     title: favoritesSectionTitle,
-    items: isolatedFavorites.map((trick) => searchItemFromTrick(trick, 'alias')),
+    items: isolatedFavorites.map((trick) =>
+      searchItemFromTrick(trick, searchParameters.preferredName)
+    ),
   };
   const searchResultWithoutFavorites = groupTricksToSearchResult(
     sortedTricksWithoutFavorites,
     searchParameters.sortOrder,
-    mapTrickToAttribute
+    mapTrickToAttribute,
+    searchParameters.preferredName
   );
   return [favoritesSearchItem].concat(searchResultWithoutFavorites);
 }
