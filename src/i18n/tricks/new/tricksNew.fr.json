@@ -1,6 +1,11 @@
 {
   "titleHeading": "Créer un nouveau trick",
 
+  "personalTrickInfo": {
+    "title": "Visible uniquement par vous",
+    "description": "Il s'agit d'une information personnelle qui ne sera stockée que sur votre appareil. Il ne sera pas partagé."
+  },
+
   "label": {
     "technicalName": "Nom technique",
     "alias": "Alias",

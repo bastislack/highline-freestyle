@@ -1,6 +1,11 @@
 {
   "titleHeading": "Crear un nuevo truco",
 
+  "personalTrickInfo": {
+    "title": "Visible sólo para usted",
+    "description": "Se trata de un truco personal y se almacenará únicamente en tu dispositivo. No se compartirá."
+  },
+
   "label": {
     "technicalName": "Nombre técnico",
     "alias": "Alias",
