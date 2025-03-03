@@ -21,6 +21,8 @@ import MultilineTextInput from '@/components/ui/customForm/MultilineTextInput.vu
 import TrickSelect from '@/components/ui/customForm/TrickSelect.vue';
 import { ToastAction, useToast } from '@/components/ui/toast';
 import TextInput from '@/components/ui/customForm/TextInput.vue';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Icon } from '@iconify/vue/dist/iconify.js';
 
 const toast = useToast();
 const router = useRouter();
@@ -135,7 +137,13 @@ function hasHistory(): boolean {
 <template>
   <DefaultLayout>
     <Section>
-      <h1 class="text-2xl md:text-3xl my-4 font-black">{{ t('titleHeading') }}</h1>
+      <h1 class="text-2xl md:text-3xl mb-3 mt-2">{{ t('titleHeading') }}</h1>
+
+      <Alert variant="default" class="my-3">
+        <Icon icon="ic:outline-info" class="w-5 h-5" />
+        <AlertTitle class="pl-3">{{ t('personalTrickInfo.title') }}</AlertTitle>
+        <AlertDescription class="pl-3">{{ t('personalTrickInfo.description') }}</AlertDescription>
+      </Alert>
 
       <form class="grid gap-4 lg:gap-6 grid-cols-4" @submit="submit">
         <TextInput

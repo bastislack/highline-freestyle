@@ -1,5 +1,10 @@
 {
-  "titleHeading": "Create a new trick",
+  "titleHeading": "Create new personal trick",
+
+  "personalTrickInfo": {
+    "title": "Visible to you only",
+    "description": "This is a personal trick and will be stored only on your device. It will not be shared."
+  },
 
   "label": {
     "technicalName": "Technical Name",
