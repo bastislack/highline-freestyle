@@ -1,0 +1,32 @@
+{
+  "textSearchPlaceholder": "Procurar",
+  "sortOptionsLabel": "Ordenar",
+  "sortOptions": {
+    "difficulty": "Dificuldade",
+    "startPosition": "Posição inicial",
+    "endPosition": "Posição final",
+    "inventionYear": "Ano de criação",
+    "ascending": "Acima",
+    "descending": "Abaixo"
+  },
+  "includedStickableStatuses": {
+    "triggerTitle": "Status"
+  },
+  "favoritesPlacement": {
+    "triggerTitleTop": "Favoritos: Acima",
+    "triggerTitleRegular": "Favoritos: Regular",
+    "menuLabel": "Posições favoritas",
+    "radioItems": {
+      "top": "Acima",
+      "regular": "Regular"
+    }
+  },
+  "preferredName": {
+    "triggerTitleAlias": "Nome: Alias",
+    "triggerTitleTechnicalName": "Nome: Técnico",
+    "radioItems": {
+      "alias": "Apelido (se possível)",
+      "technicalName": "Nome Técnico"
+    }
+  }
+}

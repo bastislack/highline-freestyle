@@ -1,0 +1,51 @@
+{
+  "titleHeading": "Criar uma nova trick",
+
+  "label": {
+    "technicalName": "Nome Técnico",
+    "alias": "Apelido",
+    "positionStart": "Posição Inicial",
+    "positionEnd": "Posição Final",
+    "difficulty": "Dificuldade",
+    "description": "Descrição",
+    "establishedBy": "Inventado por",
+    "inTheYear": "no ano de",
+    "tips": "Dicas",
+    "variantOf": "Variação de",
+    "recommendedPrereq": "Pré-requisitos",
+    "videos": "Vídeos"
+  },
+
+  "question": {
+    "alias": "Como você chama isso?",
+    "difficulty": "1 a 10. Deixe em branco se não tiver certeza.",
+    "tips": "Coloque cada dica em uma linha separada.",
+    "variantOf": "Esta é uma variação de outro truque?",
+    "recommendedPrereq": "Tricks que você recomendaria aprender antes de tentar este?"
+  },
+
+  "placeholder": {
+    "technicalName": "180 Chestroll Crazyness",
+    "alias": "Chewbacca Roll",
+    "establishedBy": "Ian, provavelmente",
+    "description": "Uma descrição adequada",
+    "tips": "Esta é a minha primeira dica.\nE esta é a minha segunda dica.",
+    "difficulty": "Não tenho certeza"
+  },
+
+  "componentNotImplemented": "Este componente ainda não foi implementado.",
+
+  "toast": {
+    "createdTrick": "Truque {name} criado",
+    "goToTrick": "Ir para o Truque",
+    "addAnotherTrick": "Adicionar outro"
+  },
+
+  "error": {
+    "title": "Ops…",
+    "message": "Ocorreu um erro ao tentar inserir a nova trick no banco de dados. Verifique o console (F12) para obter mais informações."
+  },
+
+  "buttonSubmit": "Criar",
+  "buttonCancel": "Cancelar"
+}

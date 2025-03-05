@@ -1,0 +1,53 @@
+{
+  "error": {
+    "invalid-status": {
+      "title": "O status fornecido da trick é inválido!",
+      "description": "Verifique sua URL. Apenas os valores \"oficial\", \"pessoal\" e \"arquivado\" são permitidos na posição de status em \"/tricks/<status>/<id>\"."
+    },
+    "invalid-id": {
+      "title": "O id fornecido da trick é inválido!",
+      "description": "Verifique sua URL. Apenas números são permitidos na posição de id em \"/tricks/<status>/<id>\"."
+    },
+    "trick-not-in-db": {
+      "title": "Essa trick não existe no seu banco de dados!",
+      "description": "Você tentou acessar uma trick que não está armazenado no seu dispositivo."
+    }
+  },
+  "badges": {
+    "official": "Oficial",
+    "archived": "Arquivado",
+    "new": "Novo"
+  },
+  "header": {
+    "difficulty": "Dificuldade",
+    "to": "até"
+  },
+  "info": {
+    "variation-of": {
+      "title": "Variação de"
+    },
+    "description": {
+      "title": "Descrição",
+      "missing-message": "Descrição ausente"
+    },
+    "invented-by": {
+      "title": "Inventado por"
+    },
+    "invented-in": {
+      "title-full": "Inventado em",
+      "title-in": "em"
+    },
+    "tips": {
+      "title": "Dicas",
+      "missing-message": "Nenhuma dica fornecida"
+    },
+    "prerequisites": {
+      "title": "Pré-requisitos"
+    }
+  },
+  "metadata": {
+    "stick-frequency": {
+      "title": "Frequência de acerto"
+    }
+  }
+}

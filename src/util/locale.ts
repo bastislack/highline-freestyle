@@ -1,6 +1,30 @@
 import { z } from 'zod';
 
-export const LocalesZod = z.enum(['en', 'fr', 'es']);
+export const LocalesZod = z.enum(['en', 'fr', 'es', 'pt']);
+export type Locales = z.infer<typeof LocalesZod>;
+
+// Object to be used for the locale switcher
+export const LocaleInfos: Array<{
+  locale: Locales;
+  name: string;
+}> = [
+  {
+    locale: 'en',
+    name: 'English',
+  },
+  {
+    locale: 'es',
+    name: 'Español',
+  },
+  {
+    locale: 'fr',
+    name: 'Français',
+  },
+  {
+    locale: 'pt',
+    name: 'Português',
+  },
+];
 
 /**
  * This causes the setting to persist. Next time user loads the website

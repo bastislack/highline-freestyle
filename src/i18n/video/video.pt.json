@@ -1,0 +1,25 @@
+{
+  "duration": {
+    "to": "até",
+    "not-specified": "Duração não especificada"
+  },
+  "error": {
+    "only-youtube-and-insta": "Apenas vídeos do YouTube e Instagram podem ser exibidos!",
+    "invalid-url": "URL de vídeo inválida!",
+    "invalid-youtube": "A URL do YouTube fornecida não pôde ser convertida! O vídeo não pode ser exibido."
+  },
+  "embedPermissions": {
+    "heading": "Permitir incorporação de vídeos?",
+    "details": "Para exibir vídeos, usamos o Instagram ou o YouTube. É muito provável que esses serviços rastreiem você. Nós mesmos não rastreamos você nem coletamos nenhum dado sobre você. Você pode revogar sua permissão na página de configurações.",
+    "youtubeAndInstagram": "YouTube & Instagram",
+    "youtube": {
+      "question": "Atualmente, não temos sua permissão para exibir vídeos do YouTube. Deseja dar sua permissão?",
+      "onlyYouTube": "Apenas YouTube"
+    },
+    "instagram": {
+      "question": "lmente, não temos sua permissão para exibir vídeos do Instagram. Deseja dar sua permissão?",
+      "onlyInstagram": "Apenas Instagram"
+    }
+  },
+  "url": "URL"
+}

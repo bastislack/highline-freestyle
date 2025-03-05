@@ -1,0 +1,15 @@
+{
+  "heading-settings": "Configurações",
+  "tracking": {
+    "heading": "Rastreamento",
+    "description": "Não colocamos quaisquer cookies no seu browser e não recolhemos quaisquer dados sobre si. No entanto, quando apresentamos vídeos através do Instagram ou do YouTube, é muito provável que estes serviços coloquem cookies no seu navegador e/ou o monitorizem.",
+    "youtube": {
+      "name": "YouTube",
+      "description": "Permitir que vídeo do YouTube apareça diretamente no site"
+    },
+    "instagram": {
+      "name": "Instagram",
+      "description": "Permitir que foto do Instagram apareça diretamente no site"
+    }
+  }
+}

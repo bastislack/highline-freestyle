@@ -1,0 +1,14 @@
+{
+  "back": "Voltar",
+  "home": "Início",
+  "debug-info": "Informações de depuração",
+
+  "INPUT_REQUIRED": "Este campo é obrigatório",
+  "INPUT_NOT_NUMBER": "Por favor, insira um número",
+  "INPUT_NOT_INTEGER": "Por favor, insira um número inteiro",
+  "INPUT_NUMBER_BELOW_MIN": "A entrada não deve ser menor que {value}",
+  "INPUT_NUMBER_ABOVE_MAX": "A entrada não deve ser maior que {value}",
+  "POSITION_INVALID": "A Posição fornecida é inválida",
+  "INPUT_TOO_SHORT": "A entrada deve ter pelo menos {limit} caracteres",
+  "INPUT_TOO_LONG": "A entrada deve ter no máximo {limit} caracteres"
+}

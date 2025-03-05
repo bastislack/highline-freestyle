@@ -5,39 +5,17 @@ import { useI18n } from 'vue-i18n';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 import messages from '../../i18n/navbar';
-import { setNewLocale } from '@/util/locale';
+import { setNewLocale, LocaleInfos, type Locales } from '@/util/locale';
 import ImgLogoUrl from '@/assets/logo/logo_big.svg?url';
 
 const i18n = useI18n({
   messages,
   useScope: 'local',
 });
-
 const { t } = i18n;
-
-interface LocaleInfo {
-  locale: 'en' | 'fr' | 'es';
-  name: string;
-}
-
-const LocaleInfos: LocaleInfo[] = [
-  {
-    locale: 'en',
-    name: 'English',
-  },
-  {
-    locale: 'es',
-    name: 'Español',
-  },
-  {
-    locale: 'fr',
-    name: 'Français',
-  },
-];
-
 const { locale } = useI18n();
 
-function updateLocale(newLocale: LocaleInfo['locale']) {
+function updateLocale(newLocale: Locales) {
   locale.value = newLocale;
   setNewLocale(newLocale);
 }

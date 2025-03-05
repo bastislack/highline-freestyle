@@ -1,0 +1,21 @@
+{
+  "toasts": {
+    "success": {
+      "title": "{trickName} excluído(a)."
+    },
+    "failedNotInDB": {
+      "title": "Falha ao excluir {trickName}!",
+      "description": "Não foi possível encontrar a trick na base de dados."
+    },
+    "failedWithError": {
+      "title": "Falha ao excluir {trickName}!"
+    }
+  },
+  "triggerButton": "Excluir",
+  "dialogue": {
+    "title": "Excluir {trickName} permanentemente?",
+    "description": "Você não pode desfazer esta ação!",
+    "deleteButton": "Excluir permanentemente",
+    "cancelButton": "Cancelar"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "sectionTitles": {
+    "difficulty": "Dificuldade {difficulty}",
+    "unknown": "Desconhecida",
+    "notDetermined": "Não definida",
+    "favorites": "Favoritos"
+  },
+  "cards": {
+    "badges": {
+      "personal": "Personal",
+      "archived": "Arquivada",
+      "new": "Novo"
+    }
+  },
+  "info": {
+    "noTrickMatchingSearch": "Não tem nenhuma trick para a sua busca."
+  }
+}

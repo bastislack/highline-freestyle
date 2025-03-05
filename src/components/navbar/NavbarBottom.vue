@@ -10,40 +10,18 @@ import {
 import { Icon } from '@iconify/vue';
 import { useI18n } from 'vue-i18n';
 
-import messages from '../../i18n/navbar';
+import messages from '@/i18n/navbar';
 import DropdownMenuGroup from '../ui/dropdown-menu/DropdownMenuGroup.vue';
-import { setNewLocale } from '@/util/locale';
+import { setNewLocale, LocaleInfos, type Locales } from '@/util/locale';
 
 const i18n = useI18n({
   messages,
   useScope: 'local',
 });
-
 const { t } = i18n;
-
-interface LocaleInfo {
-  locale: 'en' | 'fr' | 'es';
-  name: string;
-}
-
-const LocaleInfos: LocaleInfo[] = [
-  {
-    locale: 'en',
-    name: 'English',
-  },
-  {
-    locale: 'es',
-    name: 'Español',
-  },
-  {
-    locale: 'fr',
-    name: 'Français',
-  },
-];
-
 const { locale } = useI18n();
 
-function updateLocale(newLocale: LocaleInfo['locale']) {
+function updateLocale(newLocale: Locales) {
   locale.value = newLocale;
   setNewLocale(newLocale);
 }

@@ -1,0 +1,18 @@
+{
+  "levels": {
+    "neverTried": "Nunca tentei",
+    "practicing": "Praticando",
+    "once": "Uma vez",
+    "rarely": "Raramente",
+    "sometimes": "Às vezes",
+    "often": "Frequentemente",
+    "generally": "Geralmente",
+    "always": "Sempre"
+  },
+  "trick": {
+    "errorCannotUpdate": {
+      "title": "Falha ao atualizar a frequência da trick!",
+      "description": "Este erro provavelmente é nosso. Por favor, relate-o em https://github.com/bastislack/highline-freestyle/issues. Verifique o console para obter mais detalhes."
+    }
+  }
+}
