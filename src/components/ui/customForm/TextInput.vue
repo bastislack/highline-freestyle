@@ -17,6 +17,8 @@ const props = defineProps<{
   formFieldName: string;
   placeholder?: string;
   class?: string;
+  inputMode?: string;
+  type?: string;
 }>();
 </script>
 
@@ -35,7 +37,12 @@ const props = defineProps<{
       </FormDescription>
       <FormMessage />
       <FormControl>
-        <Input type="text" :placeholder="placeholder" v-bind="componentField" />
+        <Input
+          :type="type || 'text'"
+          :placeholder="placeholder"
+          :inputMode="inputMode"
+          v-bind="componentField"
+        />
       </FormControl>
     </FormItem>
   </FormField>
