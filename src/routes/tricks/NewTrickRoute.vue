@@ -9,8 +9,6 @@ import { toTypedSchema } from '@vee-validate/zod';
 
 import messages from '@/i18n/tricks/new/index';
 import messagesPositions from '@/i18n/common/positions';
-import messagesErrors from '@/i18n/error';
-
 import { i18nMerge } from '@/i18n/i18nmerge';
 import { DbPositionZod } from '@/lib/database/schemas/CurrentVersionSchema';
 import { CreateNewTrickType } from '@/lib/database/daos/tricksDao';
@@ -30,7 +28,7 @@ const toast = useToast();
 const router = useRouter();
 
 const { t } = useI18n({
-  messages: i18nMerge(messages, messagesPositions, messagesErrors),
+  messages: i18nMerge(messages, messagesPositions),
   scope: 'local',
 });
 
@@ -41,9 +39,9 @@ const newTrickSchema = z.object({
   difficulty: z.union([
     z
       .number()
-      .int({ message: t('INPUT_NOT_INTEGER') })
-      .min(1, { message: t('INPUT_NUMBER_BELOW_MIN', { value: 1 }) })
-      .max(20, { message: t('INPUT_NUMBER_ABOVE_MAX', { value: 20 }) }),
+      .int({ message: 'INPUT_NOT_INTEGER' })
+      .min(1, { message: 'INPUT_NUMBER_BELOW_MIN' })
+      .max(20, { message: 'INPUT_NUMBER_ABOVE_MAX' }),
     z.literal(''), // When input with type="numeric" is empty it sends an empty string, this works as the `.optional()`
   ]),
   startPosition: DbPositionZod,
@@ -67,11 +65,9 @@ const newTrickSchema = z.object({
   yearEstablished: z.union([
     z
       .number()
-      .int({ message: t('INPUT_NOT_INTEGER') })
-      .min(1900, { message: t('INPUT_NUMBER_BELOW_MIN', { value: 1900 }) })
-      .max(new Date().getFullYear(), {
-        message: t('INPUT_NUMBER_ABOVE_MAX', { value: new Date().getFullYear() }),
-      })
+      .int({ message: 'INPUT_NOT_INTEGER' })
+      .min(1900, { message: 'INPUT_NUMBER_BELOW_MIN' })
+      .max(new Date().getFullYear(), { message: 'INPUT_NUMBER_ABOVE_MAX' })
       .optional(),
     z.literal(''), // When input with type="numeric" is empty it sends an empty string, this works as the `.optional()`
   ]),
@@ -190,6 +186,7 @@ function hasHistory(): boolean {
           form-field-name="difficulty"
           inputMode="numeric"
           type="number"
+          :error-values="{ min: '1', max: '20' }"
         />
 
         <MultilineTextInput
@@ -214,6 +211,7 @@ function hasHistory(): boolean {
           form-field-name="yearEstablished"
           inputMode="numeric"
           type="number"
+          :error-values="{ min: '1900', max: new Date().getFullYear().toString() }"
         />
 
         <MultilineTextInput

@@ -20,6 +20,8 @@ const props = defineProps<{
   class?: string;
   inputMode?: InputHTMLAttributes['inputmode'];
   type?: InputHTMLAttributes['type'];
+  // This is used to pass values for the message translation interpolation
+  errorValues?: Record<string, string>;
 }>();
 </script>
 
@@ -36,7 +38,7 @@ const props = defineProps<{
       <FormDescription v-if="description">
         {{ description }}
       </FormDescription>
-      <FormMessage />
+      <FormMessage :values="props.errorValues" />
       <FormControl>
         <Input
           :type="type || 'text'"
