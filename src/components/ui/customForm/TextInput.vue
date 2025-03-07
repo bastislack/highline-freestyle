@@ -10,6 +10,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import { InputHTMLAttributes } from 'vue';
 
 const props = defineProps<{
   title: string;
@@ -17,8 +18,8 @@ const props = defineProps<{
   formFieldName: string;
   placeholder?: string;
   class?: string;
-  inputMode?: string;
-  type?: string;
+  inputMode?: InputHTMLAttributes['inputmode'];
+  type?: InputHTMLAttributes['type'];
 }>();
 </script>
 
