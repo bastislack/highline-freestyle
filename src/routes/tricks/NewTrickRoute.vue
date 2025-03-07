@@ -43,7 +43,7 @@ const newTrickSchema = z.object({
       .number()
       .int({ message: t('INPUT_NOT_INTEGER') })
       .min(1, { message: t('INPUT_NUMBER_BELOW_MIN', { value: 1 }) })
-      .max(10, { message: t('INPUT_NUMBER_ABOVE_MAX', { value: 10 }) }),
+      .max(20, { message: t('INPUT_NUMBER_ABOVE_MAX', { value: 20 }) }),
     z.literal(''), // When input with type="numeric" is empty it sends an empty string, this works as the `.optional()`
   ]),
   startPosition: DbPositionZod,
