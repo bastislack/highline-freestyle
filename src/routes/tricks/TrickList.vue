@@ -11,6 +11,15 @@ import TrickSearchMenu from '@/components/stickable/list/TrickSearchMenu.vue';
 import StickableOverviewCard from '@/components/stickable/list/StickableOverviewCard.vue';
 import Separator from '@/components/ui/separator/Separator.vue';
 import Section from '@/components/ui/section/Section.vue';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+} from '@/components/ui/dropdown-menu';
+import { Button } from '@/components/ui/button';
+import { Icon } from '@iconify/vue/dist/iconify.js';
 
 import { useI18n } from 'vue-i18n';
 import { i18nMerge } from '@/i18n/i18nmerge';
@@ -137,5 +146,37 @@ function linkToDetails(primaryKey: PrimaryKey): string {
         </div>
       </div>
     </Section>
+
+    <!-- Floating Add-New-Trick-Menu -->
+    <DropdownMenu>
+      <DropdownMenuTrigger as-child>
+        <Button
+          size="icon"
+          class="rounded-full shadow-md fixed bottom-20 right-3 lg:bottom-5 lg:right-5 xl:bottom-10 xl:right-10 h-12 w-12"
+        >
+          <Icon icon="ic:round-add" class="h-8 w-8" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuItem>
+          <RouterLink to="/tricks/new" class="flex flex-row">
+            <Icon icon="ic:round-person" class="h-6 w-6 mr-2" />
+            {{ t('newTrickButton.personal') }}
+          </RouterLink>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>
+          <a
+            href="https://forms.gle/kCPLnDz9xNLW9oKAA"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex flex-row underline"
+          >
+            <Icon icon="material-symbols:globe-asia" class="h-6 w-6 mr-2" />
+            {{ t('newTrickButton.official') }}
+          </a>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   </DefaultLayout>
 </template>

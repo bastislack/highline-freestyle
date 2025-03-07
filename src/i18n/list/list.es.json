@@ -14,5 +14,9 @@
   },
   "info": {
     "noTrickMatchingSearch": "Oh, no. No hay trucos que coincidan con su búsqueda."
+  },
+  "newTrickButton": {
+    "personal": "Nuevo truco personal",
+    "official": "Sugerir truco oficial"
   }
 }

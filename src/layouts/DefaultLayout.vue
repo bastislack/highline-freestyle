@@ -4,7 +4,7 @@ import NavbarBottom from '../components/navbar/NavbarBottom.vue';
 </script>
 
 <template>
-  <div class="flex flex-col min-h-screen bg-background text-foreground m-0 p-0">
+  <div class="min-h-screen w-full bg-background text-foreground m-0 p-0">
     <div class="flex flex-row m-0 p-0">
       <div class="hidden lg:block">
         <NavbarSide />
