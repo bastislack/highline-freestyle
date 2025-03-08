@@ -14,5 +14,9 @@
   },
   "info": {
     "noTrickMatchingSearch": "Não tem nenhuma trick para a sua busca."
+  },
+  "newTrickButton": {
+    "personal": "Nova Trick Pessoal",
+    "official": "Sugerir Trick Oficial"
   }
 }
