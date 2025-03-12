@@ -8,7 +8,7 @@ import { h } from 'vue';
 import { toTypedSchema } from '@vee-validate/zod';
 
 import messages from '@/i18n/tricks/new/index';
-import messages_positions from '@/i18n/common/positions';
+import messagesPositions from '@/i18n/common/positions';
 import { i18nMerge } from '@/i18n/i18nmerge';
 import { DbPositionZod } from '@/lib/database/schemas/CurrentVersionSchema';
 import { CreateNewTrickType } from '@/lib/database/daos/tricksDao';
@@ -28,7 +28,7 @@ const toast = useToast();
 const router = useRouter();
 
 const { t } = useI18n({
-  messages: i18nMerge(messages, messages_positions),
+  messages: i18nMerge(messages, messagesPositions),
   scope: 'local',
 });
 
@@ -36,12 +36,14 @@ const newTrickSchema = z.object({
   technicalName: z.string().trim().min(1),
   alias: z.string().optional(),
   establishedBy: z.string().optional(),
-  difficulty: z
-    .number()
-    .int({ message: 'INPUT_NOT_INTEGER' })
-    .min(1, { message: 'INPUT_NUMBER_BELOW_MIN' })
-    .max(10, { message: 'INPUT_NUMBER_ABOVE_MAX' })
-    .optional(),
+  difficulty: z.union([
+    z
+      .number()
+      .int({ message: 'INPUT_NOT_INTEGER' })
+      .min(1, { message: 'INPUT_NUMBER_BELOW_MIN' })
+      .max(20, { message: 'INPUT_NUMBER_ABOVE_MAX' }),
+    z.literal(''), // When input with type="numeric" is empty it sends an empty string, this works as the `.optional()`
+  ]),
   startPosition: DbPositionZod,
   endPosition: DbPositionZod,
   description: z.string().optional(),
@@ -60,11 +62,15 @@ const newTrickSchema = z.object({
       z.array(z.string().min(1)).optional()
     )
     .optional(),
-  yearEstablished: z
-    .number()
-    .int({ message: 'INPUT_NOT_INTEGER' })
-    .min(1900, { message: 'INPUT_NUMBER_BELOW_MIN' })
-    .optional(),
+  yearEstablished: z.union([
+    z
+      .number()
+      .int({ message: 'INPUT_NOT_INTEGER' })
+      .min(1900, { message: 'INPUT_NUMBER_BELOW_MIN' })
+      .max(new Date().getFullYear(), { message: 'INPUT_NUMBER_ABOVE_MAX' })
+      .optional(),
+    z.literal(''), // When input with type="numeric" is empty it sends an empty string, this works as the `.optional()`
+  ]),
   // variantOf: z.unknown().optional(), // will be added later
   // recommendedPrerequisites: z.unknown().optional(), // will be added later,
   // videos: z.array(DbVideoZod).optional(),
@@ -86,12 +92,12 @@ const submit = form.handleSubmit(async (vals) => {
     alias: vals.alias,
     dateAddedEpoch: new Date().getTime(),
     establishedBy: vals.establishedBy,
-    difficultyLevel: vals.difficulty,
+    difficultyLevel: vals.difficulty === '' ? undefined : vals.difficulty,
     startPosition: vals.startPosition,
     endPosition: vals.endPosition,
     description: vals.description,
     tips: vals.tips,
-    yearEstablished: vals.yearEstablished,
+    yearEstablished: vals.yearEstablished === '' ? undefined : vals.yearEstablished,
     recommendedPrerequisites: [],
     variationOf: [],
     showInSearchQueries: true,
@@ -178,6 +184,9 @@ function hasHistory(): boolean {
           :description="t('question.difficulty')"
           :placeholder="t('placeholder.difficulty')"
           form-field-name="difficulty"
+          inputMode="numeric"
+          type="number"
+          :error-values="{ min: '1', max: '20' }"
         />
 
         <MultilineTextInput
@@ -200,6 +209,9 @@ function hasHistory(): boolean {
           :title="t('label.inTheYear')"
           placeholder="2024"
           form-field-name="yearEstablished"
+          inputMode="numeric"
+          type="number"
+          :error-values="{ min: '1900', max: new Date().getFullYear().toString() }"
         />
 
         <MultilineTextInput

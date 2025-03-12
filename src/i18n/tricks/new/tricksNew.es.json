@@ -23,7 +23,7 @@
 
   "question": {
     "alias": "Cómo llamas realmente a esto?",
-    "difficulty": "1 a 10. Manténte vacía si no está seguro.",
+    "difficulty": "1 a 20. Manténte vacía si no está seguro.",
     "tips": "Pon cada punta en una línea separada.",
     "variantOf": "Es esta una variante de otro truco?",
     "recommendedPrereq": "Trucos que recomendarías aprender antes de probar esto?"

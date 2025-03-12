@@ -18,7 +18,7 @@
 
   "question": {
     "alias": "Como você chama isso?",
-    "difficulty": "1 a 10. Deixe em branco se não tiver certeza.",
+    "difficulty": "1 a 20. Deixe em branco se não tiver certeza.",
     "tips": "Coloque cada dica em uma linha separada.",
     "variantOf": "Esta é uma variação de outro truque?",
     "recommendedPrereq": "Tricks que você recomendaria aprender antes de tentar este?"

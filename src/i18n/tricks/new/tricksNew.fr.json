@@ -23,7 +23,7 @@
 
   "question": {
     "alias": "Qu'est-ce que vous appelez-vous vraiment ceci ?",
-    "difficulty": "1 à 10. Restez vides en cas de doute.",
+    "difficulty": "1 à 20. Restez vides en cas de doute.",
     "tips": "Placez chaque embout sur une ligne distincte.",
     "variantOf": "S'agit-il d'une variante d'une autre trick ?",
     "recommendedPrereq": "Des tricks que vous recommanderiez d'apprendre avant d'essayer celle-ci ?"

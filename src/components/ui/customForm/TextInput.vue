@@ -10,6 +10,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import { InputHTMLAttributes } from 'vue';
 
 const props = defineProps<{
   title: string;
@@ -17,6 +18,10 @@ const props = defineProps<{
   formFieldName: string;
   placeholder?: string;
   class?: string;
+  inputMode?: InputHTMLAttributes['inputmode'];
+  type?: InputHTMLAttributes['type'];
+  // This is used to pass values for the message translation interpolation
+  errorValues?: Record<string, string>;
 }>();
 </script>
 
@@ -33,9 +38,14 @@ const props = defineProps<{
       <FormDescription v-if="description">
         {{ description }}
       </FormDescription>
-      <FormMessage />
+      <FormMessage :values="props.errorValues" />
       <FormControl>
-        <Input type="text" :placeholder="placeholder" v-bind="componentField" />
+        <Input
+          :type="type || 'text'"
+          :placeholder="placeholder"
+          :inputMode="inputMode"
+          v-bind="componentField"
+        />
       </FormControl>
     </FormItem>
   </FormField>
