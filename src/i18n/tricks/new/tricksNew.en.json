@@ -23,7 +23,7 @@
 
   "question": {
     "alias": "What do you actually call this?",
-    "difficulty": "1 to 10. Keep empty if unsure.",
+    "difficulty": "1 to 20. Keep empty if unsure.",
     "tips": "Put each tip on a separate line.",
     "variantOf": "Is this a variant of another trick?",
     "recommendedPrereq": "Tricks you would recommend to learn before trying this one?"
