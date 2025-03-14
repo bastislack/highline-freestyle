@@ -19,6 +19,13 @@ import TrickStickFrequencySelector from '../stickFrequencySelector/TrickStickFre
 import { StickableStatus } from '@/lib/utils';
 import { isStickableNew } from '@/util/misc';
 import IsFavoriteToggle from '../IsFavoriteToggle.vue';
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from '@/components/ui/dropdown-menu';
+import DeleteTrickDialog from './DeleteTrickDialog.vue';
 
 const props = defineProps<{
   status: StickableStatus;
@@ -104,12 +111,38 @@ watchEffect(async () => {
         {{ trick.alias ?? trick.technicalName }}
 
         <template #buttonsRight>
-          <Button size="icon" variant="ghost" disabled>
-            <Icon icon="ic:round-edit" class="h-6 w-6 text-primary" />
-          </Button>
           <IsFavoriteToggle stickable-type="Trick" :id="id" :status="status" />
+          <DropdownMenu v-if="['userDefined', 'archived'].includes(status)">
+            <DropdownMenuTrigger as-child>
+              <Button size="icon" variant="ghost" class="rounded-full">
+                <Icon icon="ic:baseline-more-vert" class="h-6 w-6 text-primary" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent class="min-w-fit">
+              <DropdownMenuItem as-child>
+                <Button
+                  disabled
+                  variant="ghost"
+                  class="text-primary hover:text-primary flex flex-row gap-1 items-center justify-start rounded-md w-full"
+                >
+                  <Icon icon="ic:round-edit" class="h-6 w-6" />
+                  {{ t('action.edit') }}
+                </Button>
+              </DropdownMenuItem>
+              <DropdownMenuItem class="text-destructive" as-child>
+                <DeleteTrickDialog
+                  :trick-status="status"
+                  :trick-id="id"
+                  :trick-name="trick.alias ?? trick.technicalName"
+                  trigger-variant="iconAndText"
+                  class="w-full"
+                />
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </template>
       </Header>
+
       <Section class="mt-1 lg:mt-0">
         <div class="flex flex-row justify-between gap-1 lg:gap-20">
           <div class="text-3xl mb-1">

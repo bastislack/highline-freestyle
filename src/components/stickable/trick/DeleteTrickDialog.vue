@@ -16,6 +16,7 @@ import router from '@/routes/router';
 import { useI18n } from 'vue-i18n';
 import messages from '@/i18n/tricks/delete';
 import { StickableStatus } from '@/lib/utils';
+import { Icon } from '@iconify/vue/dist/iconify.js';
 
 const i18n = useI18n({
   messages,
@@ -24,11 +25,17 @@ const i18n = useI18n({
 
 const { t } = i18n;
 
-let props = defineProps<{
-  trickName: string;
-  trickStatus: StickableStatus;
-  trickId: number;
-}>();
+let props = withDefaults(
+  defineProps<{
+    trickName: string;
+    trickStatus: StickableStatus;
+    trickId: number;
+    triggerVariant?: 'text' | 'icon' | 'iconAndText';
+  }>(),
+  {
+    triggerVariant: 'text',
+  }
+);
 
 const { toast } = useToast();
 
@@ -62,9 +69,14 @@ async function deleteTrick() {
 <template>
   <Dialog>
     <DialogTrigger
-      class="text-destructive font-medium text-sm hover:bg-destructive-100 rounded-md p-2"
+      class="text-destructive font-medium text-sm hover:bg-destructive-100 rounded-md p-2 flex flex-row gap-1 items-center"
     >
-      {{ t('triggerButton') }}
+      <div v-if="['icon', 'iconAndText'].includes(triggerVariant)">
+        <Icon icon="ic:round-delete" class="h-6 w-6" />
+      </div>
+      <div v-if="['text', 'iconAndText'].includes(triggerVariant)">
+        {{ t('triggerButton') }}
+      </div>
     </DialogTrigger>
     <DialogContent>
       <DialogHeader>

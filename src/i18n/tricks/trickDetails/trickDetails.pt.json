@@ -49,5 +49,8 @@
     "stick-frequency": {
       "title": "Frequência de acerto"
     }
+  },
+  "action": {
+    "edit": "Editar"
   }
 }

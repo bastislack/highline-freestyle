@@ -49,5 +49,8 @@
     "stick-frequency": {
       "title": "Stick Frequency"
     }
+  },
+  "action": {
+    "edit": "Edit"
   }
 }
