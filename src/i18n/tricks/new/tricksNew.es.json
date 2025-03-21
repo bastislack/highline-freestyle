@@ -35,7 +35,8 @@
     "establishedBy": "Ian, probablemente",
     "description": "Una descripción adecuada",
     "tips": "Este es mi primer consjo.\nY este es mi segundo consejo.",
-    "difficulty": "No estoy seguro."
+    "difficulty": "No estoy seguro.",
+    "variantOf": "Añadir truco..."
   },
 
   "componentNotImplemented": "Este componente aún no se ha puesto en práctica",
@@ -49,6 +50,10 @@
   "error": {
     "title": "Uh oh…",
     "message": "Se ha producido un error al intentar insertar el nuevo truco en la DB. Comprueba la consola (F12) para más información."
+  },
+
+  "other": {
+    "multiTrickSelectNoTrickFound": "No pude encontrar un truco con ese nombre."
   },
 
   "buttonSubmit": "Crea",

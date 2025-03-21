@@ -16,7 +16,7 @@
     "establishedBy": "Invented by",
     "inTheYear": "in the year",
     "tips": "Tips",
-    "variantOf": "Variant of",
+    "variantOf": "Variation of",
     "recommendedPrereq": "Prerequisites",
     "videos": "Videos"
   },
@@ -35,7 +35,8 @@
     "establishedBy": "Ian, probably",
     "description": "A fitting description",
     "tips": "This is my first tip.\nAnd this is my second tip.",
-    "difficulty": "I'm not sure"
+    "difficulty": "I'm not sure",
+    "variantOf": "Add trick..."
   },
 
   "componentNotImplemented": "This component has yet to be implemented.",
@@ -49,6 +50,10 @@
   "error": {
     "title": "Uh oh…",
     "message": "An error happened when trying to insert the new trick into the DB. Check the console (F12) for more info."
+  },
+
+  "other": {
+    "multiTrickSelectNoTrickFound": "Couldn't find a trick with that name."
   },
 
   "buttonSubmit": "Create",
