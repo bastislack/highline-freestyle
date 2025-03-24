@@ -78,11 +78,12 @@ const newTrickSchema = z.object({
 export type NewTrickSchema = z.infer<typeof newTrickSchema>;
 const validationSchema = toTypedSchema(newTrickSchema);
 
-const form = useForm({
+const form = useForm<NewTrickSchema>({
   validationSchema: validationSchema,
   initialValues: {
     startPosition: DbPositionZod.Values.Buddha,
     endPosition: DbPositionZod.Values['Double Drop Knee'],
+    difficulty: '',
   },
 });
 
