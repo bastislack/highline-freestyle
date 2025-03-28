@@ -10,7 +10,7 @@ import { toTypedSchema } from '@vee-validate/zod';
 import messages from '@/i18n/tricks/new/index';
 import messagesPositions from '@/i18n/common/positions';
 import { i18nMerge } from '@/i18n/i18nmerge';
-import { DbPositionZod } from '@/lib/database/schemas/CurrentVersionSchema';
+import { DbPositionZod, DbReferenceZod } from '@/lib/database/schemas/CurrentVersionSchema';
 import { CreateNewTrickType } from '@/lib/database/daos/tricksDao';
 import databaseInstance from '@/lib/database/databaseInstance';
 
@@ -72,7 +72,7 @@ const newTrickSchema = z.object({
       .optional(),
     z.literal(''), // When input with type="numeric" is empty it sends an empty string, this works as the `.optional()`
   ]),
-  // variantOf: z.unknown().optional(), // will be added later
+  variationOf: z.array(DbReferenceZod).optional(),
   // recommendedPrerequisites: z.unknown().optional(), // will be added later,
   // videos: z.array(DbVideoZod).optional(),
 });
@@ -84,6 +84,7 @@ const form = useForm({
   initialValues: {
     startPosition: DbPositionZod.Values.Buddha,
     endPosition: DbPositionZod.Values['Double Drop Knee'],
+    variationOf: [],
   },
 });
 
@@ -100,7 +101,7 @@ const submit = form.handleSubmit(async (vals) => {
     tips: vals.tips,
     yearEstablished: vals.yearEstablished === '' ? undefined : vals.yearEstablished,
     recommendedPrerequisites: [],
-    variationOf: [],
+    variationOf: vals.variationOf,
     showInSearchQueries: true,
     videos: [],
     isFavourite: false,
@@ -230,9 +231,7 @@ function hasHistory(): boolean {
             class="col-span-4 md:col-span-2"
             :title="t('label.variantOf')"
             :description="t('question.variantOf')"
-            :placeholder="t('placeholder.variantOf')"
-            :no-trick-found-message="t('other.multiTrickSelectNoTrickFound')"
-            form-field-name="variantOf"
+            form-field-name="variationOf"
           />
           <TrickSelect
             input-class="h-16"

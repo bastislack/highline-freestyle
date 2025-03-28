@@ -35,8 +35,7 @@
     "establishedBy": "Ian, probablement",
     "description": "Une description appropriée",
     "tips": "Voici mon premier conseil.\nEt voici mon deuxième conseil.",
-    "difficulty": "Je ne suis pas sûr",
-    "variantOf": "Ajouter une astuce..."
+    "difficulty": "Je ne suis pas sûr"
   },
 
   "componentNotImplemented": "Cet élément n'a pas encore été mis en œuvre.",
@@ -50,10 +49,6 @@
   "error": {
     "title": "Uh oh…",
     "message": "Une erreur s'est produite lors de l'insertion de la nouvelle trick dans la base de données. Consultez la console (F12) pour plus d'informations."
-  },
-
-  "other": {
-    "multiTrickSelectNoTrickFound": "Je n'ai pas trouvé de truc avec ce nom."
   },
 
   "buttonSubmit": "Créer",
