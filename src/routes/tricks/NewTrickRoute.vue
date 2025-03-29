@@ -85,7 +85,7 @@ const form = useForm<NewTrickSchema>({
     startPosition: DbPositionZod.Values.Buddha,
     endPosition: DbPositionZod.Values['Double Drop Knee'],
     difficulty: '',
-    variationOf: []
+    variationOf: [],
   },
 });
 
