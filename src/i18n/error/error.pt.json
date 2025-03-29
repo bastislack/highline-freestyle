@@ -3,7 +3,7 @@
   "home": "Início",
   "debug-info": "Informações de depuração",
 
-  "INPUT_REQUIRED": "Este campo é obrigatório",
+  "Required": "Este campo é obrigatório",
   "INPUT_NOT_NUMBER": "Por favor, insira um número",
   "INPUT_NOT_INTEGER": "Por favor, insira um número inteiro",
   "INPUT_NUMBER_BELOW_MIN": "O valor não deve ser menor que {min}",
