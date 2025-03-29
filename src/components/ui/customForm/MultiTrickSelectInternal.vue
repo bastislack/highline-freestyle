@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { PrimaryKey, primaryKeysMatch } from '@/lib/utils';
-import { defineModel } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import { Icon } from '@iconify/vue/dist/iconify.js';
@@ -24,6 +23,7 @@ const { t } = useI18n({
   useScope: 'local',
 });
 
+// eslint-disable-next-line no-undef
 const selectedKeys = defineModel<PrimaryKey[]>('selected', { required: true });
 
 const loaded_tricks: Trick[] = await tricksDao.getAll();
