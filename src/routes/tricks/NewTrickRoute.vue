@@ -73,7 +73,7 @@ const newTrickSchema = z.object({
     z.literal(''), // When input with type="numeric" is empty it sends an empty string, this works as the `.optional()`
   ]),
   variationOf: z.array(DbReferenceZod).optional(),
-  // recommendedPrerequisites: z.unknown().optional(), // will be added later,
+  recommendedPrerequisites: z.array(DbReferenceZod).optional(), // will be added later,
   // videos: z.array(DbVideoZod).optional(),
 });
 export type NewTrickSchema = z.infer<typeof newTrickSchema>;
@@ -86,6 +86,7 @@ const form = useForm<NewTrickSchema>({
     endPosition: DbPositionZod.Values['Double Drop Knee'],
     difficulty: '',
     variationOf: [],
+    recommendedPrerequisites: [],
   },
 });
 
@@ -101,7 +102,7 @@ const submit = form.handleSubmit(async (vals) => {
     description: vals.description,
     tips: vals.tips,
     yearEstablished: vals.yearEstablished === '' ? undefined : vals.yearEstablished,
-    recommendedPrerequisites: [],
+    recommendedPrerequisites: vals.recommendedPrerequisites,
     variationOf: vals.variationOf,
     showInSearchQueries: true,
     videos: [],
@@ -234,13 +235,15 @@ function hasHistory(): boolean {
             :description="t('question.variantOf')"
             form-field-name="variationOf"
           />
-          <TrickSelect
+
+          <MultiTrickSelect
             input-class="h-16"
             class="col-span-4 md:col-span-2"
             :title="t('label.recommendedPrereq')"
             :description="t('question.recommendedPrereq')"
             form-field-name="recommendedPrerequisites"
           />
+
           <TrickSelect
             input-class="h-16"
             class="col-span-4"
