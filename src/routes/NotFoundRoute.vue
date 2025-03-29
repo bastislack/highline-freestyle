@@ -1,40 +1,21 @@
 <script lang="ts" setup>
-import DefaultLayout from '../layouts/DefaultLayout.vue';
 import { useI18n } from 'vue-i18n';
 
+import DefaultLayout from '../layouts/DefaultLayout.vue';
+import ErrorInfo from '@/components/ErrorInfo.vue';
+import Section from '@/components/ui/section/Section.vue';
 import messages from '../i18n/notFound';
-import { useRoute } from 'vue-router';
 
-const i18n = useI18n({
+const { t } = useI18n({
   messages,
   useScope: 'local',
 });
-
-const route = useRoute();
-
-const { t } = i18n;
 </script>
 
 <template>
-  <DefaultLayout :flex-spacer="false">
-    <div class="flex flex-1 flex-col justify-center self-stretch">
-      <div class="flex flex-row justify-center">
-        <div class="flex flex-col">
-          <h1 class="text-5xl font-bold transition-all duration-200 hover:-translate-y-3">
-            {{ t('heading') }}
-          </h1>
-          <p class="text-sm">{{ route.fullPath }}</p>
-          <p class="text-md text-neutral-400">
-            {{ t('body') }}
-          </p>
-          <RouterLink
-            class="p-2 rounded-lg border-primary border text-lg mt-4 text-primary hover:text-white hover:border-transparent hover:bg-primary duration-150"
-            to="/"
-          >
-            {{ t('backToIndex') }}
-          </RouterLink>
-        </div>
-      </div>
-    </div>
+  <DefaultLayout>
+    <Section class="w-full h-full flex flex-col items-center justify-center">
+      <ErrorInfo :title="t('heading')" :code="404" :description="t('body')" />
+    </Section>
   </DefaultLayout>
 </template>

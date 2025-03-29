@@ -32,8 +32,8 @@ function hasHistory(): boolean {
 </script>
 
 <template>
-  <div class="w-full flex flex-col items-center gap-4">
-    <div class="w-full flex flex-col items-center md:flex-row md:gap-3">
+  <div class="w-full flex flex-row justify-center">
+    <div class="w-fit flex flex-col items-center md:flex-row md:gap-3">
       <img
         v-if="!hideImage"
         :src="ImgLeashFallUrl"
