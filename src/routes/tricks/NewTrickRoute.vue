@@ -10,7 +10,7 @@ import { toTypedSchema } from '@vee-validate/zod';
 import messages from '@/i18n/tricks/new/index';
 import messagesPositions from '@/i18n/common/positions';
 import { i18nMerge } from '@/i18n/i18nmerge';
-import { DbPositionZod } from '@/lib/database/schemas/CurrentVersionSchema';
+import { DbPositionZod, DbReferenceZod } from '@/lib/database/schemas/CurrentVersionSchema';
 import { CreateNewTrickType } from '@/lib/database/daos/tricksDao';
 import databaseInstance from '@/lib/database/databaseInstance';
 
@@ -23,6 +23,7 @@ import { ToastAction, useToast } from '@/components/ui/toast';
 import TextInput from '@/components/ui/customForm/TextInput.vue';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Icon } from '@iconify/vue/dist/iconify.js';
+import MultiTrickSelect from '@/components/ui/customForm/MultiTrickSelect.vue';
 
 const toast = useToast();
 const router = useRouter();
@@ -71,7 +72,7 @@ const newTrickSchema = z.object({
       .optional(),
     z.literal(''), // When input with type="numeric" is empty it sends an empty string, this works as the `.optional()`
   ]),
-  // variantOf: z.unknown().optional(), // will be added later
+  variationOf: z.array(DbReferenceZod).optional(),
   // recommendedPrerequisites: z.unknown().optional(), // will be added later,
   // videos: z.array(DbVideoZod).optional(),
 });
@@ -84,6 +85,7 @@ const form = useForm<NewTrickSchema>({
     startPosition: DbPositionZod.Values.Buddha,
     endPosition: DbPositionZod.Values['Double Drop Knee'],
     difficulty: '',
+    variationOf: [],
   },
 });
 
@@ -100,7 +102,7 @@ const submit = form.handleSubmit(async (vals) => {
     tips: vals.tips,
     yearEstablished: vals.yearEstablished === '' ? undefined : vals.yearEstablished,
     recommendedPrerequisites: [],
-    variationOf: [],
+    variationOf: vals.variationOf,
     showInSearchQueries: true,
     videos: [],
     isFavourite: false,
@@ -143,115 +145,117 @@ function hasHistory(): boolean {
 
 <template>
   <DefaultLayout>
-    <Section>
-      <h1 class="text-2xl md:text-3xl mb-3 mt-2">{{ t('titleHeading') }}</h1>
+    <Suspense>
+      <Section>
+        <h1 class="text-2xl md:text-3xl mb-3 mt-2">{{ t('titleHeading') }}</h1>
 
-      <Alert variant="default" class="my-3">
-        <Icon icon="ic:outline-info" class="w-5 h-5" />
-        <AlertTitle class="pl-3">{{ t('personalTrickInfo.title') }}</AlertTitle>
-        <AlertDescription class="pl-3">{{ t('personalTrickInfo.description') }}</AlertDescription>
-      </Alert>
+        <Alert variant="default" class="my-3">
+          <Icon icon="ic:outline-info" class="w-5 h-5" />
+          <AlertTitle class="pl-3">{{ t('personalTrickInfo.title') }}</AlertTitle>
+          <AlertDescription class="pl-3">{{ t('personalTrickInfo.description') }}</AlertDescription>
+        </Alert>
 
-      <form class="grid gap-4 lg:gap-6 grid-cols-4" @submit="submit">
-        <TextInput
-          :title="t('label.technicalName')"
-          :placeholder="t('placeholder.technicalName')"
-          form-field-name="technicalName"
-          class="col-span-4 md:col-span-2"
-        />
-        <TextInput
-          :title="t('label.alias')"
-          :description="t('question.alias')"
-          :placeholder="t('placeholder.alias')"
-          form-field-name="alias"
-          class="col-span-4 md:col-span-2"
-        />
+        <form class="grid gap-4 lg:gap-6 grid-cols-4" @submit="submit">
+          <TextInput
+            :title="t('label.technicalName')"
+            :placeholder="t('placeholder.technicalName')"
+            form-field-name="technicalName"
+            class="col-span-4 md:col-span-2"
+          />
+          <TextInput
+            :title="t('label.alias')"
+            :description="t('question.alias')"
+            :placeholder="t('placeholder.alias')"
+            form-field-name="alias"
+            class="col-span-4 md:col-span-2"
+          />
 
-        <PositionSelectInput
-          class="col-span-2 md:col-span-1"
-          :title="t('label.positionStart')"
-          form-field-name="startPosition"
-        />
+          <PositionSelectInput
+            class="col-span-2 md:col-span-1"
+            :title="t('label.positionStart')"
+            form-field-name="startPosition"
+          />
 
-        <PositionSelectInput
-          class="col-span-2 md:col-span-1"
-          :title="t('label.positionEnd')"
-          form-field-name="endPosition"
-        />
+          <PositionSelectInput
+            class="col-span-2 md:col-span-1"
+            :title="t('label.positionEnd')"
+            form-field-name="endPosition"
+          />
 
-        <TextInput
-          class="col-span-4 md:col-span-2"
-          :title="t('label.difficulty')"
-          :description="t('question.difficulty')"
-          :placeholder="t('placeholder.difficulty')"
-          form-field-name="difficulty"
-          inputMode="numeric"
-          type="number"
-          :error-values="{ min: '1', max: '20' }"
-        />
+          <TextInput
+            class="col-span-4 md:col-span-2"
+            :title="t('label.difficulty')"
+            :description="t('question.difficulty')"
+            :placeholder="t('placeholder.difficulty')"
+            form-field-name="difficulty"
+            inputMode="numeric"
+            type="number"
+            :error-values="{ min: '1', max: '20' }"
+          />
 
-        <MultilineTextInput
-          input-class="h-16"
-          class="col-span-4"
-          :title="t('label.description')"
-          :placeholder="t('placeholder.description')"
-          form-field-name="description"
-        />
+          <MultilineTextInput
+            input-class="h-16"
+            class="col-span-4"
+            :title="t('label.description')"
+            :placeholder="t('placeholder.description')"
+            form-field-name="description"
+          />
 
-        <TextInput
-          :title="t('label.establishedBy')"
-          :placeholder="t('placeholder.establishedBy')"
-          form-field-name="establishedBy"
-          class="col-span-4 md:col-span-2"
-        />
+          <TextInput
+            :title="t('label.establishedBy')"
+            :placeholder="t('placeholder.establishedBy')"
+            form-field-name="establishedBy"
+            class="col-span-4 md:col-span-2"
+          />
 
-        <TextInput
-          class="col-span-4 md:col-span-2"
-          :title="t('label.inTheYear')"
-          placeholder="2024"
-          form-field-name="yearEstablished"
-          inputMode="numeric"
-          type="number"
-          :error-values="{ min: '1900', max: new Date().getFullYear().toString() }"
-        />
+          <TextInput
+            class="col-span-4 md:col-span-2"
+            :title="t('label.inTheYear')"
+            placeholder="2024"
+            form-field-name="yearEstablished"
+            inputMode="numeric"
+            type="number"
+            :error-values="{ min: '1900', max: new Date().getFullYear().toString() }"
+          />
 
-        <MultilineTextInput
-          input-class="h-16"
-          class="col-span-4"
-          :title="t('label.tips')"
-          :description="t('question.tips')"
-          :placeholder="t('placeholder.tips')"
-          form-field-name="tips"
-        />
+          <MultilineTextInput
+            input-class="h-16"
+            class="col-span-4"
+            :title="t('label.tips')"
+            :description="t('question.tips')"
+            :placeholder="t('placeholder.tips')"
+            form-field-name="tips"
+          />
 
-        <TrickSelect
-          input-class="h-16"
-          class="col-span-4 md:col-span-2"
-          :title="t('label.variantOf')"
-          :description="t('question.variantOf')"
-          form-field-name="variantOf"
-        />
-        <TrickSelect
-          input-class="h-16"
-          class="col-span-4 md:col-span-2"
-          :title="t('label.recommendedPrereq')"
-          :description="t('question.recommendedPrereq')"
-          form-field-name="recommendedPrerequisites"
-        />
-        <TrickSelect
-          input-class="h-16"
-          class="col-span-4"
-          :title="t('label.videos')"
-          form-field-name="videos"
-        />
+          <MultiTrickSelect
+            input-class="h-16"
+            class="col-span-4 md:col-span-2"
+            :title="t('label.variantOf')"
+            :description="t('question.variantOf')"
+            form-field-name="variationOf"
+          />
+          <TrickSelect
+            input-class="h-16"
+            class="col-span-4 md:col-span-2"
+            :title="t('label.recommendedPrereq')"
+            :description="t('question.recommendedPrereq')"
+            form-field-name="recommendedPrerequisites"
+          />
+          <TrickSelect
+            input-class="h-16"
+            class="col-span-4"
+            :title="t('label.videos')"
+            form-field-name="videos"
+          />
 
-        <div class="col-span-4 gap-2 inline-flex justify-end">
-          <Button variant="ghost" @click="hasHistory() ? $router.back() : $router.push('/')">
-            {{ t('buttonCancel') }}
-          </Button>
-          <Button type="submit"> {{ t('buttonSubmit') }} </Button>
-        </div>
-      </form>
-    </Section>
+          <div class="col-span-4 gap-2 inline-flex justify-end">
+            <Button variant="ghost" @click="hasHistory() ? $router.back() : $router.push('/')">
+              {{ t('buttonCancel') }}
+            </Button>
+            <Button type="submit"> {{ t('buttonSubmit') }} </Button>
+          </div>
+        </form>
+      </Section>
+    </Suspense>
   </DefaultLayout>
 </template>
