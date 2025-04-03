@@ -1,0 +1,24 @@
+{
+  "general": {
+    "title": "About",
+    "content": "This app is made by passionate highline freestyle athletes that want to see the sport grow. As more and more tricks are created every week it is hard to keep the overview. Here we want to show you the most common tricks along with important information to help you learn them."
+  },
+  "rewriteInfo": {
+    "title": "The new version is here!",
+    "content": {
+      "info": "The {debt} got too big and a collective decision was made to fully rewrite the app. After two years of on and off development it is finally here. What's new? Mainly fewer bugs and a project which is maintainable long term.{newline}Since the change was so big and the old data quite inconsistent we were sadly not able to port your tricks and stick frequencies over from the old app. We are super sorry about this! We have systems in place now for this not to happen again.",
+      "debt": "technical debt"
+    }
+  },
+  "privacy": {
+    "title": "Privacy",
+    "content": "As we are highliners we want to make this app work offline. Thus all your data is stored locally on your device. We will never know about your data, only your browser knows about it!{newline}Beware that the video embeds could place tracking cookies on your device. If you are a developer, have some time on hand and can prevent this hit us up."
+  },
+  "contribute": {
+    "title": "Contribute or report issues",
+    "content": {
+      "info": "This is an open source community project. Help us build, maintain and translate it!",
+      "github": "GitHub Repository"
+    }
+  }
+}
