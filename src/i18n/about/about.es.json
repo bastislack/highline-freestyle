@@ -1,0 +1,24 @@
+{
+  "general": {
+    "title": "Acerca de",
+    "content": "Esta aplicación ha sido creada por atletas apasionados del highline freestyle que quieren ver crecer este deporte. A medida que se crean más y más trucos cada semana es difícil mantener la visión general. Aquí queremos mostrarte los trucos más comunes junto con información importante para ayudarte a aprenderlos."
+  },
+  "rewriteInfo": {
+    "title": "¡Ya está aquí la nueva versión!",
+    "content": {
+      "info": "La {debt} se hizo demasiado grande y se tomó la decisión colectiva de reescribir completamente la aplicación. Tras dos años de desarrollo intermitente, por fin está aquí. ¿Cuáles son las novedades? Principalmente menos errores y un proyecto que es mantenible a largo plazo. {newline}Dado que el cambio fue tan grande y los datos antiguos bastante inconsistentes, lamentablemente no pudimos portar sus trucos y frecuencias de palo de la antigua aplicación. Lo sentimos mucho. Ahora tenemos sistemas para que esto no vuelva a ocurrir.",
+      "debt": "deuda técnica"
+    }
+  },
+  "privacy": {
+    "title": "Privacidad",
+    "content": "Como somos highliners, queremos que esta aplicación funcione sin conexión. Por lo tanto, todos sus datos se almacenan localmente en su dispositivo. Nunca sabremos nada de tus datos, sólo los sabrá tu navegador.{newline}Ten en cuenta que las incrustaciones de vídeo podrían colocar cookies de seguimiento en tu dispositivo. Si eres un desarrollador, tienes algo de tiempo y puedes evitarlo, ponte en contacto con nosotros."
+  },
+  "contribute": {
+    "title": "Contribuir o informar de problemas",
+    "content": {
+      "info": "Este es un proyecto comunitario de código abierto. Ayúdenos a construirlo, mantenerlo y traducirlo.",
+      "github": "Repositorio GitHub"
+    }
+  }
+}
