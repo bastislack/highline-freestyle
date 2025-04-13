@@ -196,7 +196,7 @@ const trickObjects = trickRawObjects.map((csvTrick) =>
       .map((e) => e.trim())
       .filter(Boolean),
     videos: videoLookup['trick-' + csvTrick.id],
-    difficultyLevel: Number(csvTrick.difficultyLevel),
+    difficultyLevel: csvTrick.level === '?' ? 'tbd' : Number(csvTrick.level),
     showInSearchQueries: csvTrick.showInSearchQueries === 'TRUE',
     dateAddedEpoch: new Date(csvTrick.dateAddedIso8601).getTime(),
     yearEstablished: csvTrick.yearEstablished ? Number(csvTrick.yearEstablished) : undefined,
