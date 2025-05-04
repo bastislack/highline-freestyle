@@ -11,46 +11,26 @@ import { fileURLToPath } from 'url';
 import { stringify } from 'yaml';
 import { z } from 'zod';
 
-const spreadsheetId = process.env['SHEET_ID'];
-const combosGid = process.env['SHEET_COMBOS_GID'];
-const tricksGid = process.env['SHEET_TRICKS_GID'];
-const videosGid = process.env['SHEET_VIDEOS_GID'];
-
-let failedEnvs = false;
-Object.entries({
-  SHEET_ID: spreadsheetId,
-  SHEET_COMBOS_GID: combosGid,
-  SHEET_TRICKS_GID: tricksGid,
-  SHEET_VIDEOS_GID: videosGid,
-}).forEach(([k, v], i) => {
-  if (!v) {
-    console.error(chalk.red('ERR: Missing Env Var ' + k));
-    failedEnvs = true;
-  }
-
-  if (i == 0) {
-    return;
-  }
-
-  if (Number.isInteger(Number(v))) {
-    console.error(chalk.red('ERR: Missing Env Var ' + k));
-    failedEnvs = true;
-  }
-});
-
-if (failedEnvs) {
-  exit(1);
-}
+const env = z
+  .object({
+    spreadsheetId: z.string().min(1),
+    combosGid: z.string().min(1),
+    tricksGid: z.string().min(1),
+    videosGid: z.string().min(1),
+  })
+  .parse({
+    spreadsheetId: process.env['SHEET_ID'],
+    combosGid: process.env['SHEET_COMBOS_GID'],
+    tricksGid: process.env['SHEET_TRICKS_GID'],
+    videosGid: process.env['SHEET_VIDEOS_GID'],
+  });
 
 /**
  * Fetches a Tab-Separated Value File from Google Sheets and returns as a nested array of lines of columns.
  */
 async function fetchTsvFromGoogleSheets(sheetId: string, sheetGid: string) {
-  const response = await fetch(
-    new URL(
-      `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=tsv&id=${sheetId}&gid=${sheetGid}`
-    )
-  );
+  const urlToCall = `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=tsv&id=${sheetId}&gid=${sheetGid}`;
+  const response = await fetch(new URL(urlToCall));
   if (!response.ok) {
     throw new Error(`Response was not ok. SheetId: ${sheetId}, SheetGid: ${sheetGid}`);
   }
@@ -64,15 +44,15 @@ console.log(chalk.blue('Fetching CSVs from Google Sheets...'));
 
 const [tricksCells, combosCells, videoCells] = await Promise.allSettled(
   [
-    { sheetId: spreadsheetId, tricksGid, name: 'Tricks' },
+    { sheetId: env.spreadsheetId, sheetGid: env.tricksGid, name: 'Tricks' },
     {
-      sheetId: spreadsheetId,
-      sheetGid: combosGid,
+      sheetId: env.spreadsheetId,
+      sheetGid: env.combosGid,
       name: 'Combos',
     },
     {
-      sheetId: spreadsheetId,
-      sheetGid: videosGid,
+      sheetId: env.spreadsheetId,
+      sheetGid: env.videosGid,
       name: 'Videos',
     },
   ]
