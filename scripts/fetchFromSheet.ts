@@ -142,7 +142,10 @@ const [trickRawObjects, combosRawObjects, videoRawObjects] = [
 // Videos need to be done first so they can be used in Trick and Combo-Objects
 // We create a Lookup-Map instead of an array here.
 
-const videoLookup: Record<string, { link: string; startTime: number; endTime: number }[]> = {};
+const videoLookup: Record<
+  string,
+  { link: string; startTime?: number; endTime?: number }[]
+> = {};
 
 videoRawObjects.forEach((e) => {
   const key = `${e.category}-${e.id}`;
@@ -151,8 +154,8 @@ videoRawObjects.forEach((e) => {
   }
   videoLookup[key].push({
     link: e.link,
-    startTime: Number(e.startTimeSeconds),
-    endTime: Number(e.endTimeSeconds),
+    startTime: e.startTimeSeconds === undefined ? undefined : Number(e.startTimeSeconds),
+    endTime: e.endTimeSeconds === undefined ? undefined : Number(e.endTimeSeconds),
   });
 });
 
@@ -161,7 +164,7 @@ const { YamlTrickTableSchemaZod, YamlComboTableSchemaZod } = await import(
 );
 
 console.log(chalk.blue(`Parsing Tricks...`));
-const trickObjects = trickRawObjects.map((csvTrick) =>
+const trickObjects = trickRawObjects.map((csvTrick) => 
   YamlTrickTableSchemaZod.safeParse({
     ...csvTrick,
     id: Number(csvTrick.id),
@@ -176,7 +179,7 @@ const trickObjects = trickRawObjects.map((csvTrick) =>
       .map((e) => e.trim())
       .filter(Boolean),
     videos: videoLookup['trick-' + csvTrick.id],
-    difficultyLevel: csvTrick.level === '?' ? undefined : Number(csvTrick.level),
+    difficultyLevel: csvTrick.difficultyLevel === '?' ? undefined : Number(csvTrick.difficultyLevel),
     showInSearchQueries: csvTrick.showInSearchQueries === 'TRUE',
     dateAddedEpoch: new Date(csvTrick.dateAddedIso8601).getTime(),
     yearEstablished: csvTrick.yearEstablished ? Number(csvTrick.yearEstablished) : undefined,
