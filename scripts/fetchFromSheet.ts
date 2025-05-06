@@ -11,46 +11,26 @@ import { fileURLToPath } from 'url';
 import { stringify } from 'yaml';
 import { z } from 'zod';
 
-const spreadsheetId = process.env['SHEET_ID'];
-const combosGid = process.env['SHEET_COMBOS_GID'];
-const tricksGid = process.env['SHEET_TRICKS_GID'];
-const videosGid = process.env['SHEET_VIDEOS_GID'];
-
-let failedEnvs = false;
-Object.entries({
-  SHEET_ID: spreadsheetId,
-  SHEET_COMBOS_GID: combosGid,
-  SHEET_TRICKS_GID: tricksGid,
-  SHEET_VIDEOS_GID: videosGid,
-}).forEach(([k, v], i) => {
-  if (!v) {
-    console.error(chalk.red('ERR: Missing Env Var ' + k));
-    failedEnvs = true;
-  }
-
-  if (i == 0) {
-    return;
-  }
-
-  if (Number.isInteger(Number(v))) {
-    console.error(chalk.red('ERR: Missing Env Var ' + k));
-    failedEnvs = true;
-  }
-});
-
-if (failedEnvs) {
-  exit(1);
-}
+const env = z
+  .object({
+    spreadsheetId: z.string().min(1),
+    combosGid: z.string().min(1),
+    tricksGid: z.string().min(1),
+    videosGid: z.string().min(1),
+  })
+  .parse({
+    spreadsheetId: process.env['SHEET_ID'],
+    combosGid: process.env['SHEET_COMBOS_GID'],
+    tricksGid: process.env['SHEET_TRICKS_GID'],
+    videosGid: process.env['SHEET_VIDEOS_GID'],
+  });
 
 /**
  * Fetches a Tab-Separated Value File from Google Sheets and returns as a nested array of lines of columns.
  */
 async function fetchTsvFromGoogleSheets(sheetId: string, sheetGid: string) {
-  const response = await fetch(
-    new URL(
-      `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=tsv&id=${sheetId}&gid=${sheetGid}`
-    )
-  );
+  const urlToCall = `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=tsv&id=${sheetId}&gid=${sheetGid}`;
+  const response = await fetch(new URL(urlToCall));
   if (!response.ok) {
     throw new Error(`Response was not ok. SheetId: ${sheetId}, SheetGid: ${sheetGid}`);
   }
@@ -64,15 +44,15 @@ console.log(chalk.blue('Fetching CSVs from Google Sheets...'));
 
 const [tricksCells, combosCells, videoCells] = await Promise.allSettled(
   [
-    { sheetId: spreadsheetId, tricksGid, name: 'Tricks' },
+    { sheetId: env.spreadsheetId, sheetGid: env.tricksGid, name: 'Tricks' },
     {
-      sheetId: spreadsheetId,
-      sheetGid: combosGid,
+      sheetId: env.spreadsheetId,
+      sheetGid: env.combosGid,
       name: 'Combos',
     },
     {
-      sheetId: spreadsheetId,
-      sheetGid: videosGid,
+      sheetId: env.spreadsheetId,
+      sheetGid: env.videosGid,
       name: 'Videos',
     },
   ]
@@ -162,7 +142,10 @@ const [trickRawObjects, combosRawObjects, videoRawObjects] = [
 // Videos need to be done first so they can be used in Trick and Combo-Objects
 // We create a Lookup-Map instead of an array here.
 
-const videoLookup: Record<string, { link: string; startTime: number; endTime: number }[]> = {};
+const videoLookup: Record<
+  string,
+  { link: string; startTime?: number; endTime?: number }[]
+> = {};
 
 videoRawObjects.forEach((e) => {
   const key = `${e.category}-${e.id}`;
@@ -171,8 +154,8 @@ videoRawObjects.forEach((e) => {
   }
   videoLookup[key].push({
     link: e.link,
-    startTime: Number(e.startTimeSeconds),
-    endTime: Number(e.endTimeSeconds),
+    startTime: e.startTimeSeconds === undefined ? undefined : Number(e.startTimeSeconds),
+    endTime: e.endTimeSeconds === undefined ? undefined : Number(e.endTimeSeconds),
   });
 });
 
@@ -181,7 +164,7 @@ const { YamlTrickTableSchemaZod, YamlComboTableSchemaZod } = await import(
 );
 
 console.log(chalk.blue(`Parsing Tricks...`));
-const trickObjects = trickRawObjects.map((csvTrick) =>
+const trickObjects = trickRawObjects.map((csvTrick) => 
   YamlTrickTableSchemaZod.safeParse({
     ...csvTrick,
     id: Number(csvTrick.id),
@@ -196,7 +179,7 @@ const trickObjects = trickRawObjects.map((csvTrick) =>
       .map((e) => e.trim())
       .filter(Boolean),
     videos: videoLookup['trick-' + csvTrick.id],
-    difficultyLevel: csvTrick.level === '?' ? undefined : Number(csvTrick.level),
+    difficultyLevel: csvTrick.difficultyLevel === '?' ? undefined : Number(csvTrick.difficultyLevel),
     showInSearchQueries: csvTrick.showInSearchQueries === 'TRUE',
     dateAddedEpoch: new Date(csvTrick.dateAddedIso8601).getTime(),
     yearEstablished: csvTrick.yearEstablished ? Number(csvTrick.yearEstablished) : undefined,
