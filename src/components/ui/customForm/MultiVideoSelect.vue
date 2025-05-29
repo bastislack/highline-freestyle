@@ -143,90 +143,99 @@ function zeroPadNumber(number_: number, minLength: number): string {
         </div>
 
         <div class="flex flex-col gap-1 border border-border rounded-sm p-1">
-          <Input
-            type="text"
-            placeholder="www.youtube.com/..."
-            :modelValue="link"
-            @update:model-value="(val) => (link = val.toString())"
-          />
-
-          <div class="flex flex-row gap-2 flex-wrap">
-            <div>
-              <FormLabel class="font-normal text-muted-foreground">{{
-                t('labels.start')
-              }}</FormLabel>
-              <div class="flex flex-row">
-                <TimePicker
-                  v-if="startTime !== undefined"
-                  v-model:time="startTime"
-                  @update:time="(value) => (startTime = value)"
-                  with-seconds
-                />
-                <Button
-                  v-if="startTime !== undefined"
-                  variant="ghost"
-                  size="icon"
-                  class="px-1"
-                  @click="() => (startTime = undefined)"
-                >
-                  <Icon icon="ic:round-close" class="w-5 h-5" />
-                </Button>
-                <Button
-                  v-else
-                  variant="outline"
-                  class="font-normal px-3"
-                  @click="() => (startTime = initialStartingTime())"
-                >
-                  <Icon icon="ic:round-add" class="w-6 h-6 mr-1" />
-                  <span class="text-muted-foreground">({{ t('buttons.optional') }})</span>
-                </Button>
-              </div>
+          <div class="flex flex-col lg:flex-row gap-1">
+            <div class="grow-1 w-full">
+              <FormLabel class="font-normal text-muted-foreground">{{ t('labels.url') }}</FormLabel>
+              <Input
+                type="text"
+                placeholder="www.youtube.com/..."
+                :modelValue="link"
+                @update:model-value="(val) => (link = val.toString())"
+              />
             </div>
 
-            <div>
-              <FormLabel class="font-normal text-muted-foreground">{{ t('labels.end') }}</FormLabel>
-              <div class="flex flex-row">
-                <TimePicker
-                  v-if="endTime !== undefined"
-                  v-model:time="endTime"
-                  @update:time="(value) => (endTime = value)"
-                  with-seconds
-                />
-                <Button
-                  v-if="endTime !== undefined"
-                  variant="ghost"
-                  size="icon"
-                  class="px-1"
-                  @click="() => (endTime = undefined)"
-                >
-                  <Icon icon="ic:round-close" class="w-5 h-5" />
-                </Button>
-                <Button
-                  v-else
-                  variant="outline"
-                  class="font-normal px-3"
-                  @click="() => (endTime = initialEndTime())"
-                >
-                  <Icon icon="ic:round-add" class="w-6 h-6 mr-1" />
-                  <span class="text-muted-foreground">({{ t('buttons.optional') }})</span>
-                </Button>
+            <div class="flex flex-row gap-2 flex-wrap w-fit shrink-0 grow-0">
+              <div>
+                <FormLabel class="font-normal text-muted-foreground">{{
+                  t('labels.start')
+                }}</FormLabel>
+                <div class="flex flex-row">
+                  <TimePicker
+                    v-if="startTime !== undefined"
+                    v-model:time="startTime"
+                    @update:time="(value) => (startTime = value)"
+                    with-seconds
+                  />
+                  <Button
+                    v-if="startTime !== undefined"
+                    variant="ghost"
+                    size="icon"
+                    class="px-1"
+                    @click="() => (startTime = undefined)"
+                  >
+                    <Icon icon="ic:round-close" class="w-5 h-5" />
+                  </Button>
+                  <Button
+                    v-else
+                    variant="outline"
+                    class="font-normal px-3"
+                    @click="() => (startTime = initialStartingTime())"
+                  >
+                    <Icon icon="ic:round-add" class="w-6 h-6 mr-1" />
+                    <span class="text-muted-foreground">({{ t('buttons.optional') }})</span>
+                  </Button>
+                </div>
+              </div>
+
+              <div>
+                <FormLabel class="font-normal text-muted-foreground">{{
+                  t('labels.end')
+                }}</FormLabel>
+                <div class="flex flex-row">
+                  <TimePicker
+                    v-if="endTime !== undefined"
+                    v-model:time="endTime"
+                    @update:time="(value) => (endTime = value)"
+                    with-seconds
+                  />
+                  <Button
+                    v-if="endTime !== undefined"
+                    variant="ghost"
+                    size="icon"
+                    class="px-1"
+                    @click="() => (endTime = undefined)"
+                  >
+                    <Icon icon="ic:round-close" class="w-5 h-5" />
+                  </Button>
+                  <Button
+                    v-else
+                    variant="outline"
+                    class="font-normal px-3"
+                    @click="() => (endTime = initialEndTime())"
+                  >
+                    <Icon icon="ic:round-add" class="w-6 h-6 mr-1" />
+                    <span class="text-muted-foreground">({{ t('buttons.optional') }})</span>
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
 
-          <Button
-            variant="default"
-            :disabled="link === undefined || link === ''"
-            @click="
-              () => {
-                const newVideo = newVideoObjectFromFields();
-                componentField.modelValue.push(newVideo);
-                resetAddFields();
-              }
-            "
-          >
-            {{ t('buttons.add') }}
-          </Button>
+          <div class="flex flex-row justify-end">
+            <Button
+              variant="default"
+              :disabled="link === undefined || link === ''"
+              @click="
+                () => {
+                  const newVideo = newVideoObjectFromFields();
+                  componentField.modelValue.push(newVideo);
+                  resetAddFields();
+                }
+              "
+            >
+              {{ t('buttons.add') }}
+            </Button>
+          </div>
         </div>
       </FormControl>
     </FormItem>
