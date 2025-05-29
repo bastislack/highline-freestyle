@@ -27,7 +27,7 @@ import TextInput from '@/components/ui/customForm/TextInput.vue';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Icon } from '@iconify/vue/dist/iconify.js';
 import MultiTrickSelect from '@/components/ui/customForm/MultiTrickSelect.vue';
-import MultiVideoSelect from '@/components/ui/customForm/videoSelect/MultiVideoSelect.vue';
+import MultiVideoSelect from '@/components/ui/customForm/MultiVideoSelect.vue';
 
 const toast = useToast();
 const router = useRouter();
