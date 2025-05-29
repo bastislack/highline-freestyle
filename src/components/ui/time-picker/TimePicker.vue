@@ -1,3 +1,16 @@
+<!--
+  This component together with its parts (TimePickerInput.vue and
+  time-picker-utils.ts) are heavily based on the work of data-diego and his code
+  can be found here:
+  https://github.com/unovue/shadcn-vue/issues/689
+
+  The code was edited in a lot of places to adapt it to our usecase in this
+  project, make things more Vue-like (from what I understand data-diego is
+  primarily a React developer), fix typing issues and change the look and feel
+  slightly. The behaviour of how to the cursor moves when typing was changed
+  in a small way as well.
+-->
+
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 

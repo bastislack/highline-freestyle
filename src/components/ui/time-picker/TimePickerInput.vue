@@ -1,3 +1,8 @@
+<!--
+  Heavily based on https://github.com/unovue/shadcn-vue/issues/689
+  Check TimePicker.vue for more information.
+-->
+
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { Input } from '@/components/ui/input';

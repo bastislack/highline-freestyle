@@ -1,4 +1,9 @@
 /**
+ * Heavily based on https://github.com/unovue/shadcn-vue/issues/689
+ * Check TimePicker.vue for more information.
+ */
+
+/**
  * regular expression to check for valid hour format (01-23)
  */
 export function isValidHour(value: string) {
