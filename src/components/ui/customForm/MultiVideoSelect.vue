@@ -152,7 +152,6 @@ function zeroPadNumber(number_: number, minLength: number): string {
                   v-model:time="startTime"
                   @update:time="(value) => (startTime = value)"
                   with-seconds
-                  with-label
                 />
                 <Button
                   v-if="startTime !== undefined"
@@ -183,7 +182,6 @@ function zeroPadNumber(number_: number, minLength: number): string {
                   v-model:time="endTime"
                   @update:time="(value) => (endTime = value)"
                   with-seconds
-                  with-label
                 />
                 <Button
                   v-if="endTime !== undefined"

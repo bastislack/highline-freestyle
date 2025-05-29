@@ -22,6 +22,13 @@ import {
   secondsToTimestamp,
 } from './time-picker-utils';
 import TimePickerInput from './TimePickerInput.vue';
+import { useI18n } from 'vue-i18n';
+import messages from '@/i18n/ui/timePicker';
+
+const { t } = useI18n({
+  messages,
+  useScope: 'local',
+});
 
 const props = defineProps<{
   time: TimestampSeconds;
@@ -58,7 +65,7 @@ function updateTimestamp(newTimestamp: Timestamp) {
 <template>
   <div class="flex items-center gap-[2px]">
     <div class="flex flex-col items-center gap-1">
-      <Label v-if="withLabels" for="hours" class="text-xs">Hours</Label>
+      <Label v-if="withLabels" for="hours" class="text-xs">{{ t('label.hours') }}</Label>
       <TimePickerInput
         id="hours"
         picker="hours"
@@ -70,7 +77,7 @@ function updateTimestamp(newTimestamp: Timestamp) {
     </div>
     <div v-if="!withLabels">:</div>
     <div class="flex flex-col items-center gap-1">
-      <Label v-if="withLabels" for="minutes" class="text-xs">Minutes</Label>
+      <Label v-if="withLabels" for="minutes" class="text-xs">{{ t('label.minutes') }}</Label>
       <TimePickerInput
         id="hours"
         picker="minutes"
@@ -83,7 +90,7 @@ function updateTimestamp(newTimestamp: Timestamp) {
     </div>
     <div v-if="!withLabels && withSeconds">:</div>
     <div v-if="withSeconds" class="flex flex-col items-center gap-1">
-      <Label v-if="withLabels" for="seconds" class="text-xs">Seconds</Label>
+      <Label v-if="withLabels" for="seconds" class="text-xs">{{ t('label.seconds') }}</Label>
       <TimePickerInput
         id="hours"
         picker="seconds"
