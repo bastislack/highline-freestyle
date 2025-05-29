@@ -16,6 +16,13 @@ import Input from '@/components/ui/input/Input.vue';
 import TimePicker from '@/components/ui/time-picker/TimePicker.vue';
 import { DbVideoZod } from '@/lib/database/schemas/CurrentVersionSchema.ts';
 import { z } from 'zod';
+import { useI18n } from 'vue-i18n';
+import messages from '@/i18n/ui/multiVideoSelect';
+
+const { t } = useI18n({
+  messages,
+  useScope: 'local',
+});
 
 const props = defineProps<{
   title: string;
@@ -145,7 +152,9 @@ function zeroPadNumber(number_: number, minLength: number): string {
 
           <div class="flex flex-row gap-2 flex-wrap">
             <div>
-              <FormLabel class="font-normal text-muted-foreground">Start</FormLabel>
+              <FormLabel class="font-normal text-muted-foreground">{{
+                t('labels.start')
+              }}</FormLabel>
               <div class="flex flex-row">
                 <TimePicker
                   v-if="startTime !== undefined"
@@ -169,13 +178,13 @@ function zeroPadNumber(number_: number, minLength: number): string {
                   @click="() => (startTime = initialStartingTime())"
                 >
                   <Icon icon="ic:round-add" class="w-6 h-6 mr-1" />
-                  <span class="text-muted-foreground">(optional)</span>
+                  <span class="text-muted-foreground">({{ t('buttons.optional') }})</span>
                 </Button>
               </div>
             </div>
 
             <div>
-              <FormLabel class="font-normal text-muted-foreground">End</FormLabel>
+              <FormLabel class="font-normal text-muted-foreground">{{ t('labels.end') }}</FormLabel>
               <div class="flex flex-row">
                 <TimePicker
                   v-if="endTime !== undefined"
@@ -199,7 +208,7 @@ function zeroPadNumber(number_: number, minLength: number): string {
                   @click="() => (endTime = initialEndTime())"
                 >
                   <Icon icon="ic:round-add" class="w-6 h-6 mr-1" />
-                  <span class="text-muted-foreground">(optional)</span>
+                  <span class="text-muted-foreground">({{ t('buttons.optional') }})</span>
                 </Button>
               </div>
             </div>
@@ -216,7 +225,7 @@ function zeroPadNumber(number_: number, minLength: number): string {
               }
             "
           >
-            Add
+            {{ t('buttons.add') }}
           </Button>
         </div>
       </FormControl>

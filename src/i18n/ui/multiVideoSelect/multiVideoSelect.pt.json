@@ -1,0 +1,10 @@
+{
+  "labels": {
+    "start": "Início",
+    "end": "Fim"
+  },
+  "buttons": {
+    "optional": "opcional",
+    "add": "Adicionar"
+  }
+}
