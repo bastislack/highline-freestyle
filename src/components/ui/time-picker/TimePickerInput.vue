@@ -22,44 +22,33 @@ const focusOnSecondDigit = ref(false);
 
 const inputClasses = computed(() =>
   cn(
-    'w-[48px] text-center font-mono text-base tabular-nums caret-transparent focus:bg-accent focus:text-accent-foreground [&::-webkit-inner-spin-button]:appearance-none',
+    'w-[34px] px-0 text-center font-mono text-base tabular-nums caret-transparent focus:bg-accent focus:text-accent-foreground [&::-webkit-inner-spin-button]:appearance-none',
     props.class
   )
 );
 
 const calculatedValue = computed(() => getTimestampFieldAsString(props.time, props.picker));
 
-/*
-watch(focusOnSecondDigit, (newFocusOnSecondDigit) => {
-  if (newFocusOnSecondDigit) {
-    const timer = setTimeout(() => {
-      focusOnSecondDigit.value = false;
-    }, 2000);
-    return () => clearTimeout(timer);
-  }
-});
-*/
-
 function calculateNewValue(key: string): string {
   return focusOnSecondDigit.value ? calculatedValue.value.slice(1, 2) + key : '0' + key;
 }
 
-function handleKeyDown(e) {
-  if (e.key === 'Tab') return;
+function handleKeyDown(event: KeyboardEvent) {
+  if (event.key === 'Tab') return;
 
-  e.preventDefault();
+  event.preventDefault();
 
-  if (e.key === 'ArrowRight') emit('rightFocus');
-  if (e.key === 'ArrowLeft') emit('leftFocus');
-  if (['ArrowUp', 'ArrowDown'].includes(e.key)) {
-    const step = e.key === 'ArrowUp' ? 1 : -1;
+  if (event.key === 'ArrowRight') emit('rightFocus');
+  if (event.key === 'ArrowLeft') emit('leftFocus');
+  if (['ArrowUp', 'ArrowDown'].includes(event.key)) {
+    const step = event.key === 'ArrowUp' ? 1 : -1;
     const newValue = getArrowByType(calculatedValue.value, step, props.picker);
     if (focusOnSecondDigit.value) focusOnSecondDigit.value = false;
     const tmpTime = new Timestamp(props.time.hours, props.time.minutes, props.time.seconds);
     emit('update:time', setTimestampByType(tmpTime, newValue, props.picker));
   }
-  if (e.key >= '0' && e.key <= '9') {
-    const newValue = calculateNewValue(e.key);
+  if (event.key >= '0' && event.key <= '9') {
+    const newValue = calculateNewValue(event.key);
     const tmpTime = new Timestamp(props.time.hours, props.time.minutes, props.time.seconds);
     emit('update:time', setTimestampByType(tmpTime, newValue, props.picker));
 
@@ -82,5 +71,6 @@ function handleKeyDown(e) {
     type="tel"
     inputmode="decimal"
     @keydown="handleKeyDown"
+    @focusout="() => (focusOnSecondDigit = false)"
   />
 </template>

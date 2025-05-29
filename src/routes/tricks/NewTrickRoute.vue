@@ -110,7 +110,7 @@ const submit = form.handleSubmit(async (vals) => {
     recommendedPrerequisites: vals.recommendedPrerequisites,
     variationOf: vals.variationOf,
     showInSearchQueries: true,
-    videos: [],
+    videos: vals.videos,
     isFavourite: false,
     notes: undefined,
     stickFrequency: undefined,

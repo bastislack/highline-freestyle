@@ -31,13 +31,19 @@ const focusMinuteRef = () => minuteRef.value?.$el.focus();
 const focusHourRef = () => hourRef.value?.$el.focus();
 const focusSecondRef = () => secondRef.value?.$el.focus();
 
+function unfocusCurrentFocus() {
+  if (document.activeElement instanceof HTMLElement) {
+    document.activeElement.blur();
+  }
+}
+
 function updateTimestamp(newTimestamp: Timestamp) {
   internalTimestamp.value = newTimestamp;
 }
 </script>
 
 <template>
-  <div class="flex items-center gap-2">
+  <div class="flex items-center gap-[2px]">
     <div class="flex flex-col items-center gap-1">
       <Label v-if="withLabels" for="hours" class="text-xs">Hours</Label>
       <TimePickerInput
@@ -71,6 +77,7 @@ function updateTimestamp(newTimestamp: Timestamp) {
         :time="internalTimestamp"
         ref="secondRef"
         @leftFocus="focusMinuteRef"
+        @rightFocus="unfocusCurrentFocus"
         @update:time="updateTimestamp"
       />
     </div>
