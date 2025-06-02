@@ -32,11 +32,7 @@ export class Timestamp {
 }
 
 export function timestampToSeconds(timestamp: Timestamp): TimestampSeconds {
-  const seconds = timestamp.hours * 60 * 60 + timestamp.minutes * 60 + timestamp.seconds;
-  console.log(
-    `Timestamp to Seconds: (${timestamp.hours}, ${timestamp.minutes}, ${timestamp.seconds}) -> ${seconds}`
-  );
-  return seconds;
+  return timestamp.hours * 60 * 60 + timestamp.minutes * 60 + timestamp.seconds;
 }
 
 export function secondsToTimestamp(seconds: TimestampSeconds): Timestamp {
