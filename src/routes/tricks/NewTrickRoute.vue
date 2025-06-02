@@ -10,7 +10,11 @@ import { toTypedSchema } from '@vee-validate/zod';
 import messages from '@/i18n/tricks/new/index';
 import messagesPositions from '@/i18n/common/positions';
 import { i18nMerge } from '@/i18n/i18nmerge';
-import { DbPositionZod, DbReferenceZod } from '@/lib/database/schemas/CurrentVersionSchema';
+import {
+  DbPositionZod,
+  DbReferenceZod,
+  DbVideoZod,
+} from '@/lib/database/schemas/CurrentVersionSchema';
 import { CreateNewTrickType } from '@/lib/database/daos/tricksDao';
 import databaseInstance from '@/lib/database/databaseInstance';
 
@@ -18,12 +22,12 @@ import { Button } from '@/components/ui/button';
 import Section from '@/components/ui/section/Section.vue';
 import PositionSelectInput from '@/components/ui/customForm/PositionSelectInput.vue';
 import MultilineTextInput from '@/components/ui/customForm/MultilineTextInput.vue';
-import TrickSelect from '@/components/ui/customForm/TrickSelect.vue';
 import { ToastAction, useToast } from '@/components/ui/toast';
 import TextInput from '@/components/ui/customForm/TextInput.vue';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Icon } from '@iconify/vue/dist/iconify.js';
 import MultiTrickSelect from '@/components/ui/customForm/MultiTrickSelect.vue';
+import MultiVideoSelect from '@/components/ui/customForm/MultiVideoSelect.vue';
 
 const toast = useToast();
 const router = useRouter();
@@ -74,7 +78,7 @@ const newTrickSchema = z.object({
   ]),
   variationOf: z.array(DbReferenceZod).optional(),
   recommendedPrerequisites: z.array(DbReferenceZod).optional(), // will be added later,
-  // videos: z.array(DbVideoZod).optional(),
+  videos: z.array(DbVideoZod).optional(),
 });
 export type NewTrickSchema = z.infer<typeof newTrickSchema>;
 const validationSchema = toTypedSchema(newTrickSchema);
@@ -87,6 +91,7 @@ const form = useForm<NewTrickSchema>({
     difficulty: '',
     variationOf: [],
     recommendedPrerequisites: [],
+    videos: [],
   },
 });
 
@@ -105,7 +110,7 @@ const submit = form.handleSubmit(async (vals) => {
     recommendedPrerequisites: vals.recommendedPrerequisites,
     variationOf: vals.variationOf,
     showInSearchQueries: true,
-    videos: [],
+    videos: vals.videos,
     isFavourite: false,
     notes: undefined,
     stickFrequency: undefined,
@@ -244,8 +249,7 @@ function hasHistory(): boolean {
             form-field-name="recommendedPrerequisites"
           />
 
-          <TrickSelect
-            input-class="h-16"
+          <MultiVideoSelect
             class="col-span-4"
             :title="t('label.videos')"
             form-field-name="videos"

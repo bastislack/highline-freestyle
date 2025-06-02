@@ -1,0 +1,11 @@
+{
+  "labels": {
+    "url": "URL",
+    "start": "Démarrage",
+    "end": "Fin"
+  },
+  "buttons": {
+    "optional": "optionnel",
+    "add": "Ajouter"
+  }
+}
