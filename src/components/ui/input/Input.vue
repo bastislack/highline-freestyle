@@ -18,7 +18,7 @@ const modelValue = useVModel(props, 'modelValue', emits, {
   defaultValue: props.defaultValue,
 });
 
-const input = useTemplateRef('input');
+const input = useTemplateRef<HTMLInputElement>('input');
 
 function focus() {
   input.value?.focus();

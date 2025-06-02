@@ -43,9 +43,9 @@ const internalTimestamp = computed({
   set: (value: Timestamp) => emit('update:time', timestampToSeconds(value)),
 });
 
-const hourRef = useTemplateRef('hourRef');
-const minuteRef = useTemplateRef('minuteRef');
-const secondRef = useTemplateRef('secondRef');
+const hourRef = useTemplateRef<HTMLInputElement>('hourRef');
+const minuteRef = useTemplateRef<HTMLInputElement>('minuteRef');
+const secondRef = useTemplateRef<HTMLInputElement>('secondRef');
 
 const focusMinuteRef = () => minuteRef.value?.focus();
 const focusHourRef = () => hourRef.value?.focus();

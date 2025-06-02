@@ -32,11 +32,9 @@ const inputClasses = computed(() =>
   )
 );
 
-const input = useTemplateRef('input');
+const input = useTemplateRef<HTMLInputElement>('input');
 
 function focus(): void {
-  console.log('Enter');
-  focusOnSecondDigit.value = true;
   input.value?.focus();
 }
 
