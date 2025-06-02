@@ -12,7 +12,7 @@
 -->
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { computed, useTemplateRef } from 'vue';
 
 import { Label } from '@/components/ui/label';
 import {
@@ -43,13 +43,13 @@ const internalTimestamp = computed({
   set: (value: Timestamp) => emit('update:time', timestampToSeconds(value)),
 });
 
-const hourRef = ref(null);
-const minuteRef = ref(null);
-const secondRef = ref(null);
+const hourRef = useTemplateRef('hourRef');
+const minuteRef = useTemplateRef('minuteRef');
+const secondRef = useTemplateRef('secondRef');
 
-const focusMinuteRef = () => minuteRef.value?.$el.focus();
-const focusHourRef = () => hourRef.value?.$el.focus();
-const focusSecondRef = () => secondRef.value?.$el.focus();
+const focusMinuteRef = () => minuteRef.value?.focus();
+const focusHourRef = () => hourRef.value?.focus();
+const focusSecondRef = () => secondRef.value?.focus();
 
 function unfocusCurrentFocus() {
   if (document.activeElement instanceof HTMLElement) {

@@ -4,7 +4,7 @@
 -->
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, useTemplateRef } from 'vue';
 import { Input } from '@/components/ui/input';
 import {
   getArrowByType,
@@ -23,7 +23,7 @@ const props = defineProps<{
 
 const emit = defineEmits(['update:time', 'rightFocus', 'leftFocus']);
 
-const focusOnSecondDigit = ref(false);
+const focusOnSecondDigit = ref(true);
 
 const inputClasses = computed(() =>
   cn(
@@ -32,10 +32,22 @@ const inputClasses = computed(() =>
   )
 );
 
+const input = useTemplateRef('input');
+
+function focus(): void {
+  console.log('Enter');
+  focusOnSecondDigit.value = true;
+  input.value?.focus();
+}
+
+defineExpose({
+  focus,
+});
+
 const calculatedValue = computed(() => getTimestampFieldAsString(props.time, props.picker));
 
 function calculateNewValue(key: string): string {
-  return focusOnSecondDigit.value ? calculatedValue.value.slice(1, 2) + key : '0' + key;
+  return focusOnSecondDigit.value ? '0' + key : calculatedValue.value[1] + key;
 }
 
 function handleKeyDown(event: KeyboardEvent) {
@@ -52,16 +64,18 @@ function handleKeyDown(event: KeyboardEvent) {
     const tmpTime = new Timestamp(props.time.hours, props.time.minutes, props.time.seconds);
     emit('update:time', setTimestampByType(tmpTime, newValue, props.picker));
   }
+
   if (event.key >= '0' && event.key <= '9') {
     const newValue = calculateNewValue(event.key);
     const tmpTime = new Timestamp(props.time.hours, props.time.minutes, props.time.seconds);
     emit('update:time', setTimestampByType(tmpTime, newValue, props.picker));
 
-    if (focusOnSecondDigit.value) {
+    if (!focusOnSecondDigit.value) {
+      focusOnSecondDigit.value = true;
       emit('rightFocus');
+    } else {
+      focusOnSecondDigit.value = false;
     }
-
-    focusOnSecondDigit.value = !focusOnSecondDigit.value;
   }
 }
 </script>
@@ -76,6 +90,7 @@ function handleKeyDown(event: KeyboardEvent) {
     type="tel"
     inputmode="decimal"
     @keydown="handleKeyDown"
-    @focusout="() => (focusOnSecondDigit = false)"
+    @focusout="() => (focusOnSecondDigit = true)"
+    ref="input"
   />
 </template>
