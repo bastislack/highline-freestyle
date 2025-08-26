@@ -20,6 +20,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
 import { Icon } from '@iconify/vue/dist/iconify.js';
+import ImgArmsCrossedUrl from '@/assets/img/arms_crossed.svg?url';
 
 import { useI18n } from 'vue-i18n';
 import { i18nMerge } from '@/i18n/i18nmerge';
@@ -114,12 +115,11 @@ function linkToDetails(primaryKey: PrimaryKey): string {
       <div class="w-full flex flex-col gap-5">
         <!-- No Search Results-->
         <div v-if="!searchResult || searchResult.length == 0" class="text-xl text-center mt-3">
-          {{ t('info.noTrickMatchingSearch') }}<br />
-          <span class="font-semibold"> :( </span>
+          {{ t('info.noTrickMatchingSearch') }}
           <div class="flex flex-row justify-center mt-3">
             <img
-              src="https://media1.tenor.com/m/XQLVLptLIBEAAAAd/maes-b-lost-in-a-field.gif"
-              class="w-48"
+              :src="ImgArmsCrossedUrl"
+              class="h-full md:w-auto max-h-72 sm:max-h-80 xl:max-h-96 p-3 pb-7 sm:py-4 md:pb-3"
             />
           </div>
         </div>
