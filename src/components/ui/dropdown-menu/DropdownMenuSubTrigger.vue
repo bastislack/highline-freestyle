@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { DropdownMenuSubTrigger, type DropdownMenuSubTriggerProps } from 'radix-vue';
+import { DropdownMenuSubTrigger, type DropdownMenuSubTriggerProps } from 'reka-ui';
 import { ChevronRight } from 'lucide-vue-next';
 import { cn } from '@/lib/utils';
 

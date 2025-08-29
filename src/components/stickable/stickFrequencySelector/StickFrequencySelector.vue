@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from 'radix-vue';
+import { SliderRange, SliderRoot, SliderThumb, SliderTrack } from 'reka-ui';
 import { useI18n } from 'vue-i18n';
 import messages from '@/i18n/metadata/stickFrequency';
 

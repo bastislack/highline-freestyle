@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { type HTMLAttributes, computed } from 'vue';
-import { DialogDescription, type DialogDescriptionProps, useForwardProps } from 'radix-vue';
+import { DialogDescription, type DialogDescriptionProps, useForwardProps } from 'reka-ui';
 import { cn } from '@/lib/utils';
 
 const props = defineProps<DialogDescriptionProps & { class?: HTMLAttributes['class'] }>();

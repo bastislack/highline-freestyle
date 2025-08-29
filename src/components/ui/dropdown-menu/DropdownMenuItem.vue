@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { DropdownMenuItem, type DropdownMenuItemProps } from 'radix-vue';
+import { DropdownMenuItem, type DropdownMenuItemProps } from 'reka-ui';
 import { cn } from '@/lib/utils';
 
 const props = defineProps<DropdownMenuItemProps & { inset?: boolean; class?: string }>();

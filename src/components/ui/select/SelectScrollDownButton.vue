@@ -4,7 +4,7 @@ import {
   SelectScrollDownButton,
   type SelectScrollDownButtonProps,
   useForwardProps,
-} from 'radix-vue';
+} from 'reka-ui';
 import { ChevronDown } from 'lucide-vue-next';
 import { cn } from '@/lib/utils';
 

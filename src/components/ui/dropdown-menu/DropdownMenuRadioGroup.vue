@@ -3,7 +3,7 @@ import {
   DropdownMenuRadioGroup,
   type DropdownMenuRadioGroupEmits,
   type DropdownMenuRadioGroupProps,
-} from 'radix-vue';
+} from 'reka-ui';
 
 const props = defineProps<DropdownMenuRadioGroupProps>();
 

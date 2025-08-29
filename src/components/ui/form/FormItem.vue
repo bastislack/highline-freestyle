@@ -6,7 +6,7 @@ export const FORM_ITEM_INJECTION_KEY = Symbol() as InjectionKey<string>;
 
 <script lang="ts" setup>
 import { provide } from 'vue';
-import { useId } from 'radix-vue';
+import { useId } from 'reka-ui';
 import { cn } from '@/lib/utils';
 
 const props = defineProps<{
