@@ -203,20 +203,20 @@ function highlightFilterClasses(highlight: boolean | undefined): string {
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuCheckboxItem
-            :checked="searchParameters?.includedStatuses.includes('official')"
-            @update:checked="updateIncludedStatuses('official')"
+            :model-value="searchParameters?.includedStatuses.includes('official')"
+            @update:model-value="updateIncludedStatuses('official')"
           >
             {{ t('official') }}
           </DropdownMenuCheckboxItem>
           <DropdownMenuCheckboxItem
-            :checked="searchParameters?.includedStatuses.includes('userDefined')"
-            @update:checked="updateIncludedStatuses('userDefined')"
+            :model-value="searchParameters?.includedStatuses.includes('userDefined')"
+            @update:model-value="updateIncludedStatuses('userDefined')"
           >
             {{ t('userDefined') }}
           </DropdownMenuCheckboxItem>
           <DropdownMenuCheckboxItem
-            :checked="searchParameters?.includedStatuses.includes('archived')"
-            @update:checked="updateIncludedStatuses('archived')"
+            :model-value="searchParameters?.includedStatuses.includes('archived')"
+            @update:model-value="updateIncludedStatuses('archived')"
           >
             {{ t('archived') }}
           </DropdownMenuCheckboxItem>
