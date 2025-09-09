@@ -33,7 +33,7 @@ const { t } = i18n;
             <div class="text-muted-foreground text-sm">{{ t('tracking.youtube.description') }}</div>
           </div>
           <Switch
-            @update:checked="(pref) => setEmbedPreference('YOUTUBE', pref)"
+            @update:checked="(pref: boolean) => setEmbedPreference('YOUTUBE', pref)"
             :checked="isEmbedAllowed('YOUTUBE')"
           />
         </div>
@@ -45,7 +45,7 @@ const { t } = i18n;
             </div>
           </div>
           <Switch
-            @update:checked="(pref) => setEmbedPreference('INSTAGRAM', pref)"
+            @update:checked="(pref: boolean) => setEmbedPreference('INSTAGRAM', pref)"
             :checked="isEmbedAllowed('INSTAGRAM')"
           />
         </div>

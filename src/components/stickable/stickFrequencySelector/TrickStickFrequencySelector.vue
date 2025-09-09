@@ -30,8 +30,9 @@ watchEffect(async () => {
   frequencyModel.value = [trick.stickFrequency ?? 0];
 });
 
-async function updateStickFrequency(frequencyArr: [number]) {
-  const frequency = Math.max(0, Math.min(frequencyArr[0], 7));
+async function updateStickFrequency(frequencyArr: [number] | undefined) {
+  const cleanInputFrequency = frequencyArr === undefined ? 0 : frequencyArr[0];
+  const frequency = Math.max(0, Math.min(cleanInputFrequency, 7));
 
   const trick = await tricksDao.getById(props.trickId, props.trickStatus);
   if (trick === undefined) {
