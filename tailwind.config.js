@@ -1,7 +1,8 @@
-const animate = require('tailwindcss-animate');
-const colors = require('tailwindcss/colors');
+import animate from 'tailwindcss-animate';
+import colors from 'tailwindcss/colors';
 
 /** @type {import('tailwindcss').Config} */
+// eslint-disable-next-line no-undef
 module.exports = {
   darkMode: ['class'],
 
