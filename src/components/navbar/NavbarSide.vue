@@ -28,8 +28,8 @@ interface NavLink {
 
 const links: NavLink[] = [
   { translationKey: 'tricks', to: '/tricks', icon: 'ic:baseline-auto-awesome' },
-  { translationKey: 'combos', to: '/combos', icon: 'ic:baseline-spoke' },
-  { translationKey: 'glossary', to: '/glossary', icon: 'ic:sharp-menu-book' },
+  //{ translationKey: 'combos', to: '/combos', icon: 'ic:baseline-spoke' },
+  //{ translationKey: 'glossary', to: '/glossary', icon: 'ic:sharp-menu-book' },
 ];
 
 const bottomLinks: NavLink[] = [
