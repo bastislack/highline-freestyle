@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import Section from '@/components/ui/section/Section.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import { Icon } from '@iconify/vue/dist/iconify.js';
@@ -20,19 +19,17 @@ const { t } = i18n;
       <h1 class="text-3xl mx-6 md:mx-0 mb-2 mt-5">{{ t('general.title') }}</h1>
       <p class="mt-2 mx-6 md:mx-0">{{ t('general.content') }}</p>
 
-      <Alert class="mx-6 md:mx-0 mt-3 w-fit">
-        <AlertTitle>{{ t('rewriteInfo.title') }}</AlertTitle>
-        <AlertDescription>
-          <i18n-t keypath="rewriteInfo.content.info" tag="p">
-            <template #newline><br class="mb-2" /></template>
-            <template #debt>
-              <a href="https://en.wikipedia.org/wiki/Technical_debt" class="underline">
-                {{ t('rewriteInfo.content.debt') }}
-              </a>
-            </template>
-          </i18n-t>
-        </AlertDescription>
-      </Alert>
+      <h1 class="text-2xl mx-6 md:mx-0 mt-4 mb-2 lg:mt-8">{{ t('rewriteInfo.title') }}</h1>
+      <p class="mt-2 mx-6 md:mr-0">
+        <i18n-t keypath="rewriteInfo.content.info" tag="p">
+          <template #newline><br class="mb-2" /></template>
+          <template #debt>
+            <a href="https://en.wikipedia.org/wiki/Technical_debt" class="underline">
+              {{ t('rewriteInfo.content.debt') }}
+            </a>
+          </template>
+        </i18n-t>
+      </p>
 
       <h1 class="text-2xl mx-6 md:mx-0 mt-4 mb-2 lg:mt-8">{{ t('privacy.title') }}</h1>
       <p class="mt-2 mx-6 md:mr-0">

@@ -1,0 +1,24 @@
+{
+  "general": {
+    "title": "Sobre",
+    "content": "Este aplicativo foi criado por atletas apaixonados pelo highline freestyle que desejam ver o esporte crescer. À medida que mais e mais manobras são criadas a cada semana, fica difícil manter uma visão geral. Aqui, queremos mostrar as manobras mais comuns, juntamente com informações importantes para ajudá-lo a aprendê-las."
+  },
+  "rewriteInfo": {
+    "title": "A nova versão já está disponível!",
+    "content": {
+      "info": "A {debt} ficou muito grande e foi tomada uma decisão coletiva de reescrever totalmente a aplicação. Após mais de dois anos de desenvolvimento intermitente, ela finalmente está aqui. O que há de novo? Principalmente menos bugs e um projeto que pode ser mantido a longo prazo.{newline}Como a mudança foi muito grande e os dados antigos bastante inconsistentes, infelizmente não foi possível transferir os seus truques personalizados do aplicativo antigo. Também é possível que algumas das suas frequências de stick tenham sido perdidas durante a reescrita. Lamentamos muito por isso! Agora temos sistemas para que isso não aconteça novamente.",
+      "debt": "dívida técnica"
+    }
+  },
+  "privacy": {
+    "title": "Privacidade",
+    "content": "Como somos adeptos do highline, queremos que esta aplicação funcione offline. Assim, todos os seus dados são armazenados localmente no seu dispositivo. No momento, não armazenamos nenhum dos seus truques personalizados ou frequências de stick no nosso servidor, apenas o seu navegador tem acesso a eles!{newline}Esteja ciente de que os vídeos incorporados podem colocar cookies de rastreamento no seu dispositivo. Se é programador, tem algum tempo disponível e pode impedir isso, entre em contacto connosco."
+  },
+  "contribute": {
+    "title": "Contribua ou reporte problemas",
+    "content": {
+      "info": "Este é um projeto comunitário de código aberto. Ajude-nos a construí-lo, mantê-lo e traduzi-lo!",
+      "github": "Repositório GitHub"
+    }
+  }
+}
