@@ -6,21 +6,23 @@
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
 # 
 
-id: 2
-description: With both hands on the line supporting your weight you lie on your
-  belly and roll forward (or backward) around the line.
-tips:
-  - You can try this trick clipped into the hangover first to save energy while
-    familiarizing yourself with the movement.
+id: 77
+establishedBy: Tlaloc Moctezuma-Burns
+yearEstablished: 2020
+description: From Sofa you do a 360, put the outter foot on the line first and
+  then put the second foot on to land in Exposure.
+tips: []
 dateAddedEpoch: 1640995200000
 videos:
-  - link: https://youtu.be/ksF8g5YrXY8?t=230
-    startTime: 230
-    endTime: 233
-technicalName: Belly Roll
-startPosition: Belly
-endPosition: Belly
-difficultyLevel: 1
+  - link: https://youtu.be/hsALSrUdryU?t=49
+    startTime: 49
+    endTime: 53
+technicalName: Sofa 360 to Feet
+alias: Baguette
+startPosition: Sofa
+endPosition: Exposure
+difficultyLevel: 5
 showInSearchQueries: true
-recommendedPrerequisites: []
+recommendedPrerequisites:
+  - 59
 variationOf: []

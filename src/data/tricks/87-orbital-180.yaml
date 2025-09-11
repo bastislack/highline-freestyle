@@ -1,0 +1,22 @@
+# 
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the 
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
+# 
+
+id: 87
+description: Orbital 180 landing in Chest. The 180 makes it easier compared to
+  the normal Orbital. Also called Norbital.
+tips: []
+dateAddedEpoch: 1640995200000
+technicalName: Orbital 180
+alias: Fake Orbital
+startPosition: Stand
+endPosition: Chest
+difficultyLevel: 4
+showInSearchQueries: false
+recommendedPrerequisites: []
+variationOf:
+  - 125

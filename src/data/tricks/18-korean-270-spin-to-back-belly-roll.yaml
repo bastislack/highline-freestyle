@@ -6,21 +6,24 @@
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
 # 
 
-id: 2
-description: With both hands on the line supporting your weight you lie on your
-  belly and roll forward (or backward) around the line.
+id: 18
+establishedBy: Augustin Moinat
+yearEstablished: 2021
+description: Spin with one leg 270 degrees from Korean to Belly into a Back Belly Roll.
 tips:
-  - You can try this trick clipped into the hangover first to save energy while
-    familiarizing yourself with the movement.
+  - Be comfortable with Back Belly Rolls first
+  - Start the spin with the intention of finishing as a Back Belly Roll.
 dateAddedEpoch: 1640995200000
 videos:
-  - link: https://youtu.be/ksF8g5YrXY8?t=230
-    startTime: 230
-    endTime: 233
-technicalName: Belly Roll
-startPosition: Belly
+  - link: https://youtu.be/7kZjIAVYoyY?t=45
+    startTime: 45
+    endTime: 53
+technicalName: Korean 270 Spin to Back Belly Roll
+alias: Underflip
+startPosition: Korean
 endPosition: Belly
-difficultyLevel: 1
+difficultyLevel: 2
 showInSearchQueries: true
-recommendedPrerequisites: []
+recommendedPrerequisites:
+  - 2
 variationOf: []

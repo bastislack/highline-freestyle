@@ -6,21 +6,22 @@
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
 # 
 
-id: 2
-description: With both hands on the line supporting your weight you lie on your
-  belly and roll forward (or backward) around the line.
+id: 206
+establishedBy: Pablo Signoret
+description: Two Yoda Rolls in one bounce.
 tips:
-  - You can try this trick clipped into the hangover first to save energy while
-    familiarizing yourself with the movement.
+  - Originally called Turtle Roll.
 dateAddedEpoch: 1640995200000
 videos:
-  - link: https://youtu.be/ksF8g5YrXY8?t=230
-    startTime: 230
-    endTime: 233
-technicalName: Belly Roll
-startPosition: Belly
-endPosition: Belly
-difficultyLevel: 1
+  - link: https://www.youtube.com/watch?v=VP49hErTqM0&t=420
+    startTime: 420
+    endTime: 423
+technicalName: Double Front Yoda Roll
+alias: Double Yoda
+startPosition: Exposure
+endPosition: Exposure
+difficultyLevel: 7
 showInSearchQueries: true
-recommendedPrerequisites: []
+recommendedPrerequisites:
+  - 148
 variationOf: []

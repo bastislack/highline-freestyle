@@ -6,21 +6,21 @@
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
 # 
 
-id: 2
-description: With both hands on the line supporting your weight you lie on your
-  belly and roll forward (or backward) around the line.
+id: 55
+description: From Exposure let the line come towards your body and grab the line
+  with both hands then slide your feet off to land in Sofa.
 tips:
-  - You can try this trick clipped into the hangover first to save energy while
-    familiarizing yourself with the movement.
+  - It can help to practice briefly grabing the line at the top of the bounce
+    while bouncing in Expo
+  - This way you can learn to let the line come towards your butt instead of you
+    droping down to Sofa.
 dateAddedEpoch: 1640995200000
 videos:
-  - link: https://youtu.be/ksF8g5YrXY8?t=230
-    startTime: 230
-    endTime: 233
-technicalName: Belly Roll
-startPosition: Belly
-endPosition: Belly
-difficultyLevel: 1
+  - link: https://www.youtube.com/watch?v=_CqGa-iBrHE
+technicalName: Sofa Bounce
+startPosition: Exposure
+endPosition: Sofa
+difficultyLevel: 3
 showInSearchQueries: true
 recommendedPrerequisites: []
 variationOf: []

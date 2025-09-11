@@ -6,21 +6,18 @@
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
 # 
 
-id: 2
-description: With both hands on the line supporting your weight you lie on your
-  belly and roll forward (or backward) around the line.
-tips:
-  - You can try this trick clipped into the hangover first to save energy while
-    familiarizing yourself with the movement.
+id: 22
+description: From Soup you stand up on the top of the bounce. If you don't have
+  enough momentum, you can pull the line with one arm.
+tips: []
 dateAddedEpoch: 1640995200000
 videos:
-  - link: https://youtu.be/ksF8g5YrXY8?t=230
-    startTime: 230
-    endTime: 233
-technicalName: Belly Roll
-startPosition: Belly
-endPosition: Belly
-difficultyLevel: 1
+  - link: https://www.youtube.com/watch?v=-xz9Ex3IE-M
+technicalName: Soup to Feet
+startPosition: Soup
+endPosition: Stand
+difficultyLevel: 2
 showInSearchQueries: true
-recommendedPrerequisites: []
+recommendedPrerequisites:
+  - 19
 variationOf: []

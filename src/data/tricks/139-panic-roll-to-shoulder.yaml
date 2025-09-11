@@ -1,0 +1,26 @@
+# 
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the 
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
+# 
+
+id: 139
+description: Do the Panic Roll but instead of landing in Chest you go into Shoulderstand.
+tips:
+  - Regrab with one hand to land comfortably in Shoulderstand.
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://youtu.be/uOuqykzwN7w?t=48
+    startTime: 48
+    endTime: 58
+technicalName: Panic Roll to Shoulder
+startPosition: Sofa
+endPosition: Shoulder
+difficultyLevel: 5
+showInSearchQueries: false
+recommendedPrerequisites:
+  - 7
+variationOf:
+  - 7

@@ -6,21 +6,21 @@
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
 # 
 
-id: 2
-description: With both hands on the line supporting your weight you lie on your
-  belly and roll forward (or backward) around the line.
-tips:
-  - You can try this trick clipped into the hangover first to save energy while
-    familiarizing yourself with the movement.
+id: 329
+establishedBy: Tim Odermatt
+yearEstablished: 2023
+description: Do an Almighty and when you finish the rotation add a late Backflop
+tips: []
 dateAddedEpoch: 1640995200000
 videos:
-  - link: https://youtu.be/ksF8g5YrXY8?t=230
-    startTime: 230
-    endTime: 233
-technicalName: Belly Roll
-startPosition: Belly
-endPosition: Belly
-difficultyLevel: 1
+  - link: https://www.instagram.com/reel/CwnMBX5sCYd/
+technicalName: Almighty to Backflop
+alias: Almighty Flop
+startPosition: Stand
+endPosition: Korean
+difficultyLevel: 7
 showInSearchQueries: true
-recommendedPrerequisites: []
+recommendedPrerequisites:
+  - 109
+  - 16
 variationOf: []

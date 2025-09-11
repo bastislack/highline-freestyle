@@ -6,21 +6,19 @@
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
 # 
 
-id: 2
-description: With both hands on the line supporting your weight you lie on your
-  belly and roll forward (or backward) around the line.
-tips:
-  - You can try this trick clipped into the hangover first to save energy while
-    familiarizing yourself with the movement.
+id: 47
+establishedBy: Sakalomo
+yearEstablished: 2021
+description: Hang in Nevermind, thread the leg that is free through your leg and
+  the closer arm and kick through to go to a Back Belly Roll.
+tips: []
 dateAddedEpoch: 1640995200000
 videos:
-  - link: https://youtu.be/ksF8g5YrXY8?t=230
-    startTime: 230
-    endTime: 233
-technicalName: Belly Roll
-startPosition: Belly
+  - link: https://youtu.be/44gWgvZrso4
+technicalName: Makako
+startPosition: Nevermind
 endPosition: Belly
-difficultyLevel: 1
+difficultyLevel: 3
 showInSearchQueries: true
 recommendedPrerequisites: []
 variationOf: []

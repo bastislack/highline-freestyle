@@ -6,21 +6,21 @@
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
 # 
 
-id: 2
-description: With both hands on the line supporting your weight you lie on your
-  belly and roll forward (or backward) around the line.
-tips:
-  - You can try this trick clipped into the hangover first to save energy while
-    familiarizing yourself with the movement.
+id: 160
+establishedBy: Justin Wagers
+yearEstablished: 2020
+description: Almighty flip but from normal stance.
+tips: []
 dateAddedEpoch: 1640995200000
 videos:
-  - link: https://youtu.be/ksF8g5YrXY8?t=230
-    startTime: 230
-    endTime: 233
-technicalName: Belly Roll
-startPosition: Belly
-endPosition: Belly
-difficultyLevel: 1
+  - link: https://youtu.be/Se5XNo0RSP8?t=649
+    startTime: 649
+    endTime: 654
+technicalName: Front Barrel Almighty
+startPosition: Stand
+endPosition: Stand
+difficultyLevel: 7
 showInSearchQueries: true
-recommendedPrerequisites: []
+recommendedPrerequisites:
+  - 142
 variationOf: []

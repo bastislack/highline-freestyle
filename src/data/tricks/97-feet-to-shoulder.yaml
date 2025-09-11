@@ -6,21 +6,21 @@
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
 # 
 
-id: 2
-description: With both hands on the line supporting your weight you lie on your
-  belly and roll forward (or backward) around the line.
-tips:
-  - You can try this trick clipped into the hangover first to save energy while
-    familiarizing yourself with the movement.
+id: 97
+establishedBy: Samuel Volery
+description: From Standing, grab the line with your hands, take off your front
+  foot, and use the back foot to push yourself into the Shoulderstand.
+tips: []
 dateAddedEpoch: 1640995200000
 videos:
-  - link: https://youtu.be/ksF8g5YrXY8?t=230
-    startTime: 230
-    endTime: 233
-technicalName: Belly Roll
-startPosition: Belly
-endPosition: Belly
-difficultyLevel: 1
+  - link: https://youtu.be/9Ab1JPDJR-I?t=234
+    startTime: 234
+    endTime: 237
+technicalName: Feet to Shoulder
+alias: Kamikaze
+startPosition: Stand
+endPosition: Shoulder
+difficultyLevel: 4
 showInSearchQueries: true
 recommendedPrerequisites: []
 variationOf: []

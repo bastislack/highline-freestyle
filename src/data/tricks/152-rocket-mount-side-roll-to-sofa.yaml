@@ -1,0 +1,28 @@
+# 
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the 
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
+# 
+
+id: 152
+establishedBy: Ian Eisenberg
+yearEstablished: 2021
+description: From Rocket Mount do a Side Roll with the axis of rotation
+  perpendicular to the line and land in Sofa.
+tips:
+  - Flip one of your hands to allow for a better initiation of the momentum.
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.youtube.com/watch?v=7yLCyoHgUS0&t=1082
+    startTime: 1082
+    endTime: 1091
+technicalName: Rocket Mount Side Roll to Sofa
+startPosition: Rocket
+endPosition: Sofa
+difficultyLevel: 6
+showInSearchQueries: false
+recommendedPrerequisites: []
+variationOf:
+  - 99

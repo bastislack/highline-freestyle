@@ -6,21 +6,21 @@
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
 # 
 
-id: 2
-description: With both hands on the line supporting your weight you lie on your
-  belly and roll forward (or backward) around the line.
+id: 98
+establishedBy: Anthony Boulay
+description: Do a Panic Roll and put your back foot onto the line. When you
+  finished the rotation put the second foot up and stand up.
 tips:
-  - You can try this trick clipped into the hangover first to save energy while
-    familiarizing yourself with the movement.
+  - During the roll get your far foot on the line. At the end of the roll get
+    your second foot up on the line.
 dateAddedEpoch: 1640995200000
 videos:
-  - link: https://youtu.be/ksF8g5YrXY8?t=230
-    startTime: 230
-    endTime: 233
-technicalName: Belly Roll
-startPosition: Belly
-endPosition: Belly
-difficultyLevel: 1
+  - link: https://www.youtube.com/watch?v=hQaJ54xvfOA
+technicalName: Panic Roll to Feet
+startPosition: Sofa
+endPosition: Exposure
+difficultyLevel: 5
 showInSearchQueries: true
-recommendedPrerequisites: []
+recommendedPrerequisites:
+  - 7
 variationOf: []

@@ -6,21 +6,19 @@
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
 # 
 
-id: 2
-description: With both hands on the line supporting your weight you lie on your
-  belly and roll forward (or backward) around the line.
+id: 19
+description: From Sit you stand up on the top of the bounce. If you don't have
+  enough momentum, you can pull on the line with one arm.
 tips:
-  - You can try this trick clipped into the hangover first to save energy while
-    familiarizing yourself with the movement.
+  - Learning this is a lot about learning the correct timing which is doing the
+    trick at the top of the bounce when you feel weightless.
 dateAddedEpoch: 1640995200000
 videos:
-  - link: https://youtu.be/ksF8g5YrXY8?t=230
-    startTime: 230
-    endTime: 233
-technicalName: Belly Roll
-startPosition: Belly
-endPosition: Belly
-difficultyLevel: 1
+  - link: https://www.youtube.com/watch?v=rdV2Jhi6U5Y
+technicalName: Sit to Feet
+startPosition: Sit
+endPosition: Stand
+difficultyLevel: 2
 showInSearchQueries: true
 recommendedPrerequisites: []
 variationOf: []

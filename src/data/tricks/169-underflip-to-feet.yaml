@@ -1,0 +1,26 @@
+# 
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the 
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
+# 
+
+id: 169
+establishedBy: Cesare Bellamoli
+yearEstablished: 2022
+description: From Korean, do a BS 270 spin and finish with a Back Belly Roll to Feet.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://youtu.be/eUguTccJblI?t=45
+    startTime: 45
+    endTime: 53
+technicalName: Underflip to Feet
+alias: Fireball
+startPosition: Korean
+endPosition: Exposure
+showInSearchQueries: false
+recommendedPrerequisites: []
+variationOf:
+  - 134

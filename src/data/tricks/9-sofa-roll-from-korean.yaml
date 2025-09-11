@@ -6,21 +6,23 @@
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
 # 
 
-id: 2
-description: With both hands on the line supporting your weight you lie on your
-  belly and roll forward (or backward) around the line.
+id: 9
+establishedBy: Richard Schupisser
+description: From Korean swing one leg over the line and immediately after you
+  start the leg swing initiate a roll to finish as a Sofa Roll.
 tips:
-  - You can try this trick clipped into the hangover first to save energy while
-    familiarizing yourself with the movement.
+  - Be comfortable with Sofa Rolls first.
 dateAddedEpoch: 1640995200000
 videos:
-  - link: https://youtu.be/ksF8g5YrXY8?t=230
-    startTime: 230
-    endTime: 233
-technicalName: Belly Roll
-startPosition: Belly
-endPosition: Belly
-difficultyLevel: 1
+  - link: https://youtu.be/7kZjIAVYoyY?t=161
+    startTime: 161
+    endTime: 167
+technicalName: Sofa Roll from Korean
+alias: Richy Roll
+startPosition: Korean
+endPosition: Sofa
+difficultyLevel: 2
 showInSearchQueries: true
-recommendedPrerequisites: []
+recommendedPrerequisites:
+  - 1
 variationOf: []

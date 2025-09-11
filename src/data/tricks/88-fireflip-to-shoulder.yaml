@@ -1,0 +1,26 @@
+# 
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the 
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
+# 
+
+id: 88
+establishedBy: Samuel Volery
+yearEstablished: 2022
+description: From Korean grab the line behind you and go into a Front Chest
+  Roll. Land on your shoulder to finish the trick.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.instagram.com/p/CYPMq9BJg55/
+technicalName: Fireflip to Shoulder
+startPosition: Korean
+endPosition: Shoulder
+difficultyLevel: 5
+showInSearchQueries: false
+recommendedPrerequisites:
+  - 24
+variationOf:
+  - 134

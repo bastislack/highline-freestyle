@@ -1,0 +1,28 @@
+# 
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the 
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
+# 
+
+id: 103
+establishedBy: Guillaume Fontaine
+yearEstablished: 2017
+description: Do a Half Back Roll but add a Shoulder Roll to finish the trick.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.youtube.com/watch?v=O_E_2cB0Pcw&t=61
+    startTime: 61
+    endTime: 65
+technicalName: Half Back Roll to Shoulder Roll
+startPosition: Back
+endPosition: Shoulder
+difficultyLevel: 5
+showInSearchQueries: false
+recommendedPrerequisites:
+  - 64
+  - 38
+variationOf:
+  - 64

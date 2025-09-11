@@ -1,0 +1,28 @@
+# 
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the 
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
+# 
+
+id: 110
+establishedBy: Samuel Volery
+yearEstablished: 2017
+description: From Rocket go up to shoulder stand.
+tips:
+  - When dropping down to Rocket already grab with the hands as you would for
+    the Shoulderstand then you don't have to regrab.
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://youtu.be/Se5XNo0RSP8?t=527
+    startTime: 527
+    endTime: 533
+technicalName: Rocket Mount to Shoulder
+startPosition: Rocket
+endPosition: Shoulder
+difficultyLevel: 6
+showInSearchQueries: false
+recommendedPrerequisites: []
+variationOf:
+  - 99

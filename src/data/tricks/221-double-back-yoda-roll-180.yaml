@@ -1,0 +1,26 @@
+# 
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the 
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
+# 
+
+id: 221
+establishedBy: Tim Odermatt
+yearEstablished: 2022
+description: Back Yoda Roll to Back Yoda Roll 180 in one bounce.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.instagram.com/p/Ch8Ca0GPEOG/
+technicalName: Double Back Yoda Roll 180
+alias: Yodermatt
+startPosition: Exposure
+endPosition: Exposure
+difficultyLevel: 9
+showInSearchQueries: false
+recommendedPrerequisites:
+  - 200
+variationOf:
+  - 200

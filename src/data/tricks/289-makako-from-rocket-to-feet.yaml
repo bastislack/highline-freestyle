@@ -6,21 +6,22 @@
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
 # 
 
-id: 2
-description: With both hands on the line supporting your weight you lie on your
-  belly and roll forward (or backward) around the line.
-tips:
-  - You can try this trick clipped into the hangover first to save energy while
-    familiarizing yourself with the movement.
+id: 289
+establishedBy: Sakalomo
+yearEstablished: 2023
+description: From Rocket bring one leg up so you are in the Nevermind position
+  (for a split second) then pull your other leg through as you would for a
+  Makako. Finish to Feet.
+tips: []
 dateAddedEpoch: 1640995200000
 videos:
-  - link: https://youtu.be/ksF8g5YrXY8?t=230
-    startTime: 230
-    endTime: 233
-technicalName: Belly Roll
-startPosition: Belly
-endPosition: Belly
-difficultyLevel: 1
+  - link: https://www.instagram.com/reel/Cx_HE9SsTFX/
+technicalName: Makako from Rocket to Feet
+alias: Rockako
+startPosition: Rocket
+endPosition: Exposure
+difficultyLevel: 9
 showInSearchQueries: true
-recommendedPrerequisites: []
+recommendedPrerequisites:
+  - 211
 variationOf: []

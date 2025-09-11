@@ -6,21 +6,15 @@
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
 # 
 
-id: 2
-description: With both hands on the line supporting your weight you lie on your
-  belly and roll forward (or backward) around the line.
-tips:
-  - You can try this trick clipped into the hangover first to save energy while
-    familiarizing yourself with the movement.
+id: 96
+description: From Double Drop Knee grab the line with both hands and roll to the
+  front landing back in Double Drop Knee.
+tips: []
 dateAddedEpoch: 1640995200000
-videos:
-  - link: https://youtu.be/ksF8g5YrXY8?t=230
-    startTime: 230
-    endTime: 233
-technicalName: Belly Roll
-startPosition: Belly
-endPosition: Belly
-difficultyLevel: 1
+technicalName: Double Drop Knee Roll
+startPosition: Double Drop Knee
+endPosition: Double Drop Knee
+difficultyLevel: 4
 showInSearchQueries: true
 recommendedPrerequisites: []
 variationOf: []

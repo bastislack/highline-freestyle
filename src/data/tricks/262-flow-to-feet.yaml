@@ -6,21 +6,16 @@
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
 # 
 
-id: 2
-description: With both hands on the line supporting your weight you lie on your
-  belly and roll forward (or backward) around the line.
-tips:
-  - You can try this trick clipped into the hangover first to save energy while
-    familiarizing yourself with the movement.
+id: 262
+description: From Korean you grab the line with both hands behind you and then
+  swing your far leg over the line. From there aim to land on the line with both
+  feet to finish the trick.
+tips: []
 dateAddedEpoch: 1640995200000
-videos:
-  - link: https://youtu.be/ksF8g5YrXY8?t=230
-    startTime: 230
-    endTime: 233
-technicalName: Belly Roll
-startPosition: Belly
-endPosition: Belly
-difficultyLevel: 1
+technicalName: Flow to Feet
+startPosition: Korean
+endPosition: Stand
+difficultyLevel: 5
 showInSearchQueries: true
 recommendedPrerequisites: []
 variationOf: []

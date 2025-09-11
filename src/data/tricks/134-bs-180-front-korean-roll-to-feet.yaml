@@ -6,21 +6,22 @@
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
 # 
 
-id: 2
-description: With both hands on the line supporting your weight you lie on your
-  belly and roll forward (or backward) around the line.
-tips:
-  - You can try this trick clipped into the hangover first to save energy while
-    familiarizing yourself with the movement.
+id: 134
+establishedBy: Salomé Cholet
+yearEstablished: 2021
+description: Do a Mini-Fireflip to Feet.
+tips: []
 dateAddedEpoch: 1640995200000
 videos:
-  - link: https://youtu.be/ksF8g5YrXY8?t=230
-    startTime: 230
-    endTime: 233
-technicalName: Belly Roll
-startPosition: Belly
-endPosition: Belly
-difficultyLevel: 1
+  - link: https://youtu.be/HecUpHXRpDw?t=302
+    startTime: 302
+    endTime: 315
+technicalName: BS 180 Front Korean Roll to Feet
+alias: Fire Flip
+startPosition: Korean
+endPosition: Stand
+difficultyLevel: 6
 showInSearchQueries: true
-recommendedPrerequisites: []
+recommendedPrerequisites:
+  - 24
 variationOf: []

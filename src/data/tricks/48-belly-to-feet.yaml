@@ -6,21 +6,16 @@
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
 # 
 
-id: 2
-description: With both hands on the line supporting your weight you lie on your
-  belly and roll forward (or backward) around the line.
-tips:
-  - You can try this trick clipped into the hangover first to save energy while
-    familiarizing yourself with the movement.
+id: 48
+description: From Belly lift one foot up on the line, remove the hand on the
+  same side to help you balance and then press the line down with this foot and
+  the other hand to get the second foot up.
+tips: []
 dateAddedEpoch: 1640995200000
-videos:
-  - link: https://youtu.be/ksF8g5YrXY8?t=230
-    startTime: 230
-    endTime: 233
-technicalName: Belly Roll
+technicalName: Belly to Feet
 startPosition: Belly
-endPosition: Belly
-difficultyLevel: 1
+endPosition: Exposure
+difficultyLevel: 3
 showInSearchQueries: true
 recommendedPrerequisites: []
 variationOf: []

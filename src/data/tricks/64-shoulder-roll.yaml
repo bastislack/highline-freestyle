@@ -6,21 +6,20 @@
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
 # 
 
-id: 2
-description: With both hands on the line supporting your weight you lie on your
-  belly and roll forward (or backward) around the line.
-tips:
-  - You can try this trick clipped into the hangover first to save energy while
-    familiarizing yourself with the movement.
+id: 64
+establishedBy: Anthony Boulay
+description: From Shoulderstand, tuck your legs, roll to one side and extend
+  your legs for the landing back in Shoulderstand.
+tips: []
 dateAddedEpoch: 1640995200000
 videos:
-  - link: https://youtu.be/ksF8g5YrXY8?t=230
-    startTime: 230
-    endTime: 233
-technicalName: Belly Roll
-startPosition: Belly
-endPosition: Belly
-difficultyLevel: 1
+  - link: https://youtu.be/hsALSrUdryU?t=81
+    startTime: 81
+    endTime: 85
+technicalName: Shoulder Roll
+startPosition: Shoulder
+endPosition: Shoulder
+difficultyLevel: 4
 showInSearchQueries: true
 recommendedPrerequisites: []
 variationOf: []

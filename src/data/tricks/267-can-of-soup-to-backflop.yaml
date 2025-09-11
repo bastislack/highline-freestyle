@@ -6,21 +6,21 @@
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
 # 
 
-id: 2
-description: With both hands on the line supporting your weight you lie on your
-  belly and roll forward (or backward) around the line.
-tips:
-  - You can try this trick clipped into the hangover first to save energy while
-    familiarizing yourself with the movement.
+id: 267
+establishedBy: Tim Odermatt
+yearEstablished: 2022
+description: Do a Can of Soup into a Backflop in the same bounce.
+tips: []
 dateAddedEpoch: 1640995200000
 videos:
-  - link: https://youtu.be/ksF8g5YrXY8?t=230
-    startTime: 230
-    endTime: 233
-technicalName: Belly Roll
-startPosition: Belly
-endPosition: Belly
-difficultyLevel: 1
+  - link: https://www.instagram.com/p/Ce8WJ4YlvTr/
+technicalName: Can of Soup to Backflop
+alias: Soupflop
+startPosition: Soup
+endPosition: Korean
+difficultyLevel: 8
 showInSearchQueries: true
-recommendedPrerequisites: []
+recommendedPrerequisites:
+  - 75
+  - 11
 variationOf: []

@@ -1,0 +1,27 @@
+# 
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the 
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
+# 
+
+id: 140
+establishedBy: Samuel Volery
+yearEstablished: 2016
+description: From Exposure grab the line with both hands and roll around the
+  line landing back in Exposure.
+tips:
+  - Try to wait a bit after hitting the bottom of the bounce before you start
+    with the trick. If you start too early you will kill the bounce.
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.youtube.com/watch?v=DgVLWsChXFM
+technicalName: Yoda Roll
+startPosition: Exposure
+endPosition: Exposure
+difficultyLevel: 6
+showInSearchQueries: true
+recommendedPrerequisites:
+  - 83
+variationOf: []

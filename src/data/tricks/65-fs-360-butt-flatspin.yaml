@@ -6,21 +6,22 @@
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
 # 
 
-id: 2
-description: With both hands on the line supporting your weight you lie on your
-  belly and roll forward (or backward) around the line.
-tips:
-  - You can try this trick clipped into the hangover first to save energy while
-    familiarizing yourself with the movement.
+id: 65
+establishedBy: Tlaloc Moctezuma-Burns
+yearEstablished: 2021
+description: In Butt grab the line with the front hand behind you. Then pull
+  with that arm to do a 360 landing back in Sofa.
+tips: []
 dateAddedEpoch: 1640995200000
 videos:
-  - link: https://youtu.be/ksF8g5YrXY8?t=230
-    startTime: 230
-    endTime: 233
-technicalName: Belly Roll
-startPosition: Belly
-endPosition: Belly
-difficultyLevel: 1
+  - link: https://youtu.be/RDVaUFdqMmE?t=237
+    startTime: 237
+    endTime: 241
+technicalName: FS 360 Butt Flatspin
+alias: Butter
+startPosition: Sofa
+endPosition: Sofa
+difficultyLevel: 4
 showInSearchQueries: true
 recommendedPrerequisites: []
 variationOf: []

@@ -1,0 +1,30 @@
+# 
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the 
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
+# 
+
+id: 225
+establishedBy: Sebastian Egger
+yearEstablished: 2021
+description: Double Back Almighty Flip.
+tips:
+  - Do the first one laid out and tuck for the second one to get good momentum.
+  - Try to get the hook at your ankle. If the line is near your toes it's hard
+    to pull it around for the second roll.
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://youtu.be/HecUpHXRpDw?t=547
+    startTime: 547
+    endTime: 567
+technicalName: Double Back Almighty
+startPosition: Exposure
+endPosition: Exposure
+difficultyLevel: 9
+showInSearchQueries: true
+recommendedPrerequisites:
+  - 200
+  - 162
+variationOf: []

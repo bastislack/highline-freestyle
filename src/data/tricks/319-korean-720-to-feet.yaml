@@ -6,21 +6,21 @@
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
 # 
 
-id: 2
-description: With both hands on the line supporting your weight you lie on your
-  belly and roll forward (or backward) around the line.
-tips:
-  - You can try this trick clipped into the hangover first to save energy while
-    familiarizing yourself with the movement.
+id: 319
+establishedBy: Tim Odermatt
+yearEstablished: 2023
+description: From Korean start like you would do a flow but do 2 full spins,
+  land on your feet.
+tips: []
 dateAddedEpoch: 1640995200000
 videos:
-  - link: https://youtu.be/ksF8g5YrXY8?t=230
-    startTime: 230
-    endTime: 233
-technicalName: Belly Roll
-startPosition: Belly
-endPosition: Belly
-difficultyLevel: 1
+  - link: https://www.instagram.com/reel/CtRx_JwuWvS/
+technicalName: Korean 720 to Feet
+alias: Flower Power
+startPosition: Korean
+endPosition: Stand
+difficultyLevel: 7
 showInSearchQueries: true
-recommendedPrerequisites: []
+recommendedPrerequisites:
+  - 146
 variationOf: []

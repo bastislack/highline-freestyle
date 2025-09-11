@@ -1,0 +1,25 @@
+# 
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the 
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
+# 
+
+id: 254
+establishedBy: Gon Caturelli
+yearEstablished: 2022
+description: We haven't figured out yet what's going on here. Look at the video
+  and help us by updating the description.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.instagram.com/p/CZ5RlXfjAnA/
+technicalName: Darth Vader from Yisus
+alias: Resurrection
+startPosition: Yisus
+endPosition: Exposure
+showInSearchQueries: false
+recommendedPrerequisites: []
+variationOf:
+  - 177

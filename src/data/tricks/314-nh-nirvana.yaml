@@ -6,21 +6,21 @@
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
 # 
 
-id: 2
-description: With both hands on the line supporting your weight you lie on your
-  belly and roll forward (or backward) around the line.
-tips:
-  - You can try this trick clipped into the hangover first to save energy while
-    familiarizing yourself with the movement.
+id: 314
+establishedBy: Carlo Cozzio
+yearEstablished: 2023
+description: Do a Nirvana but instead of using your hands hook the line with
+  your foot to roll.
+tips: []
 dateAddedEpoch: 1640995200000
 videos:
-  - link: https://youtu.be/ksF8g5YrXY8?t=230
-    startTime: 230
-    endTime: 233
-technicalName: Belly Roll
-startPosition: Belly
-endPosition: Belly
-difficultyLevel: 1
+  - link: https://www.instagram.com/reel/CnXEHTsoKhC/
+technicalName: NH Nirvana
+alias: Nirvana Attack
+startPosition: Sofa
+endPosition: Exposure
+difficultyLevel: 8
 showInSearchQueries: true
-recommendedPrerequisites: []
+recommendedPrerequisites:
+  - 173
 variationOf: []

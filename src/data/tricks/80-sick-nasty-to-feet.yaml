@@ -6,21 +6,22 @@
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
 # 
 
-id: 2
-description: With both hands on the line supporting your weight you lie on your
-  belly and roll forward (or backward) around the line.
-tips:
-  - You can try this trick clipped into the hangover first to save energy while
-    familiarizing yourself with the movement.
+id: 80
+description: From Sofa you grab the line next to you with both hands and swing
+  the legs over the line and around behind you and then you land in Exposure on
+  the other side of your hands.
+tips: []
 dateAddedEpoch: 1640995200000
 videos:
-  - link: https://youtu.be/ksF8g5YrXY8?t=230
-    startTime: 230
-    endTime: 233
-technicalName: Belly Roll
-startPosition: Belly
-endPosition: Belly
-difficultyLevel: 1
+  - link: https://youtu.be/Ej2ocABoNC4?t=18159
+    startTime: 18159
+    endTime: 18164
+technicalName: Sick Nasty to Feet
+alias: Flare to Feet
+startPosition: Sofa
+endPosition: Exposure
+difficultyLevel: 4
 showInSearchQueries: true
-recommendedPrerequisites: []
+recommendedPrerequisites:
+  - 63
 variationOf: []

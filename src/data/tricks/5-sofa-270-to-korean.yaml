@@ -6,20 +6,18 @@
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
 # 
 
-id: 2
-description: With both hands on the line supporting your weight you lie on your
-  belly and roll forward (or backward) around the line.
+id: 5
+description: From Sofa you start a 180 FS spin, grab the line on your side with
+  both hands and swing the far leg over the line to land in Korean.
 tips:
-  - You can try this trick clipped into the hangover first to save energy while
-    familiarizing yourself with the movement.
+  - Keep your center of gravity above the line.
 dateAddedEpoch: 1640995200000
 videos:
-  - link: https://youtu.be/ksF8g5YrXY8?t=230
-    startTime: 230
-    endTime: 233
-technicalName: Belly Roll
-startPosition: Belly
-endPosition: Belly
+  - link: https://www.youtube.com/watch?v=12HbVhoFloM
+technicalName: Sofa 270 to Korean
+alias: Panic
+startPosition: Sofa
+endPosition: Korean
 difficultyLevel: 1
 showInSearchQueries: true
 recommendedPrerequisites: []

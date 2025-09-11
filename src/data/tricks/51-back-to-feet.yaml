@@ -6,21 +6,22 @@
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
 # 
 
-id: 2
-description: With both hands on the line supporting your weight you lie on your
-  belly and roll forward (or backward) around the line.
+id: 51
+description: From Backbounce go to Korean and add a Korean to Feet in the same
+  bounce. Alternatively, you can hook the line with one foot to assist pulling
+  yourself up.
 tips:
-  - You can try this trick clipped into the hangover first to save energy while
-    familiarizing yourself with the movement.
+  - Depending on your preferred variation, practice Sit to Feet or Korean to
+    Feet first.
 dateAddedEpoch: 1640995200000
 videos:
-  - link: https://youtu.be/ksF8g5YrXY8?t=230
-    startTime: 230
-    endTime: 233
-technicalName: Belly Roll
-startPosition: Belly
-endPosition: Belly
-difficultyLevel: 1
+  - link: https://www.youtube.com/watch?v=MpfpSkwcqsg
+technicalName: Back to Feet
+startPosition: Back
+endPosition: Stand
+difficultyLevel: 3
 showInSearchQueries: true
-recommendedPrerequisites: []
+recommendedPrerequisites:
+  - 19
+  - 5
 variationOf: []

@@ -6,21 +6,20 @@
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
 # 
 
-id: 2
-description: With both hands on the line supporting your weight you lie on your
-  belly and roll forward (or backward) around the line.
-tips:
-  - You can try this trick clipped into the hangover first to save energy while
-    familiarizing yourself with the movement.
+id: 359
+establishedBy: Sebastian Egger
+yearEstablished: 2024
+description: Combination of a BS 180 Shoulder Spin (which goes to your Switch
+  Shoulder) and a Switch FS 180 Shoulder Spin.
+tips: []
 dateAddedEpoch: 1640995200000
 videos:
-  - link: https://youtu.be/ksF8g5YrXY8?t=230
-    startTime: 230
-    endTime: 233
-technicalName: Belly Roll
-startPosition: Belly
-endPosition: Belly
-difficultyLevel: 1
+  - link: https://www.instagram.com/p/C-5Bp3My3vw/
+technicalName: BS 360 Shoulder Spin
+startPosition: Shoulder
+endPosition: Shoulder
+difficultyLevel: 7
 showInSearchQueries: true
-recommendedPrerequisites: []
+recommendedPrerequisites:
+  - 358
 variationOf: []

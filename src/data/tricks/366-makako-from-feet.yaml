@@ -6,21 +6,20 @@
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
 # 
 
-id: 2
-description: With both hands on the line supporting your weight you lie on your
-  belly and roll forward (or backward) around the line.
-tips:
-  - You can try this trick clipped into the hangover first to save energy while
-    familiarizing yourself with the movement.
+id: 366
+establishedBy: Sebastian Egger
+yearEstablished: 2023
+description: Drop down to Nevermind early in the bounce, then start a Makako as
+  you're used to.
+tips: []
 dateAddedEpoch: 1640995200000
 videos:
-  - link: https://youtu.be/ksF8g5YrXY8?t=230
-    startTime: 230
-    endTime: 233
-technicalName: Belly Roll
-startPosition: Belly
+  - link: https://www.instagram.com/p/CnSIQYOK8RS/
+technicalName: Makako from Feet
+startPosition: Stand
 endPosition: Belly
-difficultyLevel: 1
-showInSearchQueries: true
+difficultyLevel: 7
+showInSearchQueries: false
 recommendedPrerequisites: []
-variationOf: []
+variationOf:
+  - 47

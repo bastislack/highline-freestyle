@@ -1,0 +1,27 @@
+# 
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the 
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
+# 
+
+id: 227
+establishedBy: Ian Eisenberg
+yearEstablished: 2022
+description: Start early with a Lightside Roll and use the resistance in the
+  line to finish with a Double Sick Nasty Roll.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://youtu.be/rWqH_51ztQA?t=6940
+    startTime: 6940
+    endTime: 6946
+technicalName: Front Sofa Roll Rewind to Sick Nasty Double Roll
+alias: Double Boomerang
+startPosition: Sofa
+endPosition: Sofa
+showInSearchQueries: false
+recommendedPrerequisites: []
+variationOf:
+  - 231

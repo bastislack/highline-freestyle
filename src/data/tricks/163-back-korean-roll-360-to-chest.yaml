@@ -6,21 +6,22 @@
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
 # 
 
-id: 2
-description: With both hands on the line supporting your weight you lie on your
-  belly and roll forward (or backward) around the line.
-tips:
-  - You can try this trick clipped into the hangover first to save energy while
-    familiarizing yourself with the movement.
+id: 163
+establishedBy: Sakalomo
+yearEstablished: 2021
+description: Start with a Back Korean Roll during which you are leaning forward,
+  move your legs above the line to transition into a 360, land in Korean.
+tips: []
 dateAddedEpoch: 1640995200000
 videos:
-  - link: https://youtu.be/ksF8g5YrXY8?t=230
-    startTime: 230
-    endTime: 233
-technicalName: Belly Roll
-startPosition: Belly
-endPosition: Belly
-difficultyLevel: 1
+  - link: https://www.youtube.com/watch?v=7yLCyoHgUS0&t=1036
+    startTime: 1036
+    endTime: 1040
+technicalName: Back Korean Roll 360 to Chest
+alias: Despedido
+startPosition: Korean
+endPosition: Chest
+difficultyLevel: 5
 showInSearchQueries: true
 recommendedPrerequisites: []
 variationOf: []
