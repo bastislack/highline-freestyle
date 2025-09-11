@@ -34,8 +34,8 @@ interface NavLink {
 
 const links: NavLink[] = [
   { translationKey: 'tricks', to: '/tricks', icon: 'ic:baseline-auto-awesome' },
-  { translationKey: 'combos', to: '/combos', icon: 'ic:baseline-spoke' },
-  { translationKey: 'glossary', to: '/glossary', icon: 'ic:sharp-menu-book' },
+  //{ translationKey: 'combos', to: '/combos', icon: 'ic:baseline-spoke' },
+  //{ translationKey: 'glossary', to: '/glossary', icon: 'ic:sharp-menu-book' },
 ];
 
 const dropdownLinks: NavLink[] = [
@@ -49,7 +49,7 @@ const dropdownLinks: NavLink[] = [
   <nav
     class="fixed bottom-0 inset-x-0 z-30 h-16 w-full bg-white border-t border-stone-300 shadow-sm px-2"
   >
-    <ul class="h-full grid justify-items-stretch items-center grid-cols-4 text-gray-700">
+    <ul class="h-full grid justify-items-stretch items-center grid-cols-2 text-gray-700">
       <li v-for="entry in links" v-bind:key="entry.translationKey">
         <RouterLink
           :to="entry.to"
