@@ -6,13 +6,13 @@
   "rewriteInfo": {
     "title": "La nouvelle version est arrivée !",
     "content": {
-      "info": "La {debt} est devenue trop importante et une décision collective a été prise de réécrire entièrement l'application. Après deux ans de développement par intermittence, elle est enfin là. Quelles sont les nouveautés ? Principalement moins de bugs et un projet qui peut être maintenu à long terme.{newline}Comme le changement était si important et les anciennes données assez incohérentes, nous n'avons malheureusement pas été en mesure de porter vos trucs et fréquences de l'ancienne application. Nous en sommes vraiment désolés ! Nous avons mis en place des systèmes pour que cela ne se reproduise plus.",
+      "info": "La {debt} était devenue trop importante et une décision collective a été prise de réécrire entièrement l'application. Après plus de deux ans de développement intermittent, elle est enfin disponible. Quelles sont les nouveautés ? Principalement moins de bugs et un projet qui peut être maintenu à long terme.{newline}Comme le changement était très important et que les anciennes données étaient assez incohérentes, nous n'avons malheureusement pas pu transférer vos figures personnalisées depuis l'ancienne application. Il est également possible que certaines de vos fréquences de stick aient été perdues lors du transfert vers la nouvelle version. Nous en sommes vraiment désolés ! Nous avons mis en place des systèmes pour que cela ne se reproduise plus.",
       "debt": "dette technique"
     }
   },
   "privacy": {
     "title": "Vie privée",
-    "content": "Comme nous sommes des highliners, nous voulons que cette application fonctionne hors ligne. Ainsi, toutes vos données sont stockées localement sur votre appareil. Nous ne connaîtrons jamais vos données, seul votre navigateur les connaît ! {newline}Attention, les vidéos intégrées peuvent placer des cookies de suivi sur votre appareil. Si vous êtes un développeur, que vous avez du temps disponible et que vous pouvez empêcher cela, contactez-nous."
+    "content": "En tant que highliners, nous voulons que cette application fonctionne hors ligne. Ainsi, toutes vos données sont stockées localement sur votre appareil. Pour l'instant, nous ne stockons aucune de vos figures personnalisées ni aucune fréquence de stick sur notre serveur, seul votre navigateur en a connaissance !{newline}Sachez que les vidéos intégrées peuvent placer des cookies de suivi sur votre appareil. Si vous êtes développeur, que vous avez du temps libre et que vous pouvez empêcher cela, contactez-nous."
   },
   "contribute": {
     "title": "Contribuer ou signaler des problèmes",
