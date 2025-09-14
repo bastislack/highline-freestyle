@@ -4,21 +4,21 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 168
-establishedBy: Ian Eisenberg
-yearEstablished: 2022
-description: From Chest you push off the line with both hands to get into a Back
-  Roll to Feet.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.instagram.com/p/CYPPtWFvkIg/
-technicalName: Back Roll from Chest to Feet
-alias: Frog Flip
-startPosition: Chest
-endPosition: Stand
-difficultyLevel: 7
-showInSearchQueries: false
-recommendedPrerequisites: []
-variationOf:
+'id': 168
+'establishedBy': 'Ian Eisenberg'
+'yearEstablished': 2022
+'description': 'From Chest you push off the line with both hands to get into a
+  Back Roll to Feet.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.instagram.com/p/CYPPtWFvkIg/'
+'technicalName': 'Back Roll from Chest to Feet'
+'alias': 'Frog Flip'
+'startPosition': 'Chest'
+'endPosition': 'Stand'
+'difficultyLevel': 7
+'showInSearchQueries': false
+'recommendedPrerequisites': []
+'variationOf':
   - 124

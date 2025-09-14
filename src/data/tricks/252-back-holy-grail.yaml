@@ -4,19 +4,19 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 252
-establishedBy: Justin Wagers
-yearEstablished: 2022
-description: Do a Back Almighty and a Back Yoda Roll in one bounce.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.instagram.com/p/Cgt9fIHIsrr/
-technicalName: Back Holy Grail
-startPosition: Exposure
-endPosition: Exposure
-difficultyLevel: 9
-showInSearchQueries: false
-recommendedPrerequisites: []
-variationOf:
+'id': 252
+'establishedBy': 'Justin Wagers'
+'yearEstablished': 2022
+'description': 'Do a Back Almighty and a Back Yoda Roll in one bounce.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.instagram.com/p/Cgt9fIHIsrr/'
+'technicalName': 'Back Holy Grail'
+'startPosition': 'Exposure'
+'endPosition': 'Exposure'
+'difficultyLevel': 9
+'showInSearchQueries': false
+'recommendedPrerequisites': []
+'variationOf':
   - 223

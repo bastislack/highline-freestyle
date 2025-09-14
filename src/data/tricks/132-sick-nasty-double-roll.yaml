@@ -4,22 +4,22 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 132
-establishedBy: Ian Eisenberg
-yearEstablished: 2020
-description: Sick Nasty Roll with an additional Back Sofa Roll in the same bounce.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://youtu.be/qLEnzTtvTcA?t=21
-    startTime: 21
-    endTime: 26
-technicalName: Sick Nasty Double Roll
-startPosition: Sofa
-endPosition: Sofa
-difficultyLevel: 5
-showInSearchQueries: false
-recommendedPrerequisites:
+'id': 132
+'establishedBy': 'Ian Eisenberg'
+'yearEstablished': 2020
+'description': 'Sick Nasty Roll with an additional Back Sofa Roll in the same bounce.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://youtu.be/qLEnzTtvTcA?t=21'
+    'startTime': 21
+    'endTime': 26
+'technicalName': 'Sick Nasty Double Roll'
+'startPosition': 'Sofa'
+'endPosition': 'Sofa'
+'difficultyLevel': 5
+'showInSearchQueries': false
+'recommendedPrerequisites':
   - 76
-variationOf:
+'variationOf':
   - 63

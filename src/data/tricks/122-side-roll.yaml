@@ -4,22 +4,22 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 122
-description: From Sofa grab the line with one hand in the direction that you're
-  rolling towards and pull on the line to initiate a sidewards roll. Roll over
-  your lower back until you land back in Sofa.
-tips:
-  - Grabbing the line with both hands shortly before landing can help to
-    readjust your position a bit.
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://youtu.be/7yLCyoHgUS0?t=1400
-    startTime: 1400
-    endTime: 1412
-technicalName: Side Roll
-startPosition: Sofa
-endPosition: Sofa
-difficultyLevel: 5
-showInSearchQueries: true
-recommendedPrerequisites: []
-variationOf: []
+'id': 122
+'description': 'From Sofa grab the line with one hand in the direction that
+  you''re rolling towards and pull on the line to initiate a sidewards roll.
+  Roll over your lower back until you land back in Sofa.'
+'tips':
+  - 'Grabbing the line with both hands shortly before landing can help to
+    readjust your position a bit.'
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://youtu.be/7yLCyoHgUS0?t=1400'
+    'startTime': 1400
+    'endTime': 1412
+'technicalName': 'Side Roll'
+'startPosition': 'Sofa'
+'endPosition': 'Sofa'
+'difficultyLevel': 5
+'showInSearchQueries': true
+'recommendedPrerequisites': []
+'variationOf': []

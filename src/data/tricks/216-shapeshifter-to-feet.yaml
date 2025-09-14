@@ -4,20 +4,20 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 216
-establishedBy: Enzo Fuchs
-yearEstablished: 2021
-description: Shapeshifter landing to feet.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.instagram.com/p/CXOfVZGgZ7b/
-technicalName: Shapeshifter to Feet
-alias: Ninja Shifta
-startPosition: Exposure
-endPosition: Exposure
-difficultyLevel: 8
-showInSearchQueries: true
-recommendedPrerequisites:
+'id': 216
+'establishedBy': 'Enzo Fuchs'
+'yearEstablished': 2021
+'description': 'Shapeshifter landing to feet.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.instagram.com/p/CXOfVZGgZ7b/'
+'technicalName': 'Shapeshifter to Feet'
+'alias': 'Ninja Shifta'
+'startPosition': 'Exposure'
+'endPosition': 'Exposure'
+'difficultyLevel': 8
+'showInSearchQueries': true
+'recommendedPrerequisites':
   - 151
-variationOf: []
+'variationOf': []

@@ -4,23 +4,23 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 17
-description: While doing the second half of a Back Roll, also turn once around
-  the line, so do a Back Roll with a Korean Roll at the end.
-tips:
-  - For some people, this happens automatically when they try a Back Roll with
-    bad timing. If you're not one of those, try adding a Korean Roll in the
-    second half of the Back Roll.
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://youtu.be/rWqH_51ztQA?t=3487
-    startTime: 3487
-    endTime: 3493
-technicalName: Back Roll Twist
-startPosition: Back
-endPosition: Korean
-difficultyLevel: 3
-showInSearchQueries: false
-recommendedPrerequisites: []
-variationOf:
+'id': 17
+'description': 'While doing the second half of a Back Roll, also turn once
+  around the line, so do a Back Roll with a Korean Roll at the end.'
+'tips':
+  - 'For some people, this happens automatically when they try a Back Roll with
+    bad timing. If you''re not one of those, try adding a Korean Roll in the
+    second half of the Back Roll.'
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://youtu.be/rWqH_51ztQA?t=3487'
+    'startTime': 3487
+    'endTime': 3493
+'technicalName': 'Back Roll Twist'
+'startPosition': 'Back'
+'endPosition': 'Korean'
+'difficultyLevel': 3
+'showInSearchQueries': false
+'recommendedPrerequisites': []
+'variationOf':
   - 45

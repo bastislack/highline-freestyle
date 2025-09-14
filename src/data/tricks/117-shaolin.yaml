@@ -4,17 +4,17 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 117
-establishedBy: Ian Eisenberg
-yearEstablished: 2021
-description: Like a Rocket Mount to Sofa but instead of landing in Sofa you pop
-  both legs through your arms and then drop back to Rocket.
-tips: []
-dateAddedEpoch: 1640995200000
-technicalName: Shaolin
-startPosition: Rocket
-endPosition: Rocket
-difficultyLevel: 5
-showInSearchQueries: false
-recommendedPrerequisites: []
-variationOf: []
+'id': 117
+'establishedBy': 'Ian Eisenberg'
+'yearEstablished': 2021
+'description': 'Like a Rocket Mount to Sofa but instead of landing in Sofa you
+  pop both legs through your arms and then drop back to Rocket.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'technicalName': 'Shaolin'
+'startPosition': 'Rocket'
+'endPosition': 'Rocket'
+'difficultyLevel': 5
+'showInSearchQueries': false
+'recommendedPrerequisites': []
+'variationOf': []

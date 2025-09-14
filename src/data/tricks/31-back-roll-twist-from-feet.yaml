@@ -4,19 +4,19 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 31
-establishedBy: Sakalomo
-yearEstablished: 2021
-description: Do a Back Roll from Feet but with a roll around the line as well.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.instagram.com/p/CMm5lqolNs4/
-technicalName: Back Roll Twist from Feet
-alias: Escoba Roll
-startPosition: Stand
-endPosition: Chest
-showInSearchQueries: false
-recommendedPrerequisites: []
-variationOf:
+'id': 31
+'establishedBy': 'Sakalomo'
+'yearEstablished': 2021
+'description': 'Do a Back Roll from Feet but with a roll around the line as well.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.instagram.com/p/CMm5lqolNs4/'
+'technicalName': 'Back Roll Twist from Feet'
+'alias': 'Escoba Roll'
+'startPosition': 'Stand'
+'endPosition': 'Chest'
+'showInSearchQueries': false
+'recommendedPrerequisites': []
+'variationOf':
   - 109

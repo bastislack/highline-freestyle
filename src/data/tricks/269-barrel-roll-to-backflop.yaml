@@ -4,20 +4,20 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 269
-establishedBy: Tim Odermatt
-yearEstablished: 2022
-description: Do a Barrel Roll and add a late Backflop.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.instagram.com/p/Cge6C4VFUPm/
-technicalName: Barrel Roll to Backflop
-alias: Barrelflop
-startPosition: Stand
-endPosition: Korean
-difficultyLevel: 8
-showInSearchQueries: true
-recommendedPrerequisites:
+'id': 269
+'establishedBy': 'Tim Odermatt'
+'yearEstablished': 2022
+'description': 'Do a Barrel Roll and add a late Backflop.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.instagram.com/p/Cge6C4VFUPm/'
+'technicalName': 'Barrel Roll to Backflop'
+'alias': 'Barrelflop'
+'startPosition': 'Stand'
+'endPosition': 'Korean'
+'difficultyLevel': 8
+'showInSearchQueries': true
+'recommendedPrerequisites':
   - 267
-variationOf: []
+'variationOf': []

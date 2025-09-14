@@ -4,21 +4,21 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 278
-establishedBy: Sakalomo
-yearEstablished: 2022
-description: From Back hook your foot under the line while standing up and roll
-  to the back to finish with a Back Almighty.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.instagram.com/reel/Cj0cYssPTO2/
-technicalName: Back Almighty from Back
-alias: Backalomo
-startPosition: Back
-endPosition: Exposure
-difficultyLevel: 8
-showInSearchQueries: true
-recommendedPrerequisites:
+'id': 278
+'establishedBy': 'Sakalomo'
+'yearEstablished': 2022
+'description': 'From Back hook your foot under the line while standing up and
+  roll to the back to finish with a Back Almighty.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.instagram.com/reel/Cj0cYssPTO2/'
+'technicalName': 'Back Almighty from Back'
+'alias': 'Backalomo'
+'startPosition': 'Back'
+'endPosition': 'Exposure'
+'difficultyLevel': 8
+'showInSearchQueries': true
+'recommendedPrerequisites':
   - 162
-variationOf: []
+'variationOf': []

@@ -4,22 +4,22 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 162
-establishedBy: Sebastian Egger
-yearEstablished: 2020
-description: From Exposure do a back flip while hooking one foot under the line
-  and putting it back on the line for the landing.
-tips:
-  - First lean back and then kick/hook the line.
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://youtu.be/jIBjYEMRhrQ
-technicalName: Back Almighty
-startPosition: Exposure
-endPosition: Exposure
-difficultyLevel: 7
-showInSearchQueries: false
-recommendedPrerequisites:
+'id': 162
+'establishedBy': 'Sebastian Egger'
+'yearEstablished': 2020
+'description': 'From Exposure do a back flip while hooking one foot under the
+  line and putting it back on the line for the landing.'
+'tips':
+  - 'First lean back and then kick/hook the line.'
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://youtu.be/jIBjYEMRhrQ'
+'technicalName': 'Back Almighty'
+'startPosition': 'Exposure'
+'endPosition': 'Exposure'
+'difficultyLevel': 7
+'showInSearchQueries': false
+'recommendedPrerequisites':
   - 141
-variationOf:
+'variationOf':
   - 159

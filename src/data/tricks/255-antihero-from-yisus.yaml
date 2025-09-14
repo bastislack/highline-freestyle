@@ -4,20 +4,20 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 255
-establishedBy: Gon Caturelli
-yearEstablished: 2022
-description: We haven't figured out yet what's going on here. Look at the video
-  and help us by updating the description.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.instagram.com/p/CZPRbnNKCZ4/
-technicalName: Antihero from Yisus
-alias: Anticristo
-startPosition: Yisus
-endPosition: Sofa
-showInSearchQueries: false
-recommendedPrerequisites: []
-variationOf:
+'id': 255
+'establishedBy': 'Gon Caturelli'
+'yearEstablished': 2022
+'description': 'We haven''t figured out yet what''s going on here. Look at the
+  video and help us by updating the description.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.instagram.com/p/CZPRbnNKCZ4/'
+'technicalName': 'Antihero from Yisus'
+'alias': 'Anticristo'
+'startPosition': 'Yisus'
+'endPosition': 'Sofa'
+'showInSearchQueries': false
+'recommendedPrerequisites': []
+'variationOf':
   - 40

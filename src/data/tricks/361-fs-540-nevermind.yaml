@@ -4,21 +4,21 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 361
-establishedBy: Sebastian Egger
-yearEstablished: 2024
-description: Nevermind with a FS 540 spin.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://youtu.be/r6hcjIbrbr8?t=236
-    startTime: 236
-    endTime: 242
-technicalName: FS 540 Nevermind
-startPosition: Nevermind
-endPosition: Exposure
-difficultyLevel: 8
-showInSearchQueries: true
-recommendedPrerequisites:
+'id': 361
+'establishedBy': 'Sebastian Egger'
+'yearEstablished': 2024
+'description': 'Nevermind with a FS 540 spin.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://youtu.be/r6hcjIbrbr8?t=236'
+    'startTime': 236
+    'endTime': 242
+'technicalName': 'FS 540 Nevermind'
+'startPosition': 'Nevermind'
+'endPosition': 'Exposure'
+'difficultyLevel': 8
+'showInSearchQueries': true
+'recommendedPrerequisites':
   - 264
-variationOf: []
+'variationOf': []

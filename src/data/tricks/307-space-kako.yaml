@@ -4,19 +4,19 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 307
-establishedBy: Sakalomo
-yearEstablished: 2024
-description: Makako but fully leaving the line before landing in Belly.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.instagram.com/reel/DDwQUL2sEv1/
-technicalName: Space Kako
-startPosition: Nevermind
-endPosition: Exposure
-difficultyLevel: 10
-showInSearchQueries: true
-recommendedPrerequisites:
+'id': 307
+'establishedBy': 'Sakalomo'
+'yearEstablished': 2024
+'description': 'Makako but fully leaving the line before landing in Belly.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.instagram.com/reel/DDwQUL2sEv1/'
+'technicalName': 'Space Kako'
+'startPosition': 'Nevermind'
+'endPosition': 'Exposure'
+'difficultyLevel': 10
+'showInSearchQueries': true
+'recommendedPrerequisites':
   - 259
-variationOf: []
+'variationOf': []

@@ -4,23 +4,23 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 83
-description: Do a Sofa Roll and during the roll you lean a bit to the side so
+'id': 83
+'description': 'Do a Sofa Roll and during the roll you lean a bit to the side so
   you can get one foot on the line, to finish the roll you get the second foot
-  up and stand up.
-tips:
-  - An easier variation is to already start with one foot on the line when you
-    start the roll.
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://youtu.be/rWqH_51ztQA?t=12678
-    startTime: 12678
-    endTime: 12682
-technicalName: Sofa Roll to Feet
-startPosition: Sofa
-endPosition: Exposure
-difficultyLevel: 4
-showInSearchQueries: true
-recommendedPrerequisites:
+  up and stand up.'
+'tips':
+  - 'An easier variation is to already start with one foot on the line when you
+    start the roll.'
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://youtu.be/rWqH_51ztQA?t=12678'
+    'startTime': 12678
+    'endTime': 12682
+'technicalName': 'Sofa Roll to Feet'
+'startPosition': 'Sofa'
+'endPosition': 'Exposure'
+'difficultyLevel': 4
+'showInSearchQueries': true
+'recommendedPrerequisites':
   - 49
-variationOf: []
+'variationOf': []

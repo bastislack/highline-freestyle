@@ -4,21 +4,21 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 280
-establishedBy: Sakalomo
-yearEstablished: 2022
-description: Chill but instead of landing on your feet, go to shoulder.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.instagram.com/reel/Cmg1feNqD52/
-technicalName: Chill to Shoulder
-alias: Sakalhombro
-startPosition: Back
-endPosition: Shoulder
-difficultyLevel: 7
-showInSearchQueries: false
-recommendedPrerequisites:
+'id': 280
+'establishedBy': 'Sakalomo'
+'yearEstablished': 2022
+'description': 'Chill but instead of landing on your feet, go to shoulder.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.instagram.com/reel/Cmg1feNqD52/'
+'technicalName': 'Chill to Shoulder'
+'alias': 'Sakalhombro'
+'startPosition': 'Back'
+'endPosition': 'Shoulder'
+'difficultyLevel': 7
+'showInSearchQueries': false
+'recommendedPrerequisites':
   - 273
-variationOf:
+'variationOf':
   - 273

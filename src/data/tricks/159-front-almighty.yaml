@@ -4,21 +4,22 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 159
-establishedBy: Axel Weber
-yearEstablished: 2020
-description: From Exposure do a front flip while hooking one foot under the line
-  and putting it back on the line for the landing.
-tips:
-  - After 270 deg of rotation try to pull the line under yourself with your feet.
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://youtu.be/jIBjYEMRhrQ
-technicalName: Front Almighty
-startPosition: Exposure
-endPosition: Exposure
-difficultyLevel: 7
-showInSearchQueries: true
-recommendedPrerequisites:
+'id': 159
+'establishedBy': 'Axel Weber'
+'yearEstablished': 2020
+'description': 'From Exposure do a front flip while hooking one foot under the
+  line and putting it back on the line for the landing.'
+'tips':
+  - 'After 270 deg of rotation try to pull the line under yourself with your
+    feet.'
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://youtu.be/jIBjYEMRhrQ'
+'technicalName': 'Front Almighty'
+'startPosition': 'Exposure'
+'endPosition': 'Exposure'
+'difficultyLevel': 7
+'showInSearchQueries': true
+'recommendedPrerequisites':
   - 140
-variationOf: []
+'variationOf': []

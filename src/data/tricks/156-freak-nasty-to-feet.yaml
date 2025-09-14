@@ -4,21 +4,21 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 156
-establishedBy: Ian Eisenberg
-yearEstablished: 2020
-description: Do a Freak Nasty landing in Exposure.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://youtu.be/T27UrrWAr7A?t=36
-    startTime: 36
-    endTime: 53
-technicalName: Freak Nasty to Feet
-startPosition: Sofa
-endPosition: Exposure
-difficultyLevel: 6
-showInSearchQueries: false
-recommendedPrerequisites: []
-variationOf:
+'id': 156
+'establishedBy': 'Ian Eisenberg'
+'yearEstablished': 2020
+'description': 'Do a Freak Nasty landing in Exposure.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://youtu.be/T27UrrWAr7A?t=36'
+    'startTime': 36
+    'endTime': 53
+'technicalName': 'Freak Nasty to Feet'
+'startPosition': 'Sofa'
+'endPosition': 'Exposure'
+'difficultyLevel': 6
+'showInSearchQueries': false
+'recommendedPrerequisites': []
+'variationOf':
   - 80

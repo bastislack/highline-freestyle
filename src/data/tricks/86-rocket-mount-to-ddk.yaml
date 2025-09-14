@@ -4,16 +4,16 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 86
-establishedBy: Enzo Fuchs
-description: Rocket Mount landing in Double Drop Knee.
-tips: []
-dateAddedEpoch: 1640995200000
-technicalName: Rocket Mount to DDK
-startPosition: Rocket
-endPosition: Double Drop Knee
-difficultyLevel: 5
-showInSearchQueries: false
-recommendedPrerequisites: []
-variationOf:
+'id': 86
+'establishedBy': 'Enzo Fuchs'
+'description': 'Rocket Mount landing in Double Drop Knee.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'technicalName': 'Rocket Mount to DDK'
+'startPosition': 'Rocket'
+'endPosition': 'Double Drop Knee'
+'difficultyLevel': 5
+'showInSearchQueries': false
+'recommendedPrerequisites': []
+'variationOf':
   - 99

@@ -4,21 +4,21 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 267
-establishedBy: Tim Odermatt
-yearEstablished: 2022
-description: Do a Can of Soup into a Backflop in the same bounce.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.instagram.com/p/Ce8WJ4YlvTr/
-technicalName: Can of Soup to Backflop
-alias: Soupflop
-startPosition: Soup
-endPosition: Korean
-difficultyLevel: 8
-showInSearchQueries: true
-recommendedPrerequisites:
+'id': 267
+'establishedBy': 'Tim Odermatt'
+'yearEstablished': 2022
+'description': 'Do a Can of Soup into a Backflop in the same bounce.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.instagram.com/p/Ce8WJ4YlvTr/'
+'technicalName': 'Can of Soup to Backflop'
+'alias': 'Soupflop'
+'startPosition': 'Soup'
+'endPosition': 'Korean'
+'difficultyLevel': 8
+'showInSearchQueries': true
+'recommendedPrerequisites':
   - 75
   - 11
-variationOf: []
+'variationOf': []

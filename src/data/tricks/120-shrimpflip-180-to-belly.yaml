@@ -4,16 +4,16 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 120
-description: From Rocket thread your legs in between your arms and the line and
-  let go with one hand to start the 180. Land in Belly.
-tips: []
-dateAddedEpoch: 1640995200000
-technicalName: Shrimpflip 180 to Belly
-startPosition: Rocket
-endPosition: Belly
-difficultyLevel: 5
-showInSearchQueries: false
-recommendedPrerequisites: []
-variationOf:
+'id': 120
+'description': 'From Rocket thread your legs in between your arms and the line
+  and let go with one hand to start the 180. Land in Belly.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'technicalName': 'Shrimpflip 180 to Belly'
+'startPosition': 'Rocket'
+'endPosition': 'Belly'
+'difficultyLevel': 5
+'showInSearchQueries': false
+'recommendedPrerequisites': []
+'variationOf':
   - 71

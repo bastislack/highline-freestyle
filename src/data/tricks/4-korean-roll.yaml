@@ -4,22 +4,22 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 4
-description: Sit in Korean, grab the line with one hand in front of you and one
-  hand behind you and let yourself fall to the side. Land back in Korean.
-tips:
-  - Start the movement while the line moves upwards
-  - You can try this trick clipped into a hangover first
-  - Sometimes called "Harry Potter Roll"
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://youtu.be/ksF8g5YrXY8?t=135
-    startTime: 135
-    endTime: 137
-technicalName: Korean Roll
-startPosition: Korean
-endPosition: Korean
-difficultyLevel: 1
-showInSearchQueries: true
-recommendedPrerequisites: []
-variationOf: []
+'id': 4
+'description': 'Sit in Korean, grab the line with one hand in front of you and
+  one hand behind you and let yourself fall to the side. Land back in Korean.'
+'tips':
+  - 'Start the movement while the line moves upwards'
+  - 'You can try this trick clipped into a hangover first'
+  - 'Sometimes called "Harry Potter Roll"'
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://youtu.be/ksF8g5YrXY8?t=135'
+    'startTime': 135
+    'endTime': 137
+'technicalName': 'Korean Roll'
+'startPosition': 'Korean'
+'endPosition': 'Korean'
+'difficultyLevel': 1
+'showInSearchQueries': true
+'recommendedPrerequisites': []
+'variationOf': []

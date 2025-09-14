@@ -4,22 +4,22 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 320
-establishedBy: Tim Odermatt
-yearEstablished: 2023
-description: Do a Shoulder Roll to Feet, instead of putting the second foot on
-  the line hook the line with it to finish with an Almighty.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.instagram.com/reel/Cvhg5d0JQCf/
-technicalName: Double Shoulder Roll Almighty
-startPosition: Shoulder
-endPosition: Stand
-difficultyLevel: 9
-showInSearchQueries: false
-recommendedPrerequisites:
+'id': 320
+'establishedBy': 'Tim Odermatt'
+'yearEstablished': 2023
+'description': 'Do a Shoulder Roll to Feet, instead of putting the second foot
+  on the line hook the line with it to finish with an Almighty.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.instagram.com/reel/Cvhg5d0JQCf/'
+'technicalName': 'Double Shoulder Roll Almighty'
+'startPosition': 'Shoulder'
+'endPosition': 'Stand'
+'difficultyLevel': 9
+'showInSearchQueries': false
+'recommendedPrerequisites':
   - 159
   - 191
-variationOf:
+'variationOf':
   - 191

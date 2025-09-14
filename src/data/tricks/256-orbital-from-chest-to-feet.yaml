@@ -4,23 +4,23 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 256
-establishedBy: Cesare Bellamoli
-yearEstablished: 2022
-description: We haven't figured out yet what's going on here. Look at the video
-  and help us by updating the description.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://youtu.be/eUguTccJblI?t=23
-    startTime: 23
-    endTime: 33
-technicalName: Orbital from Chest to Feet
-alias: Onda
-startPosition: Chest
-endPosition: Exposure
-difficultyLevel: 6
-showInSearchQueries: false
-recommendedPrerequisites: []
-variationOf:
+'id': 256
+'establishedBy': 'Cesare Bellamoli'
+'yearEstablished': 2022
+'description': 'We haven''t figured out yet what''s going on here. Look at the
+  video and help us by updating the description.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://youtu.be/eUguTccJblI?t=23'
+    'startTime': 23
+    'endTime': 33
+'technicalName': 'Orbital from Chest to Feet'
+'alias': 'Onda'
+'startPosition': 'Chest'
+'endPosition': 'Exposure'
+'difficultyLevel': 6
+'showInSearchQueries': false
+'recommendedPrerequisites': []
+'variationOf':
   - 261

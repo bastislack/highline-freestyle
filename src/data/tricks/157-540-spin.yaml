@@ -4,22 +4,22 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 157
-establishedBy: Joshua Leupolz
-yearEstablished: 2021
-description: Spin 540 on the line in a standing position.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://youtu.be/qUxUNfgvoPs?t=46
-    startTime: 46
-    endTime: 49
-technicalName: 540 Spin
-startPosition: Stand
-endPosition: Stand
-difficultyLevel: 6
-showInSearchQueries: false
-recommendedPrerequisites:
+'id': 157
+'establishedBy': 'Joshua Leupolz'
+'yearEstablished': 2021
+'description': 'Spin 540 on the line in a standing position.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://youtu.be/qUxUNfgvoPs?t=46'
+    'startTime': 46
+    'endTime': 49
+'technicalName': '540 Spin'
+'startPosition': 'Stand'
+'endPosition': 'Stand'
+'difficultyLevel': 6
+'showInSearchQueries': false
+'recommendedPrerequisites':
   - 93
-variationOf:
+'variationOf':
   - 93

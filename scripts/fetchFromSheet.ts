@@ -302,7 +302,9 @@ await Promise.all(
 // Now all "automatically tracked" Tricks / Combos are out of the repo.
 
 function createContentForEntity(data: unknown) {
-  const yamlContent = stringify(data);
+  const yamlContent = stringify(data, {
+    defaultStringType: 'QUOTE_SINGLE',
+  });
   const preamble = `This file has been generated automatically. The data here is backed by a Google Sheet.
   Do not change this by hand, as any changes will be overwritten the next time the
   fetchFromSheet-Script is run by a scheduled action.

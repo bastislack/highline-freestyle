@@ -4,20 +4,20 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 359
-establishedBy: Sebastian Egger
-yearEstablished: 2024
-description: Combination of a BS 180 Shoulder Spin (which goes to your Switch
-  Shoulder) and a Switch FS 180 Shoulder Spin.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.instagram.com/p/C-5Bp3My3vw/
-technicalName: BS 360 Shoulder Spin
-startPosition: Shoulder
-endPosition: Shoulder
-difficultyLevel: 7
-showInSearchQueries: true
-recommendedPrerequisites:
+'id': 359
+'establishedBy': 'Sebastian Egger'
+'yearEstablished': 2024
+'description': 'Combination of a BS 180 Shoulder Spin (which goes to your Switch
+  Shoulder) and a Switch FS 180 Shoulder Spin.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.instagram.com/p/C-5Bp3My3vw/'
+'technicalName': 'BS 360 Shoulder Spin'
+'startPosition': 'Shoulder'
+'endPosition': 'Shoulder'
+'difficultyLevel': 7
+'showInSearchQueries': true
+'recommendedPrerequisites':
   - 358
-variationOf: []
+'variationOf': []

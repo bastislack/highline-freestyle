@@ -4,22 +4,22 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 355
-establishedBy: Sebastian Egger
-yearEstablished: 2024
-description: Start with an early Hammock Roll from Feet and just when you
-  finished the Hammock Roll you add a Backroll to Feet.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.instagram.com/p/C25OqhrM8zh/
-technicalName: Hammock Backroll from Feet to Feet
-alias: Lasagna Flip
-startPosition: Stand
-endPosition: Stand
-difficultyLevel: 9
-showInSearchQueries: true
-recommendedPrerequisites:
+'id': 355
+'establishedBy': 'Sebastian Egger'
+'yearEstablished': 2024
+'description': 'Start with an early Hammock Roll from Feet and just when you
+  finished the Hammock Roll you add a Backroll to Feet.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.instagram.com/p/C25OqhrM8zh/'
+'technicalName': 'Hammock Backroll from Feet to Feet'
+'alias': 'Lasagna Flip'
+'startPosition': 'Stand'
+'endPosition': 'Stand'
+'difficultyLevel': 9
+'showInSearchQueries': true
+'recommendedPrerequisites':
   - 30
   - 126
-variationOf: []
+'variationOf': []

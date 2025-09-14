@@ -4,21 +4,21 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 287
-establishedBy: Sakalomo
-yearEstablished: 2023
-description: Do a Reverse Super Sonic but instead of doing a Back Yoda Roll do a
-  Back Almighty.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.instagram.com/reel/Cxz3jG-MvFX/
-technicalName: Reverse Super Mighty
-startPosition: Rocket
-endPosition: Exposure
-difficultyLevel: 9
-showInSearchQueries: true
-recommendedPrerequisites:
+'id': 287
+'establishedBy': 'Sakalomo'
+'yearEstablished': 2023
+'description': 'Do a Reverse Super Sonic but instead of doing a Back Yoda Roll
+  do a Back Almighty.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.instagram.com/reel/Cxz3jG-MvFX/'
+'technicalName': 'Reverse Super Mighty'
+'startPosition': 'Rocket'
+'endPosition': 'Exposure'
+'difficultyLevel': 9
+'showInSearchQueries': true
+'recommendedPrerequisites':
   - 162
   - 215
-variationOf: []
+'variationOf': []

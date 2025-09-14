@@ -4,22 +4,22 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 38
-establishedBy: Guillaume Fontaine
-yearEstablished: 2017
-description: From Backbounce do a Back Roll but stop in Shoulderstand.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.youtube.com/watch?v=O_E_2cB0Pcw&t=4
-    startTime: 4
-    endTime: 7
-technicalName: Half Back Roll
-startPosition: Back
-endPosition: Shoulder
-difficultyLevel: 4
-showInSearchQueries: false
-recommendedPrerequisites:
+'id': 38
+'establishedBy': 'Guillaume Fontaine'
+'yearEstablished': 2017
+'description': 'From Backbounce do a Back Roll but stop in Shoulderstand.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.youtube.com/watch?v=O_E_2cB0Pcw&t=4'
+    'startTime': 4
+    'endTime': 7
+'technicalName': 'Half Back Roll'
+'startPosition': 'Back'
+'endPosition': 'Shoulder'
+'difficultyLevel': 4
+'showInSearchQueries': false
+'recommendedPrerequisites':
   - 45
-variationOf:
+'variationOf':
   - 45

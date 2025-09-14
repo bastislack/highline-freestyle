@@ -4,23 +4,23 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 308
-establishedBy: Ian Eisenberg
-yearEstablished: 2023
-description: From Sofa you grab the line with both hands on the side and
+'id': 308
+'establishedBy': 'Ian Eisenberg'
+'yearEstablished': 2023
+'description': 'From Sofa you grab the line with both hands on the side and
   initiate a roll to the front. You immediately turn 180 into Belly and keep
   rolling but then add another 180, regrab one hand and stomp your feet to land
-  in Expo.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.instagram.com/p/CwTGyDcMBRb/
-technicalName: 360 Front Sofa Roll to Feet
-alias: Front Nirvana
-startPosition: Sofa
-endPosition: Exposure
-difficultyLevel: 6
-showInSearchQueries: true
-recommendedPrerequisites:
+  in Expo.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.instagram.com/p/CwTGyDcMBRb/'
+'technicalName': '360 Front Sofa Roll to Feet'
+'alias': 'Front Nirvana'
+'startPosition': 'Sofa'
+'endPosition': 'Exposure'
+'difficultyLevel': 6
+'showInSearchQueries': true
+'recommendedPrerequisites':
   - 83
-variationOf: []
+'variationOf': []

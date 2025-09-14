@@ -4,24 +4,24 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 123
-establishedBy: Sakalomo
-description: From Rocket swing your legs up (feet first) and put one foot on the
-  line outside of your hands. When you finish the rotation, put the second foot
-  on and land in Exposure.
-tips:
-  - Bring the foot that does not go to the line straight away far over the line
+'id': 123
+'establishedBy': 'Sakalomo'
+'description': 'From Rocket swing your legs up (feet first) and put one foot on
+  the line outside of your hands. When you finish the rotation, put the second
+  foot on and land in Exposure.'
+'tips':
+  - 'Bring the foot that does not go to the line straight away far over the line
     to get your center of gravity right over the line and then put it on the
-    line in the end of the trick.
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://youtu.be/n_YEN0Yva5I?t=161
-    startTime: 161
-    endTime: 166
-technicalName: Reverse Obi-Wan
-startPosition: Rocket
-endPosition: Stand
-difficultyLevel: 6
-showInSearchQueries: true
-recommendedPrerequisites: []
-variationOf: []
+    line in the end of the trick.'
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://youtu.be/n_YEN0Yva5I?t=161'
+    'startTime': 161
+    'endTime': 166
+'technicalName': 'Reverse Obi-Wan'
+'startPosition': 'Rocket'
+'endPosition': 'Stand'
+'difficultyLevel': 6
+'showInSearchQueries': true
+'recommendedPrerequisites': []
+'variationOf': []

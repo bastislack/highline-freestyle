@@ -4,21 +4,21 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 371
-establishedBy: Davis Hermes
-yearEstablished: 2025
-description: Four Back Yodas in one bounce. Sounds hard right? It is!
-tips: []
-dateAddedEpoch: 1756512000000
-videos:
-  - link: https://youtu.be/cnlbew10q3k?t=15
-    startTime: 15
-    endTime: 23
-technicalName: Quad Back Yoda
-startPosition: Exposure
-endPosition: Exposure
-difficultyLevel: 10
-showInSearchQueries: true
-recommendedPrerequisites:
+'id': 371
+'establishedBy': 'Davis Hermes'
+'yearEstablished': 2025
+'description': 'Four Back Yodas in one bounce. Sounds hard right? It is!'
+'tips': []
+'dateAddedEpoch': 1756512000000
+'videos':
+  - 'link': 'https://youtu.be/cnlbew10q3k?t=15'
+    'startTime': 15
+    'endTime': 23
+'technicalName': 'Quad Back Yoda'
+'startPosition': 'Exposure'
+'endPosition': 'Exposure'
+'difficultyLevel': 10
+'showInSearchQueries': true
+'recommendedPrerequisites':
   - 222
-variationOf: []
+'variationOf': []

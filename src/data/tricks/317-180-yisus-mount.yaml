@@ -4,21 +4,22 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 317
-establishedBy: Ian Eisenberg
-yearEstablished: 2023
-description: From Yisus let one hand go and step the same foot on the line, then
-  put the second foot and let go with the second hand to land in Expo or Normal.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.instagram.com/p/CzZdIU_sr7I/
-technicalName: 180 Yisus Mount
-startPosition: Yisus
-endPosition: Exposure
-difficultyLevel: 5
-showInSearchQueries: false
-recommendedPrerequisites:
+'id': 317
+'establishedBy': 'Ian Eisenberg'
+'yearEstablished': 2023
+'description': 'From Yisus let one hand go and step the same foot on the line,
+  then put the second foot and let go with the second hand to land in Expo or
+  Normal.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.instagram.com/p/CzZdIU_sr7I/'
+'technicalName': '180 Yisus Mount'
+'startPosition': 'Yisus'
+'endPosition': 'Exposure'
+'difficultyLevel': 5
+'showInSearchQueries': false
+'recommendedPrerequisites':
   - 115
-variationOf:
+'variationOf':
   - 115

@@ -4,16 +4,16 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 262
-description: From Korean you grab the line with both hands behind you and then
-  swing your far leg over the line. From there aim to land on the line with both
-  feet to finish the trick.
-tips: []
-dateAddedEpoch: 1640995200000
-technicalName: Flow to Feet
-startPosition: Korean
-endPosition: Stand
-difficultyLevel: 5
-showInSearchQueries: true
-recommendedPrerequisites: []
-variationOf: []
+'id': 262
+'description': 'From Korean you grab the line with both hands behind you and
+  then swing your far leg over the line. From there aim to land on the line with
+  both feet to finish the trick.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'technicalName': 'Flow to Feet'
+'startPosition': 'Korean'
+'endPosition': 'Stand'
+'difficultyLevel': 5
+'showInSearchQueries': true
+'recommendedPrerequisites': []
+'variationOf': []

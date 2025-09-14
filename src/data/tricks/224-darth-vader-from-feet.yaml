@@ -4,23 +4,23 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 224
-establishedBy: Ian Eisenberg
-yearEstablished: 2021
-description: Start in Expo and roll down until you are in Rocket. Then do a Darth Vader.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://youtu.be/HecUpHXRpDw?t=436
-    startTime: 436
-    endTime: 452
-technicalName: Darth Vader from Feet
-alias: Eisenvader
-startPosition: Exposure
-endPosition: Exposure
-difficultyLevel: 9
-showInSearchQueries: true
-recommendedPrerequisites:
+'id': 224
+'establishedBy': 'Ian Eisenberg'
+'yearEstablished': 2021
+'description': 'Start in Expo and roll down until you are in Rocket. Then do a Darth Vader.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://youtu.be/HecUpHXRpDw?t=436'
+    'startTime': 436
+    'endTime': 452
+'technicalName': 'Darth Vader from Feet'
+'alias': 'Eisenvader'
+'startPosition': 'Exposure'
+'endPosition': 'Exposure'
+'difficultyLevel': 9
+'showInSearchQueries': true
+'recommendedPrerequisites':
   - 177
   - 129
-variationOf: []
+'variationOf': []

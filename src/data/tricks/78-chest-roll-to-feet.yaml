@@ -4,19 +4,19 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 78
-description: Do a Chest Roll and in the end of the roll push yourself away from
-  the line to put your front foot on.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.youtube.com/watch?v=qUxUNfgvoPs&t=35
-    startTime: 35
-    endTime: 38
-technicalName: Chest Roll to Feet
-startPosition: Chest
-endPosition: Stand
-difficultyLevel: 4
-showInSearchQueries: true
-recommendedPrerequisites: []
-variationOf: []
+'id': 78
+'description': 'Do a Chest Roll and in the end of the roll push yourself away
+  from the line to put your front foot on.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.youtube.com/watch?v=qUxUNfgvoPs&t=35'
+    'startTime': 35
+    'endTime': 38
+'technicalName': 'Chest Roll to Feet'
+'startPosition': 'Chest'
+'endPosition': 'Stand'
+'difficultyLevel': 4
+'showInSearchQueries': true
+'recommendedPrerequisites': []
+'variationOf': []

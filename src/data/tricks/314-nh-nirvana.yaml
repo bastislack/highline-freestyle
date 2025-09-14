@@ -4,21 +4,21 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 314
-establishedBy: Carlo Cozzio
-yearEstablished: 2023
-description: Do a Nirvana but instead of using your hands hook the line with
-  your foot to roll.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.instagram.com/reel/CnXEHTsoKhC/
-technicalName: NH Nirvana
-alias: Nirvana Attack
-startPosition: Sofa
-endPosition: Exposure
-difficultyLevel: 8
-showInSearchQueries: true
-recommendedPrerequisites:
+'id': 314
+'establishedBy': 'Carlo Cozzio'
+'yearEstablished': 2023
+'description': 'Do a Nirvana but instead of using your hands hook the line with
+  your foot to roll.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.instagram.com/reel/CnXEHTsoKhC/'
+'technicalName': 'NH Nirvana'
+'alias': 'Nirvana Attack'
+'startPosition': 'Sofa'
+'endPosition': 'Exposure'
+'difficultyLevel': 8
+'showInSearchQueries': true
+'recommendedPrerequisites':
   - 173
-variationOf: []
+'variationOf': []

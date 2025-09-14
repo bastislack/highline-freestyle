@@ -4,19 +4,19 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 344
-establishedBy: Gon Caturelli
-yearEstablished: 2023
-description: From Shoulder turn to Yisus and from there finish with a Resurrection.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.instagram.com/reel/CvXWB58sjX4/
-technicalName: Shoulder Resurrection
-startPosition: Shoulder
-endPosition: Exposure
-difficultyLevel: 7
-showInSearchQueries: true
-recommendedPrerequisites:
+'id': 344
+'establishedBy': 'Gon Caturelli'
+'yearEstablished': 2023
+'description': 'From Shoulder turn to Yisus and from there finish with a Resurrection.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.instagram.com/reel/CvXWB58sjX4/'
+'technicalName': 'Shoulder Resurrection'
+'startPosition': 'Shoulder'
+'endPosition': 'Exposure'
+'difficultyLevel': 7
+'showInSearchQueries': true
+'recommendedPrerequisites':
   - 254
-variationOf: []
+'variationOf': []

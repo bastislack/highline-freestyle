@@ -4,21 +4,21 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 102
-establishedBy: Guillaume Fontaine
-yearEstablished: 2017
-description: Do a Hammock Roll and finish with a Back Roll in the same bounce.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://youtu.be/Ej2ocABoNC4?t=22785
-    startTime: 22785
-    endTime: 22790
-technicalName: Hammock Back Roll
-startPosition: Back
-endPosition: Korean
-difficultyLevel: 5
-showInSearchQueries: true
-recommendedPrerequisites:
+'id': 102
+'establishedBy': 'Guillaume Fontaine'
+'yearEstablished': 2017
+'description': 'Do a Hammock Roll and finish with a Back Roll in the same bounce.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://youtu.be/Ej2ocABoNC4?t=22785'
+    'startTime': 22785
+    'endTime': 22790
+'technicalName': 'Hammock Back Roll'
+'startPosition': 'Back'
+'endPosition': 'Korean'
+'difficultyLevel': 5
+'showInSearchQueries': true
+'recommendedPrerequisites':
   - 45
-variationOf: []
+'variationOf': []

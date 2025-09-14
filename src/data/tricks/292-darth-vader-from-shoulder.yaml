@@ -4,22 +4,22 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 292
-establishedBy: Ian Eisenberg
-yearEstablished: 2023
-description: From Shoulder you initiate a Back Shoulder Roll but then you
+'id': 292
+'establishedBy': 'Ian Eisenberg'
+'yearEstablished': 2023
+'description': 'From Shoulder you initiate a Back Shoulder Roll but then you
   quickly let go with the far hand and turn more sideways. From there you finish
-  with a Darth Vader.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.instagram.com/p/CpSmWVMNfNC/
-technicalName: Darth Vader from Shoulder
-alias: Shoulder Vader
-startPosition: Shoulder
-endPosition: Exposure
-difficultyLevel: 8
-showInSearchQueries: true
-recommendedPrerequisites:
+  with a Darth Vader.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.instagram.com/p/CpSmWVMNfNC/'
+'technicalName': 'Darth Vader from Shoulder'
+'alias': 'Shoulder Vader'
+'startPosition': 'Shoulder'
+'endPosition': 'Exposure'
+'difficultyLevel': 8
+'showInSearchQueries': true
+'recommendedPrerequisites':
   - 224
-variationOf: []
+'variationOf': []

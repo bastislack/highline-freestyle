@@ -4,22 +4,22 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 321
-establishedBy: Ian Eisenberg
-yearEstablished: 2024
-description: From Butt you spin backside and roll to your back, hook the line
+'id': 321
+'establishedBy': 'Ian Eisenberg'
+'yearEstablished': 2024
+'description': 'From Butt you spin backside and roll to your back, hook the line
   with your kneepit then put your other leg over the line so that you can step
-  on the line with the hooking leg and finally put the second foot on the line.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.instagram.com/p/C2sml_5s4Bv/
-technicalName: No-Hands Rubiks Cube
-alias: Sugar Cube
-startPosition: Sofa
-endPosition: Exposure
-difficultyLevel: 8
-showInSearchQueries: true
-recommendedPrerequisites:
+  on the line with the hooking leg and finally put the second foot on the line.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.instagram.com/p/C2sml_5s4Bv/'
+'technicalName': 'No-Hands Rubiks Cube'
+'alias': 'Sugar Cube'
+'startPosition': 'Sofa'
+'endPosition': 'Exposure'
+'difficultyLevel': 8
+'showInSearchQueries': true
+'recommendedPrerequisites':
   - 210
-variationOf: []
+'variationOf': []

@@ -4,17 +4,17 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 323
-establishedBy: Ian Eisenberg
-yearEstablished: 2024
-description: Start with a BS 180 and then finish with an Orbital to Feet
-tips: []
-dateAddedEpoch: 1640995200000
-technicalName: BS 180 Eclipse
-startPosition: Stand
-endPosition: Stand
-difficultyLevel: 7
-showInSearchQueries: true
-recommendedPrerequisites:
+'id': 323
+'establishedBy': 'Ian Eisenberg'
+'yearEstablished': 2024
+'description': 'Start with a BS 180 and then finish with an Orbital to Feet'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'technicalName': 'BS 180 Eclipse'
+'startPosition': 'Stand'
+'endPosition': 'Stand'
+'difficultyLevel': 7
+'showInSearchQueries': true
+'recommendedPrerequisites':
   - 261
-variationOf: []
+'variationOf': []

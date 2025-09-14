@@ -4,22 +4,22 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 181
-establishedBy: Justin Wagers
-yearEstablished: 2021
-description: Panic Roll with an additional roll landing to Feet.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://youtu.be/RDVaUFdqMmE?t=261
-    startTime: 261
-    endTime: 266
-technicalName: Panic Double Roll to Feet
-startPosition: Sofa
-endPosition: Exposure
-difficultyLevel: 7
-showInSearchQueries: false
-recommendedPrerequisites:
+'id': 181
+'establishedBy': 'Justin Wagers'
+'yearEstablished': 2021
+'description': 'Panic Roll with an additional roll landing to Feet.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://youtu.be/RDVaUFdqMmE?t=261'
+    'startTime': 261
+    'endTime': 266
+'technicalName': 'Panic Double Roll to Feet'
+'startPosition': 'Sofa'
+'endPosition': 'Exposure'
+'difficultyLevel': 7
+'showInSearchQueries': false
+'recommendedPrerequisites':
   - 98
-variationOf:
+'variationOf':
   - 98

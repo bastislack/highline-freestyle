@@ -4,24 +4,24 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 196
-establishedBy: Augustin Moinat
-yearEstablished: 2021
-description: Hammock Roll starting from Feet and going directly back to Feet.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://youtu.be/aAq4Tf8naOM?t=139
-    startTime: 139
-    endTime: 144
-technicalName: Hammock Roll from Feet to Feet
-alias: Lasagna Roll
-startPosition: Stand
-endPosition: Stand
-difficultyLevel: 8
-showInSearchQueries: false
-recommendedPrerequisites:
+'id': 196
+'establishedBy': 'Augustin Moinat'
+'yearEstablished': 2021
+'description': 'Hammock Roll starting from Feet and going directly back to Feet.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://youtu.be/aAq4Tf8naOM?t=139'
+    'startTime': 139
+    'endTime': 144
+'technicalName': 'Hammock Roll from Feet to Feet'
+'alias': 'Lasagna Roll'
+'startPosition': 'Stand'
+'endPosition': 'Stand'
+'difficultyLevel': 8
+'showInSearchQueries': false
+'recommendedPrerequisites':
   - 30
   - 126
-variationOf:
+'variationOf':
   - 126

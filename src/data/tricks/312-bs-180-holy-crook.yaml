@@ -4,20 +4,20 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 312
-establishedBy: Ian Eisenberg
-yearEstablished: 2023
-description: 180 Almighty to DDK with an extra DDK roll.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.instagram.com/p/CyJOOvGMv29/
-technicalName: BS 180 Holy Crook
-startPosition: Exposure
-endPosition: Double Drop Knee
-difficultyLevel: 9
-showInSearchQueries: false
-recommendedPrerequisites:
+'id': 312
+'establishedBy': 'Ian Eisenberg'
+'yearEstablished': 2023
+'description': '180 Almighty to DDK with an extra DDK roll.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.instagram.com/p/CyJOOvGMv29/'
+'technicalName': 'BS 180 Holy Crook'
+'startPosition': 'Exposure'
+'endPosition': 'Double Drop Knee'
+'difficultyLevel': 9
+'showInSearchQueries': false
+'recommendedPrerequisites':
   - 203
-variationOf:
+'variationOf':
   - 223

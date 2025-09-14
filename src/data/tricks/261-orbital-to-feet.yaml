@@ -4,20 +4,20 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 261
-establishedBy: Justin Wagers
-yearEstablished: 2021
-description: On the way up in the bounce grab the line with one hand and bring
-  it over your head. From there grab the line with your other hand and bring it
-  back down to put your feet on.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.instagram.com/p/CLowqcjlipw/
-technicalName: Orbital to Feet
-startPosition: Stand
-endPosition: Stand
-difficultyLevel: 7
-showInSearchQueries: true
-recommendedPrerequisites: []
-variationOf: []
+'id': 261
+'establishedBy': 'Justin Wagers'
+'yearEstablished': 2021
+'description': 'On the way up in the bounce grab the line with one hand and
+  bring it over your head. From there grab the line with your other hand and
+  bring it back down to put your feet on.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.instagram.com/p/CLowqcjlipw/'
+'technicalName': 'Orbital to Feet'
+'startPosition': 'Stand'
+'endPosition': 'Stand'
+'difficultyLevel': 7
+'showInSearchQueries': true
+'recommendedPrerequisites': []
+'variationOf': []

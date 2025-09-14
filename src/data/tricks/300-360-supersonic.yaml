@@ -4,21 +4,21 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 300
-establishedBy: Ian Eisenberg
-yearEstablished: 2023
-description: Supersonic with a 360.
-tips:
-  - Pre-wrap the leash to make the landing easier.
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.instagram.com/p/C-GAIBNskkO/
-technicalName: 360 Supersonic
-startPosition: Rocket
-endPosition: Exposure
-difficultyLevel: 9
-showInSearchQueries: true
-recommendedPrerequisites:
+'id': 300
+'establishedBy': 'Ian Eisenberg'
+'yearEstablished': 2023
+'description': 'Supersonic with a 360.'
+'tips':
+  - 'Pre-wrap the leash to make the landing easier.'
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.instagram.com/p/C-GAIBNskkO/'
+'technicalName': '360 Supersonic'
+'startPosition': 'Rocket'
+'endPosition': 'Exposure'
+'difficultyLevel': 9
+'showInSearchQueries': true
+'recommendedPrerequisites':
   - 199
   - 213
-variationOf: []
+'variationOf': []

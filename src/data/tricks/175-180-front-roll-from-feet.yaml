@@ -4,23 +4,23 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 175
-establishedBy: Ian Eisenberg
-yearEstablished: 2021
-description: From Standing you turn 180 and do a Frontflop.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://youtu.be/A8O3iGYGPPk?t=116
-    startTime: 116
-    endTime: 132
-technicalName: 180 Front Roll from Feet
-alias: 180 Frontflop
-startPosition: Stand
-endPosition: Korean
-difficultyLevel: 6
-showInSearchQueries: false
-recommendedPrerequisites:
+'id': 175
+'establishedBy': 'Ian Eisenberg'
+'yearEstablished': 2021
+'description': 'From Standing you turn 180 and do a Frontflop.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://youtu.be/A8O3iGYGPPk?t=116'
+    'startTime': 116
+    'endTime': 132
+'technicalName': '180 Front Roll from Feet'
+'alias': '180 Frontflop'
+'startPosition': 'Stand'
+'endPosition': 'Korean'
+'difficultyLevel': 6
+'showInSearchQueries': false
+'recommendedPrerequisites':
   - 104
-variationOf:
+'variationOf':
   - 104

@@ -4,22 +4,22 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 124
-establishedBy: Guillaume Fontaine
-yearEstablished: 2017
-description: Do a Back Roll, then put your back foot on the line first, and
-  press yourself up to put the second foot on.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.youtube.com/watch?v=Se5XNo0RSP8&t=662
-    startTime: 662
-    endTime: 666
-technicalName: Back Roll to Feet
-startPosition: Back
-endPosition: Stand
-difficultyLevel: 6
-showInSearchQueries: true
-recommendedPrerequisites:
+'id': 124
+'establishedBy': 'Guillaume Fontaine'
+'yearEstablished': 2017
+'description': 'Do a Back Roll, then put your back foot on the line first, and
+  press yourself up to put the second foot on.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.youtube.com/watch?v=Se5XNo0RSP8&t=662'
+    'startTime': 662
+    'endTime': 666
+'technicalName': 'Back Roll to Feet'
+'startPosition': 'Back'
+'endPosition': 'Stand'
+'difficultyLevel': 6
+'showInSearchQueries': true
+'recommendedPrerequisites':
   - 45
-variationOf: []
+'variationOf': []

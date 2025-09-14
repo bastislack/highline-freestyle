@@ -4,22 +4,22 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 161
-establishedBy: Justin Wagers
-yearEstablished: 2020
-description: Like the Barrel Almighty Flip but flipping backside.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://youtu.be/Se5XNo0RSP8?t=426
-    startTime: 426
-    endTime: 430
-technicalName: Back Barrel Almighty
-startPosition: Stand
-endPosition: Stand
-difficultyLevel: 7
-showInSearchQueries: false
-recommendedPrerequisites:
+'id': 161
+'establishedBy': 'Justin Wagers'
+'yearEstablished': 2020
+'description': 'Like the Barrel Almighty Flip but flipping backside.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://youtu.be/Se5XNo0RSP8?t=426'
+    'startTime': 426
+    'endTime': 430
+'technicalName': 'Back Barrel Almighty'
+'startPosition': 'Stand'
+'endPosition': 'Stand'
+'difficultyLevel': 7
+'showInSearchQueries': false
+'recommendedPrerequisites':
   - 143
-variationOf:
+'variationOf':
   - 160

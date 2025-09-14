@@ -4,20 +4,20 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 37
-establishedBy: Eli Ellis
-yearEstablished: 2020
-description: Sick Nasty to Chest Roll.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.instagram.com/p/CJeCTdHBaUn/
-technicalName: Sick Nasty to Chest Roll
-alias: Nasty Chest Roll
-startPosition: Sofa
-endPosition: Chest
-difficultyLevel: 4
-showInSearchQueries: false
-recommendedPrerequisites: []
-variationOf:
+'id': 37
+'establishedBy': 'Eli Ellis'
+'yearEstablished': 2020
+'description': 'Sick Nasty to Chest Roll.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.instagram.com/p/CJeCTdHBaUn/'
+'technicalName': 'Sick Nasty to Chest Roll'
+'alias': 'Nasty Chest Roll'
+'startPosition': 'Sofa'
+'endPosition': 'Chest'
+'difficultyLevel': 4
+'showInSearchQueries': false
+'recommendedPrerequisites': []
+'variationOf':
   - 63

@@ -4,21 +4,22 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 164
-establishedBy: Ian Eisenberg
-yearEstablished: 2021
-description: Do a Shrimpflip and in the same bounce another roll backwards around the line.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.instagram.com/p/CXPSK-BKQAg/
-technicalName: Shrimp Double Flip
-alias: Kung Pao
-startPosition: Rocket
-endPosition: Rocket
-showInSearchQueries: false
-recommendedPrerequisites:
+'id': 164
+'establishedBy': 'Ian Eisenberg'
+'yearEstablished': 2021
+'description': 'Do a Shrimpflip and in the same bounce another roll backwards
+  around the line.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.instagram.com/p/CXPSK-BKQAg/'
+'technicalName': 'Shrimp Double Flip'
+'alias': 'Kung Pao'
+'startPosition': 'Rocket'
+'endPosition': 'Rocket'
+'showInSearchQueries': false
+'recommendedPrerequisites':
   - 71
   - 158
-variationOf:
+'variationOf':
   - 71

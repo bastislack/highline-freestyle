@@ -4,20 +4,20 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 354
-establishedBy: Sebastian Egger
-yearEstablished: 2022
-description: From Backbounce grab the line with one hand below your back and
+'id': 354
+'establishedBy': 'Sebastian Egger'
+'yearEstablished': 2022
+'description': 'From Backbounce grab the line with one hand below your back and
   step on the line with the opposite foot. Turn towards the chest and swap both
-  your hands and feet to be able to finish the full rotation.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.instagram.com/p/CnXOzwgK3qb/
-technicalName: Backbounce Spiral
-startPosition: Back
-endPosition: Back
-difficultyLevel: 5
-showInSearchQueries: true
-recommendedPrerequisites: []
-variationOf: []
+  your hands and feet to be able to finish the full rotation.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.instagram.com/p/CnXOzwgK3qb/'
+'technicalName': 'Backbounce Spiral'
+'startPosition': 'Back'
+'endPosition': 'Back'
+'difficultyLevel': 5
+'showInSearchQueries': true
+'recommendedPrerequisites': []
+'variationOf': []

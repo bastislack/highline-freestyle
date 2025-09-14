@@ -4,21 +4,21 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 209
-establishedBy: Justin Wagers
-yearEstablished: 2021
-description: Start with a Barrel Roll and then add an Orbital 180 in the same bounce.
-tips:
-  - You gotta be quick for this one.
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.instagram.com/p/CXJSAepFj4L/
-technicalName: Barrel late Orbital 180
-startPosition: Stand
-endPosition: Chest
-showInSearchQueries: false
-recommendedPrerequisites:
+'id': 209
+'establishedBy': 'Justin Wagers'
+'yearEstablished': 2021
+'description': 'Start with a Barrel Roll and then add an Orbital 180 in the same bounce.'
+'tips':
+  - 'You gotta be quick for this one.'
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.instagram.com/p/CXJSAepFj4L/'
+'technicalName': 'Barrel late Orbital 180'
+'startPosition': 'Stand'
+'endPosition': 'Chest'
+'showInSearchQueries': false
+'recommendedPrerequisites':
   - 142
   - 87
-variationOf:
+'variationOf':
   - 142

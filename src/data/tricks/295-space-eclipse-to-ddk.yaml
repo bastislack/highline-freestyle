@@ -4,20 +4,20 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 295
-establishedBy: Tim odermatt
-yearEstablished: 2024
-description: Do an Eclipse but don’t use your hands, once the line goes around
-  you, land in DDK.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.instagram.com/reel/C_p2waaMiEy/
-technicalName: Space Eclipse to DDK
-startPosition: Stand
-endPosition: Dropknee
-difficultyLevel: 9
-showInSearchQueries: false
-recommendedPrerequisites: []
-variationOf:
+'id': 295
+'establishedBy': 'Tim odermatt'
+'yearEstablished': 2024
+'description': 'Do an Eclipse but don’t use your hands, once the line goes
+  around you, land in DDK.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.instagram.com/reel/C_p2waaMiEy/'
+'technicalName': 'Space Eclipse to DDK'
+'startPosition': 'Stand'
+'endPosition': 'Dropknee'
+'difficultyLevel': 9
+'showInSearchQueries': false
+'recommendedPrerequisites': []
+'variationOf':
   - 296

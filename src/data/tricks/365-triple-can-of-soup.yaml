@@ -4,21 +4,21 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 365
-establishedBy: Jordan Robinson
-yearEstablished: 2025
-description: Three rolls from soup in one bounce going to feet.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://youtu.be/YaG0U52-qmg?t=150
-    startTime: 150
-    endTime: 157
-technicalName: Triple Can of Soup
-startPosition: Soup
-endPosition: Stand
-difficultyLevel: 8
-showInSearchQueries: true
-recommendedPrerequisites:
+'id': 365
+'establishedBy': 'Jordan Robinson'
+'yearEstablished': 2025
+'description': 'Three rolls from soup in one bounce going to feet.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://youtu.be/YaG0U52-qmg?t=150'
+    'startTime': 150
+    'endTime': 157
+'technicalName': 'Triple Can of Soup'
+'startPosition': 'Soup'
+'endPosition': 'Stand'
+'difficultyLevel': 8
+'showInSearchQueries': true
+'recommendedPrerequisites':
   - 182
-variationOf: []
+'variationOf': []

@@ -4,21 +4,21 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 21
-description: On the way to the top of the bounce you let the line come towards
-  your body and grab it with one hand. Slide your front foot off the line and
-  with your hand controlling the line you drop down to chest.
-tips:
-  - It can help to practice briefly grabing the line at the top of the bounce
+'id': 21
+'description': 'On the way to the top of the bounce you let the line come
+  towards your body and grab it with one hand. Slide your front foot off the
+  line and with your hand controlling the line you drop down to chest.'
+'tips':
+  - 'It can help to practice briefly grabing the line at the top of the bounce
     while bouncing in normal to learn to let the line come to you instead of you
-    droping down to the line.
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.youtube.com/watch?v=Z11fkcCv_Qo
-technicalName: Chest Bounce
-startPosition: Stand
-endPosition: Chest
-difficultyLevel: 2
-showInSearchQueries: true
-recommendedPrerequisites: []
-variationOf: []
+    droping down to the line.'
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.youtube.com/watch?v=Z11fkcCv_Qo'
+'technicalName': 'Chest Bounce'
+'startPosition': 'Stand'
+'endPosition': 'Chest'
+'difficultyLevel': 2
+'showInSearchQueries': true
+'recommendedPrerequisites': []
+'variationOf': []

@@ -4,20 +4,20 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 339
-establishedBy: Tim Odermatt
-yearEstablished: 2024
-description: A Back Almighty but fully disconnected from the line.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.instagram.com/reel/DD5O08MoepV/
-technicalName: Space Back Almighty
-alias: Back Impossible
-startPosition: Stand
-endPosition: Stand
-difficultyLevel: 9
-showInSearchQueries: true
-recommendedPrerequisites:
+'id': 339
+'establishedBy': 'Tim Odermatt'
+'yearEstablished': 2024
+'description': 'A Back Almighty but fully disconnected from the line.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.instagram.com/reel/DD5O08MoepV/'
+'technicalName': 'Space Back Almighty'
+'alias': 'Back Impossible'
+'startPosition': 'Stand'
+'endPosition': 'Stand'
+'difficultyLevel': 9
+'showInSearchQueries': true
+'recommendedPrerequisites':
   - 162
-variationOf: []
+'variationOf': []

@@ -4,22 +4,22 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 80
-description: From Sofa you grab the line next to you with both hands and swing
-  the legs over the line and around behind you and then you land in Exposure on
-  the other side of your hands.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://youtu.be/Ej2ocABoNC4?t=18159
-    startTime: 18159
-    endTime: 18164
-technicalName: Sick Nasty to Feet
-alias: Flare to Feet
-startPosition: Sofa
-endPosition: Exposure
-difficultyLevel: 4
-showInSearchQueries: true
-recommendedPrerequisites:
+'id': 80
+'description': 'From Sofa you grab the line next to you with both hands and
+  swing the legs over the line and around behind you and then you land in
+  Exposure on the other side of your hands.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://youtu.be/Ej2ocABoNC4?t=18159'
+    'startTime': 18159
+    'endTime': 18164
+'technicalName': 'Sick Nasty to Feet'
+'alias': 'Flare to Feet'
+'startPosition': 'Sofa'
+'endPosition': 'Exposure'
+'difficultyLevel': 4
+'showInSearchQueries': true
+'recommendedPrerequisites':
   - 63
-variationOf: []
+'variationOf': []

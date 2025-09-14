@@ -4,21 +4,21 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 257
-establishedBy: Samuel Volery
-yearEstablished: 2021
-description: Start the same way as you would for the Fireflip, but go directly
-  to Expo without doing the 180.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.instagram.com/p/CVQIDtpAbme/
-technicalName: 90 Korean Roll to Expo
-alias: Fire-Fly
-startPosition: Korean
-endPosition: Exposure
-difficultyLevel: 5
-showInSearchQueries: false
-recommendedPrerequisites: []
-variationOf:
+'id': 257
+'establishedBy': 'Samuel Volery'
+'yearEstablished': 2021
+'description': 'Start the same way as you would for the Fireflip, but go
+  directly to Expo without doing the 180.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.instagram.com/p/CVQIDtpAbme/'
+'technicalName': '90 Korean Roll to Expo'
+'alias': 'Fire-Fly'
+'startPosition': 'Korean'
+'endPosition': 'Exposure'
+'difficultyLevel': 5
+'showInSearchQueries': false
+'recommendedPrerequisites': []
+'variationOf':
   - 134

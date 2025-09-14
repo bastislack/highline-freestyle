@@ -4,19 +4,19 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 19
-description: From Sit you stand up on the top of the bounce. If you don't have
-  enough momentum, you can pull on the line with one arm.
-tips:
-  - Learning this is a lot about learning the correct timing which is doing the
-    trick at the top of the bounce when you feel weightless.
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.youtube.com/watch?v=rdV2Jhi6U5Y
-technicalName: Sit to Feet
-startPosition: Sit
-endPosition: Stand
-difficultyLevel: 2
-showInSearchQueries: true
-recommendedPrerequisites: []
-variationOf: []
+'id': 19
+'description': 'From Sit you stand up on the top of the bounce. If you don''t
+  have enough momentum, you can pull on the line with one arm.'
+'tips':
+  - 'Learning this is a lot about learning the correct timing which is doing the
+    trick at the top of the bounce when you feel weightless.'
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.youtube.com/watch?v=rdV2Jhi6U5Y'
+'technicalName': 'Sit to Feet'
+'startPosition': 'Sit'
+'endPosition': 'Stand'
+'difficultyLevel': 2
+'showInSearchQueries': true
+'recommendedPrerequisites': []
+'variationOf': []

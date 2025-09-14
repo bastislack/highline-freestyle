@@ -4,15 +4,15 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 96
-description: From Double Drop Knee grab the line with both hands and roll to the
-  front landing back in Double Drop Knee.
-tips: []
-dateAddedEpoch: 1640995200000
-technicalName: Double Drop Knee Roll
-startPosition: Double Drop Knee
-endPosition: Double Drop Knee
-difficultyLevel: 4
-showInSearchQueries: true
-recommendedPrerequisites: []
-variationOf: []
+'id': 96
+'description': 'From Double Drop Knee grab the line with both hands and roll to
+  the front landing back in Double Drop Knee.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'technicalName': 'Double Drop Knee Roll'
+'startPosition': 'Double Drop Knee'
+'endPosition': 'Double Drop Knee'
+'difficultyLevel': 4
+'showInSearchQueries': true
+'recommendedPrerequisites': []
+'variationOf': []

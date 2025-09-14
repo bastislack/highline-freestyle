@@ -4,19 +4,19 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 190
-establishedBy: Tim Odermatt
-yearEstablished: 2021
-description: Start in Sofa, then bring one foot up to the line to hook it and go
-  for an Almighty Flip.
-tips: []
-dateAddedEpoch: 1640995200000
-technicalName: Almighty from Sofa
-alias: Dirty Sofa
-startPosition: Sofa
-endPosition: Exposure
-difficultyLevel: 7
-showInSearchQueries: true
-recommendedPrerequisites:
+'id': 190
+'establishedBy': 'Tim Odermatt'
+'yearEstablished': 2021
+'description': 'Start in Sofa, then bring one foot up to the line to hook it and
+  go for an Almighty Flip.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'technicalName': 'Almighty from Sofa'
+'alias': 'Dirty Sofa'
+'startPosition': 'Sofa'
+'endPosition': 'Exposure'
+'difficultyLevel': 7
+'showInSearchQueries': true
+'recommendedPrerequisites':
   - 159
-variationOf: []
+'variationOf': []

@@ -4,23 +4,23 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 13
-establishedBy: Salomé Cholet
-yearEstablished: 2021
-description: Do a Panic Roll but before you land throw your second leg on the
-  other side of the line as well to land back in Sofa.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://youtu.be/7yLCyoHgUS0?t=491
-    startTime: 491
-    endTime: 496
-technicalName: Panic Roll to Sofa
-startPosition: Sofa
-endPosition: Sofa
-difficultyLevel: 3
-showInSearchQueries: false
-recommendedPrerequisites:
+'id': 13
+'establishedBy': 'Salomé Cholet'
+'yearEstablished': 2021
+'description': 'Do a Panic Roll but before you land throw your second leg on the
+  other side of the line as well to land back in Sofa.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://youtu.be/7yLCyoHgUS0?t=491'
+    'startTime': 491
+    'endTime': 496
+'technicalName': 'Panic Roll to Sofa'
+'startPosition': 'Sofa'
+'endPosition': 'Sofa'
+'difficultyLevel': 3
+'showInSearchQueries': false
+'recommendedPrerequisites':
   - 7
-variationOf:
+'variationOf':
   - 7

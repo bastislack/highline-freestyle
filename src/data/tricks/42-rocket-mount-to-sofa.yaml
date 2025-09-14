@@ -4,24 +4,24 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 42
-establishedBy: Samuel Volery
-yearEstablished: 2017
-description: From Rocket pull yourself up and then swing the legs over the line
-  in a Sick Nasty motion. You have to let go off the line with one hand so your
-  legs can pass to land in Sofa. Alternatively you can also thread both legs in
-  between your arms and the line to go to Sofa.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://youtu.be/hsALSrUdryU?t=73
-    startTime: 73
-    endTime: 78
-technicalName: Rocket Mount to Sofa
-startPosition: Rocket
-endPosition: Sofa
-difficultyLevel: 4
-showInSearchQueries: false
-recommendedPrerequisites: []
-variationOf:
+'id': 42
+'establishedBy': 'Samuel Volery'
+'yearEstablished': 2017
+'description': 'From Rocket pull yourself up and then swing the legs over the
+  line in a Sick Nasty motion. You have to let go off the line with one hand so
+  your legs can pass to land in Sofa. Alternatively you can also thread both
+  legs in between your arms and the line to go to Sofa.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://youtu.be/hsALSrUdryU?t=73'
+    'startTime': 73
+    'endTime': 78
+'technicalName': 'Rocket Mount to Sofa'
+'startPosition': 'Rocket'
+'endPosition': 'Sofa'
+'difficultyLevel': 4
+'showInSearchQueries': false
+'recommendedPrerequisites': []
+'variationOf':
   - 99

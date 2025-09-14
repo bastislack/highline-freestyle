@@ -4,27 +4,27 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 99
-establishedBy: Samuel Volery
-yearEstablished: 2017
-description: At the bottom of the bounce, kick your legs to the back,
+'id': 99
+'establishedBy': 'Samuel Volery'
+'yearEstablished': 2017
+'description': 'At the bottom of the bounce, kick your legs to the back,
   immediately afterwards kick them to the front again. Then do a final kick to
   the back while pulling the line down in front of you, and put your feet on the
-  line.
-tips:
-  - Get some momentum with your legs in the bottom part of the bounce. As soon
-    as you are weightless pull the line below your feet.
-  - This trick doesn't require as much strength as you would think! It's all
-    about getting enough momentum with your legs.
-  - If you can't hold the bounce in the Rocket position try again with less
-    bounce.
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://youtu.be/zSfwTW4vJas
-technicalName: Rocket Mount
-startPosition: Rocket
-endPosition: Exposure
-difficultyLevel: 5
-showInSearchQueries: true
-recommendedPrerequisites: []
-variationOf: []
+  line.'
+'tips':
+  - 'Get some momentum with your legs in the bottom part of the bounce. As soon
+    as you are weightless pull the line below your feet.'
+  - 'This trick doesn''t require as much strength as you would think! It''s all
+    about getting enough momentum with your legs.'
+  - 'If you can''t hold the bounce in the Rocket position try again with less
+    bounce.'
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://youtu.be/zSfwTW4vJas'
+'technicalName': 'Rocket Mount'
+'startPosition': 'Rocket'
+'endPosition': 'Exposure'
+'difficultyLevel': 5
+'showInSearchQueries': true
+'recommendedPrerequisites': []
+'variationOf': []

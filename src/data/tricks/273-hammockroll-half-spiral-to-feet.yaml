@@ -4,22 +4,22 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 273
-establishedBy: Sakalomo
-yearEstablished: 2022
-description: Start from backbounce and grab the line with one hand. Before the
-  top of the bounce throw yourself to the side of the hand that grabs the line.
-  Do a roll below the line, grab it with your second hand, and land on your
-  feet.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.instagram.com/reel/CY6eIm2K4_M/
-technicalName: Hammockroll Half Spiral to Feet
-alias: Chill
-startPosition: Back
-endPosition: Stand
-difficultyLevel: 6
-showInSearchQueries: true
-recommendedPrerequisites: []
-variationOf: []
+'id': 273
+'establishedBy': 'Sakalomo'
+'yearEstablished': 2022
+'description': 'Start from backbounce and grab the line with one hand. Before
+  the top of the bounce throw yourself to the side of the hand that grabs the
+  line. Do a roll below the line, grab it with your second hand, and land on
+  your feet.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.instagram.com/reel/CY6eIm2K4_M/'
+'technicalName': 'Hammockroll Half Spiral to Feet'
+'alias': 'Chill'
+'startPosition': 'Back'
+'endPosition': 'Stand'
+'difficultyLevel': 6
+'showInSearchQueries': true
+'recommendedPrerequisites': []
+'variationOf': []

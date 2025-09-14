@@ -4,14 +4,14 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 93
-description: Do a 360 spin, restepping with your feet twice.
-tips: []
-dateAddedEpoch: 1640995200000
-technicalName: 360 Spin
-startPosition: Stand
-endPosition: Stand
-difficultyLevel: 5
-showInSearchQueries: true
-recommendedPrerequisites: []
-variationOf: []
+'id': 93
+'description': 'Do a 360 spin, restepping with your feet twice.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'technicalName': '360 Spin'
+'startPosition': 'Stand'
+'endPosition': 'Stand'
+'difficultyLevel': 5
+'showInSearchQueries': true
+'recommendedPrerequisites': []
+'variationOf': []

@@ -4,21 +4,21 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 313
-establishedBy: Tim Odermatt
-yearEstablished: 2022
-description: Do an early Front Yoda and change the direction of the roll to do a
-  rewind but add another Back Yoda Roll.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.instagram.com/reel/Cl3_96FrE-4/
-technicalName: Front Yoda Double Rewind
-startPosition: Exposure
-endPosition: Exposure
-difficultyLevel: 8
-showInSearchQueries: false
-recommendedPrerequisites:
+'id': 313
+'establishedBy': 'Tim Odermatt'
+'yearEstablished': 2022
+'description': 'Do an early Front Yoda and change the direction of the roll to
+  do a rewind but add another Back Yoda Roll.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.instagram.com/reel/Cl3_96FrE-4/'
+'technicalName': 'Front Yoda Double Rewind'
+'startPosition': 'Exposure'
+'endPosition': 'Exposure'
+'difficultyLevel': 8
+'showInSearchQueries': false
+'recommendedPrerequisites':
   - 192
-variationOf:
+'variationOf':
   - 200

@@ -4,24 +4,24 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 74
-establishedBy: Ian Eisenberg
-yearEstablished: 2021
-description: Start by doing a Rocket Mount but then go into a Belly Roll
-  finishing with a 180 to Sofa.
-tips:
-  - Get a lot of momentum for the Rocket Roll and in the end do a 180 and stick
-    your butt out as in the Sofa Roll 360.
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://youtu.be/aYsX0kpCnAg?t=6
-    startTime: 6
-    endTime: 14
-technicalName: Rocket Roll 180 to Sofa
-alias: Rocket Rewind
-startPosition: Rocket
-endPosition: Sofa
-difficultyLevel: 5
-showInSearchQueries: true
-recommendedPrerequisites: []
-variationOf: []
+'id': 74
+'establishedBy': 'Ian Eisenberg'
+'yearEstablished': 2021
+'description': 'Start by doing a Rocket Mount but then go into a Belly Roll
+  finishing with a 180 to Sofa.'
+'tips':
+  - 'Get a lot of momentum for the Rocket Roll and in the end do a 180 and stick
+    your butt out as in the Sofa Roll 360.'
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://youtu.be/aYsX0kpCnAg?t=6'
+    'startTime': 6
+    'endTime': 14
+'technicalName': 'Rocket Roll 180 to Sofa'
+'alias': 'Rocket Rewind'
+'startPosition': 'Rocket'
+'endPosition': 'Sofa'
+'difficultyLevel': 5
+'showInSearchQueries': true
+'recommendedPrerequisites': []
+'variationOf': []

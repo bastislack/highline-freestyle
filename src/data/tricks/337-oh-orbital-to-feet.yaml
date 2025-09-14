@@ -4,20 +4,20 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 337
-establishedBy: Tim Odermatt
-yearEstablished: 2024
-description: Do an Orbital to Feet but only use one hand.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.instagram.com/reel/C56Gqsuselh/
-technicalName: OH Orbital to Feet
-startPosition: Stand
-endPosition: Stand
-difficultyLevel: 7
-showInSearchQueries: false
-recommendedPrerequisites:
+'id': 337
+'establishedBy': 'Tim Odermatt'
+'yearEstablished': 2024
+'description': 'Do an Orbital to Feet but only use one hand.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.instagram.com/reel/C56Gqsuselh/'
+'technicalName': 'OH Orbital to Feet'
+'startPosition': 'Stand'
+'endPosition': 'Stand'
+'difficultyLevel': 7
+'showInSearchQueries': false
+'recommendedPrerequisites':
   - 261
-variationOf:
+'variationOf':
   - 261

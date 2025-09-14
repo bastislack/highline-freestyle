@@ -4,22 +4,22 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 66
-establishedBy: Sakalomo
-yearEstablished: 2020
-description: From Hanging swing your legs beside your hands (similar to a Sick
-  Nasty movement) and go into a Back Sofa Roll.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://youtu.be/n_YEN0Yva5I?t=70
-    startTime: 70
-    endTime: 76
-technicalName: Rocket Mount to Back Sofa Roll
-startPosition: Rocket
-endPosition: Sofa
-difficultyLevel: 5
-showInSearchQueries: false
-recommendedPrerequisites: []
-variationOf:
+'id': 66
+'establishedBy': 'Sakalomo'
+'yearEstablished': 2020
+'description': 'From Hanging swing your legs beside your hands (similar to a
+  Sick Nasty movement) and go into a Back Sofa Roll.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://youtu.be/n_YEN0Yva5I?t=70'
+    'startTime': 70
+    'endTime': 76
+'technicalName': 'Rocket Mount to Back Sofa Roll'
+'startPosition': 'Rocket'
+'endPosition': 'Sofa'
+'difficultyLevel': 5
+'showInSearchQueries': false
+'recommendedPrerequisites': []
+'variationOf':
   - 99

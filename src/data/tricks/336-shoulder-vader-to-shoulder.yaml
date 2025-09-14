@@ -4,21 +4,21 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 336
-establishedBy: Ian Eisenberg
-yearEstablished: 2024
-description: Shoulder Vader but going to Shoulder instead of to feet.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.instagram.com/p/C5tVw_BsUmx/
-technicalName: Shoulder Vader to Shoulder
-alias: Invader
-startPosition: Shoulder
-endPosition: Shoulder
-difficultyLevel: 8
-showInSearchQueries: false
-recommendedPrerequisites:
+'id': 336
+'establishedBy': 'Ian Eisenberg'
+'yearEstablished': 2024
+'description': 'Shoulder Vader but going to Shoulder instead of to feet.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.instagram.com/p/C5tVw_BsUmx/'
+'technicalName': 'Shoulder Vader to Shoulder'
+'alias': 'Invader'
+'startPosition': 'Shoulder'
+'endPosition': 'Shoulder'
+'difficultyLevel': 8
+'showInSearchQueries': false
+'recommendedPrerequisites':
   - 292
-variationOf:
+'variationOf':
   - 292

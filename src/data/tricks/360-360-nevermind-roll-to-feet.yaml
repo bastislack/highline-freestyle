@@ -4,21 +4,21 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 360
-establishedBy: Sebastian Egger
-yearEstablished: 2024
-description: Nevermind with a roll and a 360 ending in Expo.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://youtu.be/r6hcjIbrbr8?t=229
-    startTime: 229
-    endTime: 234
-technicalName: 360 Nevermind Roll to Feet
-startPosition: Nevermind
-endPosition: Exposure
-difficultyLevel: 8
-showInSearchQueries: true
-recommendedPrerequisites:
+'id': 360
+'establishedBy': 'Sebastian Egger'
+'yearEstablished': 2024
+'description': 'Nevermind with a roll and a 360 ending in Expo.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://youtu.be/r6hcjIbrbr8?t=229'
+    'startTime': 229
+    'endTime': 234
+'technicalName': '360 Nevermind Roll to Feet'
+'startPosition': 'Nevermind'
+'endPosition': 'Exposure'
+'difficultyLevel': 8
+'showInSearchQueries': true
+'recommendedPrerequisites':
   - 264
-variationOf: []
+'variationOf': []

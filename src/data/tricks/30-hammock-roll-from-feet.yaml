@@ -4,20 +4,20 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 30
-establishedBy: Augustin Moinat
-yearEstablished: 2021
-description: Let the line come to your butt and grab it right behind your butt
-  with one hand and then go to Backbounce, grab the second hand behind your
-  head, hook with one foot and do a Hammock Roll.
-tips: []
-dateAddedEpoch: 1640995200000
-technicalName: Hammock Roll from Feet
-startPosition: Stand
-endPosition: Back
-difficultyLevel: 5
-showInSearchQueries: false
-recommendedPrerequisites:
+'id': 30
+'establishedBy': 'Augustin Moinat'
+'yearEstablished': 2021
+'description': 'Let the line come to your butt and grab it right behind your
+  butt with one hand and then go to Backbounce, grab the second hand behind your
+  head, hook with one foot and do a Hammock Roll.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'technicalName': 'Hammock Roll from Feet'
+'startPosition': 'Stand'
+'endPosition': 'Back'
+'difficultyLevel': 5
+'showInSearchQueries': false
+'recommendedPrerequisites':
   - 6
-variationOf:
+'variationOf':
   - 6

@@ -4,22 +4,22 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 179
-establishedBy: Jim Galli
-yearEstablished: 2020
-description: Almighty Flip but instead of hooking the line with your foot you
-  grab and pull on the leash.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.youtube.com/watch?v=dG9sJvKjg6E&t=323
-    startTime: 323
-    endTime: 327
-technicalName: Han Solo
-startPosition: Exposure
-endPosition: Exposure
-difficultyLevel: 6
-showInSearchQueries: true
-recommendedPrerequisites:
+'id': 179
+'establishedBy': 'Jim Galli'
+'yearEstablished': 2020
+'description': 'Almighty Flip but instead of hooking the line with your foot you
+  grab and pull on the leash.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.youtube.com/watch?v=dG9sJvKjg6E&t=323'
+    'startTime': 323
+    'endTime': 327
+'technicalName': 'Han Solo'
+'startPosition': 'Exposure'
+'endPosition': 'Exposure'
+'difficultyLevel': 6
+'showInSearchQueries': true
+'recommendedPrerequisites':
   - 140
-variationOf: []
+'variationOf': []

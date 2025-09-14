@@ -4,21 +4,21 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 332
-establishedBy: Tim Odermatt
-yearEstablished: 2023
-description: Starting from Back while standing up hook the line with your foot
-  and do a 360 Back Almighty
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.instagram.com/reel/CyN294oMgMv/
-technicalName: 360 Back Almighty from Back
-startPosition: Back
-endPosition: Stand
-difficultyLevel: 9
-showInSearchQueries: true
-recommendedPrerequisites:
+'id': 332
+'establishedBy': 'Tim Odermatt'
+'yearEstablished': 2023
+'description': 'Starting from Back while standing up hook the line with your
+  foot and do a 360 Back Almighty'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.instagram.com/reel/CyN294oMgMv/'
+'technicalName': '360 Back Almighty from Back'
+'startPosition': 'Back'
+'endPosition': 'Stand'
+'difficultyLevel': 9
+'showInSearchQueries': true
+'recommendedPrerequisites':
   - 162
   - 314
-variationOf: []
+'variationOf': []

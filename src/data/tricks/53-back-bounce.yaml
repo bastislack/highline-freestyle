@@ -4,21 +4,21 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 53
-description: From standing on the line you let the line come towards your body
-  on the top of the bounce and when your butt is on the line, slide your feet
-  off the line and lean all the way back to land in Back.
-tips:
-  - Learn a Korean Bounce first, practice leaning back from Korean to Back, and
-    then combine both motions into one bounce.
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.youtube.com/watch?v=MpfpSkwcqsg
-technicalName: Back Bounce
-startPosition: Stand
-endPosition: Back
-difficultyLevel: 3
-showInSearchQueries: true
-recommendedPrerequisites:
+'id': 53
+'description': 'From standing on the line you let the line come towards your
+  body on the top of the bounce and when your butt is on the line, slide your
+  feet off the line and lean all the way back to land in Back.'
+'tips':
+  - 'Learn a Korean Bounce first, practice leaning back from Korean to Back, and
+    then combine both motions into one bounce.'
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.youtube.com/watch?v=MpfpSkwcqsg'
+'technicalName': 'Back Bounce'
+'startPosition': 'Stand'
+'endPosition': 'Back'
+'difficultyLevel': 3
+'showInSearchQueries': true
+'recommendedPrerequisites':
   - 20
-variationOf: []
+'variationOf': []

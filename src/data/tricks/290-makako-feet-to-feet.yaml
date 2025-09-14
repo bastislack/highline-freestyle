@@ -4,22 +4,22 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-id: 290
-establishedBy: Sakalomo
-yearEstablished: 2024
-description: With a big bounce, grab the line while starting a roll backwards
-  and from there kick like you would for a Makako to Feet.
-tips: []
-dateAddedEpoch: 1640995200000
-videos:
-  - link: https://www.instagram.com/reel/C2XluUNMUEV/
-technicalName: Makako Feet to Feet
-alias: King Kong
-startPosition: Stand
-endPosition: Exposure
-difficultyLevel: 9
-showInSearchQueries: true
-recommendedPrerequisites:
+'id': 290
+'establishedBy': 'Sakalomo'
+'yearEstablished': 2024
+'description': 'With a big bounce, grab the line while starting a roll backwards
+  and from there kick like you would for a Makako to Feet.'
+'tips': []
+'dateAddedEpoch': 1640995200000
+'videos':
+  - 'link': 'https://www.instagram.com/reel/C2XluUNMUEV/'
+'technicalName': 'Makako Feet to Feet'
+'alias': 'King Kong'
+'startPosition': 'Stand'
+'endPosition': 'Exposure'
+'difficultyLevel': 9
+'showInSearchQueries': true
+'recommendedPrerequisites':
   - 211
   - 366
-variationOf: []
+'variationOf': []
