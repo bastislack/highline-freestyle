@@ -303,18 +303,16 @@ await Promise.all(
 
 function createContentForEntity(data: unknown) {
   const yamlContent = stringify(data);
-  const preamble = `
-  This file has been generated automatically. The data here is backed by a Google Sheet.
-  Do not change this by hand, as any changes will be overwritten the next time the 
+  const preamble = `This file has been generated automatically. The data here is backed by a Google Sheet.
+  Do not change this by hand, as any changes will be overwritten the next time the
   fetchFromSheet-Script is run by a scheduled action.
   If there are new changes that need to be synced, you can trigger the refetch by running
-  npx vite-node ./scripts/fetchFromSheet.ts from the project root. 
-  `;
+  npx vite-node ./scripts/fetchFromSheet.ts from the project root.`;
 
   return (
     preamble
       .split('\n')
-      .map((e) => '# ' + e.trimStart())
+      .map((e) => '# ' + e.trimStart().trimEnd())
       .join('\n') +
     '\n\n' +
     yamlContent
