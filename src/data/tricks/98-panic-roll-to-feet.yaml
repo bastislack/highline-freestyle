@@ -4,21 +4,21 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 98
-'establishedBy': 'Anthony Boulay'
-'description': 'Do a Panic Roll and put your back foot onto the line. When you
-  finished the rotation put the second foot up and stand up.'
-'tips':
-  - 'During the roll get your far foot on the line. At the end of the roll get
-    your second foot up on the line.'
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.youtube.com/watch?v=hQaJ54xvfOA'
-'technicalName': 'Panic Roll to Feet'
-'startPosition': 'Sofa'
-'endPosition': 'Exposure'
-'difficultyLevel': 5
-'showInSearchQueries': true
-'recommendedPrerequisites':
+id: 98
+establishedBy: Anthony Boulay
+description: Do a Panic Roll and put your back foot onto the line. When you
+  finished the rotation put the second foot up and stand up.
+tips:
+  - During the roll get your far foot on the line. At the end of the roll get
+    your second foot up on the line.
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.youtube.com/watch?v=hQaJ54xvfOA
+technicalName: Panic Roll to Feet
+startPosition: Sofa
+endPosition: Exposure
+difficultyLevel: 5
+showInSearchQueries: true
+recommendedPrerequisites:
   - 7
-'variationOf': []
+variationOf: []

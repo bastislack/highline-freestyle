@@ -4,19 +4,19 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 326
-'establishedBy': 'Ian Eisenberg'
-'yearEstablished': 2024
-'description': 'Start with a FS 360 and finish with a Sakalorbital'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.instagram.com/p/C2-O7OWM42H/'
-'technicalName': 'FS 540 Orbital to Feet'
-'startPosition': 'Stand'
-'endPosition': 'Stand'
-'difficultyLevel': 9
-'showInSearchQueries': true
-'recommendedPrerequisites':
+id: 326
+establishedBy: Ian Eisenberg
+yearEstablished: 2024
+description: Start with a FS 360 and finish with a Sakalorbital
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.instagram.com/p/C2-O7OWM42H/
+technicalName: FS 540 Orbital to Feet
+startPosition: Stand
+endPosition: Stand
+difficultyLevel: 9
+showInSearchQueries: true
+recommendedPrerequisites:
   - 315
-'variationOf': []
+variationOf: []

@@ -4,20 +4,20 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 270
-'establishedBy': 'Emil Breuer'
-'yearEstablished': 2022
-'description': 'Three Front Yoda Rolls in one bounce.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.instagram.com/p/Cf6TRhogHtO/'
-'technicalName': 'Triple Front Yoda Roll'
-'alias': 'Triple Yoda'
-'startPosition': 'Exposure'
-'endPosition': 'Exposure'
-'difficultyLevel': 9
-'showInSearchQueries': true
-'recommendedPrerequisites':
+id: 270
+establishedBy: Emil Breuer
+yearEstablished: 2022
+description: Three Front Yoda Rolls in one bounce.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.instagram.com/p/Cf6TRhogHtO/
+technicalName: Triple Front Yoda Roll
+alias: Triple Yoda
+startPosition: Exposure
+endPosition: Exposure
+difficultyLevel: 9
+showInSearchQueries: true
+recommendedPrerequisites:
   - 206
-'variationOf': []
+variationOf: []

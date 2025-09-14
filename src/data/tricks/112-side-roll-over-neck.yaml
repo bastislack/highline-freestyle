@@ -4,23 +4,23 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 112
-'establishedBy': 'Tlaloc Moctezuma-Burns'
-'yearEstablished': 2020
-'description': 'Sit in Sofa and roll to the side over your neck back to Sofa.'
-'tips':
-  - 'There are more comfortable tricks to try.'
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://youtu.be/Se5XNo0RSP8?t=563'
-    'startTime': 563
-    'endTime': 568
-'technicalName': 'Side Roll over Neck'
-'alias': 'Sarah Roll'
-'startPosition': 'Sofa'
-'endPosition': 'Sofa'
-'difficultyLevel': 5
-'showInSearchQueries': false
-'recommendedPrerequisites': []
-'variationOf':
+id: 112
+establishedBy: Tlaloc Moctezuma-Burns
+yearEstablished: 2020
+description: Sit in Sofa and roll to the side over your neck back to Sofa.
+tips:
+  - There are more comfortable tricks to try.
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://youtu.be/Se5XNo0RSP8?t=563
+    startTime: 563
+    endTime: 568
+technicalName: Side Roll over Neck
+alias: Sarah Roll
+startPosition: Sofa
+endPosition: Sofa
+difficultyLevel: 5
+showInSearchQueries: false
+recommendedPrerequisites: []
+variationOf:
   - 122

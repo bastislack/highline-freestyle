@@ -4,24 +4,23 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 243
-'establishedBy': 'Ian Eisenberg'
-'yearEstablished': 2022
-'description': 'There are mainly two ways to do this trick: Either do an
-  Antihero followed by a Sofa Roll to Feet, or do a Darth Vader followed by a
-  Yoda Roll'
-'tips':
-  - 'It might be counterintuitive, but going late helps.'
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.instagram.com/p/ChsjejWLu8d/'
-'technicalName': 'Antihero to Sofa Roll to Feet'
-'alias': 'Double Darth Vader'
-'startPosition': 'Rocket'
-'endPosition': 'Exposure'
-'difficultyLevel': 9
-'showInSearchQueries': true
-'recommendedPrerequisites':
+id: 243
+establishedBy: Ian Eisenberg
+yearEstablished: 2022
+description: 'There are mainly two ways to do this trick: Either do an Antihero
+  followed by a Sofa Roll to Feet, or do a Darth Vader followed by a Yoda Roll'
+tips:
+  - It might be counterintuitive, but going late helps.
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.instagram.com/p/ChsjejWLu8d/
+technicalName: Antihero to Sofa Roll to Feet
+alias: Double Darth Vader
+startPosition: Rocket
+endPosition: Exposure
+difficultyLevel: 9
+showInSearchQueries: true
+recommendedPrerequisites:
   - 177
   - 206
-'variationOf': []
+variationOf: []

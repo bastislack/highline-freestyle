@@ -4,24 +4,24 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 3
-'description': 'From lying on your chest get some momentum with your free arm
-  and leg, hook the line with one foot and then roll around the line grabbing it
-  with both hands. Land back in chest.'
-'tips':
-  - 'You can wrap the foot around the line to avoid falling away from the line.
-    Alternatively, you can press it against the line from below'
-  - 'You can try this trick clipped into a hangover at first to familiarize
-    yourself with the movement.'
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://youtu.be/ksF8g5YrXY8?t=182'
-    'startTime': 182
-    'endTime': 185
-'technicalName': 'Chest Roll'
-'startPosition': 'Chest'
-'endPosition': 'Chest'
-'difficultyLevel': 1
-'showInSearchQueries': true
-'recommendedPrerequisites': []
-'variationOf': []
+id: 3
+description: From lying on your chest get some momentum with your free arm and
+  leg, hook the line with one foot and then roll around the line grabbing it
+  with both hands. Land back in chest.
+tips:
+  - You can wrap the foot around the line to avoid falling away from the line.
+    Alternatively, you can press it against the line from below
+  - You can try this trick clipped into a hangover at first to familiarize
+    yourself with the movement.
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://youtu.be/ksF8g5YrXY8?t=182
+    startTime: 182
+    endTime: 185
+technicalName: Chest Roll
+startPosition: Chest
+endPosition: Chest
+difficultyLevel: 1
+showInSearchQueries: true
+recommendedPrerequisites: []
+variationOf: []

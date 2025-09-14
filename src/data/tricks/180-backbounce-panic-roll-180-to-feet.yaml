@@ -4,21 +4,21 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 180
-'establishedBy': 'Justin Wagers'
-'yearEstablished': 2021
-'description': 'Nirvana from Backbounce.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.instagram.com/p/CSW1c4Li76j/'
-'technicalName': 'Backbounce Panic Roll 180 to Feet'
-'alias': 'Backbounce Nirvana'
-'startPosition': 'Back'
-'endPosition': 'Exposure'
-'difficultyLevel': 7
-'showInSearchQueries': false
-'recommendedPrerequisites':
+id: 180
+establishedBy: Justin Wagers
+yearEstablished: 2021
+description: Nirvana from Backbounce.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.instagram.com/p/CSW1c4Li76j/
+technicalName: Backbounce Panic Roll 180 to Feet
+alias: Backbounce Nirvana
+startPosition: Back
+endPosition: Exposure
+difficultyLevel: 7
+showInSearchQueries: false
+recommendedPrerequisites:
   - 183
-'variationOf':
+variationOf:
   - 108

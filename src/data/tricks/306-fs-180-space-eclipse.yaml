@@ -4,22 +4,22 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 306
-'establishedBy': 'Sakalomo'
-'yearEstablished': 2024
-'description': 'Do a Space Eclipse, when you kick the line rotate 180 to your
-  front side, let the line go around you and land on your feet.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.instagram.com/reel/DDHFF09Mwmp/'
-'technicalName': 'FS 180 Space Eclipse'
-'alias': 'FS Reverse Space Lord'
-'startPosition': 'Stand'
-'endPosition': 'Stand'
-'difficultyLevel': 9
-'showInSearchQueries': false
-'recommendedPrerequisites':
+id: 306
+establishedBy: Sakalomo
+yearEstablished: 2024
+description: Do a Space Eclipse, when you kick the line rotate 180 to your front
+  side, let the line go around you and land on your feet.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.instagram.com/reel/DDHFF09Mwmp/
+technicalName: FS 180 Space Eclipse
+alias: FS Reverse Space Lord
+startPosition: Stand
+endPosition: Stand
+difficultyLevel: 9
+showInSearchQueries: false
+recommendedPrerequisites:
   - 296
-'variationOf':
+variationOf:
   - 296

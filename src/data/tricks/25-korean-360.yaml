@@ -4,21 +4,20 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 25
-'description': 'From Korean you grab the line with both hands behind you and
-  then swing your far leg over the line twice to do a 360 landing back in
-  Korean.'
-'tips':
-  - 'Practice the same movement from Sofa first (= Panic).'
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.youtube.com/watch?v=12HbVhoFloM'
-'technicalName': 'Korean 360'
-'alias': 'Flow'
-'startPosition': 'Korean'
-'endPosition': 'Korean'
-'difficultyLevel': 2
-'showInSearchQueries': true
-'recommendedPrerequisites':
+id: 25
+description: From Korean you grab the line with both hands behind you and then
+  swing your far leg over the line twice to do a 360 landing back in Korean.
+tips:
+  - Practice the same movement from Sofa first (= Panic).
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.youtube.com/watch?v=12HbVhoFloM
+technicalName: Korean 360
+alias: Flow
+startPosition: Korean
+endPosition: Korean
+difficultyLevel: 2
+showInSearchQueries: true
+recommendedPrerequisites:
   - 5
-'variationOf': []
+variationOf: []

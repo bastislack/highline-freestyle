@@ -4,23 +4,23 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 9
-'establishedBy': 'Richard Schupisser'
-'description': 'From Korean swing one leg over the line and immediately after
-  you start the leg swing initiate a roll to finish as a Sofa Roll.'
-'tips':
-  - 'Be comfortable with Sofa Rolls first.'
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://youtu.be/7kZjIAVYoyY?t=161'
-    'startTime': 161
-    'endTime': 167
-'technicalName': 'Sofa Roll from Korean'
-'alias': 'Richy Roll'
-'startPosition': 'Korean'
-'endPosition': 'Sofa'
-'difficultyLevel': 2
-'showInSearchQueries': true
-'recommendedPrerequisites':
+id: 9
+establishedBy: Richard Schupisser
+description: From Korean swing one leg over the line and immediately after you
+  start the leg swing initiate a roll to finish as a Sofa Roll.
+tips:
+  - Be comfortable with Sofa Rolls first.
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://youtu.be/7kZjIAVYoyY?t=161
+    startTime: 161
+    endTime: 167
+technicalName: Sofa Roll from Korean
+alias: Richy Roll
+startPosition: Korean
+endPosition: Sofa
+difficultyLevel: 2
+showInSearchQueries: true
+recommendedPrerequisites:
   - 1
-'variationOf': []
+variationOf: []

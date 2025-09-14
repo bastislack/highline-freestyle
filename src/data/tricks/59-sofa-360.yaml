@@ -4,18 +4,18 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 59
-'description': 'From Sofa do a 360 spin by doing a 180 to Belly and another 180
-  from Belly to Sofa.'
-'tips':
-  - 'You can start by practicing the 180 from Belly to Sofa'
-  - 'You need to find your balance over the line and to land it you need to
-    stick your butt out.'
-'dateAddedEpoch': 1640995200000
-'technicalName': 'Sofa 360'
-'startPosition': 'Sofa'
-'endPosition': 'Sofa'
-'difficultyLevel': 3
-'showInSearchQueries': true
-'recommendedPrerequisites': []
-'variationOf': []
+id: 59
+description: From Sofa do a 360 spin by doing a 180 to Belly and another 180
+  from Belly to Sofa.
+tips:
+  - You can start by practicing the 180 from Belly to Sofa
+  - You need to find your balance over the line and to land it you need to stick
+    your butt out.
+dateAddedEpoch: 1640995200000
+technicalName: Sofa 360
+startPosition: Sofa
+endPosition: Sofa
+difficultyLevel: 3
+showInSearchQueries: true
+recommendedPrerequisites: []
+variationOf: []

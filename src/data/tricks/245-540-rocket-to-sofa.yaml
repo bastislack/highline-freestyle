@@ -4,20 +4,20 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 245
-'establishedBy': 'Ian Eisenberg'
-'yearEstablished': 2022
-'description': 'From Rocket, pull yourself up half-way, then initiate the spin
-  and land in Sofa.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.instagram.com/p/Ch11yrdsUEG/'
-'technicalName': '540 Rocket to Sofa'
-'startPosition': 'Rocket'
-'endPosition': 'Sofa'
-'difficultyLevel': 7
-'showInSearchQueries': false
-'recommendedPrerequisites': []
-'variationOf':
+id: 245
+establishedBy: Ian Eisenberg
+yearEstablished: 2022
+description: From Rocket, pull yourself up half-way, then initiate the spin and
+  land in Sofa.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.instagram.com/p/Ch11yrdsUEG/
+technicalName: 540 Rocket to Sofa
+startPosition: Rocket
+endPosition: Sofa
+difficultyLevel: 7
+showInSearchQueries: false
+recommendedPrerequisites: []
+variationOf:
   - 184

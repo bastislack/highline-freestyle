@@ -4,22 +4,22 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 70
-'establishedBy': 'Ian Eisenberg'
-'yearEstablished': 2020
-'description': 'From Rocket do a Reverse Rocket Mount but instead of going to
-  Feet you land in Sofa.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.youtube.com/watch?v=5rGCjINEs0Q&t=39'
-    'startTime': 39
-    'endTime': 43
-'technicalName': 'Reverse Rocket Mount to Sofa'
-'alias': 'Rock''n''Roll'
-'startPosition': 'Rocket'
-'endPosition': 'Sofa'
-'difficultyLevel': 4
-'showInSearchQueries': true
-'recommendedPrerequisites': []
-'variationOf': []
+id: 70
+establishedBy: Ian Eisenberg
+yearEstablished: 2020
+description: From Rocket do a Reverse Rocket Mount but instead of going to Feet
+  you land in Sofa.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.youtube.com/watch?v=5rGCjINEs0Q&t=39
+    startTime: 39
+    endTime: 43
+technicalName: Reverse Rocket Mount to Sofa
+alias: Rock'n'Roll
+startPosition: Rocket
+endPosition: Sofa
+difficultyLevel: 4
+showInSearchQueries: true
+recommendedPrerequisites: []
+variationOf: []

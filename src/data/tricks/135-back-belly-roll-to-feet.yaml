@@ -4,19 +4,19 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 135
-'description': 'Do a Back Belly Roll to Feet.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.youtube.com/watch?v=7yLCyoHgUS0&t=723'
-    'startTime': 723
-    'endTime': 729
-'technicalName': 'Back Belly Roll to Feet'
-'startPosition': 'Belly'
-'endPosition': 'Exposure'
-'difficultyLevel': 5
-'showInSearchQueries': false
-'recommendedPrerequisites': []
-'variationOf':
+id: 135
+description: Do a Back Belly Roll to Feet.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.youtube.com/watch?v=7yLCyoHgUS0&t=723
+    startTime: 723
+    endTime: 729
+technicalName: Back Belly Roll to Feet
+startPosition: Belly
+endPosition: Exposure
+difficultyLevel: 5
+showInSearchQueries: false
+recommendedPrerequisites: []
+variationOf:
   - 67

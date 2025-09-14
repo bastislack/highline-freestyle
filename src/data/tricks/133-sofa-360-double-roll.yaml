@@ -4,23 +4,23 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 133
-'establishedBy': 'Justin Wagers'
-'yearEstablished': 2020
-'description': 'Do a Sofa Roll 360 with an additional Back Sofa Roll in the end.'
-'tips':
-  - 'You have to be fast with the regrab.'
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://youtu.be/hsALSrUdryU?t=134'
-    'startTime': 134
-    'endTime': 139
-'technicalName': 'Sofa 360 Double Roll'
-'startPosition': 'Sofa'
-'endPosition': 'Sofa'
-'difficultyLevel': 5
-'showInSearchQueries': false
-'recommendedPrerequisites':
+id: 133
+establishedBy: Justin Wagers
+yearEstablished: 2020
+description: Do a Sofa Roll 360 with an additional Back Sofa Roll in the end.
+tips:
+  - You have to be fast with the regrab.
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://youtu.be/hsALSrUdryU?t=134
+    startTime: 134
+    endTime: 139
+technicalName: Sofa 360 Double Roll
+startPosition: Sofa
+endPosition: Sofa
+difficultyLevel: 5
+showInSearchQueries: false
+recommendedPrerequisites:
   - 29
-'variationOf':
+variationOf:
   - 29

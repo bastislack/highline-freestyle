@@ -4,21 +4,21 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 97
-'establishedBy': 'Samuel Volery'
-'description': 'From Standing, grab the line with your hands, take off your
-  front foot, and use the back foot to push yourself into the Shoulderstand.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://youtu.be/9Ab1JPDJR-I?t=234'
-    'startTime': 234
-    'endTime': 237
-'technicalName': 'Feet to Shoulder'
-'alias': 'Kamikaze'
-'startPosition': 'Stand'
-'endPosition': 'Shoulder'
-'difficultyLevel': 4
-'showInSearchQueries': true
-'recommendedPrerequisites': []
-'variationOf': []
+id: 97
+establishedBy: Samuel Volery
+description: From Standing, grab the line with your hands, take off your front
+  foot, and use the back foot to push yourself into the Shoulderstand.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://youtu.be/9Ab1JPDJR-I?t=234
+    startTime: 234
+    endTime: 237
+technicalName: Feet to Shoulder
+alias: Kamikaze
+startPosition: Stand
+endPosition: Shoulder
+difficultyLevel: 4
+showInSearchQueries: true
+recommendedPrerequisites: []
+variationOf: []

@@ -4,19 +4,19 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 5
-'description': 'From Sofa you start a 180 FS spin, grab the line on your side
-  with both hands and swing the far leg over the line to land in Korean.'
-'tips':
-  - 'Keep your center of gravity above the line.'
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.youtube.com/watch?v=12HbVhoFloM'
-'technicalName': 'Sofa 270 to Korean'
-'alias': 'Panic'
-'startPosition': 'Sofa'
-'endPosition': 'Korean'
-'difficultyLevel': 1
-'showInSearchQueries': true
-'recommendedPrerequisites': []
-'variationOf': []
+id: 5
+description: From Sofa you start a 180 FS spin, grab the line on your side with
+  both hands and swing the far leg over the line to land in Korean.
+tips:
+  - Keep your center of gravity above the line.
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.youtube.com/watch?v=12HbVhoFloM
+technicalName: Sofa 270 to Korean
+alias: Panic
+startPosition: Sofa
+endPosition: Korean
+difficultyLevel: 1
+showInSearchQueries: true
+recommendedPrerequisites: []
+variationOf: []

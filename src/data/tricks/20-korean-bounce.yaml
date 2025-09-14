@@ -4,18 +4,18 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 20
-'description': 'From standing on the line you let the line come towards your
-  body on the top of the bounce and then slide your feet off the line to land in
-  Korean.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.youtube.com/watch?v=1hPL5d3en8c'
-'technicalName': 'Korean Bounce'
-'startPosition': 'Stand'
-'endPosition': 'Korean'
-'difficultyLevel': 2
-'showInSearchQueries': true
-'recommendedPrerequisites': []
-'variationOf': []
+id: 20
+description: From standing on the line you let the line come towards your body
+  on the top of the bounce and then slide your feet off the line to land in
+  Korean.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.youtube.com/watch?v=1hPL5d3en8c
+technicalName: Korean Bounce
+startPosition: Stand
+endPosition: Korean
+difficultyLevel: 2
+showInSearchQueries: true
+recommendedPrerequisites: []
+variationOf: []

@@ -4,21 +4,21 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 23
-'description': 'From standing on the line you let the line come towards your
-  body on the top of the bounce and sit down keeping one foot on the line.'
-'tips':
-  - 'Feels like sitting down on something behind you'
-  - 'Don''t try to grab the line in case you loose the balance'
-  - 'It can help to practice Korean bounces first and then Soup bounces.'
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.youtube.com/watch?v=-xz9Ex3IE-M'
-'technicalName': 'Soup Bounce'
-'startPosition': 'Stand'
-'endPosition': 'Soup'
-'difficultyLevel': 2
-'showInSearchQueries': true
-'recommendedPrerequisites':
+id: 23
+description: From standing on the line you let the line come towards your body
+  on the top of the bounce and sit down keeping one foot on the line.
+tips:
+  - Feels like sitting down on something behind you
+  - Don't try to grab the line in case you loose the balance
+  - It can help to practice Korean bounces first and then Soup bounces.
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.youtube.com/watch?v=-xz9Ex3IE-M
+technicalName: Soup Bounce
+startPosition: Stand
+endPosition: Soup
+difficultyLevel: 2
+showInSearchQueries: true
+recommendedPrerequisites:
   - 20
-'variationOf': []
+variationOf: []

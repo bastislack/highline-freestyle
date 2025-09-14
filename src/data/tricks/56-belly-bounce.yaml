@@ -4,15 +4,15 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 56
-'description': 'From Exposure let the line come towards your body and grab the
-  line with both hands then slide your feet off to land in Belly.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'technicalName': 'Belly Bounce'
-'startPosition': 'Exposure'
-'endPosition': 'Belly'
-'difficultyLevel': 3
-'showInSearchQueries': true
-'recommendedPrerequisites': []
-'variationOf': []
+id: 56
+description: From Exposure let the line come towards your body and grab the line
+  with both hands then slide your feet off to land in Belly.
+tips: []
+dateAddedEpoch: 1640995200000
+technicalName: Belly Bounce
+startPosition: Exposure
+endPosition: Belly
+difficultyLevel: 3
+showInSearchQueries: true
+recommendedPrerequisites: []
+variationOf: []

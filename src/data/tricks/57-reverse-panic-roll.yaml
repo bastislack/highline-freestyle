@@ -4,17 +4,17 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 57
-'description': 'From Korean you do a 270 BS spin to the front and then go into a
-  Front Sofa Roll.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'technicalName': 'Reverse Panic Roll'
-'startPosition': 'Korean'
-'endPosition': 'Sofa'
-'difficultyLevel': 3
-'showInSearchQueries': false
-'recommendedPrerequisites':
+id: 57
+description: From Korean you do a 270 BS spin to the front and then go into a
+  Front Sofa Roll.
+tips: []
+dateAddedEpoch: 1640995200000
+technicalName: Reverse Panic Roll
+startPosition: Korean
+endPosition: Sofa
+difficultyLevel: 3
+showInSearchQueries: false
+recommendedPrerequisites:
   - 7
-'variationOf':
+variationOf:
   - 7

@@ -4,21 +4,21 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 108
-'establishedBy': 'Lukas Irmler'
-'yearEstablished': 2018
-'description': 'From Backbounce go into the Panic Roll to Feet.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://youtu.be/Se5XNo0RSP8?t=437'
-    'startTime': 437
-    'endTime': 441
-'technicalName': 'Backbounce Panic Roll to Feet'
-'startPosition': 'Back'
-'endPosition': 'Exposure'
-'difficultyLevel': 6
-'showInSearchQueries': true
-'recommendedPrerequisites':
+id: 108
+establishedBy: Lukas Irmler
+yearEstablished: 2018
+description: From Backbounce go into the Panic Roll to Feet.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://youtu.be/Se5XNo0RSP8?t=437
+    startTime: 437
+    endTime: 441
+technicalName: Backbounce Panic Roll to Feet
+startPosition: Back
+endPosition: Exposure
+difficultyLevel: 6
+showInSearchQueries: true
+recommendedPrerequisites:
   - 98
-'variationOf': []
+variationOf: []

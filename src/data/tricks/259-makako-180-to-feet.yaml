@@ -4,24 +4,23 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 259
-'establishedBy': 'Sakalomo'
-'yearEstablished': 2022
-'description': 'From Nevermind start with the normal Makako motion but as soon
-  as you regrab the line with your hands, do an additional 180 before coming
-  back to Exposure. The last part of the trick is like a Darth Vader, hence the
-  name.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://youtu.be/Ej2ocABoNC4?t=21781'
-    'startTime': 21781
-    'endTime': 21788
-'technicalName': 'Makako 180 to Feet'
-'alias': 'Darthkako'
-'startPosition': 'Nevermind'
-'endPosition': 'Exposure'
-'showInSearchQueries': false
-'recommendedPrerequisites': []
-'variationOf':
+id: 259
+establishedBy: Sakalomo
+yearEstablished: 2022
+description: From Nevermind start with the normal Makako motion but as soon as
+  you regrab the line with your hands, do an additional 180 before coming back
+  to Exposure. The last part of the trick is like a Darth Vader, hence the name.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://youtu.be/Ej2ocABoNC4?t=21781
+    startTime: 21781
+    endTime: 21788
+technicalName: Makako 180 to Feet
+alias: Darthkako
+startPosition: Nevermind
+endPosition: Exposure
+showInSearchQueries: false
+recommendedPrerequisites: []
+variationOf:
   - 211

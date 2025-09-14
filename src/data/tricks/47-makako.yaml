@@ -4,19 +4,19 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 47
-'establishedBy': 'Sakalomo'
-'yearEstablished': 2021
-'description': 'Hang in Nevermind, thread the leg that is free through your leg
-  and the closer arm and kick through to go to a Back Belly Roll.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://youtu.be/44gWgvZrso4'
-'technicalName': 'Makako'
-'startPosition': 'Nevermind'
-'endPosition': 'Belly'
-'difficultyLevel': 3
-'showInSearchQueries': true
-'recommendedPrerequisites': []
-'variationOf': []
+id: 47
+establishedBy: Sakalomo
+yearEstablished: 2021
+description: Hang in Nevermind, thread the leg that is free through your leg and
+  the closer arm and kick through to go to a Back Belly Roll.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://youtu.be/44gWgvZrso4
+technicalName: Makako
+startPosition: Nevermind
+endPosition: Belly
+difficultyLevel: 3
+showInSearchQueries: true
+recommendedPrerequisites: []
+variationOf: []

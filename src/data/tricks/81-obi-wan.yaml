@@ -4,17 +4,17 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 81
-'description': 'Similar to Rocket Mount. Instead of putting both feet between
-  your hands, put one foot outside of your hands, then put the second foot
-  between the hands to land in Exposure.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'technicalName': 'Obi Wan'
-'startPosition': 'Rocket'
-'endPosition': 'Stand'
-'difficultyLevel': 5
-'showInSearchQueries': false
-'recommendedPrerequisites': []
-'variationOf':
+id: 81
+description: Similar to Rocket Mount. Instead of putting both feet between your
+  hands, put one foot outside of your hands, then put the second foot between
+  the hands to land in Exposure.
+tips: []
+dateAddedEpoch: 1640995200000
+technicalName: Obi Wan
+startPosition: Rocket
+endPosition: Stand
+difficultyLevel: 5
+showInSearchQueries: false
+recommendedPrerequisites: []
+variationOf:
   - 99

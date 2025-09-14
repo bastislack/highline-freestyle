@@ -4,22 +4,22 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 248
-'establishedBy': 'Justin Wagers'
-'yearEstablished': 2022
-'description': 'Start with a Shrimpflip, let go with one hand to initiate the
-  180 and finish with an Antihero, landing in Sofa.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.instagram.com/p/CaPmmmsl1e3/'
-'technicalName': 'Shrimpflip 180 to Antihero'
-'alias': 'Shrimpy Hero'
-'startPosition': 'Rocket'
-'endPosition': 'Sofa'
-'difficultyLevel': 7
-'showInSearchQueries': false
-'recommendedPrerequisites': []
-'variationOf':
+id: 248
+establishedBy: Justin Wagers
+yearEstablished: 2022
+description: Start with a Shrimpflip, let go with one hand to initiate the 180
+  and finish with an Antihero, landing in Sofa.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.instagram.com/p/CaPmmmsl1e3/
+technicalName: Shrimpflip 180 to Antihero
+alias: Shrimpy Hero
+startPosition: Rocket
+endPosition: Sofa
+difficultyLevel: 7
+showInSearchQueries: false
+recommendedPrerequisites: []
+variationOf:
   - 40
   - 71

@@ -4,22 +4,22 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 101
-'establishedBy': 'Domingo Capo'
-'yearEstablished': 2021
-'description': 'From Double Drop Knee do a Double Drop Knee Roll and stand up to
-  land in Exposure.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://youtu.be/7yLCyoHgUS0?t=1767'
-    'startTime': 1767
-    'endTime': 1772
-'technicalName': 'Double Drop Knee Roll to Feet'
-'startPosition': 'Double Drop Knee'
-'endPosition': 'Exposure'
-'difficultyLevel': 5
-'showInSearchQueries': false
-'recommendedPrerequisites': []
-'variationOf':
+id: 101
+establishedBy: Domingo Capo
+yearEstablished: 2021
+description: From Double Drop Knee do a Double Drop Knee Roll and stand up to
+  land in Exposure.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://youtu.be/7yLCyoHgUS0?t=1767
+    startTime: 1767
+    endTime: 1772
+technicalName: Double Drop Knee Roll to Feet
+startPosition: Double Drop Knee
+endPosition: Exposure
+difficultyLevel: 5
+showInSearchQueries: false
+recommendedPrerequisites: []
+variationOf:
   - 96

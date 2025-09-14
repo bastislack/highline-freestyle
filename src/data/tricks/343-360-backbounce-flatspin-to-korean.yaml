@@ -4,21 +4,21 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 343
-'establishedBy': 'Gon Caturelli'
-'yearEstablished': 2023
-'description': 'From Back grab the line behind your head and do a 360 flatspin
-  to end in Korean.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.instagram.com/reel/Cq8MTfKum12/'
-'technicalName': '360 Backbounce Flatspin to Korean'
-'alias': 'Tortuga Koreana'
-'startPosition': 'Back'
-'endPosition': 'Korean'
-'difficultyLevel': 6
-'showInSearchQueries': true
-'recommendedPrerequisites':
+id: 343
+establishedBy: Gon Caturelli
+yearEstablished: 2023
+description: From Back grab the line behind your head and do a 360 flatspin to
+  end in Korean.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.instagram.com/reel/Cq8MTfKum12/
+technicalName: 360 Backbounce Flatspin to Korean
+alias: Tortuga Koreana
+startPosition: Back
+endPosition: Korean
+difficultyLevel: 6
+showInSearchQueries: true
+recommendedPrerequisites:
   - 341
-'variationOf': []
+variationOf: []

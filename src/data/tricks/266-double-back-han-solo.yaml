@@ -4,20 +4,19 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 266
-'establishedBy': 'Tim Odermatt'
-'yearEstablished': 2022
-'description': 'Similar to a Double Back Yoda Roll but grabbing the leash
-  instead of the line.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.instagram.com/p/CejUEcrlg2K/'
-'technicalName': 'Double Back Han Solo'
-'startPosition': 'Exposure'
-'endPosition': 'Exposure'
-'difficultyLevel': 8
-'showInSearchQueries': true
-'recommendedPrerequisites':
+id: 266
+establishedBy: Tim Odermatt
+yearEstablished: 2022
+description: Similar to a Double Back Yoda Roll but grabbing the leash instead of the line.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.instagram.com/p/CejUEcrlg2K/
+technicalName: Double Back Han Solo
+startPosition: Exposure
+endPosition: Exposure
+difficultyLevel: 8
+showInSearchQueries: true
+recommendedPrerequisites:
   - 200
-'variationOf': []
+variationOf: []

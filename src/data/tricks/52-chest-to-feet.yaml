@@ -4,17 +4,17 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 52
-'description': 'From Chest you push the line down with one arm and the back foot
-  in order to put your front foot on the line.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.youtube.com/watch?v=Z11fkcCv_Qo'
-'technicalName': 'Chest to Feet'
-'startPosition': 'Chest'
-'endPosition': 'Stand'
-'difficultyLevel': 3
-'showInSearchQueries': true
-'recommendedPrerequisites': []
-'variationOf': []
+id: 52
+description: From Chest you push the line down with one arm and the back foot in
+  order to put your front foot on the line.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.youtube.com/watch?v=Z11fkcCv_Qo
+technicalName: Chest to Feet
+startPosition: Chest
+endPosition: Stand
+difficultyLevel: 3
+showInSearchQueries: true
+recommendedPrerequisites: []
+variationOf: []

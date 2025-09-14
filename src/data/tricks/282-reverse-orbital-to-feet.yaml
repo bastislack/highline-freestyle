@@ -4,19 +4,19 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 282
-'establishedBy': 'Sakalomo'
-'yearEstablished': 2023
-'description': 'Just like an orbital to feet but throw the line from behind to the front.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.instagram.com/reel/CnPMRSyDbqI/'
-'technicalName': 'Reverse Orbital to Feet'
-'alias': 'Eclipse'
-'startPosition': 'Stand'
-'endPosition': 'Stand'
-'difficultyLevel': 8
-'showInSearchQueries': true
-'recommendedPrerequisites': []
-'variationOf': []
+id: 282
+establishedBy: Sakalomo
+yearEstablished: 2023
+description: Just like an orbital to feet but throw the line from behind to the front.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.instagram.com/reel/CnPMRSyDbqI/
+technicalName: Reverse Orbital to Feet
+alias: Eclipse
+startPosition: Stand
+endPosition: Stand
+difficultyLevel: 8
+showInSearchQueries: true
+recommendedPrerequisites: []
+variationOf: []

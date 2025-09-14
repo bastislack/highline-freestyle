@@ -4,22 +4,22 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 49
-'description': 'From Sofa lift one foot up on the line, remove the hand on the
-  same side to help you balance and then press the line down with this foot and
-  the other hand to get the second foot up.'
-'tips':
-  - 'You might need to shift your weight to the opposite side of the foot you
-    are trying to get onto the line'
-  - 'If you have access to a rodeoline with mats, this is a trick you can
-    practice there first.'
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.youtube.com/watch?v=_CqGa-iBrHE'
-'technicalName': 'Sofa to Feet'
-'startPosition': 'Sofa'
-'endPosition': 'Exposure'
-'difficultyLevel': 3
-'showInSearchQueries': true
-'recommendedPrerequisites': []
-'variationOf': []
+id: 49
+description: From Sofa lift one foot up on the line, remove the hand on the same
+  side to help you balance and then press the line down with this foot and the
+  other hand to get the second foot up.
+tips:
+  - You might need to shift your weight to the opposite side of the foot you are
+    trying to get onto the line
+  - If you have access to a rodeoline with mats, this is a trick you can
+    practice there first.
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.youtube.com/watch?v=_CqGa-iBrHE
+technicalName: Sofa to Feet
+startPosition: Sofa
+endPosition: Exposure
+difficultyLevel: 3
+showInSearchQueries: true
+recommendedPrerequisites: []
+variationOf: []

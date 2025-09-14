@@ -4,21 +4,21 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 215
-'establishedBy': 'Samuel Volery'
-'yearEstablished': 2021
-'description': 'From Rocket get a lot of momentum with your feet and do one roll
-  backwards around the line and land in Exposure.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.youtube.com/watch?v=EntnbHe_biY'
-'technicalName': 'Reverse Supersonic'
-'startPosition': 'Rocket'
-'endPosition': 'Exposure'
-'showInSearchQueries': false
-'recommendedPrerequisites':
+id: 215
+establishedBy: Samuel Volery
+yearEstablished: 2021
+description: From Rocket get a lot of momentum with your feet and do one roll
+  backwards around the line and land in Exposure.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.youtube.com/watch?v=EntnbHe_biY
+technicalName: Reverse Supersonic
+startPosition: Rocket
+endPosition: Exposure
+showInSearchQueries: false
+recommendedPrerequisites:
   - 135
   - 158
-'variationOf':
+variationOf:
   - 199

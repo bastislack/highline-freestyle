@@ -4,24 +4,24 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 90
-'establishedBy': 'Sebastian Egger'
-'yearEstablished': 2021
-'description': 'Start as you would for a Nevermind but then use your foot that
-  is in contact with the line to initiate a FS spin and do a 180 before you land
-  in Exposure.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://youtu.be/Ej2ocABoNC4?t=22796'
-    'startTime': 22796
-    'endTime': 22802
-'technicalName': 'FS 180 Nevermind'
-'startPosition': 'Nevermind'
-'endPosition': 'Exposure'
-'difficultyLevel': 5
-'showInSearchQueries': false
-'recommendedPrerequisites':
+id: 90
+establishedBy: Sebastian Egger
+yearEstablished: 2021
+description: Start as you would for a Nevermind but then use your foot that is
+  in contact with the line to initiate a FS spin and do a 180 before you land in
+  Exposure.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://youtu.be/Ej2ocABoNC4?t=22796
+    startTime: 22796
+    endTime: 22802
+technicalName: FS 180 Nevermind
+startPosition: Nevermind
+endPosition: Exposure
+difficultyLevel: 5
+showInSearchQueries: false
+recommendedPrerequisites:
   - 62
-'variationOf':
+variationOf:
   - 62

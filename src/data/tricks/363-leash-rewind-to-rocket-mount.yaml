@@ -4,25 +4,25 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 363
-'establishedBy': 'Sebastian Egger'
-'yearEstablished': 2025
-'description': 'You drop to a leashfall and in the bottom of the bounce you wind
+id: 363
+establishedBy: Sebastian Egger
+yearEstablished: 2025
+description: You drop to a leashfall and in the bottom of the bounce you wind
   yourself up in the leash then unwind again and use the momentum to get back up
-  to the line. Finish in Expo.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.youtube.com/watch?v=r6hcjIbrbr8&t=300s'
-    'startTime': 300
-    'endTime': 312
-'technicalName': 'Leash Rewind to Rocket Mount'
-'alias': 'Yo-Yo Rewind'
-'startPosition': 'Leash'
-'endPosition': 'Exposure'
-'difficultyLevel': 8
-'showInSearchQueries': false
-'recommendedPrerequisites':
+  to the line. Finish in Expo.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.youtube.com/watch?v=r6hcjIbrbr8&t=300s
+    startTime: 300
+    endTime: 312
+technicalName: Leash Rewind to Rocket Mount
+alias: Yo-Yo Rewind
+startPosition: Leash
+endPosition: Exposure
+difficultyLevel: 8
+showInSearchQueries: false
+recommendedPrerequisites:
   - 166
-'variationOf':
+variationOf:
   - 166

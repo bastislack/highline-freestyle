@@ -4,16 +4,16 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 121
-'description': 'From Shoulder push yourself forward to roll over your back and
-  land on your Feet.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'technicalName': 'Frontroll to Feet'
-'startPosition': 'Shoulder'
-'endPosition': 'Stand'
-'difficultyLevel': 6
-'showInSearchQueries': true
-'recommendedPrerequisites':
+id: 121
+description: From Shoulder push yourself forward to roll over your back and land
+  on your Feet.
+tips: []
+dateAddedEpoch: 1640995200000
+technicalName: Frontroll to Feet
+startPosition: Shoulder
+endPosition: Stand
+difficultyLevel: 6
+showInSearchQueries: true
+recommendedPrerequisites:
   - 46
-'variationOf': []
+variationOf: []

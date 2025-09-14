@@ -4,23 +4,23 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 148
-'establishedBy': 'Axel Weber'
-'yearEstablished': 2021
-'description': 'Double Sofa Roll landing in Exposure.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://youtu.be/9Ab1JPDJR-I?t=250'
-    'startTime': 250
-    'endTime': 254
-'technicalName': 'Double Sofa Roll to Feet'
-'alias': 'Tamatta Roll'
-'startPosition': 'Sofa'
-'endPosition': 'Exposure'
-'difficultyLevel': 6
-'showInSearchQueries': false
-'recommendedPrerequisites':
+id: 148
+establishedBy: Axel Weber
+yearEstablished: 2021
+description: Double Sofa Roll landing in Exposure.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://youtu.be/9Ab1JPDJR-I?t=250
+    startTime: 250
+    endTime: 254
+technicalName: Double Sofa Roll to Feet
+alias: Tamatta Roll
+startPosition: Sofa
+endPosition: Exposure
+difficultyLevel: 6
+showInSearchQueries: false
+recommendedPrerequisites:
   - 83
-'variationOf':
+variationOf:
   - 83

@@ -4,21 +4,21 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 334
-'establishedBy': 'Tim Odermatt'
-'yearEstablished': 2023
-'description': 'Do an early Front Yoda Roll and then rewind it but add a 180.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.instagram.com/reel/CzG-hrAskPz/'
-'technicalName': '180 Front Yoda Rewind'
-'alias': '180 Yoda Rewind'
-'startPosition': 'Exposure'
-'endPosition': 'Exposure'
-'difficultyLevel': 8
-'showInSearchQueries': false
-'recommendedPrerequisites':
+id: 334
+establishedBy: Tim Odermatt
+yearEstablished: 2023
+description: Do an early Front Yoda Roll and then rewind it but add a 180.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.instagram.com/reel/CzG-hrAskPz/
+technicalName: 180 Front Yoda Rewind
+alias: 180 Yoda Rewind
+startPosition: Exposure
+endPosition: Exposure
+difficultyLevel: 8
+showInSearchQueries: false
+recommendedPrerequisites:
   - 192
-'variationOf':
+variationOf:
   - 192

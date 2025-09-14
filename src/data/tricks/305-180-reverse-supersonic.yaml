@@ -4,21 +4,21 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 305
-'establishedBy': 'Samuel Volery'
-'yearEstablished': 2023
-'description': 'From Rocket you immediately spin 180 and regrab the line and
-  then finish with a Reverse Supersonic.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.instagram.com/p/CvuP3_usiQD/'
-'technicalName': '180 Reverse Supersonic'
-'startPosition': 'Rocket'
-'endPosition': 'Exposure'
-'difficultyLevel': 8
-'showInSearchQueries': false
-'recommendedPrerequisites':
+id: 305
+establishedBy: Samuel Volery
+yearEstablished: 2023
+description: From Rocket you immediately spin 180 and regrab the line and then
+  finish with a Reverse Supersonic.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.instagram.com/p/CvuP3_usiQD/
+technicalName: 180 Reverse Supersonic
+startPosition: Rocket
+endPosition: Exposure
+difficultyLevel: 8
+showInSearchQueries: false
+recommendedPrerequisites:
   - 215
-'variationOf':
+variationOf:
   - 215

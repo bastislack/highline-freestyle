@@ -4,20 +4,20 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 352
-'establishedBy': 'Ian Eisenberg'
-'yearEstablished': 2024
-'description': 'Shoulder Vader with an extra roll.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.instagram.com/p/DGTgGw4sJyp/'
-'technicalName': 'Double Shoulder Vader'
-'startPosition': 'Shoulder'
-'endPosition': 'Exposure'
-'difficultyLevel': 9
-'showInSearchQueries': true
-'recommendedPrerequisites':
+id: 352
+establishedBy: Ian Eisenberg
+yearEstablished: 2024
+description: Shoulder Vader with an extra roll.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.instagram.com/p/DGTgGw4sJyp/
+technicalName: Double Shoulder Vader
+startPosition: Shoulder
+endPosition: Exposure
+difficultyLevel: 9
+showInSearchQueries: true
+recommendedPrerequisites:
   - 206
   - 292
-'variationOf': []
+variationOf: []

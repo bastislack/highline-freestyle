@@ -4,21 +4,21 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 137
-'description': 'From Backbounce perform a Richy Roll but land it to Feet.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.youtube.com/watch?v=uuFlRIMmP8M&t=260'
-    'startTime': 260
-    'endTime': 264
-'technicalName': 'Backbounce Richy Roll to Feet'
-'startPosition': 'Back'
-'endPosition': 'Exposure'
-'difficultyLevel': 5
-'showInSearchQueries': false
-'recommendedPrerequisites':
+id: 137
+description: From Backbounce perform a Richy Roll but land it to Feet.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.youtube.com/watch?v=uuFlRIMmP8M&t=260
+    startTime: 260
+    endTime: 264
+technicalName: Backbounce Richy Roll to Feet
+startPosition: Back
+endPosition: Exposure
+difficultyLevel: 5
+showInSearchQueries: false
+recommendedPrerequisites:
   - 91
   - 92
-'variationOf':
+variationOf:
   - 91

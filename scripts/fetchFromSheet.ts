@@ -303,7 +303,7 @@ await Promise.all(
 
 function createContentForEntity(data: unknown) {
   const yamlContent = stringify(data, {
-    defaultStringType: 'QUOTE_SINGLE',
+    singleQuote: true,
   });
   const preamble = `This file has been generated automatically. The data here is backed by a Google Sheet.
   Do not change this by hand, as any changes will be overwritten the next time the

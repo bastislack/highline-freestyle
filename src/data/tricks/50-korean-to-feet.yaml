@@ -4,23 +4,23 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 50
-'description': 'From Korean you get both feet on top of the line at the same
-  time followed by a Sit Mount in the same bounce or you put one foot on the
-  line followed by a Soup to Feet in the same bounce.'
-'tips':
-  - 'Depending on your preferred variation, practice Sit to Feet or Soup to Feet
+id: 50
+description: From Korean you get both feet on top of the line at the same time
+  followed by a Sit Mount in the same bounce or you put one foot on the line
+  followed by a Soup to Feet in the same bounce.
+tips:
+  - Depending on your preferred variation, practice Sit to Feet or Soup to Feet
     first and then korean to feet will be a natural upgrade when you have the
-    former solid enough.'
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.youtube.com/watch?v=1hPL5d3en8c'
-'technicalName': 'Korean to Feet'
-'startPosition': 'Korean'
-'endPosition': 'Stand'
-'difficultyLevel': 3
-'showInSearchQueries': true
-'recommendedPrerequisites':
+    former solid enough.
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.youtube.com/watch?v=1hPL5d3en8c
+technicalName: Korean to Feet
+startPosition: Korean
+endPosition: Stand
+difficultyLevel: 3
+showInSearchQueries: true
+recommendedPrerequisites:
   - 19
   - 22
-'variationOf': []
+variationOf: []

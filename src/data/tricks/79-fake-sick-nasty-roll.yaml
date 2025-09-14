@@ -4,20 +4,20 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 79
-'description': 'Sick Nasty Roll but starting from Korean.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://youtu.be/hsALSrUdryU?t=153'
-    'startTime': 153
-    'endTime': 157
-'technicalName': 'Fake Sick Nasty Roll'
-'startPosition': 'Korean'
-'endPosition': 'Sofa'
-'difficultyLevel': 4
-'showInSearchQueries': false
-'recommendedPrerequisites':
+id: 79
+description: Sick Nasty Roll but starting from Korean.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://youtu.be/hsALSrUdryU?t=153
+    startTime: 153
+    endTime: 157
+technicalName: Fake Sick Nasty Roll
+startPosition: Korean
+endPosition: Sofa
+difficultyLevel: 4
+showInSearchQueries: false
+recommendedPrerequisites:
   - 63
-'variationOf':
+variationOf:
   - 76

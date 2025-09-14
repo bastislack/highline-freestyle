@@ -4,19 +4,19 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 58
-'description': 'From Korean initiate a 360 BS spin to the front and
-  simultaneously start a roll backwards, spin for a full 360 to land back in
-  Korean after the roll is finished.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'technicalName': 'Reverse Flowflip'
-'alias': 'Wolf Flip'
-'startPosition': 'Korean'
-'endPosition': 'Korean'
-'difficultyLevel': 4
-'showInSearchQueries': false
-'recommendedPrerequisites':
+id: 58
+description: From Korean initiate a 360 BS spin to the front and simultaneously
+  start a roll backwards, spin for a full 360 to land back in Korean after the
+  roll is finished.
+tips: []
+dateAddedEpoch: 1640995200000
+technicalName: Reverse Flowflip
+alias: Wolf Flip
+startPosition: Korean
+endPosition: Korean
+difficultyLevel: 4
+showInSearchQueries: false
+recommendedPrerequisites:
   - 12
-'variationOf':
+variationOf:
   - 12

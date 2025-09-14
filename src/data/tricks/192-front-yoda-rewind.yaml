@@ -4,24 +4,24 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 192
-'establishedBy': 'Sebastian Egger'
-'yearEstablished': 2021
-'description': 'It''s almost a Front Yoda Roll and a Back Yoda Roll in the same
+id: 192
+establishedBy: Sebastian Egger
+yearEstablished: 2021
+description: It's almost a Front Yoda Roll and a Back Yoda Roll in the same
   bounce. Start at the very bottom of the bounce with a Front Yoda Roll so the
   line snaps up and after around three quarters of rotation you have some
-  resistance of the line to push off of into the Back Yoda Roll.'
-'tips':
-  - 'Start a lot earlier than you would for most tricks.'
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://youtu.be/aAq4Tf8naOM?t=135'
-    'startTime': 135
-    'endTime': 139
-'technicalName': 'Front Yoda Rewind'
-'startPosition': 'Exposure'
-'endPosition': 'Exposure'
-'difficultyLevel': 8
-'showInSearchQueries': true
-'recommendedPrerequisites': []
-'variationOf': []
+  resistance of the line to push off of into the Back Yoda Roll.
+tips:
+  - Start a lot earlier than you would for most tricks.
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://youtu.be/aAq4Tf8naOM?t=135
+    startTime: 135
+    endTime: 139
+technicalName: Front Yoda Rewind
+startPosition: Exposure
+endPosition: Exposure
+difficultyLevel: 8
+showInSearchQueries: true
+recommendedPrerequisites: []
+variationOf: []

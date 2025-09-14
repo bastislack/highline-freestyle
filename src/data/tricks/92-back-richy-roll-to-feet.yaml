@@ -4,17 +4,17 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 92
-'description': 'Back Sofa Roll to Feet but starting from Korean so you have to
-  swing one leg over the line first.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'technicalName': 'Back Richy Roll to Feet'
-'startPosition': 'Korean'
-'endPosition': 'Exposure'
-'difficultyLevel': 5
-'showInSearchQueries': false
-'recommendedPrerequisites':
+id: 92
+description: Back Sofa Roll to Feet but starting from Korean so you have to
+  swing one leg over the line first.
+tips: []
+dateAddedEpoch: 1640995200000
+technicalName: Back Richy Roll to Feet
+startPosition: Korean
+endPosition: Exposure
+difficultyLevel: 5
+showInSearchQueries: false
+recommendedPrerequisites:
   - 84
-'variationOf':
+variationOf:
   - 91

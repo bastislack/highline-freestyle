@@ -4,23 +4,23 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 28
-'description': 'From Backbounce get back up into Korean and in one fluid motion
-  kick one leg over the line to go into a Sofa Roll.'
-'tips':
-  - 'Start the motion of getting up from Backbounce to Korean really early in
-    the upward motion of the line.'
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.youtube.com/watch?v=uuFlRIMmP8M&t=199'
-    'startTime': 199
-    'endTime': 203
-'technicalName': 'Backbounce Richy Roll'
-'startPosition': 'Back'
-'endPosition': 'Sofa'
-'difficultyLevel': 3
-'showInSearchQueries': false
-'recommendedPrerequisites':
+id: 28
+description: From Backbounce get back up into Korean and in one fluid motion
+  kick one leg over the line to go into a Sofa Roll.
+tips:
+  - Start the motion of getting up from Backbounce to Korean really early in the
+    upward motion of the line.
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.youtube.com/watch?v=uuFlRIMmP8M&t=199
+    startTime: 199
+    endTime: 203
+technicalName: Backbounce Richy Roll
+startPosition: Back
+endPosition: Sofa
+difficultyLevel: 3
+showInSearchQueries: false
+recommendedPrerequisites:
   - 9
-'variationOf':
+variationOf:
   - 9

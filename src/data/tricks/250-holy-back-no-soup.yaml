@@ -4,19 +4,19 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 250
-'establishedBy': 'Justin Wagers'
-'yearEstablished': 2022
-'description': 'NH Back Can of Soup to Back Yoda Roll in one bounce.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.instagram.com/p/CgMeLKqogmm/'
-'technicalName': 'Holy Back No Soup'
-'startPosition': 'Soup'
-'endPosition': 'Exposure'
-'difficultyLevel': 8
-'showInSearchQueries': false
-'recommendedPrerequisites': []
-'variationOf':
+id: 250
+establishedBy: Justin Wagers
+yearEstablished: 2022
+description: NH Back Can of Soup to Back Yoda Roll in one bounce.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.instagram.com/p/CgMeLKqogmm/
+technicalName: Holy Back No Soup
+startPosition: Soup
+endPosition: Exposure
+difficultyLevel: 8
+showInSearchQueries: false
+recommendedPrerequisites: []
+variationOf:
   - 223

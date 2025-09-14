@@ -4,24 +4,23 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 104
-'establishedBy': 'Guillaume Fontaine'
-'yearEstablished': 2017
-'description': 'From Standing grab the line as in a Kamikaze, but then roll over
-  your back and land in Korean.'
-'tips':
-  - 'Thread your arm through the leash so it is not wrapped around your
-    shoulder.'
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://youtu.be/n2z3IyeQSj4?t=41'
-    'startTime': 41
-    'endTime': 44
-'technicalName': 'Front Roll from Feet'
-'alias': 'Frontflop'
-'startPosition': 'Stand'
-'endPosition': 'Korean'
-'difficultyLevel': 5
-'showInSearchQueries': true
-'recommendedPrerequisites': []
-'variationOf': []
+id: 104
+establishedBy: Guillaume Fontaine
+yearEstablished: 2017
+description: From Standing grab the line as in a Kamikaze, but then roll over
+  your back and land in Korean.
+tips:
+  - Thread your arm through the leash so it is not wrapped around your shoulder.
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://youtu.be/n2z3IyeQSj4?t=41
+    startTime: 41
+    endTime: 44
+technicalName: Front Roll from Feet
+alias: Frontflop
+startPosition: Stand
+endPosition: Korean
+difficultyLevel: 5
+showInSearchQueries: true
+recommendedPrerequisites: []
+variationOf: []

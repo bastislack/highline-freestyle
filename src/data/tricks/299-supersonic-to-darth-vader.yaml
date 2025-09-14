@@ -4,21 +4,21 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 299
-'establishedBy': 'Ian Eisenberg'
-'yearEstablished': 2023
-'description': 'Supersonic to Darth Vader... Not much else to say here, go hard!'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.instagram.com/p/CuPrkp_Psrw/'
-'technicalName': 'Supersonic to Darth Vader'
-'alias': 'Supervader'
-'startPosition': 'Rocket'
-'endPosition': 'Exposure'
-'difficultyLevel': 9
-'showInSearchQueries': true
-'recommendedPrerequisites':
+id: 299
+establishedBy: Ian Eisenberg
+yearEstablished: 2023
+description: Supersonic to Darth Vader... Not much else to say here, go hard!
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.instagram.com/p/CuPrkp_Psrw/
+technicalName: Supersonic to Darth Vader
+alias: Supervader
+startPosition: Rocket
+endPosition: Exposure
+difficultyLevel: 9
+showInSearchQueries: true
+recommendedPrerequisites:
   - 199
   - 224
-'variationOf': []
+variationOf: []

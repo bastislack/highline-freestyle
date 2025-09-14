@@ -4,21 +4,21 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 325
-'establishedBy': 'Tim Odermatt'
-'yearEstablished': 2023
-'description': 'Do a 180 from Exposure while grabbing the leash, then finish with a Han Solo.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://youtu.be/KK-vnfFmwyc?t=232'
-    'startTime': 232
-    'endTime': 236
-'technicalName': '180 Han Solo'
-'startPosition': 'Exposure'
-'endPosition': 'Exposure'
-'difficultyLevel': 7
-'showInSearchQueries': true
-'recommendedPrerequisites':
+id: 325
+establishedBy: Tim Odermatt
+yearEstablished: 2023
+description: Do a 180 from Exposure while grabbing the leash, then finish with a Han Solo.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://youtu.be/KK-vnfFmwyc?t=232
+    startTime: 232
+    endTime: 236
+technicalName: 180 Han Solo
+startPosition: Exposure
+endPosition: Exposure
+difficultyLevel: 7
+showInSearchQueries: true
+recommendedPrerequisites:
   - 179
-'variationOf': []
+variationOf: []

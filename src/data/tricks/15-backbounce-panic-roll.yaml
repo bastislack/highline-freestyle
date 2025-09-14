@@ -4,19 +4,19 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 15
-'description': 'From Backbounce swing one leg to other side and then perform a
-  Panic Roll in the opposite direction.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.youtube.com/watch?v=LPsuhcOZd0Q'
-'technicalName': 'Backbounce Panic Roll'
-'startPosition': 'Back'
-'endPosition': 'Korean'
-'difficultyLevel': 3
-'showInSearchQueries': false
-'recommendedPrerequisites':
+id: 15
+description: From Backbounce swing one leg to other side and then perform a
+  Panic Roll in the opposite direction.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.youtube.com/watch?v=LPsuhcOZd0Q
+technicalName: Backbounce Panic Roll
+startPosition: Back
+endPosition: Korean
+difficultyLevel: 3
+showInSearchQueries: false
+recommendedPrerequisites:
   - 7
-'variationOf':
+variationOf:
   - 7

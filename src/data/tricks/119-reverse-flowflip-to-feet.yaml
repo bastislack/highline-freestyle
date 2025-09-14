@@ -4,21 +4,21 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 119
-'establishedBy': 'Ian Eisenberg'
-'yearEstablished': 2022
-'description': 'Reverse Flowflip to Feet.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.instagram.com/p/CfrFKq2tP0m/'
-'technicalName': 'Reverse Flowflip to Feet'
-'alias': 'Wolf Flip to Feet'
-'startPosition': 'Korean'
-'endPosition': 'Stand'
-'difficultyLevel': 6
-'showInSearchQueries': false
-'recommendedPrerequisites':
+id: 119
+establishedBy: Ian Eisenberg
+yearEstablished: 2022
+description: Reverse Flowflip to Feet.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.instagram.com/p/CfrFKq2tP0m/
+technicalName: Reverse Flowflip to Feet
+alias: Wolf Flip to Feet
+startPosition: Korean
+endPosition: Stand
+difficultyLevel: 6
+showInSearchQueries: false
+recommendedPrerequisites:
   - 58
-'variationOf':
+variationOf:
   - 136

@@ -4,20 +4,20 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 283
-'establishedBy': 'Ian Eisenberg'
-'yearEstablished': 2022
-'description': 'Start with a frontside spin and then transition into the Back
-  Almighty finish the full 360 spin and land it.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.instagram.com/p/Ch99aJdpyUo/'
-'technicalName': 'FS 360 Back Almighty'
-'startPosition': 'Stand'
-'endPosition': 'Stand'
-'difficultyLevel': 8
-'showInSearchQueries': true
-'recommendedPrerequisites':
+id: 283
+establishedBy: Ian Eisenberg
+yearEstablished: 2022
+description: Start with a frontside spin and then transition into the Back
+  Almighty finish the full 360 spin and land it.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.instagram.com/p/Ch99aJdpyUo/
+technicalName: FS 360 Back Almighty
+startPosition: Stand
+endPosition: Stand
+difficultyLevel: 8
+showInSearchQueries: true
+recommendedPrerequisites:
   - 162
-'variationOf': []
+variationOf: []

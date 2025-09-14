@@ -4,18 +4,18 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 61
-'description': 'From Korean, grab the line in front of you and pass one leg over
+id: 61
+description: From Korean, grab the line in front of you and pass one leg over
   the line to do a 270 spin landing in Sofa. It is the inverse motion of a
-  Panic.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'technicalName': 'Reverse Panic'
-'startPosition': 'Korean'
-'endPosition': 'Sofa'
-'difficultyLevel': 3
-'showInSearchQueries': false
-'recommendedPrerequisites':
+  Panic.
+tips: []
+dateAddedEpoch: 1640995200000
+technicalName: Reverse Panic
+startPosition: Korean
+endPosition: Sofa
+difficultyLevel: 3
+showInSearchQueries: false
+recommendedPrerequisites:
   - 5
-'variationOf':
+variationOf:
   - 60

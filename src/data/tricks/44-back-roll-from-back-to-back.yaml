@@ -4,19 +4,19 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 44
-'description': 'Back Roll directly into Backbounce.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.youtube.com/watch?v=-HEZdGIakVQ'
-'technicalName': 'Back Roll from Back to Back'
-'alias': 'Back Magic'
-'startPosition': 'Back'
-'endPosition': 'Back'
-'difficultyLevel': 3
-'showInSearchQueries': false
-'recommendedPrerequisites':
+id: 44
+description: Back Roll directly into Backbounce.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.youtube.com/watch?v=-HEZdGIakVQ
+technicalName: Back Roll from Back to Back
+alias: Back Magic
+startPosition: Back
+endPosition: Back
+difficultyLevel: 3
+showInSearchQueries: false
+recommendedPrerequisites:
   - 45
-'variationOf':
+variationOf:
   - 45

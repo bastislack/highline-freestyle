@@ -4,18 +4,18 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 234
-'establishedBy': 'Ian Eisenberg'
-'yearEstablished': 2022
-'description': 'Almighty from DDK.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.instagram.com/p/CeVEh4DDYle/'
-'technicalName': 'Double Drop Knee Almighty'
-'startPosition': 'Double Drop Knee'
-'endPosition': 'Exposure'
-'showInSearchQueries': false
-'recommendedPrerequisites': []
-'variationOf':
+id: 234
+establishedBy: Ian Eisenberg
+yearEstablished: 2022
+description: Almighty from DDK.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.instagram.com/p/CeVEh4DDYle/
+technicalName: Double Drop Knee Almighty
+startPosition: Double Drop Knee
+endPosition: Exposure
+showInSearchQueries: false
+recommendedPrerequisites: []
+variationOf:
   - 160

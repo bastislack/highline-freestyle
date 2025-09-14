@@ -4,23 +4,23 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 77
-'establishedBy': 'Tlaloc Moctezuma-Burns'
-'yearEstablished': 2020
-'description': 'From Sofa you do a 360, put the outter foot on the line first
-  and then put the second foot on to land in Exposure.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://youtu.be/hsALSrUdryU?t=49'
-    'startTime': 49
-    'endTime': 53
-'technicalName': 'Sofa 360 to Feet'
-'alias': 'Baguette'
-'startPosition': 'Sofa'
-'endPosition': 'Exposure'
-'difficultyLevel': 5
-'showInSearchQueries': true
-'recommendedPrerequisites':
+id: 77
+establishedBy: Tlaloc Moctezuma-Burns
+yearEstablished: 2020
+description: From Sofa you do a 360, put the outter foot on the line first and
+  then put the second foot on to land in Exposure.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://youtu.be/hsALSrUdryU?t=49
+    startTime: 49
+    endTime: 53
+technicalName: Sofa 360 to Feet
+alias: Baguette
+startPosition: Sofa
+endPosition: Exposure
+difficultyLevel: 5
+showInSearchQueries: true
+recommendedPrerequisites:
   - 59
-'variationOf': []
+variationOf: []

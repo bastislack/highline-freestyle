@@ -4,20 +4,20 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 264
-'establishedBy': 'Tim Odermatt'
-'yearEstablished': 2022
-'description': 'From Nevermind go up spinning frontside 360 and land back in
-  your normal stance.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.instagram.com/p/CeCNKq5Fqyc/'
-'technicalName': 'FS 360 Nevermind'
-'startPosition': 'Nevermind'
-'endPosition': 'Stand'
-'difficultyLevel': 7
-'showInSearchQueries': true
-'recommendedPrerequisites':
+id: 264
+establishedBy: Tim Odermatt
+yearEstablished: 2022
+description: From Nevermind go up spinning frontside 360 and land back in your
+  normal stance.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.instagram.com/p/CeCNKq5Fqyc/
+technicalName: FS 360 Nevermind
+startPosition: Nevermind
+endPosition: Stand
+difficultyLevel: 7
+showInSearchQueries: true
+recommendedPrerequisites:
   - 90
-'variationOf': []
+variationOf: []

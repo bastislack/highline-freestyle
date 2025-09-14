@@ -4,21 +4,21 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 340
-'establishedBy': 'Tim Odermatt'
-'yearEstablished': 2025
-'description': 'Front Sofa Roll to Feet but without grabbing the line. So you
-  are completely disconnected.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.instagram.com/reel/DEr5xmMoeTx/'
-'technicalName': 'Space Front Sofa Roll to Feet'
-'alias': 'Sofa Impossible'
-'startPosition': 'Sofa'
-'endPosition': 'Exposure'
-'difficultyLevel': 8
-'showInSearchQueries': true
-'recommendedPrerequisites':
+id: 340
+establishedBy: Tim Odermatt
+yearEstablished: 2025
+description: Front Sofa Roll to Feet but without grabbing the line. So you are
+  completely disconnected.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.instagram.com/reel/DEr5xmMoeTx/
+technicalName: Space Front Sofa Roll to Feet
+alias: Sofa Impossible
+startPosition: Sofa
+endPosition: Exposure
+difficultyLevel: 8
+showInSearchQueries: true
+recommendedPrerequisites:
   - 83
-'variationOf': []
+variationOf: []

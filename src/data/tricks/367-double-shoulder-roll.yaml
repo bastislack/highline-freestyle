@@ -4,19 +4,19 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 367
-'description': 'Two rolls around the line in Shoulder.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://youtu.be/cnlbew10q3k?t=77'
-    'startTime': 77
-    'endTime': 81
-'technicalName': 'Double Shoulder Roll'
-'startPosition': 'Shoulder'
-'endPosition': 'Shoulder'
-'difficultyLevel': 6
-'showInSearchQueries': true
-'recommendedPrerequisites':
+id: 367
+description: Two rolls around the line in Shoulder.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://youtu.be/cnlbew10q3k?t=77
+    startTime: 77
+    endTime: 81
+technicalName: Double Shoulder Roll
+startPosition: Shoulder
+endPosition: Shoulder
+difficultyLevel: 6
+showInSearchQueries: true
+recommendedPrerequisites:
   - 64
-'variationOf': []
+variationOf: []

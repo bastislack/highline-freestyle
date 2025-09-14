@@ -4,22 +4,22 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 208
-'establishedBy': 'Tim Odermatt'
-'yearEstablished': 2021
-'description': 'From your regular stance do a frontside 270 and roll around the
+id: 208
+establishedBy: Tim Odermatt
+yearEstablished: 2021
+description: From your regular stance do a frontside 270 and roll around the
   line like you would for a Flowflip. Try to land back in your normal stance and
-  not in Exposure.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.instagram.com/p/CSHcZfUFG9H/'
-'technicalName': 'FS 360 Barrel Roll'
-'alias': 'Overflow'
-'startPosition': 'Stand'
-'endPosition': 'Stand'
-'showInSearchQueries': false
-'recommendedPrerequisites':
+  not in Exposure.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.instagram.com/p/CSHcZfUFG9H/
+technicalName: FS 360 Barrel Roll
+alias: Overflow
+startPosition: Stand
+endPosition: Stand
+showInSearchQueries: false
+recommendedPrerequisites:
   - 188
-'variationOf':
+variationOf:
   - 142

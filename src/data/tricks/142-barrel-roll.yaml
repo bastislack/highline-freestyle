@@ -4,20 +4,20 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 142
-'description': 'From your normal stance grab the line with both hands and roll
-  around the line landing back in the starting position.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.youtube.com/watch?v=dG9sJvKjg6E&t=396'
-    'startTime': 396
-    'endTime': 402
-'technicalName': 'Barrel Roll'
-'startPosition': 'Stand'
-'endPosition': 'Stand'
-'difficultyLevel': 6
-'showInSearchQueries': true
-'recommendedPrerequisites':
+id: 142
+description: From your normal stance grab the line with both hands and roll
+  around the line landing back in the starting position.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.youtube.com/watch?v=dG9sJvKjg6E&t=396
+    startTime: 396
+    endTime: 402
+technicalName: Barrel Roll
+startPosition: Stand
+endPosition: Stand
+difficultyLevel: 6
+showInSearchQueries: true
+recommendedPrerequisites:
   - 75
-'variationOf': []
+variationOf: []

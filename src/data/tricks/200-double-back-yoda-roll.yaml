@@ -4,21 +4,21 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 200
-'establishedBy': 'Ian Eisenberg'
-'yearEstablished': 2020
-'description': 'Two Back Yoda Rolls in one bounce.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.youtube.com/watch?v=RerW2T7edVA'
-'technicalName': 'Double Back Yoda Roll'
-'alias': 'Double Back Yoda'
-'startPosition': 'Exposure'
-'endPosition': 'Exposure'
-'difficultyLevel': 7
-'showInSearchQueries': false
-'recommendedPrerequisites':
+id: 200
+establishedBy: Ian Eisenberg
+yearEstablished: 2020
+description: Two Back Yoda Rolls in one bounce.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.youtube.com/watch?v=RerW2T7edVA
+technicalName: Double Back Yoda Roll
+alias: Double Back Yoda
+startPosition: Exposure
+endPosition: Exposure
+difficultyLevel: 7
+showInSearchQueries: false
+recommendedPrerequisites:
   - 141
-'variationOf':
+variationOf:
   - 206

@@ -4,22 +4,22 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 244
-'establishedBy': 'Ian Eisenberg'
-'yearEstablished': 2022
-'description': 'It''s a Darkside Roll but you let go with the hands while
-  you''re doing the trick and hook the line with one foot to finish the trick
-  like a Back Almighty.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.instagram.com/p/Chxgwo6s6g_/'
-'technicalName': 'Darkside Almighty'
-'alias': 'All-Nasty'
-'startPosition': 'Sofa'
-'endPosition': 'Exposure'
-'difficultyLevel': 8
-'showInSearchQueries': false
-'recommendedPrerequisites': []
-'variationOf':
+id: 244
+establishedBy: Ian Eisenberg
+yearEstablished: 2022
+description: It's a Darkside Roll but you let go with the hands while you're
+  doing the trick and hook the line with one foot to finish the trick like a
+  Back Almighty.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.instagram.com/p/Chxgwo6s6g_/
+technicalName: Darkside Almighty
+alias: All-Nasty
+startPosition: Sofa
+endPosition: Exposure
+difficultyLevel: 8
+showInSearchQueries: false
+recommendedPrerequisites: []
+variationOf:
   - 201

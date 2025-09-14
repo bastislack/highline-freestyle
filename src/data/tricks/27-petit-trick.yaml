@@ -4,23 +4,23 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 27
-'establishedBy': 'Salomé Cholet'
-'yearEstablished': 2022
-'description': 'From Korean, grab the line in front of you with both hands.
-  Shift your weight onto your arms, swing one leg over the line and start
-  bringing it to the front. Lean backwards, release your front hand and swing
-  the same leg as before back over the line. Finish sitting in Korean.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://youtu.be/Nk-wk2kYRso?t=109'
-    'startTime': 109
-    'endTime': 112
-'technicalName': 'Petit Trick'
-'startPosition': 'Korean'
-'endPosition': 'Korean'
-'difficultyLevel': 3
-'showInSearchQueries': true
-'recommendedPrerequisites': []
-'variationOf': []
+id: 27
+establishedBy: Salomé Cholet
+yearEstablished: 2022
+description: From Korean, grab the line in front of you with both hands. Shift
+  your weight onto your arms, swing one leg over the line and start bringing it
+  to the front. Lean backwards, release your front hand and swing the same leg
+  as before back over the line. Finish sitting in Korean.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://youtu.be/Nk-wk2kYRso?t=109
+    startTime: 109
+    endTime: 112
+technicalName: Petit Trick
+startPosition: Korean
+endPosition: Korean
+difficultyLevel: 3
+showInSearchQueries: true
+recommendedPrerequisites: []
+variationOf: []

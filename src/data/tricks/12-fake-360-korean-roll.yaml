@@ -4,24 +4,24 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 12
-'description': 'From Korean, combine a 360 spin with a Korean roll around the
-  line. Either start or land in Switch Korean. Similar to a Panic Roll but you
-  start from Korean turned 90 further away to where you want to go.'
-'tips':
-  - 'Learn how to do a Panic Roll first. Then think of it as a Panic Roll from
-    Korean.'
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://youtu.be/12HbVhoFloM?t=199'
-    'startTime': 199
-'technicalName': 'Fake 360 Korean Roll'
-'alias': 'Flowflip'
-'startPosition': 'Korean'
-'endPosition': 'Chest'
-'difficultyLevel': 2
-'showInSearchQueries': true
-'recommendedPrerequisites':
+id: 12
+description: From Korean, combine a 360 spin with a Korean roll around the line.
+  Either start or land in Switch Korean. Similar to a Panic Roll but you start
+  from Korean turned 90 further away to where you want to go.
+tips:
+  - Learn how to do a Panic Roll first. Then think of it as a Panic Roll from
+    Korean.
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://youtu.be/12HbVhoFloM?t=199
+    startTime: 199
+technicalName: Fake 360 Korean Roll
+alias: Flowflip
+startPosition: Korean
+endPosition: Chest
+difficultyLevel: 2
+showInSearchQueries: true
+recommendedPrerequisites:
   - 7
   - 25
-'variationOf': []
+variationOf: []

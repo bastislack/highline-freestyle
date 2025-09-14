@@ -4,22 +4,22 @@
 # If there are new changes that need to be synced, you can trigger the refetch by running
 # npx vite-node ./scripts/fetchFromSheet.ts from the project root.
 
-'id': 353
-'establishedBy': 'Sebastian Egger'
-'yearEstablished': 2022
-'description': 'From Shoulder do a Frontroll but don''t stop in Korean but keep
-  going to land back in Shoulder.'
-'tips': []
-'dateAddedEpoch': 1640995200000
-'videos':
-  - 'link': 'https://www.instagram.com/p/Craw32qgRH3/'
-'technicalName': 'Shoulder Frontroll to Shoulder'
-'alias': 'Shoulder Frontflip'
-'startPosition': 'Shoulder'
-'endPosition': 'Shoulder'
-'difficultyLevel': 4
-'showInSearchQueries': false
-'recommendedPrerequisites':
+id: 353
+establishedBy: Sebastian Egger
+yearEstablished: 2022
+description: From Shoulder do a Frontroll but don't stop in Korean but keep
+  going to land back in Shoulder.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.instagram.com/p/Craw32qgRH3/
+technicalName: Shoulder Frontroll to Shoulder
+alias: Shoulder Frontflip
+startPosition: Shoulder
+endPosition: Shoulder
+difficultyLevel: 4
+showInSearchQueries: false
+recommendedPrerequisites:
   - 46
-'variationOf':
+variationOf:
   - 46
