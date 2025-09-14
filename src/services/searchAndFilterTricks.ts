@@ -189,8 +189,9 @@ export function searchInTricks(
     ];
   }
 
-  const filteredTricks = allTricks.filter((trick) =>
-    searchParameters.includedStatuses.includes(trick.primaryKey[1])
+  const filteredTricks = allTricks.filter(
+    (trick) =>
+      searchParameters.includedStatuses.includes(trick.primaryKey[1]) && trick.showInSearchQueries
   );
 
   const sortedTricks = sortTricks(filteredTricks, searchParameters.sortOrder);
