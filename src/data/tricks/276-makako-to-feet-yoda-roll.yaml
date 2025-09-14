@@ -1,0 +1,23 @@
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root.
+
+id: 276
+establishedBy: Sakalomo
+yearEstablished: 2022
+description: Do a Makako to Feet and add an extra Back Yoda Roll
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.instagram.com/reel/ChH21QWAYmw/
+technicalName: Makako to Feet Yoda Roll
+alias: Gorilla
+startPosition: Nevermind
+endPosition: Exposure
+difficultyLevel: 9
+showInSearchQueries: true
+recommendedPrerequisites:
+  - 211
+variationOf: []

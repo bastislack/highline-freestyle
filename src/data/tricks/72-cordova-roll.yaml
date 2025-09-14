@@ -1,0 +1,25 @@
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root.
+
+id: 72
+establishedBy: Ian Eisenberg
+yearEstablished: 2020
+description: Start like a Reverse Rocket Mount and go into a Double Drop Knee
+  position but then fully extend your hips while keeping the line at your ankles
+  behind your back. Roll around the line and end up back in Rocket.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://youtu.be/Ab2gW1rv5e8?t=58
+    startTime: 58
+    endTime: 63
+technicalName: Cordova Roll
+startPosition: Rocket
+endPosition: Rocket
+difficultyLevel: 5
+showInSearchQueries: false
+recommendedPrerequisites: []
+variationOf: []

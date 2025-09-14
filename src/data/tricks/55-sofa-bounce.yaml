@@ -1,0 +1,24 @@
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root.
+
+id: 55
+description: From Exposure let the line come towards your body and grab the line
+  with both hands then slide your feet off to land in Sofa.
+tips:
+  - It can help to practice briefly grabing the line at the top of the bounce
+    while bouncing in Expo
+  - This way you can learn to let the line come towards your butt instead of you
+    droping down to Sofa.
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.youtube.com/watch?v=_CqGa-iBrHE
+technicalName: Sofa Bounce
+startPosition: Exposure
+endPosition: Sofa
+difficultyLevel: 3
+showInSearchQueries: true
+recommendedPrerequisites: []
+variationOf: []

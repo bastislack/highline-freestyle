@@ -1,0 +1,28 @@
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root.
+
+id: 372
+establishedBy: Justin Wagers
+yearEstablished: 2025
+description: Start from Feet and initiate a FS Flatspin while grabbing the line
+  with your preferred Darth Vader hand, also start falling to the front. Finish
+  the flatspin and come back up to the line via a Darth Vader.
+tips: []
+dateAddedEpoch: 1756512000000
+videos:
+  - link: https://youtu.be/cnlbew10q3k?t=112
+    startTime: 112
+    endTime: 120
+technicalName: FS Flatspin Darth Vader from Feet
+alias: Flatspin Vader
+startPosition: Exposure
+endPosition: Exposure
+difficultyLevel: 8
+showInSearchQueries: false
+recommendedPrerequisites:
+  - 177
+variationOf:
+  - 177

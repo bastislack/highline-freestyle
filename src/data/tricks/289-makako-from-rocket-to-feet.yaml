@@ -1,0 +1,25 @@
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root.
+
+id: 289
+establishedBy: Sakalomo
+yearEstablished: 2023
+description: From Rocket bring one leg up so you are in the Nevermind position
+  (for a split second) then pull your other leg through as you would for a
+  Makako. Finish to Feet.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.instagram.com/reel/Cx_HE9SsTFX/
+technicalName: Makako from Rocket to Feet
+alias: Rockako
+startPosition: Rocket
+endPosition: Exposure
+difficultyLevel: 9
+showInSearchQueries: true
+recommendedPrerequisites:
+  - 211
+variationOf: []

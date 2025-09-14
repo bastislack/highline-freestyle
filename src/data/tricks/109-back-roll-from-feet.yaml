@@ -1,0 +1,29 @@
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root.
+
+id: 109
+establishedBy: Matheus Stoco Vidal
+description: From standing you jump straight backwards and roll over your
+  shoulder to land in Korean.
+tips:
+  - Have the leash on the same side as the shoulder you roll over
+  - it's a bit easier if you don't jump backwards, but instead roll over your
+    back.
+  - Originally called Dibahia
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://youtu.be/Ej2ocABoNC4?t=18150
+    startTime: 18150
+    endTime: 18154
+technicalName: Back Roll from Feet
+alias: Backflop
+startPosition: Stand
+endPosition: Korean
+difficultyLevel: 5
+showInSearchQueries: true
+recommendedPrerequisites:
+  - 45
+variationOf: []

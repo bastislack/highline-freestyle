@@ -1,0 +1,23 @@
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root.
+
+id: 339
+establishedBy: Tim Odermatt
+yearEstablished: 2024
+description: A Back Almighty but fully disconnected from the line.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.instagram.com/reel/DD5O08MoepV/
+technicalName: Space Back Almighty
+alias: Back Impossible
+startPosition: Stand
+endPosition: Stand
+difficultyLevel: 9
+showInSearchQueries: true
+recommendedPrerequisites:
+  - 162
+variationOf: []

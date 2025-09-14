@@ -1,0 +1,23 @@
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root.
+
+id: 246
+establishedBy: Ian Eisenberg
+yearEstablished: 2022
+description: Do a FS 270 spin, followed by a Back Almighty and spin another 90
+  degrees to finish looking back at the anchor.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.instagram.com/p/Ch99aJdpyUo/
+technicalName: 360 Back Almighty
+startPosition: Stand
+endPosition: Stand
+difficultyLevel: 8
+showInSearchQueries: false
+recommendedPrerequisites: []
+variationOf:
+  - 214

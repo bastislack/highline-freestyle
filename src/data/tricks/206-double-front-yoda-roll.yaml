@@ -1,0 +1,27 @@
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root.
+
+id: 206
+establishedBy: Pablo Signoret
+yearEstablished: 2017
+description: Two Yoda Rolls in one bounce.
+tips:
+  - Originally called Turtle Roll.
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.youtube.com/watch?v=VP49hErTqM0&t=420
+    startTime: 420
+    endTime: 423
+  - link: https://www.instagram.com/p/BX4j_jQgcrv/
+technicalName: Double Front Yoda Roll
+alias: Double Yoda
+startPosition: Exposure
+endPosition: Exposure
+difficultyLevel: 7
+showInSearchQueries: true
+recommendedPrerequisites:
+  - 148
+variationOf: []

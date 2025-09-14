@@ -1,0 +1,24 @@
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root.
+
+id: 348
+establishedBy: Ian Eisenberg
+yearEstablished: 2024
+description: Begin with a Tre-Nasty but then regrab with your hands and add
+  another 180 in the end.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.instagram.com/p/C817747Mly3/
+technicalName: 540 Sick Nasty
+alias: 5Nasty
+startPosition: Sofa
+endPosition: Sofa
+difficultyLevel: 6
+showInSearchQueries: true
+recommendedPrerequisites:
+  - 149
+variationOf: []

@@ -1,0 +1,25 @@
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root.
+
+id: 362
+establishedBy: Sebastian Egger
+yearEstablished: 2024
+description: 180 Backflip but without using your hands
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://youtu.be/r6hcjIbrbr8?t=263
+    startTime: 263
+    endTime: 271
+technicalName: NH BS 180 Backflip
+startPosition: Stand
+endPosition: Stand
+difficultyLevel: 8
+showInSearchQueries: false
+recommendedPrerequisites:
+  - 219
+variationOf:
+  - 219

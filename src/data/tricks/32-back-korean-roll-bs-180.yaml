@@ -1,0 +1,27 @@
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root.
+
+id: 32
+establishedBy: Sakalomo
+yearEstablished: 2021
+description: Do a Back Korean Roll, pass the front leg over the line to be in
+  Sofa, pass the back leg over the line to end in Korean facing the other
+  anchor.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://youtu.be/7yLCyoHgUS0?t=694
+    startTime: 694
+    endTime: 698
+technicalName: Back Korean Roll BS 180
+alias: Richard Roll
+startPosition: Korean
+endPosition: Korean
+difficultyLevel: 4
+showInSearchQueries: false
+recommendedPrerequisites: []
+variationOf:
+  - 163

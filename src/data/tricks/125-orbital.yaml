@@ -1,0 +1,23 @@
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root.
+
+id: 125
+establishedBy: Ian Eisenberg
+yearEstablished: 2020
+description: Grab the line with your back hand, bring it up around your body by
+  passing it to your other hand, and finally pass your leg over the line to land
+  in Korean.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.youtube.com/watch?v=t6xPycD-JbY
+technicalName: Orbital
+startPosition: Stand
+endPosition: Korean
+difficultyLevel: 5
+showInSearchQueries: true
+recommendedPrerequisites: []
+variationOf: []

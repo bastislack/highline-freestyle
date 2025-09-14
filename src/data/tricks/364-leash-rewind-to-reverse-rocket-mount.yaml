@@ -1,0 +1,28 @@
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root.
+
+id: 364
+establishedBy: Sebastian Egger
+yearEstablished: 2024
+description: Drop to a leashfall and in the bottom of the bounce you wind
+  yourself up in the leash, then unwind again and use the momentum to get back
+  up to the line. Finish with a Reverse Rocket Mount.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://youtu.be/r6hcjIbrbr8?t=281
+    startTime: 281
+    endTime: 297
+technicalName: Leash Rewind to Reverse Rocket Mount
+alias: Reverse Yo-Yo Rewind
+startPosition: Leash
+endPosition: Exposure
+difficultyLevel: 9
+showInSearchQueries: false
+recommendedPrerequisites:
+  - 144
+variationOf:
+  - 144

@@ -1,0 +1,25 @@
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root.
+
+id: 324
+establishedBy: Tim Odermatt
+yearEstablished: 2023
+description: Do an early Han Solo and rewind the direction of the roll to finish
+  with a Back Han Solo.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.instagram.com/reel/Cwfrn3nsFWc/
+technicalName: Han Solo Rewind
+startPosition: Exposure
+endPosition: Exposure
+difficultyLevel: 7
+showInSearchQueries: false
+recommendedPrerequisites:
+  - 192
+  - 179
+variationOf:
+  - 179

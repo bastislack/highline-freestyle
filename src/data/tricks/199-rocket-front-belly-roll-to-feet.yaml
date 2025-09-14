@@ -1,0 +1,24 @@
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root.
+
+id: 199
+establishedBy: Ian Eisenberg
+yearEstablished: 2020
+description: From Rocket get a lot of momentum with your feet and do one roll
+  forward around the line and land in Exposure.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.youtube.com/watch?v=r5rwYkvnbco
+technicalName: Rocket Front Belly Roll to Feet
+alias: Supersonic
+startPosition: Rocket
+endPosition: Exposure
+difficultyLevel: 7
+showInSearchQueries: true
+recommendedPrerequisites:
+  - 67
+variationOf: []

@@ -1,0 +1,25 @@
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root.
+
+id: 185
+establishedBy: Sebastian Egger
+yearEstablished: 2021
+description: Like a Sofa 360 to Feet but with a late 180.
+tips:
+  - Try to not do the 360 and then restep to get the 540 but instead go for the
+    540 directly.
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.instagram.com/p/CPgJRJHK777/
+technicalName: Sofa 540 to Feet
+startPosition: Sofa
+endPosition: Exposure
+difficultyLevel: 7
+showInSearchQueries: false
+recommendedPrerequisites:
+  - 77
+variationOf:
+  - 77

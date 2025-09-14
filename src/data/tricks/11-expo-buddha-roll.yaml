@@ -1,0 +1,24 @@
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root.
+
+id: 11
+establishedBy: Eli Ellis
+yearEstablished: 2020
+description: Sit in Expo Buddha, grab the line both hands on the sides, roll
+  around the line, land again in Expo Buddha.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://youtu.be/hsALSrUdryU?t=29
+    startTime: 30
+    endTime: 33
+technicalName: Expo Buddha Roll
+startPosition: Buddha
+endPosition: Buddha
+showInSearchQueries: false
+recommendedPrerequisites: []
+variationOf:
+  - 1

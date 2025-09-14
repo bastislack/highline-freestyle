@@ -1,0 +1,23 @@
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root.
+
+id: 136
+description: Do a Flowflip to Feet.
+tips:
+  - During the flip get your far foot on the line. At the end of the flip get
+    your second foot up on the line
+  - A lot of people do it landing in Exposure.
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.youtube.com/watch?v=kn15JZJOuAg
+technicalName: Flowflip to Feet
+startPosition: Korean
+endPosition: Exposure
+difficultyLevel: 5
+showInSearchQueries: true
+recommendedPrerequisites:
+  - 12
+variationOf: []

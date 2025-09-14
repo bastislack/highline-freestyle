@@ -1,0 +1,27 @@
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root.
+
+id: 8
+establishedBy: Michele Eibeck
+yearEstablished: 2021
+description: Start in Sofa. Both hands next to you (right or left) holding on to
+  the line. Then do a Sofa Roll with your body leaning towards the line where
+  your hands are. To land the trick put the hands back to normal as you would
+  when sitting in Sofa.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.instagram.com/p/CNYQEb4Jt1M/
+technicalName: Side Sofa Roll
+alias: Utinni Roll
+startPosition: Sofa
+endPosition: Sofa
+difficultyLevel: 2
+showInSearchQueries: false
+recommendedPrerequisites:
+  - 1
+variationOf:
+  - 1

@@ -1,0 +1,23 @@
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root.
+
+id: 341
+establishedBy: Gon Caturelli
+yearEstablished: 2023
+description: From Back grab the line behind your head, pull so you do a Flatspin
+  on the vertical axis. End in Back facing the other anchor.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.instagram.com/reel/CoCwNEPDmd1/
+technicalName: 180 Backbounce Flatspin
+alias: Turtle Bros
+startPosition: Back
+endPosition: Back
+difficultyLevel: 5
+showInSearchQueries: true
+recommendedPrerequisites: []
+variationOf: []

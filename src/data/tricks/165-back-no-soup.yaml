@@ -1,0 +1,25 @@
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root.
+
+id: 165
+establishedBy: Tim Odermatt
+yearEstablished: 2021
+description: A Can of Soup without hands, basically a Back Almighty starting from Soup.
+tips:
+  - Throw your hands in the air at the bottom of the bounce, it will allow you
+    to gain more momentum to finish the rotation.
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.instagram.com/p/CVvIbn3lFqU/
+technicalName: Back No Soup
+startPosition: Soup
+endPosition: Exposure
+difficultyLevel: 7
+showInSearchQueries: false
+recommendedPrerequisites:
+  - 162
+variationOf:
+  - 75

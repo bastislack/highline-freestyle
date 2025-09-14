@@ -1,0 +1,23 @@
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root.
+
+id: 374
+establishedBy: Sebastian Egger
+yearEstablished: 2022
+description: From Shoulder, go to Korean and do a Half Backroll. Be sure to stop
+  in Shoulder and not do the full Backroll.
+tips: []
+dateAddedEpoch: 1756512000000
+technicalName: Shoulder Backroll to Shoulder
+alias: Shoulder Backflip
+startPosition: Shoulder
+endPosition: Shoulder
+difficultyLevel: 5
+showInSearchQueries: false
+recommendedPrerequisites:
+  - 38
+variationOf:
+  - 38

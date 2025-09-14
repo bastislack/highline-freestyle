@@ -1,0 +1,24 @@
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root.
+
+id: 160
+establishedBy: Justin Wagers
+yearEstablished: 2020
+description: Almighty flip but from normal stance.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://youtu.be/Se5XNo0RSP8?t=649
+    startTime: 649
+    endTime: 654
+technicalName: Front Barrel Almighty
+startPosition: Stand
+endPosition: Stand
+difficultyLevel: 7
+showInSearchQueries: true
+recommendedPrerequisites:
+  - 142
+variationOf: []

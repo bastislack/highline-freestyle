@@ -1,0 +1,23 @@
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root.
+
+id: 242
+establishedBy: Ian Eisenberg
+yearEstablished: 2022
+description: From Rocket, bite the line at the top of the bounce and let go of
+  your hands at the same time. Regrab with your hands to finish the trick in
+  Rocket at the bottom of the bounce.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.instagram.com/p/ChsA7RvrV7m/
+technicalName: Shark Bite
+startPosition: Rocket
+endPosition: Rocket
+difficultyLevel: 4
+showInSearchQueries: false
+recommendedPrerequisites: []
+variationOf: []

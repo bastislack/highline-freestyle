@@ -1,0 +1,28 @@
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root.
+
+id: 277
+establishedBy: Ian Eisenberg
+yearEstablished: 2022
+description: You drop to Rocket slightly off-centered such that you can get some
+  momentum by swinging to one side. From there you use the momentum to swing
+  your legs to the other side and all the way up to hook the line with both feet
+  (the Bat-Hang position), you let go with your hands and do a 360 below the
+  line by regrabbing the line on the other side of your feet. Unhook your feet
+  and land back in Rocket.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.instagram.com/p/ChsA7RvrV7m/
+technicalName: Bat-Hang from Rocket to Rocket
+alias: Batman
+startPosition: Rocket
+endPosition: Rocket
+difficultyLevel: 5
+showInSearchQueries: false
+recommendedPrerequisites: []
+variationOf:
+  - 99

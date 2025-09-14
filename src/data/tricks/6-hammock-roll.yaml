@@ -1,0 +1,26 @@
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root.
+
+id: 6
+establishedBy: Samuel Volery
+yearEstablished: 2016
+description: Lie on your back and grab the line behind your head with both
+  hands. Hook one foot under the line and roll around the line landing again in
+  Backbounce.
+tips:
+  - As soon as you rotated all the way, let go with your hands and put your arms
+    to the side to stop the roll. Letting go of the line feels counterintuitive,
+    but it really helps to land the trick.
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.youtube.com/watch?v=maY2RjAJs1g
+technicalName: Hammock Roll
+startPosition: Back
+endPosition: Back
+difficultyLevel: 2
+showInSearchQueries: true
+recommendedPrerequisites: []
+variationOf: []

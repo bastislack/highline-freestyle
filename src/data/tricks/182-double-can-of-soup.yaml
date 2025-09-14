@@ -1,0 +1,25 @@
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root.
+
+id: 182
+establishedBy: Justin Wagers
+yearEstablished: 2019
+description: From Soup do a double roll and land on your feet in normal stance.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://youtu.be/rWqH_51ztQA?t=6977
+    startTime: 6977
+    endTime: 6981
+technicalName: Double Can of Soup
+startPosition: Soup
+endPosition: Stand
+difficultyLevel: 7
+showInSearchQueries: false
+recommendedPrerequisites:
+  - 75
+variationOf:
+  - 75

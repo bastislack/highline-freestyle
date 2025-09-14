@@ -1,0 +1,27 @@
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root.
+
+id: 7
+establishedBy: Jediah Doohan
+description: Sit in Sofa position grab the line to the side of you with hands
+  facing behind you. On the way up in the bounce dive down where your hands are
+  and roll around the line. Land in Korean or Chest. Essentially you perform a
+  270 spin combined with a roll around the line.
+tips:
+  - It helps to separately practice the spin of the leg (Panic) and the roll
+    around the line and then work to combine both at the same time.
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.youtube.com/watch?v=12HbVhoFloM
+technicalName: Sofa 270 Korean Roll
+alias: Panic Roll
+startPosition: Sofa
+endPosition: Korean
+difficultyLevel: 2
+showInSearchQueries: true
+recommendedPrerequisites:
+  - 5
+variationOf: []

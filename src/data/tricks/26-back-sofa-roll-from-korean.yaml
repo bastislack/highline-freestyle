@@ -1,0 +1,26 @@
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root.
+
+id: 26
+establishedBy: Richard Schupisser
+description: From Korean let yourself fall to the side and immediately after you
+  start the roll swing one leg over the line to finish the roll as a Back Sofa
+  Roll.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://youtu.be/7kZjIAVYoyY?t=203
+    startTime: 203
+    endTime: 216
+technicalName: Back Sofa Roll from Korean
+alias: Back Richy Roll
+startPosition: Korean
+endPosition: Sofa
+difficultyLevel: 2
+showInSearchQueries: false
+recommendedPrerequisites: []
+variationOf:
+  - 9

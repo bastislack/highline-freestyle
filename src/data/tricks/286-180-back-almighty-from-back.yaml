@@ -1,0 +1,26 @@
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root.
+
+id: 286
+establishedBy: Sakalomo
+yearEstablished: 2023
+description: From Back hook your foot under the line while standing up and roll
+  to the back to initiate a Back Almighty. While upside down, you start the 180
+  motion and finish the roll to land the trick.
+tips: []
+dateAddedEpoch: 1640995200000
+videos:
+  - link: https://www.instagram.com/reel/Cxz3jG-MvFX/
+technicalName: 180 Back Almighty from Back
+alias: 180 Backalomo
+startPosition: Back
+endPosition: Exposure
+difficultyLevel: 9
+showInSearchQueries: false
+recommendedPrerequisites:
+  - 278
+variationOf:
+  - 278
