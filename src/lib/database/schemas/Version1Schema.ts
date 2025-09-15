@@ -9,7 +9,6 @@ export const DbPositionZod = z.enum([
   'Double Drop Knee',
   'Dropknee',
   'Exposure',
-  'Frodo',
   'Hang',
   'Inward Drop Knee',
   'Kneehang',
