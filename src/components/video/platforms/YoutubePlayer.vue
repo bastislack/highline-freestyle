@@ -65,6 +65,8 @@ function embedURLfromRegularURL(url: string, startTime?: number, endTime?: numbe
     return newUrl;
   }
 
+  // Check this documentation for explanations on the
+  // searchParams: https://developers.google.com/youtube/player_parameters
   const searchParams = {
     version: '3',
     loop: '1',
