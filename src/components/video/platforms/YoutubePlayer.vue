@@ -44,18 +44,21 @@ onMounted(() => {
   }
 });
 
-watch(() => [props.url, props.startTime, props.endTime], () => {
-  if (player) {
-    const videoId = videoIdFromURL(props.url);
-    player.loadVideoById({
-      videoId,
-      startSeconds: props.startTime,
-      endSeconds: props.endTime,
-    });
-  } else if (isUrlValid.value && playerRef.value) {
-    loadYouTubeAPI();
+watch(
+  () => [props.url, props.startTime, props.endTime],
+  () => {
+    if (player) {
+      const videoId = videoIdFromURL(props.url);
+      player.loadVideoById({
+        videoId,
+        startSeconds: props.startTime,
+        endSeconds: props.endTime,
+      });
+    } else if (isUrlValid.value && playerRef.value) {
+      loadYouTubeAPI();
+    }
   }
-});
+);
 
 function loadYouTubeAPI() {
   if (window.YT && window.YT.Player) {
@@ -139,7 +142,8 @@ function videoIdFromURL(url: string): string {
     </div>
 
     <div class="text-center">
-      {{ t('url') }}: <a :href="url" class="underline">{{ url }}</a><br />
+      {{ t('url') }}: <a :href="url" class="underline">{{ url }}</a
+      ><br />
     </div>
     <Duration v-if="startTime || endTime" :start="startTime" :end="endTime" class="mt-1 mx-auto" />
   </div>
