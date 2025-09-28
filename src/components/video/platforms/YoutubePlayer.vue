@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { Icon } from '@iconify/vue/dist/iconify.js';
 import { useI18n } from 'vue-i18n';
 
@@ -7,6 +7,13 @@ import messages from '@/i18n/video';
 import Duration from '../Duration.vue';
 import EmbedPrompt from '../EmbedPrompt.vue';
 import { isEmbedAllowed } from '@/util/trackingPreferences';
+
+declare global {
+  interface Window {
+    YT: any;
+    onYouTubeIframeAPIReady?: () => void;
+  }
+}
 
 const props = defineProps<{
   url: string;
@@ -20,6 +27,9 @@ const i18n = useI18n({
 });
 const { t } = i18n;
 
+const playerRef = ref<HTMLDivElement | null>(null);
+let player: YT.Player | null = null;
+
 const isUrlValid = computed(() => {
   try {
     videoIdFromURL(props.url);
@@ -29,62 +39,63 @@ const isUrlValid = computed(() => {
   }
 });
 
-const isClipUrl = (url: string) => {
-  let params: URLSearchParams;
-  try {
-    params = new URL(url).searchParams;
-  } catch (err) {
-    console.error({
-      message: 'Trick contains a URL that could not be parsed',
-      err,
+onMounted(() => {
+  if (isUrlValid.value && playerRef.value) {
+    loadYouTubeAPI();
+  }
+});
+
+watch(() => [props.url, props.startTime, props.endTime], () => {
+  if (player) {
+    const videoId = videoIdFromURL(props.url);
+    player.loadVideoById({
+      videoId,
+      startSeconds: props.startTime,
+      endSeconds: props.endTime,
     });
-    return false;
+  } else if (isUrlValid.value && playerRef.value) {
+    loadYouTubeAPI();
   }
+});
 
-  if (!params.get('clip')) {
-    return false;
+function loadYouTubeAPI() {
+  if (window.YT && window.YT.Player) {
+    createPlayer();
+  } else {
+    const tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/iframe_api';
+    const firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
+    window.onYouTubeIframeAPIReady = createPlayer;
   }
+}
 
-  if (!['clipt', 'amp;clipt'].some((e) => params.get(e))) {
-    return false;
+function createPlayer() {
+  if (!playerRef.value) return;
+
+  const videoId = videoIdFromURL(props.url);
+
+  player = new window.YT.Player(playerRef.value, {
+    videoId: videoId,
+    playerVars: {
+      start: props.startTime,
+      end: props.endTime,
+    },
+    events: {
+      onReady: onPlayerReady,
+      onStateChange: onPlayerStateChange,
+    },
+  });
+}
+
+function onPlayerReady() {
+  player?.mute();
+}
+
+function onPlayerStateChange(event: YT.OnStateChangeEvent) {
+  if (event.data === window.YT.PlayerState.ENDED) {
+    player?.seekTo(props.startTime ?? 0, true);
   }
-
-  return true;
-};
-
-function embedURLfromRegularURL(url: string, startTime?: number, endTime?: number): string {
-  if (!isUrlValid.value) {
-    return '';
-  }
-
-  if (isClipUrl(url)) {
-    // We can just embed the URL directly. In this instance, start and end times are ignored entirely
-
-    const { pathname, search } = new URL(url);
-    const newUrl = new URL(pathname + search, 'https://www.youtube.com').toString();
-    return newUrl;
-  }
-
-  // Check this documentation for explanations on the
-  // searchParams: https://developers.google.com/youtube/player_parameters
-  const searchParams = {
-    version: '3',
-    loop: '1',
-    modestbranding: '1',
-    ...(startTime && { start: String(startTime) }),
-    ...(endTime && { end: String(endTime) }),
-  };
-
-  const videoID: string = videoIdFromURL(url);
-
-  const newUrl = new URL(`/embed/${videoID}`, 'https://www.youtube-nocookie.com');
-
-  for (const [key, value] of Object.entries(searchParams)) {
-    newUrl.searchParams.append(key, value);
-  }
-
-  console.log(newUrl.toString());
-  return newUrl.toString();
 }
 
 /**
@@ -93,12 +104,12 @@ function embedURLfromRegularURL(url: string, startTime?: number, endTime?: numbe
  * @param url Youtube URL in any format (youtube.com, youtu.be, ...)
  */
 function videoIdFromURL(url: string): string {
-  var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
-  var match = url.match(regExp);
-  if (match && match[7].length == 11) {
+  const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+  const match = url.match(regExp);
+  if (match && match[7].length === 11) {
     return match[7];
   }
-  throw Error('Invalid YouTube link!');
+  throw new Error('Invalid YouTube link!');
 }
 </script>
 
@@ -107,15 +118,7 @@ function videoIdFromURL(url: string): string {
 
   <div v-else-if="isUrlValid">
     <div class="videowrapper">
-      <iframe
-        width="560"
-        height="315"
-        :src="embedURLfromRegularURL(url, startTime, endTime)"
-        title="YouTube video player"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen
-      ></iframe>
+      <div ref="playerRef"></div>
     </div>
     <Duration
       v-if="startTime || endTime"
@@ -137,8 +140,7 @@ function videoIdFromURL(url: string): string {
     </div>
 
     <div class="text-center">
-      {{ t('url') }}: <a :href="url" class="underline">{{ url }}</a
-      ><br />
+      {{ t('url') }}: <a :href="url" class="underline">{{ url }}</a><br />
     </div>
     <Duration v-if="startTime || endTime" :start="startTime" :end="endTime" class="mt-1 mx-auto" />
   </div>
@@ -158,7 +160,8 @@ function videoIdFromURL(url: string): string {
   padding-top: 25px;
   height: 0;
 }
-.videowrapper iframe {
+.videowrapper > div,
+.videowrapper > iframe {
   position: absolute;
   top: 0;
   left: 0;
