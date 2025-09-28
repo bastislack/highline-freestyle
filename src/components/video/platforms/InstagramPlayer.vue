@@ -1,13 +1,24 @@
 <script setup lang="ts">
 import { isEmbedAllowed } from '@/util/trackingPreferences';
 import EmbedPrompt from '../EmbedPrompt.vue';
-import Duration from '../Duration.vue';
+import { computed } from 'vue';
 
-defineProps<{
+const props = defineProps<{
   url: string;
   startTime?: number;
   endTime?: number;
 }>();
+
+const embedUrl = computed(() => {
+  let baseUrl = props.url.trim();
+
+  // Guarantee it ends with a slash before appending "embed"
+  if (baseUrl.endsWith('/')) {
+    return baseUrl + 'embed';
+  } else {
+    return baseUrl + '/embed';
+  }
+});
 </script>
 
 <template>
@@ -16,17 +27,11 @@ defineProps<{
     <div class="w-100 flex justify-center">
       <iframe
         class="aspect-[9/16] rounded-md"
-        :src="url + '/embed'"
+        :src="embedUrl"
         allowtransparency="true"
         scrolling="no"
         title="video"
       ></iframe>
     </div>
-    <Duration
-      v-if="startTime || endTime"
-      :start="startTime"
-      :end="endTime"
-      class="mx-auto mt-2 text-muted-foreground"
-    />
   </div>
 </template>
