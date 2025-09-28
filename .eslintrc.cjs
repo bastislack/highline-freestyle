@@ -39,5 +39,8 @@ module.exports = {
     // vue/multi-word-component-names is disabled as it doesn't make much sense in our opinion.
     // "Navbar" for example is descriptive as-is and doesnt require another word.
     "vue/multi-word-component-names": "off"
+  },
+  globals: {
+    YT: "readonly"
   }
 }
