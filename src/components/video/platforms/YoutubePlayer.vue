@@ -10,7 +10,6 @@ import { isEmbedAllowed } from '@/util/trackingPreferences';
 
 declare global {
   interface Window {
-    YT: any;
     onYouTubeIframeAPIReady?: () => void;
   }
 }
