@@ -1,0 +1,27 @@
+# This file has been generated automatically. The data here is backed by a Google Sheet.
+# Do not change this by hand, as any changes will be overwritten the next time the
+# fetchFromSheet-Script is run by a scheduled action.
+# If there are new changes that need to be synced, you can trigger the refetch by running
+# npx vite-node ./scripts/fetchFromSheet.ts from the project root.
+
+id: 376
+establishedBy: Rebekka Karrer
+yearEstablished: 2024
+description: Start with a normal OH Kamikaze but then let go of the line and
+  land the bottom in NH Shoulder.
+tips:
+  - Be sure to have a solid NH Shoulder bounce otherwise be prepared for some
+    rough whippers.
+dateAddedEpoch: 1759017600000
+videos:
+  - link: https://www.instagram.com/p/DPCdj2riDxu/
+technicalName: OH to NH Kamikaze
+alias: Half Hand Kamikaze
+startPosition: Stand
+endPosition: NH Shoulder
+difficultyLevel: 7
+showInSearchQueries: false
+recommendedPrerequisites:
+  - 375
+variationOf:
+  - 97
