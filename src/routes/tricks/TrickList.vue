@@ -2,9 +2,9 @@
 import { ref, watch } from 'vue';
 import { tricksDao } from '@/lib/database';
 import { PrimaryKey } from '@/lib/utils';
-import { SearchParameters, SearchResult, SortOrder } from '@/types/search';
+import { SearchItem, SearchParameters, SearchResult, SortOrder } from '@/types/search';
 import { Trick } from '@/lib/database/daos/trick';
-import { searchInTricks } from '@/services/searchAndFilterTricks';
+import { searchInTricks, getVariationsForTrick } from '@/services/searchAndFilterTricks';
 
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import TrickSearchMenu from '@/components/stickable/list/TrickSearchMenu.vue';
@@ -65,6 +65,7 @@ function storeSearchParameters(parameters: SearchParameters) {
 
 const searchParameters = ref<SearchParameters>(loadSearchParameters());
 const searchResult = ref<SearchResult>();
+const variationsMap = ref<Map<string, SearchItem[]>>(new Map());
 
 function trickToAttribute(trick: Trick, sortOption: SortOrder): string {
   switch (sortOption) {
@@ -93,6 +94,37 @@ watch(
       trickToAttribute,
       t('sectionTitles.favorites')
     );
+
+    // Build variations map for displayed tricks
+    const newVariationsMap = new Map<string, SearchItem[]>();
+    searchResult.value?.forEach((section) => {
+      section.items.forEach((item) => {
+        const variations = getVariationsForTrick(
+          allTricks,
+          item.primaryKey[0],
+          item.primaryKey[1],
+          searchParameters.value.includedStatuses
+        );
+        if (variations.length > 0) {
+          const variationItems = variations.map(
+            (variation) =>
+              ({
+                name:
+                  searchParameters.value.preferredName === 'alias'
+                    ? variation.alias ?? variation.technicalName
+                    : variation.technicalName,
+                primaryKey: variation.primaryKey,
+                stickFrequency: variation.stickFrequency,
+                isFavorite: variation.isFavourite,
+                isNew: false,
+              }) as SearchItem
+          );
+          newVariationsMap.set(`${item.primaryKey[1]}:${item.primaryKey[0]}`, variationItems);
+        }
+      });
+    });
+    variationsMap.value = newVariationsMap;
+
     storeSearchParameters(searchParameters.value);
   },
   { immediate: true, deep: true }
@@ -141,6 +173,7 @@ function linkToDetails(primaryKey: PrimaryKey): string {
               :is-favorite="item.isFavorite"
               :is-new="item.isNew"
               :link-to-details="linkToDetails(item.primaryKey)"
+              :variations="variationsMap.get(item.primaryKey[1] + ':' + item.primaryKey[0]) || []"
             />
           </div>
         </div>

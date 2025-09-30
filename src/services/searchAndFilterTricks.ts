@@ -170,6 +170,20 @@ function groupTricksToSearchResult(
   return result;
 }
 
+export function getVariationsForTrick(
+  allTricks: Trick[],
+  trickId: number,
+  trickStatus: string,
+  includedStatuses: string[]
+): Trick[] {
+  return allTricks.filter(
+    (trick) =>
+      includedStatuses.includes(trick.primaryKey[1]) &&
+      trick.variationOf &&
+      trick.variationOf.some((parentKey) => parentKey[0] === trickId && parentKey[1] === trickStatus)
+  );
+}
+
 export function searchInTricks(
   allTricks: Trick[],
   searchParameters: SearchParameters,
