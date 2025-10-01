@@ -162,7 +162,7 @@ function variationLinkToDetails(primaryKey: [number, StickableStatus]): string {
     <div class="flex-grow flex flex-col justify-around w-full">{{ title }}</div>
 
     <div
-      v-if="isNew || status === 'userDefined'"
+      v-if="isNew || status === 'userDefined' || status === 'archived'"
       class="my-1 flex flex-row justify-center gap-1 flex-wrap"
     >
       <Badge v-if="status === 'userDefined'" class="px-2" variant="secondary">
