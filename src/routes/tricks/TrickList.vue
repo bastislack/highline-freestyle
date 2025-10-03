@@ -163,7 +163,9 @@ function linkToDetails(primaryKey: PrimaryKey): string {
           :key="section.title"
         >
           <div class="text-lg font-medium px-3 w-full text-center">{{ section.title }}</div>
-          <div class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 w-full">
+          <div
+            class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 w-full grid-flow-row-dense"
+          >
             <StickableOverviewCard
               v-for="item in section.items"
               :key="item.primaryKey[1] + ':' + item.primaryKey[0]"
