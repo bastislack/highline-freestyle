@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, watch } from 'vue';
+import { ref, watch, provide } from 'vue';
 import { tricksDao } from '@/lib/database';
 import { PrimaryKey } from '@/lib/utils';
 import { SearchItem, SearchParameters, SearchResult, SortOrder } from '@/types/search';
@@ -66,6 +66,9 @@ function storeSearchParameters(parameters: SearchParameters) {
 const searchParameters = ref<SearchParameters>(loadSearchParameters());
 const searchResult = ref<SearchResult>();
 const variationsMap = ref<Map<string, SearchItem[]>>(new Map());
+const openCollapsibleId = ref<string | null>(null);
+
+provide('openCollapsibleId', openCollapsibleId);
 
 function trickToAttribute(trick: Trick, sortOption: SortOrder): string {
   switch (sortOption) {

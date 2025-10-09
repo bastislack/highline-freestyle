@@ -54,7 +54,10 @@ function variationLinkToDetails(primaryKey: PrimaryKey): string {
 </script>
 
 <template>
-  <VariationsCollapsibleWrapper v-if="variations.length > 0">
+  <VariationsCollapsibleWrapper
+    v-if="variations.length > 0"
+    :item-id="`${props.status}:${props.linkToDetails}`"
+  >
     <StickableCard :to="props.linkToDetails" :class="computedClass">
       <template #decoration>
         <CardDecoration :isFavorite="isFavorite" :isNew="isNew" :status="status"></CardDecoration>
