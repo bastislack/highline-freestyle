@@ -118,16 +118,8 @@ function videoIdFromURL(url: string): string {
 <template>
   <EmbedPrompt v-if="!isEmbedAllowed('YOUTUBE')" site="YOUTUBE" />
 
-  <div v-else-if="isUrlValid">
-    <div class="videowrapper">
-      <div ref="playerRef"></div>
-    </div>
-    <Duration
-      v-if="startTime || endTime"
-      :start="startTime"
-      :end="endTime"
-      class="mx-auto mt-2 text-muted-foreground"
-    />
+  <div v-else-if="isUrlValid" class="videowrapper">
+    <div ref="playerRef"></div>
   </div>
 
   <div
