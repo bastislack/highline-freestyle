@@ -86,8 +86,8 @@ const validationSchema = toTypedSchema(newTrickSchema);
 const form = useForm<NewTrickSchema>({
   validationSchema: validationSchema,
   initialValues: {
-    startPosition: DbPositionZod.Values.Buddha,
-    endPosition: DbPositionZod.Values['Double Drop Knee'],
+    startPosition: DbPositionZod.Values.Rocket,
+    endPosition: DbPositionZod.Values.Buddha,
     difficulty: '',
     variationOf: [],
     recommendedPrerequisites: [],

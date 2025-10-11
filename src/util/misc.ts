@@ -8,7 +8,7 @@ export function daysSinceEpoch(epoch: number): number {
   const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
 
   const today = new Date();
-  const date = new Date(epoch * 1000);
+  const date = new Date(epoch);
 
   const timeDiff = today.getTime() - date.getTime();
   const daysDiff = Math.ceil(timeDiff / MILLISECONDS_PER_DAY);
