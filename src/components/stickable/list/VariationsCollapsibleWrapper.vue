@@ -21,6 +21,7 @@ const isOpen = computed({
 
 const spacerHeight = ref(0);
 const contentRef = ref<HTMLElement | null>(null);
+const isAnimating = ref(false);
 
 let ro: ResizeObserver | null = null;
 let scheduled = false;
@@ -39,14 +40,22 @@ function scheduleMeasure() {
   });
 }
 
+function onTransitionEnd() {
+  if (!isOpen.value) {
+    isAnimating.value = false;
+  }
+}
+
 watch(isOpen, async (open) => {
-  await nextTick();
-  requestAnimationFrame(() =>
-    requestAnimationFrame(() => {
-      if (open) scheduleMeasure();
-      else spacerHeight.value = 0;
-    })
-  );
+  if (open) {
+    isAnimating.value = true;
+    await nextTick();
+    scheduleMeasure();
+  } else {
+    isAnimating.value = true;
+    await nextTick();
+    spacerHeight.value = 0;
+  }
 });
 
 onMounted(() => {
@@ -83,8 +92,10 @@ onBeforeUnmount(() => {
 
       <!-- Spacer that creates space in the grid -->
       <div
+        v-show="isOpen || isAnimating"
         class="col-span-full transition-all duration-200 ease-in-out relative overflow-hidden"
         :style="{ height: spacerHeight + 'px' }"
+        @transitionend="onTransitionEnd"
       >
         <CollapsibleContent
           class="absolute left-1/2 -translate-x-1/2 w-full top-0 transition-all duration-200 data-[state=closed]:opacity-0 data-[state=closed]:-translate-y-1.5 data-[state=open]:opacity-100 data-[state=open]:translate-y-0"
