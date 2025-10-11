@@ -22,6 +22,7 @@ const isOpen = computed({
 const spacerHeight = ref(0);
 const contentRef = ref<HTMLElement | null>(null);
 const isAnimating = ref(false);
+const contentOpacity = ref(0);
 
 let ro: ResizeObserver | null = null;
 let scheduled = false;
@@ -50,11 +51,15 @@ watch(isOpen, async (open) => {
   if (open) {
     isAnimating.value = true;
     await nextTick();
-    scheduleMeasure();
+    requestAnimationFrame(() => {
+      scheduleMeasure();
+      contentOpacity.value = 1;
+    });
   } else {
     isAnimating.value = true;
     await nextTick();
     spacerHeight.value = 0;
+    contentOpacity.value = 0;
   }
 });
 
@@ -97,12 +102,11 @@ onBeforeUnmount(() => {
         :style="{ height: spacerHeight + 'px' }"
         @transitionend="onTransitionEnd"
       >
-        <CollapsibleContent
-          class="absolute left-1/2 -translate-x-1/2 w-full top-0 transition-all duration-200 data-[state=closed]:opacity-0 data-[state=closed]:-translate-y-1.5 data-[state=open]:opacity-100 data-[state=open]:translate-y-0"
-        >
+        <CollapsibleContent class="absolute left-1/2 -translate-x-1/2 w-full top-0">
           <div
             ref="contentRef"
-            class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2"
+            class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 transition-opacity duration-200 ease-in-out"
+            :style="{ opacity: contentOpacity }"
           >
             <slot name="variations"></slot>
           </div>
