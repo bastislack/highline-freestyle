@@ -98,13 +98,13 @@ onBeforeUnmount(() => {
       <!-- Spacer that creates space in the grid -->
       <div
         v-show="isOpen || isAnimating"
-        class="col-span-full transition-all duration-200 ease-in-out relative overflow-hidden"
+        class="col-span-full transition-all border rounded-sm bg-stone-100 duration-200 ease-in-out relative overflow-hidden"
         :style="{ height: spacerHeight + 'px' }"
         @transitionend="onTransitionEnd"
+        ref="contentRef"
       >
-        <CollapsibleContent class="absolute left-1/2 -translate-x-1/2 w-full top-0">
+        <CollapsibleContent class="absolute left-1/2 -translate-x-1/2 w-full p-2">
           <div
-            ref="contentRef"
             class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 transition-opacity duration-200 ease-in-out"
             :style="{ opacity: contentOpacity }"
           >
