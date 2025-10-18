@@ -26,7 +26,7 @@ import { useI18n } from 'vue-i18n';
 import { i18nMerge } from '@/i18n/i18nmerge';
 import messages_list from '@/i18n/list';
 import messages_positions from '@/i18n/common/positions';
-import { OpenCollapsibleIdKey } from '@/keys/OpenCollapsibleId';
+import { OpenCollapsibleIdKey, PendingOpenCollapsibleIdKey } from '@/keys/OpenCollapsibleId';
 
 const i18n = useI18n({
   messages: i18nMerge(messages_list, messages_positions),
@@ -68,8 +68,10 @@ const searchParameters = ref<SearchParameters>(loadSearchParameters());
 const searchResult = ref<SearchResult>();
 const variationsMap = ref<Map<string, SearchItem[]>>(new Map());
 const openCollapsibleId = ref<string | null>(null);
+const pendingOpenCollapsibleId = ref<string | null>(null);
 
 provide(OpenCollapsibleIdKey, openCollapsibleId);
+provide(PendingOpenCollapsibleIdKey, pendingOpenCollapsibleId);
 
 function trickToAttribute(trick: Trick, sortOption: SortOrder): string {
   switch (sortOption) {

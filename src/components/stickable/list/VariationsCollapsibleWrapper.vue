@@ -3,7 +3,7 @@ import type { Ref } from 'vue';
 import { ref, watch, nextTick, inject, computed, onMounted, onBeforeUnmount } from 'vue';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Icon } from '@iconify/vue/dist/iconify.js';
-import { OpenCollapsibleIdKey } from '@/keys/OpenCollapsibleId';
+import { OpenCollapsibleIdKey, PendingOpenCollapsibleIdKey } from '@/keys/OpenCollapsibleId';
 
 const props = defineProps<{
   itemId: string;
@@ -11,11 +11,22 @@ const props = defineProps<{
 
 const fallback = ref<string | null>(null);
 const openCollapsibleId = inject<Ref<string | null>>(OpenCollapsibleIdKey, fallback);
+const pendingOpenId = inject<Ref<string | null>>(PendingOpenCollapsibleIdKey, fallback);
 
 const isOpen = computed({
   get: () => openCollapsibleId.value === props.itemId,
   set: (value: boolean) => {
-    openCollapsibleId.value = value ? props.itemId : null;
+    if (value) {
+      if (openCollapsibleId.value && openCollapsibleId.value !== props.itemId) {
+        pendingOpenId.value = props.itemId;
+        openCollapsibleId.value = null;
+      } else {
+        openCollapsibleId.value = props.itemId;
+      }
+    } else {
+      openCollapsibleId.value = null;
+      pendingOpenId.value = null;
+    }
   },
 });
 
@@ -44,6 +55,11 @@ function scheduleMeasure() {
 function onTransitionEnd() {
   if (!isOpen.value) {
     isAnimating.value = false;
+    if (pendingOpenId.value) {
+      const idToOpen = pendingOpenId.value;
+      pendingOpenId.value = null;
+      openCollapsibleId.value = idToOpen;
+    }
   }
 }
 
