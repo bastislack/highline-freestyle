@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { PrimaryKey, StickableStatus } from '@/lib/utils';
-import { computed } from 'vue';
 import { SearchItem } from '@/types/search';
 import StickableCard from './StickableCard.vue';
 import CardDecoration from './CardDecoration.vue';
@@ -16,8 +15,8 @@ const props = defineProps<{
   variations: SearchItem[];
 }>();
 
-const borderClass = computed<string>(() => {
-  let stickFrequency = Math.max(0, Math.min(props.stickFrequency ?? 0, 7));
+function getBorderClass(stickFrequency?: number): string {
+  let stickFrequencyClamped = Math.max(0, Math.min(stickFrequency ?? 0, 7));
   return [
     'border-border',
     'border-skill1-600',
@@ -27,11 +26,11 @@ const borderClass = computed<string>(() => {
     'border-skill5-400',
     'border-skill6-400',
     'border-skill7-400',
-  ][stickFrequency];
-});
+  ][stickFrequencyClamped];
+}
 
-const fillClass = computed<string>(() => {
-  let stickFrequency = Math.max(0, Math.min(props.stickFrequency ?? 0, 7));
+function getFillClass(stickFrequency?: number): string {
+  let stickFrequencyClamped = Math.max(0, Math.min(stickFrequency ?? 0, 7));
   return [
     'bg-background',
     'bg-skill1',
@@ -41,12 +40,12 @@ const fillClass = computed<string>(() => {
     'bg-skill5',
     'bg-skill6',
     'bg-skill7',
-  ][stickFrequency];
-});
+  ][stickFrequencyClamped];
+}
 
-const computedClass = computed<string>(() => {
-  return `${fillClass.value} ${borderClass.value}`;
-});
+function getComputedClass(stickFrequency?: number): string {
+  return `${getFillClass(stickFrequency)} ${getBorderClass(stickFrequency)}`;
+}
 
 function variationLinkToDetails(primaryKey: PrimaryKey): string {
   return `/tricks/${primaryKey[1]}/${primaryKey[0]}`;
@@ -58,7 +57,7 @@ function variationLinkToDetails(primaryKey: PrimaryKey): string {
     v-if="variations.length > 0"
     :item-id="`${props.status}:${props.linkToDetails}`"
   >
-    <StickableCard :to="props.linkToDetails" :class="computedClass">
+    <StickableCard :to="props.linkToDetails" :class="getComputedClass(props.stickFrequency)">
       <template #decoration>
         <CardDecoration :isFavorite="isFavorite" :isNew="isNew" :status="status"></CardDecoration>
       </template>
@@ -70,7 +69,7 @@ function variationLinkToDetails(primaryKey: PrimaryKey): string {
         v-for="variation in variations"
         :key="`${variation.primaryKey[1]}:${variation.primaryKey[0]}`"
         :to="variationLinkToDetails(variation.primaryKey)"
-        :class="computedClass"
+        :class="getComputedClass(variation.stickFrequency)"
       >
         <template #decoration>
           <CardDecoration
@@ -84,7 +83,7 @@ function variationLinkToDetails(primaryKey: PrimaryKey): string {
     </template>
   </VariationsCollapsibleWrapper>
 
-  <StickableCard v-else :to="props.linkToDetails" :class="computedClass">
+  <StickableCard v-else :to="props.linkToDetails" :class="getComputedClass(props.stickFrequency)">
     <template #decoration>
       <CardDecoration :isFavorite="isFavorite" :isNew="isNew" :status="status"></CardDecoration>
     </template>
