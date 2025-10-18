@@ -35,6 +35,8 @@ const contentRef = ref<HTMLElement | null>(null);
 const isAnimating = ref(false);
 const contentOpacity = ref(0);
 
+const animationDuration = computed(() => (isOpen.value ? 'duration-200' : 'duration-150'));
+
 let ro: ResizeObserver | null = null;
 let scheduled = false;
 
@@ -103,8 +105,8 @@ onBeforeUnmount(() => {
 
         <CollapsibleTrigger as-child class="absolute top-1 left-1 z-20">
           <button
-            class="h-6 w-6 rounded-sm flex items-center justify-center transition-transform duration-200"
-            :class="{ 'rotate-180': isOpen }"
+            class="h-6 w-6 rounded-sm flex items-center justify-center transition-transform"
+            :class="{ 'rotate-180': isOpen, animationDuration }"
           >
             <Icon icon="ic:round-keyboard-arrow-down" class="h-5 w-5" />
           </button>
@@ -114,14 +116,16 @@ onBeforeUnmount(() => {
       <!-- Spacer that creates space in the grid -->
       <div
         v-show="isOpen || isAnimating"
-        class="col-span-full transition-all border rounded-sm bg-stone-100 duration-200 ease-in-out relative overflow-hidden"
+        class="col-span-full transition-all border rounded-sm bg-stone-100 ease-in-out relative overflow-hidden"
+        :class="animationDuration"
         :style="{ height: spacerHeight + 'px' }"
         @transitionend="onTransitionEnd"
         ref="contentRef"
       >
         <CollapsibleContent class="absolute left-1/2 -translate-x-1/2 w-full p-2">
           <div
-            class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 transition-opacity duration-200 ease-in-out"
+            class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 transition-opacity ease-in-out"
+            :class="animationDuration"
             :style="{ opacity: contentOpacity }"
           >
             <slot name="variations"></slot>
