@@ -168,7 +168,7 @@ function linkToDetails(primaryKey: PrimaryKey): string {
           class="w-full flex flex-col gap-1"
           :key="section.title"
         >
-          <div class="text-lg font-medium px-3 w-full text-center">{{ section.title }}</div>
+          <div class="text-2xl font-medium px-3 w-full text-center">{{ section.title }}</div>
           <div
             class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 gap-2 w-full grid-flow-row-dense"
           >
