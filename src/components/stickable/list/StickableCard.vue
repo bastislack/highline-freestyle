@@ -10,7 +10,7 @@ const props = defineProps<{
 <template>
   <RouterLink
     :to="to"
-    class="p-1 rounded-sm border flex flex-col items-center justify-center text-center relative overflow-clip"
+    class="p-1 rounded-sm border aspect-[8/5] flex flex-col items-center justify-center text-center relative overflow-clip"
     :class="props.class"
   >
     <slot name="decoration" />

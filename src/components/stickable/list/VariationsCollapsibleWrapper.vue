@@ -103,7 +103,7 @@ onBeforeUnmount(() => {
         <!-- Parent -->
         <slot></slot>
 
-        <CollapsibleTrigger as-child class="absolute top-1 left-1 z-20">
+        <CollapsibleTrigger as-child class="absolute bottom-1 left-1/2 -translate-x-1/2 z-20">
           <button
             class="h-6 w-6 rounded-sm flex items-center justify-center transition-transform"
             :class="{ 'rotate-180': isOpen, animationDuration }"
