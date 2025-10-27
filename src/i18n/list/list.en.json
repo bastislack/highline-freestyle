@@ -13,7 +13,7 @@
     }
   },
   "info": {
-    "noTrickMatchingSearch": "Oh no. There are not tricks matching your search input."
+    "noTrickMatchingSearch": "Oh no. There are no tricks matching your search input."
   },
   "newTrickButton": {
     "personal": "New Personal Trick",
