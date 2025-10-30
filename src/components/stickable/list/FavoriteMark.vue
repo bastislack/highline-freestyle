@@ -5,7 +5,7 @@ defineProps<{ show: boolean }>();
 </script>
 
 <template>
-  <div v-if="show">
-    <Icon icon="ic:round-star" class="absolute top-1 left-1 h-5 w-5 z-10" />
+  <div v-if="show" class="absolute top-1 left-1">
+    <Icon icon="ic:round-star" class="h-5 w-5" />
   </div>
 </template>
