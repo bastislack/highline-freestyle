@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
-import { ref, onMounted, nextTick } from 'vue';
+import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue';
 
 const props = defineProps<{
   to: string; // when present, render as RouterLink
@@ -31,8 +31,20 @@ const checkOverflow = () => {
   });
 };
 
+let resizeObserver: ResizeObserver | null = null;
+
 onMounted(() => {
   nextTick(checkOverflow);
+
+  // Re-check when element size changes (e.g., when collapsible opens or window resizes)
+  if (textElement.value) {
+    resizeObserver = new ResizeObserver(checkOverflow);
+    resizeObserver.observe(textElement.value);
+  }
+});
+
+onBeforeUnmount(() => {
+  resizeObserver?.disconnect();
 });
 </script>
 
