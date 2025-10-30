@@ -124,7 +124,7 @@ onBeforeUnmount(() => {
       >
         <CollapsibleContent class="absolute left-1/2 -translate-x-1/2 w-full p-2">
           <div
-            class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 transition-opacity ease-in-out"
+            class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 gap-2 transition-opacity ease-in-out"
             :class="animationDuration"
             :style="{ opacity: contentOpacity }"
           >
