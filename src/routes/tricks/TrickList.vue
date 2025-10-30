@@ -27,6 +27,7 @@ import { i18nMerge } from '@/i18n/i18nmerge';
 import messages_list from '@/i18n/list';
 import messages_positions from '@/i18n/common/positions';
 import { OpenCollapsibleIdKey, PendingOpenCollapsibleIdKey } from '@/keys/OpenCollapsibleId';
+import { isStickableNew } from '@/util/misc';
 
 const i18n = useI18n({
   messages: i18nMerge(messages_list, messages_positions),
@@ -122,7 +123,7 @@ watch(
                 primaryKey: variation.primaryKey,
                 stickFrequency: variation.stickFrequency,
                 isFavorite: variation.isFavourite,
-                isNew: false,
+                isNew: isStickableNew(variation.dateAddedEpoch),
               }) as SearchItem
           );
           newVariationsMap.set(`${item.primaryKey[1]}:${item.primaryKey[0]}`, variationItems);
