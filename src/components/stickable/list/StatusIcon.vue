@@ -15,10 +15,10 @@ const show = computed(() => props.isNew || isUserDefined.value || isArchived.val
 
 <template>
   <div v-if="show" class="absolute top-1 right-1">
-    <Icon v-if="isUserDefined" icon="ic:round-person" />
+    <Icon v-if="isUserDefined" icon="ic:round-person" class="h-5 w-5" />
 
-    <Icon v-else-if="isArchived" icon="ic:baseline-archive" />
+    <Icon v-else-if="isArchived" icon="ic:baseline-archive" class="h-5 w-5" />
 
-    <Icon v-else-if="isNew" icon="ic:baseline-new-releases" />
+    <Icon v-else-if="isNew" icon="ic:baseline-new-releases" class="h-5 w-5" />
   </div>
 </template>
