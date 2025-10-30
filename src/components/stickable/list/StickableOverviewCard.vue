@@ -13,6 +13,7 @@ const props = defineProps<{
   isFavorite: boolean;
   isNew: boolean;
   variations: SearchItem[];
+  showVariations: boolean;
 }>();
 
 function getBorderClass(stickFrequency?: number): string {
@@ -54,7 +55,7 @@ function variationLinkToDetails(primaryKey: PrimaryKey): string {
 
 <template>
   <VariationsCollapsibleWrapper
-    v-if="variations.length > 0"
+    v-if="variations.length > 0 && props.showVariations"
     :item-id="`${props.status}:${props.linkToDetails}`"
   >
     <StickableCard :to="props.linkToDetails" :class="getComputedClass(props.stickFrequency)">
