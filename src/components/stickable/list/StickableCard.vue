@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
-import { ref, onMounted, nextTick, watch } from 'vue';
+import { ref, onMounted, nextTick } from 'vue';
 
 const props = defineProps<{
   to: string; // when present, render as RouterLink
@@ -13,26 +13,27 @@ const isOverflowing = ref(false);
 const checkOverflow = () => {
   if (!textElement.value) return;
 
-  // Temporarily set to larger size to measure
-  textElement.value.classList.remove('text-sm');
-  textElement.value.classList.add('text-lg');
+  isOverflowing.value = false;
 
-  // Check if content exceeds 2 lines
-  isOverflowing.value = textElement.value.scrollHeight > textElement.value.clientHeight;
+  nextTick(() => {
+    if (!textElement.value) return;
+
+    textElement.value.classList.remove('line-clamp-2');
+    void textElement.value.offsetHeight;
+
+    const style = window.getComputedStyle(textElement.value);
+    const maxHeight = parseFloat(style.lineHeight) * 2;
+
+    textElement.value.classList.add('line-clamp-2');
+
+    // Check if content exceeds 2 lines (with small tolerance for rounding)
+    isOverflowing.value = textElement.value.scrollHeight > maxHeight + 1;
+  });
 };
 
 onMounted(() => {
   nextTick(checkOverflow);
 });
-
-// Watch for any changes that might affect the content
-watch(
-  () => textElement.value,
-  () => {
-    nextTick(checkOverflow);
-  },
-  { flush: 'post' }
-);
 </script>
 
 <template>
@@ -43,7 +44,14 @@ watch(
   >
     <slot name="decoration" />
     <div class="flex-grow flex flex-col tracking-tight justify-around w-full">
-      <div ref="textElement" class="line-clamp-2" :class="isOverflowing ? 'text-sm' : 'text-lg'">
+      <div
+        ref="textElement"
+        class="line-clamp-2"
+        :class="{
+          'text-sm leading-4': isOverflowing,
+          'text-lg leading-5': !isOverflowing,
+        }"
+      >
         <slot />
       </div>
     </div>
