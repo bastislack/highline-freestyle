@@ -208,7 +208,13 @@ export function searchInTricks(
       searchParameters.includedStatuses.includes(trick.primaryKey[1]) && trick.showInSearchQueries
   );
 
+  const filteredTricksWithVariations = allTricks.filter(
+    (trick) =>
+      searchParameters.includedStatuses.includes(trick.primaryKey[1])
+  );
+
   const sortedTricks = sortTricks(filteredTricks, searchParameters.sortOrder);
+  const sortedTricksWithVariations = sortTricks(filteredTricksWithVariations, searchParameters.sortOrder);
 
   if (!searchParameters.showFavoritesAtTop) {
     return groupTricksToSearchResult(
@@ -219,7 +225,7 @@ export function searchInTricks(
     );
   }
 
-  const isolatedFavorites = sortedTricks.filter((trick) => trick.isFavourite);
+  const isolatedFavorites = sortedTricksWithVariations.filter((trick) => trick.isFavourite);
 
   if (isolatedFavorites.length == 0) {
     return groupTricksToSearchResult(
@@ -230,18 +236,17 @@ export function searchInTricks(
     );
   }
 
-  const sortedTricksWithoutFavorites = sortedTricks.filter((trick) => !trick.isFavourite);
-  const favoritesSearchItem: SearchSection = {
+  const favoritesSection: SearchSection = {
     title: favoritesSectionTitle,
     items: isolatedFavorites.map((trick) =>
       searchItemFromTrick(trick, searchParameters.preferredName)
     ),
   };
-  const searchResultWithoutFavorites = groupTricksToSearchResult(
-    sortedTricksWithoutFavorites,
+  const searchResult = groupTricksToSearchResult(
+    sortedTricks,
     searchParameters.sortOrder,
     mapTrickToAttribute,
     searchParameters.preferredName
   );
-  return [favoritesSearchItem].concat(searchResultWithoutFavorites);
+  return [favoritesSection].concat(searchResult);
 }

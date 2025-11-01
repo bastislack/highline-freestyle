@@ -183,7 +183,9 @@ function linkToDetails(primaryKey: PrimaryKey): string {
               :is-new="item.isNew"
               :link-to-details="linkToDetails(item.primaryKey)"
               :variations="variationsMap.get(item.primaryKey[1] + ':' + item.primaryKey[0]) || []"
-              :showVariations="!searchParameters.searchText"
+              :showVariations="
+                !searchParameters.searchText && section.title !== t('sectionTitles.favorites')
+              "
             />
           </div>
         </div>
