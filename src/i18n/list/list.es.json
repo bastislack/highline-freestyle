@@ -7,9 +7,18 @@
   },
   "cards": {
     "status": {
-      "personal": {"title": "Personal", "description": "Este es un truco personal que has añadido a tu lista de trucos. Nadie más podrá ver este truco en su lista de trucos."},
-      "archived": {"title": "Archivado", "description": "Este truco solía formar parte de la lista oficial de trucos, pero en algún momento fue eliminado."},
-      "new": {"title": "Nuevo", "description": "Este truco se ha añadido recientemente a la lista oficial de trucos. ¡Sal y prueba a hacerlo!"} 
+      "personal": {
+        "title": "Personal",
+        "description": "Este es un truco personal que has añadido a tu lista de trucos. Nadie más podrá ver este truco en su lista de trucos."
+      },
+      "archived": {
+        "title": "Archivado",
+        "description": "Este truco solía formar parte de la lista oficial de trucos, pero en algún momento fue eliminado."
+      },
+      "new": {
+        "title": "Nuevo",
+        "description": "Este truco se ha añadido recientemente a la lista oficial de trucos. ¡Sal y prueba a hacerlo!"
+      }
     }
   },
   "info": {

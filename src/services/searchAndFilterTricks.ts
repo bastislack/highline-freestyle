@@ -180,7 +180,9 @@ export function getVariationsForTrick(
     (trick) =>
       includedStatuses.includes(trick.primaryKey[1]) &&
       trick.variationOf &&
-      trick.variationOf.some((parentKey) => parentKey[0] === trickId && parentKey[1] === trickStatus)
+      trick.variationOf.some(
+        (parentKey) => parentKey[0] === trickId && parentKey[1] === trickStatus
+      )
   );
 }
 
@@ -208,13 +210,15 @@ export function searchInTricks(
       searchParameters.includedStatuses.includes(trick.primaryKey[1]) && trick.showInSearchQueries
   );
 
-  const filteredTricksWithVariations = allTricks.filter(
-    (trick) =>
-      searchParameters.includedStatuses.includes(trick.primaryKey[1])
+  const filteredTricksWithVariations = allTricks.filter((trick) =>
+    searchParameters.includedStatuses.includes(trick.primaryKey[1])
   );
 
   const sortedTricks = sortTricks(filteredTricks, searchParameters.sortOrder);
-  const sortedTricksWithVariations = sortTricks(filteredTricksWithVariations, searchParameters.sortOrder);
+  const sortedTricksWithVariations = sortTricks(
+    filteredTricksWithVariations,
+    searchParameters.sortOrder
+  );
 
   if (!searchParameters.showFavoritesAtTop) {
     return groupTricksToSearchResult(
