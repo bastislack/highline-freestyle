@@ -6,10 +6,10 @@
     "favorites": "Favorites"
   },
   "cards": {
-    "badges": {
-      "personal": "Personal",
-      "archived": "Archived",
-      "new": "New"
+    "status": {
+      "personal": {"title": "Personal", "description": "This is a personal trick that you added to your trick-list. No-one else will be able to see this trick in their trick list."},
+      "archived": {"title": "Archived", "description": "This trick used to be part of the official trick-list but got removed at some point."},
+      "new": {"title": "New", "description": "This trick has been recently added to the official trick-list. Go out and try to land it!"} 
     }
   },
   "info": {

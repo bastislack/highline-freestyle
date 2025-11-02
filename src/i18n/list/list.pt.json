@@ -6,10 +6,10 @@
     "favorites": "Favoritos"
   },
   "cards": {
-    "badges": {
-      "personal": "Personal",
-      "archived": "Arquivada",
-      "new": "Novo"
+    "status": {
+      "personal": {"title": "Personal", "description": "Este é um truque pessoal que adicionou à sua lista de truques. Ninguém mais poderá ver este truque na sua lista de truques."},
+      "archived": {"title": "Arquivada", "description": "Este truque fazia parte da lista oficial de truques, mas foi removido em algum momento."},
+      "new": {"title": "Novo", "description": "Este truque foi recentemente adicionado à lista oficial de truques. Vá lá fora e tente executá-lo!"} 
     }
   },
   "info": {
