@@ -105,10 +105,10 @@ onBeforeUnmount(() => {
 
         <CollapsibleTrigger as-child class="absolute -bottom-[3px] left-1/2 -translate-x-1/2 z-20">
           <button
-            class="h-6 w-6 rounded-sm flex items-center justify-center transition-transform"
+            class="h-8 w-8 rounded-sm flex items-center justify-center transition-transform"
             :class="{ 'rotate-180': isOpen, animationDuration }"
           >
-            <Icon icon="ic:round-keyboard-arrow-down" class="h-5 w-5" />
+            <Icon icon="ic:round-keyboard-arrow-down" class="h-5 w-5 rounded hover:bg-muted" />
           </button>
         </CollapsibleTrigger>
       </div>
