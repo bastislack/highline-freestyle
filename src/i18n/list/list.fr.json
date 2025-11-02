@@ -6,10 +6,10 @@
     "favorites": "Favoris"
   },
   "cards": {
-    "badges": {
-      "personal": "Personnel",
-      "archived": "Archivé",
-      "new": "Nouveau"
+    "status": {
+      "personal": {"title": "Personnel", "description": "Il s'agit d'un truc personnel que vous avez ajouté à votre liste des trucs. Personne d'autre ne pourra voir ce truc dans sa liste des trucs."},
+      "archived": {"title": "Archivé", "description": "Ce truc faisait partie de la liste officielle des trucs, mais il en a été retirée à un moment donné."},
+      "new": {"title": "Nouveau", "description": "Ce truc a récemment été ajoutée à la liste officielle des trucs. Allez-y et essayez de le réussir!"} 
     }
   },
   "info": {
