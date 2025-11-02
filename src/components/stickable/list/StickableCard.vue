@@ -51,7 +51,7 @@ onBeforeUnmount(() => {
 <template>
   <RouterLink
     :to="to"
-    class="p-2 rounded-sm border aspect-[3/2] flex text-center relative"
+    class="p-2 rounded-sm border aspect-[7/5] flex text-center relative"
     :class="props.class"
   >
     <slot name="decoration" />
