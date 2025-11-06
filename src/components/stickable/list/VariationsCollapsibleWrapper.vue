@@ -3,7 +3,10 @@ import type { Ref } from 'vue';
 import { ref, watch, nextTick, inject, computed, onMounted, onBeforeUnmount } from 'vue';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Icon } from '@iconify/vue/dist/iconify.js';
-import { OpenCollapsibleIdKey, PendingOpenCollapsibleIdKey } from '@/keys/OpenCollapsibleId';
+import {
+  OpenCollapsibleIdKey,
+  PendingOpenCollapsibleIdKey,
+} from '@/components/stickable/list/OpenCollapsibleId';
 
 const props = defineProps<{
   itemId: string;
@@ -66,16 +69,14 @@ function onTransitionEnd() {
 }
 
 watch(isOpen, async (open) => {
+  isAnimating.value = true;
+  await nextTick();
   if (open) {
-    isAnimating.value = true;
-    await nextTick();
     requestAnimationFrame(() => {
       scheduleMeasure();
       contentOpacity.value = 1;
     });
   } else {
-    isAnimating.value = true;
-    await nextTick();
     spacerHeight.value = 0;
     contentOpacity.value = 0;
   }
@@ -96,42 +97,38 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <!-- Use a wrapper div instead of making Collapsible use 'contents' -->
-  <div class="contents">
-    <Collapsible v-model:open="isOpen" class="contents">
-      <div class="relative">
-        <!-- Parent -->
-        <slot></slot>
+  <Collapsible v-model:open="isOpen" class="contents">
+    <div class="relative">
+      <slot></slot>
 
-        <CollapsibleTrigger as-child class="absolute -bottom-[3px] left-1/2 -translate-x-1/2 z-20">
-          <button
-            class="h-8 w-8 rounded-sm flex items-center justify-center transition-transform"
-            :class="{ 'rotate-180': isOpen, animationDuration }"
-          >
-            <Icon icon="ic:round-keyboard-arrow-down" class="h-5 w-5 rounded hover:bg-muted" />
-          </button>
-        </CollapsibleTrigger>
-      </div>
+      <CollapsibleTrigger as-child class="absolute -bottom-[3px] left-1/2 -translate-x-1/2 z-20">
+        <button
+          class="h-8 w-8 rounded-sm flex items-center justify-center transition-transform"
+          :class="{ 'rotate-180': isOpen, animationDuration }"
+        >
+          <Icon icon="ic:round-keyboard-arrow-down" class="h-5 w-5 rounded hover:bg-muted" />
+        </button>
+      </CollapsibleTrigger>
+    </div>
 
-      <!-- Spacer that creates space in the grid -->
-      <div
-        v-show="isOpen || isAnimating"
-        class="col-span-full transition-all border rounded-sm bg-stone-100 ease-in-out relative overflow-hidden"
-        :class="animationDuration"
-        :style="{ height: spacerHeight + 'px' }"
-        @transitionend="onTransitionEnd"
-        ref="contentRef"
-      >
-        <CollapsibleContent class="absolute left-1/2 -translate-x-1/2 w-full p-2">
-          <div
-            class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 gap-2 transition-opacity ease-in-out"
-            :class="animationDuration"
-            :style="{ opacity: contentOpacity }"
-          >
-            <slot name="variations"></slot>
-          </div>
-        </CollapsibleContent>
-      </div>
-    </Collapsible>
-  </div>
+    <!-- Spacer that creates space in the grid -->
+    <div
+      v-show="isOpen || isAnimating"
+      class="col-span-full transition-all border rounded-sm bg-stone-100 ease-in-out relative overflow-hidden"
+      :class="animationDuration"
+      :style="{ height: spacerHeight + 'px' }"
+      @transitionend="onTransitionEnd"
+      ref="contentRef"
+    >
+      <CollapsibleContent class="absolute left-1/2 -translate-x-1/2 w-full p-2">
+        <div
+          class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 gap-2 transition-opacity ease-in-out"
+          :class="animationDuration"
+          :style="{ opacity: contentOpacity }"
+        >
+          <slot name="variations"></slot>
+        </div>
+      </CollapsibleContent>
+    </div>
+  </Collapsible>
 </template>

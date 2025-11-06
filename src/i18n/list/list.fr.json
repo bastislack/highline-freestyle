@@ -9,15 +9,15 @@
     "status": {
       "personal": {
         "title": "Personnel",
-        "description": "Il s'agit d'un truc personnel que vous avez ajouté à votre liste des trucs. Personne d'autre ne pourra voir ce truc dans sa liste des trucs."
+        "description": "Il s'agit d'une figure personnelle que vous avez ajoutée à votre liste des figures. Personne d'autre ne pourra voir cette figure dans sa liste des figures."
       },
       "archived": {
         "title": "Archivé",
-        "description": "Ce truc faisait partie de la liste officielle des trucs, mais il en a été retirée à un moment donné."
+        "description": "Cette figure faisait partie de la liste officielle des figures, mais elle en a été retirée à un moment donné."
       },
       "new": {
         "title": "Nouveau",
-        "description": "Ce truc a récemment été ajoutée à la liste officielle des trucs. Allez-y et essayez de le réussir!"
+        "description": "Cette figure a récemment été ajoutée à la liste officielle des figures. Allez-y et essayez de la réussir!"
       }
     }
   },
