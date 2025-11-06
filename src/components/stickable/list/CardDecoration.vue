@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { StickableStatus } from '@/lib/utils';
-import FavoriteMark from './FavoriteMark.vue';
+import { Icon } from '@iconify/vue/dist/iconify.js';
 import StatusIcon from './StatusIcon.vue';
 
 const props = defineProps<{
@@ -11,13 +11,8 @@ const props = defineProps<{
 </script>
 
 <template>
-  <slot
-    name="decoration"
-    :isFavorite="props.isFavorite"
-    :isNew="props.isNew"
-    :status="props.status"
-  >
-    <FavoriteMark :show="props.isFavorite" />
-    <StatusIcon :isNew="props.isNew" :status="props.status" />
-  </slot>
+  <div v-if="props.isFavorite" class="absolute top-1 left-1">
+    <Icon icon="ic:round-star" class="h-5 w-5" />
+  </div>
+  <StatusIcon :isNew="props.isNew" :status="props.status" />
 </template>

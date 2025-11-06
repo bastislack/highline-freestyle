@@ -8,7 +8,7 @@ import { searchInTricks, getVariationsForTrick } from '@/services/searchAndFilte
 
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import TrickSearchMenu from '@/components/stickable/list/TrickSearchMenu.vue';
-import StickableOverviewCard from '@/components/stickable/list/StickableOverviewCard.vue';
+import StickableSearchResult from '@/components/stickable/list/StickableSearchResult.vue';
 import Separator from '@/components/ui/separator/Separator.vue';
 import Section from '@/components/ui/section/Section.vue';
 import {
@@ -26,7 +26,10 @@ import { useI18n } from 'vue-i18n';
 import { i18nMerge } from '@/i18n/i18nmerge';
 import messages_list from '@/i18n/list';
 import messages_positions from '@/i18n/common/positions';
-import { OpenCollapsibleIdKey, PendingOpenCollapsibleIdKey } from '@/keys/OpenCollapsibleId';
+import {
+  OpenCollapsibleIdKey,
+  PendingOpenCollapsibleIdKey,
+} from '@/components/stickable/list/OpenCollapsibleId';
 import { isStickableNew } from '@/util/misc';
 
 const i18n = useI18n({
@@ -112,22 +115,21 @@ watch(
           item.primaryKey[1],
           searchParameters.value.includedStatuses
         );
-        if (variations.length > 0) {
-          const variationItems = variations.map(
-            (variation) =>
-              ({
-                name:
-                  searchParameters.value.preferredName === 'alias'
-                    ? variation.alias ?? variation.technicalName
-                    : variation.technicalName,
-                primaryKey: variation.primaryKey,
-                stickFrequency: variation.stickFrequency,
-                isFavorite: variation.isFavourite,
-                isNew: isStickableNew(variation.dateAddedEpoch),
-              }) as SearchItem
-          );
-          newVariationsMap.set(`${item.primaryKey[1]}:${item.primaryKey[0]}`, variationItems);
-        }
+        if (variations.length == 0) return;
+        const variationItems = variations.map(
+          (variation) =>
+            ({
+              name:
+                searchParameters.value.preferredName === 'alias'
+                  ? variation.alias ?? variation.technicalName
+                  : variation.technicalName,
+              primaryKey: variation.primaryKey,
+              stickFrequency: variation.stickFrequency,
+              isFavorite: variation.isFavourite,
+              isNew: isStickableNew(variation.dateAddedEpoch),
+            }) as SearchItem
+        );
+        newVariationsMap.set(`${item.primaryKey[1]}:${item.primaryKey[0]}`, variationItems);
       });
     });
     variationsMap.value = newVariationsMap;
@@ -173,7 +175,7 @@ function linkToDetails(primaryKey: PrimaryKey): string {
           <div
             class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 gap-2 w-full grid-flow-row-dense"
           >
-            <StickableOverviewCard
+            <StickableSearchResult
               v-for="item in section.items"
               :key="item.primaryKey[1] + ':' + item.primaryKey[0]"
               :title="item.name"
