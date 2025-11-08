@@ -152,32 +152,6 @@ async function handleArchiving(archivedTricks: z.infer<typeof DbTricksTableZod>[
   return failedTrickMigrations === 0;
 }
 
-/**
- * Although the odds of a trick that was archived being reintroduced are very, it might still be possible.
- * This will
- * - find metadata belonging to an archived trick and move it to the official trick
- * - move any references to the archived trick back to the official trick
- * - delete the archived trick (creation will happen later)
- */
-async function handleUnarchivingTricks(tricks: z.infer<typeof DbTricksTableZod>[]) {
-  return await Promise.allSettled(
-    tricks.map(async (e) => {
-      await moveTrick(e.id, 'archived', 'official');
-      // At this point references are handled. Now we just need to move the actual Trick over.
-      // This is done using a PUT and DELETE (because again, you cannot modify the Primary Key with Dexie / IndexedDB)
-      const newTrickObject = DbTricksTableZod.parse({
-        ...e,
-        trickStatus: 'official',
-      });
-
-      // PUT'ting the new trick here technically is redundant, but its still here
-      // too keep consistent with the archiving procedure.
-      await db.tricks.put(newTrickObject);
-      await db.tricks.delete([e.id, 'archived']);
-    })
-  );
-}
-
 export default async function syncTricks() {
   const tricks = z
     .array(DbTricksTableZod)
@@ -198,8 +172,6 @@ export default async function syncTricks() {
   if (tricksThatHaveBeenRemoved.length > 0) {
     await handleArchiving(tricksThatHaveBeenRemoved);
   }
-
-  await handleUnarchivingTricks(tricks);
 
   // At this point, the Database should be in a state where all to-be-archived Tricks had their references updated.
   // so we can safely PUT the new tricks into the DB.
