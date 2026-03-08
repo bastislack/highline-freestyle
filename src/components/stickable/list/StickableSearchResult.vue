@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { PrimaryKey, StickableStatus } from '@/lib/utils';
+import { StickableStatus } from '@/lib/utils';
 import { SearchItem } from '@/types/search';
 import StickableCard from './StickableCard.vue';
-import VariationsCollapsibleWrapper from './VariationsCollapsibleWrapper.vue';
+import VariationsPopover from './VariationsPopover.vue';
 
 const props = defineProps<{
   title: string;
@@ -14,16 +14,12 @@ const props = defineProps<{
   variations: SearchItem[];
   showVariations: boolean;
 }>();
-
-function variationLinkToDetails(primaryKey: PrimaryKey): string {
-  return `/tricks/${primaryKey[1]}/${primaryKey[0]}`;
-}
 </script>
 
 <template>
-  <VariationsCollapsibleWrapper
+  <VariationsPopover
     v-if="variations.length > 0 && props.showVariations"
-    :item-id="`${props.status}:${props.linkToDetails}`"
+    :variations="variations"
   >
     <StickableCard
       :to="props.linkToDetails"
@@ -34,21 +30,7 @@ function variationLinkToDetails(primaryKey: PrimaryKey): string {
     >
       {{ title }}
     </StickableCard>
-
-    <template #variations>
-      <StickableCard
-        v-for="variation in variations"
-        :key="`${variation.primaryKey[1]}:${variation.primaryKey[0]}`"
-        :to="variationLinkToDetails(variation.primaryKey)"
-        :stickFrequency="variation.stickFrequency"
-        :isFavorite="variation.isFavorite"
-        :isNew="variation.isNew"
-        :status="variation.primaryKey[1]"
-      >
-        {{ variation.name }}
-      </StickableCard>
-    </template>
-  </VariationsCollapsibleWrapper>
+  </VariationsPopover>
 
   <StickableCard
     v-else
