@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, watch, provide } from 'vue';
+import { ref, watch } from 'vue';
 import { tricksDao } from '@/lib/database';
 import { PrimaryKey } from '@/lib/utils';
 import { SearchItem, SearchParameters, SearchResult, SortOrder } from '@/types/search';
@@ -26,10 +26,6 @@ import { useI18n } from 'vue-i18n';
 import { i18nMerge } from '@/i18n/i18nmerge';
 import messages_list from '@/i18n/list';
 import messages_positions from '@/i18n/common/positions';
-import {
-  OpenCollapsibleIdKey,
-  PendingOpenCollapsibleIdKey,
-} from '@/components/stickable/list/OpenCollapsibleId';
 import { isStickableNew } from '@/util/misc';
 
 const i18n = useI18n({
@@ -71,12 +67,6 @@ function storeSearchParameters(parameters: SearchParameters) {
 const searchParameters = ref<SearchParameters>(loadSearchParameters());
 const searchResult = ref<SearchResult>();
 const variationsMap = ref<Map<string, SearchItem[]>>(new Map());
-const openCollapsibleId = ref<string | null>(null);
-const pendingOpenCollapsibleId = ref<string | null>(null);
-
-provide(OpenCollapsibleIdKey, openCollapsibleId);
-provide(PendingOpenCollapsibleIdKey, pendingOpenCollapsibleId);
-
 function trickToAttribute(trick: Trick, sortOption: SortOrder): string {
   switch (sortOption) {
     case 'difficulty-asc':
