@@ -20,6 +20,7 @@ const props = defineProps<{
   <VariationsPopover
     v-if="variations.length > 0 && props.showVariations"
     :variations="variations"
+    :stick-frequency="props.stickFrequency"
   >
     <StickableCard
       :to="props.linkToDetails"
