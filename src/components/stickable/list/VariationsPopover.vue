@@ -26,8 +26,9 @@ function variationLinkToDetails(primaryKey: SearchItem['primaryKey']): string {
           class="absolute -bottom-[3px] left-0 z-20 h-8 w-full rounded-sm flex items-center justify-center"
           @click.prevent
         >
-          <span class="h-5 w-5 rounded flex items-center justify-center" :class="{ 'bg-muted': isOpen }">
-            <Icon icon="ic:round-keyboard-arrow-down" class="h-5 w-5 transition-transform duration-200" :class="{ 'rotate-180': isOpen }" />
+          <span class="rounded flex items-center justify-center gap-0.5 px-1 h-5" :class="{ 'bg-muted': isOpen }">
+            <span class="text-[10px] text-muted-foreground leading-none">+{{ props.variations.length }}</span>
+            <Icon icon="ic:round-keyboard-arrow-down" class="h-4 w-4 transition-transform duration-200" :class="{ 'rotate-180': isOpen }" />
           </span>
         </button>
       </PopoverTrigger>
