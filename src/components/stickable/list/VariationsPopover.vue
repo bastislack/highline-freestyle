@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Icon } from '@iconify/vue/dist/iconify.js';
 import type { SearchItem } from '@/types/search';
@@ -7,6 +8,8 @@ import StickableCard from './StickableCard.vue';
 const props = defineProps<{
   variations: SearchItem[];
 }>();
+
+const isOpen = ref(false);
 
 function variationLinkToDetails(primaryKey: SearchItem['primaryKey']): string {
   return `/tricks/${primaryKey[1]}/${primaryKey[0]}`;
@@ -17,13 +20,15 @@ function variationLinkToDetails(primaryKey: SearchItem['primaryKey']): string {
   <div class="relative">
     <slot />
 
-    <Popover>
+    <Popover v-model:open="isOpen">
       <PopoverTrigger as-child>
         <button
-          class="absolute -bottom-[3px] left-1/2 -translate-x-1/2 z-20 h-8 w-8 rounded-sm flex items-center justify-center"
+          class="absolute -bottom-[3px] left-0 z-20 h-8 w-full rounded-sm flex items-center justify-center"
           @click.prevent
         >
-          <Icon icon="ic:round-keyboard-arrow-down" class="h-5 w-5 rounded hover:bg-muted" />
+          <span class="h-5 w-5 rounded flex items-center justify-center" :class="{ 'bg-muted': isOpen }">
+            <Icon icon="ic:round-keyboard-arrow-down" class="h-5 w-5 transition-transform duration-200" :class="{ 'rotate-180': isOpen }" />
+          </span>
         </button>
       </PopoverTrigger>
       <PopoverContent
