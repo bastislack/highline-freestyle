@@ -44,5 +44,4 @@ describe('VariationsPopover', () => {
     const trigger = wrapper.find('button');
     expect(trigger.exists()).toBe(true);
   });
-
 });
