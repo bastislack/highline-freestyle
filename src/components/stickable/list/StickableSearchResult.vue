@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { StickableStatus } from '@/lib/utils';
-import { SearchItem } from '@/types/search';
+import type { SearchItem } from '@/types/search';
 import StickableCard from './StickableCard.vue';
 import VariationsPopover from './VariationsPopover.vue';
 
@@ -37,7 +37,7 @@ const props = defineProps<{
     v-else
     :to="props.linkToDetails"
     :stickFrequency="props.stickFrequency"
-    :isFavorite="isFavorite"
+    :isFavorite="props.isFavorite"
     :isNew="props.isNew"
     :status="props.status"
   >
