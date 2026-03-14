@@ -69,7 +69,7 @@ function variationLinkToDetails(primaryKey: SearchItem['primaryKey']): string {
 
 <template>
   <div class="relative">
-    <div class="relative transition-transform duration-100" :class="isOpen ? 'z-[41] scale-[1.02]' : ''">
+    <div class="relative transition-transform duration-100" :class="isOpen ? 'z-[21] scale-[1.02]' : ''">
       <slot />
     </div>
 
@@ -77,7 +77,7 @@ function variationLinkToDetails(primaryKey: SearchItem['primaryKey']): string {
       <PopoverTrigger as-child>
         <button ref="triggerRef"
           class="absolute -bottom-[3px] left-0 h-8 w-full rounded-sm flex items-center justify-center"
-          :class="isOpen ? 'z-[41]' : 'z-20'" @click.prevent>
+          :class="isOpen ? 'z-[21]' : 'z-20'" @click.prevent>
           <span class="rounded flex items-center justify-center gap-0.5 px-1 h-5"
             :class="isOpen ? highlightClass(props.stickFrequency) : ''">
             <span class="text-[10px] text-muted-foreground leading-none">+{{ props.variations.length }}</span>
@@ -86,8 +86,8 @@ function variationLinkToDetails(primaryKey: SearchItem['primaryKey']): string {
           </span>
         </button>
       </PopoverTrigger>
-      <div v-if="isOpen" class="fixed inset-0 z-40 bg-black/10 backdrop-blur-[1px]" />
-      <PopoverContent side="bottom" :side-offset="8" :reference="virtualReference" class="p-2"
+      <div v-if="isOpen" class="fixed -inset-[100px] z-20 bg-black/10 backdrop-blur-[1px]" />
+      <PopoverContent side="bottom" :side-offset="8" :reference="virtualReference" class="!z-[25] p-2"
         :style="{ width: popoverWidth }">
         <div class="grid grid-cols-3 gap-2 max-h-[50vh] overflow-y-auto">
           <StickableCard v-for="variation in props.variations"
