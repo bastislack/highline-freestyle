@@ -199,7 +199,7 @@ function linkToDetails(primaryKey: PrimaryKey): string {
       <DropdownMenuTrigger as-child>
         <Button
           size="icon"
-          class="rounded-full shadow-md fixed bottom-20 right-3 lg:bottom-5 lg:right-5 xl:bottom-10 xl:right-10 h-12 w-12"
+          class="rounded-full shadow-md fixed bottom-5 right-3 lg:right-5 xl:bottom-10 xl:right-10 h-12 w-12"
         >
           <Icon icon="ic:round-add" class="h-8 w-8" />
         </Button>
