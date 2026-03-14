@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, watch, onUnmounted } from 'vue';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Icon } from '@iconify/vue/dist/iconify.js';
 import type { SearchItem } from '@/types/search';
@@ -61,6 +61,22 @@ const virtualReference = {
     };
   },
 };
+
+let observer: IntersectionObserver | null = null;
+
+watch(isOpen, (open) => {
+  observer?.disconnect();
+  observer = null;
+  if (open && triggerRef.value) {
+    observer = new IntersectionObserver(
+      ([entry]) => { if (!entry.isIntersecting) isOpen.value = false; },
+      { threshold: 0 },
+    );
+    observer.observe(triggerRef.value);
+  }
+});
+
+onUnmounted(() => observer?.disconnect());
 
 function variationLinkToDetails(primaryKey: SearchItem['primaryKey']): string {
   return `/tricks/${primaryKey[1]}/${primaryKey[0]}`;
