@@ -99,7 +99,7 @@ function variationLinkToDetails(primaryKey: SearchItem['primaryKey']): string {
         <button
           ref="triggerRef"
           class="absolute -bottom-[3px] left-0 h-8 w-full rounded-sm flex items-center justify-center"
-          :class="isOpen ? 'z-[21]' : 'z-20'"
+          :class="isOpen ? 'z-[21]' : 'z-10'"
           @click.prevent
         >
           <span
