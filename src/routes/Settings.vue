@@ -78,8 +78,8 @@ function updateLocale(newLocale: Locales) {
             <div class="text-muted-foreground text-sm">{{ t('tracking.youtube.description') }}</div>
           </div>
           <Switch
-            @update:checked="(pref: boolean) => setEmbedPreference('YOUTUBE', pref)"
-            :checked="isEmbedAllowed('YOUTUBE')"
+            @update:model-value="(pref: boolean) => setEmbedPreference('YOUTUBE', pref)"
+            :model-value="isEmbedAllowed('YOUTUBE')"
           />
         </div>
         <div class="flex flex-row items-center justify-between">
@@ -90,8 +90,8 @@ function updateLocale(newLocale: Locales) {
             </div>
           </div>
           <Switch
-            @update:checked="(pref: boolean) => setEmbedPreference('INSTAGRAM', pref)"
-            :checked="isEmbedAllowed('INSTAGRAM')"
+            @update:model-value="(pref: boolean) => setEmbedPreference('INSTAGRAM', pref)"
+            :model-value="isEmbedAllowed('INSTAGRAM')"
           />
         </div>
       </div>
