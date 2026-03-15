@@ -3,6 +3,7 @@ import { getVariationsForTrick } from '../searchAndFilterTricks';
 import { Trick } from '@/lib/database/daos/trick';
 import { z } from 'zod';
 import { DbTricksTableZod, DbMetadataZod } from '@/lib/database/schemas/CurrentVersionSchema';
+import { MainDatabase } from '@/lib/database/databaseInstance';
 
 type DbTrick = z.infer<typeof DbTricksTableZod>;
 type DbMetadata = z.infer<typeof DbMetadataZod>;
@@ -28,7 +29,7 @@ function makeTrick(
     ...metadataOverrides,
   };
   // Pass null as db since we won't call persist/refetch in tests
-  return new Trick(data, metadata, null as any);
+  return new Trick(data, metadata, null as unknown as MainDatabase);
 }
 
 describe('getVariationsForTrick', () => {

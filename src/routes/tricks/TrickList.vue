@@ -89,7 +89,7 @@ function buildVariationsMap(
           preferredName === 'alias'
             ? variation.alias ?? variation.technicalName
             : variation.technicalName,
-        primaryKey: variation.primaryKey,
+        primaryKey: [...variation.primaryKey],
         stickFrequency: variation.stickFrequency,
         isFavorite: variation.isFavourite,
         isNew: isStickableNew(variation.dateAddedEpoch),
