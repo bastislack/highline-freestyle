@@ -30,11 +30,7 @@ function updateLocale(newLocale: Locales) {
   <DefaultLayout>
     <!-- Back button (mobile only) -->
     <div class="lg:hidden w-full flex items-center px-3 py-2 bg-background drop-shadow">
-      <Button
-        size="icon"
-        variant="ghost"
-        as-child
-      >
+      <Button size="icon" variant="ghost" as-child>
         <RouterLink to="/tricks">
           <Icon icon="ic:round-arrow-back" class="h-6 w-6 text-primary" />
         </RouterLink>
@@ -99,10 +95,7 @@ function updateLocale(newLocale: Locales) {
       <!-- About link (mobile only) -->
       <Separator class="my-3 lg:hidden" />
       <Button variant="outline" as-child class="lg:hidden w-full">
-        <RouterLink
-          to="/about"
-          class="flex flex-row items-center gap-2"
-        >
+        <RouterLink to="/about" class="flex flex-row items-center gap-2">
           <Icon icon="ic:outline-info" class="w-5 h-5" />
           {{ t('about') }}
         </RouterLink>
