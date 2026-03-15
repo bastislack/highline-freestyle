@@ -11,11 +11,13 @@ import {
 } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { SortOrder } from '@/types/search';
+import Switch from '@/components/ui/switch/Switch.vue';
 import Button from '@/components/ui/button/Button.vue';
 import { useI18n } from 'vue-i18n';
 import messages from '@/i18n/searchMenu';
 import { Icon } from '@iconify/vue/dist/iconify.js';
 import { RouterLink } from 'vue-router';
+import { getShowVariationsAsTricks, setShowVariationsAsTricks } from '@/util/variationPreferences';
 
 const { t } = useI18n({
   messages,
@@ -122,8 +124,16 @@ const textSearchContainsText = computed<boolean>(() => {
       </Button>
     </div>
 
-    <div v-if="props.trickCount > 0" class="flex flex-row w-full">
-      <span class="text-sm text-muted-foreground">
+    <div class="flex flex-row items-center w-full gap-2">
+      <label class="flex flex-row items-center gap-1 text-sm text-muted-foreground cursor-pointer">
+        {{ t('variationsAsTricks') }}
+        <Switch
+          class="scale-75"
+          :model-value="getShowVariationsAsTricks()"
+          @update:model-value="(val: boolean) => setShowVariationsAsTricks(val)"
+        />
+      </label>
+      <span v-if="props.trickCount > 0" class="text-sm text-muted-foreground ml-auto">
         {{ t('trickCount', { count: props.trickCount }, props.trickCount) }}
       </span>
     </div>

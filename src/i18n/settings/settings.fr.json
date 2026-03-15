@@ -3,10 +3,6 @@
   "language": "Langue",
   "trickList": {
     "heading": "Liste des figures",
-    "variationsAsTricks": {
-      "name": "Afficher les variations comme des figures",
-      "description": "Afficher les variations comme des figures normales dans la liste au lieu de les regrouper sous leur figure parente"
-    },
     "favoritesAtTop": {
       "name": "Favoris en haut",
       "description": "Afficher les figures favorites dans une section séparée en haut de la liste"

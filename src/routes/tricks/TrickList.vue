@@ -52,6 +52,7 @@ function loadSortOrder(): SortOrder {
 
 const searchText = ref<string | undefined>(undefined);
 const sortOrder = ref<SortOrder>(loadSortOrder());
+const variationsAsTricks = computed(() => getShowVariationsAsTricks());
 const searchResult = ref<SearchResult>();
 const variationsMap = ref<Map<string, SearchItem[]>>(new Map());
 const openCollapsibleId = ref<string | null>(null);
@@ -78,10 +79,9 @@ function trickToAttribute(trick: Trick, sortOption: SortOrder): string {
 }
 
 watch(
-  [searchText, sortOrder, i18n.locale],
+  [searchText, sortOrder, variationsAsTricks, i18n.locale],
   async () => {
     const allTricks = await tricksDao.getAll();
-    const variationsAsTricks = getShowVariationsAsTricks();
     const includedStatuses = getIncludedStatuses();
     const preferredName = getPreferredName();
 
@@ -98,12 +98,12 @@ watch(
       params,
       trickToAttribute,
       t('sectionTitles.favorites'),
-      variationsAsTricks
+      variationsAsTricks.value
     );
 
     // Build variations map for displayed tricks (skip when showing variations as normal tricks)
     const newVariationsMap = new Map<string, SearchItem[]>();
-    if (!variationsAsTricks) {
+    if (!variationsAsTricks.value) {
       searchResult.value?.forEach((section) => {
         section.items.forEach((item) => {
           const variations = getVariationsForTrick(

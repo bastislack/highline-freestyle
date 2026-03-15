@@ -10,7 +10,6 @@ import messages from '@/i18n/settings';
 import messagesNavbar from '@/i18n/navbar';
 import { i18nMerge } from '@/i18n/i18nmerge';
 import { isEmbedAllowed, setEmbedPreference } from '@/util/trackingPreferences';
-import { getShowVariationsAsTricks, setShowVariationsAsTricks } from '@/util/variationPreferences';
 import {
   getIncludedStatuses,
   setIncludedStatuses,
@@ -82,16 +81,6 @@ function toggleIncludedStatus(status: StickableStatus) {
         <div class="text-xl font-medium">{{ t('trickList.heading') }}</div>
       </div>
       <div class="flex flex-col gap-2 mb-2">
-        <div class="flex flex-row items-center justify-between">
-          <div class="flex flex-col gap-0">
-            <div class="font-medium">{{ t('trickList.variationsAsTricks.name') }}</div>
-            <div class="text-muted-foreground text-sm">
-              {{ t('trickList.variationsAsTricks.description') }}
-            </div>
-          </div>
-          <Switch @update:model-value="(pref: boolean) => setShowVariationsAsTricks(pref)"
-            :model-value="getShowVariationsAsTricks()" />
-        </div>
         <div class="flex flex-row items-center justify-between">
           <div class="flex flex-col gap-0">
             <div class="font-medium">{{ t('trickList.favoritesAtTop.name') }}</div>

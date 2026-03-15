@@ -3,10 +3,6 @@
   "language": "Idioma",
   "trickList": {
     "heading": "Lista de truques",
-    "variationsAsTricks": {
-      "name": "Mostrar variações como truques",
-      "description": "Exibir variações como truques normais na lista em vez de agrupadas sob o truque principal"
-    },
     "favoritesAtTop": {
       "name": "Favoritos no topo",
       "description": "Mostrar truques favoritos em uma seção separada no topo da lista"

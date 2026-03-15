@@ -3,10 +3,6 @@
   "language": "Language",
   "trickList": {
     "heading": "Trick List",
-    "variationsAsTricks": {
-      "name": "Show variations as tricks",
-      "description": "Display variations as regular tricks in the list instead of grouped under their parent trick"
-    },
     "favoritesAtTop": {
       "name": "Favorites at top",
       "description": "Show favorite tricks in a separate section at the top of the list"
