@@ -11,6 +11,15 @@ import messagesNavbar from '@/i18n/navbar';
 import { i18nMerge } from '@/i18n/i18nmerge';
 import { isEmbedAllowed, setEmbedPreference } from '@/util/trackingPreferences';
 import { getShowVariationsAsTricks, setShowVariationsAsTricks } from '@/util/variationPreferences';
+import {
+  getIncludedStatuses,
+  setIncludedStatuses,
+  getShowFavoritesAtTop,
+  setShowFavoritesAtTop,
+  getPreferredName,
+  setPreferredName,
+} from '@/util/trickListPreferences';
+import type { StickableStatus } from '@/lib/utils';
 import { setNewLocale, LocaleInfos, type Locales } from '@/util/locale';
 import { Icon } from '@iconify/vue/dist/iconify.js';
 
@@ -24,6 +33,16 @@ const { locale } = useI18n();
 function updateLocale(newLocale: Locales) {
   locale.value = newLocale;
   setNewLocale(newLocale);
+}
+
+function toggleIncludedStatus(status: StickableStatus) {
+  const current = getIncludedStatuses();
+  if (current.includes(status)) {
+    const updated = current.filter((s) => s !== status);
+    if (updated.length > 0) setIncludedStatuses(updated);
+  } else {
+    setIncludedStatuses([...current, status]);
+  }
 }
 </script>
 
@@ -72,6 +91,41 @@ function updateLocale(newLocale: Locales) {
           </div>
           <Switch @update:model-value="(pref: boolean) => setShowVariationsAsTricks(pref)"
             :model-value="getShowVariationsAsTricks()" />
+        </div>
+        <div class="flex flex-row items-center justify-between">
+          <div class="flex flex-col gap-0">
+            <div class="font-medium">{{ t('trickList.favoritesAtTop.name') }}</div>
+            <div class="text-muted-foreground text-sm">
+              {{ t('trickList.favoritesAtTop.description') }}
+            </div>
+          </div>
+          <Switch @update:model-value="(pref: boolean) => setShowFavoritesAtTop(pref)"
+            :model-value="getShowFavoritesAtTop()" />
+        </div>
+        <div class="flex flex-row items-center justify-between">
+          <div class="flex flex-col gap-0">
+            <div class="font-medium">{{ t('trickList.preferredName.name') }}</div>
+            <div class="text-muted-foreground text-sm">
+              {{ t('trickList.preferredName.description') }}
+            </div>
+          </div>
+          <Switch
+            @update:model-value="(pref: boolean) => setPreferredName(pref ? 'technicalName' : 'alias')"
+            :model-value="getPreferredName() === 'technicalName'" />
+        </div>
+        <div class="flex flex-col gap-1">
+          <div class="font-medium">{{ t('trickList.includedStatuses.name') }}</div>
+          <div class="flex flex-row flex-wrap gap-1">
+            <Button
+              v-for="status in (['official', 'userDefined', 'archived'] as StickableStatus[])"
+              :key="status"
+              @click="toggleIncludedStatus(status)"
+              :variant="getIncludedStatuses().includes(status) ? 'default' : 'secondary'"
+              size="sm"
+            >
+              {{ t(`trickList.includedStatuses.${status}`) }}
+            </Button>
+          </div>
         </div>
       </div>
 

@@ -6,6 +6,20 @@
     "variationsAsTricks": {
       "name": "Afficher les variations comme des figures",
       "description": "Afficher les variations comme des figures normales dans la liste au lieu de les regrouper sous leur figure parente"
+    },
+    "favoritesAtTop": {
+      "name": "Favoris en haut",
+      "description": "Afficher les figures favorites dans une section séparée en haut de la liste"
+    },
+    "preferredName": {
+      "name": "Afficher les noms techniques",
+      "description": "Afficher les noms techniques au lieu des alias"
+    },
+    "includedStatuses": {
+      "name": "Types de figures affichés",
+      "official": "Officiel",
+      "userDefined": "Personnel",
+      "archived": "Archivé"
     }
   },
   "tracking": {

@@ -22,7 +22,8 @@
     }
   },
   "info": {
-    "noTrickMatchingSearch": "Não tem nenhuma trick para a sua busca."
+    "noTrickMatchingSearch": "Não tem nenhuma trick para a sua busca.",
+    "noTricksCheckSettings": "Nenhum truque para mostrar. Verifique as suas configurações."
   },
   "newTrickButton": {
     "personal": "Nova Trick Pessoal",

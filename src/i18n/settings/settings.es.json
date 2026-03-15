@@ -6,6 +6,20 @@
     "variationsAsTricks": {
       "name": "Mostrar variaciones como trucos",
       "description": "Mostrar las variaciones como trucos normales en la lista en lugar de agrupadas bajo su truco principal"
+    },
+    "favoritesAtTop": {
+      "name": "Favoritos arriba",
+      "description": "Mostrar los trucos favoritos en una sección separada en la parte superior de la lista"
+    },
+    "preferredName": {
+      "name": "Mostrar nombres técnicos",
+      "description": "Mostrar nombres técnicos en lugar de alias"
+    },
+    "includedStatuses": {
+      "name": "Tipos de trucos mostrados",
+      "official": "Oficial",
+      "userDefined": "Personal",
+      "archived": "Archivado"
     }
   },
   "tracking": {

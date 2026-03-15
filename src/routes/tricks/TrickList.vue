@@ -6,6 +6,11 @@ import { SearchItem, SearchParameters, SearchResult, SortOrder } from '@/types/s
 import { Trick } from '@/lib/database/daos/trick';
 import { searchInTricks, getVariationsForTrick } from '@/services/searchAndFilterTricks';
 import { getShowVariationsAsTricks } from '@/util/variationPreferences';
+import {
+  getIncludedStatuses,
+  getShowFavoritesAtTop,
+  getPreferredName,
+} from '@/util/trickListPreferences';
 
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import TrickSearchMenu from '@/components/stickable/list/TrickSearchMenu.vue';
@@ -39,37 +44,14 @@ const i18n = useI18n({
 });
 const { t } = i18n;
 
-const LOCAL_STORAGE_PARAMETERS_KEY: string = 'SearchParameters-Tricks';
-const DEFAULT_SEARCH_PARAMETERS: SearchParameters = {
-  sortOrder: 'difficulty-asc',
-  includedStatuses: ['official', 'userDefined', 'archived'],
-  showFavoritesAtTop: true,
-  preferredName: 'alias',
-};
+const LOCAL_STORAGE_SORT_KEY = 'SearchParameters-Tricks-SortOrder';
 
-function loadSearchParameters(): SearchParameters {
-  const parametersAsString = window.localStorage.getItem(LOCAL_STORAGE_PARAMETERS_KEY);
-  if (!parametersAsString) {
-    return DEFAULT_SEARCH_PARAMETERS;
-  }
-
-  const parameters = JSON.parse(parametersAsString);
-  parameters.sortOrder = parameters.sortOrder || DEFAULT_SEARCH_PARAMETERS.sortOrder;
-  parameters.includedStatuses =
-    parameters.includedStatuses || DEFAULT_SEARCH_PARAMETERS.includedStatuses;
-  parameters.showFavoritesAtTop =
-    parameters.showFavoritesAtTop || DEFAULT_SEARCH_PARAMETERS.showFavoritesAtTop;
-  parameters.preferredName = parameters.preferredName || DEFAULT_SEARCH_PARAMETERS.preferredName;
-
-  return parameters;
+function loadSortOrder(): SortOrder {
+  return (localStorage.getItem(LOCAL_STORAGE_SORT_KEY) as SortOrder) || 'difficulty-asc';
 }
 
-function storeSearchParameters(parameters: SearchParameters) {
-  const parametersAsString = JSON.stringify(parameters);
-  window.localStorage.setItem(LOCAL_STORAGE_PARAMETERS_KEY, parametersAsString);
-}
-
-const searchParameters = ref<SearchParameters>(loadSearchParameters());
+const searchText = ref<string | undefined>(undefined);
+const sortOrder = ref<SortOrder>(loadSortOrder());
 const searchResult = ref<SearchResult>();
 const variationsMap = ref<Map<string, SearchItem[]>>(new Map());
 const openCollapsibleId = ref<string | null>(null);
@@ -96,13 +78,24 @@ function trickToAttribute(trick: Trick, sortOption: SortOrder): string {
 }
 
 watch(
-  [searchParameters, i18n.locale],
+  [searchText, sortOrder, i18n.locale],
   async () => {
     const allTricks = await tricksDao.getAll();
     const variationsAsTricks = getShowVariationsAsTricks();
+    const includedStatuses = getIncludedStatuses();
+    const preferredName = getPreferredName();
+
+    const params: SearchParameters = {
+      searchText: searchText.value,
+      sortOrder: sortOrder.value,
+      includedStatuses,
+      showFavoritesAtTop: getShowFavoritesAtTop(),
+      preferredName,
+    };
+
     searchResult.value = searchInTricks(
       allTricks,
-      searchParameters.value,
+      params,
       trickToAttribute,
       t('sectionTitles.favorites'),
       variationsAsTricks
@@ -117,14 +110,14 @@ watch(
             allTricks,
             item.primaryKey[0],
             item.primaryKey[1],
-            searchParameters.value.includedStatuses
+            includedStatuses
           );
           if (variations.length == 0) return;
           const variationItems = variations.map(
             (variation) =>
               ({
                 name:
-                  searchParameters.value.preferredName === 'alias'
+                  preferredName === 'alias'
                     ? variation.alias ?? variation.technicalName
                     : variation.technicalName,
                 primaryKey: variation.primaryKey,
@@ -139,7 +132,7 @@ watch(
     }
     variationsMap.value = newVariationsMap;
 
-    storeSearchParameters(searchParameters.value);
+    localStorage.setItem(LOCAL_STORAGE_SORT_KEY, sortOrder.value);
   },
   { immediate: true, deep: true }
 );
@@ -163,7 +156,7 @@ function linkToDetails(primaryKey: PrimaryKey): string {
 <template>
   <DefaultLayout>
     <Section>
-      <TrickSearchMenu :search-parameters="searchParameters" :trick-count="totalTrickCount" />
+      <TrickSearchMenu v-model:search-text="searchText" v-model:sort-order="sortOrder" :trick-count="totalTrickCount" />
     </Section>
 
     <Separator />
@@ -172,7 +165,7 @@ function linkToDetails(primaryKey: PrimaryKey): string {
       <div class="w-full flex flex-col gap-5">
         <!-- No Search Results-->
         <div v-if="!searchResult || searchResult.length == 0" class="text-xl text-center mt-3">
-          {{ t('info.noTrickMatchingSearch') }}
+          {{ searchText ? t('info.noTrickMatchingSearch') : t('info.noTricksCheckSettings') }}
           <div class="flex flex-row justify-center mt-3">
             <img
               :src="ImgArmsCrossedUrl"
@@ -202,7 +195,7 @@ function linkToDetails(primaryKey: PrimaryKey): string {
               :link-to-details="linkToDetails(item.primaryKey)"
               :variations="variationsMap.get(item.primaryKey[1] + ':' + item.primaryKey[0]) || []"
               :showVariations="
-                !searchParameters.searchText && section.title !== t('sectionTitles.favorites')
+                !searchText && section.title !== t('sectionTitles.favorites')
               "
             />
           </div>

@@ -9,25 +9,5 @@
     "inventionYear": "Intenvtion year",
     "ascending": "Arriba",
     "descending": "Abajo"
-  },
-  "includedStickableStatuses": {
-    "triggerTitle": "Estado"
-  },
-  "favoritesPlacement": {
-    "triggerTitleTop": "Favoritos: Top",
-    "triggerTitleRegular": "Favoritos: Regular",
-    "menuLabel": "Posición de favoritos",
-    "radioItems": {
-      "top": "Top",
-      "regular": "Regular"
-    }
-  },
-  "preferredName": {
-    "triggerTitleAlias": "Nombre: Alias",
-    "triggerTitleTechnicalName": "Nombre: Técnico",
-    "radioItems": {
-      "alias": "Alias (si es posible)",
-      "technicalName": "Nombre técnico"
-    }
   }
 }
