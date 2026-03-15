@@ -33,6 +33,10 @@ const { t } = useI18n({
   useScope: 'local',
 });
 
+const props = defineProps<{
+  trickCount: number;
+}>();
+
 // eslint-disable-next-line no-undef
 const searchParameters = defineModel<SearchParameters>('searchParameters');
 if (searchParameters.value === undefined) {
@@ -287,6 +291,10 @@ function highlightFilterClasses(highlight: boolean | undefined): string {
           </DropdownMenuRadioGroup>
         </DropdownMenuContent>
       </DropdownMenu>
+
+      <span v-if="props.trickCount > 0" class="text-sm text-muted-foreground self-center ml-auto">
+        {{ t('trickCount', { count: props.trickCount }, props.trickCount) }}
+      </span>
     </div>
   </section>
 </template>

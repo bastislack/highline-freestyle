@@ -1,4 +1,5 @@
 {
+  "trickCount": "{count} truque | {count} truques",
   "textSearchPlaceholder": "Procurar",
   "sortOptionsLabel": "Ordenar",
   "sortOptions": {

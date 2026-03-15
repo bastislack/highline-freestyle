@@ -139,6 +139,17 @@ watch(
   { immediate: true, deep: true }
 );
 
+const totalTrickCount = computed(() => {
+  if (!searchResult.value) return 0;
+  const seen = new Set<string>();
+  for (const section of searchResult.value) {
+    for (const item of section.items) {
+      seen.add(`${item.primaryKey[1]}:${item.primaryKey[0]}`);
+    }
+  }
+  return seen.size;
+});
+
 function linkToDetails(primaryKey: PrimaryKey): string {
   return `/tricks/${primaryKey[1]}/${primaryKey[0]}`;
 }
@@ -147,7 +158,7 @@ function linkToDetails(primaryKey: PrimaryKey): string {
 <template>
   <DefaultLayout>
     <Section>
-      <TrickSearchMenu :search-parameters="searchParameters" />
+      <TrickSearchMenu :search-parameters="searchParameters" :trick-count="totalTrickCount" />
     </Section>
 
     <Separator />
