@@ -190,7 +190,8 @@ export function searchInTricks(
   allTricks: Trick[],
   searchParameters: SearchParameters,
   mapTrickToAttribute: (t: Trick, sort: SortOrder) => string,
-  favoritesSectionTitle: string
+  favoritesSectionTitle: string,
+  showVariationsAsTricks: boolean = false
 ): SearchResult {
   if (searchParameters.searchText !== undefined && searchParameters.searchText !== '') {
     const matchingTricks = textSearch(allTricks, searchParameters.searchText);
@@ -207,7 +208,8 @@ export function searchInTricks(
 
   const filteredTricks = allTricks.filter(
     (trick) =>
-      searchParameters.includedStatuses.includes(trick.primaryKey[1]) && trick.showInSearchQueries
+      searchParameters.includedStatuses.includes(trick.primaryKey[1]) &&
+      (trick.showInSearchQueries || showVariationsAsTricks)
   );
 
   const filteredTricksWithVariations = allTricks.filter((trick) =>

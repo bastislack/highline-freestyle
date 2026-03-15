@@ -1,6 +1,13 @@
 {
   "heading-settings": "Ajustes",
   "language": "Idioma",
+  "trickList": {
+    "heading": "Lista de trucos",
+    "variationsAsTricks": {
+      "name": "Mostrar variaciones como trucos",
+      "description": "Mostrar las variaciones como trucos normales en la lista en lugar de agrupadas bajo su truco principal"
+    }
+  },
   "tracking": {
     "heading": "Rastreo",
     "description": "No colocamos ninguna cookies en su navegador y no recopilamos ningún dato sobre usted. Sin embargo, cuando mostremos vídeos usando Instagram o YouTube, es muy probable que estos servicios coloquean cookies en tu navegador y / o rastrearte.",

@@ -1,10 +1,11 @@
 <script lang="ts" setup>
-import { ref, watch, provide } from 'vue';
+import { computed, ref, watch, provide } from 'vue';
 import { tricksDao } from '@/lib/database';
 import { PrimaryKey } from '@/lib/utils';
 import { SearchItem, SearchParameters, SearchResult, SortOrder } from '@/types/search';
 import { Trick } from '@/lib/database/daos/trick';
 import { searchInTricks, getVariationsForTrick } from '@/services/searchAndFilterTricks';
+import { getShowVariationsAsTricks } from '@/util/variationPreferences';
 
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import TrickSearchMenu from '@/components/stickable/list/TrickSearchMenu.vue';
@@ -98,40 +99,44 @@ watch(
   [searchParameters, i18n.locale],
   async () => {
     const allTricks = await tricksDao.getAll();
+    const variationsAsTricks = getShowVariationsAsTricks();
     searchResult.value = searchInTricks(
       allTricks,
       searchParameters.value,
       trickToAttribute,
-      t('sectionTitles.favorites')
+      t('sectionTitles.favorites'),
+      variationsAsTricks
     );
 
-    // Build variations map for displayed tricks
+    // Build variations map for displayed tricks (skip when showing variations as normal tricks)
     const newVariationsMap = new Map<string, SearchItem[]>();
-    searchResult.value?.forEach((section) => {
-      section.items.forEach((item) => {
-        const variations = getVariationsForTrick(
-          allTricks,
-          item.primaryKey[0],
-          item.primaryKey[1],
-          searchParameters.value.includedStatuses
-        );
-        if (variations.length == 0) return;
-        const variationItems = variations.map(
-          (variation) =>
-            ({
-              name:
-                searchParameters.value.preferredName === 'alias'
-                  ? variation.alias ?? variation.technicalName
-                  : variation.technicalName,
-              primaryKey: variation.primaryKey,
-              stickFrequency: variation.stickFrequency,
-              isFavorite: variation.isFavourite,
-              isNew: isStickableNew(variation.dateAddedEpoch),
-            }) as SearchItem
-        );
-        newVariationsMap.set(`${item.primaryKey[1]}:${item.primaryKey[0]}`, variationItems);
+    if (!variationsAsTricks) {
+      searchResult.value?.forEach((section) => {
+        section.items.forEach((item) => {
+          const variations = getVariationsForTrick(
+            allTricks,
+            item.primaryKey[0],
+            item.primaryKey[1],
+            searchParameters.value.includedStatuses
+          );
+          if (variations.length == 0) return;
+          const variationItems = variations.map(
+            (variation) =>
+              ({
+                name:
+                  searchParameters.value.preferredName === 'alias'
+                    ? variation.alias ?? variation.technicalName
+                    : variation.technicalName,
+                primaryKey: variation.primaryKey,
+                stickFrequency: variation.stickFrequency,
+                isFavorite: variation.isFavourite,
+                isNew: isStickableNew(variation.dateAddedEpoch),
+              }) as SearchItem
+          );
+          newVariationsMap.set(`${item.primaryKey[1]}:${item.primaryKey[0]}`, variationItems);
+        });
       });
-    });
+    }
     variationsMap.value = newVariationsMap;
 
     storeSearchParameters(searchParameters.value);
