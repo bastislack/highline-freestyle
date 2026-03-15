@@ -19,6 +19,12 @@ module.exports = {
       parserOptions: {
         "sourceType": "script"
       }
+    },
+    {
+      files: ["*.json"],
+      rules: {
+        "@typescript-eslint/no-unused-expressions": "off"
+      }
     }
   ],
   parserOptions: {
