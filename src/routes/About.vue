@@ -18,11 +18,7 @@ const { t } = i18n;
   <DefaultLayout>
     <!-- Back button (mobile only) -->
     <div class="lg:hidden w-full flex items-center px-3 py-2 bg-background drop-shadow">
-      <Button
-        size="icon"
-        variant="ghost"
-        as-child
-      >
+      <Button size="icon" variant="ghost" as-child>
         <RouterLink to="/tricks">
           <Icon icon="ic:round-arrow-back" class="h-6 w-6 text-primary" />
         </RouterLink>

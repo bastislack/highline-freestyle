@@ -2,7 +2,7 @@
 import type { ToastRootEmits, ToastRootProps } from 'reka-ui';
 import type { VariantProps } from 'class-variance-authority';
 
-interface ToastVariantProps extends VariantProps<typeof toastVariants> {}
+type ToastVariantProps = VariantProps<typeof toastVariants>;
 
 export interface ToastProps extends ToastRootProps {
   class?: string;

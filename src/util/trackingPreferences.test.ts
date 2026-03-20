@@ -48,5 +48,4 @@ describe('trackingPreferences', () => {
     expect(isEmbedAllowed('YOUTUBE')).toBe(true);
     expect(isEmbedAllowed('INSTAGRAM')).toBe(false);
   });
-
 });
