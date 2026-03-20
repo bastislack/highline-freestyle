@@ -3,7 +3,7 @@ import type { VariantProps } from 'class-variance-authority';
 import { badgeVariants } from '.';
 import { cn } from '@/lib/utils';
 
-interface BadgeVariantProps extends VariantProps<typeof badgeVariants> {}
+type BadgeVariantProps = VariantProps<typeof badgeVariants>;
 
 interface Props {
   variant?: BadgeVariantProps['variant'];

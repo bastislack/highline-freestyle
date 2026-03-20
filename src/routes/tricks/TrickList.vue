@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, watch, provide } from 'vue';
+import { ref, watch } from 'vue';
 import { tricksDao } from '@/lib/database';
 import { PrimaryKey } from '@/lib/utils';
 import { SearchItem, SearchParameters, SearchResult, SortOrder } from '@/types/search';
@@ -26,10 +26,6 @@ import { useI18n } from 'vue-i18n';
 import { i18nMerge } from '@/i18n/i18nmerge';
 import messages_list from '@/i18n/list';
 import messages_positions from '@/i18n/common/positions';
-import {
-  OpenCollapsibleIdKey,
-  PendingOpenCollapsibleIdKey,
-} from '@/components/stickable/list/OpenCollapsibleId';
 import { isStickableNew } from '@/util/misc';
 
 const i18n = useI18n({
@@ -71,11 +67,38 @@ function storeSearchParameters(parameters: SearchParameters) {
 const searchParameters = ref<SearchParameters>(loadSearchParameters());
 const searchResult = ref<SearchResult>();
 const variationsMap = ref<Map<string, SearchItem[]>>(new Map());
-const openCollapsibleId = ref<string | null>(null);
-const pendingOpenCollapsibleId = ref<string | null>(null);
 
-provide(OpenCollapsibleIdKey, openCollapsibleId);
-provide(PendingOpenCollapsibleIdKey, pendingOpenCollapsibleId);
+function buildVariationsMap(
+  allTricks: Trick[],
+  result: SearchResult,
+  preferredName: SearchParameters['preferredName'],
+  includedStatuses: string[]
+): Map<string, SearchItem[]> {
+  const map = new Map<string, SearchItem[]>();
+  for (const section of result) {
+    for (const item of section.items) {
+      const variations = getVariationsForTrick(
+        allTricks,
+        item.primaryKey[0],
+        item.primaryKey[1],
+        includedStatuses
+      );
+      if (variations.length === 0) continue;
+      const variationItems: SearchItem[] = variations.map((variation) => ({
+        name:
+          preferredName === 'alias'
+            ? variation.alias ?? variation.technicalName
+            : variation.technicalName,
+        primaryKey: [...variation.primaryKey],
+        stickFrequency: variation.stickFrequency,
+        isFavorite: variation.isFavourite,
+        isNew: isStickableNew(variation.dateAddedEpoch),
+      }));
+      map.set(`${item.primaryKey[1]}:${item.primaryKey[0]}`, variationItems);
+    }
+  }
+  return map;
+}
 
 function trickToAttribute(trick: Trick, sortOption: SortOrder): string {
   switch (sortOption) {
@@ -105,34 +128,14 @@ watch(
       t('sectionTitles.favorites')
     );
 
-    // Build variations map for displayed tricks
-    const newVariationsMap = new Map<string, SearchItem[]>();
-    searchResult.value?.forEach((section) => {
-      section.items.forEach((item) => {
-        const variations = getVariationsForTrick(
-          allTricks,
-          item.primaryKey[0],
-          item.primaryKey[1],
-          searchParameters.value.includedStatuses
-        );
-        if (variations.length == 0) return;
-        const variationItems = variations.map(
-          (variation) =>
-            ({
-              name:
-                searchParameters.value.preferredName === 'alias'
-                  ? variation.alias ?? variation.technicalName
-                  : variation.technicalName,
-              primaryKey: variation.primaryKey,
-              stickFrequency: variation.stickFrequency,
-              isFavorite: variation.isFavourite,
-              isNew: isStickableNew(variation.dateAddedEpoch),
-            }) as SearchItem
-        );
-        newVariationsMap.set(`${item.primaryKey[1]}:${item.primaryKey[0]}`, variationItems);
-      });
-    });
-    variationsMap.value = newVariationsMap;
+    if (searchResult.value) {
+      variationsMap.value = buildVariationsMap(
+        allTricks,
+        searchResult.value,
+        searchParameters.value.preferredName,
+        searchParameters.value.includedStatuses
+      );
+    }
 
     storeSearchParameters(searchParameters.value);
   },
@@ -155,7 +158,7 @@ function linkToDetails(primaryKey: PrimaryKey): string {
     <Section>
       <div class="w-full flex flex-col gap-5">
         <!-- No Search Results-->
-        <div v-if="!searchResult || searchResult.length == 0" class="text-xl text-center mt-3">
+        <div v-if="!searchResult || searchResult.length === 0" class="text-xl text-center mt-3">
           {{ t('info.noTrickMatchingSearch') }}
           <div class="flex flex-row justify-center mt-3">
             <img
@@ -199,7 +202,7 @@ function linkToDetails(primaryKey: PrimaryKey): string {
       <DropdownMenuTrigger as-child>
         <Button
           size="icon"
-          class="rounded-full shadow-md fixed bottom-5 right-3 lg:right-5 xl:bottom-10 xl:right-10 h-12 w-12"
+          class="rounded-full shadow-md fixed bottom-5 right-3 lg:right-5 xl:bottom-10 xl:right-10 h-12 w-12 z-30"
         >
           <Icon icon="ic:round-add" class="h-8 w-8" />
         </Button>
