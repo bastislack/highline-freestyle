@@ -1,6 +1,8 @@
 {
   "variationsAsTricks": "Variations comme figures",
-  "trickCount": "{count} figure | {count} figures",
+  "trickCountLabel": "{count} figure | {count} figures",
+  "variationCountLabel": "{count} variation | {count} variations",
+  "totalCountLabel": "{count} total",
   "textSearchPlaceholder": "Chercher",
   "sortOptionsLabel": "Ordre",
   "sortOptions": {

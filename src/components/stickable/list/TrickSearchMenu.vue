@@ -26,6 +26,10 @@ const { t } = useI18n({
 
 const props = defineProps<{
   trickCount: number;
+  variationCount: number;
+  totalCount: number;
+  variationsAsTricks: boolean;
+  showBreakdown: boolean;
 }>();
 
 const searchText = defineModel<string | undefined>('searchText');
@@ -133,8 +137,20 @@ const textSearchContainsText = computed<boolean>(() => {
           @update:model-value="(val: boolean) => setShowVariationsAsTricks(val)"
         />
       </label>
-      <span v-if="props.trickCount > 0" class="text-sm text-muted-foreground ml-auto">
-        {{ t('trickCount', { count: props.trickCount }, props.trickCount) }}
+      <span
+        v-if="props.totalCount > 0"
+        class="text-xs sm:text-sm text-muted-foreground ml-auto whitespace-nowrap"
+      >
+        <template v-if="props.variationsAsTricks || !props.showBreakdown">
+          {{ t('trickCountLabel', { count: props.totalCount }, props.totalCount) }}
+        </template>
+        <template v-else>
+          {{ t('trickCountLabel', { count: props.trickCount }, props.trickCount) }}
+          ·
+          {{ t('variationCountLabel', { count: props.variationCount }, props.variationCount) }}
+          ·
+          {{ t('totalCountLabel', { count: props.totalCount }, props.totalCount) }}
+        </template>
       </span>
     </div>
   </section>

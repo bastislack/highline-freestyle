@@ -51,6 +51,12 @@ const sortOrder = ref<SortOrder>(loadSortOrder());
 const variationsAsTricks = computed(() => getShowVariationsAsTricks());
 const searchResult = ref<SearchResult>();
 const variationsMap = ref<Map<string, SearchItem[]>>(new Map());
+const countSummary = ref({
+  trickCount: 0,
+  variationCount: 0,
+  totalCount: 0,
+  showBreakdown: false,
+});
 
 function buildVariationsMap(
   allTricks: Trick[],
@@ -82,6 +88,65 @@ function buildVariationsMap(
     }
   }
   return map;
+}
+
+function buildCountSummary(
+  allTricks: Trick[],
+  result: SearchResult,
+  includedStatuses: string[],
+  variationsShownAsTricks: boolean,
+  hasSearchText: boolean
+) {
+  const visibleTrickKeys = new Set<string>();
+  let visibleVariationCount = 0;
+
+  for (const section of result) {
+    for (const item of section.items) {
+      const key = `${item.primaryKey[1]}:${item.primaryKey[0]}`;
+      if (visibleTrickKeys.has(key)) continue;
+      visibleTrickKeys.add(key);
+
+      const trick = allTricks.find(
+        (candidate) =>
+          candidate.primaryKey[0] === item.primaryKey[0] &&
+          candidate.primaryKey[1] === item.primaryKey[1]
+      );
+      if (trick?.variationOf && trick.variationOf.length > 0) {
+        visibleVariationCount++;
+      }
+    }
+  }
+
+  if (hasSearchText || variationsShownAsTricks) {
+    return {
+      trickCount: visibleTrickKeys.size - visibleVariationCount,
+      variationCount: visibleVariationCount,
+      totalCount: visibleTrickKeys.size,
+      showBreakdown: false,
+    };
+  }
+
+  const visibleVariationKeys = new Set<string>();
+  for (const section of result) {
+    for (const item of section.items) {
+      const variations = getVariationsForTrick(
+        allTricks,
+        item.primaryKey[0],
+        item.primaryKey[1],
+        includedStatuses
+      );
+      for (const variation of variations) {
+        visibleVariationKeys.add(`${variation.primaryKey[1]}:${variation.primaryKey[0]}`);
+      }
+    }
+  }
+
+  return {
+    trickCount: visibleTrickKeys.size,
+    variationCount: visibleVariationKeys.size,
+    totalCount: visibleTrickKeys.size + visibleVariationKeys.size,
+    showBreakdown: true,
+  };
 }
 
 function trickToAttribute(trick: Trick, sortOption: SortOrder): string {
@@ -124,6 +189,14 @@ watch(
       variationsAsTricks.value
     );
 
+    countSummary.value = buildCountSummary(
+      allTricks,
+      searchResult.value,
+      includedStatuses,
+      variationsAsTricks.value,
+      !!searchText.value
+    );
+
     variationsMap.value =
       searchResult.value && !variationsAsTricks.value
         ? buildVariationsMap(allTricks, searchResult.value, preferredName, includedStatuses)
@@ -133,17 +206,6 @@ watch(
   },
   { immediate: true, deep: true }
 );
-
-const totalTrickCount = computed(() => {
-  if (!searchResult.value) return 0;
-  const seen = new Set<string>();
-  for (const section of searchResult.value) {
-    for (const item of section.items) {
-      seen.add(`${item.primaryKey[1]}:${item.primaryKey[0]}`);
-    }
-  }
-  return seen.size;
-});
 
 function linkToDetails(primaryKey: PrimaryKey): string {
   return `/tricks/${primaryKey[1]}/${primaryKey[0]}`;
@@ -156,7 +218,11 @@ function linkToDetails(primaryKey: PrimaryKey): string {
       <TrickSearchMenu
         v-model:search-text="searchText"
         v-model:sort-order="sortOrder"
-        :trick-count="totalTrickCount"
+        :trick-count="countSummary.trickCount"
+        :variation-count="countSummary.variationCount"
+        :total-count="countSummary.totalCount"
+        :variations-as-tricks="variationsAsTricks"
+        :show-breakdown="countSummary.showBreakdown"
       />
     </Section>
 
