@@ -26,6 +26,7 @@ import DropdownMenuRadioGroup from '@/components/ui/dropdown-menu/DropdownMenuRa
 import DropdownMenuRadioItem from '@/components/ui/dropdown-menu/DropdownMenuRadioItem.vue';
 import DropdownMenuLabel from '@/components/ui/dropdown-menu/DropdownMenuLabel.vue';
 import DropdownMenuSeparator from '@/components/ui/dropdown-menu/DropdownMenuSeparator.vue';
+import { RouterLink } from 'vue-router';
 
 const { t } = useI18n({
   messages: i18nMerge(messages, messagesStickableStatus),
@@ -188,6 +189,12 @@ function highlightFilterClasses(highlight: boolean | undefined): string {
           </SelectContent>
         </Select>
       </div>
+
+      <Button variant="ghost" size="icon" as-child class="lg:hidden flex-none">
+        <RouterLink to="/settings">
+          <Icon icon="ic:round-settings" class="h-5 w-5" />
+        </RouterLink>
+      </Button>
     </div>
 
     <div class="flex flex-row flex-wrap gap-1 w-full">

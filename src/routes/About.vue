@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Section from '@/components/ui/section/Section.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
+import { Button } from '@/components/ui/button';
 import { Icon } from '@iconify/vue/dist/iconify.js';
 import { useI18n } from 'vue-i18n';
 
@@ -15,6 +16,15 @@ const { t } = i18n;
 
 <template>
   <DefaultLayout>
+    <!-- Back button (mobile only) -->
+    <div class="lg:hidden w-full flex items-center px-3 py-2 bg-background drop-shadow">
+      <Button size="icon" variant="ghost" as-child>
+        <RouterLink to="/tricks">
+          <Icon icon="ic:round-arrow-back" class="h-6 w-6 text-primary" />
+        </RouterLink>
+      </Button>
+      <div class="px-3 text-lg">{{ t('general.title') }}</div>
+    </div>
     <Section>
       <h1 class="text-3xl mx-6 md:mx-0 mb-2 mt-5">{{ t('general.title') }}</h1>
       <p class="mt-2 mx-6 md:mx-0">{{ t('general.content') }}</p>

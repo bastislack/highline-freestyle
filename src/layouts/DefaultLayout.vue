@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import NavbarSide from '../components/navbar/NavbarSide.vue';
-import NavbarBottom from '../components/navbar/NavbarBottom.vue';
 </script>
 
 <template>
@@ -12,10 +11,6 @@ import NavbarBottom from '../components/navbar/NavbarBottom.vue';
       </div>
       <div class="w-full min-h-screen flex flex-col items-center">
         <slot />
-        <div class="block lg:hidden">
-          <div class="h-16 w-full" />
-          <NavbarBottom />
-        </div>
       </div>
     </div>
   </div>
