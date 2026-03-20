@@ -18,6 +18,6 @@ technicalName: Shark Bite
 startPosition: Rocket
 endPosition: Rocket
 difficultyLevel: 4
-showInSearchQueries: false
+showInSearchQueries: true
 recommendedPrerequisites: []
 variationOf: []
