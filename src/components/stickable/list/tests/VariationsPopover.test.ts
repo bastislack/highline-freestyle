@@ -1,7 +1,15 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { mount } from '@vue/test-utils';
 import VariationsPopover from '../VariationsPopover.vue';
 import type { SearchItem } from '@/types/search';
+
+vi.mock('@iconify/vue/dist/iconify.js', () => ({
+  Icon: {
+    name: 'Icon',
+    props: ['icon'],
+    template: '<span :data-icon="icon" />',
+  },
+}));
 
 const mockVariations: SearchItem[] = [
   {
