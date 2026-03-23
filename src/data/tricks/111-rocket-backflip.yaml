@@ -19,6 +19,6 @@ technicalName: Rocket Backflip
 startPosition: Rocket
 endPosition: Rocket
 difficultyLevel: 6
-showInSearchQueries: false
+showInSearchQueries: true
 recommendedPrerequisites: []
 variationOf: []

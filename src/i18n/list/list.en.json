@@ -22,7 +22,8 @@
     }
   },
   "info": {
-    "noTrickMatchingSearch": "Oh no. There are no tricks matching your search input."
+    "noTrickMatchingSearch": "Oh no. There are no tricks matching your search input.",
+    "noTricksCheckSettings": "No tricks to show. Check your settings."
   },
   "newTrickButton": {
     "personal": "New Personal Trick",

@@ -1,6 +1,23 @@
 {
   "heading-settings": "Configurações",
   "language": "Idioma",
+  "trickList": {
+    "heading": "Lista de truques",
+    "favoritesAtTop": {
+      "name": "Favoritos no topo",
+      "description": "Mostrar truques favoritos em uma seção separada no topo da lista"
+    },
+    "preferredName": {
+      "name": "Mostrar nomes técnicos",
+      "description": "Exibir nomes técnicos em vez de apelidos"
+    },
+    "includedStatuses": {
+      "name": "Tipos de truques exibidos",
+      "official": "Oficial",
+      "userDefined": "Pessoal",
+      "archived": "Arquivado"
+    }
+  },
   "tracking": {
     "heading": "Rastreamento",
     "description": "Não colocamos quaisquer cookies no seu browser e não recolhemos quaisquer dados sobre si. No entanto, quando apresentamos vídeos através do Instagram ou do YouTube, é muito provável que estes serviços coloquem cookies no seu navegador e/ou o monitorizem.",

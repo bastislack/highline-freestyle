@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watchEffect } from 'vue';
+import { computed } from 'vue';
 import {
   Select,
   SelectContent,
@@ -10,34 +10,30 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
-import { SearchParameters, SortOrder, TrickNameOption } from '@/types/search';
-import DropdownMenu from '@/components/ui/dropdown-menu/DropdownMenu.vue';
-import DropdownMenuTrigger from '@/components/ui/dropdown-menu/DropdownMenuTrigger.vue';
-import DropdownMenuContent from '@/components/ui/dropdown-menu/DropdownMenuContent.vue';
-import DropdownMenuCheckboxItem from '@/components/ui/dropdown-menu/DropdownMenuCheckboxItem.vue';
+import { SortOrder } from '@/types/search';
+import Switch from '@/components/ui/switch/Switch.vue';
 import Button from '@/components/ui/button/Button.vue';
-import { StickableStatus } from '@/lib/utils';
 import { useI18n } from 'vue-i18n';
-import { i18nMerge } from '@/i18n/i18nmerge';
 import messages from '@/i18n/searchMenu';
-import messagesStickableStatus from '@/i18n/common/stickableStatus';
 import { Icon } from '@iconify/vue/dist/iconify.js';
-import DropdownMenuRadioGroup from '@/components/ui/dropdown-menu/DropdownMenuRadioGroup.vue';
-import DropdownMenuRadioItem from '@/components/ui/dropdown-menu/DropdownMenuRadioItem.vue';
-import DropdownMenuLabel from '@/components/ui/dropdown-menu/DropdownMenuLabel.vue';
-import DropdownMenuSeparator from '@/components/ui/dropdown-menu/DropdownMenuSeparator.vue';
 import { RouterLink } from 'vue-router';
+import { getShowVariationsAsTricks, setShowVariationsAsTricks } from '@/util/variationPreferences';
 
 const { t } = useI18n({
-  messages: i18nMerge(messages, messagesStickableStatus),
+  messages,
   useScope: 'local',
 });
 
-// eslint-disable-next-line no-undef
-const searchParameters = defineModel<SearchParameters>('searchParameters');
-if (searchParameters.value === undefined) {
-  throw new Error('Search Parameters model needs to be passed to TrickSearchMenu!');
-}
+const props = defineProps<{
+  trickCount: number;
+  variationCount: number;
+  totalCount: number;
+  variationsAsTricks: boolean;
+  showBreakdown: boolean;
+}>();
+
+const searchText = defineModel<string | undefined>('searchText');
+const sortOrder = defineModel<SortOrder>('sortOrder', { required: true });
 
 // SORTING
 
@@ -65,85 +61,20 @@ const sortingOptions: { titleKey: string; directionTitleKey?: string; value: Sor
     value: 'yearEstablished-desc',
   },
 ];
-const activeSortingOption = ref<SortOrder>(searchParameters.value?.sortOrder);
-
-watchEffect(() => {
-  if (searchParameters.value === undefined) {
-    throw new Error('Search Parameters model needs to be passed to TrickSearchMenu!');
-  }
-  searchParameters.value.sortOrder = activeSortingOption.value;
-});
-
-// STATUS
-
-function updateIncludedStatuses(status: StickableStatus) {
-  if (searchParameters.value?.includedStatuses.includes(status)) {
-    const newIncludedStatuses = searchParameters.value.includedStatuses.filter(
-      (element) => element !== status
-    );
-    if (newIncludedStatuses.length > 0) {
-      searchParameters.value.includedStatuses = newIncludedStatuses;
-    }
-    return;
-  }
-  searchParameters.value?.includedStatuses.push(status);
-}
-
-const shouldStatusBeHighlighted = computed(
-  () =>
-    !(
-      searchParameters.value?.includedStatuses.includes('official') &&
-      searchParameters.value?.includedStatuses.includes('userDefined') &&
-      searchParameters.value?.includedStatuses.includes('archived')
-    )
-);
 
 // TEXT SEARCH
 
 function resetSearchText() {
-  if (searchParameters.value !== undefined) {
-    searchParameters.value.searchText = undefined;
-  }
+  searchText.value = undefined;
 }
 
 function setSearchText(text: string | number) {
-  if (searchParameters.value !== undefined) {
-    searchParameters.value.searchText = text.toString();
-  }
+  searchText.value = text.toString();
 }
 
 const textSearchContainsText = computed<boolean>(() => {
-  return searchParameters.value !== undefined && !!searchParameters.value.searchText;
+  return !!searchText.value;
 });
-
-// FAVORITES
-
-type FavoritesAtTopOptions = 'showAtTop' | 'dontShowAtTop';
-const favoritesTreatment = ref<FavoritesAtTopOptions>(
-  searchParameters.value.showFavoritesAtTop ? 'showAtTop' : 'dontShowAtTop'
-);
-watchEffect(() => {
-  if (!searchParameters.value) {
-    throw new Error('Search Parameters model needs to be passed to TrickSearchMenu!');
-  }
-  searchParameters.value.showFavoritesAtTop = favoritesTreatment.value === 'showAtTop';
-});
-
-// NAME
-
-const preferredName = ref<TrickNameOption>(searchParameters.value.preferredName);
-watchEffect(() => {
-  if (!searchParameters.value) {
-    throw new Error('Search Parameters model needs to be passed to TrickSearchMenu!');
-  }
-  searchParameters.value.preferredName = preferredName.value;
-});
-
-// GENERAL
-
-function highlightFilterClasses(highlight: boolean | undefined): string {
-  return highlight ? 'font-medium' : 'font-normal';
-}
 </script>
 
 <template>
@@ -153,7 +84,7 @@ function highlightFilterClasses(highlight: boolean | undefined): string {
         <Input
           :placeholder="t('textSearchPlaceholder')"
           class="pr-10"
-          :model-value="searchParameters?.searchText"
+          :model-value="searchText"
           v-on:update:model-value="setSearchText"
         />
         <Button
@@ -168,7 +99,7 @@ function highlightFilterClasses(highlight: boolean | undefined): string {
       </div>
 
       <div class="w-[175px] flex-initial">
-        <Select v-model="activeSortingOption" :disabled="textSearchContainsText">
+        <Select v-model="sortOrder" :disabled="textSearchContainsText">
           <SelectTrigger class="w-[175px] grow-0 shrink-0">
             <SelectValue placeholder="Select a fruit" />
           </SelectTrigger>
@@ -197,96 +128,28 @@ function highlightFilterClasses(highlight: boolean | undefined): string {
       </Button>
     </div>
 
-    <div class="flex flex-row flex-wrap gap-1 w-full">
-      <DropdownMenu>
-        <DropdownMenuTrigger as-child :disabled="textSearchContainsText">
-          <Button
-            variant="secondary"
-            size="sm"
-            :class="highlightFilterClasses(shouldStatusBeHighlighted)"
-          >
-            {{ t('includedStickableStatuses.triggerTitle') }}
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuCheckboxItem
-            :model-value="searchParameters?.includedStatuses.includes('official')"
-            @update:model-value="updateIncludedStatuses('official')"
-          >
-            {{ t('official') }}
-          </DropdownMenuCheckboxItem>
-          <DropdownMenuCheckboxItem
-            :model-value="searchParameters?.includedStatuses.includes('userDefined')"
-            @update:model-value="updateIncludedStatuses('userDefined')"
-          >
-            {{ t('userDefined') }}
-          </DropdownMenuCheckboxItem>
-          <DropdownMenuCheckboxItem
-            :model-value="searchParameters?.includedStatuses.includes('archived')"
-            @update:model-value="updateIncludedStatuses('archived')"
-          >
-            {{ t('archived') }}
-          </DropdownMenuCheckboxItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-
-      <DropdownMenu>
-        <DropdownMenuTrigger as-child :disabled="textSearchContainsText">
-          <Button
-            variant="secondary"
-            size="sm"
-            :class="highlightFilterClasses(searchParameters?.showFavoritesAtTop)"
-          >
-            {{
-              t(
-                searchParameters?.showFavoritesAtTop
-                  ? 'favoritesPlacement.triggerTitleTop'
-                  : 'favoritesPlacement.triggerTitleRegular'
-              )
-            }}
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuLabel> {{ t('favoritesPlacement.menuLabel') }} </DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <DropdownMenuRadioGroup v-model="favoritesTreatment">
-            <DropdownMenuRadioItem value="showAtTop">
-              {{ t('favoritesPlacement.radioItems.top') }}
-            </DropdownMenuRadioItem>
-            <DropdownMenuRadioItem value="dontShowAtTop">
-              {{ t('favoritesPlacement.radioItems.regular') }}
-            </DropdownMenuRadioItem>
-          </DropdownMenuRadioGroup>
-        </DropdownMenuContent>
-      </DropdownMenu>
-
-      <DropdownMenu>
-        <DropdownMenuTrigger as-child :disabled="textSearchContainsText">
-          <Button
-            variant="secondary"
-            size="sm"
-            :class="highlightFilterClasses(searchParameters?.preferredName == 'technicalName')"
-          >
-            {{
-              t(
-                searchParameters?.preferredName == 'alias'
-                  ? 'preferredName.triggerTitleAlias'
-                  : 'preferredName.triggerTitleTechnicalName'
-              )
-            }}
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuRadioGroup v-model="preferredName">
-            <DropdownMenuRadioItem value="alias">
-              {{ t('preferredName.radioItems.alias') }}
-            </DropdownMenuRadioItem>
-            <DropdownMenuRadioItem value="technicalName">
-              {{ t('preferredName.radioItems.technicalName') }}
-            </DropdownMenuRadioItem>
-          </DropdownMenuRadioGroup>
-        </DropdownMenuContent>
-      </DropdownMenu>
+    <div class="flex flex-row items-center w-full gap-2">
+      <label class="flex flex-row items-center gap-1 text-sm text-muted-foreground cursor-pointer">
+        {{ t('variationsAsTricks') }}
+        <Switch
+          class="scale-75"
+          :model-value="getShowVariationsAsTricks()"
+          @update:model-value="(val: boolean) => setShowVariationsAsTricks(val)"
+        />
+      </label>
+      <span
+        v-if="props.totalCount > 0"
+        class="text-xs sm:text-sm text-muted-foreground ml-auto whitespace-nowrap"
+      >
+        <template v-if="props.variationsAsTricks || !props.showBreakdown">
+          {{ t('trickCountLabel', { count: props.totalCount }, props.totalCount) }}
+        </template>
+        <template v-else>
+          {{ t('trickCountLabel', { count: props.trickCount }, props.trickCount) }}
+          ·
+          {{ t('variationCountLabel', { count: props.variationCount }, props.variationCount) }}
+        </template>
+      </span>
     </div>
   </section>
 </template>

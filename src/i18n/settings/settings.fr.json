@@ -1,6 +1,23 @@
 {
   "heading-settings": "Paramètres",
   "language": "Langue",
+  "trickList": {
+    "heading": "Liste des figures",
+    "favoritesAtTop": {
+      "name": "Favoris en haut",
+      "description": "Afficher les figures favorites dans une section séparée en haut de la liste"
+    },
+    "preferredName": {
+      "name": "Afficher les noms techniques",
+      "description": "Afficher les noms techniques au lieu des alias"
+    },
+    "includedStatuses": {
+      "name": "Types de figures affichés",
+      "official": "Officiel",
+      "userDefined": "Personnel",
+      "archived": "Archivé"
+    }
+  },
   "tracking": {
     "heading": "Tracage",
     "description": "Nous ne plaçons pas de cookies dans votre navigateur et ne recueillons aucune donnée sur vous. Cependant, lorsque nous afficherons des vidéos à l'aide d'Instagram ou de YouTube, il est très probable que ces services placent des cookies dans votre navigateur et/ou vous suivent.",

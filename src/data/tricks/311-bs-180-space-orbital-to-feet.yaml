@@ -17,6 +17,6 @@ alias: BS Space Lord
 startPosition: Stand
 endPosition: Stand
 difficultyLevel: 9
-showInSearchQueries: false
+showInSearchQueries: true
 recommendedPrerequisites: []
 variationOf: []

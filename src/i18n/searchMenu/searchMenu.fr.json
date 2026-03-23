@@ -1,4 +1,7 @@
 {
+  "variationsAsTricks": "Variations comme figures",
+  "trickCountLabel": "{count} figure | {count} figures",
+  "variationCountLabel": "{count} variation | {count} variations",
   "textSearchPlaceholder": "Chercher",
   "sortOptionsLabel": "Ordre",
   "sortOptions": {
@@ -8,25 +11,5 @@
     "inventionYear": "Année d'invention",
     "ascending": "Haut",
     "descending": "Bas"
-  },
-  "includedStickableStatuses": {
-    "triggerTitle": "Statut"
-  },
-  "favoritesPlacement": {
-    "triggerTitleTop": "Favoris : Top",
-    "triggerTitleRegular": "Favoris : Régulier",
-    "menuLabel": "Position des favoris",
-    "radioItems": {
-      "top": "Top",
-      "regular": "Régulier"
-    }
-  },
-  "preferredName": {
-    "triggerTitleAlias": "Nom : Alias",
-    "triggerTitleTechnicalName": "Nom : Technique",
-    "radioItems": {
-      "alias": "Alias (si possible)",
-      "technicalName": "Nom technique"
-    }
   }
 }

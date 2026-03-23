@@ -1,6 +1,23 @@
 {
   "heading-settings": "Settings",
   "language": "Language",
+  "trickList": {
+    "heading": "Trick List",
+    "favoritesAtTop": {
+      "name": "Favorites at top",
+      "description": "Show favorite tricks in a separate section at the top of the list"
+    },
+    "preferredName": {
+      "name": "Show technical names",
+      "description": "Display technical names instead of aliases"
+    },
+    "includedStatuses": {
+      "name": "Shown trick types",
+      "official": "Official",
+      "userDefined": "Personal",
+      "archived": "Archived"
+    }
+  },
   "tracking": {
     "heading": "Tracking",
     "description": "We don't place any cookies in your browser and don't collect any data on you. When we display videos using Instagram or YouTube though, it is very likely that these services will place cookies in your browser and / or track you.",

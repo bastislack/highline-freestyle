@@ -131,6 +131,58 @@ function findUndefinedReferences(allTricks: z.infer<typeof DbTricksTableZod>[]) 
   return issues;
 }
 
+function findVariationVisibilityInconsistencies(allTricks: z.infer<typeof DbTricksTableZod>[]) {
+  const issues: [number, string][] = [];
+
+  allTricks.forEach((trick) => {
+    const hasVariationParent = (trick.variationOf?.length ?? 0) > 0;
+
+    if (hasVariationParent && trick.showInSearchQueries) {
+      issues.push([trick.id, 'showInSearchQueries must be false when variationOf is non-empty.']);
+    }
+
+    if (!hasVariationParent && !trick.showInSearchQueries) {
+      issues.push([trick.id, 'variationOf must be non-empty when showInSearchQueries is false.']);
+    }
+  });
+
+  return issues;
+}
+
+function findVariationsOfNonTopLevelTricks(allTricks: z.infer<typeof DbTricksTableZod>[]) {
+  const issues: [number, string][] = [];
+  const idToTrickLookup: Record<number, z.infer<typeof DbTricksTableZod>[]> =
+    createRecordLookup(allTricks);
+
+  allTricks.forEach((trick) => {
+    if (!trick.variationOf || trick.variationOf.length === 0) {
+      return;
+    }
+
+    trick.variationOf.forEach((variationPrimaryKey, i) => {
+      const parentCandidates = idToTrickLookup[variationPrimaryKey[0]];
+      const parentTrick = parentCandidates?.find(
+        (candidate) => candidate.trickStatus === variationPrimaryKey[1]
+      );
+
+      if (!parentTrick) {
+        return;
+      }
+
+      if ((parentTrick.variationOf?.length ?? 0) > 0) {
+        issues.push([
+          trick.id,
+          `${i + 1}. Entry in variationOf references non-top-level trick ${parentTrick.id} (${
+            parentTrick.technicalName
+          }).`,
+        ]);
+      }
+    });
+  });
+
+  return issues;
+}
+
 export default async function viteGetAllTricks() {
   // @ts-expect-error Because there are effectively two TS Projects (Vite Plugin Context
   //and Vue Webapp Context), TS gets a bit confused and doesn't think import.meta.url is allowed here
@@ -186,6 +238,30 @@ export default async function viteGetAllTricks() {
       message:
         'Reference Resolution failed.\n\n' +
         undefinedReferences.map((e) => `Failed Trick: ${e[0]}. Issue: ${e[1]}`).join('\n'),
+    };
+  }
+
+  const variationVisibilityInconsistencies = findVariationVisibilityInconsistencies(goodFiles);
+  if (variationVisibilityInconsistencies.length > 0) {
+    throw {
+      plugin: 'vite-plugin-highline-freestyle-data',
+      message:
+        'Variation visibility consistency failed.\n\n' +
+        variationVisibilityInconsistencies
+          .map((e) => `Failed Trick: ${e[0]}. Issue: ${e[1]}`)
+          .join('\n'),
+    };
+  }
+
+  const variationsOfNonTopLevelTricks = findVariationsOfNonTopLevelTricks(goodFiles);
+  if (variationsOfNonTopLevelTricks.length > 0) {
+    throw {
+      plugin: 'vite-plugin-highline-freestyle-data',
+      message:
+        'Variation parent hierarchy failed.\n\n' +
+        variationsOfNonTopLevelTricks
+          .map((e) => `Failed Trick: ${e[0]}. Issue: ${e[1]}`)
+          .join('\n'),
     };
   }
 

@@ -18,8 +18,8 @@ alias: Tesseract
 startPosition: Sofa
 endPosition: Exposure
 difficultyLevel: 7
-showInSearchQueries: true
+showInSearchQueries: false
 recommendedPrerequisites:
   - 94
 variationOf:
-  - 94
+  - 65
