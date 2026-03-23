@@ -17,9 +17,7 @@ function loadIncludedStatuses(): StickableStatus[] {
 }
 
 const includedStatuses = ref<StickableStatus[]>(loadIncludedStatuses());
-const showFavoritesAtTop = ref<boolean>(
-  localStorage.getItem(FAVORITES_AT_TOP_KEY) !== 'false'
-);
+const showFavoritesAtTop = ref<boolean>(localStorage.getItem(FAVORITES_AT_TOP_KEY) !== 'false');
 const preferredName = ref<TrickNameOption>(
   (localStorage.getItem(PREFERRED_NAME_KEY) as TrickNameOption) || 'alias'
 );

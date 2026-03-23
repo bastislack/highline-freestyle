@@ -68,8 +68,13 @@ function toggleIncludedStatus(status: StickableStatus) {
           <div class="text-xl font-medium">{{ t('language') }}</div>
         </div>
         <div class="flex flex-row flex-wrap gap-1 mt-2 mb-2">
-          <Button v-for="lang in LocaleInfos" :key="lang.locale" @click="updateLocale(lang.locale)"
-            :variant="lang.locale === locale ? 'default' : 'secondary'" size="sm">
+          <Button
+            v-for="lang in LocaleInfos"
+            :key="lang.locale"
+            @click="updateLocale(lang.locale)"
+            :variant="lang.locale === locale ? 'default' : 'secondary'"
+            size="sm"
+          >
             {{ lang.name }}
           </Button>
         </div>
@@ -88,8 +93,10 @@ function toggleIncludedStatus(status: StickableStatus) {
               {{ t('trickList.favoritesAtTop.description') }}
             </div>
           </div>
-          <Switch @update:model-value="(pref: boolean) => setShowFavoritesAtTop(pref)"
-            :model-value="getShowFavoritesAtTop()" />
+          <Switch
+            @update:model-value="(pref: boolean) => setShowFavoritesAtTop(pref)"
+            :model-value="getShowFavoritesAtTop()"
+          />
         </div>
         <div class="flex flex-row items-center justify-between">
           <div class="flex flex-col gap-0">
@@ -99,14 +106,17 @@ function toggleIncludedStatus(status: StickableStatus) {
             </div>
           </div>
           <Switch
-            @update:model-value="(pref: boolean) => setPreferredName(pref ? 'technicalName' : 'alias')"
-            :model-value="getPreferredName() === 'technicalName'" />
+            @update:model-value="
+              (pref: boolean) => setPreferredName(pref ? 'technicalName' : 'alias')
+            "
+            :model-value="getPreferredName() === 'technicalName'"
+          />
         </div>
         <div class="flex flex-col gap-1">
           <div class="font-medium">{{ t('trickList.includedStatuses.name') }}</div>
           <div class="flex flex-row flex-wrap gap-1">
             <Button
-              v-for="status in (['official', 'userDefined', 'archived'] as StickableStatus[])"
+              v-for="status in ['official', 'userDefined', 'archived'] as StickableStatus[]"
               :key="status"
               @click="toggleIncludedStatus(status)"
               :variant="getIncludedStatuses().includes(status) ? 'default' : 'secondary'"
@@ -131,8 +141,10 @@ function toggleIncludedStatus(status: StickableStatus) {
             <div class="font-medium">{{ t('tracking.youtube.name') }}</div>
             <div class="text-muted-foreground text-sm">{{ t('tracking.youtube.description') }}</div>
           </div>
-          <Switch @update:model-value="(pref: boolean) => setEmbedPreference('YOUTUBE', pref)"
-            :model-value="isEmbedAllowed('YOUTUBE')" />
+          <Switch
+            @update:model-value="(pref: boolean) => setEmbedPreference('YOUTUBE', pref)"
+            :model-value="isEmbedAllowed('YOUTUBE')"
+          />
         </div>
         <div class="flex flex-row items-center justify-between">
           <div class="flex flex-col gap-0">
@@ -141,8 +153,10 @@ function toggleIncludedStatus(status: StickableStatus) {
               {{ t('tracking.instagram.description') }}
             </div>
           </div>
-          <Switch @update:model-value="(pref: boolean) => setEmbedPreference('INSTAGRAM', pref)"
-            :model-value="isEmbedAllowed('INSTAGRAM')" />
+          <Switch
+            @update:model-value="(pref: boolean) => setEmbedPreference('INSTAGRAM', pref)"
+            :model-value="isEmbedAllowed('INSTAGRAM')"
+          />
         </div>
       </div>
 
