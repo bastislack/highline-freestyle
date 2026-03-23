@@ -15,6 +15,6 @@ technicalName: Shaolin
 startPosition: Rocket
 endPosition: Rocket
 difficultyLevel: 5
-showInSearchQueries: false
+showInSearchQueries: true
 recommendedPrerequisites: []
 variationOf: []

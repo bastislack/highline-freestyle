@@ -22,7 +22,8 @@
     }
   },
   "info": {
-    "noTrickMatchingSearch": "Oh, no. No hay trucos que coincidan con su búsqueda."
+    "noTrickMatchingSearch": "Oh, no. No hay trucos que coincidan con su búsqueda.",
+    "noTricksCheckSettings": "No hay trucos para mostrar. Revisa tus ajustes."
   },
   "newTrickButton": {
     "personal": "Nuevo truco personal",

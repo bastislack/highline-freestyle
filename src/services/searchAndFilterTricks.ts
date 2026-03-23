@@ -219,10 +219,21 @@ export function searchInTricks(
   allTricks: Trick[],
   searchParameters: SearchParameters,
   mapTrickToAttribute: (t: Trick, sort: SortOrder) => string,
-  favoritesSectionTitle: string
+  favoritesSectionTitle: string,
+  showVariationsAsTricks: boolean = false
 ): SearchResult {
+  const filteredTricks = allTricks.filter(
+    (trick) =>
+      searchParameters.includedStatuses.includes(trick.primaryKey[1]) &&
+      (trick.showInSearchQueries || showVariationsAsTricks)
+  );
+
+  const filteredTricksWithVariations = allTricks.filter((trick) =>
+    searchParameters.includedStatuses.includes(trick.primaryKey[1])
+  );
+
   if (searchParameters.searchText !== undefined && searchParameters.searchText !== '') {
-    const matchingTricks = textSearch(allTricks, searchParameters.searchText);
+    const matchingTricks = textSearch(filteredTricksWithVariations, searchParameters.searchText);
     const searchItems = matchingTricks.map((trickWithInfo) =>
       searchItemFromTrick(trickWithInfo.trick, trickWithInfo.nameToUse)
     );
@@ -233,15 +244,6 @@ export function searchInTricks(
       },
     ];
   }
-
-  const filteredTricks = allTricks.filter(
-    (trick) =>
-      searchParameters.includedStatuses.includes(trick.primaryKey[1]) && trick.showInSearchQueries
-  );
-
-  const filteredTricksWithVariations = allTricks.filter((trick) =>
-    searchParameters.includedStatuses.includes(trick.primaryKey[1])
-  );
 
   const sortedTricks = sortTricks(filteredTricks, searchParameters.sortOrder);
   const sortedTricksWithVariations = sortTricks(

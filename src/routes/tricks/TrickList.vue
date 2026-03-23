@@ -1,10 +1,16 @@
 <script lang="ts" setup>
-import { ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { tricksDao } from '@/lib/database';
 import { PrimaryKey } from '@/lib/utils';
 import { SearchItem, SearchParameters, SearchResult, SortOrder } from '@/types/search';
 import { Trick } from '@/lib/database/daos/trick';
 import { searchInTricks, getVariationsForTrick } from '@/services/searchAndFilterTricks';
+import { getShowVariationsAsTricks } from '@/util/variationPreferences';
+import {
+  getIncludedStatuses,
+  getShowFavoritesAtTop,
+  getPreferredName,
+} from '@/util/trickListPreferences';
 
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import TrickSearchMenu from '@/components/stickable/list/TrickSearchMenu.vue';
@@ -27,6 +33,7 @@ import { i18nMerge } from '@/i18n/i18nmerge';
 import messages_list from '@/i18n/list';
 import messages_positions from '@/i18n/common/positions';
 import { isStickableNew } from '@/util/misc';
+import { buildCountSummary } from './trickListCountSummary';
 
 const i18n = useI18n({
   messages: i18nMerge(messages_list, messages_positions),
@@ -34,39 +41,18 @@ const i18n = useI18n({
 });
 const { t } = i18n;
 
-const LOCAL_STORAGE_PARAMETERS_KEY: string = 'SearchParameters-Tricks';
-const DEFAULT_SEARCH_PARAMETERS: SearchParameters = {
-  sortOrder: 'difficulty-asc',
-  includedStatuses: ['official', 'userDefined', 'archived'],
-  showFavoritesAtTop: true,
-  preferredName: 'alias',
-};
+const LOCAL_STORAGE_SORT_KEY = 'SearchParameters-Tricks-SortOrder';
 
-function loadSearchParameters(): SearchParameters {
-  const parametersAsString = window.localStorage.getItem(LOCAL_STORAGE_PARAMETERS_KEY);
-  if (!parametersAsString) {
-    return DEFAULT_SEARCH_PARAMETERS;
-  }
-
-  const parameters = JSON.parse(parametersAsString);
-  parameters.sortOrder = parameters.sortOrder || DEFAULT_SEARCH_PARAMETERS.sortOrder;
-  parameters.includedStatuses =
-    parameters.includedStatuses || DEFAULT_SEARCH_PARAMETERS.includedStatuses;
-  parameters.showFavoritesAtTop =
-    parameters.showFavoritesAtTop || DEFAULT_SEARCH_PARAMETERS.showFavoritesAtTop;
-  parameters.preferredName = parameters.preferredName || DEFAULT_SEARCH_PARAMETERS.preferredName;
-
-  return parameters;
+function loadSortOrder(): SortOrder {
+  return (localStorage.getItem(LOCAL_STORAGE_SORT_KEY) as SortOrder) || 'difficulty-asc';
 }
 
-function storeSearchParameters(parameters: SearchParameters) {
-  const parametersAsString = JSON.stringify(parameters);
-  window.localStorage.setItem(LOCAL_STORAGE_PARAMETERS_KEY, parametersAsString);
-}
-
-const searchParameters = ref<SearchParameters>(loadSearchParameters());
+const searchText = ref<string | undefined>(undefined);
+const sortOrder = ref<SortOrder>(loadSortOrder());
+const variationsAsTricks = computed(() => getShowVariationsAsTricks());
 const searchResult = ref<SearchResult>();
 const variationsMap = ref<Map<string, SearchItem[]>>(new Map());
+const countSummary = ref(buildCountSummary([], [], [], false, false));
 
 function buildVariationsMap(
   allTricks: Trick[],
@@ -118,26 +104,42 @@ function trickToAttribute(trick: Trick, sortOption: SortOrder): string {
 }
 
 watch(
-  [searchParameters, i18n.locale],
+  [searchText, sortOrder, variationsAsTricks, i18n.locale],
   async () => {
     const allTricks = await tricksDao.getAll();
+    const includedStatuses = getIncludedStatuses();
+    const preferredName = getPreferredName();
+
+    const params: SearchParameters = {
+      searchText: searchText.value,
+      sortOrder: sortOrder.value,
+      includedStatuses,
+      showFavoritesAtTop: getShowFavoritesAtTop(),
+      preferredName,
+    };
+
     searchResult.value = searchInTricks(
       allTricks,
-      searchParameters.value,
+      params,
       trickToAttribute,
-      t('sectionTitles.favorites')
+      t('sectionTitles.favorites'),
+      variationsAsTricks.value
     );
 
-    if (searchResult.value) {
-      variationsMap.value = buildVariationsMap(
-        allTricks,
-        searchResult.value,
-        searchParameters.value.preferredName,
-        searchParameters.value.includedStatuses
-      );
-    }
+    countSummary.value = buildCountSummary(
+      allTricks,
+      searchResult.value,
+      includedStatuses,
+      variationsAsTricks.value,
+      !!searchText.value
+    );
 
-    storeSearchParameters(searchParameters.value);
+    variationsMap.value =
+      searchResult.value && !variationsAsTricks.value
+        ? buildVariationsMap(allTricks, searchResult.value, preferredName, includedStatuses)
+        : new Map<string, SearchItem[]>();
+
+    localStorage.setItem(LOCAL_STORAGE_SORT_KEY, sortOrder.value);
   },
   { immediate: true, deep: true }
 );
@@ -150,7 +152,15 @@ function linkToDetails(primaryKey: PrimaryKey): string {
 <template>
   <DefaultLayout>
     <Section>
-      <TrickSearchMenu :search-parameters="searchParameters" />
+      <TrickSearchMenu
+        v-model:search-text="searchText"
+        v-model:sort-order="sortOrder"
+        :trick-count="countSummary.trickCount"
+        :variation-count="countSummary.variationCount"
+        :total-count="countSummary.totalCount"
+        :variations-as-tricks="variationsAsTricks"
+        :show-breakdown="countSummary.showBreakdown"
+      />
     </Section>
 
     <Separator />
@@ -159,7 +169,7 @@ function linkToDetails(primaryKey: PrimaryKey): string {
       <div class="w-full flex flex-col gap-5">
         <!-- No Search Results-->
         <div v-if="!searchResult || searchResult.length === 0" class="text-xl text-center mt-3">
-          {{ t('info.noTrickMatchingSearch') }}
+          {{ searchText ? t('info.noTrickMatchingSearch') : t('info.noTricksCheckSettings') }}
           <div class="flex flex-row justify-center mt-3">
             <img
               :src="ImgArmsCrossedUrl"
@@ -188,9 +198,7 @@ function linkToDetails(primaryKey: PrimaryKey): string {
               :is-new="item.isNew"
               :link-to-details="linkToDetails(item.primaryKey)"
               :variations="variationsMap.get(item.primaryKey[1] + ':' + item.primaryKey[0]) || []"
-              :showVariations="
-                !searchParameters.searchText && section.title !== t('sectionTitles.favorites')
-              "
+              :showVariations="!searchText && section.title !== t('sectionTitles.favorites')"
             />
           </div>
         </div>
