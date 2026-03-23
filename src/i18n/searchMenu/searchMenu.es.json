@@ -2,7 +2,6 @@
   "variationsAsTricks": "Variaciones como trucos",
   "trickCountLabel": "{count} truco | {count} trucos",
   "variationCountLabel": "{count} variación | {count} variaciones",
-  "totalCountLabel": "{count} total",
   "textSearchPlaceholder": "Búsqueda",
   "sortOptionsLabel": "Ordenar",
   "sortOptions": {

@@ -148,8 +148,6 @@ const textSearchContainsText = computed<boolean>(() => {
           {{ t('trickCountLabel', { count: props.trickCount }, props.trickCount) }}
           ·
           {{ t('variationCountLabel', { count: props.variationCount }, props.variationCount) }}
-          ·
-          {{ t('totalCountLabel', { count: props.totalCount }, props.totalCount) }}
         </template>
       </span>
     </div>
