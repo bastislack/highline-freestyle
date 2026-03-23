@@ -94,11 +94,30 @@ function comparePrimaryKey(a: Trick, b: Trick): number {
   return statusDiff || a.primaryKey[0] - b.primaryKey[0];
 }
 
-function compareDifficulty(a: Trick, b: Trick): number {
-  const difficultyA = a.difficultyLevel || Number.MAX_VALUE;
-  const difficultyB = b.difficultyLevel || Number.MAX_VALUE;
-  return difficultyA - difficultyB;
+function compareUndefinedLast(getValue: (t: Trick) => unknown): (a: Trick, b: Trick) => number {
+  return (a, b) => {
+    const aUndefined = getValue(a) == null;
+    const bUndefined = getValue(b) == null;
+    if (aUndefined !== bUndefined) return aUndefined ? 1 : -1;
+    return 0;
+  };
 }
+
+function compareNumeric(
+  getValue: (t: Trick) => number | undefined | null
+): (a: Trick, b: Trick) => number {
+  return (a, b) => {
+    const valA = getValue(a);
+    const valB = getValue(b);
+    if (valA == null || valB == null) return 0;
+    return valA - valB;
+  };
+}
+
+const compareDifficultyUndefined = compareUndefinedLast((t) => t.difficultyLevel);
+const compareDifficulty = compareNumeric((t) => t.difficultyLevel);
+const compareYearEstablishedUndefined = compareUndefinedLast((t) => t.yearEstablished);
+const compareYearEstablished = compareNumeric((t) => t.yearEstablished);
 
 function compareLowerCaseString(a: string, b: string): number {
   if (a.toLowerCase() < b.toLowerCase()) return -1;
@@ -114,26 +133,36 @@ function compareEndPosition(a: Trick, b: Trick): number {
   return compareLowerCaseString(a.endPosition, b.endPosition);
 }
 
-function compareYearEstablished(a: Trick, b: Trick): number {
-  const yearEstablishedA: number = a.yearEstablished ?? Number.MAX_VALUE;
-  const yearEstablishedB: number = b.yearEstablished ?? Number.MAX_VALUE;
-  return yearEstablishedA - yearEstablishedB;
-}
-
-function sortTricks(tricks: Trick[], sorting: SortOrder): Trick[] {
+export function sortTricks(tricks: Trick[], sorting: SortOrder): Trick[] {
   switch (sorting) {
     case 'difficulty-asc':
-      return tricks.sort((a, b) => compareDifficulty(a, b) || comparePrimaryKey(a, b));
+      return tricks.sort(
+        (a, b) =>
+          compareDifficultyUndefined(a, b) || compareDifficulty(a, b) || comparePrimaryKey(a, b)
+      );
     case 'difficulty-desc':
-      return tricks.sort((a, b) => -compareDifficulty(a, b) || comparePrimaryKey(a, b));
+      return tricks.sort(
+        (a, b) =>
+          compareDifficultyUndefined(a, b) || -compareDifficulty(a, b) || comparePrimaryKey(a, b)
+      );
     case 'startPos':
       return tricks.sort((a, b) => compareStartPosition(a, b) || comparePrimaryKey(a, b));
     case 'endPos':
       return tricks.sort((a, b) => compareEndPosition(a, b) || comparePrimaryKey(a, b));
     case 'yearEstablished-asc':
-      return tricks.sort((a, b) => compareYearEstablished(a, b) || comparePrimaryKey(a, b));
+      return tricks.sort(
+        (a, b) =>
+          compareYearEstablishedUndefined(a, b) ||
+          compareYearEstablished(a, b) ||
+          comparePrimaryKey(a, b)
+      );
     case 'yearEstablished-desc':
-      return tricks.sort((a, b) => -compareYearEstablished(a, b) || comparePrimaryKey(a, b));
+      return tricks.sort(
+        (a, b) =>
+          compareYearEstablishedUndefined(a, b) ||
+          -compareYearEstablished(a, b) ||
+          comparePrimaryKey(a, b)
+      );
   }
 }
 
