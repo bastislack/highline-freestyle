@@ -1,35 +1,48 @@
 import { describe, it, expect } from 'vitest';
-import { getVariationsForTrick } from '../searchAndFilterTricks';
-import { Trick } from '@/lib/database/daos/trick';
-import { z } from 'zod';
-import { DbTricksTableZod, DbMetadataZod } from '@/lib/database/schemas/CurrentVersionSchema';
-import { MainDatabase } from '@/lib/database/databaseInstance';
-
-type DbTrick = z.infer<typeof DbTricksTableZod>;
-type DbMetadata = z.infer<typeof DbMetadataZod>;
+import { getVariationsForTrick, searchInTricks } from '../searchAndFilterTricks';
+import type { Trick } from '@/lib/database/daos/trick';
+import type { SearchParameters, SortOrder } from '@/types/search';
+import type { StickableStatus } from '@/lib/utils';
 
 function makeTrick(
-  overrides: Partial<DbTrick> & { id: number },
-  metadataOverrides: Partial<DbMetadata> = {}
+  overrides: Partial<Trick> & {
+    id: number;
+    trickStatus?: StickableStatus;
+    isFavourite?: boolean;
+    variationOf?: [number, StickableStatus][];
+  }
 ): Trick {
-  const data: DbTrick = {
-    trickStatus: 'official',
+  const trickStatus = overrides.trickStatus ?? 'official';
+
+  return {
+    primaryKey: [overrides.id, trickStatus],
     technicalName: `Trick ${overrides.id}`,
+    alias: undefined,
     startPosition: 'Stand',
     endPosition: 'Stand',
+    difficultyLevel: 1,
+    yearEstablished: undefined,
     showInSearchQueries: true,
+    variationOf: undefined,
     dateAddedEpoch: 0,
+    stickFrequency: undefined,
+    isFavourite: false,
+    ...overrides,
+  } as unknown as Trick;
+}
+
+function defaultSearchParameters(overrides: Partial<SearchParameters> = {}): SearchParameters {
+  return {
+    sortOrder: 'difficulty-asc',
+    includedStatuses: ['official', 'userDefined', 'archived'],
+    showFavoritesAtTop: true,
+    preferredName: 'alias',
     ...overrides,
   };
-  const metadata: DbMetadata = {
-    id: data.id,
-    entityStatus: data.trickStatus,
-    entityCategory: 'Trick',
-    isFavourite: false,
-    ...metadataOverrides,
-  };
-  // Pass null as db since we won't call persist/refetch in tests
-  return new Trick(data, metadata, null as unknown as MainDatabase);
+}
+
+function mapTrickToAttribute(_trick: Trick, _sortOrder: SortOrder) {
+  return 'Difficulty 1';
 }
 
 describe('getVariationsForTrick', () => {
@@ -112,5 +125,95 @@ describe('getVariationsForTrick', () => {
     ]);
 
     expect(result).toHaveLength(0);
+  });
+});
+
+describe('searchInTricks', () => {
+  it('shows variation-only tricks in text search even when variations are not shown as tricks', () => {
+    const parent = makeTrick({ id: 1, technicalName: 'Rocket' });
+    const variation = makeTrick({
+      id: 2,
+      technicalName: 'Rocket variation',
+      showInSearchQueries: false,
+      variationOf: [[1, 'official']],
+    });
+
+    const result = searchInTricks(
+      [parent, variation],
+      defaultSearchParameters({ searchText: 'variation' }),
+      mapTrickToAttribute,
+      'Favorites',
+      false
+    );
+
+    expect(result).toEqual([
+      {
+        title: '"variation"',
+        items: [
+          expect.objectContaining({
+            name: 'Rocket variation',
+            primaryKey: [2, 'official'],
+          }),
+        ],
+      },
+    ]);
+  });
+
+  it('surfaces favorite variations in the favorites section even when variations are hidden', () => {
+    const parent = makeTrick({ id: 1, technicalName: 'Rocket' });
+    const favoriteVariation = makeTrick({
+      id: 2,
+      technicalName: 'Rocket variation',
+      showInSearchQueries: false,
+      variationOf: [[1, 'official']],
+      isFavourite: true,
+    });
+
+    const result = searchInTricks(
+      [parent, favoriteVariation],
+      defaultSearchParameters(),
+      mapTrickToAttribute,
+      'Favorites',
+      false
+    );
+
+    expect(result[0]).toEqual({
+      title: 'Favorites',
+      items: [
+        expect.objectContaining({
+          name: 'Rocket variation',
+          primaryKey: [2, 'official'],
+        }),
+      ],
+    });
+  });
+
+  it('surfaces favorite variations in the favorites section when variations are shown', () => {
+    const parent = makeTrick({ id: 1, technicalName: 'Rocket' });
+    const favoriteVariation = makeTrick({
+      id: 2,
+      technicalName: 'Rocket variation',
+      showInSearchQueries: false,
+      variationOf: [[1, 'official']],
+      isFavourite: true,
+    });
+
+    const result = searchInTricks(
+      [parent, favoriteVariation],
+      defaultSearchParameters(),
+      mapTrickToAttribute,
+      'Favorites',
+      true
+    );
+
+    expect(result[0]).toEqual({
+      title: 'Favorites',
+      items: [
+        expect.objectContaining({
+          name: 'Rocket variation',
+          primaryKey: [2, 'official'],
+        }),
+      ],
+    });
   });
 });

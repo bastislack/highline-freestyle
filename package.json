@@ -8,6 +8,7 @@
     "host": "vite --host",
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
+    "test": "vitest run",
     "lint": "npm run lint:eslint && npm run lint:prettier",
     "lint:fix": "npm run lint:eslint:fix && npm run lint:prettier:fix",
     "lint:eslint": "eslint --ext .ts,.vue,.json src",
