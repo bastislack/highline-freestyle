@@ -107,7 +107,7 @@ type SectionView = {
   showVariations: boolean;
 };
 
-function getPrimaryKeyString(primaryKey: PrimaryKey): string {
+function getPrimaryKeyString(primaryKey: Readonly<PrimaryKey>): string {
   return `${primaryKey[1]}:${primaryKey[0]}`;
 }
 
