@@ -98,6 +98,14 @@ const searchResult = ref<SearchResult>();
 const variationsMap = ref<Map<string, SearchItem[]>>(new Map());
 const tricksByPrimaryKey = ref<Map<string, Trick>>(new Map());
 const countSummary = ref(buildCountSummary([], [], [], false, false));
+type SectionView = {
+  id: string;
+  title: string;
+  items: SearchItem[];
+  isCollapsible: boolean;
+  isOpen: boolean;
+  showVariations: boolean;
+};
 
 function getPrimaryKeyString(primaryKey: PrimaryKey): string {
   return `${primaryKey[1]}:${primaryKey[0]}`;
@@ -133,6 +141,25 @@ function getSectionStorageId(section: SearchSection): string {
       return `yearEstablished:${trick.yearEstablished ?? 'unknown'}`;
   }
 }
+
+function isFavoritesSection(section: SearchSection): boolean {
+  return section.title === t('sectionTitles.favorites');
+}
+
+const visibleSections = computed<SectionView[]>(() =>
+  (searchResult.value ?? []).map((section) => {
+    const isCollapsible = !searchText.value;
+    const sectionId = getSectionStorageId(section);
+    return {
+      id: sectionId,
+      title: section.title,
+      items: section.items,
+      isCollapsible,
+      isOpen: isCollapsible ? isSectionOpen(sectionId) : true,
+      showVariations: !searchText.value && !isFavoritesSection(section),
+    };
+  })
+);
 
 function buildVariationsMap(
   allTricks: Trick[],
@@ -264,8 +291,8 @@ function linkToDetails(primaryKey: PrimaryKey): string {
         <!-- Search Results-->
         <template v-if="searchText">
           <div
-            v-for="section in searchResult"
-            :key="section.title"
+            v-for="section in visibleSections"
+            :key="section.id"
             class="w-full flex flex-col gap-1"
           >
             <div
@@ -292,7 +319,7 @@ function linkToDetails(primaryKey: PrimaryKey): string {
                 :is-new="item.isNew"
                 :link-to-details="linkToDetails(item.primaryKey)"
                 :variations="variationsMap.get(item.primaryKey[1] + ':' + item.primaryKey[0]) || []"
-                :showVariations="!searchText && section.title !== t('sectionTitles.favorites')"
+                :showVariations="section.showVariations"
               />
             </div>
           </div>
@@ -300,12 +327,12 @@ function linkToDetails(primaryKey: PrimaryKey): string {
 
         <Collapsible
           v-else
-          v-for="section in searchResult"
-          :key="section.title"
-          :open="isSectionOpen(getSectionStorageId(section))"
+          v-for="section in visibleSections"
+          :key="section.id"
+          :open="section.isOpen"
           class="w-full flex flex-col"
-          :class="{ 'gap-1': isSectionOpen(getSectionStorageId(section)) }"
-          @update:open="(open: boolean) => toggleSection(getSectionStorageId(section), open)"
+          :class="{ 'gap-1': section.isOpen }"
+          @update:open="(open: boolean) => toggleSection(section.id, open)"
         >
           <CollapsibleTrigger as-child>
             <button
@@ -320,7 +347,7 @@ function linkToDetails(primaryKey: PrimaryKey): string {
                 <Icon
                   icon="ic:round-keyboard-arrow-down"
                   class="h-5 w-5 shrink-0 transition-transform duration-200 text-muted-foreground"
-                  :class="{ 'rotate-180': !isSectionOpen(getSectionStorageId(section)) }"
+                  :class="{ 'rotate-180': !section.isOpen }"
                 />
               </span>
             </button>
@@ -339,7 +366,7 @@ function linkToDetails(primaryKey: PrimaryKey): string {
                 :is-new="item.isNew"
                 :link-to-details="linkToDetails(item.primaryKey)"
                 :variations="variationsMap.get(item.primaryKey[1] + ':' + item.primaryKey[0]) || []"
-                :showVariations="!searchText && section.title !== t('sectionTitles.favorites')"
+                :showVariations="section.showVariations"
               />
             </div>
           </CollapsibleContent>
