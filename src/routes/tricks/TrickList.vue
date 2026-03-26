@@ -2,7 +2,13 @@
 import { computed, ref, watch } from 'vue';
 import { tricksDao } from '@/lib/database';
 import { PrimaryKey } from '@/lib/utils';
-import { SearchItem, SearchParameters, SearchResult, SortOrder } from '@/types/search';
+import {
+  SearchItem,
+  SearchParameters,
+  SearchResult,
+  SearchSection,
+  SortOrder,
+} from '@/types/search';
 import { Trick } from '@/lib/database/daos/trick';
 import { searchInTricks, getVariationsForTrick } from '@/services/searchAndFilterTricks';
 import { getShowVariationsAsTricks } from '@/util/variationPreferences';
@@ -65,16 +71,21 @@ function saveCollapsedSections(sections: Set<string>) {
 
 const collapsedSections = ref<Set<string>>(loadCollapsedSections());
 
-function isSectionOpen(title: string): boolean {
-  return !collapsedSections.value.has(title);
+function getCollapsedSectionKey(sectionId: string): string {
+  return `section:${sectionId}`;
 }
 
-function toggleSection(title: string, open: boolean) {
+function isSectionOpen(sectionId: string): boolean {
+  return !collapsedSections.value.has(getCollapsedSectionKey(sectionId));
+}
+
+function toggleSection(sectionId: string, open: boolean) {
   const updated = new Set(collapsedSections.value);
+  const sectionKey = getCollapsedSectionKey(sectionId);
   if (open) {
-    updated.delete(title);
+    updated.delete(sectionKey);
   } else {
-    updated.add(title);
+    updated.add(sectionKey);
   }
   collapsedSections.value = updated;
   saveCollapsedSections(updated);
@@ -85,7 +96,43 @@ const sortOrder = ref<SortOrder>(loadSortOrder());
 const variationsAsTricks = computed(() => getShowVariationsAsTricks());
 const searchResult = ref<SearchResult>();
 const variationsMap = ref<Map<string, SearchItem[]>>(new Map());
+const tricksByPrimaryKey = ref<Map<string, Trick>>(new Map());
 const countSummary = ref(buildCountSummary([], [], [], false, false));
+
+function getPrimaryKeyString(primaryKey: PrimaryKey): string {
+  return `${primaryKey[1]}:${primaryKey[0]}`;
+}
+
+function getSectionStorageId(section: SearchSection): string {
+  if (section.title === t('sectionTitles.favorites')) {
+    return 'favorites';
+  }
+
+  if (searchText.value) {
+    return `search:${searchText.value}`;
+  }
+
+  const firstItem = section.items[0];
+  const trick = firstItem
+    ? tricksByPrimaryKey.value.get(getPrimaryKeyString(firstItem.primaryKey))
+    : null;
+  if (!trick) {
+    return `${sortOrder.value}:${section.title}`;
+  }
+
+  switch (sortOrder.value) {
+    case 'difficulty-asc':
+    case 'difficulty-desc':
+      return `difficulty:${trick.difficultyLevel ?? 'unknown'}`;
+    case 'startPos':
+      return `startPos:${trick.startPosition || 'unknown'}`;
+    case 'endPos':
+      return `endPos:${trick.endPosition || 'unknown'}`;
+    case 'yearEstablished-asc':
+    case 'yearEstablished-desc':
+      return `yearEstablished:${trick.yearEstablished ?? 'unknown'}`;
+  }
+}
 
 function buildVariationsMap(
   allTricks: Trick[],
@@ -142,6 +189,9 @@ watch(
     const allTricks = await tricksDao.getAll();
     const includedStatuses = getIncludedStatuses();
     const preferredName = getPreferredName();
+    tricksByPrimaryKey.value = new Map(
+      allTricks.map((trick) => [getPrimaryKeyString(trick.primaryKey), trick])
+    );
 
     const params: SearchParameters = {
       searchText: searchText.value,
@@ -212,13 +262,50 @@ function linkToDetails(primaryKey: PrimaryKey): string {
         </div>
 
         <!-- Search Results-->
+        <template v-if="searchText">
+          <div
+            v-for="section in searchResult"
+            :key="section.title"
+            class="w-full flex flex-col gap-1"
+          >
+            <div
+              class="text-2xl font-medium px-3 w-full grid grid-cols-[1fr_auto_1fr] items-center"
+            >
+              <span />
+              <span>{{ section.title }}</span>
+              <span class="flex items-center gap-1 justify-self-end">
+                <span class="text-sm text-muted-foreground font-normal">
+                  {{ section.items.length }}
+                </span>
+              </span>
+            </div>
+            <div
+              class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 gap-2 w-full grid-flow-row-dense"
+            >
+              <StickableSearchResult
+                v-for="item in section.items"
+                :key="item.primaryKey[1] + ':' + item.primaryKey[0]"
+                :title="item.name"
+                :status="item.primaryKey[1]"
+                :stick-frequency="item.stickFrequency"
+                :is-favorite="item.isFavorite"
+                :is-new="item.isNew"
+                :link-to-details="linkToDetails(item.primaryKey)"
+                :variations="variationsMap.get(item.primaryKey[1] + ':' + item.primaryKey[0]) || []"
+                :showVariations="!searchText && section.title !== t('sectionTitles.favorites')"
+              />
+            </div>
+          </div>
+        </template>
+
         <Collapsible
+          v-else
           v-for="section in searchResult"
           :key="section.title"
-          :open="isSectionOpen(section.title)"
+          :open="isSectionOpen(getSectionStorageId(section))"
           class="w-full flex flex-col"
-          :class="{ 'gap-1': isSectionOpen(section.title) }"
-          @update:open="(open: boolean) => toggleSection(section.title, open)"
+          :class="{ 'gap-1': isSectionOpen(getSectionStorageId(section)) }"
+          @update:open="(open: boolean) => toggleSection(getSectionStorageId(section), open)"
         >
           <CollapsibleTrigger as-child>
             <button
@@ -233,7 +320,7 @@ function linkToDetails(primaryKey: PrimaryKey): string {
                 <Icon
                   icon="ic:round-keyboard-arrow-down"
                   class="h-5 w-5 shrink-0 transition-transform duration-200 text-muted-foreground"
-                  :class="{ 'rotate-180': !isSectionOpen(section.title) }"
+                  :class="{ 'rotate-180': !isSectionOpen(getSectionStorageId(section)) }"
                 />
               </span>
             </button>
