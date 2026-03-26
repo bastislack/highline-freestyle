@@ -17,6 +17,7 @@ import TrickSearchMenu from '@/components/stickable/list/TrickSearchMenu.vue';
 import StickableSearchResult from '@/components/stickable/list/StickableSearchResult.vue';
 import Separator from '@/components/ui/separator/Separator.vue';
 import Section from '@/components/ui/section/Section.vue';
+import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '@/components/ui/collapsible';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -42,9 +43,41 @@ const i18n = useI18n({
 const { t } = i18n;
 
 const LOCAL_STORAGE_SORT_KEY = 'SearchParameters-Tricks-SortOrder';
+const LOCAL_STORAGE_COLLAPSED_SECTIONS_KEY = 'TrickList-CollapsedSections';
 
 function loadSortOrder(): SortOrder {
   return (localStorage.getItem(LOCAL_STORAGE_SORT_KEY) as SortOrder) || 'difficulty-asc';
+}
+
+function loadCollapsedSections(): Set<string> {
+  try {
+    const stored = localStorage.getItem(LOCAL_STORAGE_COLLAPSED_SECTIONS_KEY);
+    if (stored) return new Set(JSON.parse(stored));
+  } catch {
+    // ignore malformed data
+  }
+  return new Set();
+}
+
+function saveCollapsedSections(sections: Set<string>) {
+  localStorage.setItem(LOCAL_STORAGE_COLLAPSED_SECTIONS_KEY, JSON.stringify([...sections]));
+}
+
+const collapsedSections = ref<Set<string>>(loadCollapsedSections());
+
+function isSectionOpen(title: string): boolean {
+  return !collapsedSections.value.has(title);
+}
+
+function toggleSection(title: string, open: boolean) {
+  const updated = new Set(collapsedSections.value);
+  if (open) {
+    updated.delete(title);
+  } else {
+    updated.add(title);
+  }
+  collapsedSections.value = updated;
+  saveCollapsedSections(updated);
 }
 
 const searchText = ref<string | undefined>(undefined);
@@ -166,7 +199,7 @@ function linkToDetails(primaryKey: PrimaryKey): string {
     <Separator />
 
     <Section>
-      <div class="w-full flex flex-col gap-5">
+      <div class="w-full flex flex-col gap-2">
         <!-- No Search Results-->
         <div v-if="!searchResult || searchResult.length === 0" class="text-xl text-center mt-3">
           {{ searchText ? t('info.noTrickMatchingSearch') : t('info.noTricksCheckSettings') }}
@@ -179,29 +212,51 @@ function linkToDetails(primaryKey: PrimaryKey): string {
         </div>
 
         <!-- Search Results-->
-        <div
+        <Collapsible
           v-for="section in searchResult"
-          class="w-full flex flex-col gap-1"
           :key="section.title"
+          :open="isSectionOpen(section.title)"
+          class="w-full flex flex-col"
+          :class="{ 'gap-1': isSectionOpen(section.title) }"
+          @update:open="(open: boolean) => toggleSection(section.title, open)"
         >
-          <div class="text-2xl font-medium px-3 w-full text-center">{{ section.title }}</div>
-          <div
-            class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 gap-2 w-full grid-flow-row-dense"
-          >
-            <StickableSearchResult
-              v-for="item in section.items"
-              :key="item.primaryKey[1] + ':' + item.primaryKey[0]"
-              :title="item.name"
-              :status="item.primaryKey[1]"
-              :stick-frequency="item.stickFrequency"
-              :is-favorite="item.isFavorite"
-              :is-new="item.isNew"
-              :link-to-details="linkToDetails(item.primaryKey)"
-              :variations="variationsMap.get(item.primaryKey[1] + ':' + item.primaryKey[0]) || []"
-              :showVariations="!searchText && section.title !== t('sectionTitles.favorites')"
-            />
-          </div>
-        </div>
+          <CollapsibleTrigger as-child>
+            <button
+              class="text-2xl font-medium px-3 w-full grid grid-cols-[1fr_auto_1fr] items-center cursor-pointer rounded-md hover:bg-accent/50 transition-colors"
+            >
+              <span />
+              <span>{{ section.title }}</span>
+              <span class="flex items-center gap-1 justify-self-end">
+                <span class="text-sm text-muted-foreground font-normal">
+                  {{ section.items.length }}
+                </span>
+                <Icon
+                  icon="ic:round-keyboard-arrow-down"
+                  class="h-5 w-5 shrink-0 transition-transform duration-200 text-muted-foreground"
+                  :class="{ 'rotate-180': !isSectionOpen(section.title) }"
+                />
+              </span>
+            </button>
+          </CollapsibleTrigger>
+          <CollapsibleContent>
+            <div
+              class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 gap-2 w-full grid-flow-row-dense"
+            >
+              <StickableSearchResult
+                v-for="item in section.items"
+                :key="item.primaryKey[1] + ':' + item.primaryKey[0]"
+                :title="item.name"
+                :status="item.primaryKey[1]"
+                :stick-frequency="item.stickFrequency"
+                :is-favorite="item.isFavorite"
+                :is-new="item.isNew"
+                :link-to-details="linkToDetails(item.primaryKey)"
+                :variations="variationsMap.get(item.primaryKey[1] + ':' + item.primaryKey[0]) || []"
+                :showVariations="!searchText && section.title !== t('sectionTitles.favorites')"
+              />
+            </div>
+          </CollapsibleContent>
+        </Collapsible>
       </div>
     </Section>
 
