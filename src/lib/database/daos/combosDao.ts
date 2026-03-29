@@ -122,7 +122,7 @@ export default class CombosDAO implements DbObjectDao<Combo> {
       entityStatus: comboStatus,
       entityCategory: 'Combo',
       stickFrequency: objectWithoutId.stickFrequency,
-      isFavourite: objectWithoutId.isFavourite,
+      isFavorite: objectWithoutId.isFavorite,
       notes: objectWithoutId.notes,
     });
     // if code did not throw until here, we have 2 structurally valid objects.

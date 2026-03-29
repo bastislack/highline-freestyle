@@ -28,7 +28,7 @@ export class Trick implements DbObject {
     },
     metadata: {
       stickFrequency: false,
-      isFavourite: false,
+      isFavorite: false,
       notes: false,
     },
     // To throw an error if trying to persist object while it is already persisting
@@ -267,15 +267,15 @@ export class Trick implements DbObject {
     this.metadataFromDatabase.stickFrequency = DbMetadataZod._def.shape().stickFrequency.parse(val);
   }
 
-  public get isFavourite() {
-    return this.metadataFromDatabase.isFavourite;
+  public get isFavorite() {
+    return this.metadataFromDatabase.isFavorite;
   }
-  public set isFavourite(val) {
-    if (val === this.metadataFromDatabase.isFavourite) {
+  public set isFavorite(val) {
+    if (val === this.metadataFromDatabase.isFavorite) {
       return;
     }
-    this.#modified.metadata.isFavourite = true;
-    this.metadataFromDatabase.isFavourite = DbMetadataZod._def.shape().isFavourite.parse(val);
+    this.#modified.metadata.isFavorite = true;
+    this.metadataFromDatabase.isFavorite = DbMetadataZod._def.shape().isFavorite.parse(val);
   }
 
   public get notes() {

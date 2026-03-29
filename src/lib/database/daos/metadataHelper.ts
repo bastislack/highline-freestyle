@@ -17,7 +17,7 @@ export async function putDefault(db: MainDatabase, primaryKey: PrimaryKey) {
     id,
     entityStatus,
     entityCategory,
-    isFavourite: false,
+    isFavorite: false,
   };
   // Throws Error if object does not meet Contract.
   await db.metadata.put(DbMetadataZod.parse(newObject));

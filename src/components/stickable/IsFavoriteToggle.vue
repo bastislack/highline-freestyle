@@ -32,13 +32,13 @@ async function setButtonStateToDBState() {
     if (trick === undefined) {
       throw new Error(`Could not locate trick with id in database: [${props.id}, ${props.status}]`);
     }
-    isFavorite.value = trick.isFavourite;
+    isFavorite.value = trick.isFavorite;
   } else if (props.stickableType === 'Combo') {
     const combo = await combosDao.getById(props.id, props.status);
     if (combo === undefined) {
       throw new Error(`Could not locate combo with id in database: [${props.id}, ${props.status}]`);
     }
-    isFavorite.value = combo.isFavourite;
+    isFavorite.value = combo.isFavorite;
   }
 }
 
@@ -68,9 +68,9 @@ async function toggleFavoriteTrick() {
   if (trick === undefined) {
     throw new Error(`Could not locate trick with id in database: [${props.id}, ${props.status}]`);
   }
-  trick.isFavourite = !trick.isFavourite;
+  trick.isFavorite = !trick.isFavorite;
   await trick.persist();
-  isFavorite.value = trick.isFavourite;
+  isFavorite.value = trick.isFavorite;
 }
 
 async function toggleFavoriteCombo() {
@@ -78,9 +78,9 @@ async function toggleFavoriteCombo() {
   if (combo === undefined) {
     throw new Error(`Could not locate combo with id in database: [${props.id}, ${props.status}]`);
   }
-  combo.isFavourite = !combo.isFavourite;
+  combo.isFavorite = !combo.isFavorite;
   await combo.persist();
-  isFavorite.value = combo.isFavourite;
+  isFavorite.value = combo.isFavorite;
 }
 
 const icon = computed(() => (isFavorite.value ? 'ic:round-star' : 'ic:round-star-border'));

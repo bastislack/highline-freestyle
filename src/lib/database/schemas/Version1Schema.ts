@@ -70,7 +70,7 @@ export const DbMetadataZod = z.object({
   entityStatus: DbStickableStatusZod,
   entityCategory: z.enum(['Combo', 'Trick']),
   stickFrequency: z.number().int().min(0).max(7).optional(),
-  isFavourite: z.boolean().default(false),
+  isFavorite: z.boolean().default(false),
   notes: z.string().optional(),
 });
 
@@ -88,5 +88,5 @@ export const schema = {
     '[id+trickStatus], technicalName, alias, establishedBy, yearEstablished, startPosition, endPosition, difficultyLevel, description, *recommendedPrerequisites, tips, *variationOf, showInSearchQueries, dateAddedEpoch, videos',
   combos:
     '[id+comboStatus], name, establishedBy, yearEstablished, *tricks, description, tips, dateAddedEpoch, videos',
-  metadata: '[id+entityStatus+entityCategory], stickFrequency, isFavourite, notes',
+  metadata: '[id+entityStatus+entityCategory], stickFrequency, isFavorite, notes',
 } as const;
