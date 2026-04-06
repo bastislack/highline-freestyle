@@ -116,7 +116,7 @@ function videoIdFromURL(url: string): string {
 </script>
 
 <template>
-  <EmbedPrompt v-if="!isEmbedAllowed('YOUTUBE')" site="YOUTUBE" />
+  <EmbedPrompt v-if="!isEmbedAllowed('YOUTUBE')" site="YOUTUBE" :url="url" />
 
   <div v-else-if="isUrlValid" class="videowrapper">
     <div ref="playerRef"></div>

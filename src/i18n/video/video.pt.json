@@ -14,11 +14,13 @@
     "youtubeAndInstagram": "YouTube & Instagram",
     "youtube": {
       "question": "Atualmente, não temos sua permissão para exibir vídeos do YouTube. Deseja dar sua permissão?",
-      "onlyYouTube": "Apenas YouTube"
+      "onlyYouTube": "Apenas YouTube",
+      "openDirectly": "Abrir vídeo no YouTube"
     },
     "instagram": {
-      "question": "lmente, não temos sua permissão para exibir vídeos do Instagram. Deseja dar sua permissão?",
-      "onlyInstagram": "Apenas Instagram"
+      "question": "Atualmente, não temos sua permissão para exibir vídeos do Instagram. Deseja dar sua permissão?",
+      "onlyInstagram": "Apenas Instagram",
+      "openDirectly": "Abrir vídeo no Instagram"
     }
   },
   "url": "URL"
