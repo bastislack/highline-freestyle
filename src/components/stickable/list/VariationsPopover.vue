@@ -14,13 +14,13 @@ function highlightClass(stickFrequency?: number): string {
   const clamped = Math.max(0, Math.min(stickFrequency ?? 0, 7));
   return [
     'bg-muted',
-    'bg-skill1-600',
-    'bg-skill2-600',
-    'bg-skill3-500',
-    'bg-skill4-400',
-    'bg-skill5-400',
-    'bg-skill6-400',
-    'bg-skill7-400',
+    'bg-skill1-600/50',
+    'bg-skill2-600/50',
+    'bg-skill3-500/50',
+    'bg-skill4-400/50',
+    'bg-skill5-400/50',
+    'bg-skill6-400/50',
+    'bg-skill7-400/50',
   ][clamped];
 }
 
@@ -86,37 +86,36 @@ function variationLinkToDetails(primaryKey: SearchItem['primaryKey']): string {
 </script>
 
 <template>
-  <div class="relative">
-    <div
-      class="relative transition-transform duration-100"
-      :class="isOpen ? 'z-[21] scale-[1.02]' : ''"
-    >
-      <slot />
-    </div>
-
-    <Popover v-model:open="isOpen">
-      <PopoverTrigger as-child>
-        <button
-          ref="triggerRef"
-          class="absolute -bottom-[3px] left-0 h-8 w-full rounded-sm flex items-center justify-center"
-          :class="isOpen ? 'z-[21]' : 'z-10'"
-          @click.prevent
-        >
-          <span
-            class="rounded flex items-center justify-center gap-0.5 px-1 h-5"
-            :class="isOpen ? highlightClass(props.stickFrequency) : ''"
+  <Popover v-model:open="isOpen">
+    <div class="relative">
+      <div
+        class="relative transition-transform duration-100"
+        :class="isOpen ? 'z-[21] scale-[1.02]' : ''"
+      >
+        <slot />
+        <PopoverTrigger as-child>
+          <button
+            ref="triggerRef"
+            class="absolute -bottom-[3px] left-0 h-8 w-full rounded-sm flex items-center justify-center"
+            :class="isOpen ? 'z-[21]' : 'z-10'"
+            @click.prevent
           >
-            <span class="text-[10px] text-muted-foreground leading-none">
-              +{{ props.variations.length }}
+            <span
+              class="rounded flex items-center justify-center gap-0.5 px-1 h-5"
+              :class="highlightClass(props.stickFrequency)"
+            >
+              <span class="text-[10px] text-muted-foreground leading-none">
+                +{{ props.variations.length }}
+              </span>
+              <Icon
+                icon="ic:round-keyboard-arrow-down"
+                class="h-4 w-4 transition-transform duration-200"
+                :class="{ 'rotate-180': isOpen }"
+              />
             </span>
-            <Icon
-              icon="ic:round-keyboard-arrow-down"
-              class="h-4 w-4 transition-transform duration-200"
-              :class="{ 'rotate-180': isOpen }"
-            />
-          </span>
-        </button>
-      </PopoverTrigger>
+          </button>
+        </PopoverTrigger>
+      </div>
 
       <div v-if="isOpen" class="fixed -inset-[100px] z-20 bg-black/10 backdrop-blur-[1px]" />
 
@@ -141,6 +140,6 @@ function variationLinkToDetails(primaryKey: SearchItem['primaryKey']): string {
           </StickableCard>
         </div>
       </PopoverContent>
-    </Popover>
-  </div>
+    </div>
+  </Popover>
 </template>
