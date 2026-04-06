@@ -34,6 +34,8 @@ async function updateStickFrequency(frequencyArr: [number] | undefined) {
   const cleanInputFrequency = frequencyArr === undefined ? 0 : frequencyArr[0];
   const frequency = Math.max(0, Math.min(cleanInputFrequency, 7));
 
+  frequencyModel.value = [frequency];
+
   const trick = await tricksDao.getById(props.trickId, props.trickStatus);
   if (trick === undefined) {
     throw new Error(`Unknown trick with key [${props.trickId}, ${props.trickStatus}]`);
@@ -51,8 +53,6 @@ async function updateStickFrequency(frequencyArr: [number] | undefined) {
     console.error(err);
     throw err;
   }
-
-  frequencyModel.value = [frequency];
 }
 </script>
 
