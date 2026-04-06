@@ -22,7 +22,7 @@ const embedUrl = computed(() => {
 </script>
 
 <template>
-  <EmbedPrompt v-if="!isEmbedAllowed('INSTAGRAM')" site="INSTAGRAM" />
+  <EmbedPrompt v-if="!isEmbedAllowed('INSTAGRAM')" site="INSTAGRAM" :url="url" />
   <div v-else>
     <div class="w-100 flex justify-center">
       <iframe

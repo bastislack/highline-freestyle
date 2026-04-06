@@ -7,7 +7,13 @@ import { type EmbedSite, setEmbedPreference } from '@/util/trackingPreferences';
 
 defineProps<{
   site: EmbedSite;
+  url: string;
 }>();
+
+const linkTranslationKey: Record<EmbedSite, string> = {
+  INSTAGRAM: 'embedPermissions.instagram.openDirectly',
+  YOUTUBE: 'embedPermissions.youtube.openDirectly',
+};
 
 const i18n = useI18n({
   messages,
@@ -47,6 +53,14 @@ function allowYouTubeAndInstagramEmbeds() {
           {{ t('embedPermissions.youtubeAndInstagram') }}
         </Button>
       </div>
+      <a
+        :href="url"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-xs text-muted-foreground underline"
+      >
+        {{ t(linkTranslationKey[site]) }}
+      </a>
     </div>
   </div>
 </template>
