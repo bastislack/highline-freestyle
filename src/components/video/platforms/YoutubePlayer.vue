@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed, nextTick, onMounted, ref, watch } from 'vue';
 import { Icon } from '@iconify/vue/dist/iconify.js';
 import { useI18n } from 'vue-i18n';
 
@@ -43,6 +43,18 @@ onMounted(() => {
     loadYouTubeAPI();
   }
 });
+
+watch(
+  () => isEmbedAllowed('YOUTUBE'),
+  async (allowed) => {
+    if (allowed && isUrlValid.value) {
+      await nextTick();
+      if (playerRef.value && !player) {
+        loadYouTubeAPI();
+      }
+    }
+  }
+);
 
 watch(
   () => [props.url, props.startTime, props.endTime],
