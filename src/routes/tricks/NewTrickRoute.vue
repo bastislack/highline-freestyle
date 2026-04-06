@@ -111,7 +111,7 @@ const submit = form.handleSubmit(async (vals) => {
     variationOf: vals.variationOf,
     showInSearchQueries: true,
     videos: vals.videos,
-    isFavourite: false,
+    isFavorite: false,
     notes: undefined,
     stickFrequency: undefined,
   };

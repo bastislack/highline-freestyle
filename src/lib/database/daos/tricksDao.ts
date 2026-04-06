@@ -143,7 +143,7 @@ export default class TricksDAO implements DbObjectDao<Trick> {
       entityStatus: trickStatus,
       entityCategory: 'Trick',
       stickFrequency: objectWithoutId.stickFrequency,
-      isFavourite: objectWithoutId.isFavourite,
+      isFavorite: objectWithoutId.isFavorite,
       notes: objectWithoutId.notes,
     });
 

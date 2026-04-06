@@ -9,7 +9,7 @@ function makeTrick(
     id: number;
     trickStatus?: StickableStatus;
     variationOf?: [number, StickableStatus][];
-    isFavourite?: boolean;
+    isFavorite?: boolean;
   }
 ): Trick {
   const trickStatus = overrides.trickStatus ?? 'official';
@@ -26,7 +26,7 @@ function makeTrick(
     variationOf: undefined,
     dateAddedEpoch: 0,
     stickFrequency: undefined,
-    isFavourite: false,
+    isFavorite: false,
     ...overrides,
   } as unknown as Trick;
 }
@@ -43,7 +43,7 @@ describe('buildCountSummary', () => {
       technicalName: 'Favorite variation',
       showInSearchQueries: false,
       variationOf: [[1, 'official']],
-      isFavourite: true,
+      isFavorite: true,
     });
 
     const result: SearchResult = [

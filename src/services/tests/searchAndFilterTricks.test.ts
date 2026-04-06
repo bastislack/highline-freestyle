@@ -8,7 +8,7 @@ function makeTrick(
   overrides: Partial<Trick> & {
     id: number;
     trickStatus?: StickableStatus;
-    isFavourite?: boolean;
+    isFavorite?: boolean;
     variationOf?: [number, StickableStatus][];
   }
 ): Trick {
@@ -26,7 +26,7 @@ function makeTrick(
     variationOf: undefined,
     dateAddedEpoch: 0,
     stickFrequency: undefined,
-    isFavourite: false,
+    isFavorite: false,
     ...overrides,
   } as unknown as Trick;
 }
@@ -264,7 +264,7 @@ describe('searchInTricks', () => {
       technicalName: 'Rocket variation',
       showInSearchQueries: false,
       variationOf: [[1, 'official']],
-      isFavourite: true,
+      isFavorite: true,
     });
 
     const result = searchInTricks(
@@ -293,7 +293,7 @@ describe('searchInTricks', () => {
       technicalName: 'Rocket variation',
       showInSearchQueries: false,
       variationOf: [[1, 'official']],
-      isFavourite: true,
+      isFavorite: true,
     });
 
     const result = searchInTricks(

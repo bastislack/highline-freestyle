@@ -171,7 +171,7 @@ function searchItemFromTrick(trick: Trick, name: TrickNameOption): SearchItem {
     name: name === 'alias' ? trick.alias ?? trick.technicalName : trick.technicalName,
     primaryKey: [trick.primaryKey[0], trick.primaryKey[1]],
     stickFrequency: trick.stickFrequency,
-    isFavorite: trick.isFavourite,
+    isFavorite: trick.isFavorite,
     isNew: isStickableNew(trick.dateAddedEpoch),
   };
 }
@@ -260,7 +260,7 @@ export function searchInTricks(
     );
   }
 
-  const isolatedFavorites = sortedTricksWithVariations.filter((trick) => trick.isFavourite);
+  const isolatedFavorites = sortedTricksWithVariations.filter((trick) => trick.isFavorite);
 
   if (isolatedFavorites.length == 0) {
     return groupTricksToSearchResult(
