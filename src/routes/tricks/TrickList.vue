@@ -11,7 +11,7 @@ import {
 } from '@/types/search';
 import { Trick } from '@/lib/database/daos/trick';
 import { searchInTricks, getVariationsForTrick } from '@/services/searchAndFilterTricks';
-import { getShowVariationsAsTricks, setShowVariationsAsTricks } from '@/util/variationPreferences';
+import { getShowVariationsAsTricks } from '@/util/variationPreferences';
 import {
   getIncludedStatuses,
   getShowFavoritesAtTop,
@@ -21,6 +21,7 @@ import {
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import Header from '@/components/stickable/Header.vue';
 import TrickSearchMenu from '@/components/stickable/list/TrickSearchMenu.vue';
+import TrickFilterPopover from '@/components/stickable/list/TrickFilterPopover.vue';
 import StickableSearchResult from '@/components/stickable/list/StickableSearchResult.vue';
 import Separator from '@/components/ui/separator/Separator.vue';
 import Section from '@/components/ui/section/Section.vue';
@@ -32,58 +33,24 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
-import Switch from '@/components/ui/switch/Switch.vue';
 import { Button } from '@/components/ui/button';
 import { Icon } from '@iconify/vue/dist/iconify.js';
 import ImgArmsCrossedUrl from '@/assets/img/arms_crossed.svg?url';
+import ImgLogoUrl from '@/assets/logo/logo_big.svg?url';
 
 import { useI18n } from 'vue-i18n';
 import { i18nMerge } from '@/i18n/i18nmerge';
 import messages_list from '@/i18n/list';
 import messages_positions from '@/i18n/common/positions';
-import messages_searchMenu from '@/i18n/searchMenu';
+import messages_navbar from '@/i18n/navbar';
 import { isStickableNew } from '@/util/misc';
 import { buildCountSummary } from './trickListCountSummary';
 
 const i18n = useI18n({
-  messages: i18nMerge(messages_list, messages_positions, messages_searchMenu),
+  messages: i18nMerge(messages_list, messages_positions, messages_navbar),
   scope: 'local',
 });
 const { t } = i18n;
-
-const sortingOptions: { titleKey: string; directionTitleKey?: string; value: SortOrder }[] = [
-  {
-    titleKey: 'sortOptions.difficulty',
-    directionTitleKey: 'sortOptions.ascending',
-    value: 'difficulty-asc',
-  },
-  {
-    titleKey: 'sortOptions.difficulty',
-    directionTitleKey: 'sortOptions.descending',
-    value: 'difficulty-desc',
-  },
-  { titleKey: 'sortOptions.startPosition', value: 'startPos' },
-  { titleKey: 'sortOptions.endPosition', value: 'endPos' },
-  {
-    titleKey: 'sortOptions.inventionYear',
-    directionTitleKey: 'sortOptions.ascending',
-    value: 'yearEstablished-asc',
-  },
-  {
-    titleKey: 'sortOptions.inventionYear',
-    directionTitleKey: 'sortOptions.descending',
-    value: 'yearEstablished-desc',
-  },
-];
 
 const LOCAL_STORAGE_SORT_KEY = 'SearchParameters-Tricks-SortOrder';
 const LOCAL_STORAGE_COLLAPSED_SECTIONS_KEY = 'TrickList-CollapsedSections';
@@ -300,50 +267,16 @@ function linkToDetails(primaryKey: PrimaryKey): string {
 <template>
   <DefaultLayout>
     <Header>
+      <img :src="ImgLogoUrl" class="h-10 max-w-full object-contain mx-auto" alt="Logo" />
       <template #buttonsRight>
-        <Popover v-model:open="isFilterPopoverOpen">
-          <PopoverTrigger as-child>
-            <Button size="icon" variant="ghost">
-              <Icon icon="ic:round-tune" class="h-6 w-6 text-black" />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent align="end" class="w-64">
-            <div class="flex flex-col gap-4">
-              <div class="flex flex-col gap-1">
-                <label class="text-sm font-medium">{{ t('sortOptionsLabel') }}</label>
-                <Select v-model="sortOrder" :disabled="!!searchText">
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectGroup>
-                      <SelectItem
-                        v-for="option in sortingOptions"
-                        :value="option.value"
-                        :key="option.value"
-                      >
-                        {{ t(option.titleKey) }}
-                        <span v-if="option.directionTitleKey" class="text-muted-foreground">
-                          {{ t(option.directionTitleKey) }}
-                        </span>
-                      </SelectItem>
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
-              </div>
-              <label class="flex flex-row items-center justify-between text-sm cursor-pointer">
-                {{ t('variationsAsTricks') }}
-                <Switch
-                  :model-value="getShowVariationsAsTricks()"
-                  @update:model-value="(val: boolean) => setShowVariationsAsTricks(val)"
-                />
-              </label>
-            </div>
-          </PopoverContent>
-        </Popover>
+        <TrickFilterPopover
+          v-model:sort-order="sortOrder"
+          v-model:open="isFilterPopoverOpen"
+          :sort-disabled="!!searchText"
+        />
         <Button size="icon" variant="ghost" as-child>
-          <RouterLink to="/settings">
-            <Icon icon="ic:round-settings" class="h-6 w-6 text-black" />
+          <RouterLink to="/settings" :aria-label="t('settings')">
+            <Icon icon="ic:round-settings" class="h-6 w-6 text-foreground" />
           </RouterLink>
         </Button>
       </template>
@@ -374,55 +307,22 @@ function linkToDetails(primaryKey: PrimaryKey): string {
           </div>
         </div>
 
-        <!-- Search Results-->
-        <template v-if="searchText">
-          <div
-            v-for="section in visibleSections"
-            :key="section.id"
-            class="w-full flex flex-col gap-1"
-          >
-            <div
-              class="text-2xl font-medium px-3 w-full grid grid-cols-[1fr_auto_1fr] items-center"
-            >
-              <span />
-              <span>{{ section.title }}</span>
-              <span class="flex items-center gap-1 justify-self-end">
-                <span class="text-sm text-muted-foreground font-normal">
-                  {{ section.items.length }}
-                </span>
-              </span>
-            </div>
-            <div
-              class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 gap-2 w-full grid-flow-row-dense"
-            >
-              <StickableSearchResult
-                v-for="item in section.items"
-                :key="item.primaryKey[1] + ':' + item.primaryKey[0]"
-                :title="item.name"
-                :status="item.primaryKey[1]"
-                :stick-frequency="item.stickFrequency"
-                :is-favorite="item.isFavorite"
-                :is-new="item.isNew"
-                :link-to-details="linkToDetails(item.primaryKey)"
-                :variations="variationsMap.get(item.primaryKey[1] + ':' + item.primaryKey[0]) || []"
-                :showVariations="section.showVariations"
-              />
-            </div>
-          </div>
-        </template>
-
         <Collapsible
-          v-else
           v-for="section in visibleSections"
           :key="section.id"
           :open="section.isOpen"
+          :disabled="!section.isCollapsible"
           class="w-full flex flex-col"
           :class="{ 'gap-1': section.isOpen }"
           @update:open="(open: boolean) => toggleSection(section.id, open)"
         >
           <CollapsibleTrigger as-child>
             <button
-              class="text-2xl font-medium px-3 w-full grid grid-cols-[1fr_auto_1fr] items-center cursor-pointer rounded-md hover:bg-accent/50 transition-colors"
+              class="text-2xl font-medium px-3 w-full grid grid-cols-[1fr_auto_1fr] items-center rounded-md"
+              :class="{
+                'cursor-pointer hover:bg-accent/50 transition-colors': section.isCollapsible,
+                'cursor-default': !section.isCollapsible,
+              }"
             >
               <span />
               <span>{{ section.title }}</span>
@@ -431,6 +331,7 @@ function linkToDetails(primaryKey: PrimaryKey): string {
                   {{ section.items.length }}
                 </span>
                 <Icon
+                  v-if="section.isCollapsible"
                   icon="ic:round-keyboard-arrow-down"
                   class="h-5 w-5 shrink-0 transition-transform duration-200 text-muted-foreground"
                   :class="{ 'rotate-180': !section.isOpen }"

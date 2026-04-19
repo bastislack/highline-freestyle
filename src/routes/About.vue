@@ -25,13 +25,15 @@ const { t } = i18n;
             href="https://github.com/bastislack/highline-freestyle"
             target="_blank"
             rel="noopener noreferrer"
+            :aria-label="t('contribute.content.github')"
           >
-            <Icon icon="simple-icons:github" class="h-6 w-6 text-black" />
+            <Icon icon="simple-icons:github" class="h-6 w-6 text-foreground" />
           </a>
         </Button>
       </template>
     </Header>
     <Section>
+      <h1 class="hidden lg:block text-3xl mx-6 md:mx-0 mb-2 mt-5">{{ t('general.title') }}</h1>
       <p class="mt-2 mx-6 md:mx-0">{{ t('general.content') }}</p>
 
       <h1 class="text-2xl mx-6 md:mx-0 mt-4 mb-2 lg:mt-8">{{ t('rewriteInfo.title') }}</h1>

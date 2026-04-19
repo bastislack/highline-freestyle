@@ -20,6 +20,7 @@ import databaseInstance from '@/lib/database/databaseInstance';
 
 import { Button } from '@/components/ui/button';
 import Header from '@/components/stickable/Header.vue';
+import { useHistoryNav } from '@/composables/useHistoryNav';
 import Section from '@/components/ui/section/Section.vue';
 import PositionSelectInput from '@/components/ui/customForm/PositionSelectInput.vue';
 import MultilineTextInput from '@/components/ui/customForm/MultilineTextInput.vue';
@@ -32,6 +33,13 @@ import MultiVideoSelect from '@/components/ui/customForm/MultiVideoSelect.vue';
 
 const toast = useToast();
 const router = useRouter();
+
+const { showBack, goBack, goHome } = useHistoryNav('/tricks');
+
+function cancel() {
+  if (showBack.value) goBack();
+  else goHome();
+}
 
 const { t } = useI18n({
   messages: i18nMerge(messages, messagesPositions),
@@ -148,7 +156,7 @@ const submit = form.handleSubmit(async (vals) => {
 
 <template>
   <DefaultLayout>
-    <Header>{{ t('titleHeading') }}</Header>
+    <Header>{{ t('headerTitle') }}</Header>
     <Suspense>
       <Section>
         <h1 class="text-2xl md:text-3xl mb-3 mt-2">{{ t('titleHeading') }}</h1>
@@ -254,6 +262,9 @@ const submit = form.handleSubmit(async (vals) => {
           />
 
           <div class="col-span-4 gap-2 inline-flex justify-end">
+            <Button type="button" variant="ghost" class="hidden lg:inline-flex" @click="cancel">
+              {{ t('buttonCancel') }}
+            </Button>
             <Button type="submit"> {{ t('buttonSubmit') }} </Button>
           </div>
         </form>

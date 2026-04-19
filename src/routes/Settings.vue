@@ -51,6 +51,9 @@ function toggleIncludedStatus(status: StickableStatus) {
     <Header>{{ t('heading-settings') }}</Header>
 
     <Section>
+      <div class="text-2xl hidden lg:block">{{ t('heading-settings') }}</div>
+      <Separator class="my-2 hidden lg:block" />
+
       <!-- Language selection (mobile only) -->
       <div class="lg:hidden">
         <div class="flex flex-row gap-2 align-middle">

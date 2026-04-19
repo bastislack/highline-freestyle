@@ -4,6 +4,7 @@
   "variationCountLabel": "{count} variação | {count} variações",
   "textSearchPlaceholder": "Procurar",
   "sortOptionsLabel": "Ordenar",
+  "filtersLabel": "Filtros",
   "sortOptions": {
     "difficulty": "Dificuldade",
     "startPosition": "Posição inicial",
