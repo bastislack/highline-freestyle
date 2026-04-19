@@ -224,6 +224,45 @@ describe('sortTricks', () => {
     // 2022, 2020, 2018 descending by year, then undefined at the end
     expect(ids).toEqual([1, 3, 2, 4]);
   });
+
+  it('startPos: tricks should sort correctly by start position', () => {
+    const trickA = makeTrick({ id: 1, startPosition: 'Drop-Knee' });
+    const trickB = makeTrick({ id: 2, startPosition: 'Stand' });
+    const trickC = makeTrick({ id: 3, startPosition: 'Chest' });
+
+    const result = sortTricks([trickA, trickB, trickC], 'startPos');
+
+    const ids = result.map((t) => t.primaryKey[0]);
+    // Alphabetical order: Chest, Feet, Stand
+    expect(ids).toEqual([3, 1, 2]);
+  });
+
+  it('endPos: tricks should sort correctly by end position', () => {
+    const trickA = makeTrick({ id: 1, endPosition: 'Drop-Knee' });
+    const trickB = makeTrick({ id: 2, endPosition: 'Stand' });
+    const trickC = makeTrick({ id: 3, endPosition: 'Chest' });
+
+    const result = sortTricks([trickA, trickB, trickC], 'endPos');
+
+    const ids = result.map((t) => t.primaryKey[0]);
+    // Alphabetical order: Chest, Feet, Stand
+    expect(ids).toEqual([3, 1, 2]);
+  });
+
+  it('difficulty-asc to startPos and back: should be sorted difficulty-asc', () => {
+    const trickA = makeTrick({ id: 1, difficultyLevel: 1, startPosition: 'Exposure' });
+    const trickB = makeTrick({ id: 2, difficultyLevel: 2, startPosition: 'Back' });
+    const trickC = makeTrick({ id: 3, difficultyLevel: 3, startPosition: 'Sofa' });
+    let trickList = [trickA, trickB, trickC];
+
+    trickList = sortTricks(trickList, 'difficulty-asc');
+    trickList = sortTricks(trickList, 'startPos');
+    trickList = sortTricks(trickList, 'difficulty-asc');
+
+    const ids = trickList.map((t) => t.primaryKey[0]);
+
+    expect(ids).toEqual([1, 2, 3]);
+  });
 });
 
 describe('searchInTricks', () => {
