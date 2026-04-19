@@ -226,7 +226,7 @@ describe('sortTricks', () => {
   });
 
   it('startPos: tricks should sort correctly by start position', () => {
-    const trickA = makeTrick({ id: 1, startPosition: 'Feet' });
+    const trickA = makeTrick({ id: 1, startPosition: 'Drop-Knee' });
     const trickB = makeTrick({ id: 2, startPosition: 'Stand' });
     const trickC = makeTrick({ id: 3, startPosition: 'Chest' });
 
@@ -238,7 +238,7 @@ describe('sortTricks', () => {
   });
 
   it('endPos: tricks should sort correctly by end position', () => {
-    const trickA = makeTrick({ id: 1, endPosition: 'Feet' });
+    const trickA = makeTrick({ id: 1, endPosition: 'Drop-Knee' });
     const trickB = makeTrick({ id: 2, endPosition: 'Stand' });
     const trickC = makeTrick({ id: 3, endPosition: 'Chest' });
 
