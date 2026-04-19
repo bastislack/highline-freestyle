@@ -9,7 +9,7 @@ import { DbCombosTableZod, DbTricksTableZod } from '../lib/database/schemas/Curr
 import { readFile } from 'node:fs/promises';
 import { ZodError, z } from 'zod';
 import { globby } from 'globby';
-import { join } from 'node:path';
+import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { YamlComboTableSchemaZod } from './viteSchemaGenerator';
 
@@ -94,7 +94,10 @@ function findUndefinedTrickReferences(
 export default async function viteGetAllCombos(tricks: z.infer<typeof DbTricksTableZod>[]) {
   // @ts-expect-error Because there are effectively two TS Projects (Vite Plugin Context
   //and Vue Webapp Context), TS gets a bit confused and doesn't think import.meta.url is allowed here
-  const pattern = join(fileURLToPath(import.meta.url), '..', 'combos', '*.yaml');
+  const pattern = join(dirname(fileURLToPath(import.meta.url)), 'combos', '*.yaml').replace(
+    /\\/g,
+    '/'
+  );
   const allFilePaths = await globby(pattern);
 
   const parsedYamlFiles = await Promise.allSettled(

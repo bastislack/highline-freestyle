@@ -7,7 +7,7 @@
 // unfortunately, vite features (e.g. import.meta.glob) are NOT available to plugin code.
 // as such, we must fall back to reading YAMLs manually.
 import { globby } from 'globby';
-import { join } from 'path';
+import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { ZodError, z } from 'zod';
 import { DbTricksTableZod } from '../lib/database/schemas/CurrentVersionSchema';
@@ -186,7 +186,10 @@ function findVariationsOfNonTopLevelTricks(allTricks: z.infer<typeof DbTricksTab
 export default async function viteGetAllTricks() {
   // @ts-expect-error Because there are effectively two TS Projects (Vite Plugin Context
   //and Vue Webapp Context), TS gets a bit confused and doesn't think import.meta.url is allowed here
-  const pattern = join(fileURLToPath(import.meta.url), '..', 'tricks', '*.yaml');
+  const pattern = join(dirname(fileURLToPath(import.meta.url)), 'tricks', '*.yaml').replace(
+    /\\/g,
+    '/'
+  );
   const allFilePaths = await globby(pattern);
 
   const parsedYamlFiles = await Promise.allSettled(
