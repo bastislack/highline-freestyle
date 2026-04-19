@@ -248,6 +248,21 @@ describe('sortTricks', () => {
     // Alphabetical order: Chest, Feet, Stand
     expect(ids).toEqual([3, 1, 2]);
   });
+
+  it('difficulty-asc to startPos and back: should be sorted difficulty-asc', () => {
+    const trickA = makeTrick({ id: 1, difficultyLevel: 1, startPosition: 'Exposure' });
+    const trickB = makeTrick({ id: 2, difficultyLevel: 2, startPosition: 'Back' });
+    const trickC = makeTrick({ id: 3, difficultyLevel: 3, startPosition: 'Sofa' });
+    let trickList = [trickA, trickB, trickC];
+
+    trickList = sortTricks(trickList, 'difficulty-asc');
+    trickList = sortTricks(trickList, 'startPos');
+    trickList = sortTricks(trickList, 'difficulty-asc');
+
+    const ids = trickList.map((t) => t.primaryKey[0]);
+
+    expect(ids).toEqual([1, 2, 3]);
+  });
 });
 
 describe('searchInTricks', () => {
