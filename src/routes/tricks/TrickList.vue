@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { computed, ref, watch } from 'vue';
+import { computed, nextTick, ref, watch } from 'vue';
+import { onBeforeRouteLeave } from 'vue-router';
 import { tricksDao } from '@/lib/database';
 import { PrimaryKey } from '@/lib/utils';
 import {
@@ -50,6 +51,7 @@ const { t } = i18n;
 
 const LOCAL_STORAGE_SORT_KEY = 'SearchParameters-Tricks-SortOrder';
 const LOCAL_STORAGE_COLLAPSED_SECTIONS_KEY = 'TrickList-CollapsedSections';
+const SESSION_STORAGE_SCROLL_KEY = 'TrickList-ScrollY';
 
 function loadSortOrder(): SortOrder {
   return (localStorage.getItem(LOCAL_STORAGE_SORT_KEY) as SortOrder) || 'difficulty-asc';
@@ -240,6 +242,21 @@ watch(
 function linkToDetails(primaryKey: PrimaryKey): string {
   return `/tricks/${primaryKey[1]}/${primaryKey[0]}`;
 }
+
+onBeforeRouteLeave(() => {
+  sessionStorage.setItem(SESSION_STORAGE_SCROLL_KEY, String(window.scrollY));
+});
+
+const stopScrollRestore = watch(searchResult, async () => {
+  if (!searchResult.value) return;
+  const stored = sessionStorage.getItem(SESSION_STORAGE_SCROLL_KEY);
+  sessionStorage.removeItem(SESSION_STORAGE_SCROLL_KEY);
+  stopScrollRestore();
+  const y = Number(stored);
+  if (!stored || Number.isNaN(y)) return;
+  await nextTick();
+  requestAnimationFrame(() => window.scrollTo(0, y));
+});
 </script>
 
 <template>
