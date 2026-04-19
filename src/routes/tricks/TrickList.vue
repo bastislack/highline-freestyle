@@ -120,26 +120,9 @@ function getSectionStorageId(section: SearchSection): string {
     return `search:${searchText.value}`;
   }
 
-  const firstItem = section.items[0];
-  const trick = firstItem
-    ? tricksByPrimaryKey.value.get(getPrimaryKeyString(firstItem.primaryKey))
-    : null;
-  if (!trick) {
-    return `${sortOrder.value}:${section.title}`;
-  }
-
-  switch (sortOrder.value) {
-    case 'difficulty-asc':
-    case 'difficulty-desc':
-      return `difficulty:${trick.difficultyLevel ?? 'unknown'}`;
-    case 'startPos':
-      return `startPos:${trick.startPosition || 'unknown'}`;
-    case 'endPos':
-      return `endPos:${trick.endPosition || 'unknown'}`;
-    case 'yearEstablished-asc':
-    case 'yearEstablished-desc':
-      return `yearEstablished:${trick.yearEstablished ?? 'unknown'}`;
-  }
+  // Use the section title directly for stable section IDs
+  // This prevents section ID changes when sorting changes
+  return `${sortOrder.value}:${section.title}`;
 }
 
 function isFavoritesSection(section: SearchSection): boolean {
