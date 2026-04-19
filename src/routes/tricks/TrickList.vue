@@ -11,7 +11,7 @@ import {
 } from '@/types/search';
 import { Trick } from '@/lib/database/daos/trick';
 import { searchInTricks, getVariationsForTrick } from '@/services/searchAndFilterTricks';
-import { getShowVariationsAsTricks } from '@/util/variationPreferences';
+import { getShowVariationsAsTricks, setShowVariationsAsTricks } from '@/util/variationPreferences';
 import {
   getIncludedStatuses,
   getShowFavoritesAtTop,
@@ -32,6 +32,16 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import Switch from '@/components/ui/switch/Switch.vue';
 import { Button } from '@/components/ui/button';
 import { Icon } from '@iconify/vue/dist/iconify.js';
 import ImgArmsCrossedUrl from '@/assets/img/arms_crossed.svg?url';
@@ -40,14 +50,40 @@ import { useI18n } from 'vue-i18n';
 import { i18nMerge } from '@/i18n/i18nmerge';
 import messages_list from '@/i18n/list';
 import messages_positions from '@/i18n/common/positions';
+import messages_searchMenu from '@/i18n/searchMenu';
 import { isStickableNew } from '@/util/misc';
 import { buildCountSummary } from './trickListCountSummary';
 
 const i18n = useI18n({
-  messages: i18nMerge(messages_list, messages_positions),
+  messages: i18nMerge(messages_list, messages_positions, messages_searchMenu),
   scope: 'local',
 });
 const { t } = i18n;
+
+const sortingOptions: { titleKey: string; directionTitleKey?: string; value: SortOrder }[] = [
+  {
+    titleKey: 'sortOptions.difficulty',
+    directionTitleKey: 'sortOptions.ascending',
+    value: 'difficulty-asc',
+  },
+  {
+    titleKey: 'sortOptions.difficulty',
+    directionTitleKey: 'sortOptions.descending',
+    value: 'difficulty-desc',
+  },
+  { titleKey: 'sortOptions.startPosition', value: 'startPos' },
+  { titleKey: 'sortOptions.endPosition', value: 'endPos' },
+  {
+    titleKey: 'sortOptions.inventionYear',
+    directionTitleKey: 'sortOptions.ascending',
+    value: 'yearEstablished-asc',
+  },
+  {
+    titleKey: 'sortOptions.inventionYear',
+    directionTitleKey: 'sortOptions.descending',
+    value: 'yearEstablished-desc',
+  },
+];
 
 const LOCAL_STORAGE_SORT_KEY = 'SearchParameters-Tricks-SortOrder';
 const LOCAL_STORAGE_COLLAPSED_SECTIONS_KEY = 'TrickList-CollapsedSections';
@@ -71,6 +107,7 @@ function saveCollapsedSections(sections: Set<string>) {
 }
 
 const collapsedSections = ref<Set<string>>(loadCollapsedSections());
+const isFilterPopoverOpen = ref(false);
 
 function getCollapsedSectionKey(sectionId: string): string {
   return `section:${sectionId}`;
@@ -262,11 +299,58 @@ function linkToDetails(primaryKey: PrimaryKey): string {
 
 <template>
   <DefaultLayout>
-    <Header />
+    <Header>
+      <template #buttonsRight>
+        <Popover v-model:open="isFilterPopoverOpen">
+          <PopoverTrigger as-child>
+            <Button size="icon" variant="ghost">
+              <Icon icon="ic:round-tune" class="h-6 w-6 text-black" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent align="end" class="w-64">
+            <div class="flex flex-col gap-4">
+              <div class="flex flex-col gap-1">
+                <label class="text-sm font-medium">{{ t('sortOptionsLabel') }}</label>
+                <Select v-model="sortOrder" :disabled="!!searchText">
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectItem
+                        v-for="option in sortingOptions"
+                        :value="option.value"
+                        :key="option.value"
+                      >
+                        {{ t(option.titleKey) }}
+                        <span v-if="option.directionTitleKey" class="text-muted-foreground">
+                          {{ t(option.directionTitleKey) }}
+                        </span>
+                      </SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </div>
+              <label class="flex flex-row items-center justify-between text-sm cursor-pointer">
+                {{ t('variationsAsTricks') }}
+                <Switch
+                  :model-value="getShowVariationsAsTricks()"
+                  @update:model-value="(val: boolean) => setShowVariationsAsTricks(val)"
+                />
+              </label>
+            </div>
+          </PopoverContent>
+        </Popover>
+        <Button size="icon" variant="ghost" as-child>
+          <RouterLink to="/settings">
+            <Icon icon="ic:round-settings" class="h-6 w-6 text-black" />
+          </RouterLink>
+        </Button>
+      </template>
+    </Header>
     <Section>
       <TrickSearchMenu
         v-model:search-text="searchText"
-        v-model:sort-order="sortOrder"
         :trick-count="countSummary.trickCount"
         :variation-count="countSummary.variationCount"
         :total-count="countSummary.totalCount"
@@ -375,6 +459,12 @@ function linkToDetails(primaryKey: PrimaryKey): string {
         </Collapsible>
       </div>
     </Section>
+
+    <div
+      v-if="isFilterPopoverOpen"
+      class="fixed inset-0 z-30 bg-black/10 backdrop-blur-[1px]"
+      aria-hidden="true"
+    />
 
     <!-- Floating Add-New-Trick-Menu -->
     <DropdownMenu>
