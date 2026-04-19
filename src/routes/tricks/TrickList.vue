@@ -19,6 +19,7 @@ import {
 } from '@/util/trickListPreferences';
 
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
+import Header from '@/components/stickable/Header.vue';
 import TrickSearchMenu from '@/components/stickable/list/TrickSearchMenu.vue';
 import StickableSearchResult from '@/components/stickable/list/StickableSearchResult.vue';
 import Separator from '@/components/ui/separator/Separator.vue';
@@ -261,6 +262,7 @@ function linkToDetails(primaryKey: PrimaryKey): string {
 
 <template>
   <DefaultLayout>
+    <Header />
     <Section>
       <TrickSearchMenu
         v-model:search-text="searchText"

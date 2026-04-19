@@ -19,6 +19,7 @@ import { CreateNewTrickType } from '@/lib/database/daos/tricksDao';
 import databaseInstance from '@/lib/database/databaseInstance';
 
 import { Button } from '@/components/ui/button';
+import Header from '@/components/stickable/Header.vue';
 import Section from '@/components/ui/section/Section.vue';
 import PositionSelectInput from '@/components/ui/customForm/PositionSelectInput.vue';
 import MultilineTextInput from '@/components/ui/customForm/MultilineTextInput.vue';
@@ -143,14 +144,11 @@ const submit = form.handleSubmit(async (vals) => {
     });
   }
 });
-
-function hasHistory(): boolean {
-  return window.history.length > 2;
-}
 </script>
 
 <template>
   <DefaultLayout>
+    <Header>{{ t('titleHeading') }}</Header>
     <Suspense>
       <Section>
         <h1 class="text-2xl md:text-3xl mb-3 mt-2">{{ t('titleHeading') }}</h1>
@@ -256,9 +254,6 @@ function hasHistory(): boolean {
           />
 
           <div class="col-span-4 gap-2 inline-flex justify-end">
-            <Button variant="ghost" @click="hasHistory() ? $router.back() : $router.push('/')">
-              {{ t('buttonCancel') }}
-            </Button>
             <Button type="submit"> {{ t('buttonSubmit') }} </Button>
           </div>
         </form>

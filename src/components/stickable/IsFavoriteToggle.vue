@@ -90,6 +90,6 @@ setButtonStateToDBState();
 
 <template>
   <Button size="icon" variant="ghost" @click="toggleFavorite" class="rounded-full">
-    <Icon :icon="icon" class="h-7 w-7 text-primary" />
+    <Icon :icon="icon" class="h-7 w-7 text-black" />
   </Button>
 </template>
