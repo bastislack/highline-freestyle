@@ -224,6 +224,30 @@ describe('sortTricks', () => {
     // 2022, 2020, 2018 descending by year, then undefined at the end
     expect(ids).toEqual([1, 3, 2, 4]);
   });
+
+  it('startPos: tricks should sort correctly by start position', () => {
+    const trickA = makeTrick({ id: 1, startPosition: 'Feet' });
+    const trickB = makeTrick({ id: 2, startPosition: 'Stand' });
+    const trickC = makeTrick({ id: 3, startPosition: 'Chest' });
+
+    const result = sortTricks([trickA, trickB, trickC], 'startPos');
+
+    const ids = result.map((t) => t.primaryKey[0]);
+    // Alphabetical order: Chest, Feet, Stand
+    expect(ids).toEqual([3, 1, 2]);
+  });
+
+  it('endPos: tricks should sort correctly by end position', () => {
+    const trickA = makeTrick({ id: 1, endPosition: 'Feet' });
+    const trickB = makeTrick({ id: 2, endPosition: 'Stand' });
+    const trickC = makeTrick({ id: 3, endPosition: 'Chest' });
+
+    const result = sortTricks([trickA, trickB, trickC], 'endPos');
+
+    const ids = result.map((t) => t.primaryKey[0]);
+    // Alphabetical order: Chest, Feet, Stand
+    expect(ids).toEqual([3, 1, 2]);
+  });
 });
 
 describe('searchInTricks', () => {
