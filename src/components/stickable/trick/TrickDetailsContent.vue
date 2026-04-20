@@ -115,7 +115,7 @@ watchEffect(async () => {
           <DropdownMenu v-if="['userDefined', 'archived'].includes(status)">
             <DropdownMenuTrigger as-child>
               <Button size="icon" variant="ghost" class="rounded-full">
-                <Icon icon="ic:baseline-more-vert" class="h-6 w-6 text-primary" />
+                <Icon icon="ic:baseline-more-vert" class="h-6 w-6 text-foreground" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent class="min-w-fit">

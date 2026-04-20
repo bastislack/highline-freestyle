@@ -2,6 +2,7 @@
 import { useI18n } from 'vue-i18n';
 
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
+import Header from '@/components/stickable/Header.vue';
 import Section from '@/components/ui/section/Section.vue';
 import Separator from '@/components/ui/separator/Separator.vue';
 import Switch from '@/components/ui/switch/Switch.vue';
@@ -47,15 +48,7 @@ function toggleIncludedStatus(status: StickableStatus) {
 
 <template>
   <DefaultLayout>
-    <!-- Back button (mobile only) -->
-    <div class="lg:hidden w-full flex items-center px-3 py-2 bg-background drop-shadow">
-      <Button size="icon" variant="ghost" as-child>
-        <RouterLink to="/tricks">
-          <Icon icon="ic:round-arrow-back" class="h-6 w-6 text-primary" />
-        </RouterLink>
-      </Button>
-      <div class="px-3 text-lg">{{ t('heading-settings') }}</div>
-    </div>
+    <Header>{{ t('heading-settings') }}</Header>
 
     <Section>
       <div class="text-2xl hidden lg:block">{{ t('heading-settings') }}</div>
