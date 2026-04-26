@@ -19,6 +19,10 @@ onMounted(async () => {
 </script>
 
 <template>
-  <RouterView :key="routerViewKey" />
+  <RouterView v-slot="{ Component }">
+    <KeepAlive include="TrickList" :max="1">
+      <component :is="Component" :key="routerViewKey" />
+    </KeepAlive>
+  </RouterView>
   <Toaster />
 </template>
