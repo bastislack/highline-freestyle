@@ -56,9 +56,16 @@ const { t } = i18n;
 const LOCAL_STORAGE_SORT_KEY = 'SearchParameters-Tricks-SortOrder';
 const LOCAL_STORAGE_COLLAPSED_SECTIONS_KEY = 'TrickList-CollapsedSections';
 const SESSION_STORAGE_SCROLL_KEY = 'TrickList-ScrollY';
+const SESSION_STORAGE_SEARCH_KEY = 'TrickList-SearchText';
 
 function loadSortOrder(): SortOrder {
   return (localStorage.getItem(LOCAL_STORAGE_SORT_KEY) as SortOrder) || 'difficulty-asc';
+}
+
+function loadSearchText(): string | undefined {
+  const stored = sessionStorage.getItem(SESSION_STORAGE_SEARCH_KEY);
+  sessionStorage.removeItem(SESSION_STORAGE_SEARCH_KEY);
+  return stored ?? undefined;
 }
 
 function loadCollapsedSections(): Set<string> {
@@ -98,7 +105,7 @@ function toggleSection(sectionId: string, open: boolean) {
   saveCollapsedSections(updated);
 }
 
-const searchText = ref<string | undefined>(undefined);
+const searchText = ref<string | undefined>(loadSearchText());
 const sortOrder = ref<SortOrder>(loadSortOrder());
 const variationsAsTricks = computed(() => getShowVariationsAsTricks());
 const searchResult = ref<SearchResult>();
@@ -250,6 +257,11 @@ function linkToDetails(primaryKey: PrimaryKey): string {
 
 onBeforeRouteLeave(() => {
   sessionStorage.setItem(SESSION_STORAGE_SCROLL_KEY, String(window.scrollY));
+  if (searchText.value) {
+    sessionStorage.setItem(SESSION_STORAGE_SEARCH_KEY, searchText.value);
+  } else {
+    sessionStorage.removeItem(SESSION_STORAGE_SEARCH_KEY);
+  }
 });
 
 const stopScrollRestore = watch(searchResult, async () => {
