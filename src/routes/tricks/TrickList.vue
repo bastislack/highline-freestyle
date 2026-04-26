@@ -1,7 +1,8 @@
 <script lang="ts" setup>
-import { computed, nextTick, ref, watch } from 'vue';
+import { computed, nextTick, onBeforeUnmount, ref, watch } from 'vue';
 import { onBeforeRouteLeave } from 'vue-router';
 import { tricksDao } from '@/lib/database';
+import { isOfficialSyncing } from '@/lib/database/official';
 import { PrimaryKey } from '@/lib/utils';
 import {
   SearchItem,
@@ -38,6 +39,7 @@ import { Button } from '@/components/ui/button';
 import { Icon } from '@iconify/vue/dist/iconify.js';
 import ImgArmsCrossedUrl from '@/assets/img/arms_crossed.svg?url';
 import ImgLogoUrl from '@/assets/logo/logo_big.svg?url';
+import TrickListSkeleton from './TrickListSkeleton.vue';
 
 import { useI18n } from 'vue-i18n';
 import { i18nMerge } from '@/i18n/i18nmerge';
@@ -107,6 +109,18 @@ function toggleSection(sectionId: string, open: boolean) {
 
 const searchText = ref<string | undefined>(loadSearchText());
 const sortOrder = ref<SortOrder>(loadSortOrder());
+
+// Show nothing for the first 200ms; if data still isn't ready, show a skeleton
+// placeholder. Avoids skeleton flash on fast loads while preventing the
+// "no tricks" empty state from leaking through during slower initial loads.
+const SKELETON_DELAY_MS = 200;
+const loadingState = ref<'initial' | 'skeleton' | 'ready'>('initial');
+const skeletonTimer = window.setTimeout(() => {
+  if (loadingState.value === 'initial') {
+    loadingState.value = 'skeleton';
+  }
+}, SKELETON_DELAY_MS);
+onBeforeUnmount(() => clearTimeout(skeletonTimer));
 const variationsAsTricks = computed(() => getShowVariationsAsTricks());
 const searchResult = ref<SearchResult>();
 const variationsMap = ref<Map<string, SearchItem[]>>(new Map());
@@ -247,6 +261,15 @@ watch(
         : new Map<string, SearchItem[]>();
 
     localStorage.setItem(LOCAL_STORAGE_SORT_KEY, sortOrder.value);
+
+    // On a fresh install the official sync is still populating the DB, so an
+    // empty result here doesn't mean "no tricks" — keep the skeleton up; App
+    // will remount this view once the sync finishes.
+    const stillBootstrapping = allTricks.length === 0 && isOfficialSyncing.value;
+    if (!stillBootstrapping && loadingState.value !== 'ready') {
+      loadingState.value = 'ready';
+      clearTimeout(skeletonTimer);
+    }
   },
   { immediate: true, deep: true }
 );
@@ -301,13 +324,15 @@ const stopScrollRestore = watch(searchResult, async () => {
         :total-count="countSummary.totalCount"
         :variations-as-tricks="variationsAsTricks"
         :show-breakdown="countSummary.showBreakdown"
+        :is-loading="loadingState === 'skeleton'"
       />
     </Section>
 
     <Separator />
 
     <Section>
-      <div class="w-full flex flex-col gap-2">
+      <TrickListSkeleton v-if="loadingState === 'skeleton'" />
+      <div v-else-if="loadingState === 'ready'" class="w-full flex flex-col gap-2">
         <!-- No Search Results-->
         <div v-if="!searchResult || searchResult.length === 0" class="text-xl text-center mt-3">
           {{ searchText ? t('info.noTrickMatchingSearch') : t('info.noTricksCheckSettings') }}
