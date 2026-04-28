@@ -8,6 +8,7 @@ import Button from '@/components/ui/button/Button.vue';
 import { Separator } from '@/components/ui/separator';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import ImgLeashFallUrl from '@/assets/img/leashfall.svg?url';
+import { useHistoryNav } from '@/composables/useHistoryNav';
 
 defineProps<{
   title: string;
@@ -26,9 +27,7 @@ const { t } = i18n;
 
 const isDebugOpen = ref(false);
 
-function hasHistory(): boolean {
-  return window.history.length > 2;
-}
+const { showBack, goBack, goHome } = useHistoryNav('/tricks');
 </script>
 
 <template>
@@ -85,8 +84,8 @@ function hasHistory(): boolean {
         </Collapsible>
 
         <div class="inline-flex flex-row justify-center md:justify-start mt-3">
-          <Button class="" @click="hasHistory() ? $router.back() : $router.push('/')">
-            {{ hasHistory() ? t('back') : t('home') }}
+          <Button class="" @click="showBack ? goBack() : goHome()">
+            {{ showBack ? t('back') : t('home') }}
           </Button>
         </div>
       </div>

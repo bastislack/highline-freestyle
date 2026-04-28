@@ -65,7 +65,7 @@ async function onSubmit(vals: TrickFormSchema) {
       ),
       duration: 5000,
     });
-    router.push('/tricks/' + result.primaryKey[1] + '/' + result.primaryKey[0]);
+    router.replace('/tricks/' + result.primaryKey[1] + '/' + result.primaryKey[0]);
   } catch (err) {
     console.error(err);
     toast.toast({
