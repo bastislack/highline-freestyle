@@ -147,17 +147,17 @@ watchEffect(async () => {
 
       <Section class="mt-1 lg:mt-0">
         <div class="flex flex-row justify-between gap-1 lg:gap-20">
-          <div class="text-3xl mb-1">
+          <div class="text-3xl mb-1 min-w-0 truncate">
             {{ trick.alias ?? trick.technicalName }}
           </div>
-          <div class="text-3xl text-primary flex flex-row gap-1 items-center">
+          <div class="text-3xl text-primary flex flex-row gap-1 items-center shrink-0">
             <div class="text-xs">{{ t('header.difficulty') }}</div>
             <div class="">
               {{ trick.difficultyLevel ? trick.difficultyLevel : '?' }}
             </div>
           </div>
         </div>
-        <div v-if="trick.alias !== undefined" class="text-muted-foreground">
+        <div v-if="trick.alias !== undefined" class="text-muted-foreground truncate">
           {{ trick.technicalName }}
         </div>
         <div>

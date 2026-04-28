@@ -29,7 +29,7 @@ import { useTrickRouteParams } from '@/composables/useTrickRouteParams';
 
 const router = useRouter();
 const { toast } = useToast();
-const { showBack, goBack, goHome } = useHistoryNav('/tricks');
+const { showBack, goBack, goHome, backOrReplace } = useHistoryNav('/tricks');
 
 const { t } = useI18n({ messages, useScope: 'local' });
 const { id, status } = useTrickRouteParams();
@@ -105,8 +105,11 @@ async function onSubmit(vals: TrickFormSchema) {
     if (result !== true) throw new Error(result);
 
     confirmedLeave.value = true;
-    toast({ title: t('toast.savedTrick', { name: trick.value.technicalName }), duration: 5000 });
-    router.push(`/tricks/${status.value}/${id.value}`);
+    toast({
+      title: t('toast.savedTrick', { name: vals.alias || vals.technicalName }),
+      duration: 5000,
+    });
+    backOrReplace(`/tricks/${status.value}/${id.value}`);
   } catch (err) {
     console.error(err);
     toast({
