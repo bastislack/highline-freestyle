@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watchEffect } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useRouter } from 'vue-router';
 import { Icon } from '@iconify/vue/dist/iconify.js';
 
 import messages from '@/i18n/tricks/trickDetails';
@@ -38,6 +39,7 @@ const i18n = useI18n({
 });
 
 const { t } = i18n;
+const router = useRouter();
 
 const trick = ref<Trick | undefined>(undefined);
 const recommendedPrerequisitesFull = ref<Trick[]>([]);
@@ -121,9 +123,9 @@ watchEffect(async () => {
             <DropdownMenuContent class="min-w-fit">
               <DropdownMenuItem as-child>
                 <Button
-                  disabled
                   variant="ghost"
                   class="text-primary hover:text-primary flex flex-row gap-1 items-center justify-start rounded-md w-full"
+                  @click="router.push(`/tricks/${status}/${id}/edit`)"
                 >
                   <Icon icon="ic:round-edit" class="h-6 w-6" />
                   {{ t('action.edit') }}
