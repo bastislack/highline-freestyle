@@ -63,4 +63,16 @@ describe('useHistoryNav', () => {
     await nextTick();
     expect(api().showHome.value).toBe(false);
   });
+
+  it('hides home button after replace navigation (e.g. post-creation redirect)', async () => {
+    const router = makeRouter();
+    await router.push('/tricks');
+    const { api } = await mountWithRouter(router);
+    await router.push('/about');
+    await nextTick();
+    await router.replace('/settings');
+    await nextTick();
+    expect(api().showBack.value).toBe(true);
+    expect(api().showHome.value).toBe(false);
+  });
 });
