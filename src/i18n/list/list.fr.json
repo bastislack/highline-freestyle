@@ -23,7 +23,9 @@
   },
   "info": {
     "noTrickMatchingSearch": "Oh non. Il n'y a pas de tricks correspondant à votre recherche.",
-    "noTricksCheckSettings": "Aucune figure à afficher. Vérifiez vos paramètres."
+    "noTricksCheckSettings": "Aucune figure à afficher. Vérifiez vos paramètres.",
+    "loadFailed": "Impossible de charger les figures",
+    "loadFailedDescription": "Une erreur s'est produite lors du chargement de votre liste de figures. Veuillez réessayer."
   },
   "newTrickButton": {
     "personal": "Nouvelle trick personnelle",

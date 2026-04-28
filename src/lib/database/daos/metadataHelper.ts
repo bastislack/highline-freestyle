@@ -40,7 +40,9 @@ export async function getMetadata(
     if (!newlyCreatedResult) {
       throw new Error(`Failed to autocreate metadata with key [${primaryKey.join(',')}].`);
     }
-    return newlyCreatedResult;
+    return DbMetadataZod.parse(newlyCreatedResult);
   }
-  return initialResponse;
+  // Parse so schema defaults (e.g. isFavorite=false) backfill rows written
+  // before the field existed — otherwise undefined leaks into Vue props.
+  return DbMetadataZod.parse(initialResponse);
 }

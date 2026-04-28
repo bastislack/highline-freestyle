@@ -1,7 +1,19 @@
 <script lang="ts" setup>
-import { computed, nextTick, ref, watch } from 'vue';
+import {
+  computed,
+  nextTick,
+  onActivated,
+  onDeactivated,
+  onMounted,
+  onUnmounted,
+  ref,
+  watch,
+} from 'vue';
 import { onBeforeRouteLeave } from 'vue-router';
 import { tricksDao } from '@/lib/database';
+
+defineOptions({ name: 'TrickList' });
+import { isOfficialSyncing } from '@/lib/database/official';
 import { PrimaryKey } from '@/lib/utils';
 import {
   SearchItem,
@@ -38,6 +50,8 @@ import { Button } from '@/components/ui/button';
 import { Icon } from '@iconify/vue/dist/iconify.js';
 import ImgArmsCrossedUrl from '@/assets/img/arms_crossed.svg?url';
 import ImgLogoUrl from '@/assets/logo/logo_big.svg?url';
+import TrickListSkeleton from './TrickListSkeleton.vue';
+import ErrorInfo from '@/components/ErrorInfo.vue';
 
 import { useI18n } from 'vue-i18n';
 import { i18nMerge } from '@/i18n/i18nmerge';
@@ -63,9 +77,7 @@ function loadSortOrder(): SortOrder {
 }
 
 function loadSearchText(): string | undefined {
-  const stored = sessionStorage.getItem(SESSION_STORAGE_SEARCH_KEY);
-  sessionStorage.removeItem(SESSION_STORAGE_SEARCH_KEY);
-  return stored ?? undefined;
+  return sessionStorage.getItem(SESSION_STORAGE_SEARCH_KEY) ?? undefined;
 }
 
 function loadCollapsedSections(): Set<string> {
@@ -107,10 +119,25 @@ function toggleSection(sectionId: string, open: boolean) {
 
 const searchText = ref<string | undefined>(loadSearchText());
 const sortOrder = ref<SortOrder>(loadSortOrder());
+
+// Show nothing for the first 200ms; if data still isn't ready, show a skeleton
+// placeholder. Avoids skeleton flash on fast loads while preventing the
+// "no tricks" empty state from leaking through during slower initial loads.
+const SKELETON_DELAY_MS = 200;
+type LoadingState = 'initial' | 'skeleton' | 'ready' | 'error';
+const loadingState = ref<LoadingState>('initial');
+const skeletonTimer = window.setTimeout(() => {
+  if (loadingState.value === 'initial') {
+    loadingState.value = 'skeleton';
+  }
+}, SKELETON_DELAY_MS);
+// Deferred removal so a setup() error before mount doesn't wipe the stored value.
+onMounted(() => sessionStorage.removeItem(SESSION_STORAGE_SEARCH_KEY));
+onDeactivated(() => clearTimeout(skeletonTimer));
+onUnmounted(() => clearTimeout(skeletonTimer));
 const variationsAsTricks = computed(() => getShowVariationsAsTricks());
 const searchResult = ref<SearchResult>();
 const variationsMap = ref<Map<string, SearchItem[]>>(new Map());
-const tricksByPrimaryKey = ref<Map<string, Trick>>(new Map());
 const countSummary = ref(buildCountSummary([], [], [], false, false));
 type SectionView = {
   id: string;
@@ -120,10 +147,6 @@ type SectionView = {
   isOpen: boolean;
   showVariations: boolean;
 };
-
-function getPrimaryKeyString(primaryKey: Readonly<PrimaryKey>): string {
-  return `${primaryKey[1]}:${primaryKey[0]}`;
-}
 
 function getSectionStorageId(section: SearchSection): string {
   if (section.title === t('sectionTitles.favorites')) {
@@ -207,15 +230,16 @@ function trickToAttribute(trick: Trick, sortOption: SortOrder): string {
   }
 }
 
-watch(
-  [searchText, sortOrder, variationsAsTricks, i18n.locale],
-  async () => {
+let isLoadingTricks = false;
+async function loadTricks() {
+  if (isLoadingTricks) return;
+  isLoadingTricks = true;
+  // Show skeleton immediately when retrying after an error (timer already fired).
+  if (loadingState.value === 'error') loadingState.value = 'skeleton';
+  try {
     const allTricks = await tricksDao.getAll();
     const includedStatuses = getIncludedStatuses();
     const preferredName = getPreferredName();
-    tricksByPrimaryKey.value = new Map(
-      allTricks.map((trick) => [getPrimaryKeyString(trick.primaryKey), trick])
-    );
 
     const params: SearchParameters = {
       searchText: searchText.value,
@@ -247,9 +271,28 @@ watch(
         : new Map<string, SearchItem[]>();
 
     localStorage.setItem(LOCAL_STORAGE_SORT_KEY, sortOrder.value);
-  },
-  { immediate: true, deep: true }
-);
+
+    // On a fresh install the official sync is still populating the DB, so an
+    // empty result here doesn't mean "no tricks" — keep the skeleton up; App
+    // will remount this view once the sync finishes.
+    const stillBootstrapping = allTricks.length === 0 && isOfficialSyncing.value;
+    if (!stillBootstrapping && loadingState.value !== 'ready') {
+      loadingState.value = 'ready';
+      clearTimeout(skeletonTimer);
+    }
+  } catch (err) {
+    console.error('[TrickList] Failed to load tricks', err);
+    // Don't clobber valid data with an error banner on background refreshes.
+    if (loadingState.value !== 'ready') {
+      loadingState.value = 'error';
+      clearTimeout(skeletonTimer);
+    }
+  } finally {
+    isLoadingTricks = false;
+  }
+}
+
+watch([searchText, sortOrder, variationsAsTricks, i18n.locale], loadTricks, { immediate: true });
 
 function linkToDetails(primaryKey: PrimaryKey): string {
   return `/tricks/${primaryKey[1]}/${primaryKey[0]}`;
@@ -264,15 +307,35 @@ onBeforeRouteLeave(() => {
   }
 });
 
-const stopScrollRestore = watch(searchResult, async () => {
-  if (!searchResult.value) return;
+async function restoreScroll() {
   const stored = sessionStorage.getItem(SESSION_STORAGE_SCROLL_KEY);
+  if (!stored) return;
   sessionStorage.removeItem(SESSION_STORAGE_SCROLL_KEY);
-  stopScrollRestore();
   const y = Number(stored);
-  if (!stored || Number.isNaN(y)) return;
+  if (Number.isNaN(y)) return;
   await nextTick();
   requestAnimationFrame(() => window.scrollTo(0, y));
+}
+
+// First-mount path: data isn't ready immediately, so wait for it before scrolling.
+const stopScrollRestore = watch(searchResult, () => {
+  if (!searchResult.value) return;
+  stopScrollRestore();
+  restoreScroll();
+});
+
+// Cached-mount path (KeepAlive activation after returning from TrickDetails):
+// the DOM is already populated, so scroll can be restored straight away. Also
+// kick off a background refresh in case data changed while away (e.g. user
+// favorited a trick on the detail page).
+let isFirstActivation = true;
+onActivated(() => {
+  if (isFirstActivation) {
+    isFirstActivation = false;
+    return; // initial mount path is handled by the watcher above
+  }
+  if (searchResult.value) restoreScroll();
+  loadTricks();
 });
 </script>
 
@@ -301,13 +364,20 @@ const stopScrollRestore = watch(searchResult, async () => {
         :total-count="countSummary.totalCount"
         :variations-as-tricks="variationsAsTricks"
         :show-breakdown="countSummary.showBreakdown"
+        :is-loading="loadingState === 'skeleton'"
       />
     </Section>
 
     <Separator />
 
     <Section>
-      <div class="w-full flex flex-col gap-2">
+      <TrickListSkeleton v-if="loadingState === 'skeleton'" />
+      <ErrorInfo
+        v-else-if="loadingState === 'error'"
+        :title="t('info.loadFailed')"
+        :description="t('info.loadFailedDescription')"
+      />
+      <div v-else-if="loadingState === 'ready'" class="w-full flex flex-col gap-2">
         <!-- No Search Results-->
         <div v-if="!searchResult || searchResult.length === 0" class="text-xl text-center mt-3">
           {{ searchText ? t('info.noTrickMatchingSearch') : t('info.noTricksCheckSettings') }}

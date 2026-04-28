@@ -17,6 +17,7 @@ const props = defineProps<{
   totalCount: number;
   variationsAsTricks: boolean;
   showBreakdown: boolean;
+  isLoading?: boolean;
 }>();
 
 const searchText = defineModel<string | undefined>('searchText');
@@ -56,7 +57,17 @@ const textSearchContainsText = computed<boolean>(() => {
       </div>
     </div>
 
-    <div v-if="props.totalCount > 0" class="flex flex-row items-center w-full gap-2 justify-start">
+    <div
+      v-if="props.isLoading"
+      class="flex flex-row items-center w-full gap-2 justify-start animate-pulse"
+      aria-hidden="true"
+    >
+      <div class="h-4 w-20 bg-muted rounded" />
+    </div>
+    <div
+      v-else-if="props.totalCount > 0"
+      class="flex flex-row items-center w-full gap-2 justify-start"
+    >
       <span class="text-xs sm:text-sm text-muted-foreground whitespace-nowrap">
         <template v-if="props.variationsAsTricks || !props.showBreakdown">
           {{ t('trickCountLabel', { count: props.totalCount }, props.totalCount) }}
