@@ -23,7 +23,9 @@
   },
   "info": {
     "noTrickMatchingSearch": "Não tem nenhuma trick para a sua busca.",
-    "noTricksCheckSettings": "Nenhum truque para mostrar. Verifique as suas configurações."
+    "noTricksCheckSettings": "Nenhum truque para mostrar. Verifique as suas configurações.",
+    "loadFailed": "Não foi possível carregar os truques",
+    "loadFailedDescription": "Ocorreu um erro ao carregar a sua lista de truques. Por favor, tente novamente."
   },
   "newTrickButton": {
     "personal": "Nova Trick Pessoal",

@@ -1,10 +1,18 @@
 <script lang="ts" setup>
-import { computed, nextTick, onActivated, onDeactivated, ref, watch } from 'vue';
+import {
+  computed,
+  nextTick,
+  onActivated,
+  onDeactivated,
+  onMounted,
+  onUnmounted,
+  ref,
+  watch,
+} from 'vue';
 import { onBeforeRouteLeave } from 'vue-router';
+import { tricksDao } from '@/lib/database';
 
 defineOptions({ name: 'TrickList' });
-
-import { tricksDao } from '@/lib/database';
 import { isOfficialSyncing } from '@/lib/database/official';
 import { PrimaryKey } from '@/lib/utils';
 import {
@@ -43,6 +51,7 @@ import { Icon } from '@iconify/vue/dist/iconify.js';
 import ImgArmsCrossedUrl from '@/assets/img/arms_crossed.svg?url';
 import ImgLogoUrl from '@/assets/logo/logo_big.svg?url';
 import TrickListSkeleton from './TrickListSkeleton.vue';
+import ErrorInfo from '@/components/ErrorInfo.vue';
 
 import { useI18n } from 'vue-i18n';
 import { i18nMerge } from '@/i18n/i18nmerge';
@@ -68,9 +77,7 @@ function loadSortOrder(): SortOrder {
 }
 
 function loadSearchText(): string | undefined {
-  const stored = sessionStorage.getItem(SESSION_STORAGE_SEARCH_KEY);
-  sessionStorage.removeItem(SESSION_STORAGE_SEARCH_KEY);
-  return stored ?? undefined;
+  return sessionStorage.getItem(SESSION_STORAGE_SEARCH_KEY) ?? undefined;
 }
 
 function loadCollapsedSections(): Set<string> {
@@ -117,17 +124,20 @@ const sortOrder = ref<SortOrder>(loadSortOrder());
 // placeholder. Avoids skeleton flash on fast loads while preventing the
 // "no tricks" empty state from leaking through during slower initial loads.
 const SKELETON_DELAY_MS = 200;
-const loadingState = ref<'initial' | 'skeleton' | 'ready'>('initial');
+type LoadingState = 'initial' | 'skeleton' | 'ready' | 'error';
+const loadingState = ref<LoadingState>('initial');
 const skeletonTimer = window.setTimeout(() => {
   if (loadingState.value === 'initial') {
     loadingState.value = 'skeleton';
   }
 }, SKELETON_DELAY_MS);
+// Deferred removal so a setup() error before mount doesn't wipe the stored value.
+onMounted(() => sessionStorage.removeItem(SESSION_STORAGE_SEARCH_KEY));
 onDeactivated(() => clearTimeout(skeletonTimer));
+onUnmounted(() => clearTimeout(skeletonTimer));
 const variationsAsTricks = computed(() => getShowVariationsAsTricks());
 const searchResult = ref<SearchResult>();
 const variationsMap = ref<Map<string, SearchItem[]>>(new Map());
-const tricksByPrimaryKey = ref<Map<string, Trick>>(new Map());
 const countSummary = ref(buildCountSummary([], [], [], false, false));
 type SectionView = {
   id: string;
@@ -137,10 +147,6 @@ type SectionView = {
   isOpen: boolean;
   showVariations: boolean;
 };
-
-function getPrimaryKeyString(primaryKey: Readonly<PrimaryKey>): string {
-  return `${primaryKey[1]}:${primaryKey[0]}`;
-}
 
 function getSectionStorageId(section: SearchSection): string {
   if (section.title === t('sectionTitles.favorites')) {
@@ -224,59 +230,69 @@ function trickToAttribute(trick: Trick, sortOption: SortOrder): string {
   }
 }
 
+let isLoadingTricks = false;
 async function loadTricks() {
-  const allTricks = await tricksDao.getAll();
-  const includedStatuses = getIncludedStatuses();
-  const preferredName = getPreferredName();
-  tricksByPrimaryKey.value = new Map(
-    allTricks.map((trick) => [getPrimaryKeyString(trick.primaryKey), trick])
-  );
+  if (isLoadingTricks) return;
+  isLoadingTricks = true;
+  // Show skeleton immediately when retrying after an error (timer already fired).
+  if (loadingState.value === 'error') loadingState.value = 'skeleton';
+  try {
+    const allTricks = await tricksDao.getAll();
+    const includedStatuses = getIncludedStatuses();
+    const preferredName = getPreferredName();
 
-  const params: SearchParameters = {
-    searchText: searchText.value,
-    sortOrder: sortOrder.value,
-    includedStatuses,
-    showFavoritesAtTop: getShowFavoritesAtTop(),
-    preferredName,
-  };
+    const params: SearchParameters = {
+      searchText: searchText.value,
+      sortOrder: sortOrder.value,
+      includedStatuses,
+      showFavoritesAtTop: getShowFavoritesAtTop(),
+      preferredName,
+    };
 
-  searchResult.value = searchInTricks(
-    allTricks,
-    params,
-    trickToAttribute,
-    t('sectionTitles.favorites'),
-    variationsAsTricks.value
-  );
+    searchResult.value = searchInTricks(
+      allTricks,
+      params,
+      trickToAttribute,
+      t('sectionTitles.favorites'),
+      variationsAsTricks.value
+    );
 
-  countSummary.value = buildCountSummary(
-    allTricks,
-    searchResult.value,
-    includedStatuses,
-    variationsAsTricks.value,
-    !!searchText.value
-  );
+    countSummary.value = buildCountSummary(
+      allTricks,
+      searchResult.value,
+      includedStatuses,
+      variationsAsTricks.value,
+      !!searchText.value
+    );
 
-  variationsMap.value =
-    searchResult.value && !variationsAsTricks.value
-      ? buildVariationsMap(allTricks, searchResult.value, preferredName, includedStatuses)
-      : new Map<string, SearchItem[]>();
+    variationsMap.value =
+      searchResult.value && !variationsAsTricks.value
+        ? buildVariationsMap(allTricks, searchResult.value, preferredName, includedStatuses)
+        : new Map<string, SearchItem[]>();
 
-  localStorage.setItem(LOCAL_STORAGE_SORT_KEY, sortOrder.value);
+    localStorage.setItem(LOCAL_STORAGE_SORT_KEY, sortOrder.value);
 
-  // On a fresh install the official sync is still populating the DB, so an
-  // empty result here doesn't mean "no tricks" — keep the skeleton up; App
-  // will remount this view once the sync finishes.
-  const stillBootstrapping = allTricks.length === 0 && isOfficialSyncing.value;
-  if (!stillBootstrapping && loadingState.value !== 'ready') {
-    loadingState.value = 'ready';
-    clearTimeout(skeletonTimer);
+    // On a fresh install the official sync is still populating the DB, so an
+    // empty result here doesn't mean "no tricks" — keep the skeleton up; App
+    // will remount this view once the sync finishes.
+    const stillBootstrapping = allTricks.length === 0 && isOfficialSyncing.value;
+    if (!stillBootstrapping && loadingState.value !== 'ready') {
+      loadingState.value = 'ready';
+      clearTimeout(skeletonTimer);
+    }
+  } catch (err) {
+    console.error('[TrickList] Failed to load tricks', err);
+    // Don't clobber valid data with an error banner on background refreshes.
+    if (loadingState.value !== 'ready') {
+      loadingState.value = 'error';
+      clearTimeout(skeletonTimer);
+    }
+  } finally {
+    isLoadingTricks = false;
   }
 }
 
-watch([searchText, sortOrder, variationsAsTricks, i18n.locale], loadTricks, {
-  immediate: true,
-  deep: true,
-});
+watch([searchText, sortOrder, variationsAsTricks, i18n.locale], loadTricks, { immediate: true });
 
 function linkToDetails(primaryKey: PrimaryKey): string {
   return `/tricks/${primaryKey[1]}/${primaryKey[0]}`;
@@ -356,6 +372,11 @@ onActivated(() => {
 
     <Section>
       <TrickListSkeleton v-if="loadingState === 'skeleton'" />
+      <ErrorInfo
+        v-else-if="loadingState === 'error'"
+        :title="t('info.loadFailed')"
+        :description="t('info.loadFailedDescription')"
+      />
       <div v-else-if="loadingState === 'ready'" class="w-full flex flex-col gap-2">
         <!-- No Search Results-->
         <div v-if="!searchResult || searchResult.length === 0" class="text-xl text-center mt-3">

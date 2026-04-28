@@ -26,12 +26,12 @@ export default async function runSyncingProcedure() {
     try {
       await syncTricks();
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
     try {
       await syncCombos();
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
     // Commit the new Hash
     const { hash } = (await import('virtual:highline-freestyle-data')).default;
