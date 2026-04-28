@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watchEffect } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useRouter } from 'vue-router';
 import { Icon } from '@iconify/vue/dist/iconify.js';
 
 import messages from '@/i18n/tricks/trickDetails';
@@ -38,6 +39,7 @@ const i18n = useI18n({
 });
 
 const { t } = i18n;
+const router = useRouter();
 
 const trick = ref<Trick | undefined>(undefined);
 const recommendedPrerequisitesFull = ref<Trick[]>([]);
@@ -80,7 +82,7 @@ const isTrickNew = computed(() => {
   if (trick.value === undefined || trick.value.dateAddedEpoch === undefined) {
     return false;
   }
-  return isStickableNew(trick.value.dateAddedEpoch);
+  return trick.value.primaryKey[1] !== 'userDefined' && isStickableNew(trick.value.dateAddedEpoch);
 });
 
 watchEffect(async () => {
@@ -121,9 +123,9 @@ watchEffect(async () => {
             <DropdownMenuContent class="min-w-fit">
               <DropdownMenuItem as-child>
                 <Button
-                  disabled
                   variant="ghost"
                   class="text-primary hover:text-primary flex flex-row gap-1 items-center justify-start rounded-md w-full"
+                  @click="router.push(`/tricks/${status}/${id}/edit`)"
                 >
                   <Icon icon="ic:round-edit" class="h-6 w-6" />
                   {{ t('action.edit') }}
@@ -145,17 +147,17 @@ watchEffect(async () => {
 
       <Section class="mt-1 lg:mt-0">
         <div class="flex flex-row justify-between gap-1 lg:gap-20">
-          <div class="text-3xl mb-1">
+          <div class="text-3xl mb-1 min-w-0 truncate">
             {{ trick.alias ?? trick.technicalName }}
           </div>
-          <div class="text-3xl text-primary flex flex-row gap-1 items-center">
+          <div class="text-3xl text-primary flex flex-row gap-1 items-center shrink-0">
             <div class="text-xs">{{ t('header.difficulty') }}</div>
             <div class="">
               {{ trick.difficultyLevel ? trick.difficultyLevel : '?' }}
             </div>
           </div>
         </div>
-        <div v-if="trick.alias !== undefined" class="text-muted-foreground">
+        <div v-if="trick.alias !== undefined" class="text-muted-foreground truncate">
           {{ trick.technicalName }}
         </div>
         <div>
@@ -170,6 +172,10 @@ watchEffect(async () => {
           <Badge v-if="trick.primaryKey[1] == 'archived'" variant="destructive" class="mt-2">
             <Icon icon="ic:baseline-archive" class="mr-1" />
             {{ t('badges.archived') }}
+          </Badge>
+          <Badge v-if="trick.primaryKey[1] == 'userDefined'" variant="secondary" class="mt-2">
+            <Icon icon="ic:round-person" class="mr-1" />
+            {{ t('badges.personal') }}
           </Badge>
           <Badge v-if="isTrickNew" variant="secondary" class="mt-2">
             <Icon icon="ic:baseline-filter-vintage" class="mr-1" />

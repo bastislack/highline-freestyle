@@ -1,0 +1,24 @@
+{
+  "headerTitle": "Edit trick",
+  "buttonSubmit": "Save",
+
+  "toast": {
+    "savedTrick": "Saved \"{name}\""
+  },
+
+  "error": {
+    "title": "Uh oh…",
+    "message": "An error occurred while saving the trick. Check the console (F12) for more info.",
+    "notFound": {
+      "title": "Trick not found",
+      "description": "The trick you're trying to edit doesn't exist."
+    }
+  },
+
+  "cancelDialog": {
+    "title": "Discard changes?",
+    "description": "You have unsaved changes. Are you sure you want to leave without saving?",
+    "confirm": "Discard",
+    "dismiss": "Keep editing"
+  }
+}

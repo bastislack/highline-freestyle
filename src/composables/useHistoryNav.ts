@@ -69,6 +69,13 @@ export function useHistoryNav(homePath: MaybeRefOrGetter<string>) {
   function goHome() {
     router.replace(home.value);
   }
+  function backOrReplace(path: string) {
+    if (pathStack.value.length > 1 && pathStack.value.at(-2) === path) {
+      router.back();
+    } else {
+      router.replace(path);
+    }
+  }
 
-  return { isHome, showBack, showHome, goBack, goHome };
+  return { isHome, showBack, showHome, goBack, goHome, backOrReplace };
 }

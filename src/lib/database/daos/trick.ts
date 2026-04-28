@@ -96,7 +96,7 @@ export class Trick implements DbObject {
       return;
     }
     this.#modified.dataFromDatabase.establishedBy = true;
-    this.dataFromDatabase.alias = DbTricksTableZod._def.shape().establishedBy.parse(val);
+    this.dataFromDatabase.establishedBy = DbTricksTableZod._def.shape().establishedBy.parse(val);
   }
 
   public get startPosition() {

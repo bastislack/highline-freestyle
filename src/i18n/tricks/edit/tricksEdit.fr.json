@@ -1,0 +1,24 @@
+{
+  "headerTitle": "Modifier le trick",
+  "buttonSubmit": "Enregistrer",
+
+  "toast": {
+    "savedTrick": "\"{name}\" enregistré"
+  },
+
+  "error": {
+    "title": "Uh oh…",
+    "message": "Une erreur s'est produite lors de l'enregistrement du trick. Consultez la console (F12) pour plus d'informations.",
+    "notFound": {
+      "title": "Trick introuvable",
+      "description": "Le trick que vous essayez de modifier n'existe pas."
+    }
+  },
+
+  "cancelDialog": {
+    "title": "Abandonner les modifications ?",
+    "description": "Vous avez des modifications non enregistrées. Voulez-vous vraiment quitter sans enregistrer ?",
+    "confirm": "Abandonner",
+    "dismiss": "Continuer à éditer"
+  }
+}

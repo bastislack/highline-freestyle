@@ -16,6 +16,7 @@
   "badges": {
     "official": "Official",
     "archived": "Archived",
+    "personal": "Personal",
     "new": "New"
   },
   "header": {

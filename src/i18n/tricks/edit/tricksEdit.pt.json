@@ -1,0 +1,24 @@
+{
+  "headerTitle": "Editar trick",
+  "buttonSubmit": "Guardar",
+
+  "toast": {
+    "savedTrick": "Guardado \"{name}\""
+  },
+
+  "error": {
+    "title": "Ops…",
+    "message": "Ocorreu um erro ao guardar o trick. Verifique o console (F12) para mais informações.",
+    "notFound": {
+      "title": "Trick não encontrado",
+      "description": "O trick que está a tentar editar não existe."
+    }
+  },
+
+  "cancelDialog": {
+    "title": "Descartar alterações?",
+    "description": "Tem alterações não guardadas. Tem a certeza de que quer sair sem guardar?",
+    "confirm": "Descartar",
+    "dismiss": "Continuar a editar"
+  }
+}
