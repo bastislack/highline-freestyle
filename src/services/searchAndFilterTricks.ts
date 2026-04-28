@@ -172,7 +172,7 @@ function searchItemFromTrick(trick: Trick, name: TrickNameOption): SearchItem {
     primaryKey: [trick.primaryKey[0], trick.primaryKey[1]],
     stickFrequency: trick.stickFrequency,
     isFavorite: trick.isFavorite,
-    isNew: isStickableNew(trick.dateAddedEpoch),
+    isNew: trick.primaryKey[1] !== 'userDefined' && isStickableNew(trick.dateAddedEpoch),
   };
 }
 

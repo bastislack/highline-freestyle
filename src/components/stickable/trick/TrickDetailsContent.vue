@@ -82,7 +82,7 @@ const isTrickNew = computed(() => {
   if (trick.value === undefined || trick.value.dateAddedEpoch === undefined) {
     return false;
   }
-  return isStickableNew(trick.value.dateAddedEpoch);
+  return trick.value.primaryKey[1] !== 'userDefined' && isStickableNew(trick.value.dateAddedEpoch);
 });
 
 watchEffect(async () => {
@@ -172,6 +172,10 @@ watchEffect(async () => {
           <Badge v-if="trick.primaryKey[1] == 'archived'" variant="destructive" class="mt-2">
             <Icon icon="ic:baseline-archive" class="mr-1" />
             {{ t('badges.archived') }}
+          </Badge>
+          <Badge v-if="trick.primaryKey[1] == 'userDefined'" variant="secondary" class="mt-2">
+            <Icon icon="ic:round-person" class="mr-1" />
+            {{ t('badges.personal') }}
           </Badge>
           <Badge v-if="isTrickNew" variant="secondary" class="mt-2">
             <Icon icon="ic:baseline-filter-vintage" class="mr-1" />

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref, shallowRef, computed, onMounted } from 'vue';
-import { useRoute, useRouter, onBeforeRouteLeave } from 'vue-router';
+import { useRouter, onBeforeRouteLeave } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
@@ -10,44 +10,29 @@ import ErrorInfo from '@/components/ErrorInfo.vue';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { DialogClose } from '@/components/ui/dialog';
 import { useToast } from '@/components/ui/toast';
 import TrickForm from '@/components/stickable/trick/TrickForm.vue';
 import type { TrickFormSchema } from '@/components/stickable/trick/TrickForm.vue';
 
 import messages from '@/i18n/tricks/edit/index';
-import { DbTricksTableZod } from '@/lib/database/schemas/CurrentVersionSchema';
 import { tricksDao } from '@/lib/database';
 import type { Trick } from '@/lib/database/daos/trick';
 import { useHistoryNav } from '@/composables/useHistoryNav';
+import { useTrickRouteParams } from '@/composables/useTrickRouteParams';
 
-const route = useRoute();
 const router = useRouter();
 const { toast } = useToast();
 const { showBack, goBack, goHome } = useHistoryNav('/tricks');
 
 const { t } = useI18n({ messages, useScope: 'local' });
-
-function parseAndValidateId(): number | undefined {
-  const raw = Number(route.params.id);
-  const result = DbTricksTableZod._def.shape().id.safeParse(raw);
-  return result.success ? result.data : undefined;
-}
-
-function parseAndValidateStatus(): 'official' | 'userDefined' | 'archived' | undefined {
-  const raw = route.params.status;
-  const result = DbTricksTableZod._def.shape().trickStatus.safeParse(raw);
-  return result.success ? result.data : undefined;
-}
-
-const id = parseAndValidateId();
-const status = parseAndValidateStatus();
+const { id, status } = useTrickRouteParams();
 
 const trick = shallowRef<Trick | undefined>(undefined);
 const isLoaded = ref(false);
@@ -55,27 +40,30 @@ const formRef = ref<InstanceType<typeof TrickForm> | null>(null);
 
 const confirmedLeave = ref(false);
 const showCancelDialog = ref(false);
-const pendingNavigation = ref('');
+let pendingNavigation = '';
 
 onBeforeRouteLeave((to) => {
   if (confirmedLeave.value) return true;
   if (!formRef.value?.meta.dirty) return true;
-  pendingNavigation.value = to.fullPath;
+  pendingNavigation = to.fullPath;
   showCancelDialog.value = true;
   return false;
 });
 
 onMounted(async () => {
-  if (!id || !status) {
+  if (!id.value || !status.value) {
     isLoaded.value = true;
     return;
   }
-  if (status === 'official') {
-    router.replace(`/tricks/official/${id}`);
+  if (status.value === 'official') {
+    router.replace(`/tricks/official/${id.value}`);
     return;
   }
-  trick.value = await tricksDao.getById(id, status);
-  isLoaded.value = true;
+  try {
+    trick.value = await tricksDao.getById(id.value, status.value);
+  } finally {
+    isLoaded.value = true;
+  }
 });
 
 const trickInitialValues = computed(() => {
@@ -118,7 +106,7 @@ async function onSubmit(vals: TrickFormSchema) {
 
     confirmedLeave.value = true;
     toast({ title: t('toast.savedTrick', { name: trick.value.technicalName }), duration: 5000 });
-    router.push(`/tricks/${status}/${id}`);
+    router.push(`/tricks/${status.value}/${id.value}`);
   } catch (err) {
     console.error(err);
     toast({
@@ -138,15 +126,15 @@ function onCancel() {
 function confirmLeave() {
   confirmedLeave.value = true;
   showCancelDialog.value = false;
-  router.push(pendingNavigation.value);
+  router.push(pendingNavigation);
 }
 </script>
 
 <template>
   <DefaultLayout>
     <Header>{{ t('headerTitle') }}</Header>
-    <Suspense>
-      <Section v-if="isLoaded && trick">
+    <Section v-if="isLoaded && trick">
+      <Suspense>
         <TrickForm
           ref="formRef"
           :initial-values="trickInitialValues"
@@ -154,18 +142,32 @@ function confirmLeave() {
           @submit="onSubmit"
           @cancel="onCancel"
         />
-      </Section>
-      <Section
-        v-else-if="isLoaded && !trick"
-        class="w-full h-full flex flex-col items-center justify-center"
-      >
-        <ErrorInfo
-          :code="404"
-          :title="t('error.notFound.title')"
-          :description="t('error.notFound.description')"
-        />
-      </Section>
-    </Suspense>
+      </Suspense>
+    </Section>
+    <Section
+      v-else-if="isLoaded && !trick"
+      class="w-full h-full flex flex-col items-center justify-center"
+    >
+      <ErrorInfo
+        :code="404"
+        :title="t('error.notFound.title')"
+        :description="t('error.notFound.description')"
+      />
+    </Section>
+    <Section v-else class="grid gap-4 lg:gap-6 grid-cols-4 animate-pulse" aria-hidden="true">
+      <div class="col-span-4 md:col-span-2 h-16 bg-muted rounded" />
+      <div class="col-span-4 md:col-span-2 h-16 bg-muted rounded" />
+      <div class="col-span-2 md:col-span-1 h-16 bg-muted rounded" />
+      <div class="col-span-2 md:col-span-1 h-16 bg-muted rounded" />
+      <div class="col-span-4 md:col-span-2 h-16 bg-muted rounded" />
+      <div class="col-span-4 h-20 bg-muted rounded" />
+      <div class="col-span-4 md:col-span-2 h-16 bg-muted rounded" />
+      <div class="col-span-4 md:col-span-2 h-16 bg-muted rounded" />
+      <div class="col-span-4 h-20 bg-muted rounded" />
+      <div class="col-span-4 md:col-span-2 h-24 bg-muted rounded" />
+      <div class="col-span-4 md:col-span-2 h-24 bg-muted rounded" />
+      <div class="col-span-4 h-16 bg-muted rounded" />
+    </Section>
   </DefaultLayout>
 
   <Dialog :open="showCancelDialog" @update:open="showCancelDialog = $event">

@@ -205,7 +205,8 @@ function buildVariationsMap(
         primaryKey: [...variation.primaryKey],
         stickFrequency: variation.stickFrequency,
         isFavorite: variation.isFavorite,
-        isNew: isStickableNew(variation.dateAddedEpoch),
+        isNew:
+          variation.primaryKey[1] !== 'userDefined' && isStickableNew(variation.dateAddedEpoch),
       }));
       map.set(`${item.primaryKey[1]}:${item.primaryKey[0]}`, variationItems);
     }

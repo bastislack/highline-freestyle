@@ -20,6 +20,8 @@ import TextInput from '@/components/ui/customForm/TextInput.vue';
 import MultiTrickSelect from '@/components/ui/customForm/MultiTrickSelect.vue';
 import MultiVideoSelect from '@/components/ui/customForm/MultiVideoSelect.vue';
 
+const currentYear = new Date().getFullYear();
+
 const trickFormSchema = z.object({
   technicalName: z.string().trim().min(1),
   alias: z.string().optional(),
@@ -54,7 +56,7 @@ const trickFormSchema = z.object({
       .number()
       .int({ message: 'INPUT_NOT_INTEGER' })
       .min(1900, { message: 'INPUT_NUMBER_BELOW_MIN' })
-      .max(new Date().getFullYear(), { message: 'INPUT_NUMBER_ABOVE_MAX' })
+      .max(currentYear, { message: 'INPUT_NUMBER_ABOVE_MAX' })
       .optional(),
     z.literal(''),
   ]),
@@ -65,7 +67,6 @@ const trickFormSchema = z.object({
 
 export type TrickFormSchema = z.infer<typeof trickFormSchema>;
 
-// tips is a raw textarea string at init time; schema preprocesses it to string[] on validate
 type TrickFormInitialValues = Omit<Partial<TrickFormSchema>, 'tips'> & { tips?: string };
 
 const props = defineProps<{
@@ -94,7 +95,7 @@ const form = useForm<TrickFormSchema>({
     variationOf: [],
     recommendedPrerequisites: [],
     videos: [],
-    ...(props.initialValues as Partial<TrickFormSchema>),
+    ...(props.initialValues as unknown as Partial<TrickFormSchema>),
   },
 });
 
@@ -167,7 +168,7 @@ defineExpose({ meta: form.meta });
       form-field-name="yearEstablished"
       inputMode="numeric"
       type="number"
-      :error-values="{ min: '1900', max: new Date().getFullYear().toString() }"
+      :error-values="{ min: '1900', max: currentYear.toString() }"
     />
 
     <MultilineTextInput

@@ -26,7 +26,7 @@ function cancel() {
   else goHome();
 }
 
-const { t } = useI18n({ messages, scope: 'local' });
+const { t } = useI18n({ messages, useScope: 'local' });
 
 async function onSubmit(vals: TrickFormSchema) {
   const trick: CreateNewTrickType = {
