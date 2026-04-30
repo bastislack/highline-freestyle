@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import Toaster from './components/ui/toast/Toaster.vue';
+import DifficultyWipDialog from './components/DifficultyWipDialog.vue';
 
 // Only used for rerendering the RouterView component
 const routerViewKey = ref(0);
@@ -25,4 +26,5 @@ onMounted(async () => {
     </KeepAlive>
   </RouterView>
   <Toaster />
+  <DifficultyWipDialog />
 </template>
