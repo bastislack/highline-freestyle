@@ -10,7 +10,6 @@ import {
   shallowRef,
   watch,
 } from 'vue';
-import { refDebounced } from '@vueuse/core';
 import { onBeforeRouteLeave } from 'vue-router';
 import { tricksDao } from '@/lib/database';
 
@@ -123,9 +122,22 @@ const searchText = ref<string | undefined>(loadSearchText());
 // Debounced copy drives search/group/render so a fast typer doesn't pay for
 // rendering every intermediate match set (e.g. "R" → "Ro" → "Rol" → "Roll"
 // each match hundreds of tricks). Input itself stays bound to the raw ref so
-// the field never feels laggy.
+// the field never feels laggy. Clearing skips the debounce — empty doesn't
+// have a hot-prefix problem and the user wants the full list back instantly.
 const SEARCH_DEBOUNCE_MS = 200;
-const searchTextDebounced = refDebounced(searchText, SEARCH_DEBOUNCE_MS);
+const searchTextDebounced = ref<string | undefined>(searchText.value);
+let searchDebounceTimer: ReturnType<typeof setTimeout> | undefined;
+watch(searchText, (val) => {
+  clearTimeout(searchDebounceTimer);
+  if (!val) {
+    searchTextDebounced.value = val;
+    return;
+  }
+  searchDebounceTimer = setTimeout(() => {
+    searchTextDebounced.value = val;
+  }, SEARCH_DEBOUNCE_MS);
+});
+onUnmounted(() => clearTimeout(searchDebounceTimer));
 const sortOrder = ref<SortOrder>(loadSortOrder());
 
 // Show nothing for the first 200ms; if data still isn't ready, show a skeleton
