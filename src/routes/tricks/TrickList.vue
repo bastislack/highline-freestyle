@@ -10,6 +10,7 @@ import {
   shallowRef,
   watch,
 } from 'vue';
+import { refDebounced } from '@vueuse/core';
 import { onBeforeRouteLeave } from 'vue-router';
 import { tricksDao } from '@/lib/database';
 
@@ -119,6 +120,12 @@ function toggleSection(sectionId: string, open: boolean) {
 }
 
 const searchText = ref<string | undefined>(loadSearchText());
+// Debounced copy drives search/group/render so a fast typer doesn't pay for
+// rendering every intermediate match set (e.g. "R" → "Ro" → "Rol" → "Roll"
+// each match hundreds of tricks). Input itself stays bound to the raw ref so
+// the field never feels laggy.
+const SEARCH_DEBOUNCE_MS = 200;
+const searchTextDebounced = refDebounced(searchText, SEARCH_DEBOUNCE_MS);
 const sortOrder = ref<SortOrder>(loadSortOrder());
 
 // Show nothing for the first 200ms; if data still isn't ready, show a skeleton
@@ -154,7 +161,7 @@ const searchResult = computed<SearchResult>(() =>
   searchInTricks(
     allTricks.value,
     {
-      searchText: searchText.value,
+      searchText: searchTextDebounced.value,
       sortOrder: sortOrder.value,
       includedStatuses: includedStatusesParam.value,
       showFavoritesAtTop: showFavoritesAtTopParam.value,
@@ -182,7 +189,7 @@ const countSummary = computed(() =>
     searchResult.value,
     includedStatusesParam.value,
     variationsAsTricks.value,
-    !!searchText.value
+    !!searchTextDebounced.value
   )
 );
 type SectionView = {
@@ -199,8 +206,8 @@ function getSectionStorageId(section: SearchSection): string {
     return 'favorites';
   }
 
-  if (searchText.value) {
-    return `search:${searchText.value}`;
+  if (searchTextDebounced.value) {
+    return `search:${searchTextDebounced.value}`;
   }
 
   // Use the section title directly for stable section IDs
@@ -214,7 +221,7 @@ function isFavoritesSection(section: SearchSection): boolean {
 
 const visibleSections = computed<SectionView[]>(() =>
   (searchResult.value ?? []).map((section) => {
-    const isCollapsible = !searchText.value;
+    const isCollapsible = !searchTextDebounced.value;
     const sectionId = getSectionStorageId(section);
     return {
       id: sectionId,
@@ -222,7 +229,7 @@ const visibleSections = computed<SectionView[]>(() =>
       items: section.items,
       isCollapsible,
       isOpen: isCollapsible ? isSectionOpen(sectionId) : true,
-      showVariations: !searchText.value && !isFavoritesSection(section),
+      showVariations: !searchTextDebounced.value && !isFavoritesSection(section),
     };
   })
 );
@@ -365,7 +372,7 @@ onActivated(() => {
         <TrickFilterPopover
           v-model:sort-order="sortOrder"
           v-model:open="isFilterPopoverOpen"
-          :sort-disabled="!!searchText"
+          :sort-disabled="!!searchTextDebounced"
         />
         <Button size="icon" variant="ghost" as-child>
           <RouterLink to="/settings" :aria-label="t('settings')">
@@ -398,7 +405,9 @@ onActivated(() => {
       <div v-else-if="loadingState === 'ready'" class="w-full flex flex-col gap-2">
         <!-- No Search Results-->
         <div v-if="!searchResult || searchResult.length === 0" class="text-xl text-center mt-3">
-          {{ searchText ? t('info.noTrickMatchingSearch') : t('info.noTricksCheckSettings') }}
+          {{
+            searchTextDebounced ? t('info.noTrickMatchingSearch') : t('info.noTricksCheckSettings')
+          }}
           <div class="flex flex-row justify-center mt-3">
             <img
               :src="ImgArmsCrossedUrl"
