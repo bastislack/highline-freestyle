@@ -1,9 +1,11 @@
 import type { MainDatabase } from '../databaseInstance';
-import { getMetadata, putDefault } from './metadataHelper';
+import { putDefault } from './metadataHelper';
 import { Trick } from './trick';
 import { DbObject, DbObjectDao } from './dbObject';
 import { DbMetadataZod, DbTricksTableZod } from '../schemas/CurrentVersionSchema';
 import { z } from 'zod';
+
+type DbMetadataRow = z.infer<typeof DbMetadataZod>;
 
 export type CreateNewTrickType = Omit<Trick, 'id' | 'primaryKey' | keyof DbObject>;
 
@@ -57,37 +59,58 @@ export default class TricksDAO implements DbObjectDao<Trick> {
       return temp.toArray();
     };
     const tricksWithoutMeta = await getRelevantTricks();
-    const tricksWithMetadataPromises = tricksWithoutMeta.map(async (e) => ({
-      trick: e,
-      metadata: await getMetadata(this.db, [e.id, e.trickStatus, 'Trick']),
-    }));
-    const result = await Promise.allSettled(tricksWithMetadataPromises);
+    if (tricksWithoutMeta.length === 0) return [];
 
-    // The (undefined as never) is a bit scuffed, but basically tells TS that okResults will never contain
-    // undefined values. This is handled by the subsequent .filter. Unfortunately, TS does not understand that
-    // .filter can get rid of undefined values is simply evaluating the value's truthyness
-    const okResults = result
-      .map((e) => (e.status === 'fulfilled' ? e.value : (undefined as never)))
-      .filter((e) => e!);
-    const errResults = result
-      .map((e, i) => (e.status === 'rejected' ? ([i, e.reason] as const) : (undefined as never)))
-      .filter((e) => e!);
+    // Single bulkGet vs N round-trips — see issue #430.
+    const metadataKeys = tricksWithoutMeta.map((t) => [t.id, t.trickStatus, 'Trick'] as const);
+    const fetchedMetadata = await this.db.metadata.bulkGet(
+      metadataKeys as unknown as [number, DbTricks['trickStatus'], 'Trick'][]
+    );
 
-    if (errResults.length > 0) {
+    const missingDefaults: DbMetadataRow[] = [];
+    const results: Trick[] = [];
+    const errors: { trick: (typeof tricksWithoutMeta)[number]; error: unknown }[] = [];
+
+    for (let i = 0; i < tricksWithoutMeta.length; i++) {
+      const trick = tricksWithoutMeta[i]!;
+      const raw = fetchedMetadata[i];
+      try {
+        let meta: DbMetadataRow;
+        if (raw) {
+          meta = DbMetadataZod.parse(raw);
+        } else {
+          meta = DbMetadataZod.parse({
+            id: trick.id,
+            entityStatus: trick.trickStatus,
+            entityCategory: 'Trick',
+            isFavorite: false,
+          });
+          missingDefaults.push(meta);
+        }
+        results.push(new Trick(trick, meta, this.db));
+      } catch (error) {
+        errors.push({ trick, error });
+      }
+    }
+
+    if (missingDefaults.length > 0) {
+      // Fire-and-forget: persist auto-created defaults so future reads find them.
+      // Matches the per-trick getMetadata() behavior the bulk path replaced.
+      this.db.metadata.bulkPut(missingDefaults).catch((err) => {
+        console.error('Failed to persist default metadata rows', err);
+      });
+    }
+
+    if (errors.length > 0) {
       console.error(
         'Failed to get metadata for some entities. As a result, they will not be returned. See data below'
       );
-      // Promise.allSettled does not change order of promises. So we know which error corresponds to which trick by looking at the
-      // index in the error
-      for (const entry of errResults) {
-        const relevantTrick = tricksWithoutMeta[entry[0]]!;
-        console.error({
-          trick: relevantTrick,
-          error: entry[1],
-        });
+      for (const entry of errors) {
+        console.error({ trick: entry.trick, error: entry.error });
       }
     }
-    return okResults.map((e) => new Trick(e.trick, e.metadata, this.db));
+
+    return results;
   }
 
   public async getById(id: number, trickStatus: DbTricks['trickStatus']) {

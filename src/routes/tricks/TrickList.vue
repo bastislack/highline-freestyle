@@ -7,6 +7,7 @@ import {
   onMounted,
   onUnmounted,
   ref,
+  shallowRef,
   watch,
 } from 'vue';
 import { onBeforeRouteLeave } from 'vue-router';
@@ -136,9 +137,54 @@ onMounted(() => sessionStorage.removeItem(SESSION_STORAGE_SEARCH_KEY));
 onDeactivated(() => clearTimeout(skeletonTimer));
 onUnmounted(() => clearTimeout(skeletonTimer));
 const variationsAsTricks = computed(() => getShowVariationsAsTricks());
-const searchResult = ref<SearchResult>();
-const variationsMap = ref<Map<string, SearchItem[]>>(new Map());
-const countSummary = ref(buildCountSummary([], [], [], false, false));
+const includedStatusesParam = computed(() => getIncludedStatuses());
+const showFavoritesAtTopParam = computed(() => getShowFavoritesAtTop());
+const preferredNameParam = computed(() => getPreferredName());
+
+// Cached locally so search/sort/group can re-run without hitting IndexedDB on
+// every keystroke — see issue #430. Refreshed on mount, on KeepAlive
+// reactivation, and after writes that mutate the trick set elsewhere.
+// shallowRef so Trick proxy classes aren't deep-wrapped (private fields don't
+// survive Vue's reactivity unwrap, and the per-trick proxy already controls
+// its own mutations).
+const allTricks = shallowRef<Trick[]>([]);
+const hasLoadedOnce = ref(false);
+
+const searchResult = computed<SearchResult>(() =>
+  searchInTricks(
+    allTricks.value,
+    {
+      searchText: searchText.value,
+      sortOrder: sortOrder.value,
+      includedStatuses: includedStatusesParam.value,
+      showFavoritesAtTop: showFavoritesAtTopParam.value,
+      preferredName: preferredNameParam.value,
+    },
+    trickToAttribute,
+    t('sectionTitles.favorites'),
+    variationsAsTricks.value
+  )
+);
+
+const variationsMap = computed<Map<string, SearchItem[]>>(() => {
+  if (variationsAsTricks.value) return new Map();
+  return buildVariationsMap(
+    allTricks.value,
+    searchResult.value,
+    preferredNameParam.value,
+    includedStatusesParam.value
+  );
+});
+
+const countSummary = computed(() =>
+  buildCountSummary(
+    allTricks.value,
+    searchResult.value,
+    includedStatusesParam.value,
+    variationsAsTricks.value,
+    !!searchText.value
+  )
+);
 type SectionView = {
   id: string;
   title: string;
@@ -238,45 +284,14 @@ async function loadTricks() {
   // Show skeleton immediately when retrying after an error (timer already fired).
   if (loadingState.value === 'error') loadingState.value = 'skeleton';
   try {
-    const allTricks = await tricksDao.getAll();
-    const includedStatuses = getIncludedStatuses();
-    const preferredName = getPreferredName();
-
-    const params: SearchParameters = {
-      searchText: searchText.value,
-      sortOrder: sortOrder.value,
-      includedStatuses,
-      showFavoritesAtTop: getShowFavoritesAtTop(),
-      preferredName,
-    };
-
-    searchResult.value = searchInTricks(
-      allTricks,
-      params,
-      trickToAttribute,
-      t('sectionTitles.favorites'),
-      variationsAsTricks.value
-    );
-
-    countSummary.value = buildCountSummary(
-      allTricks,
-      searchResult.value,
-      includedStatuses,
-      variationsAsTricks.value,
-      !!searchText.value
-    );
-
-    variationsMap.value =
-      searchResult.value && !variationsAsTricks.value
-        ? buildVariationsMap(allTricks, searchResult.value, preferredName, includedStatuses)
-        : new Map<string, SearchItem[]>();
-
-    localStorage.setItem(LOCAL_STORAGE_SORT_KEY, sortOrder.value);
+    const fetched = await tricksDao.getAll();
+    allTricks.value = fetched;
+    hasLoadedOnce.value = true;
 
     // On a fresh install the official sync is still populating the DB, so an
     // empty result here doesn't mean "no tricks" — keep the skeleton up; App
     // will remount this view once the sync finishes.
-    const stillBootstrapping = allTricks.length === 0 && isOfficialSyncing.value;
+    const stillBootstrapping = fetched.length === 0 && isOfficialSyncing.value;
     if (!stillBootstrapping && loadingState.value !== 'ready') {
       loadingState.value = 'ready';
       clearTimeout(skeletonTimer);
@@ -293,7 +308,9 @@ async function loadTricks() {
   }
 }
 
-watch([searchText, sortOrder, variationsAsTricks, i18n.locale], loadTricks, { immediate: true });
+watch(sortOrder, (val) => localStorage.setItem(LOCAL_STORAGE_SORT_KEY, val));
+
+loadTricks();
 
 function linkToDetails(primaryKey: PrimaryKey): string {
   return `/tricks/${primaryKey[1]}/${primaryKey[0]}`;
@@ -319,8 +336,8 @@ async function restoreScroll() {
 }
 
 // First-mount path: data isn't ready immediately, so wait for it before scrolling.
-const stopScrollRestore = watch(searchResult, () => {
-  if (!searchResult.value) return;
+const stopScrollRestore = watch(hasLoadedOnce, () => {
+  if (!hasLoadedOnce.value) return;
   stopScrollRestore();
   restoreScroll();
 });
@@ -335,7 +352,7 @@ onActivated(() => {
     isFirstActivation = false;
     return; // initial mount path is handled by the watcher above
   }
-  if (searchResult.value) restoreScroll();
+  if (hasLoadedOnce.value) restoreScroll();
   loadTricks();
 });
 </script>
