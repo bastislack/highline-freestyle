@@ -5,12 +5,24 @@ import { DbObject, DbObjectDao } from './dbObject';
 import { DbMetadataZod, DbTricksTableZod } from '../schemas/CurrentVersionSchema';
 import { z } from 'zod';
 
-type DbMetadataRow = z.infer<typeof DbMetadataZod>;
-
 export type CreateNewTrickType = Omit<Trick, 'id' | 'primaryKey' | keyof DbObject>;
 
 type DbTricks = z.infer<typeof DbTricksTableZod>;
 type DbMeta = z.infer<typeof DbMetadataZod>;
+type MetaPrimaryKey = [DbMeta['id'], DbMeta['entityStatus'], DbMeta['entityCategory']];
+
+function trickToMetaKey(trick: Pick<DbTricks, 'id' | 'trickStatus'>): MetaPrimaryKey {
+  return [trick.id, trick.trickStatus, 'Trick'];
+}
+
+function buildDefaultMeta(trick: Pick<DbTricks, 'id' | 'trickStatus'>): DbMeta {
+  return DbMetadataZod.parse({
+    id: trick.id,
+    entityStatus: trick.trickStatus,
+    entityCategory: 'Trick',
+    isFavorite: false,
+  });
+}
 
 interface TricksQueryFilter {
   trickStatus?: DbTricks['trickStatus'];
@@ -62,36 +74,23 @@ export default class TricksDAO implements DbObjectDao<Trick> {
     if (tricksWithoutMeta.length === 0) return [];
 
     // Single bulkGet vs N round-trips — see issue #430.
-    const metadataKeys = tricksWithoutMeta.map((t) => [t.id, t.trickStatus, 'Trick'] as const);
-    const fetchedMetadata = await this.db.metadata.bulkGet(
-      metadataKeys as unknown as [number, DbTricks['trickStatus'], 'Trick'][]
-    );
+    const metadataKeys: MetaPrimaryKey[] = tricksWithoutMeta.map(trickToMetaKey);
+    const fetchedMetadata = await this.db.metadata.bulkGet(metadataKeys);
 
-    const missingDefaults: DbMetadataRow[] = [];
+    const missingDefaults: DbMeta[] = [];
     const results: Trick[] = [];
-    const errors: { trick: (typeof tricksWithoutMeta)[number]; error: unknown }[] = [];
+    const errors: { trick: DbTricks; error: unknown }[] = [];
 
-    for (let i = 0; i < tricksWithoutMeta.length; i++) {
-      const trick = tricksWithoutMeta[i]!;
-      const raw = fetchedMetadata[i];
+    tricksWithoutMeta.forEach((trick, i) => {
       try {
-        let meta: DbMetadataRow;
-        if (raw) {
-          meta = DbMetadataZod.parse(raw);
-        } else {
-          meta = DbMetadataZod.parse({
-            id: trick.id,
-            entityStatus: trick.trickStatus,
-            entityCategory: 'Trick',
-            isFavorite: false,
-          });
-          missingDefaults.push(meta);
-        }
+        const raw = fetchedMetadata[i];
+        const meta = raw ? DbMetadataZod.parse(raw) : buildDefaultMeta(trick);
+        if (!raw) missingDefaults.push(meta);
         results.push(new Trick(trick, meta, this.db));
       } catch (error) {
         errors.push({ trick, error });
       }
-    }
+    });
 
     if (missingDefaults.length > 0) {
       // Fire-and-forget: persist auto-created defaults so future reads find them.
@@ -114,20 +113,17 @@ export default class TricksDAO implements DbObjectDao<Trick> {
   }
 
   public async getById(id: number, trickStatus: DbTricks['trickStatus']) {
-    const response = await Promise.all([
+    const metaKey: MetaPrimaryKey = [id, trickStatus, 'Trick'];
+    const [trick, existingMeta] = await Promise.all([
       this.db.tricks.get([id, trickStatus]),
-      this.db.metadata.get([id, trickStatus, 'Trick']),
+      this.db.metadata.get(metaKey),
     ]);
-    const trick = response[0];
-    let meta = response[1];
 
     if (!trick) {
       return undefined;
     }
-    if (!meta) {
-      meta = await putDefault(this.db, [id, trickStatus, 'Trick']);
-    }
 
+    const meta = existingMeta ?? (await putDefault(this.db, metaKey));
     return new Trick(trick, DbMetadataZod.parse(meta), this.db);
   }
 
