@@ -137,6 +137,7 @@ watch(searchText, (val) => {
     searchTextDebounced.value = val;
   }, SEARCH_DEBOUNCE_MS);
 });
+onDeactivated(() => clearTimeout(searchDebounceTimer));
 onUnmounted(() => clearTimeout(searchDebounceTimer));
 const sortOrder = ref<SortOrder>(loadSortOrder());
 
@@ -232,7 +233,7 @@ function isFavoritesSection(section: SearchSection): boolean {
 }
 
 const visibleSections = computed<SectionView[]>(() =>
-  (searchResult.value ?? []).map((section) => {
+  searchResult.value.map((section) => {
     const isCollapsible = !searchTextDebounced.value;
     const sectionId = getSectionStorageId(section);
     return {
@@ -416,7 +417,7 @@ onActivated(() => {
       />
       <div v-else-if="loadingState === 'ready'" class="w-full flex flex-col gap-2">
         <!-- No Search Results-->
-        <div v-if="!searchResult || searchResult.length === 0" class="text-xl text-center mt-3">
+        <div v-if="searchResult.length === 0" class="text-xl text-center mt-3">
           {{
             searchTextDebounced ? t('info.noTrickMatchingSearch') : t('info.noTricksCheckSettings')
           }}
