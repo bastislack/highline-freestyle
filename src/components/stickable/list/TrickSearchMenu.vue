@@ -43,6 +43,7 @@ const textSearchContainsText = computed<boolean>(() => {
           :placeholder="t('textSearchPlaceholder')"
           class="pr-10"
           :model-value="searchText"
+          compose-immediate
           v-on:update:model-value="setSearchText"
         />
         <Button
