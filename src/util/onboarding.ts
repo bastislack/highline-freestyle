@@ -1,4 +1,4 @@
-type OnboardTipKey = 'SetFavorite';
+type OnboardTipKey = 'SetFavorite' | 'DifficultyWIP';
 
 export function onboardingTipHasBeenShown(tipKey: OnboardTipKey) {
   const full_key = `ONBOARDING_HAS_BEEN_SHOWN_${tipKey}`;
