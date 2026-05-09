@@ -1,16 +1,45 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
-import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue';
+import { ref, computed, onMounted, onBeforeUnmount, nextTick } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { Icon } from '@iconify/vue/dist/iconify.js';
 import { StickableStatus } from '@/lib/utils';
+import messages_list from '@/i18n/list';
 import CardDecoration from './CardDecoration.vue';
 
 const props = defineProps<{
   to: string; // when present, render as RouterLink
   stickFrequency?: number;
+  difficultyLevel?: number;
+  baseDifficultyLevel?: number;
+  showLevel?: boolean;
   isFavorite: boolean;
   isNew: boolean;
   status: StickableStatus;
 }>();
+
+const levelDelta = computed<'up' | 'down' | null>(() => {
+  if (props.difficultyLevel == null || props.baseDifficultyLevel == null) return null;
+  if (props.difficultyLevel > props.baseDifficultyLevel) return 'up';
+  if (props.difficultyLevel < props.baseDifficultyLevel) return 'down';
+  return null;
+});
+
+const { t } = useI18n({ messages: messages_list, useScope: 'local' });
+
+function highlightClass(stickFrequency?: number): string {
+  const clamped = Math.max(0, Math.min(stickFrequency ?? 0, 7));
+  return [
+    'bg-muted',
+    'bg-skill1-600/50',
+    'bg-skill2-600/50',
+    'bg-skill3-500/50',
+    'bg-skill4-400/50',
+    'bg-skill5-400/50',
+    'bg-skill6-400/50',
+    'bg-skill7-400/50',
+  ][clamped];
+}
 
 const textElement = ref<HTMLElement>();
 const isOverflowing = ref(false);
@@ -108,6 +137,25 @@ onBeforeUnmount(() => {
       >
         <slot />
       </div>
+    </div>
+    <div
+      v-if="props.showLevel"
+      class="absolute bottom-0 left-0 h-6 w-full flex items-center justify-center pointer-events-none"
+    >
+      <span
+        class="rounded flex items-center justify-center gap-0.5 px-1 h-4 text-[9px] text-muted-foreground leading-none"
+        :class="highlightClass(props.stickFrequency)"
+      >
+        <span>
+          {{
+            props.difficultyLevel != null
+              ? t('cards.level', { level: props.difficultyLevel })
+              : t('cards.levelUnknown')
+          }}
+        </span>
+        <Icon v-if="levelDelta === 'up'" icon="ic:round-arrow-upward" class="h-3 w-3" />
+        <Icon v-else-if="levelDelta === 'down'" icon="ic:round-arrow-downward" class="h-3 w-3" />
+      </span>
     </div>
   </RouterLink>
 </template>

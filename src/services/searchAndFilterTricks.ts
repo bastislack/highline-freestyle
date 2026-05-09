@@ -171,6 +171,7 @@ function searchItemFromTrick(trick: Trick, name: TrickNameOption): SearchItem {
     name: name === 'alias' ? trick.alias ?? trick.technicalName : trick.technicalName,
     primaryKey: [trick.primaryKey[0], trick.primaryKey[1]],
     stickFrequency: trick.stickFrequency,
+    difficultyLevel: trick.difficultyLevel,
     isFavorite: trick.isFavorite,
     isNew: trick.primaryKey[1] !== 'userDefined' && isStickableNew(trick.dateAddedEpoch),
   };

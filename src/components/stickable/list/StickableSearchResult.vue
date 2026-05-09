@@ -9,6 +9,7 @@ const props = defineProps<{
   status: StickableStatus;
   linkToDetails: string;
   stickFrequency?: number;
+  difficultyLevel?: number;
   isFavorite: boolean;
   isNew: boolean;
   variations: SearchItem[];
@@ -21,6 +22,7 @@ const props = defineProps<{
     v-if="variations.length > 0 && props.showVariations"
     :variations="variations"
     :stick-frequency="props.stickFrequency"
+    :base-difficulty-level="props.difficultyLevel"
   >
     <StickableCard
       :to="props.linkToDetails"
