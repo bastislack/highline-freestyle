@@ -123,6 +123,7 @@ function variationLinkToDetails(primaryKey: SearchItem['primaryKey']): string {
         side="bottom"
         :side-offset="8"
         :reference="virtualReference"
+        position-strategy="absolute"
         class="!z-[25] p-2"
         :style="{ width: popoverWidth }"
       >
