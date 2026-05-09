@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref, computed, watch, onUnmounted } from 'vue';
+import { ref, computed, watch, onActivated, onUnmounted } from 'vue';
+import { onBeforeRouteLeave } from 'vue-router';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Icon } from '@iconify/vue/dist/iconify.js';
 import type { SearchItem } from '@/types/search';
@@ -80,6 +81,23 @@ watch(isOpen, (open) => {
 
 onUnmounted(() => observer?.disconnect());
 
+// Tear down the popover synchronously when navigating away. Setting `isOpen`
+// to false alone isn't enough — PopoverContent is teleported to <body> via
+// PopoverPortal, and the design system's close animation (fade-out + zoom-out)
+// keeps it mounted for ~150ms. Meanwhile TrickList moves into KeepAlive's
+// offscreen storage, the trigger's rect collapses to (0,0), and Floating UI
+// repositions the still-visible popover to the top of the viewport before it
+// finishes animating out. Gating PopoverContent behind a v-if lets Vue unmount
+// the teleport immediately, skipping the exit animation entirely.
+const isRouteLeaving = ref(false);
+onBeforeRouteLeave(() => {
+  isOpen.value = false;
+  isRouteLeaving.value = true;
+});
+onActivated(() => {
+  isRouteLeaving.value = false;
+});
+
 function variationLinkToDetails(primaryKey: SearchItem['primaryKey']): string {
   return `/tricks/${primaryKey[1]}/${primaryKey[0]}`;
 }
@@ -120,6 +138,7 @@ function variationLinkToDetails(primaryKey: SearchItem['primaryKey']): string {
       <div v-if="isOpen" class="fixed -inset-[100px] z-20 bg-black/10 backdrop-blur-[1px]" />
 
       <PopoverContent
+        v-if="!isRouteLeaving"
         side="bottom"
         :side-offset="8"
         :reference="virtualReference"
