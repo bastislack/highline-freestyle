@@ -11,6 +11,7 @@ export type SearchItem = {
   name: string;
   primaryKey: PrimaryKey;
   stickFrequency?: number;
+  difficultyLevel?: number;
   isNew: boolean;
   isFavorite: boolean;
 };

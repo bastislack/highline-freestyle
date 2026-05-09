@@ -8,6 +8,7 @@ import StickableCard from './StickableCard.vue';
 const props = defineProps<{
   variations: SearchItem[];
   stickFrequency?: number;
+  baseDifficultyLevel?: number;
 }>();
 
 function highlightClass(stickFrequency?: number): string {
@@ -133,6 +134,9 @@ function variationLinkToDetails(primaryKey: SearchItem['primaryKey']): string {
             :key="`${variation.primaryKey[1]}:${variation.primaryKey[0]}`"
             :to="variationLinkToDetails(variation.primaryKey)"
             :stickFrequency="variation.stickFrequency"
+            :difficultyLevel="variation.difficultyLevel"
+            :baseDifficultyLevel="props.baseDifficultyLevel"
+            :showLevel="true"
             :isFavorite="variation.isFavorite"
             :isNew="variation.isNew"
             :status="variation.primaryKey[1]"

@@ -270,10 +270,18 @@ function buildVariationsMap(
             : variation.technicalName,
         primaryKey: [...variation.primaryKey],
         stickFrequency: variation.stickFrequency,
+        difficultyLevel: variation.difficultyLevel,
         isFavorite: variation.isFavorite,
         isNew:
           variation.primaryKey[1] !== 'userDefined' && isStickableNew(variation.dateAddedEpoch),
       }));
+      variationItems.sort((a, b) => {
+        const aUndef = a.difficultyLevel == null;
+        const bUndef = b.difficultyLevel == null;
+        if (aUndef !== bUndef) return aUndef ? 1 : -1;
+        if (aUndef) return 0;
+        return (a.difficultyLevel as number) - (b.difficultyLevel as number);
+      });
       map.set(`${item.primaryKey[1]}:${item.primaryKey[0]}`, variationItems);
     }
   }
@@ -471,6 +479,7 @@ onActivated(() => {
                 :title="item.name"
                 :status="item.primaryKey[1]"
                 :stick-frequency="item.stickFrequency"
+                :difficulty-level="item.difficultyLevel"
                 :is-favorite="item.isFavorite"
                 :is-new="item.isNew"
                 :link-to-details="linkToDetails(item.primaryKey)"

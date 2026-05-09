@@ -6,6 +6,8 @@
     "favorites": "Favorites"
   },
   "cards": {
+    "level": "Lvl {level}",
+    "levelUnknown": "Lvl ?",
     "status": {
       "personal": {
         "title": "Personal",
