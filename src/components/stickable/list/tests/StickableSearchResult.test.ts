@@ -1,6 +1,8 @@
 import { describe, it, expect, vi } from 'vitest';
+import { defineComponent, h } from 'vue';
 import { mount } from '@vue/test-utils';
 import { createI18n } from 'vue-i18n';
+import { createMemoryHistory, createRouter, RouterView } from 'vue-router';
 import StickableSearchResult from '../StickableSearchResult.vue';
 import type { SearchItem } from '@/types/search';
 
@@ -35,30 +37,47 @@ const mockVariations: SearchItem[] = [
   },
 ];
 
+// Mount via RouterView so VariationsPopover (embedded when variations are
+// present) lives inside a matched route record — its onBeforeRouteLeave guard
+// needs that to register cleanly.
+async function mountInRoute(props: typeof baseProps) {
+  const Host = defineComponent({
+    setup: () => () => h(StickableSearchResult, props),
+  });
+  const router = createRouter({
+    history: createMemoryHistory(),
+    routes: [{ path: '/', component: Host }],
+  });
+  await router.push('/');
+  await router.isReady();
+  return mount(RouterView, {
+    global: { plugins: [i18n, router], stubs: { RouterLink: { template: '<a><slot /></a>' } } },
+  });
+}
+
 describe('StickableSearchResult', () => {
-  it('renders a plain StickableCard when there are no variations', () => {
-    const wrapper = mount(StickableSearchResult, {
-      props: baseProps,
-      global: { plugins: [i18n], stubs: { RouterLink: { template: '<a><slot /></a>' } } },
-    });
+  it('renders a plain StickableCard when there are no variations', async () => {
+    const wrapper = await mountInRoute(baseProps);
 
     expect(wrapper.text()).toContain('Backflip');
     expect(wrapper.findComponent({ name: 'VariationsPopover' }).exists()).toBe(false);
   });
 
-  it('renders a plain StickableCard when showVariations is false', () => {
-    const wrapper = mount(StickableSearchResult, {
-      props: { ...baseProps, variations: mockVariations, showVariations: false },
-      global: { plugins: [i18n], stubs: { RouterLink: { template: '<a><slot /></a>' } } },
+  it('renders a plain StickableCard when showVariations is false', async () => {
+    const wrapper = await mountInRoute({
+      ...baseProps,
+      variations: mockVariations,
+      showVariations: false,
     });
 
     expect(wrapper.findComponent({ name: 'VariationsPopover' }).exists()).toBe(false);
   });
 
-  it('wraps card in VariationsPopover when variations exist and showVariations is true', () => {
-    const wrapper = mount(StickableSearchResult, {
-      props: { ...baseProps, variations: mockVariations, showVariations: true },
-      global: { plugins: [i18n], stubs: { RouterLink: { template: '<a><slot /></a>' } } },
+  it('wraps card in VariationsPopover when variations exist and showVariations is true', async () => {
+    const wrapper = await mountInRoute({
+      ...baseProps,
+      variations: mockVariations,
+      showVariations: true,
     });
 
     expect(wrapper.findComponent({ name: 'VariationsPopover' }).exists()).toBe(true);

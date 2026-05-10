@@ -16,6 +16,7 @@ import { tricksDao } from '@/lib/database';
 defineOptions({ name: 'TrickList' });
 import { isOfficialSyncing } from '@/lib/database/official';
 import { PrimaryKey } from '@/lib/utils';
+import { useScrollAnchor } from '@/composables/useScrollAnchor';
 import {
   SearchItem,
   SearchParameters,
@@ -70,8 +71,10 @@ const { t } = i18n;
 
 const LOCAL_STORAGE_SORT_KEY = 'SearchParameters-Tricks-SortOrder';
 const LOCAL_STORAGE_COLLAPSED_SECTIONS_KEY = 'TrickList-CollapsedSections';
-const SESSION_STORAGE_SCROLL_KEY = 'TrickList-ScrollY';
+const SESSION_STORAGE_SCROLL_ANCHOR_KEY = 'TrickList-ScrollAnchor';
 const SESSION_STORAGE_SEARCH_KEY = 'TrickList-SearchText';
+
+const scrollAnchor = useScrollAnchor(SESSION_STORAGE_SCROLL_ANCHOR_KEY);
 
 function loadSortOrder(): SortOrder {
   return (localStorage.getItem(LOCAL_STORAGE_SORT_KEY) as SortOrder) || 'difficulty-asc';
@@ -345,7 +348,7 @@ function linkToDetails(primaryKey: PrimaryKey): string {
 }
 
 onBeforeRouteLeave(() => {
-  sessionStorage.setItem(SESSION_STORAGE_SCROLL_KEY, String(window.scrollY));
+  scrollAnchor.save();
   if (searchText.value) {
     sessionStorage.setItem(SESSION_STORAGE_SEARCH_KEY, searchText.value);
   } else {
@@ -353,35 +356,43 @@ onBeforeRouteLeave(() => {
   }
 });
 
-async function restoreScroll() {
-  const stored = sessionStorage.getItem(SESSION_STORAGE_SCROLL_KEY);
-  if (!stored) return;
-  sessionStorage.removeItem(SESSION_STORAGE_SCROLL_KEY);
-  const y = Number(stored);
-  if (Number.isNaN(y)) return;
+let isFirstActivation = true;
+let isActive = false;
+onDeactivated(() => {
+  isActive = false;
+});
+
+// Re-apply after the next render flush. Used both for the first-mount path
+// (waits for the initial DB load to populate the DOM) and the cached-mount
+// path (waits for a background refresh to settle, in case it shifted the
+// anchor). Bails if the user navigated away mid-await.
+async function applyAnchorAfterRender(anchor: ReturnType<typeof scrollAnchor.take>) {
+  if (!anchor) return;
   await nextTick();
-  requestAnimationFrame(() => window.scrollTo(0, y));
+  if (isActive) scrollAnchor.apply(anchor);
 }
 
-// First-mount path: data isn't ready immediately, so wait for it before scrolling.
-const stopScrollRestore = watch(hasLoadedOnce, () => {
+// First-mount path: data isn't in the DOM yet, so wait for the initial load.
+const stopFirstApply = watch(hasLoadedOnce, async () => {
   if (!hasLoadedOnce.value) return;
-  stopScrollRestore();
-  restoreScroll();
+  stopFirstApply();
+  await applyAnchorAfterRender(scrollAnchor.take());
 });
 
 // Cached-mount path (KeepAlive activation after returning from TrickDetails):
-// the DOM is already populated, so scroll can be restored straight away. Also
-// kick off a background refresh in case data changed while away (e.g. user
-// favorited a trick on the detail page).
-let isFirstActivation = true;
-onActivated(() => {
+// the DOM is already populated, so apply the anchor immediately for a snappy
+// snap-back. Then kick off a background refresh — and re-apply once it lands,
+// because added/removed tricks above the viewport can shift the anchor.
+onActivated(async () => {
+  isActive = true;
   if (isFirstActivation) {
     isFirstActivation = false;
     return; // initial mount path is handled by the watcher above
   }
-  if (hasLoadedOnce.value) restoreScroll();
-  loadTricks();
+  const anchor = scrollAnchor.take();
+  if (anchor) scrollAnchor.apply(anchor);
+  await loadTricks();
+  await applyAnchorAfterRender(anchor);
 });
 </script>
 
@@ -485,6 +496,7 @@ onActivated(() => {
                 :link-to-details="linkToDetails(item.primaryKey)"
                 :variations="variationsMap.get(item.primaryKey[1] + ':' + item.primaryKey[0]) || []"
                 :showVariations="section.showVariations"
+                :anchor-key="item.primaryKey[1] + ':' + item.primaryKey[0]"
               />
             </div>
           </CollapsibleContent>

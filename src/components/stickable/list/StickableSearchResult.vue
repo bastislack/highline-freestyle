@@ -14,6 +14,10 @@ const props = defineProps<{
   isNew: boolean;
   variations: SearchItem[];
   showVariations: boolean;
+  // Stable per-item key so useScrollAnchor can find this card on return.
+  // Lands on the rendered <a>, which is what the user sees in both branches —
+  // the popover branch's wrapper divs sit invisibly around the same <a>.
+  anchorKey?: string;
 }>();
 </script>
 
@@ -30,6 +34,7 @@ const props = defineProps<{
       :isFavorite="props.isFavorite"
       :isNew="props.isNew"
       :status="props.status"
+      :data-scroll-anchor="props.anchorKey"
     >
       {{ title }}
     </StickableCard>
@@ -42,6 +47,7 @@ const props = defineProps<{
     :isFavorite="props.isFavorite"
     :isNew="props.isNew"
     :status="props.status"
+    :data-scroll-anchor="props.anchorKey"
   >
     {{ title }}
   </StickableCard>
