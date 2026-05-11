@@ -1,16 +1,25 @@
 <script setup lang="ts">
-import { ref, computed, watch, onActivated, onUnmounted } from 'vue';
-import { onBeforeRouteLeave } from 'vue-router';
+import { ref, computed } from 'vue';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Icon } from '@iconify/vue/dist/iconify.js';
+import type { PrimaryKey } from '@/lib/utils';
 import type { SearchItem } from '@/types/search';
 import StickableCard from './StickableCard.vue';
+import StickFrequencyLongPressPopover from './StickFrequencyLongPressPopover.vue';
+import { useEffectiveStickFrequency } from './stickFrequencyOverridesKey';
+import { provideNestedPopoverFlag, usePopoverAutoClose } from '@/composables/usePopoverAutoClose';
 
 const props = defineProps<{
   variations: SearchItem[];
+  primaryKey?: PrimaryKey;
   stickFrequency?: number;
   baseDifficultyLevel?: number;
 }>();
+
+const effectiveStickFrequency = useEffectiveStickFrequency(
+  () => props.primaryKey,
+  () => props.stickFrequency
+);
 
 function highlightClass(stickFrequency?: number): string {
   const clamped = Math.max(0, Math.min(stickFrequency ?? 0, 7));
@@ -64,43 +73,22 @@ const virtualReference = {
   },
 };
 
-let observer: IntersectionObserver | null = null;
-
-watch(isOpen, (open) => {
-  observer?.disconnect();
-  observer = null;
-  if (open && triggerRef.value) {
-    observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) isOpen.value = false;
-      },
-      { threshold: 0 }
-    );
-    observer.observe(triggerRef.value);
-  }
-});
-
-onUnmounted(() => observer?.disconnect());
-
-// Tear down the popover synchronously when navigating away. Setting `isOpen`
-// to false alone isn't enough — PopoverContent is teleported to <body> via
-// PopoverPortal, and the design system's close animation (fade-out + zoom-out)
-// keeps it mounted for ~150ms. Meanwhile TrickList moves into KeepAlive's
-// offscreen storage, the trigger's rect collapses to (0,0), and Floating UI
-// repositions the still-visible popover to the top of the viewport before it
-// finishes animating out. Gating PopoverContent behind a v-if lets Vue unmount
-// the teleport immediately, skipping the exit animation entirely.
-const isRouteLeaving = ref(false);
-onBeforeRouteLeave(() => {
-  isOpen.value = false;
-  isRouteLeaving.value = true;
-});
-onActivated(() => {
-  isRouteLeaving.value = false;
-});
+const { isRouteLeaving } = usePopoverAutoClose(triggerRef, isOpen);
+const nestedPopoverOpen = provideNestedPopoverFlag();
 
 function variationLinkToDetails(primaryKey: SearchItem['primaryKey']): string {
   return `/tricks/${primaryKey[1]}/${primaryKey[0]}`;
+}
+
+// While the popover is open, a click on the underlying card acts like a click
+// on the backdrop: dismiss, don't navigate. Clicks on the trigger button itself
+// still pass through so Reka can toggle the popover.
+function onCardClickCapture(e: MouseEvent) {
+  if (!isOpen.value) return;
+  if (triggerRef.value && triggerRef.value.contains(e.target as Node)) return;
+  e.preventDefault();
+  e.stopPropagation();
+  isOpen.value = false;
 }
 </script>
 
@@ -110,6 +98,7 @@ function variationLinkToDetails(primaryKey: SearchItem['primaryKey']): string {
       <div
         class="relative transition-transform duration-100"
         :class="isOpen ? 'z-[21] scale-[1.02]' : ''"
+        @click.capture="onCardClickCapture"
       >
         <slot />
         <PopoverTrigger as-child>
@@ -121,7 +110,7 @@ function variationLinkToDetails(primaryKey: SearchItem['primaryKey']): string {
           >
             <span
               class="rounded flex items-center justify-center gap-0.5 px-1 h-5"
-              :class="highlightClass(props.stickFrequency)"
+              :class="highlightClass(effectiveStickFrequency)"
             >
               <span class="text-[10px] text-muted-foreground leading-none">
                 +{{ props.variations.length }}
@@ -136,7 +125,12 @@ function variationLinkToDetails(primaryKey: SearchItem['primaryKey']): string {
         </PopoverTrigger>
       </div>
 
-      <div v-if="isOpen" class="fixed -inset-[100px] z-20 bg-black/10 backdrop-blur-[1px]" />
+      <Teleport to="body">
+        <div
+          v-if="isOpen && !nestedPopoverOpen"
+          class="fixed -inset-[100px] z-20 bg-black/10 backdrop-blur-[1px]"
+        />
+      </Teleport>
 
       <PopoverContent
         v-if="!isRouteLeaving"
@@ -144,24 +138,30 @@ function variationLinkToDetails(primaryKey: SearchItem['primaryKey']): string {
         :side-offset="8"
         :reference="virtualReference"
         position-strategy="absolute"
-        class="!z-[25] p-2"
+        class="!z-[25] p-2 max-h-[50vh] overflow-y-auto"
         :style="{ width: popoverWidth }"
       >
-        <div class="grid grid-cols-3 gap-2 max-h-[50vh] overflow-y-auto">
-          <StickableCard
+        <div class="grid grid-cols-3 gap-2">
+          <StickFrequencyLongPressPopover
             v-for="variation in props.variations"
             :key="`${variation.primaryKey[1]}:${variation.primaryKey[0]}`"
-            :to="variationLinkToDetails(variation.primaryKey)"
-            :stickFrequency="variation.stickFrequency"
-            :difficultyLevel="variation.difficultyLevel"
-            :baseDifficultyLevel="props.baseDifficultyLevel"
-            :showLevel="true"
-            :isFavorite="variation.isFavorite"
-            :isNew="variation.isNew"
-            :status="variation.primaryKey[1]"
+            :trick-id="variation.primaryKey[0]"
+            :trick-status="variation.primaryKey[1]"
           >
-            {{ variation.name }}
-          </StickableCard>
+            <StickableCard
+              :to="variationLinkToDetails(variation.primaryKey)"
+              :primary-key="variation.primaryKey"
+              :stickFrequency="variation.stickFrequency"
+              :difficultyLevel="variation.difficultyLevel"
+              :baseDifficultyLevel="props.baseDifficultyLevel"
+              :showLevel="true"
+              :isFavorite="variation.isFavorite"
+              :isNew="variation.isNew"
+              :status="variation.primaryKey[1]"
+            >
+              {{ variation.name }}
+            </StickableCard>
+          </StickFrequencyLongPressPopover>
         </div>
       </PopoverContent>
     </div>

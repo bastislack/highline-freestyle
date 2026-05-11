@@ -3,12 +3,14 @@ import { RouterLink } from 'vue-router';
 import { ref, computed, onMounted, onBeforeUnmount, nextTick } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { Icon } from '@iconify/vue/dist/iconify.js';
-import { StickableStatus } from '@/lib/utils';
+import { PrimaryKey, StickableStatus } from '@/lib/utils';
 import messages_list from '@/i18n/list';
 import CardDecoration from './CardDecoration.vue';
+import { useEffectiveStickFrequency } from './stickFrequencyOverridesKey';
 
 const props = defineProps<{
   to: string; // when present, render as RouterLink
+  primaryKey?: PrimaryKey;
   stickFrequency?: number;
   difficultyLevel?: number;
   baseDifficultyLevel?: number;
@@ -17,6 +19,11 @@ const props = defineProps<{
   isNew: boolean;
   status: StickableStatus;
 }>();
+
+const effectiveStickFrequency = useEffectiveStickFrequency(
+  () => props.primaryKey,
+  () => props.stickFrequency
+);
 
 const levelDelta = computed<'up' | 'down' | null>(() => {
   if (props.difficultyLevel == null || props.baseDifficultyLevel == null) return null;
@@ -123,7 +130,7 @@ onBeforeUnmount(() => {
   <RouterLink
     :to="to"
     class="p-2 rounded-sm border aspect-[7/5] flex text-center relative"
-    :class="computedClass(props.stickFrequency)"
+    :class="computedClass(effectiveStickFrequency)"
   >
     <CardDecoration :isFavorite="props.isFavorite" :isNew="props.isNew" :status="props.status" />
     <div class="flex-grow flex flex-col tracking-tight justify-around w-full">
@@ -144,7 +151,7 @@ onBeforeUnmount(() => {
     >
       <span
         class="rounded flex items-center justify-center gap-0.5 px-1 h-4 text-[9px] text-muted-foreground leading-none"
-        :class="highlightClass(props.stickFrequency)"
+        :class="highlightClass(effectiveStickFrequency)"
       >
         <span>
           {{

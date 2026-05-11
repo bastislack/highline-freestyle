@@ -6,6 +6,7 @@ import {
   onDeactivated,
   onMounted,
   onUnmounted,
+  provide,
   ref,
   shallowRef,
   watch,
@@ -38,6 +39,10 @@ import Header from '@/components/stickable/Header.vue';
 import TrickSearchMenu from '@/components/stickable/list/TrickSearchMenu.vue';
 import TrickFilterPopover from '@/components/stickable/list/TrickFilterPopover.vue';
 import StickableSearchResult from '@/components/stickable/list/StickableSearchResult.vue';
+import {
+  stickFrequencyOverrides,
+  stickFrequencyOverridesKey,
+} from '@/components/stickable/list/stickFrequencyOverridesKey';
 import Separator from '@/components/ui/separator/Separator.vue';
 import Section from '@/components/ui/section/Section.vue';
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '@/components/ui/collapsible';
@@ -317,6 +322,9 @@ async function loadTricks() {
   try {
     const fetched = await tricksDao.getAll();
     allTricks.value = fetched;
+    // Fresh data is canonical — drop any optimistic overrides so cards don't
+    // mask a stickFrequency that changed elsewhere (e.g. in the detail view).
+    stickFrequencyOverrides.clear();
     hasLoadedOnce.value = true;
 
     // On a fresh install the official sync is still populating the DB, so an
@@ -338,6 +346,11 @@ async function loadTricks() {
     isLoadingTricks = false;
   }
 }
+
+// Re-provide the module-level overrides singleton so existing descendants
+// (long-press popover, cards) keep their inject path. Details view writes to
+// the same singleton directly via import.
+provide(stickFrequencyOverridesKey, stickFrequencyOverrides);
 
 watch(sortOrder, (val) => localStorage.setItem(LOCAL_STORAGE_SORT_KEY, val));
 
@@ -488,6 +501,7 @@ onActivated(async () => {
                 v-for="item in section.items"
                 :key="item.primaryKey[1] + ':' + item.primaryKey[0]"
                 :title="item.name"
+                :primary-key="item.primaryKey"
                 :status="item.primaryKey[1]"
                 :stick-frequency="item.stickFrequency"
                 :difficulty-level="item.difficultyLevel"
