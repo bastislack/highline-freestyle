@@ -145,10 +145,14 @@ export function sortTricks(tricks: Trick[], sorting: SortOrder): Trick[] {
         (a, b) =>
           compareDifficultyUndefined(a, b) || -compareDifficulty(a, b) || comparePrimaryKey(a, b)
       );
-    case 'startPos':
+    case 'startPos-asc':
       return tricks.sort((a, b) => compareStartPosition(a, b) || comparePrimaryKey(a, b));
-    case 'endPos':
+    case 'startPos-desc':
+      return tricks.sort((a, b) => -compareStartPosition(a, b) || comparePrimaryKey(a, b));
+    case 'endPos-asc':
       return tricks.sort((a, b) => compareEndPosition(a, b) || comparePrimaryKey(a, b));
+    case 'endPos-desc':
+      return tricks.sort((a, b) => -compareEndPosition(a, b) || comparePrimaryKey(a, b));
     case 'yearEstablished-asc':
       return tricks.sort(
         (a, b) =>

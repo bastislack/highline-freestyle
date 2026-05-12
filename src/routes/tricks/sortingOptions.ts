@@ -1,32 +1,29 @@
-import type { SortOrder } from '@/types/search';
+import type { SortDirection, SortField, SortOrder } from '@/types/search';
 
-export type SortingOption = {
+export type SortFieldOption = {
   titleKey: string;
-  directionTitleKey?: string;
-  value: SortOrder;
+  value: SortField;
 };
 
-export const sortingOptions: SortingOption[] = [
-  {
-    titleKey: 'sortOptions.difficulty',
-    directionTitleKey: 'sortOptions.ascending',
-    value: 'difficulty-asc',
-  },
-  {
-    titleKey: 'sortOptions.difficulty',
-    directionTitleKey: 'sortOptions.descending',
-    value: 'difficulty-desc',
-  },
+export const sortFieldOptions: SortFieldOption[] = [
+  { titleKey: 'sortOptions.difficulty', value: 'difficulty' },
   { titleKey: 'sortOptions.startPosition', value: 'startPos' },
   { titleKey: 'sortOptions.endPosition', value: 'endPos' },
-  {
-    titleKey: 'sortOptions.inventionYear',
-    directionTitleKey: 'sortOptions.ascending',
-    value: 'yearEstablished-asc',
-  },
-  {
-    titleKey: 'sortOptions.inventionYear',
-    directionTitleKey: 'sortOptions.descending',
-    value: 'yearEstablished-desc',
-  },
+  { titleKey: 'sortOptions.inventionYear', value: 'yearEstablished' },
 ];
+
+export function parseSortOrder(order: SortOrder): { field: SortField; direction: SortDirection } {
+  const [field, direction] = order.split('-') as [SortField, SortDirection];
+  return { field, direction };
+}
+
+export function buildSortOrder(field: SortField, direction: SortDirection): SortOrder {
+  return `${field}-${direction}` as SortOrder;
+}
+
+// Older builds stored 'startPos' / 'endPos' without a direction suffix.
+export function migrateLegacySortOrder(raw: string | null): SortOrder | null {
+  if (!raw) return null;
+  if (raw === 'startPos' || raw === 'endPos') return `${raw}-asc` as SortOrder;
+  return raw as SortOrder;
+}

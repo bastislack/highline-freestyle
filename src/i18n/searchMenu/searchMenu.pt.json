@@ -1,16 +1,14 @@
 {
-  "variationsAsTricks": "Variações como truques",
   "trickCountLabel": "{count} truque | {count} truques",
   "variationCountLabel": "{count} variação | {count} variações",
   "textSearchPlaceholder": "Procurar",
-  "sortOptionsLabel": "Ordenar",
-  "filtersLabel": "Filtros",
+  "sortByLabel": "Ordenar por",
   "sortOptions": {
     "difficulty": "Dificuldade",
     "startPosition": "Posição inicial",
     "endPosition": "Posição final",
     "inventionYear": "Ano de criação",
-    "ascending": "Acima",
-    "descending": "Abaixo"
+    "ascending": "Crescente",
+    "descending": "Decrescente"
   }
 }

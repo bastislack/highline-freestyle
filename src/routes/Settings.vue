@@ -19,6 +19,7 @@ import {
   getPreferredName,
   setPreferredName,
 } from '@/util/trickListPreferences';
+import { getShowVariationsAsTricks, setShowVariationsAsTricks } from '@/util/variationPreferences';
 import type { StickableStatus } from '@/lib/utils';
 import { setNewLocale, LocaleInfos, type Locales } from '@/util/locale';
 import { Icon } from '@iconify/vue/dist/iconify.js';
@@ -103,6 +104,18 @@ function toggleIncludedStatus(status: StickableStatus) {
               (pref: boolean) => setPreferredName(pref ? 'technicalName' : 'alias')
             "
             :model-value="getPreferredName() === 'technicalName'"
+          />
+        </div>
+        <div class="flex flex-row items-center justify-between">
+          <div class="flex flex-col gap-0">
+            <div class="font-medium">{{ t('trickList.variationsAsTricks.name') }}</div>
+            <div class="text-muted-foreground text-sm">
+              {{ t('trickList.variationsAsTricks.description') }}
+            </div>
+          </div>
+          <Switch
+            @update:model-value="(pref: boolean) => setShowVariationsAsTricks(pref)"
+            :model-value="getShowVariationsAsTricks()"
           />
         </div>
         <div class="flex flex-col gap-1">

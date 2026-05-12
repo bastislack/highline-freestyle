@@ -11,6 +11,10 @@
       "name": "Mostrar nomes técnicos",
       "description": "Exibir nomes técnicos em vez de apelidos"
     },
+    "variationsAsTricks": {
+      "name": "Variações como truques",
+      "description": "Mostrar cada variação como uma entrada própria na lista"
+    },
     "includedStatuses": {
       "name": "Tipos de truques exibidos",
       "official": "Oficial",

@@ -16,11 +16,16 @@ export type SearchItem = {
   isFavorite: boolean;
 };
 
+export type SortField = 'difficulty' | 'startPos' | 'endPos' | 'yearEstablished';
+export type SortDirection = 'asc' | 'desc';
+
 export type SortOrder =
   | 'difficulty-asc'
   | 'difficulty-desc'
-  | 'startPos'
-  | 'endPos'
+  | 'startPos-asc'
+  | 'startPos-desc'
+  | 'endPos-asc'
+  | 'endPos-desc'
   | 'yearEstablished-asc'
   | 'yearEstablished-desc';
 

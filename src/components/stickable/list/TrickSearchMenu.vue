@@ -5,6 +5,8 @@ import Button from '@/components/ui/button/Button.vue';
 import { useI18n } from 'vue-i18n';
 import messages from '@/i18n/searchMenu';
 import { Icon } from '@iconify/vue/dist/iconify.js';
+import TrickSortChip from './TrickSortChip.vue';
+import { SortOrder } from '@/types/search';
 
 const { t } = useI18n({
   messages,
@@ -21,6 +23,9 @@ const props = defineProps<{
 }>();
 
 const searchText = defineModel<string | undefined>('searchText');
+const sortOrder = defineModel<SortOrder>('sortOrder', { required: true });
+
+const textSearchActive = computed<boolean>(() => !!searchText.value);
 
 function resetSearchText() {
   searchText.value = undefined;
@@ -29,10 +34,6 @@ function resetSearchText() {
 function setSearchText(text: string | number) {
   searchText.value = text.toString();
 }
-
-const textSearchContainsText = computed<boolean>(() => {
-  return !!searchText.value;
-});
 </script>
 
 <template>
@@ -47,7 +48,7 @@ const textSearchContainsText = computed<boolean>(() => {
           v-on:update:model-value="setSearchText"
         />
         <Button
-          v-if="textSearchContainsText"
+          v-if="textSearchActive"
           variant="ghost"
           size="icon"
           class="absolute top-0 right-0"
@@ -67,7 +68,7 @@ const textSearchContainsText = computed<boolean>(() => {
     </div>
     <div
       v-else-if="props.totalCount > 0"
-      class="flex flex-row items-center w-full gap-2 justify-start"
+      class="flex flex-row items-center w-full gap-2 justify-between"
     >
       <span class="text-xs sm:text-sm text-muted-foreground whitespace-nowrap">
         <template v-if="props.variationsAsTricks || !props.showBreakdown">
@@ -79,6 +80,7 @@ const textSearchContainsText = computed<boolean>(() => {
           {{ t('variationCountLabel', { count: props.variationCount }, props.variationCount) }}
         </template>
       </span>
+      <TrickSortChip v-model:sort-order="sortOrder" :disabled="textSearchActive" />
     </div>
   </section>
 </template>

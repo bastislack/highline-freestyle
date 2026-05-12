@@ -27,6 +27,7 @@ import {
 } from '@/types/search';
 import { Trick } from '@/lib/database/daos/trick';
 import { searchInTricks, getVariationsForTrick } from '@/services/searchAndFilterTricks';
+import { migrateLegacySortOrder } from '@/routes/tricks/sortingOptions';
 import { getShowVariationsAsTricks } from '@/util/variationPreferences';
 import {
   getIncludedStatuses,
@@ -37,7 +38,6 @@ import {
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import Header from '@/components/stickable/Header.vue';
 import TrickSearchMenu from '@/components/stickable/list/TrickSearchMenu.vue';
-import TrickFilterPopover from '@/components/stickable/list/TrickFilterPopover.vue';
 import StickableSearchResult from '@/components/stickable/list/StickableSearchResult.vue';
 import {
   stickFrequencyOverrides,
@@ -82,7 +82,7 @@ const SESSION_STORAGE_SEARCH_KEY = 'TrickList-SearchText';
 const scrollAnchor = useScrollAnchor(SESSION_STORAGE_SCROLL_ANCHOR_KEY);
 
 function loadSortOrder(): SortOrder {
-  return (localStorage.getItem(LOCAL_STORAGE_SORT_KEY) as SortOrder) || 'difficulty-asc';
+  return migrateLegacySortOrder(localStorage.getItem(LOCAL_STORAGE_SORT_KEY)) ?? 'difficulty-asc';
 }
 
 function loadSearchText(): string | undefined {
@@ -104,7 +104,6 @@ function saveCollapsedSections(sections: Set<string>) {
 }
 
 const collapsedSections = ref<Set<string>>(loadCollapsedSections());
-const isFilterPopoverOpen = ref(false);
 
 function getCollapsedSectionKey(sectionId: string): string {
   return `section:${sectionId}`;
@@ -303,9 +302,11 @@ function trickToAttribute(trick: Trick, sortOption: SortOrder): string {
       return trick.difficultyLevel
         ? t('sectionTitles.difficulty', { difficulty: trick.difficultyLevel })
         : t('sectionTitles.notDetermined');
-    case 'startPos':
+    case 'startPos-asc':
+    case 'startPos-desc':
       return trick.startPosition ? t(trick.startPosition) : t('sectionTitles.unknown');
-    case 'endPos':
+    case 'endPos-asc':
+    case 'endPos-desc':
       return trick.endPosition ? t(trick.endPosition) : t('sectionTitles.unknown');
     case 'yearEstablished-asc':
     case 'yearEstablished-desc':
@@ -414,11 +415,6 @@ onActivated(async () => {
     <Header>
       <img :src="ImgLogoUrl" class="h-10 max-w-full object-contain mx-auto" alt="Logo" />
       <template #buttonsRight>
-        <TrickFilterPopover
-          v-model:sort-order="sortOrder"
-          v-model:open="isFilterPopoverOpen"
-          :sort-disabled="!!searchTextDebounced"
-        />
         <Button size="icon" variant="ghost" as-child>
           <RouterLink to="/settings" :aria-label="t('settings')">
             <Icon icon="ic:round-settings" class="h-6 w-6 text-foreground" />
@@ -429,6 +425,7 @@ onActivated(async () => {
     <Section>
       <TrickSearchMenu
         v-model:search-text="searchText"
+        v-model:sort-order="sortOrder"
         :trick-count="countSummary.trickCount"
         :variation-count="countSummary.variationCount"
         :total-count="countSummary.totalCount"
@@ -517,12 +514,6 @@ onActivated(async () => {
         </Collapsible>
       </div>
     </Section>
-
-    <div
-      v-if="isFilterPopoverOpen"
-      class="fixed inset-0 z-30 bg-black/10 backdrop-blur-[1px]"
-      aria-hidden="true"
-    />
 
     <!-- Floating Add-New-Trick-Menu -->
     <DropdownMenu>
