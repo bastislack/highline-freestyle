@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { StickableStatus } from '@/lib/utils';
+import { PrimaryKey, StickableStatus } from '@/lib/utils';
 import type { SearchItem } from '@/types/search';
 import StickableCard from './StickableCard.vue';
 import VariationsPopover from './VariationsPopover.vue';
+import StickFrequencyLongPressPopover from './StickFrequencyLongPressPopover.vue';
 
 const props = defineProps<{
   title: string;
+  primaryKey: PrimaryKey;
   status: StickableStatus;
   linkToDetails: string;
   stickFrequency?: number;
@@ -22,14 +24,34 @@ const props = defineProps<{
 </script>
 
 <template>
-  <VariationsPopover
-    v-if="variations.length > 0 && props.showVariations"
-    :variations="variations"
-    :stick-frequency="props.stickFrequency"
-    :base-difficulty-level="props.difficultyLevel"
+  <StickFrequencyLongPressPopover
+    :trick-id="props.primaryKey[0]"
+    :trick-status="props.primaryKey[1]"
   >
+    <VariationsPopover
+      v-if="variations.length > 0 && props.showVariations"
+      :variations="variations"
+      :primary-key="props.primaryKey"
+      :stick-frequency="props.stickFrequency"
+      :base-difficulty-level="props.difficultyLevel"
+    >
+      <StickableCard
+        :to="props.linkToDetails"
+        :primary-key="props.primaryKey"
+        :stickFrequency="props.stickFrequency"
+        :isFavorite="props.isFavorite"
+        :isNew="props.isNew"
+        :status="props.status"
+        :data-scroll-anchor="props.anchorKey"
+      >
+        {{ title }}
+      </StickableCard>
+    </VariationsPopover>
+
     <StickableCard
+      v-else
       :to="props.linkToDetails"
+      :primary-key="props.primaryKey"
       :stickFrequency="props.stickFrequency"
       :isFavorite="props.isFavorite"
       :isNew="props.isNew"
@@ -38,17 +60,5 @@ const props = defineProps<{
     >
       {{ title }}
     </StickableCard>
-  </VariationsPopover>
-
-  <StickableCard
-    v-else
-    :to="props.linkToDetails"
-    :stickFrequency="props.stickFrequency"
-    :isFavorite="props.isFavorite"
-    :isNew="props.isNew"
-    :status="props.status"
-    :data-scroll-anchor="props.anchorKey"
-  >
-    {{ title }}
-  </StickableCard>
+  </StickFrequencyLongPressPopover>
 </template>

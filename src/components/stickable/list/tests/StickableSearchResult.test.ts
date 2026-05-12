@@ -18,6 +18,7 @@ const i18n = createI18n({ legacy: false, locale: 'en', messages: { en: {} } });
 
 const baseProps = {
   title: 'Backflip',
+  primaryKey: [1, 'official'] as [number, 'official'],
   status: 'official' as const,
   linkToDetails: '/tricks/official/1',
   stickFrequency: 3,

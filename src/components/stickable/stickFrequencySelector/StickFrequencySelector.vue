@@ -14,6 +14,12 @@ const { t } = i18n;
 // eslint-disable-next-line no-undef
 const sliderValue = defineModel<[number]>('frequency');
 
+const emit = defineEmits<{
+  // Fires on release (or keyboard commit). Drag-step updates still flow through
+  // v-model — listen here when you only want the final value (e.g. for DB writes).
+  commit: [value: [number]];
+}>();
+
 const sliderColor = computed<string>(() => {
   if (sliderValue.value === undefined) {
     throw new Error('frequency model not set!');
@@ -71,6 +77,7 @@ const options = ref<[number, string, string][]>([
         :min="0"
         :max="7"
         :step="1"
+        @value-commit="emit('commit', $event as [number])"
       >
         <SliderTrack class="bg-black relative grow rounded-full w-full overflow-hidden h-2">
           <SliderRange class="absolute rounded-full h-full" :class="sliderColor" />

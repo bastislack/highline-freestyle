@@ -42,6 +42,15 @@
   * {
     @apply border-border;
   }
+  /* Allow vertical scroll only; block horizontal page panning across the
+     whole app. The OS-level edge-swipe back gesture (iOS / Android) is
+     resolved before touch events reach the DOM, so `touch-action: pan-y`
+     does not interfere with back-navigation — unlike `overscroll-behavior-x`,
+     which would. Interactive elements that need horizontal touch (e.g. the
+     reka-ui slider) override this locally with `touch-none` / `touch-pan-x`. */
+  html {
+    @apply touch-pan-y;
+  }
   body {
     @apply bg-background text-foreground;
   }

@@ -17,6 +17,10 @@ import Separator from '@/components/ui/separator/Separator.vue';
 import Button from '@/components/ui/button/Button.vue';
 import ArchivedDecisionDialog from '@/components/stickable/ArchivedDecisionDialog.vue';
 import TrickStickFrequencySelector from '../stickFrequencySelector/TrickStickFrequencySelector.vue';
+import {
+  stickFrequencyOverrides,
+  frequencyOverrideKey,
+} from '@/components/stickable/list/stickFrequencyOverridesKey';
 import { StickableStatus } from '@/lib/utils';
 import { isStickableNew } from '@/util/misc';
 import IsFavoriteToggle from '../IsFavoriteToggle.vue';
@@ -45,6 +49,13 @@ const trick = ref<Trick | undefined>(undefined);
 const recommendedPrerequisitesFull = ref<Trick[]>([]);
 const variationOfFull = ref<Trick[]>([]);
 const isTrickLoadingComplete = ref<boolean>(false);
+
+// Mirror each drag-step change into the shared overrides map so the
+// background-kept TrickList reflects the new frequency immediately, instead
+// of only updating on its next loadTricks() after the user returns.
+function onStickFrequencyChange(frequency: number) {
+  stickFrequencyOverrides.set(frequencyOverrideKey([props.id, props.status]), frequency);
+}
 
 async function getFullRecommendedPrerequisites(trick?: Trick): Promise<Trick[]> {
   if (
@@ -323,7 +334,12 @@ watchEffect(async () => {
           class="w-full flex flex-col items-center"
           noLeftPad
         >
-          <TrickStickFrequencySelector class="text-base" :trickId="id" :trickStatus="status" />
+          <TrickStickFrequencySelector
+            class="text-base"
+            :trickId="id"
+            :trickStatus="status"
+            @change="onStickFrequencyChange"
+          />
         </InfoElement>
       </Section>
     </div>
