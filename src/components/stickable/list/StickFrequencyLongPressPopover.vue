@@ -17,6 +17,11 @@ const containerRef = ref<HTMLElement>();
 const isOpen = ref(false);
 const isPressing = ref(false);
 const suppressClick = ref(false);
+// The reka-ui Popover + PopoverContent subtree is the heaviest part of this
+// component, and the list mounts one per trick card. Defer it until the user
+// actually touches the card so the bulk-mount cost during sort/search churn
+// only pays for the lightweight refs, listeners, and long-press wiring.
+const hasInteracted = ref(false);
 
 // Host (e.g. TrickList) provides a reactive overrides map. Writing here
 // re-renders only the card(s) that read this key — no list-wide cascade.
@@ -65,6 +70,9 @@ function detachWindowListeners() {
 }
 
 function onPointerDown(e: PointerEvent) {
+  // First-touch flip mounts the reka-ui Popover before the long-press timer
+  // fires 500ms later, so the popover is ready by the time the user expects it.
+  hasInteracted.value = true;
   suppressClick.value = false;
   attachWindowListeners(e.pointerId);
   pressTimer = setTimeout(() => {
@@ -170,27 +178,29 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <Popover v-model:open="isOpen">
-    <!-- Grid-cell placeholder while the card is teleported away. -->
-    <div v-show="showGhost" aria-hidden="true" :style="placeholderStyle" />
+  <!-- Grid-cell placeholder while the card is teleported away. -->
+  <div v-show="showGhost" aria-hidden="true" :style="placeholderStyle" />
 
-    <Teleport to="body" :disabled="!showGhost">
-      <div
-        ref="containerRef"
-        class="relative transition-[transform,box-shadow] duration-300 ease-out"
-        :class="isScaled ? 'scale-[1.05] shadow-lg z-[31]' : showGhost ? 'z-[31]' : ''"
-        :style="ghostStyle"
-        @pointerdown="onPointerDown"
-        @pointerup="endPress"
-        @pointercancel="endPress"
-        @pointerleave="endPress"
-        @click.capture="onClickCapture"
-        @contextmenu.prevent
-      >
-        <slot />
-      </div>
-    </Teleport>
+  <!-- Always rendered so the listeners + long-press detection are live from
+       mount; the reka-ui Popover below is deferred until first interaction. -->
+  <Teleport to="body" :disabled="!showGhost">
+    <div
+      ref="containerRef"
+      class="relative transition-[transform,box-shadow] duration-300 ease-out"
+      :class="isScaled ? 'scale-[1.05] shadow-lg z-[31]' : showGhost ? 'z-[31]' : ''"
+      :style="ghostStyle"
+      @pointerdown="onPointerDown"
+      @pointerup="endPress"
+      @pointercancel="endPress"
+      @pointerleave="endPress"
+      @click.capture="onClickCapture"
+      @contextmenu.prevent
+    >
+      <slot />
+    </div>
+  </Teleport>
 
+  <Popover v-if="hasInteracted" v-model:open="isOpen">
     <Teleport to="body">
       <!-- z-30 sits above the variations popover content (z-25) so when this
            popover is nested, the parent trick and sibling variations get
