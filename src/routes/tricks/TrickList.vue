@@ -18,15 +18,9 @@ defineOptions({ name: 'TrickList' });
 import { isOfficialSyncing } from '@/lib/database/official';
 import { PrimaryKey } from '@/lib/utils';
 import { useScrollAnchor } from '@/composables/useScrollAnchor';
-import {
-  SearchItem,
-  SearchParameters,
-  SearchResult,
-  SearchSection,
-  SortOrder,
-} from '@/types/search';
+import { SearchItem, SearchResult, SearchSection, SortOrder } from '@/types/search';
 import { Trick } from '@/lib/database/daos/trick';
-import { searchInTricks, getVariationsForTrick } from '@/services/searchAndFilterTricks';
+import { searchInTricks, buildVariationsIndex } from '@/services/searchAndFilterTricks';
 import { migrateLegacySortOrder } from '@/routes/tricks/sortingOptions';
 import { getShowVariationsAsTricks } from '@/util/variationPreferences';
 import {
@@ -65,7 +59,6 @@ import { i18nMerge } from '@/i18n/i18nmerge';
 import messages_list from '@/i18n/list';
 import messages_positions from '@/i18n/common/positions';
 import messages_navbar from '@/i18n/navbar';
-import { isStickableNew } from '@/util/misc';
 import { buildCountSummary } from './trickListCountSummary';
 
 const i18n = useI18n({
@@ -193,13 +186,14 @@ const searchResult = computed<SearchResult>(() =>
   )
 );
 
+// Index is keyed by parent PK and only depends on the trick set / filters,
+// not on the current sort or search — so toggling sort doesn't rebuild it.
 const variationsMap = computed<Map<string, SearchItem[]>>(() => {
   if (variationsAsTricks.value) return new Map();
-  return buildVariationsMap(
+  return buildVariationsIndex(
     allTricks.value,
-    searchResult.value,
-    preferredNameParam.value,
-    includedStatusesParam.value
+    includedStatusesParam.value,
+    preferredNameParam.value
   );
 });
 
@@ -253,47 +247,6 @@ const visibleSections = computed<SectionView[]>(() =>
     };
   })
 );
-
-function buildVariationsMap(
-  allTricks: Trick[],
-  result: SearchResult,
-  preferredName: SearchParameters['preferredName'],
-  includedStatuses: string[]
-): Map<string, SearchItem[]> {
-  const map = new Map<string, SearchItem[]>();
-  for (const section of result) {
-    for (const item of section.items) {
-      const variations = getVariationsForTrick(
-        allTricks,
-        item.primaryKey[0],
-        item.primaryKey[1],
-        includedStatuses
-      );
-      if (variations.length === 0) continue;
-      const variationItems: SearchItem[] = variations.map((variation) => ({
-        name:
-          preferredName === 'alias'
-            ? variation.alias ?? variation.technicalName
-            : variation.technicalName,
-        primaryKey: [...variation.primaryKey],
-        stickFrequency: variation.stickFrequency,
-        difficultyLevel: variation.difficultyLevel,
-        isFavorite: variation.isFavorite,
-        isNew:
-          variation.primaryKey[1] !== 'userDefined' && isStickableNew(variation.dateAddedEpoch),
-      }));
-      variationItems.sort((a, b) => {
-        const aUndef = a.difficultyLevel == null;
-        const bUndef = b.difficultyLevel == null;
-        if (aUndef !== bUndef) return aUndef ? 1 : -1;
-        if (aUndef) return 0;
-        return (a.difficultyLevel as number) - (b.difficultyLevel as number);
-      });
-      map.set(`${item.primaryKey[1]}:${item.primaryKey[0]}`, variationItems);
-    }
-  }
-  return map;
-}
 
 function trickToAttribute(trick: Trick, sortOption: SortOrder): string {
   switch (sortOption) {

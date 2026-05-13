@@ -194,12 +194,12 @@ function groupTricksToSearchResult(
   const result: SearchResult = [{ title: currentGroup, items: [] }];
 
   for (const trick of sortedTricks) {
-    if (mapTrickToAttribute(trick, sorting) !== currentGroup) {
-      currentGroup = mapTrickToAttribute(trick, sorting);
+    const attr = mapTrickToAttribute(trick, sorting);
+    if (attr !== currentGroup) {
+      currentGroup = attr;
       result.push({ title: currentGroup, items: [] });
     }
-    const searchItem = searchItemFromTrick(trick, nameToUse);
-    result[result.length - 1].items.push(searchItem);
+    result[result.length - 1].items.push(searchItemFromTrick(trick, nameToUse));
   }
   return result;
 }
@@ -218,6 +218,40 @@ export function getVariationsForTrick(
         (parentKey) => parentKey[0] === trickId && parentKey[1] === trickStatus
       )
   );
+}
+
+// Builds a parent-key → variations lookup in a single pass over allTricks,
+// so sort/search changes don't trigger O(visible × allTricks) re-scans.
+export function buildVariationsIndex(
+  allTricks: Trick[],
+  includedStatuses: string[],
+  preferredName: TrickNameOption
+): Map<string, SearchItem[]> {
+  const index = new Map<string, SearchItem[]>();
+  for (const trick of allTricks) {
+    if (!includedStatuses.includes(trick.primaryKey[1])) continue;
+    if (!trick.variationOf || trick.variationOf.length === 0) continue;
+    const item = searchItemFromTrick(trick, preferredName);
+    for (const parentKey of trick.variationOf) {
+      const key = `${parentKey[1]}:${parentKey[0]}`;
+      let bucket = index.get(key);
+      if (!bucket) {
+        bucket = [];
+        index.set(key, bucket);
+      }
+      bucket.push(item);
+    }
+  }
+  for (const bucket of index.values()) {
+    bucket.sort((a, b) => {
+      const aUndef = a.difficultyLevel == null;
+      const bUndef = b.difficultyLevel == null;
+      if (aUndef !== bUndef) return aUndef ? 1 : -1;
+      if (aUndef) return 0;
+      return (a.difficultyLevel as number) - (b.difficultyLevel as number);
+    });
+  }
+  return index;
 }
 
 export function searchInTricks(
@@ -251,10 +285,6 @@ export function searchInTricks(
   }
 
   const sortedTricks = sortTricks(filteredTricks, searchParameters.sortOrder);
-  const sortedTricksWithVariations = sortTricks(
-    filteredTricksWithVariations,
-    searchParameters.sortOrder
-  );
 
   if (!searchParameters.showFavoritesAtTop) {
     return groupTricksToSearchResult(
@@ -265,9 +295,11 @@ export function searchInTricks(
     );
   }
 
-  const isolatedFavorites = sortedTricksWithVariations.filter((trick) => trick.isFavorite);
+  // Favorites are typically a small slice; filter first so we only sort that
+  // slice instead of the entire trick list a second time.
+  const favorites = filteredTricksWithVariations.filter((trick) => trick.isFavorite);
 
-  if (isolatedFavorites.length == 0) {
+  if (favorites.length === 0) {
     return groupTricksToSearchResult(
       sortedTricks,
       searchParameters.sortOrder,
@@ -276,9 +308,10 @@ export function searchInTricks(
     );
   }
 
+  const sortedFavorites = sortTricks(favorites, searchParameters.sortOrder);
   const favoritesSection: SearchSection = {
     title: favoritesSectionTitle,
-    items: isolatedFavorites.map((trick) =>
+    items: sortedFavorites.map((trick) =>
       searchItemFromTrick(trick, searchParameters.preferredName)
     ),
   };
