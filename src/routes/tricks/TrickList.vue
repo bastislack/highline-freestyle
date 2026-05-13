@@ -161,6 +161,10 @@ const includedStatusesParam = computed(() => getIncludedStatuses());
 const showFavoritesAtTopParam = computed(() => getShowFavoritesAtTop());
 const preferredNameParam = computed(() => getPreferredName());
 
+// Reused for items without variations so the prop reference stays stable
+// across renders — passing a fresh `[]` each time forces child re-renders.
+const EMPTY_VARIATIONS: SearchItem[] = [];
+
 // Cached locally so search/sort/group can re-run without hitting IndexedDB on
 // every keystroke — see issue #430. Refreshed on mount, on KeepAlive
 // reactivation, and after writes that mutate the trick set elsewhere.
@@ -413,7 +417,7 @@ onActivated(async () => {
 
         <Collapsible
           v-for="section in visibleSections"
-          :key="section.id"
+          :key="section.title"
           :open="section.isOpen"
           :disabled="!section.isCollapsible"
           class="w-full flex flex-col"
@@ -458,7 +462,10 @@ onActivated(async () => {
                 :is-favorite="item.isFavorite"
                 :is-new="item.isNew"
                 :link-to-details="linkToDetails(item.primaryKey)"
-                :variations="variationsMap.get(item.primaryKey[1] + ':' + item.primaryKey[0]) || []"
+                :variations="
+                  variationsMap.get(item.primaryKey[1] + ':' + item.primaryKey[0]) ||
+                  EMPTY_VARIATIONS
+                "
                 :showVariations="section.showVariations"
                 :anchor-key="item.primaryKey[1] + ':' + item.primaryKey[0]"
               />
