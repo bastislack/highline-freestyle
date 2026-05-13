@@ -22,6 +22,7 @@ import { SearchItem, SearchResult, SearchSection, SortOrder } from '@/types/sear
 import { Trick } from '@/lib/database/daos/trick';
 import { searchInTricks, buildVariationsIndex } from '@/services/searchAndFilterTricks';
 import { migrateLegacySortOrder } from '@/routes/tricks/sortingOptions';
+import { nextTrickListInstanceId } from './trickListInstance';
 import { getShowVariationsAsTricks } from '@/util/variationPreferences';
 import {
   getIncludedStatuses,
@@ -71,6 +72,10 @@ const LOCAL_STORAGE_SORT_KEY = 'SearchParameters-Tricks-SortOrder';
 const LOCAL_STORAGE_COLLAPSED_SECTIONS_KEY = 'TrickList-CollapsedSections';
 const SESSION_STORAGE_SCROLL_ANCHOR_KEY = 'TrickList-ScrollAnchor';
 const SESSION_STORAGE_SEARCH_KEY = 'TrickList-SearchText';
+
+// Per-instance prefix for teleport target ids so multiple TrickList instances
+// would not collide on the DOM.
+const trickListInstanceId = nextTrickListInstanceId();
 
 const scrollAnchor = useScrollAnchor(SESSION_STORAGE_SCROLL_ANCHOR_KEY);
 
@@ -233,7 +238,7 @@ function getSectionStorageId(section: SearchSection): string {
   return `${sortOrder.value}:${section.title}`;
 }
 
-function isFavoritesSection(section: SearchSection): boolean {
+function isFavoritesSection(section: { title: string }): boolean {
   return section.title === t('sectionTitles.favorites');
 }
 
@@ -251,6 +256,55 @@ const visibleSections = computed<SectionView[]>(() =>
     };
   })
 );
+
+// Stable element id per section title so `<Teleport :to>` can find each
+// Collapsible's content slot by selector. The same title across sort changes
+// (e.g. asc <-> desc) reuses the same id; new titles get a fresh id once and
+// keep it for the lifetime of this instance.
+const sectionTargetIds = new Map<string, string>();
+let sectionIdCounter = 0;
+function sectionTargetId(title: string): string {
+  let id = sectionTargetIds.get(title);
+  if (!id) {
+    id = `${trickListInstanceId}-s${++sectionIdCounter}`;
+    sectionTargetIds.set(title, id);
+  }
+  return id;
+}
+
+// Per-card pool entries. Each trick can appear up to twice in the visible
+// result (once in the favorites section, once in its sort group); we
+// distinguish those via a `slot` prefix so both card instances stay mounted
+// with stable Vue keys across sort changes and only their teleport target
+// changes.
+type PoolEntry = {
+  poolKey: string;
+  item: SearchItem;
+  targetId: string;
+  showVariations: boolean;
+  variations: SearchItem[];
+  anchorKey: string;
+};
+
+const poolEntries = computed<PoolEntry[]>(() => {
+  const entries: PoolEntry[] = [];
+  for (const section of visibleSections.value) {
+    const targetId = sectionTargetId(section.title);
+    const slot = isFavoritesSection(section) ? 'favorites' : 'main';
+    for (const item of section.items) {
+      const pkKey = `${item.primaryKey[1]}:${item.primaryKey[0]}`;
+      entries.push({
+        poolKey: `${slot}:${pkKey}`,
+        item,
+        targetId,
+        showVariations: section.showVariations,
+        variations: variationsMap.value.get(pkKey) ?? EMPTY_VARIATIONS,
+        anchorKey: pkKey,
+      });
+    }
+  }
+  return entries;
+});
 
 function trickToAttribute(trick: Trick, sortOption: SortOrder): string {
   switch (sortOption) {
@@ -420,6 +474,7 @@ onActivated(async () => {
           :key="section.title"
           :open="section.isOpen"
           :disabled="!section.isCollapsible"
+          :unmount-on-hide="false"
           class="w-full flex flex-col"
           :class="{ 'gap-1': section.isOpen }"
           @update:open="(open: boolean) => toggleSection(section.id, open)"
@@ -448,30 +503,43 @@ onActivated(async () => {
             </button>
           </CollapsibleTrigger>
           <CollapsibleContent>
+            <!-- Empty target. Cards from the pool below teleport into here so
+                 sort/search changes only reassign teleport destinations
+                 instead of unmounting/remounting card instances. -->
             <div
+              :id="sectionTargetId(section.title)"
               class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 gap-2 w-full grid-flow-row-dense"
-            >
-              <StickableSearchResult
-                v-for="item in section.items"
-                :key="item.primaryKey[1] + ':' + item.primaryKey[0]"
-                :title="item.name"
-                :primary-key="item.primaryKey"
-                :status="item.primaryKey[1]"
-                :stick-frequency="item.stickFrequency"
-                :difficulty-level="item.difficultyLevel"
-                :is-favorite="item.isFavorite"
-                :is-new="item.isNew"
-                :link-to-details="linkToDetails(item.primaryKey)"
-                :variations="
-                  variationsMap.get(item.primaryKey[1] + ':' + item.primaryKey[0]) ||
-                  EMPTY_VARIATIONS
-                "
-                :showVariations="section.showVariations"
-                :anchor-key="item.primaryKey[1] + ':' + item.primaryKey[0]"
-              />
-            </div>
+            />
           </CollapsibleContent>
         </Collapsible>
+
+        <!-- Card pool: components stay mounted here for the lifetime of the
+             trick list view. Each <Teleport> projects its card into the
+             current section target. When sort/search changes, only the
+             teleport :to values flip — Vue moves the rendered DOM into the
+             new target without tearing down card instances. -->
+        <div hidden aria-hidden="true">
+          <Teleport
+            v-for="entry in poolEntries"
+            :key="entry.poolKey"
+            :to="'#' + entry.targetId"
+            defer
+          >
+            <StickableSearchResult
+              :title="entry.item.name"
+              :primary-key="entry.item.primaryKey"
+              :status="entry.item.primaryKey[1]"
+              :stick-frequency="entry.item.stickFrequency"
+              :difficulty-level="entry.item.difficultyLevel"
+              :is-favorite="entry.item.isFavorite"
+              :is-new="entry.item.isNew"
+              :link-to-details="linkToDetails(entry.item.primaryKey)"
+              :variations="entry.variations"
+              :show-variations="entry.showVariations"
+              :anchor-key="entry.anchorKey"
+            />
+          </Teleport>
+        </div>
       </div>
     </Section>
 
