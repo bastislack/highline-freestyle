@@ -1,16 +1,14 @@
 {
-  "variationsAsTricks": "Variations as tricks",
   "trickCountLabel": "{count} trick | {count} tricks",
   "variationCountLabel": "{count} variation | {count} variations",
   "textSearchPlaceholder": "Search",
-  "sortOptionsLabel": "Sorting",
-  "filtersLabel": "Filters",
+  "sortByLabel": "Sort by",
   "sortOptions": {
     "difficulty": "Difficulty",
     "startPosition": "Start Position",
     "endPosition": "End Position",
     "inventionYear": "Invention year",
-    "ascending": "Up",
-    "descending": "Down"
+    "ascending": "Ascending",
+    "descending": "Descending"
   }
 }

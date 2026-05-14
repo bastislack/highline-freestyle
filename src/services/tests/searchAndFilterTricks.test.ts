@@ -230,7 +230,7 @@ describe('sortTricks', () => {
     const trickB = makeTrick({ id: 2, startPosition: 'Stand' });
     const trickC = makeTrick({ id: 3, startPosition: 'Chest' });
 
-    const result = sortTricks([trickA, trickB, trickC], 'startPos');
+    const result = sortTricks([trickA, trickB, trickC], 'startPos-asc');
 
     const ids = result.map((t) => t.primaryKey[0]);
     // Alphabetical order: Chest, Feet, Stand
@@ -242,7 +242,7 @@ describe('sortTricks', () => {
     const trickB = makeTrick({ id: 2, endPosition: 'Stand' });
     const trickC = makeTrick({ id: 3, endPosition: 'Chest' });
 
-    const result = sortTricks([trickA, trickB, trickC], 'endPos');
+    const result = sortTricks([trickA, trickB, trickC], 'endPos-asc');
 
     const ids = result.map((t) => t.primaryKey[0]);
     // Alphabetical order: Chest, Feet, Stand
@@ -256,7 +256,7 @@ describe('sortTricks', () => {
     let trickList = [trickA, trickB, trickC];
 
     trickList = sortTricks(trickList, 'difficulty-asc');
-    trickList = sortTricks(trickList, 'startPos');
+    trickList = sortTricks(trickList, 'startPos-asc');
     trickList = sortTricks(trickList, 'difficulty-asc');
 
     const ids = trickList.map((t) => t.primaryKey[0]);

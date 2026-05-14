@@ -11,6 +11,10 @@
       "name": "Afficher les noms techniques",
       "description": "Afficher les noms techniques au lieu des alias"
     },
+    "variationsAsTricks": {
+      "name": "Variations comme figures",
+      "description": "Afficher chaque variation comme une entrée distincte dans la liste"
+    },
     "includedStatuses": {
       "name": "Types de figures affichés",
       "official": "Officiel",

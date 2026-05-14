@@ -1,16 +1,14 @@
 {
-  "variationsAsTricks": "Variations comme figures",
   "trickCountLabel": "{count} figure | {count} figures",
   "variationCountLabel": "{count} variation | {count} variations",
   "textSearchPlaceholder": "Chercher",
-  "sortOptionsLabel": "Ordre",
-  "filtersLabel": "Filtres",
+  "sortByLabel": "Trier par",
   "sortOptions": {
     "difficulty": "Difficulté",
     "startPosition": "Position initiale",
     "endPosition": "Position finale",
     "inventionYear": "Année d'invention",
-    "ascending": "Haut",
-    "descending": "Bas"
+    "ascending": "Croissant",
+    "descending": "Décroissant"
   }
 }

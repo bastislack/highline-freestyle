@@ -11,6 +11,10 @@
       "name": "Show technical names",
       "description": "Display technical names instead of aliases"
     },
+    "variationsAsTricks": {
+      "name": "Variations as tricks",
+      "description": "Show every variation as its own entry in the list"
+    },
     "includedStatuses": {
       "name": "Shown trick types",
       "official": "Official",

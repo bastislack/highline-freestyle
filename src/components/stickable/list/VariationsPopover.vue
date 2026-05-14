@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Icon } from '@iconify/vue/dist/iconify.js';
 import type { PrimaryKey } from '@/lib/utils';
@@ -37,6 +37,14 @@ function highlightClass(stickFrequency?: number): string {
 
 const isOpen = ref(false);
 const triggerRef = ref<HTMLElement>();
+// PopoverContent mounts the reka-ui content subtree plus all variation cards;
+// keep it out of the tree until the user first opens the dropdown so the bulk
+// of trick cards stay cheap to (re-)mount on sort/search churn. Sticky so we
+// don't unmount/remount on every close.
+const hasBeenOpened = ref(false);
+watch(isOpen, (open) => {
+  if (open) hasBeenOpened.value = true;
+});
 
 function getGridParent() {
   let el = triggerRef.value?.parentElement;
@@ -133,7 +141,7 @@ function onCardClickCapture(e: MouseEvent) {
       </Teleport>
 
       <PopoverContent
-        v-if="!isRouteLeaving"
+        v-if="hasBeenOpened && !isRouteLeaving"
         side="bottom"
         :side-offset="8"
         :reference="virtualReference"

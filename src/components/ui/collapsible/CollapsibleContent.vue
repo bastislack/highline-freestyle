@@ -15,7 +15,21 @@ function onAnimationStart(e: AnimationEvent) {
   if (e.target === e.currentTarget) isAnimating.value = true;
 }
 function onAnimationEnd(e: AnimationEvent) {
-  if (e.target === e.currentTarget) isAnimating.value = false;
+  if (e.target !== e.currentTarget) return;
+  isAnimating.value = false;
+  // KeepAlive deactivation removes this element from the document and
+  // reactivation reinserts it. CSS spec restarts any matching animation rule
+  // on reinsertion, so an open Collapsible would replay its expand
+  // animation every time the user returns from a child route. Pin
+  // animation-name to 'none' once the user-triggered animation has finished —
+  // reka's watcher resets this on the next isOpen toggle, so real
+  // open/close gestures still animate normally.
+  (e.currentTarget as HTMLElement).style.animationName = 'none';
+}
+function onAnimationCancel(e: AnimationEvent) {
+  if (e.target !== e.currentTarget) return;
+  isAnimating.value = false;
+  (e.currentTarget as HTMLElement).style.animationName = 'none';
 }
 </script>
 
@@ -26,6 +40,7 @@ function onAnimationEnd(e: AnimationEvent) {
     :class="!isAnimating ? 'data-[state=open]:overflow-visible' : ''"
     @animationstart="onAnimationStart"
     @animationend="onAnimationEnd"
+    @animationcancel="onAnimationCancel"
   >
     <slot />
   </CollapsibleContent>

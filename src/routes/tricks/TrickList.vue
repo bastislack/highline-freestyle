@@ -18,15 +18,11 @@ defineOptions({ name: 'TrickList' });
 import { isOfficialSyncing } from '@/lib/database/official';
 import { PrimaryKey } from '@/lib/utils';
 import { useScrollAnchor } from '@/composables/useScrollAnchor';
-import {
-  SearchItem,
-  SearchParameters,
-  SearchResult,
-  SearchSection,
-  SortOrder,
-} from '@/types/search';
+import { SearchItem, SearchResult, SearchSection, SortOrder } from '@/types/search';
 import { Trick } from '@/lib/database/daos/trick';
-import { searchInTricks, getVariationsForTrick } from '@/services/searchAndFilterTricks';
+import { searchInTricks, buildVariationsIndex } from '@/services/searchAndFilterTricks';
+import { migrateLegacySortOrder } from '@/routes/tricks/sortingOptions';
+import { nextTrickListInstanceId } from './trickListInstance';
 import { getShowVariationsAsTricks } from '@/util/variationPreferences';
 import {
   getIncludedStatuses,
@@ -37,7 +33,6 @@ import {
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import Header from '@/components/stickable/Header.vue';
 import TrickSearchMenu from '@/components/stickable/list/TrickSearchMenu.vue';
-import TrickFilterPopover from '@/components/stickable/list/TrickFilterPopover.vue';
 import StickableSearchResult from '@/components/stickable/list/StickableSearchResult.vue';
 import {
   stickFrequencyOverrides,
@@ -65,7 +60,6 @@ import { i18nMerge } from '@/i18n/i18nmerge';
 import messages_list from '@/i18n/list';
 import messages_positions from '@/i18n/common/positions';
 import messages_navbar from '@/i18n/navbar';
-import { isStickableNew } from '@/util/misc';
 import { buildCountSummary } from './trickListCountSummary';
 
 const i18n = useI18n({
@@ -79,10 +73,14 @@ const LOCAL_STORAGE_COLLAPSED_SECTIONS_KEY = 'TrickList-CollapsedSections';
 const SESSION_STORAGE_SCROLL_ANCHOR_KEY = 'TrickList-ScrollAnchor';
 const SESSION_STORAGE_SEARCH_KEY = 'TrickList-SearchText';
 
+// Per-instance prefix for teleport target ids so multiple TrickList instances
+// would not collide on the DOM.
+const trickListInstanceId = nextTrickListInstanceId();
+
 const scrollAnchor = useScrollAnchor(SESSION_STORAGE_SCROLL_ANCHOR_KEY);
 
 function loadSortOrder(): SortOrder {
-  return (localStorage.getItem(LOCAL_STORAGE_SORT_KEY) as SortOrder) || 'difficulty-asc';
+  return migrateLegacySortOrder(localStorage.getItem(LOCAL_STORAGE_SORT_KEY)) ?? 'difficulty-asc';
 }
 
 function loadSearchText(): string | undefined {
@@ -104,7 +102,6 @@ function saveCollapsedSections(sections: Set<string>) {
 }
 
 const collapsedSections = ref<Set<string>>(loadCollapsedSections());
-const isFilterPopoverOpen = ref(false);
 
 function getCollapsedSectionKey(sectionId: string): string {
   return `section:${sectionId}`;
@@ -169,6 +166,10 @@ const includedStatusesParam = computed(() => getIncludedStatuses());
 const showFavoritesAtTopParam = computed(() => getShowFavoritesAtTop());
 const preferredNameParam = computed(() => getPreferredName());
 
+// Reused for items without variations so the prop reference stays stable
+// across renders — passing a fresh `[]` each time forces child re-renders.
+const EMPTY_VARIATIONS: SearchItem[] = [];
+
 // Cached locally so search/sort/group can re-run without hitting IndexedDB on
 // every keystroke — see issue #430. Refreshed on mount, on KeepAlive
 // reactivation, and after writes that mutate the trick set elsewhere.
@@ -194,13 +195,14 @@ const searchResult = computed<SearchResult>(() =>
   )
 );
 
+// Index is keyed by parent PK and only depends on the trick set / filters,
+// not on the current sort or search — so toggling sort doesn't rebuild it.
 const variationsMap = computed<Map<string, SearchItem[]>>(() => {
   if (variationsAsTricks.value) return new Map();
-  return buildVariationsMap(
+  return buildVariationsIndex(
     allTricks.value,
-    searchResult.value,
-    preferredNameParam.value,
-    includedStatusesParam.value
+    includedStatusesParam.value,
+    preferredNameParam.value
   );
 });
 
@@ -231,12 +233,15 @@ function getSectionStorageId(section: SearchSection): string {
     return `search:${searchTextDebounced.value}`;
   }
 
-  // Use the section title directly for stable section IDs
-  // This prevents section ID changes when sorting changes
-  return `${sortOrder.value}:${section.title}`;
+  // Keyed on title alone so a collapsed section stays collapsed across sort
+  // direction (asc/desc) and sort field changes. Pre-refactor this included
+  // sortOrder, which both made each direction track its own collapse state
+  // and (paired with a sortOrder-prefixed Vue :key) hid the inconsistency
+  // by remounting the section per toggle.
+  return section.title;
 }
 
-function isFavoritesSection(section: SearchSection): boolean {
+function isFavoritesSection(section: { title: string }): boolean {
   return section.title === t('sectionTitles.favorites');
 }
 
@@ -255,46 +260,54 @@ const visibleSections = computed<SectionView[]>(() =>
   })
 );
 
-function buildVariationsMap(
-  allTricks: Trick[],
-  result: SearchResult,
-  preferredName: SearchParameters['preferredName'],
-  includedStatuses: string[]
-): Map<string, SearchItem[]> {
-  const map = new Map<string, SearchItem[]>();
-  for (const section of result) {
+// Stable element id per section title so `<Teleport :to>` can find each
+// Collapsible's content slot by selector. The same title across sort changes
+// (e.g. asc <-> desc) reuses the same id; new titles get a fresh id once and
+// keep it for the lifetime of this instance.
+const sectionTargetIds = new Map<string, string>();
+let sectionIdCounter = 0;
+function sectionTargetId(title: string): string {
+  let id = sectionTargetIds.get(title);
+  if (!id) {
+    id = `${trickListInstanceId}-s${++sectionIdCounter}`;
+    sectionTargetIds.set(title, id);
+  }
+  return id;
+}
+
+// Per-card pool entries. Each trick can appear up to twice in the visible
+// result (once in the favorites section, once in its sort group); we
+// distinguish those via a `slot` prefix so both card instances stay mounted
+// with stable Vue keys across sort changes and only their teleport target
+// changes.
+type PoolEntry = {
+  poolKey: string;
+  item: SearchItem;
+  targetId: string;
+  showVariations: boolean;
+  variations: SearchItem[];
+  anchorKey: string;
+};
+
+const poolEntries = computed<PoolEntry[]>(() => {
+  const entries: PoolEntry[] = [];
+  for (const section of visibleSections.value) {
+    const targetId = sectionTargetId(section.title);
+    const slot = isFavoritesSection(section) ? 'favorites' : 'main';
     for (const item of section.items) {
-      const variations = getVariationsForTrick(
-        allTricks,
-        item.primaryKey[0],
-        item.primaryKey[1],
-        includedStatuses
-      );
-      if (variations.length === 0) continue;
-      const variationItems: SearchItem[] = variations.map((variation) => ({
-        name:
-          preferredName === 'alias'
-            ? variation.alias ?? variation.technicalName
-            : variation.technicalName,
-        primaryKey: [...variation.primaryKey],
-        stickFrequency: variation.stickFrequency,
-        difficultyLevel: variation.difficultyLevel,
-        isFavorite: variation.isFavorite,
-        isNew:
-          variation.primaryKey[1] !== 'userDefined' && isStickableNew(variation.dateAddedEpoch),
-      }));
-      variationItems.sort((a, b) => {
-        const aUndef = a.difficultyLevel == null;
-        const bUndef = b.difficultyLevel == null;
-        if (aUndef !== bUndef) return aUndef ? 1 : -1;
-        if (aUndef) return 0;
-        return (a.difficultyLevel as number) - (b.difficultyLevel as number);
+      const pkKey = `${item.primaryKey[1]}:${item.primaryKey[0]}`;
+      entries.push({
+        poolKey: `${slot}:${pkKey}`,
+        item,
+        targetId,
+        showVariations: section.showVariations,
+        variations: variationsMap.value.get(pkKey) ?? EMPTY_VARIATIONS,
+        anchorKey: pkKey,
       });
-      map.set(`${item.primaryKey[1]}:${item.primaryKey[0]}`, variationItems);
     }
   }
-  return map;
-}
+  return entries;
+});
 
 function trickToAttribute(trick: Trick, sortOption: SortOrder): string {
   switch (sortOption) {
@@ -303,9 +316,11 @@ function trickToAttribute(trick: Trick, sortOption: SortOrder): string {
       return trick.difficultyLevel
         ? t('sectionTitles.difficulty', { difficulty: trick.difficultyLevel })
         : t('sectionTitles.notDetermined');
-    case 'startPos':
+    case 'startPos-asc':
+    case 'startPos-desc':
       return trick.startPosition ? t(trick.startPosition) : t('sectionTitles.unknown');
-    case 'endPos':
+    case 'endPos-asc':
+    case 'endPos-desc':
       return trick.endPosition ? t(trick.endPosition) : t('sectionTitles.unknown');
     case 'yearEstablished-asc':
     case 'yearEstablished-desc':
@@ -414,11 +429,6 @@ onActivated(async () => {
     <Header>
       <img :src="ImgLogoUrl" class="h-10 max-w-full object-contain mx-auto" alt="Logo" />
       <template #buttonsRight>
-        <TrickFilterPopover
-          v-model:sort-order="sortOrder"
-          v-model:open="isFilterPopoverOpen"
-          :sort-disabled="!!searchTextDebounced"
-        />
         <Button size="icon" variant="ghost" as-child>
           <RouterLink to="/settings" :aria-label="t('settings')">
             <Icon icon="ic:round-settings" class="h-6 w-6 text-foreground" />
@@ -429,6 +439,7 @@ onActivated(async () => {
     <Section>
       <TrickSearchMenu
         v-model:search-text="searchText"
+        v-model:sort-order="sortOrder"
         :trick-count="countSummary.trickCount"
         :variation-count="countSummary.variationCount"
         :total-count="countSummary.totalCount"
@@ -463,9 +474,10 @@ onActivated(async () => {
 
         <Collapsible
           v-for="section in visibleSections"
-          :key="section.id"
+          :key="section.title"
           :open="section.isOpen"
           :disabled="!section.isCollapsible"
+          :unmount-on-hide="false"
           class="w-full flex flex-col"
           :class="{ 'gap-1': section.isOpen }"
           @update:open="(open: boolean) => toggleSection(section.id, open)"
@@ -494,35 +506,45 @@ onActivated(async () => {
             </button>
           </CollapsibleTrigger>
           <CollapsibleContent>
+            <!-- Empty target. Cards from the pool below teleport into here so
+                 sort/search changes only reassign teleport destinations
+                 instead of unmounting/remounting card instances. -->
             <div
+              :id="sectionTargetId(section.title)"
               class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 gap-2 w-full grid-flow-row-dense"
-            >
-              <StickableSearchResult
-                v-for="item in section.items"
-                :key="item.primaryKey[1] + ':' + item.primaryKey[0]"
-                :title="item.name"
-                :primary-key="item.primaryKey"
-                :status="item.primaryKey[1]"
-                :stick-frequency="item.stickFrequency"
-                :difficulty-level="item.difficultyLevel"
-                :is-favorite="item.isFavorite"
-                :is-new="item.isNew"
-                :link-to-details="linkToDetails(item.primaryKey)"
-                :variations="variationsMap.get(item.primaryKey[1] + ':' + item.primaryKey[0]) || []"
-                :showVariations="section.showVariations"
-                :anchor-key="item.primaryKey[1] + ':' + item.primaryKey[0]"
-              />
-            </div>
+            />
           </CollapsibleContent>
         </Collapsible>
+
+        <!-- Card pool: components stay mounted here for the lifetime of the
+             trick list view. Each <Teleport> projects its card into the
+             current section target. When sort/search changes, only the
+             teleport :to values flip — Vue moves the rendered DOM into the
+             new target without tearing down card instances. -->
+        <div hidden aria-hidden="true">
+          <Teleport
+            v-for="entry in poolEntries"
+            :key="entry.poolKey"
+            :to="'#' + entry.targetId"
+            defer
+          >
+            <StickableSearchResult
+              :title="entry.item.name"
+              :primary-key="entry.item.primaryKey"
+              :status="entry.item.primaryKey[1]"
+              :stick-frequency="entry.item.stickFrequency"
+              :difficulty-level="entry.item.difficultyLevel"
+              :is-favorite="entry.item.isFavorite"
+              :is-new="entry.item.isNew"
+              :link-to-details="linkToDetails(entry.item.primaryKey)"
+              :variations="entry.variations"
+              :show-variations="entry.showVariations"
+              :anchor-key="entry.anchorKey"
+            />
+          </Teleport>
+        </div>
       </div>
     </Section>
-
-    <div
-      v-if="isFilterPopoverOpen"
-      class="fixed inset-0 z-30 bg-black/10 backdrop-blur-[1px]"
-      aria-hidden="true"
-    />
 
     <!-- Floating Add-New-Trick-Menu -->
     <DropdownMenu>

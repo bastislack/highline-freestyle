@@ -7,6 +7,7 @@ import { PrimaryKey, StickableStatus } from '@/lib/utils';
 import messages_list from '@/i18n/list';
 import CardDecoration from './CardDecoration.vue';
 import { useEffectiveStickFrequency } from './stickFrequencyOverridesKey';
+import { observeOverflowTarget, unobserveOverflowTarget } from './sharedResizeObserver';
 
 const props = defineProps<{
   to: string; // when present, render as RouterLink
@@ -109,20 +110,17 @@ const updateIsOverflowing = () => {
   });
 };
 
-let resizeObserver: ResizeObserver | null = null;
-
 onMounted(() => {
   nextTick(updateIsOverflowing);
 
   // Re-check when element size changes (e.g., when collapsible opens or window resizes)
   if (textElement.value) {
-    resizeObserver = new ResizeObserver(updateIsOverflowing);
-    resizeObserver.observe(textElement.value);
+    observeOverflowTarget(textElement.value, updateIsOverflowing);
   }
 });
 
 onBeforeUnmount(() => {
-  resizeObserver?.disconnect();
+  if (textElement.value) unobserveOverflowTarget(textElement.value);
 });
 </script>
 
