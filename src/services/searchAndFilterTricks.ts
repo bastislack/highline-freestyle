@@ -118,6 +118,8 @@ const compareDifficultyUndefined = compareUndefinedLast((t) => t.difficultyLevel
 const compareDifficulty = compareNumeric((t) => t.difficultyLevel);
 const compareYearEstablishedUndefined = compareUndefinedLast((t) => t.yearEstablished);
 const compareYearEstablished = compareNumeric((t) => t.yearEstablished);
+const compareStickFrequencyUndefined = compareUndefinedLast((t) => t.stickFrequency);
+const compareStickFrequency = compareNumeric((t) => t.stickFrequency);
 
 function compareLowerCaseString(a: string, b: string): number {
   if (a.toLowerCase() < b.toLowerCase()) return -1;
@@ -165,6 +167,20 @@ export function sortTricks(tricks: Trick[], sorting: SortOrder): Trick[] {
         (a, b) =>
           compareYearEstablishedUndefined(a, b) ||
           -compareYearEstablished(a, b) ||
+          comparePrimaryKey(a, b)
+      );
+    case 'stickFrequency-asc':
+      return tricks.sort(
+        (a, b) =>
+          compareStickFrequencyUndefined(a, b) ||
+          compareStickFrequency(a, b) ||
+          comparePrimaryKey(a, b)
+      );
+    case 'stickFrequency-desc':
+      return tricks.sort(
+        (a, b) =>
+          compareStickFrequencyUndefined(a, b) ||
+          -compareStickFrequency(a, b) ||
           comparePrimaryKey(a, b)
       );
   }

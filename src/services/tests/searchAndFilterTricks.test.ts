@@ -249,6 +249,43 @@ describe('sortTricks', () => {
     expect(ids).toEqual([3, 1, 2]);
   });
 
+  it('stickFrequency-asc: lower frequencies first, undefined at the end', () => {
+    const trickA = makeTrick({ id: 1, stickFrequency: 5 });
+    const trickB = makeTrick({ id: 2, stickFrequency: 1 });
+    const trickC = makeTrick({ id: 3, stickFrequency: 3 });
+    const trickD = makeTrick({ id: 4, stickFrequency: undefined });
+
+    const result = sortTricks([trickA, trickB, trickC, trickD], 'stickFrequency-asc');
+
+    const ids = result.map((t) => t.primaryKey[0]);
+    expect(ids).toEqual([2, 3, 1, 4]);
+  });
+
+  it('stickFrequency-desc: higher frequencies first, undefined at the end', () => {
+    const trickA = makeTrick({ id: 1, stickFrequency: 5 });
+    const trickB = makeTrick({ id: 2, stickFrequency: 1 });
+    const trickC = makeTrick({ id: 3, stickFrequency: 3 });
+    const trickD = makeTrick({ id: 4, stickFrequency: undefined });
+
+    const result = sortTricks([trickA, trickB, trickC, trickD], 'stickFrequency-desc');
+
+    const ids = result.map((t) => t.primaryKey[0]);
+    // 5, 3, 1 descending, undefined last.
+    expect(ids).toEqual([1, 3, 2, 4]);
+  });
+
+  it('stickFrequency-asc: treats 0 as a real value, not as undefined', () => {
+    const neverTried = makeTrick({ id: 1, stickFrequency: 0 });
+    const practicing = makeTrick({ id: 2, stickFrequency: 1 });
+    const noData = makeTrick({ id: 3, stickFrequency: undefined });
+
+    const result = sortTricks([noData, practicing, neverTried], 'stickFrequency-asc');
+
+    const ids = result.map((t) => t.primaryKey[0]);
+    // 0 comes before 1; undefined goes last.
+    expect(ids).toEqual([1, 2, 3]);
+  });
+
   it('difficulty-asc to startPos and back: should be sorted difficulty-asc', () => {
     const trickA = makeTrick({ id: 1, difficultyLevel: 1, startPosition: 'Exposure' });
     const trickB = makeTrick({ id: 2, difficultyLevel: 2, startPosition: 'Back' });

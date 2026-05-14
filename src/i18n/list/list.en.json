@@ -3,7 +3,17 @@
     "difficulty": "Difficulty {difficulty}",
     "unknown": "Unknown",
     "notDetermined": "Not determined",
-    "favorites": "Favorites"
+    "favorites": "Favorites",
+    "stickFrequency": {
+      "0": "Never tried",
+      "1": "Practicing",
+      "2": "Once",
+      "3": "Rarely",
+      "4": "Sometimes",
+      "5": "Often",
+      "6": "Generally",
+      "7": "Always"
+    }
   },
   "cards": {
     "level": "Lvl {level}",

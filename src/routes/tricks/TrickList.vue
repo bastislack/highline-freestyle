@@ -325,6 +325,11 @@ function trickToAttribute(trick: Trick, sortOption: SortOrder): string {
     case 'yearEstablished-asc':
     case 'yearEstablished-desc':
       return trick.yearEstablished ? trick.yearEstablished.toString() : t('sectionTitles.unknown');
+    case 'stickFrequency-asc':
+    case 'stickFrequency-desc':
+      return trick.stickFrequency != null
+        ? t(`sectionTitles.stickFrequency.${trick.stickFrequency}`)
+        : t('sectionTitles.unknown');
   }
 }
 

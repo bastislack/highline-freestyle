@@ -16,7 +16,7 @@ export type SearchItem = {
   isFavorite: boolean;
 };
 
-export type SortField = 'difficulty' | 'startPos' | 'endPos' | 'yearEstablished';
+export type SortField = 'difficulty' | 'startPos' | 'endPos' | 'yearEstablished' | 'stickFrequency';
 export type SortDirection = 'asc' | 'desc';
 
 export type SortOrder =
@@ -27,7 +27,9 @@ export type SortOrder =
   | 'endPos-asc'
   | 'endPos-desc'
   | 'yearEstablished-asc'
-  | 'yearEstablished-desc';
+  | 'yearEstablished-desc'
+  | 'stickFrequency-asc'
+  | 'stickFrequency-desc';
 
 export type TrickNameOption = 'alias' | 'technicalName';
 
