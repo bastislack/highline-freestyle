@@ -233,9 +233,12 @@ function getSectionStorageId(section: SearchSection): string {
     return `search:${searchTextDebounced.value}`;
   }
 
-  // Use the section title directly for stable section IDs
-  // This prevents section ID changes when sorting changes
-  return `${sortOrder.value}:${section.title}`;
+  // Keyed on title alone so a collapsed section stays collapsed across sort
+  // direction (asc/desc) and sort field changes. Pre-refactor this included
+  // sortOrder, which both made each direction track its own collapse state
+  // and (paired with a sortOrder-prefixed Vue :key) hid the inconsistency
+  // by remounting the section per toggle.
+  return section.title;
 }
 
 function isFavoritesSection(section: { title: string }): boolean {
