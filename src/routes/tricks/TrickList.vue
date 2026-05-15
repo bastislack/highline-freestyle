@@ -309,6 +309,20 @@ const poolEntries = computed<PoolEntry[]>(() => {
   return entries;
 });
 
+// Numeric i18n path segments (e.g. `.0`) get interpreted as array indices,
+// so we map each stick-frequency value to a named key in the section title
+// bundle instead of relying on numeric path lookup.
+const STICK_FREQUENCY_TITLE_KEYS = [
+  'neverTried',
+  'practicing',
+  'once',
+  'rarely',
+  'sometimes',
+  'often',
+  'generally',
+  'always',
+] as const;
+
 function trickToAttribute(trick: Trick, sortOption: SortOrder): string {
   switch (sortOption) {
     case 'difficulty-asc':
@@ -327,8 +341,8 @@ function trickToAttribute(trick: Trick, sortOption: SortOrder): string {
       return trick.yearEstablished ? trick.yearEstablished.toString() : t('sectionTitles.unknown');
     case 'stickFrequency-asc':
     case 'stickFrequency-desc':
-      return trick.stickFrequency != null
-        ? t(`sectionTitles.stickFrequency.${trick.stickFrequency}`)
+      return trick.stickFrequency != null && trick.stickFrequency in STICK_FREQUENCY_TITLE_KEYS
+        ? t(`sectionTitles.stickFrequency.${STICK_FREQUENCY_TITLE_KEYS[trick.stickFrequency]}`)
         : t('sectionTitles.unknown');
   }
 }

@@ -5,14 +5,14 @@
     "notDetermined": "Non déterminé",
     "favorites": "Favoris",
     "stickFrequency": {
-      "0": "Jamais essayé",
-      "1": "Pratiquer",
-      "2": "Une fois",
-      "3": "Rarement",
-      "4": "Parfois",
-      "5": "Souvent",
-      "6": "En général",
-      "7": "Toujours"
+      "neverTried": "Jamais essayé",
+      "practicing": "Pratiquer",
+      "once": "Une fois",
+      "rarely": "Rarement",
+      "sometimes": "Parfois",
+      "often": "Souvent",
+      "generally": "En général",
+      "always": "Toujours"
     }
   },
   "cards": {
