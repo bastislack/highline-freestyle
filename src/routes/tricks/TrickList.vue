@@ -310,9 +310,10 @@ const poolEntries = computed<PoolEntry[]>(() => {
   return entries;
 });
 
-// Numeric i18n path segments (e.g. `.0`) get interpreted as array indices,
-// so we map each stick-frequency value to a named key in the section title
-// bundle instead of relying on numeric path lookup.
+// Map stickFrequency value (0-7) to the named i18n key under
+// `sectionTitles.stickFrequency`. Named keys are used because vue-i18n
+// interprets numeric path segments (e.g. `.0`) as array indices and would
+// not resolve them against an object whose keys are strings.
 const STICK_FREQUENCY_TITLE_KEYS = [
   'neverTried',
   'practicing',
@@ -391,9 +392,7 @@ async function loadTricks() {
 provide(stickFrequencyOverridesKey, stickFrequencyOverrides);
 // Let descendants (e.g. the long-press popover) refresh the trick list cache
 // after they commit a change, so section grouping picks up the new value.
-provide(trickListRefreshKey, () => {
-  loadTricks();
-});
+provide(trickListRefreshKey, loadTricks);
 
 watch(sortOrder, (val) => localStorage.setItem(LOCAL_STORAGE_SORT_KEY, val));
 
