@@ -10,6 +10,7 @@ export const sortFieldOptions: SortFieldOption[] = [
   { titleKey: 'sortOptions.startPosition', value: 'startPos' },
   { titleKey: 'sortOptions.endPosition', value: 'endPos' },
   { titleKey: 'sortOptions.inventionYear', value: 'yearEstablished' },
+  { titleKey: 'sortOptions.stickFrequency', value: 'stickFrequency' },
 ];
 
 export function parseSortOrder(order: SortOrder): { field: SortField; direction: SortDirection } {

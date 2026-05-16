@@ -38,6 +38,7 @@ import {
   stickFrequencyOverrides,
   stickFrequencyOverridesKey,
 } from '@/components/stickable/list/stickFrequencyOverridesKey';
+import { trickListRefreshKey } from '@/components/stickable/list/trickListContext';
 import Separator from '@/components/ui/separator/Separator.vue';
 import Section from '@/components/ui/section/Section.vue';
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '@/components/ui/collapsible';
@@ -309,6 +310,21 @@ const poolEntries = computed<PoolEntry[]>(() => {
   return entries;
 });
 
+// Map stickFrequency value (0-7) to the named i18n key under
+// `sectionTitles.stickFrequency`. Named keys are used because vue-i18n
+// interprets numeric path segments (e.g. `.0`) as array indices and would
+// not resolve them against an object whose keys are strings.
+const STICK_FREQUENCY_TITLE_KEYS = [
+  'neverTried',
+  'practicing',
+  'once',
+  'rarely',
+  'sometimes',
+  'often',
+  'generally',
+  'always',
+] as const;
+
 function trickToAttribute(trick: Trick, sortOption: SortOrder): string {
   switch (sortOption) {
     case 'difficulty-asc':
@@ -325,6 +341,14 @@ function trickToAttribute(trick: Trick, sortOption: SortOrder): string {
     case 'yearEstablished-asc':
     case 'yearEstablished-desc':
       return trick.yearEstablished ? trick.yearEstablished.toString() : t('sectionTitles.unknown');
+    case 'stickFrequency-asc':
+    case 'stickFrequency-desc': {
+      // Treat an unset stickFrequency as 0 ('Never tried') to match what the
+      // card colour and the long-press slider already show for the same data.
+      const freq = trick.stickFrequency ?? 0;
+      const key = STICK_FREQUENCY_TITLE_KEYS[freq];
+      return key ? t(`sectionTitles.stickFrequency.${key}`) : t('sectionTitles.unknown');
+    }
   }
 }
 
@@ -366,6 +390,9 @@ async function loadTricks() {
 // (long-press popover, cards) keep their inject path. Details view writes to
 // the same singleton directly via import.
 provide(stickFrequencyOverridesKey, stickFrequencyOverrides);
+// Let descendants (e.g. the long-press popover) refresh the trick list cache
+// after they commit a change, so section grouping picks up the new value.
+provide(trickListRefreshKey, loadTricks);
 
 watch(sortOrder, (val) => localStorage.setItem(LOCAL_STORAGE_SORT_KEY, val));
 

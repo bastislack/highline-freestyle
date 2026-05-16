@@ -119,6 +119,13 @@ const compareDifficulty = compareNumeric((t) => t.difficultyLevel);
 const compareYearEstablishedUndefined = compareUndefinedLast((t) => t.yearEstablished);
 const compareYearEstablished = compareNumeric((t) => t.yearEstablished);
 
+// Stick frequency: an unset value matches the slider's "Never tried" default
+// (0) both visually on the card and in the long-press selector, so sorting
+// coalesces undefined to 0 instead of treating it as a separate bucket.
+function effectiveStickFrequency(t: Trick): number {
+  return t.stickFrequency ?? 0;
+}
+
 function compareLowerCaseString(a: string, b: string): number {
   if (a.toLowerCase() < b.toLowerCase()) return -1;
   if (a.toLowerCase() > b.toLowerCase()) return 1;
@@ -166,6 +173,14 @@ export function sortTricks(tricks: Trick[], sorting: SortOrder): Trick[] {
           compareYearEstablishedUndefined(a, b) ||
           -compareYearEstablished(a, b) ||
           comparePrimaryKey(a, b)
+      );
+    case 'stickFrequency-asc':
+      return tricks.sort(
+        (a, b) => effectiveStickFrequency(a) - effectiveStickFrequency(b) || comparePrimaryKey(a, b)
+      );
+    case 'stickFrequency-desc':
+      return tricks.sort(
+        (a, b) => effectiveStickFrequency(b) - effectiveStickFrequency(a) || comparePrimaryKey(a, b)
       );
   }
 }

@@ -249,6 +249,45 @@ describe('sortTricks', () => {
     expect(ids).toEqual([3, 1, 2]);
   });
 
+  it('stickFrequency-asc: lower frequencies first; undefined sorts as 0', () => {
+    const trickA = makeTrick({ id: 1, stickFrequency: 5 });
+    const trickB = makeTrick({ id: 2, stickFrequency: 1 });
+    const trickC = makeTrick({ id: 3, stickFrequency: 3 });
+    const trickD = makeTrick({ id: 4, stickFrequency: undefined });
+
+    const result = sortTricks([trickA, trickB, trickC, trickD], 'stickFrequency-asc');
+
+    const ids = result.map((t) => t.primaryKey[0]);
+    // Undefined coalesces to 0 (Never tried), so trick D sits before the
+    // explicit frequencies.
+    expect(ids).toEqual([4, 2, 3, 1]);
+  });
+
+  it('stickFrequency-desc: higher frequencies first; undefined sorts as 0', () => {
+    const trickA = makeTrick({ id: 1, stickFrequency: 5 });
+    const trickB = makeTrick({ id: 2, stickFrequency: 1 });
+    const trickC = makeTrick({ id: 3, stickFrequency: 3 });
+    const trickD = makeTrick({ id: 4, stickFrequency: undefined });
+
+    const result = sortTricks([trickA, trickB, trickC, trickD], 'stickFrequency-desc');
+
+    const ids = result.map((t) => t.primaryKey[0]);
+    // Undefined sorts as 0 and lands at the end.
+    expect(ids).toEqual([1, 3, 2, 4]);
+  });
+
+  it('stickFrequency-asc: explicit 0 and undefined sort together (same bucket)', () => {
+    const neverTried = makeTrick({ id: 2, stickFrequency: 0 });
+    const noData = makeTrick({ id: 1, stickFrequency: undefined });
+    const practicing = makeTrick({ id: 3, stickFrequency: 1 });
+
+    const result = sortTricks([practicing, neverTried, noData], 'stickFrequency-asc');
+
+    const ids = result.map((t) => t.primaryKey[0]);
+    // Both freq-0 tricks come first (tiebroken by primary key), then freq 1.
+    expect(ids).toEqual([1, 2, 3]);
+  });
+
   it('difficulty-asc to startPos and back: should be sorted difficulty-asc', () => {
     const trickA = makeTrick({ id: 1, difficultyLevel: 1, startPosition: 'Exposure' });
     const trickB = makeTrick({ id: 2, difficultyLevel: 2, startPosition: 'Back' });
