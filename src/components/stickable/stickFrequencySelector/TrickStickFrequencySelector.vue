@@ -20,6 +20,7 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   change: [frequency: number];
+  commit: [frequency: number];
 }>();
 
 const { toast } = useToast();
@@ -67,6 +68,7 @@ async function onCommit(frequencyArr: [number]) {
     trick.stickFrequency = frequency;
     await trick.persist();
     lastCommittedFrequency = frequency;
+    emit('commit', frequency);
   } catch (err) {
     frequencyModel.value = [lastCommittedFrequency];
     emit('change', lastCommittedFrequency);

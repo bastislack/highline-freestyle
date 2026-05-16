@@ -6,6 +6,7 @@ import { Popover, PopoverContent } from '@/components/ui/popover';
 import TrickStickFrequencySelector from '@/components/stickable/stickFrequencySelector/TrickStickFrequencySelector.vue';
 import type { StickableStatus } from '@/lib/utils';
 import { stickFrequencyOverridesKey, frequencyOverrideKey } from './stickFrequencyOverridesKey';
+import { trickListRefreshKey } from './trickListContext';
 import { reportNestedPopoverOpen, usePopoverAutoClose } from '@/composables/usePopoverAutoClose';
 
 const props = defineProps<{
@@ -27,8 +28,19 @@ const hasInteracted = ref(false);
 // re-renders only the card(s) that read this key — no list-wide cascade.
 const overrides = inject(stickFrequencyOverridesKey, null);
 
+// Host can also provide a refresh callback so we can re-fetch the cached
+// trick array after the user commits a change. Deferred until the popover
+// closes so the section grouping doesn't shift the card out from under the
+// user's finger mid-gesture.
+const requestTrickListRefresh = inject(trickListRefreshKey, null);
+let needsRefreshAfterClose = false;
+
 function onChange(frequency: number) {
   overrides?.set(frequencyOverrideKey([props.trickId, props.trickStatus]), frequency);
+}
+
+function onCommit() {
+  needsRefreshAfterClose = true;
 }
 
 const LONG_PRESS_DELAY = 500;
@@ -166,6 +178,16 @@ const placeholderStyle = computed(() => {
 const { isRouteLeaving } = usePopoverAutoClose(containerRef, isOpen);
 reportNestedPopoverOpen(isOpen);
 
+// Refresh the host trick list only once the popover is fully closed, so the
+// card doesn't teleport into a different section while the user is still
+// looking at the slider.
+watch(isOpen, (open) => {
+  if (open) return;
+  if (!needsRefreshAfterClose) return;
+  needsRefreshAfterClose = false;
+  requestTrickListRefresh?.();
+});
+
 // Belt-and-suspenders: even if pointer events were lost, route navigation and
 // KeepAlive deactivation must never leave the ghost teleported to body.
 onBeforeRouteLeave(() => endPress());
@@ -232,6 +254,7 @@ onUnmounted(() => {
         :trick-id="props.trickId"
         :trick-status="props.trickStatus"
         @change="onChange"
+        @commit="onCommit"
       />
     </PopoverContent>
   </Popover>

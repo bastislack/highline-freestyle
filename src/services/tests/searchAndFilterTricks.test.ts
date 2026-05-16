@@ -249,7 +249,7 @@ describe('sortTricks', () => {
     expect(ids).toEqual([3, 1, 2]);
   });
 
-  it('stickFrequency-asc: lower frequencies first, undefined at the end', () => {
+  it('stickFrequency-asc: lower frequencies first; undefined sorts as 0', () => {
     const trickA = makeTrick({ id: 1, stickFrequency: 5 });
     const trickB = makeTrick({ id: 2, stickFrequency: 1 });
     const trickC = makeTrick({ id: 3, stickFrequency: 3 });
@@ -258,10 +258,12 @@ describe('sortTricks', () => {
     const result = sortTricks([trickA, trickB, trickC, trickD], 'stickFrequency-asc');
 
     const ids = result.map((t) => t.primaryKey[0]);
-    expect(ids).toEqual([2, 3, 1, 4]);
+    // Undefined coalesces to 0 (Never tried), so trick D sits before the
+    // explicit frequencies.
+    expect(ids).toEqual([4, 2, 3, 1]);
   });
 
-  it('stickFrequency-desc: higher frequencies first, undefined at the end', () => {
+  it('stickFrequency-desc: higher frequencies first; undefined sorts as 0', () => {
     const trickA = makeTrick({ id: 1, stickFrequency: 5 });
     const trickB = makeTrick({ id: 2, stickFrequency: 1 });
     const trickC = makeTrick({ id: 3, stickFrequency: 3 });
@@ -270,19 +272,19 @@ describe('sortTricks', () => {
     const result = sortTricks([trickA, trickB, trickC, trickD], 'stickFrequency-desc');
 
     const ids = result.map((t) => t.primaryKey[0]);
-    // 5, 3, 1 descending, undefined last.
+    // Undefined sorts as 0 and lands at the end.
     expect(ids).toEqual([1, 3, 2, 4]);
   });
 
-  it('stickFrequency-asc: treats 0 as a real value, not as undefined', () => {
-    const neverTried = makeTrick({ id: 1, stickFrequency: 0 });
-    const practicing = makeTrick({ id: 2, stickFrequency: 1 });
-    const noData = makeTrick({ id: 3, stickFrequency: undefined });
+  it('stickFrequency-asc: explicit 0 and undefined sort together (same bucket)', () => {
+    const neverTried = makeTrick({ id: 2, stickFrequency: 0 });
+    const noData = makeTrick({ id: 1, stickFrequency: undefined });
+    const practicing = makeTrick({ id: 3, stickFrequency: 1 });
 
-    const result = sortTricks([noData, practicing, neverTried], 'stickFrequency-asc');
+    const result = sortTricks([practicing, neverTried, noData], 'stickFrequency-asc');
 
     const ids = result.map((t) => t.primaryKey[0]);
-    // 0 comes before 1; undefined goes last.
+    // Both freq-0 tricks come first (tiebroken by primary key), then freq 1.
     expect(ids).toEqual([1, 2, 3]);
   });
 
