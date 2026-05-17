@@ -16,6 +16,7 @@ const props = defineProps<{
   difficultyLevel?: number;
   baseDifficultyLevel?: number;
   showLevel?: boolean;
+  levelAlign?: 'center' | 'left';
   isFavorite: boolean;
   isNew: boolean;
   status: StickableStatus;
@@ -145,7 +146,8 @@ onBeforeUnmount(() => {
     </div>
     <div
       v-if="props.showLevel"
-      class="absolute bottom-0 left-0 h-6 w-full flex items-center justify-center pointer-events-none"
+      class="absolute bottom-0 left-0 h-6 w-full flex items-center pointer-events-none"
+      :class="props.levelAlign === 'left' ? 'justify-start pl-1' : 'justify-center'"
     >
       <span
         class="rounded flex items-center justify-center gap-0.5 px-1 h-4 text-[9px] text-muted-foreground leading-none"

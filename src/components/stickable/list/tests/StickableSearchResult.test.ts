@@ -26,6 +26,7 @@ const baseProps = {
   isNew: false,
   variations: [] as SearchItem[],
   showVariations: true,
+  showLevel: true,
 };
 
 const mockVariations: SearchItem[] = [

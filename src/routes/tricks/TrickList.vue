@@ -147,6 +147,10 @@ onDeactivated(() => clearTimeout(searchDebounceTimer));
 onUnmounted(() => clearTimeout(searchDebounceTimer));
 const sortOrder = ref<SortOrder>(loadSortOrder());
 
+// When the list is sorted by difficulty, the level is already conveyed by the
+// section headers, so the per-card badge would be redundant.
+const showLevelBadge = computed(() => !sortOrder.value.startsWith('difficulty-'));
+
 // Show nothing for the first 200ms; if data still isn't ready, show a skeleton
 // placeholder. Avoids skeleton flash on fast loads while preventing the
 // "no tricks" empty state from leaking through during slower initial loads.
@@ -566,6 +570,7 @@ onActivated(async () => {
               :link-to-details="linkToDetails(entry.item.primaryKey)"
               :variations="entry.variations"
               :show-variations="entry.showVariations"
+              :show-level="showLevelBadge"
               :anchor-key="entry.anchorKey"
             />
           </Teleport>

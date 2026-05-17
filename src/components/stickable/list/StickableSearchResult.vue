@@ -16,6 +16,7 @@ const props = defineProps<{
   isNew: boolean;
   variations: SearchItem[];
   showVariations: boolean;
+  showLevel: boolean;
   // Stable per-item key so useScrollAnchor can find this card on return.
   // Lands on the rendered <a>, which is what the user sees in both branches —
   // the popover branch's wrapper divs sit invisibly around the same <a>.
@@ -40,7 +41,8 @@ const props = defineProps<{
         :primary-key="props.primaryKey"
         :stickFrequency="props.stickFrequency"
         :difficultyLevel="props.difficultyLevel"
-        :showLevel="true"
+        :showLevel="props.showLevel"
+        levelAlign="left"
         :isFavorite="props.isFavorite"
         :isNew="props.isNew"
         :status="props.status"
@@ -56,7 +58,7 @@ const props = defineProps<{
       :primary-key="props.primaryKey"
       :stickFrequency="props.stickFrequency"
       :difficultyLevel="props.difficultyLevel"
-      :showLevel="true"
+      :showLevel="props.showLevel"
       :isFavorite="props.isFavorite"
       :isNew="props.isNew"
       :status="props.status"
