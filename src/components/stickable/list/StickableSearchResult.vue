@@ -42,7 +42,6 @@ const props = defineProps<{
         :stickFrequency="props.stickFrequency"
         :difficultyLevel="props.difficultyLevel"
         :showLevel="props.showLevel"
-        levelAlign="left"
         :isFavorite="props.isFavorite"
         :isNew="props.isNew"
         :status="props.status"
