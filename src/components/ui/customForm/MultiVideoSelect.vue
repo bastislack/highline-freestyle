@@ -173,8 +173,9 @@ function normalizeLink(video: DbVideo) {
 
           <Button
             variant="outline"
+            size="sm"
             type="button"
-            class="self-start font-normal"
+            class="self-start w-fit font-normal"
             @click="
               () => {
                 if (!componentField.modelValue) componentField.modelValue = [];
@@ -182,7 +183,7 @@ function normalizeLink(video: DbVideo) {
               }
             "
           >
-            <Icon icon="ic:round-add" class="w-5 h-5 mr-1" />
+            <Icon icon="ic:round-add" class="w-4 h-4 mr-1" />
             {{ t('buttons.addVideo') }}
           </Button>
         </div>
