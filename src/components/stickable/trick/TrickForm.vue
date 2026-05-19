@@ -10,6 +10,8 @@ import { i18nMerge } from '@/i18n/i18nmerge';
 import { DbPositionZod, DbReferenceZod } from '@/lib/database/schemas/CurrentVersionSchema';
 
 import { Button } from '@/components/ui/button';
+import Switch from '@/components/ui/switch/Switch.vue';
+import { FormControl, FormDescription, FormField, FormItem, FormLabel } from '@/components/ui/form';
 import PositionSelectInput from '@/components/ui/customForm/PositionSelectInput.vue';
 import MultilineTextInput from '@/components/ui/customForm/MultilineTextInput.vue';
 import TextInput from '@/components/ui/customForm/TextInput.vue';
@@ -70,6 +72,7 @@ const trickFormSchema = z.object({
       })
     )
     .optional(),
+  suggestAsOfficial: z.boolean().default(false),
 });
 
 export type TrickFormSchema = z.infer<typeof trickFormSchema>;
@@ -102,6 +105,7 @@ const form = useForm<TrickFormSchema>({
     variationOf: [],
     recommendedPrerequisites: [],
     videos: [],
+    suggestAsOfficial: false,
     ...(props.initialValues as unknown as Partial<TrickFormSchema>),
   },
 });
@@ -204,6 +208,20 @@ defineExpose({ meta: form.meta });
     />
 
     <MultiVideoSelect class="col-span-4" :title="t('label.videos')" form-field-name="videos" />
+
+    <FormField v-slot="{ value, handleChange }" name="suggestAsOfficial">
+      <FormItem
+        class="col-span-4 flex flex-row items-center justify-between gap-4 rounded-lg border p-3"
+      >
+        <div class="flex flex-col gap-0.5">
+          <FormLabel class="font-bold">{{ t('label.suggestAsOfficial') }}</FormLabel>
+          <FormDescription>{{ t('question.suggestAsOfficial') }}</FormDescription>
+        </div>
+        <FormControl>
+          <Switch :model-value="value" @update:model-value="handleChange" />
+        </FormControl>
+      </FormItem>
+    </FormField>
 
     <div class="col-span-4 gap-2 inline-flex justify-end">
       <Button type="button" variant="ghost" class="hidden lg:inline-flex" @click="emit('cancel')">

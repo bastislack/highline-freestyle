@@ -16,6 +16,7 @@ import { Icon } from '@iconify/vue/dist/iconify.js';
 import TrickForm from '@/components/stickable/trick/TrickForm.vue';
 import type { TrickFormSchema } from '@/components/stickable/trick/TrickForm.vue';
 import { CreateNewTrickType } from '@/lib/database/daos/tricksDao';
+import { submitOfficialSuggestion } from '@/lib/officialTrickSuggestion';
 
 const toast = useToast();
 const router = useRouter();
@@ -29,6 +30,28 @@ function cancel() {
 const { t } = useI18n({ messages, useScope: 'local' });
 
 async function onSubmit(vals: TrickFormSchema) {
+  if (vals.suggestAsOfficial) {
+    try {
+      await submitOfficialSuggestion(vals);
+      toast.toast({
+        title: t('toast.suggestedTrick', { name: vals.technicalName }),
+        description: t('toast.suggestedTrickDescription'),
+        duration: 6000,
+      });
+      if (showBack.value) goBack();
+      else goHome();
+    } catch (err) {
+      console.error(err);
+      toast.toast({
+        title: t('error.title'),
+        description: t('error.suggestionMessage'),
+        class: 'bg-destructive-700 text-white',
+        duration: 5000,
+      });
+    }
+    return;
+  }
+
   const trick: CreateNewTrickType = {
     technicalName: vals.technicalName,
     alias: vals.alias,

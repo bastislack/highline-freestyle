@@ -1,10 +1,10 @@
 {
-  "titleHeading": "Create new personal trick",
+  "titleHeading": "Add a trick",
   "headerTitle": "New trick",
 
   "personalTrickInfo": {
-    "title": "Visible to you only",
-    "description": "This is a personal trick and will be stored only on your device. It will not be shared."
+    "title": "Personal by default",
+    "description": "By default this trick will be stored only on your device. Toggle 'Suggest as official trick' at the bottom of the form to submit it for review instead — in that case it will not be added to your trick list."
   },
 
   "label": {
@@ -19,7 +19,8 @@
     "tips": "Tips",
     "variantOf": "Variation of",
     "recommendedPrereq": "Prerequisites",
-    "videos": "Videos"
+    "videos": "Videos",
+    "suggestAsOfficial": "Suggest as official trick"
   },
 
   "question": {
@@ -27,7 +28,8 @@
     "difficulty": "1 to 20. Keep empty if unsure.",
     "tips": "Put each tip on a separate line.",
     "variantOf": "Is this a variant of another trick?",
-    "recommendedPrereq": "Tricks you would recommend to learn before trying this one?"
+    "recommendedPrereq": "Tricks you would recommend to learn before trying this one?",
+    "suggestAsOfficial": "Submit this trick for review by the maintainers instead of saving it to your personal list."
   },
 
   "placeholder": {
@@ -44,12 +46,15 @@
   "toast": {
     "createdTrick": "Created trick {name}",
     "goToTrick": "Go to Trick",
-    "addAnotherTrick": "Add another one"
+    "addAnotherTrick": "Add another one",
+    "suggestedTrick": "Submitted {name} for review",
+    "suggestedTrickDescription": "Thanks! A maintainer will review your suggestion."
   },
 
   "error": {
     "title": "Uh oh…",
-    "message": "An error happened when trying to insert the new trick into the DB. Check the console (F12) for more info."
+    "message": "An error happened when trying to insert the new trick into the DB. Check the console (F12) for more info.",
+    "suggestionMessage": "Could not submit the suggestion. Check your connection and try again."
   },
 
   "buttonSubmit": "Create",
