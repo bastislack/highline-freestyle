@@ -10,5 +10,7 @@
   "INPUT_NUMBER_ABOVE_MAX": "L'entrée ne doit pas dépasser {max}",
   "POSITION_INVALID": "Fourni La position n'est pas valide",
   "INPUT_TOO_SHORT": "L'entrée doit comporter au moins {limit} caractères",
-  "INPUT_TOO_LONG": "L'entrée doit comporter au maximum {limit} caractères"
+  "INPUT_TOO_LONG": "L'entrée doit comporter au maximum {limit} caractères",
+  "INPUT_REQUIRED_URL": "Veuillez saisir une URL",
+  "INPUT_INVALID_URL": "Veuillez saisir une URL valide"
 }

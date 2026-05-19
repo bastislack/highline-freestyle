@@ -6,6 +6,7 @@
   },
   "buttons": {
     "optional": "optionnel",
-    "add": "Ajouter"
+    "add": "Ajouter",
+    "addVideo": "Ajouter une vidéo"
   }
 }
