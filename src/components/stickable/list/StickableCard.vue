@@ -145,7 +145,7 @@ onBeforeUnmount(() => {
     </div>
     <div
       v-if="props.showLevel"
-      class="absolute bottom-0 left-0 h-6 w-full flex items-center justify-center pointer-events-none"
+      class="absolute top-0 left-0 h-6 w-full flex items-center justify-center pointer-events-none"
     >
       <span
         class="rounded flex items-center justify-center gap-0.5 px-1 h-4 text-[9px] text-muted-foreground leading-none"
