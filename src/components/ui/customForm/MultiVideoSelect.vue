@@ -41,6 +41,16 @@ function initialEndTime(video: DbVideo): number {
   const MAX_TIME_VALUE = 24 * 60 * 60 - 1;
   return Math.min(video.startTime + 1, MAX_TIME_VALUE);
 }
+
+function normalizeLink(video: DbVideo) {
+  const trimmed = video.link.trim();
+  if (trimmed === '') return;
+  if (!/^https?:\/\//i.test(trimmed)) {
+    video.link = 'https://' + trimmed;
+  } else if (trimmed !== video.link) {
+    video.link = trimmed;
+  }
+}
 </script>
 
 <template>
@@ -82,9 +92,10 @@ function initialEndTime(video: DbVideo): number {
                 }}</FormLabel>
                 <Input
                   type="text"
-                  placeholder="www.youtube.com/..."
+                  placeholder="https://www.youtube.com/..."
                   :modelValue="video.link"
                   @update:model-value="(val) => (video.link = val.toString())"
+                  @blur="() => normalizeLink(video)"
                 />
               </div>
 
