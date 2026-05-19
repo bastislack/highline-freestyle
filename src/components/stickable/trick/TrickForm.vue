@@ -7,11 +7,7 @@ import { toTypedSchema } from '@vee-validate/zod';
 import messages from '@/i18n/tricks/new/index';
 import messagesPositions from '@/i18n/common/positions';
 import { i18nMerge } from '@/i18n/i18nmerge';
-import {
-  DbPositionZod,
-  DbReferenceZod,
-  DbVideoZod,
-} from '@/lib/database/schemas/CurrentVersionSchema';
+import { DbPositionZod, DbReferenceZod } from '@/lib/database/schemas/CurrentVersionSchema';
 
 import { Button } from '@/components/ui/button';
 import PositionSelectInput from '@/components/ui/customForm/PositionSelectInput.vue';
@@ -62,7 +58,18 @@ const trickFormSchema = z.object({
   ]),
   variationOf: z.array(DbReferenceZod).optional(),
   recommendedPrerequisites: z.array(DbReferenceZod).optional(),
-  videos: z.array(DbVideoZod).optional(),
+  videos: z
+    .array(
+      z.object({
+        link: z
+          .string()
+          .min(1, { message: 'INPUT_REQUIRED_URL' })
+          .url({ message: 'INPUT_INVALID_URL' }),
+        startTime: z.number().min(0).optional(),
+        endTime: z.number().min(0).optional(),
+      })
+    )
+    .optional(),
 });
 
 export type TrickFormSchema = z.infer<typeof trickFormSchema>;
