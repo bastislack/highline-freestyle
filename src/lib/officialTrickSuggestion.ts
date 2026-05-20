@@ -88,9 +88,7 @@ export async function submitOfficialSuggestion(vals: TrickFormSchema): Promise<v
   if (vals.description) body.append(`entry.${ENTRY_IDS.description}`, vals.description);
   if (vals.establishedBy) body.append(`entry.${ENTRY_IDS.establishedBy}`, vals.establishedBy);
   if (typeof vals.yearEstablished === 'number') {
-    // Google Form field is a date input; in-app form only collects a year.
-    // Submit January 1st of that year as a placeholder date.
-    body.append(`entry.${ENTRY_IDS.yearEstablished}`, `${vals.yearEstablished}-01-01`);
+    body.append(`entry.${ENTRY_IDS.yearEstablished}`, String(vals.yearEstablished));
   }
   const tipsFlat = flattenTips(vals.tips);
   if (tipsFlat) body.append(`entry.${ENTRY_IDS.tips}`, tipsFlat);
