@@ -16,7 +16,7 @@ import { Icon } from '@iconify/vue/dist/iconify.js';
 import TrickForm from '@/components/stickable/trick/TrickForm.vue';
 import type { TrickFormSchema } from '@/components/stickable/trick/TrickForm.vue';
 import { CreateNewTrickType } from '@/lib/database/daos/tricksDao';
-import { submitOfficialSuggestion } from '@/lib/officialTrickSuggestion';
+import { submitOfficialSuggestion, UnsupportedPositionError } from '@/lib/officialTrickSuggestion';
 
 const toast = useToast();
 const router = useRouter();
@@ -42,9 +42,13 @@ async function onSubmit(vals: TrickFormSchema) {
       else goHome();
     } catch (err) {
       console.error(err);
+      const description =
+        err instanceof UnsupportedPositionError
+          ? t('error.unsupportedPosition', { position: err.position })
+          : t('error.suggestionMessage');
       toast.toast({
         title: t('error.title'),
-        description: t('error.suggestionMessage'),
+        description,
         class: 'bg-destructive-700 text-white',
         duration: 5000,
       });

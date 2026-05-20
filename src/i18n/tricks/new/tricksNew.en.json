@@ -54,7 +54,8 @@
   "error": {
     "title": "Uh oh…",
     "message": "An error happened when trying to insert the new trick into the DB. Check the console (F12) for more info.",
-    "suggestionMessage": "Could not submit the suggestion. Check your connection and try again."
+    "suggestionMessage": "Could not submit the suggestion. Check your connection and try again.",
+    "unsupportedPosition": "Position \"{position}\" is not yet available in the suggestion form. Please contact a maintainer."
   },
 
   "buttonSubmit": "Create",
