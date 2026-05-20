@@ -78,6 +78,34 @@ const trickFormSchema = z
   })
   .superRefine((vals, ctx) => {
     if (!vals.suggestAsOfficial) return;
+
+    const requireString = (field: 'description' | 'establishedBy', value: string | undefined) => {
+      if (!value || value.trim() === '') {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: [field],
+          message: 'INPUT_REQUIRED',
+        });
+      }
+    };
+    requireString('description', vals.description);
+    requireString('establishedBy', vals.establishedBy);
+
+    if (vals.difficulty === '') {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ['difficulty'],
+        message: 'INPUT_REQUIRED',
+      });
+    }
+    if (vals.yearEstablished === '' || vals.yearEstablished === undefined) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ['yearEstablished'],
+        message: 'INPUT_REQUIRED',
+      });
+    }
+
     const trimmed = vals.email?.trim() ?? '';
     if (trimmed === '') {
       ctx.addIssue({
