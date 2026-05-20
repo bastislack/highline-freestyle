@@ -40,7 +40,6 @@
     "loadFailedDescription": "Something went wrong while loading your trick list. Please try again."
   },
   "newTrickButton": {
-    "personal": "New Personal Trick",
-    "official": "Suggest Official Trick"
+    "label": "Add a trick"
   }
 }
