@@ -20,60 +20,81 @@ import MultiVideoSelect from '@/components/ui/customForm/MultiVideoSelect.vue';
 
 const currentYear = new Date().getFullYear();
 
-const trickFormSchema = z.object({
-  technicalName: z.string().trim().min(1),
-  alias: z.string().optional(),
-  establishedBy: z.string().optional(),
-  difficulty: z.union([
-    z
-      .number()
-      .int({ message: 'INPUT_NOT_INTEGER' })
-      .min(1, { message: 'INPUT_NUMBER_BELOW_MIN' })
-      .max(20, { message: 'INPUT_NUMBER_ABOVE_MAX' }),
-    z.literal(''),
-  ]),
-  startPosition: DbPositionZod,
-  endPosition: DbPositionZod,
-  description: z.string().optional(),
-  tips: z
-    .preprocess(
-      (val) => {
-        if (typeof val === 'string') {
-          return val
-            .split('\n')
-            .map((t) => t.trim())
-            .filter((t) => t !== '');
-        }
-        return val;
-      },
-      z.array(z.string().min(1)).optional()
-    )
-    .optional(),
-  yearEstablished: z.union([
-    z
-      .number()
-      .int({ message: 'INPUT_NOT_INTEGER' })
-      .min(1900, { message: 'INPUT_NUMBER_BELOW_MIN' })
-      .max(currentYear, { message: 'INPUT_NUMBER_ABOVE_MAX' })
+const trickFormSchema = z
+  .object({
+    technicalName: z.string().trim().min(1),
+    alias: z.string().optional(),
+    establishedBy: z.string().optional(),
+    difficulty: z.union([
+      z
+        .number()
+        .int({ message: 'INPUT_NOT_INTEGER' })
+        .min(1, { message: 'INPUT_NUMBER_BELOW_MIN' })
+        .max(20, { message: 'INPUT_NUMBER_ABOVE_MAX' }),
+      z.literal(''),
+    ]),
+    startPosition: DbPositionZod,
+    endPosition: DbPositionZod,
+    description: z.string().optional(),
+    tips: z
+      .preprocess(
+        (val) => {
+          if (typeof val === 'string') {
+            return val
+              .split('\n')
+              .map((t) => t.trim())
+              .filter((t) => t !== '');
+          }
+          return val;
+        },
+        z.array(z.string().min(1)).optional()
+      )
       .optional(),
-    z.literal(''),
-  ]),
-  variationOf: z.array(DbReferenceZod).optional(),
-  recommendedPrerequisites: z.array(DbReferenceZod).optional(),
-  videos: z
-    .array(
-      z.object({
-        link: z
-          .string()
-          .min(1, { message: 'INPUT_REQUIRED_URL' })
-          .url({ message: 'INPUT_INVALID_URL' }),
-        startTime: z.number().min(0).optional(),
-        endTime: z.number().min(0).optional(),
-      })
-    )
-    .optional(),
-  suggestAsOfficial: z.boolean().default(false),
-});
+    yearEstablished: z.union([
+      z
+        .number()
+        .int({ message: 'INPUT_NOT_INTEGER' })
+        .min(1900, { message: 'INPUT_NUMBER_BELOW_MIN' })
+        .max(currentYear, { message: 'INPUT_NUMBER_ABOVE_MAX' })
+        .optional(),
+      z.literal(''),
+    ]),
+    variationOf: z.array(DbReferenceZod).optional(),
+    recommendedPrerequisites: z.array(DbReferenceZod).optional(),
+    videos: z
+      .array(
+        z.object({
+          link: z
+            .string()
+            .min(1, { message: 'INPUT_REQUIRED_URL' })
+            .url({ message: 'INPUT_INVALID_URL' }),
+          startTime: z.number().min(0).optional(),
+          endTime: z.number().min(0).optional(),
+        })
+      )
+      .optional(),
+    suggestAsOfficial: z.boolean().default(false),
+    email: z.string().optional(),
+  })
+  .superRefine((vals, ctx) => {
+    if (!vals.suggestAsOfficial) return;
+    const trimmed = vals.email?.trim() ?? '';
+    if (trimmed === '') {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ['email'],
+        message: 'INPUT_REQUIRED',
+      });
+      return;
+    }
+    if (!z.string().email().safeParse(trimmed).success) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ['email'],
+        message: 'INPUT_INVALID_EMAIL',
+      });
+    }
+  });
 
 export type TrickFormSchema = z.infer<typeof trickFormSchema>;
 
@@ -222,6 +243,17 @@ defineExpose({ meta: form.meta });
         </FormControl>
       </FormItem>
     </FormField>
+
+    <TextInput
+      v-if="form.values.suggestAsOfficial"
+      class="col-span-4"
+      :title="t('label.email')"
+      :description="t('question.email')"
+      :placeholder="t('placeholder.email')"
+      form-field-name="email"
+      type="email"
+      inputMode="email"
+    />
 
     <div class="col-span-4 gap-2 inline-flex justify-end">
       <Button type="button" variant="ghost" class="hidden lg:inline-flex" @click="emit('cancel')">

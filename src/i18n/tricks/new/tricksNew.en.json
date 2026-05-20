@@ -20,7 +20,8 @@
     "variantOf": "Variation of",
     "recommendedPrereq": "Prerequisites",
     "videos": "Videos",
-    "suggestAsOfficial": "Suggest as official trick"
+    "suggestAsOfficial": "Suggest as official trick",
+    "email": "Your email"
   },
 
   "question": {
@@ -29,7 +30,8 @@
     "tips": "Put each tip on a separate line.",
     "variantOf": "Is this a variant of another trick?",
     "recommendedPrereq": "Tricks you would recommend to learn before trying this one?",
-    "suggestAsOfficial": "Submit this trick for review by the maintainers instead of saving it to your personal list."
+    "suggestAsOfficial": "Submit this trick for review by the maintainers instead of saving it to your personal list.",
+    "email": "So a maintainer can reach out with questions about your suggestion."
   },
 
   "placeholder": {
@@ -38,7 +40,8 @@
     "establishedBy": "Ian, probably",
     "description": "A fitting description",
     "tips": "This is my first tip.\nAnd this is my second tip.",
-    "difficulty": "I'm not sure"
+    "difficulty": "I'm not sure",
+    "email": "you@example.com"
   },
 
   "componentNotImplemented": "This component has yet to be implemented.",

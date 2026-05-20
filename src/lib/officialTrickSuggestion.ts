@@ -14,6 +14,7 @@ const ENTRY_IDS = {
   yearEstablished: '1148698453',
   tips: '571798944',
   videos: '1255335422',
+  email: '752159561',
 } as const;
 
 // Positions confirmed to exist as options in the Google Form dropdown.
@@ -76,6 +77,7 @@ export async function submitOfficialSuggestion(vals: TrickFormSchema): Promise<v
   }
 
   const body = new URLSearchParams();
+  body.append(`entry.${ENTRY_IDS.email}`, (vals.email ?? '').trim());
   body.append(`entry.${ENTRY_IDS.technicalName}`, vals.technicalName);
   if (vals.alias) body.append(`entry.${ENTRY_IDS.alias}`, vals.alias);
   body.append(`entry.${ENTRY_IDS.startPosition}`, vals.startPosition.toUpperCase());

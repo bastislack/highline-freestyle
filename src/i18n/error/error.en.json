@@ -12,5 +12,7 @@
   "INPUT_TOO_SHORT": "Input must be at least {limit} characters long",
   "INPUT_TOO_LONG": "Input must be at most {limit} characters long",
   "INPUT_REQUIRED_URL": "Please enter a URL",
-  "INPUT_INVALID_URL": "Please enter a valid URL"
+  "INPUT_INVALID_URL": "Please enter a valid URL",
+  "INPUT_REQUIRED": "This is required",
+  "INPUT_INVALID_EMAIL": "Please enter a valid email address"
 }
