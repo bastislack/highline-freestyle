@@ -2,11 +2,6 @@
   "titleHeading": "Add a trick",
   "headerTitle": "New trick",
 
-  "personalTrickInfo": {
-    "title": "Personal by default",
-    "description": "By default this trick will be stored only on your device. Toggle 'Suggest as official trick' at the bottom of the form to submit it for review instead — in that case it will not be added to your trick list."
-  },
-
   "label": {
     "technicalName": "Technical Name",
     "alias": "Alias",
@@ -30,8 +25,13 @@
     "tips": "Put each tip on a separate line.",
     "variantOf": "Is this a variant of another trick?",
     "recommendedPrereq": "Tricks you would recommend to learn before trying this one?",
-    "suggestAsOfficial": "Submit this trick for review by the maintainers instead of saving it to your personal list.",
+    "suggestAsOfficial": "Off: save this trick on your device only. On: submit it to the maintainers for review instead of adding it to your personal list. Fields marked with * are required.",
     "email": "So a maintainer can reach out with questions about your suggestion."
+  },
+
+  "suggestAsOfficialAlert": {
+    "title": "This will be sent to the maintainers",
+    "description": "Your suggestion is submitted to the official trick list for review. Nothing is saved to your personal trick list. Please fill in every field marked with *."
   },
 
   "placeholder": {
@@ -62,5 +62,6 @@
   },
 
   "buttonSubmit": "Create",
+  "buttonSubmitSuggestion": "Submit suggestion",
   "buttonCancel": "Cancel"
 }

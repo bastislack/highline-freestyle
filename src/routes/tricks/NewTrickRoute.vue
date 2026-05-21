@@ -11,8 +11,6 @@ import Header from '@/components/stickable/Header.vue';
 import { useHistoryNav } from '@/composables/useHistoryNav';
 import Section from '@/components/ui/section/Section.vue';
 import { ToastAction, useToast } from '@/components/ui/toast';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Icon } from '@iconify/vue/dist/iconify.js';
 import TrickForm from '@/components/stickable/trick/TrickForm.vue';
 import type { TrickFormSchema } from '@/components/stickable/trick/TrickForm.vue';
 import { CreateNewTrickType } from '@/lib/database/daos/tricksDao';
@@ -112,13 +110,12 @@ async function onSubmit(vals: TrickFormSchema) {
       <Section>
         <h1 class="text-2xl md:text-3xl mb-3 mt-2">{{ t('titleHeading') }}</h1>
 
-        <Alert variant="default" class="my-3">
-          <Icon icon="ic:outline-info" class="w-5 h-5" />
-          <AlertTitle class="pl-3">{{ t('personalTrickInfo.title') }}</AlertTitle>
-          <AlertDescription class="pl-3">{{ t('personalTrickInfo.description') }}</AlertDescription>
-        </Alert>
-
-        <TrickForm :submit-label="t('buttonSubmit')" @submit="onSubmit" @cancel="cancel" />
+        <TrickForm
+          :submit-label="t('buttonSubmit')"
+          :submit-label-suggested="t('buttonSubmitSuggestion')"
+          @submit="onSubmit"
+          @cancel="cancel"
+        />
       </Section>
     </Suspense>
   </DefaultLayout>

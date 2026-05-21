@@ -142,6 +142,7 @@ function confirmLeave() {
           ref="formRef"
           :initial-values="trickInitialValues"
           :submit-label="t('buttonSubmit')"
+          :show-suggestion-toggle="false"
           @submit="onSubmit"
           @cancel="onCancel"
         />

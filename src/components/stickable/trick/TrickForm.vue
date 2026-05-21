@@ -11,6 +11,8 @@ import { DbPositionZod, DbReferenceZod } from '@/lib/database/schemas/CurrentVer
 
 import { Button } from '@/components/ui/button';
 import Switch from '@/components/ui/switch/Switch.vue';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Icon } from '@iconify/vue/dist/iconify.js';
 import { FormControl, FormDescription, FormField, FormItem, FormLabel } from '@/components/ui/form';
 import PositionSelectInput from '@/components/ui/customForm/PositionSelectInput.vue';
 import MultilineTextInput from '@/components/ui/customForm/MultilineTextInput.vue';
@@ -128,10 +130,17 @@ export type TrickFormSchema = z.infer<typeof trickFormSchema>;
 
 type TrickFormInitialValues = Omit<Partial<TrickFormSchema>, 'tips'> & { tips?: string };
 
-const props = defineProps<{
-  initialValues?: TrickFormInitialValues;
-  submitLabel: string;
-}>();
+const props = withDefaults(
+  defineProps<{
+    initialValues?: TrickFormInitialValues;
+    submitLabel: string;
+    submitLabelSuggested?: string;
+    showSuggestionToggle?: boolean;
+  }>(),
+  {
+    showSuggestionToggle: true,
+  }
+);
 
 const emit = defineEmits<{
   submit: [vals: TrickFormSchema];
@@ -169,11 +178,48 @@ defineExpose({ meta: form.meta });
 
 <template>
   <form class="grid gap-4 lg:gap-6 grid-cols-4" @submit="handleSubmit">
+    <template v-if="showSuggestionToggle">
+      <FormField v-slot="{ value, handleChange }" name="suggestAsOfficial">
+        <FormItem
+          class="col-span-4 flex flex-row items-center justify-between gap-4 rounded-lg border p-3"
+        >
+          <div class="flex flex-col gap-0.5">
+            <FormLabel class="font-bold">{{ t('label.suggestAsOfficial') }}</FormLabel>
+            <FormDescription>{{ t('question.suggestAsOfficial') }}</FormDescription>
+          </div>
+          <FormControl>
+            <Switch :model-value="value" @update:model-value="handleChange" />
+          </FormControl>
+        </FormItem>
+      </FormField>
+
+      <Alert v-if="form.values.suggestAsOfficial" variant="default" class="col-span-4">
+        <Icon icon="ic:outline-info" class="w-5 h-5" />
+        <AlertTitle class="pl-3">{{ t('suggestAsOfficialAlert.title') }}</AlertTitle>
+        <AlertDescription class="pl-3">
+          {{ t('suggestAsOfficialAlert.description') }}
+        </AlertDescription>
+      </Alert>
+
+      <TextInput
+        v-if="form.values.suggestAsOfficial"
+        class="col-span-4"
+        :title="t('label.email')"
+        :description="t('question.email')"
+        :placeholder="t('placeholder.email')"
+        form-field-name="email"
+        type="email"
+        inputMode="email"
+        required
+      />
+    </template>
+
     <TextInput
       :title="t('label.technicalName')"
       :placeholder="t('placeholder.technicalName')"
       form-field-name="technicalName"
       class="col-span-4 md:col-span-2"
+      required
     />
     <TextInput
       :title="t('label.alias')"
@@ -187,12 +233,14 @@ defineExpose({ meta: form.meta });
       class="col-span-2 md:col-span-1"
       :title="t('label.positionStart')"
       form-field-name="startPosition"
+      required
     />
 
     <PositionSelectInput
       class="col-span-2 md:col-span-1"
       :title="t('label.positionEnd')"
       form-field-name="endPosition"
+      required
     />
 
     <TextInput
@@ -204,6 +252,7 @@ defineExpose({ meta: form.meta });
       inputMode="numeric"
       type="number"
       :error-values="{ min: '1', max: '20' }"
+      :required="form.values.suggestAsOfficial"
     />
 
     <MultilineTextInput
@@ -212,6 +261,7 @@ defineExpose({ meta: form.meta });
       :title="t('label.description')"
       :placeholder="t('placeholder.description')"
       form-field-name="description"
+      :required="form.values.suggestAsOfficial"
     />
 
     <TextInput
@@ -219,6 +269,7 @@ defineExpose({ meta: form.meta });
       :placeholder="t('placeholder.establishedBy')"
       form-field-name="establishedBy"
       class="col-span-4 md:col-span-2"
+      :required="form.values.suggestAsOfficial"
     />
 
     <TextInput
@@ -229,6 +280,7 @@ defineExpose({ meta: form.meta });
       inputMode="numeric"
       type="number"
       :error-values="{ min: '1900', max: currentYear.toString() }"
+      :required="form.values.suggestAsOfficial"
     />
 
     <MultilineTextInput
@@ -258,36 +310,17 @@ defineExpose({ meta: form.meta });
 
     <MultiVideoSelect class="col-span-4" :title="t('label.videos')" form-field-name="videos" />
 
-    <FormField v-slot="{ value, handleChange }" name="suggestAsOfficial">
-      <FormItem
-        class="col-span-4 flex flex-row items-center justify-between gap-4 rounded-lg border p-3"
-      >
-        <div class="flex flex-col gap-0.5">
-          <FormLabel class="font-bold">{{ t('label.suggestAsOfficial') }}</FormLabel>
-          <FormDescription>{{ t('question.suggestAsOfficial') }}</FormDescription>
-        </div>
-        <FormControl>
-          <Switch :model-value="value" @update:model-value="handleChange" />
-        </FormControl>
-      </FormItem>
-    </FormField>
-
-    <TextInput
-      v-if="form.values.suggestAsOfficial"
-      class="col-span-4"
-      :title="t('label.email')"
-      :description="t('question.email')"
-      :placeholder="t('placeholder.email')"
-      form-field-name="email"
-      type="email"
-      inputMode="email"
-    />
-
     <div class="col-span-4 gap-2 inline-flex justify-end">
       <Button type="button" variant="ghost" class="hidden lg:inline-flex" @click="emit('cancel')">
         {{ t('buttonCancel') }}
       </Button>
-      <Button type="submit">{{ submitLabel }}</Button>
+      <Button type="submit">
+        {{
+          showSuggestionToggle && form.values.suggestAsOfficial && submitLabelSuggested
+            ? submitLabelSuggested
+            : submitLabel
+        }}
+      </Button>
     </div>
   </form>
 </template>

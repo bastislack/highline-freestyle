@@ -17,6 +17,7 @@ const props = defineProps<{
   placeholder?: string;
   class?: string;
   inputClass?: string;
+  required?: boolean;
 }>();
 </script>
 
@@ -29,7 +30,9 @@ const props = defineProps<{
     :validate-on-blur="true"
   >
     <FormItem :class="cn('flex flex-col justify-stretch', props.class)">
-      <FormLabel class="font-bold"> {{ title }}</FormLabel>
+      <FormLabel class="font-bold">
+        {{ title }}<span v-if="required" class="text-destructive" aria-hidden="true"> *</span>
+      </FormLabel>
       <FormDescription v-if="description">
         {{ description }}
       </FormDescription>

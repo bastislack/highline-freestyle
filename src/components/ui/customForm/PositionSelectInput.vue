@@ -23,6 +23,7 @@ const props = defineProps<{
    */
   selectionFilter?: (position: z.infer<typeof DbPositionZod>) => boolean;
   class?: string;
+  required?: boolean;
 }>();
 
 import {
@@ -58,7 +59,9 @@ const selectableValues = props.selectionFilter
     :validate-on-blur="true"
   >
     <FormItem :class="cn('flex flex-col justify-stretch', props.class)">
-      <FormLabel class="font-bold"> {{ title }}</FormLabel>
+      <FormLabel class="font-bold">
+        {{ title }}<span v-if="required" class="text-destructive" aria-hidden="true"> *</span>
+      </FormLabel>
       <FormDescription v-if="description">
         {{ description }}
       </FormDescription>
