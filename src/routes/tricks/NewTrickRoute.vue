@@ -28,32 +28,6 @@ function cancel() {
 const { t } = useI18n({ messages, useScope: 'local' });
 
 async function onSubmit(vals: TrickFormSchema) {
-  if (vals.suggestAsOfficial) {
-    try {
-      await submitOfficialSuggestion(vals);
-      toast.toast({
-        title: t('toast.suggestedTrick', { name: vals.technicalName }),
-        description: t('toast.suggestedTrickDescription'),
-        duration: 6000,
-      });
-      if (showBack.value) goBack();
-      else goHome();
-    } catch (err) {
-      console.error(err);
-      const description =
-        err instanceof UnsupportedPositionError
-          ? t('error.unsupportedPosition', { position: err.position })
-          : t('error.suggestionMessage');
-      toast.toast({
-        title: t('error.title'),
-        description,
-        class: 'bg-destructive-700 text-white',
-        duration: 5000,
-      });
-    }
-    return;
-  }
-
   const trick: CreateNewTrickType = {
     technicalName: vals.technicalName,
     alias: vals.alias,
@@ -73,24 +47,10 @@ async function onSubmit(vals: TrickFormSchema) {
     notes: undefined,
     stickFrequency: undefined,
   };
-  try {
-    const result = await databaseInstance.tricksDao.createNew(trick, 'userDefined');
 
-    toast.toast({
-      title: t('toast.createdTrick', { name: result.technicalName }),
-      action: h(
-        ToastAction,
-        {
-          altText: t('toast.addAnotherTrick'),
-          onClick: () => {
-            router.push('/tricks/new');
-          },
-        },
-        { default: () => t('toast.addAnotherTrick') }
-      ),
-      duration: 5000,
-    });
-    router.replace('/tricks/' + result.primaryKey[1] + '/' + result.primaryKey[0]);
+  let result;
+  try {
+    result = await databaseInstance.tricksDao.createNew(trick, 'userDefined');
   } catch (err) {
     console.error(err);
     toast.toast({
@@ -99,7 +59,55 @@ async function onSubmit(vals: TrickFormSchema) {
       class: 'bg-destructive-700 text-white',
       duration: 5000,
     });
+    return;
   }
+
+  const goToTrick = () =>
+    router.replace('/tricks/' + result.primaryKey[1] + '/' + result.primaryKey[0]);
+
+  // The personal trick is always created. When the toggle is on, also send
+  // the suggestion to the maintainers. A failed suggestion must not lose the
+  // already-created personal trick.
+  if (vals.suggestAsOfficial) {
+    try {
+      await submitOfficialSuggestion(vals);
+      toast.toast({
+        title: t('toast.createdAndSuggested', { name: result.technicalName }),
+        description: t('toast.createdAndSuggestedDescription'),
+        duration: 6000,
+      });
+    } catch (err) {
+      console.error(err);
+      const description =
+        err instanceof UnsupportedPositionError
+          ? t('error.unsupportedPosition', { position: err.position })
+          : t('error.suggestionMessage');
+      toast.toast({
+        title: t('error.suggestionFailedTitle'),
+        description,
+        class: 'bg-destructive-700 text-white',
+        duration: 6000,
+      });
+    }
+    goToTrick();
+    return;
+  }
+
+  toast.toast({
+    title: t('toast.createdTrick', { name: result.technicalName }),
+    action: h(
+      ToastAction,
+      {
+        altText: t('toast.addAnotherTrick'),
+        onClick: () => {
+          router.push('/tricks/new');
+        },
+      },
+      { default: () => t('toast.addAnotherTrick') }
+    ),
+    duration: 5000,
+  });
+  goToTrick();
 }
 </script>
 
