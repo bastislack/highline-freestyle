@@ -193,7 +193,7 @@ defineExpose({ meta: form.meta });
         </FormItem>
       </FormField>
 
-      <Alert v-if="form.values.suggestAsOfficial" variant="default" class="col-span-4">
+      <Alert v-if="form.values.suggestAsOfficial" variant="info" class="col-span-4">
         <Icon icon="ic:outline-info" class="w-5 h-5" />
         <AlertTitle class="pl-3">{{ t('suggestAsOfficialAlert.title') }}</AlertTitle>
         <AlertDescription class="pl-3">
