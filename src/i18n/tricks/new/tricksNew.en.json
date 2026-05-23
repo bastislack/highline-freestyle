@@ -25,7 +25,7 @@
     "tips": "Put each tip on a separate line.",
     "variantOf": "Is this a variant of another trick?",
     "recommendedPrereq": "Tricks you would recommend to learn before trying this one?",
-    "suggestAsOfficial": "Also send it to the maintainers for review.",
+    "suggestAsOfficial": "Suggest this trick as an official trick that all users will see.",
     "email": "So a maintainer can reach out with questions about your suggestion."
   },
 
