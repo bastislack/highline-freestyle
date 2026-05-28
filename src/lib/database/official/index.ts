@@ -23,20 +23,15 @@ export default async function runSyncingProcedure() {
   }
   isSyncingRef.value = true;
   try {
-    try {
-      await syncTricks();
-    } catch (err) {
-      console.error(err);
-    }
-    try {
-      await syncCombos();
-    } catch (err) {
-      console.error(err);
-    }
-    // Commit the new Hash
+    // If either sync throws, leave the hash untouched so the next page load
+    // retries instead of treating a half-populated DB as up-to-date.
+    await syncTricks();
+    await syncCombos();
     const { hash } = (await import('virtual:highline-freestyle-data')).default;
     window.localStorage.setItem('DB_OFFICIAL_LAST_MODIFIED_HASH', hash);
     console.log('[Official Sync Check] Completed');
+  } catch (err) {
+    console.error('[Official Sync Check] Failed; will retry on next load', err);
   } finally {
     isSyncingRef.value = false;
   }
