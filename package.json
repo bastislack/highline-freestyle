@@ -95,7 +95,7 @@
     "html-webpack-plugin": "^5.5.0",
     "jest": "^27.5.1",
     "mini-css-extract-plugin": "^2.4.5",
-    "node-sass": "^7.0.0",
+    "sass": "^1.71.0",
     "react-test-renderer": "^17.0.2",
     "sass-loader": "^12.4.0",
     "serve": "^13.0.2",
