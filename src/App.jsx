@@ -16,6 +16,8 @@ import ScrollToTop from './components/containers/ScrollToTop';
 import About from './components/pages/About';
 import NotFoundPage from './components/pages/NotFoundPage';
 import ResetWarning from './components/pop-ups/ResetWarning';
+import MigrationWarning from './components/pop-ups/MigrationWarning';
+import useLocalStorage from './components/hooks/useLocalStorage';
 import FloatingActionButton from './components/buttons/FloatingActionButton';
 import Div100vh from 'react-div-100vh';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -28,6 +30,10 @@ const App = () => {
   // Boolean to check if About page should be rendered
   const [showAboutPage, setShowAboutPage] = useState(false);
   const [showResetWarning, setShowResetWarning] = useState(false);
+  // Whether the user confirmed they backed up their data before the migration
+  const [backedUp, setBackedUp] = useLocalStorage("migrationBackupAcknowledged", false);
+  // Show the migration backup warning on every open until the user ticks the box
+  const [showMigrationWarning, setShowMigrationWarning] = useState(!backedUp);
   // User made combo in postCombo screen
   const [userCombo, setUserCombo] = useState(null);
 
@@ -85,6 +91,7 @@ const App = () => {
                 <BottomNav />
                 {showAboutPage && <About showAboutPage={showAboutPage} setShowAboutPage={setShowAboutPage}/>}
                 {showResetWarning && <ResetWarning showResetWarning={showResetWarning} setShowResetWarning={setShowResetWarning}/>}
+                {showMigrationWarning && <MigrationWarning backedUp={backedUp} setBackedUp={setBackedUp} setShowMigrationWarning={setShowMigrationWarning}/>}
               </Div100vh>
             </div>
           </div>
