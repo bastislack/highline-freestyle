@@ -9,13 +9,15 @@ import ComboGenerator from './components/generator/ComboGenerator';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import TrickDetails from './components/tricks/TrickDetails';
 import ComboDetails from './components/combos/ComboDetails';
-import { pages, difficultyRangeMax} from './services/enums';
+import { pages, difficultyRangeMax } from './services/enums';
 import { useState } from 'react';
 import Visibility from './components/containers/Visibility';
 import ScrollToTop from './components/containers/ScrollToTop';
 import About from './components/pages/About';
 import NotFoundPage from './components/pages/NotFoundPage';
 import ResetWarning from './components/pop-ups/ResetWarning';
+import MigrationWarning from './components/pop-ups/MigrationWarning';
+import useLocalStorage from './components/hooks/useLocalStorage';
 import FloatingActionButton from './components/buttons/FloatingActionButton';
 import Div100vh from 'react-div-100vh';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -28,6 +30,10 @@ const App = () => {
   // Boolean to check if About page should be rendered
   const [showAboutPage, setShowAboutPage] = useState(false);
   const [showResetWarning, setShowResetWarning] = useState(false);
+  // Whether the user confirmed they backed up their data before the migration
+  const [backedUp, setBackedUp] = useLocalStorage("migrationBackupAcknowledged", false);
+  // Show the migration backup warning on every open until the user ticks the box
+  const [showMigrationWarning, setShowMigrationWarning] = useState(!backedUp);
   // User made combo in postCombo screen
   const [userCombo, setUserCombo] = useState(null);
 
@@ -44,7 +50,7 @@ const App = () => {
               <Div100vh className="main-column">
                 <TopNav setShowAboutPage={setShowAboutPage} setShowResetWarning={setShowResetWarning} />
                 <div className="main-column-content-wrapper">
-                 <div id="content" className="main-column-content">
+                  <div id="content" className="main-column-content">
                     <Routes>
                       <Route path="/" element={
                         <TrickList
@@ -61,7 +67,7 @@ const App = () => {
                           <PostTrick />
                         </ScrollToTop>
                       } />
-                      <Route path="/postcombo" element={<PostCombo userCombo={userCombo} setUserCombo={setUserCombo}/>} />
+                      <Route path="/postcombo" element={<PostCombo userCombo={userCombo} setUserCombo={setUserCombo} />} />
                       <Route path="/generator" element={
                         <ComboGenerator
                           difficultyRangeMax={difficultyRangeMax}
@@ -73,18 +79,19 @@ const App = () => {
                         <ComboList
                           scrollPosition={comboListScrollPosition}
                           setScrollPosition={setComboListScrollPosition}
-                          />
+                        />
                       } />
-                      <Route path="/*" element={<NotFoundPage/>} />
+                      <Route path="/*" element={<NotFoundPage />} />
                     </Routes>
                   </div>
                   <Visibility visiblePages={[pages.TRICKLIST, pages.COMBOLIST]}>
-                    <FloatingActionButton setTrickListScrollPosition={setTrickListScrollPosition} setComboListScrollPosition={setComboListScrollPosition} setUserCombo={setUserCombo}/>
+                    <FloatingActionButton setTrickListScrollPosition={setTrickListScrollPosition} setComboListScrollPosition={setComboListScrollPosition} setUserCombo={setUserCombo} />
                   </Visibility>
                 </div>
                 <BottomNav />
-                {showAboutPage && <About showAboutPage={showAboutPage} setShowAboutPage={setShowAboutPage}/>}
-                {showResetWarning && <ResetWarning showResetWarning={showResetWarning} setShowResetWarning={setShowResetWarning}/>}
+                {showAboutPage && <About showAboutPage={showAboutPage} setShowAboutPage={setShowAboutPage} />}
+                {showResetWarning && <ResetWarning showResetWarning={showResetWarning} setShowResetWarning={setShowResetWarning} />}
+                {showMigrationWarning && <MigrationWarning backedUp={backedUp} setBackedUp={setBackedUp} setShowMigrationWarning={setShowMigrationWarning} />}
               </Div100vh>
             </div>
           </div>
